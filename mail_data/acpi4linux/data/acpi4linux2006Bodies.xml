@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20060109082238</emailId><senderName>Len Brown</senderName><senderEmail>len.brown@intel.com</senderEmail><timestampReceived>2006-01-09 08:22:38-0400</timestampReceived><subject>[ACPI] Linux/ACPI mailing list move -- re-subscribe is necessary</subject><body>
+
+Please note that acpi-devel@lists.sourceforge.net is defunct.
+
+The new list to use for Linux/ACPI topics is linux-acpi@vger.kernel.org
+
+If you'd like to participate in Linux/ACPI development and support discussions,
+you can subscribe here:
+http://vger.kernel.org/vger-lists.html#linux-acpi
+
+Or read the archives here:
+http://dir.gmane.org/gmane.linux.acpi.devel
+http://www.mail-archive.com/linux-acpi%40vger.kernel.org/
+http://marc.theaimsgroup.com/?l=linux-acpi&amp;r=1&amp;w=2
+
+thanks,
+-Len
+
+
+-------------------------------------------------------
+This SF.net email is sponsored by: Splunk Inc. Do you grep through log files
+for problems?  Stop!  Download the new AJAX search engine that makes
+searching your log files as easy as surfing the  web.  DOWNLOAD SPLUNK!
+http://ads.osdn.com/?ad_id=7637&amp;alloc_id=16865&amp;op=click
+_______________________________________________
+Acpi-devel mailing list
+Acpi-devel@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/acpi-devel
+</body></email><email><emailId>20060105051222</emailId><senderName>Len Brown</senderName><senderEmail>lenb@hera.kernel.org</senderEmail><timestampReceived>2006-01-05 05:12:22-0400</timestampReceived><subject>[ACPI] ACPI list change - you must re-subscribe</subject><body>
+
+Everybody,
+
+Sourceforge reliability is (way) down (again), and spam is up.
+In contrast, LKML and linux-ia64 on vger.kernel.org run quite well.
+
+The folks at vger.kernel.org have graciously agreed
+to host our list for us.  Given the current sourceforge
+instability, I'd like to transition immediately.
+
+There will be no more messages to acpi-devel@lists.sourceforge.net
+(except reminders like this:-)
+
+Please subscribe to linux-acpi@vger.kernel.org per the notes below.
+
+thanks,
+-Len Brown, Intel Open Source Technology Center
+
+E-mail lists related to Linux ACPI and Power Management (1/4/2006)
+
+linux-acpi@vger.kernel.org
+  Description:
+    Linux/ACPI Development, Discussion, Support
+  Subscribe:
+    mailto:majordomo@vger.kernel.org?body=subscribe linux-acpi
+    http://vger.kernel.org/vger-lists.html#linux-acpi
+    Note that no human approves subscriptions -- if you can't
+    get your FROM: header to agree with your address then you can't subscribe.
+  Archives for linux-acpi@vger.kernel.org
+    http://marc.theaimsgroup.com/?l=linux-acpi&amp;r=1&amp;w=2 (requested)
+    http://news.gmane.org/gmane.linux.acpi.devel (includes old sourceforge archive too)
+    http://www.mail-archive.com  (requested, but not yet operational as of 1/4/06)
+  Archives for acpi-devel@lists.sourceforge.net (discontinued Jan 2006):
+    http://sourceforge.net/mailarchive/forum.php?forum=acpi-devel
+    http://marc.theaimsgroup.com/?l=acpi4linux
+    http://news.gmane.org/gmane.linux.acpi.devel
+  Archives for acpi-support@lists.sourceforge.net (discontinued Feb 2004)
+    http://sourceforge.net/mailarchive/forum.php?forum=acpi-support
+
+linux-acpi@intel.com
+  Description:
+    Includes Len Brown and the other Intel folks who work with Linux/ACPI.
+    Use this list to bug Intel directly about Linux/ACPI.
+    This is used by some distros to cc: Intel on bugzilla entries
+    when acpi-bugzilla@lists.sourceforge.net would not work.
+    (note that linux-acpi@intel.com is subscribed
+     to linux-acpi@vger.kernel.org, so there is no need to cross post)
+
+acpi-bugzilla@lists.sourceforge.net
+  Description: Used only for cc: on public Linux/ACPI bug reports
+    Subscribe if you want to see bugzilla updates in real-time.
+    Do not post to this list
+  Archives:
+    http://sourceforge.net/mailarchive/forum.php?forum=acpi-bugzilla
+    http://www.mail-archive.com/acpi-bugzilla%40lists.sourceforge.net/
+  Subscribe:
+    mailto:acpi-bugzilla-request@lists.sourceforge.net?subject=subscribe
+    http://lists.sourceforge.net/lists/listinfo/acpi-bugzilla
+
+linux-pm@lists.osdl.org
+  Description:
+    General discussion about power management issues under Linux 
+  Subscribe:
+    https://lists.osdl.org/mailman/listinfo/linux-pm
+  Archives:
+    http://lists.osdl.org/pipermail/linux-pm/
+
+linux-pm-devel@lists.sourceforge.net
+  Description:
+    General discussion about power management issues under Linux 
+  Subscribe:
+    http://lists.sourceforge.net/lists/listinfo/linux-pm-devel
+  Archives:
+    http://sourceforge.net/mailarchive/forum.php?forum=linux-pm-devel
+  Comment:
+    seems to have the same charter as the more heavily used OSDL list above.
+
+
+-------------------------------------------------------
+This SF.net email is sponsored by: Splunk Inc. Do you grep through log files
+for problems?  Stop!  Download the new AJAX search engine that makes
+searching your log files as easy as surfing the  web.  DOWNLOAD SPLUNK!
+http://ads.osdn.com/?ad_id=7637&amp;alloc_id=16865&amp;op=click
+_______________________________________________
+Acpi-devel mailing list
+Acpi-devel@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/acpi-devel
+</body></email><email><emailId>20060117051326</emailId><senderName>Len Brown</senderName><senderEmail>len.brown@intel.com</senderEmail><timestampReceived>2006-01-17 05:13:26-0400</timestampReceived><subject>[ACPI] Linux/ACPI mailing list move -- re-subscribe is necessary</subject><body>
+
+Please note that acpi-devel@lists.sourceforge.net is defunct.
+It will carry no new messages (except reminders like this:-)
+
+The new list is linux-acpi@vger.kernel.org
+To subscribe, go here:
+http://vger.kernel.org/vger-lists.html#linux-acpi
+
+thanks,
+-Len Brown, Intel Open Source Technology Center
+
+E-mail lists related to Linux ACPI and Power Management (1/16/2005)
+
+linux-acpi@vger.kernel.org
+  Description:
+    Linux/ACPI Development, Discussion, Support
+  Subscribe:
+    mailto:majordomo@vger.kernel.org?body=subscribe linux-acpi
+    http://vger.kernel.org/vger-lists.html#linux-acpi
+    Note that your "From:" address must match your subscription
+    address, or you will not be able to subscribe.
+  Archives for linux-acpi (started Jan 2006)
+    http://marc.theaimsgroup.com/?l=linux-acpi&amp;r=1&amp;w=2
+    http://dir.gmane.org/gmane.linux.acpi.devel
+    http://www.mail-archive.com/linux-acpi@vger.kernel.org/
+  Archives for acpi-devel@lists.sourceforge.net (discontinued Jan 2006):
+    http://sourceforge.net/mailarchive/forum.php?forum=acpi-devel
+    http://marc.theaimsgroup.com/?l=acpi4linux
+    http://news.gmane.org/gmane.linux.acpi.devel
+  Archives for acpi-support@lists.sourceforge.net (discontinued Feb 2004)
+    http://sourceforge.net/mailarchive/forum.php?forum=acpi-support
+
+intel-linux-acpi@linux.intel.com
+  Description:
+    Intel-only sub-set of above - used to ping Intel team directly.
+
+acpi-bugzilla@lists.sourceforge.net
+  Description: Used only for cc: on public Linux/ACPI bug reports
+    Subscribe if you want to see bugzilla updates in real-time.
+    Do not post to this list
+  Archives:
+    http://sourceforge.net/mailarchive/forum.php?forum=acpi-bugzilla
+    http://www.mail-archive.com/acpi-bugzilla%40lists.sourceforge.net/
+  Subscribe:
+    mailto:acpi-bugzilla-request@lists.sourceforge.net?subject=subscribe
+    http://lists.sourceforge.net/lists/listinfo/acpi-bugzilla
+
+linux-pm@lists.osdl.org
+  Description:
+    General discussion about power management issues under Linux 
+  Subscribe:
+    https://lists.osdl.org/mailman/listinfo/linux-pm
+  Archives:
+    http://lists.osdl.org/pipermail/linux-pm/
+
+linux-pm-devel@lists.sourceforge.net
+  Description:
+    General discussion about power management issues under Linux 
+  Subscribe:
+    http://lists.sourceforge.net/lists/listinfo/linux-pm-devel
+  Archives:
+    http://sourceforge.net/mailarchive/forum.php?forum=linux-pm-devel
+  Comment:
+    seems to have the same charter as the more heavily used OSDL list above.
+
+
+-------------------------------------------------------
+This SF.net email is sponsored by: Splunk Inc. Do you grep through log files
+for problems?  Stop!  Download the new AJAX search engine that makes
+searching your log files as easy as surfing the  web.  DOWNLOAD SPLUNK!
+http://sel.as-us.falkag.net/sel?cmd=lnk&amp;kid=103432&amp;bid=230486&amp;dat=121642
+_______________________________________________
+Acpi-devel mailing list
+Acpi-devel@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/acpi-devel
+</body></email></emails>
