@@ -1,0 +1,3845 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20220501075715</emailId><senderName>redriderbbgun11 via tor-dev</senderName><senderEmail>tor-dev@lists.torproject.org</senderEmail><timestampReceived>2022-05-01 07:57:15-0400</timestampReceived><subject>[tor-dev] How to get source port from conn object</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+[Attachment #4 (text/plain)]
+
+Hey all, I want to get to know the TOR codebase so I can contribute to the project. \
+To do this I have been doing a few projects of just doing sort of basic tasks to get \
+an idea for how it all works together. One thing that is giving me a bit of trouble \
+but seems like it should be simple is finding the source port for a conn object. How \
+do I find this and moreover how do I find the actual socket behind a given \
+connection? In connection_t I see tor_socket_t but it seems to just be an int value.
+
+Thanks
+
+
+[Attachment #5 (text/html)]
+
+&lt;span style="font-family:arial;color:rgb(34, 34, 34)"&gt;Hey
+ all, I want to get to know the TOR codebase so I can contribute to the
+project. To do this I have been doing a few projects of just doing sort
+of basic tasks to get an idea for how it all works together. One thing
+that is giving me a bit of trouble but seems like it should be simple is
+ finding the source port for a conn object. How do I find this and
+moreover how do I find the actual socket behind a given connection? In
+connection_t I see &lt;span&gt;tor_socket_t&lt;/span&gt; but it seems to just be an int \
+value.&lt;/span&gt;&lt;div style="font-family:arial;color:rgb(34, 34, 34)"&gt;&lt;br&gt;&lt;/div&gt;&lt;div \
+style="font-family:arial;color:rgb(34, 34, 34)"&gt;&lt;br&gt;&lt;/div&gt;&lt;span \
+style="font-family:arial;color:rgb(34, 34, 34)"&gt;Thanks&lt;/span&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220509185416</emailId><senderName>David Goulet</senderName><senderEmail>dgoulet@torproject.org</senderEmail><timestampReceived>2022-05-09 18:54:16-0400</timestampReceived><subject>[tor-dev] Network Team - Deprecating C-tor Patches</subject><body>
+
+[Attachment #2 (multipart/signed)]
+
+
+Greetings everyone!
+
+The network team has come up with a policy about C-tor patches in order to
+help and facilitate our transition to arti.
+
+The TL;DR is essentially that we will be reducing considerably the amount of
+patches (fixes and features) we take in for C-tor[0], most importantly on the
+client side, in order to alleviate the maintaining work of C-tor in favor of
+arti development.
+
+Please, read the following explaining why and what is changing regarding C-tor
+patches and development work:
+
+https://gitlab.torproject.org/tpo/core/team/-/wikis/NetworkTeam/DeprecatingCPatches
+
+Don't hesitate to ask questions!
+
+Cheers!
+The Network Team
+
+[0] https://gitlab.torproject.org/tpo/core/tor
+
+-- 
+G1nLmyQttfczv2rHXvhgktvgPessxMCOKSOe/VwGY/Y=
+
+["signature.asc" (application/pgp-signature)]
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220511151414</emailId><senderName>David Goulet</senderName><senderEmail>dgoulet@torproject.org</senderEmail><timestampReceived>2022-05-11 15:14:14-0400</timestampReceived><subject>[tor-dev] Network Team - New Support and Release Policy</subject><body>
+
+[Attachment #2 (multipart/signed)]
+
+
+Greetings everyone!
+
+This is, for now, the last policy change from the network team after the
+Deprecating C Patches policy from couple days ago[0].
+
+However, this one has a bit more impact especially on the relay operators and
+thus the network. We are changing the C-tor support and release policy which
+essentially changes "for how long" we will maintain stable releases.
+
+This will particularly affect relay operators that are using the tor stable
+package of their OS distribution. It is very important to use a more "current"
+update channel like deb.torproject.org for Debian/Ubuntu. As for BSDs, since
+they have a faster stable release cycle, keeping the OS updated should help
+getting the latest stable of tor.
+
+Here is the new policy:
+https://gitlab.torproject.org/tpo/core/team/-/wikis/NetworkTeam/SupportPolicy
+
+There are lots of changes but three in particular are worth highlighting and
+explaining:
+
+1. No More LTS
+
+Apart from being a burden because in part due to backports complexity, they
+are actually a bit of a problem on the relay side with regards to the network
+itself. We need an healthy network and that implies, in part, to have up to
+date relays. Both for security reasons, but also to take advantage of the new
+features and defenses we roll out in the latest stable releases. We are
+currently suffering around 3 years upgrade path due to LTS versions that
+lingers in the stable OS distributions (Debian, Ubuntu, ...) for a long time.
+
+Tor is in a constant arms race against powerful adversaries, evolving
+technologies and resource restrictions. Fast network upgrades is instrumental
+to keep us in this race and provide the best security and anonymity for our
+users.
+
+2. Drop the 6 months fixed stable release
+
+With 0.4.7.x series, we needed more time to roll out a version that we were
+satisfied with quality-wise due to not only its awesomness and complexity but
+because we had less people to work on the C implementation of Tor than before
+(some engineering power shifted to Arti development). It lead to having a much
+better and thoroughly tested tor without having an intermediary release with
+half backed features forcing us to maintain for months while being a torn in
+the network foot.
+
+3. Faster End-Of-Life Path
+
+We will now only support for 3 months the previous stable once a new stable
+comes out. In other words, a stable version is maintained until a new stable
+is released plus 3 months to the date. This will also make our rejection of
+EOL relays from the network faster tying this to the importance of the network
+health with updated relays.
+
+These changes also fall into our overall efforts to shift our resources
+towards arti development. C-tor is not going away anytime soon, we are simply
+slowing down its development pace.
+
+Please, don't hesitate to ask questions and comments. We know this might not
+be ideal for everyone but we believe this is the best route to the
+sustainability of C-tor, health of the network and security for our users.
+
+Cheers!
+Network Team
+
+[0] https://lists.torproject.org/pipermail/tor-dev/2022-May/014731.html
+
+-- 
+G1nLmyQttfczv2rHXvhgktvgPessxMCOKSOe/VwGY/Y=
+
+["signature.asc" (application/pgp-signature)]
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220519134507</emailId><senderName>Alessandro Greco via tor-dev</senderName><senderEmail>tor-dev@lists.torproject.org</senderEmail><timestampReceived>2022-05-19 13:45:07-0400</timestampReceived><subject>[tor-dev] Firefox Add-on for torrc functions of Tor Browser</subject><body>
+
+Premise: I had already tried to write to this mailing list, I apologize 
+if I send another email.
+
+Hi everyone I created a Firefox extension a few week ago that allows 
+users to use some of the Tor Browser torrc-related features through a 
+simple and intuitive graphical interface, like Orbot App -&gt; settings.
+
+The project is under development but I would like to share it with you 
+proposing to include it in the tor-project project so that it can be 
+useful and reliable for anyone who wants to use it.
+
+The extension is currently functional and allows the modification of the 
+following features:
+- Changing the origin of EntryNodes (+ StrictNodes).
+- Changing the origin of the ExitNodes (+ StrictNodes).
+- Exclusion of nodes relating to a given origin on the whole circuit.
+- Exclusion of nodes relating to a given origin on ExitNodes.
+- Exclusion of unrecognized (non-geolocalizable) nodes.
+- Section dedicated to the torify shell command (under development).
+
+But in the last few days I have noticed that in reality the most useful 
+and requested features by any user are only the following:
+- Changing the origin of the ExitNodes (+ StrictNodes).
+- Exclusion of nodes relating to a given origin on the whole circuit.
+- Exclusion of nodes relating to a given origin on ExitNodes.
+
+The extension currently requires the launch of a local script that 
+allows communication between the extension and the torrc file.
+This is another reason why your control and consent is useful, in order 
+to prove to users the script does not include malicious code.
+
+The code is obviously Open Source and I hope you can consider this 
+project which aims to contribute to the use of Tor-Project and to the 
+development of new features.
+
+That said, Tropea is in an experimental phase and clearly presents all 
+the problems of an early stage of development.
+I want to say that if on your part there may be interest in this project 
+then I would be happy knowing that it can be considered by your 
+development team, otherwise it makes no sense on my part to continue to 
+make improvements.
+
+-- 
+Regards,
+Alessandro Greco.
+
+Browse my WebSite! (autistici.org/aleff)
+Join the Free Software Foundation! (fsf.org)
+Support Electronic Frontier Foundation! (eff.org)
+Browse Privately. Explore Freely. (torproject.org)
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+</body></email><email><emailId>20220526204528</emailId><senderName>Sarthik Gupta</senderName><senderEmail>sarthikg@gmail.com</senderEmail><timestampReceived>2022-05-26 20:45:28-0400</timestampReceived><subject>[tor-dev] GSoC 2022 - Tor Weather: Improving the Tor Network</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+Hello everyone,
+
+I'm Sarthik Gupta (irc: sarthikg), a recent grad from Punjab Engineering
+College, Chandigarh &amp; currently working as a Software Engineer at Soroco.
+This summer, I'll be working on GSoC Project: "Tor Weather: Improving the
+Tor Network" with my mentors GeKo &amp; Silvia. I'm extremely excited to be a
+part of Tor and am interested in working on this project!
+
+Briefing about the project: As of now, if any relay disappears from the
+tor-network, no one will know. This causes the network to lose out on
+bandwidth from nodes which have been down for hours because no-one knew
+they were down. Tor-Weather aims at solving this by creating a notification
+service which relay operators can subscribe to in order to get various
+types of updates for their relays.
+
+The tor-weather service will offer a plethora of notifications options for
+the relays. These include, the node being down, running on EOL/Outdated
+version, losing a flag, ranking in top 20/50/100, etc. These notifications
+can be subscribed &amp; customised by the relay operators to fit their needs
+using a web-frontend.
+
+A detailed proposal for this project is available at:
+&lt;https://gitlab.torproject.org/sarthikg/tor-weather/-/wikis/Proposal&gt;
+https://gitlab.torproject.org/sarthikg/tor-weather/-/wikis/Proposal. I plan
+to keep this wiki updated with the progress &amp; design decisions taken
+throughout the development of the project.
+
+Suggestions are always welcomed! Please reach out to us in irc (#tor-dev)
+for any ideas, questions, or suggestions you might have.
+
+Thanks,
+
+Sarthik Gupta
+
+[Attachment #5 (text/html)]
+
+&lt;div dir="ltr"&gt;&lt;div dir="ltr"&gt;&lt;p&gt;Hello everyone,&lt;/p&gt;
+&lt;p&gt;I'm Sarthik Gupta (irc: sarthikg), a recent grad from Punjab Engineering College, \
+Chandigarh &amp; currently working as a Software Engineer at Soroco. This summer, \
+I'll be working on GSoC Project: "Tor Weather: Improving the Tor Network" with my \
+mentors GeKo &amp; Silvia. I'm extremely excited to be a part of Tor and am \
+interested in working on this project!&lt;/p&gt; &lt;p&gt;Briefing about the project: As of now, \
+if any relay disappears from the tor-network, no one will know. This causes the \
+network to lose out on bandwidth from nodes which have been down for hours because \
+no-one knew they were down. Tor-Weather aims at solving this by creating a \
+notification service which relay operators can subscribe to in order to get various \
+types of updates for their relays.&lt;/p&gt; &lt;p&gt;The tor-weather service will offer a \
+plethora of notifications options for the relays. These include, the node being down, \
+running on EOL/Outdated version, losing a flag, ranking in top 20/50/100, etc. These \
+notifications can be subscribed &amp; customised by the relay operators to fit their \
+needs using a web-frontend.&lt;/p&gt; &lt;p&gt;A detailed proposal for this project is available \
+at: &lt;a href="https://gitlab.torproject.org/sarthikg/tor-weather/-/wikis/Proposal"&gt;&lt;/a&gt;&lt;a \
+href="https://gitlab.torproject.org/sarthikg/tor-weather/-/wikis/Proposal"&gt;https://gitlab.torproject.org/sarthikg/tor-weather/-/wikis/Proposal&lt;/a&gt;. \
+I plan to keep this wiki updated with the progress &amp; design decisions taken \
+throughout the development of the project.&lt;/p&gt; &lt;p&gt;Suggestions are always welcomed! \
+Please reach out to us in irc (#tor-dev) for any ideas, questions, or suggestions you \
+might have.&lt;/p&gt; &lt;p&gt;Thanks,&lt;/p&gt;&lt;p&gt;Sarthik Gupta&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220531164926</emailId><senderName>Nick Mathewson</senderName><senderEmail>nickm@torproject.org</senderEmail><timestampReceived>2022-05-31 16:49:26-0400</timestampReceived><subject>[tor-dev] Proposal 340: Packed and fragmented relay messages</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+```
+Filename: 340-packed-and-fragmented.md
+Title: Packed and fragmented relay messages
+Author: Nick Mathewson
+Created: 31 May 2022
+Status: Open
+```
+
+# Introduction
+
+Tor sends long-distance messages on circuits via _relay cells_.  The
+current relay cell format allows one _relay message_ (e.g., "BEGIN" or
+"DATA" or "END") per relay cell. We want to relax this 1:1 requirement,
+between messages and cells, for two reasons:
+
+ * To support relay messages that are longer than the current 498-byte
+   limit.  Applications would include wider handshake messages for
+   postquantum crypto, UDP messages, and SNIP transfer in walking
+   onions.
+
+ * To transmit small messages more efficiently.  Several message types
+   (notably `SENDME`, `XON`, `XOFF`, and several types from
+   [proposal 329](./329-traffic-splitting.txt)) are much smaller than
+   the relay cell size, and could be sent comparatively often.
+
+In this proposal, we describe a way to decouple relay cells from relay
+messages.  Relay messages can now be packed into multiple cells or split
+across multiple cells.
+
+This proposal combines ideas from
+[proposal 319](./319-wide-everything.md) (fragmentation) and
+[proposal 325](./325-packed-relay-cells.md) (packed cells).  It requires
+[ntor v3](./332-ntor-v3-with-extra-data.md) and prepares for
+[next-generation relay cryptography](./308-counter-galois-onion).
+
+## A preliminary change: Relay encryption, version 1.5
+
+We are fairly sure that, whatever we do for our next batch of relay
+cryptography, we will want to increase the size of the data used to
+authenticate relay cells to 128 bits.  (Currently it uses a 4-byte tag
+plus 2 bytes of zeros.)
+
+To avoid proliferating formats, I'm going to suggest that we make the
+other changes in this proposal changes concurrently with a change in our
+relay cryptography, so that we do not have too many incompatible cell
+formats going on at the same time.
+
+The new format for a decrypted relay _cell_ will be:
+
+   recognized [2 bytes]
+   digest     [14 bytes]
+   body       [509 - 16 = 493 bytes]
+
+"Digest" and "recognized" are computed as before; the only difference
+is that they occur _before_ the rest of the cell, and that "digest" is
+truncated to 14 bytes instead of 4.
+
+If we are lucky, we won't have to build this encryption at all, and we
+can just move to some version of GCM-UIV or other RPRP that reserves 16
+bytes for an authentication tag or similar cryptographic object.
+
+## New relay message packing
+
+Relay _messages_ now follow the following format:
+
+  Header
+    command   u8
+    length    u16
+    stream_id u16
+  Body
+    data      u8[length]
+
+We require that "command" is never 0.
+
+Messages can be split across relay cells; multiple messages can occur in
+a single relay cell.  We enforce the following rules:
+
+  * Headers may not be split across cells.
+  * If a 0 byte follows any relay message, there are no more messages in
+    that cell.
+  * A relay cell may not be "empty": it must have at least some part of
+    some message.
+
+Unless specified elsewhere, **all** message types may be packed, and
+**all** message types may be fragmented.
+
+Every command has an associated maximum length for its messages.  If not
+specified elsewhere, the maximum length for every message is 498 bytes
+(for legacy reasons).
+
+Receivers MUST validate that headers are well-formed and have valid
+lengths while handling the cell in which the header is encoded.  If the
+header is invalid, the receiver must destroy the circuit.
+
+### Some examples
+
+
+## Negotiation
+
+This message format requires a new `Relay` subprotocol version to
+indicate support.  If a client wants to indicate support for this
+format, it sends the following extension as part of its `ntor3`
+handshake:
+
+   RELAY_PROTOCOL
+     version    u8
+
+The `version` field is the `Relay` subprotocol version that the client
+wants to use. The relay must send back the same extension in its ntor3
+handshake to acknowledge support.
+
+## Migration
+
+We add a consensus parameter, "streamed-relay-messages", with default
+value 0, minimum value 0, and maximum value 1.
+
+If this value is 0, then clients will not (by default) negotiate this
+relay protocol.  If it is 1, then clients will negotiate it when relays
+support it.
+
+For testing, clients can override this setting.  Once enough relays
+support this proposal, we'll change the consensus parameter to 1.
+Later, we'll change the default to 1 as well.
+
+## Packing decisions
+
+We specify the following greedy algorithm for making decisions about
+fragmentation and packing.  Other algorithms are possible, but this one
+is fairly simple, and using it will help avoid distinguishability
+issues:
+
+Whenever a client or relay is about to send a cell that would leave
+at least 32 bytes unused in a relay cell, it checks to see whether there
+is any pending data to be sent in the same circuit (in a data cell).  If
+there is, then it adds a DATA message to the end of the current cell,
+with as much data as possible.  Otherwise, the client sends the cell
+with no packed data.
+
+## Onion services
+
+Negotiating this for onion services will happen in a separate proposal;
+it is not a current priority, since there is nothing sent over
+rendezvous circuits that we currently need to fragment or pack.
+
+## Miscellany
+
+### Handling `RELAY_EARLY`
+
+The `RELAY_EARLY` status for a command is determined based on the relay
+cell in which the command's _header_ appeared.
+
+### Handling `SENDME`s
+
+SENDME messages may not be fragmented; the body and the command must
+appear in the same cell.  (This is necessary so authenticated sendmes
+can have a reasonable implementation.)
+
+### An exception for `DATA`.
+
+Data messages may not be fragmented.  (There is never a reason to do
+this.)
+
+### Extending message-length maxima
+
+For now, the maximum length for every message is 498 bytes, except as
+follows:
+
+   - `DATAGRAM` messages (see proposal 339) have a maximum body length
+     of 1967 bytes.  (This works out to four relay cells, and
+     accommodates most reasonable MTU choices)
+
+Any increase in maximum length for any other message type requires a new
+Relay subprotocol version.  (For example, if we later want to allow
+EXTEND2 messages to be 2000 bytes long, we need to add a new proposal
+saying so, and reserving a new subprotocol version.)
+
+# Appendix: Example cells
+
+
+Here is an example of the simplest case: one message, sent in one relay
+cell.  Here it is a BEGIN message.
+
+```
+  Cell 1:
+    Cell header
+       circid         ..                [4 bytes]
+       command        RELAY             [1 byte]
+    relay cell header
+       recognized     0                 [2 bytes]
+       digest         (...)             [14 bytes]
+    message header:
+       command        BEGIN             [1 byte]
+       length         23                [2 bytes]
+       stream_id      (...)             [2 bytes]
+    message body
+      "www.torproject.org:443\0"        [23 bytes]
+    end-of-messages marker
+      0                                 [1 byte]
+    padding up to end of cell
+      random                            [464 bytes]
+
+```
+
+Here's an example with fragmentation only: a large EXTEND2 message split
+across two relay cells.
+
+```
+  Cell 1:
+    Cell header
+       circid         ..                [4 bytes]
+       command        RELAY_EARLY       [1 byte]
+    relay cell header
+       recognized     0                 [2 bytes]
+       digest         (...)             [14 bytes]
+    message header:
+       command        EXTEND            [1 byte]
+       length         800               [2 bytes]
+       stream_id      0                 [2 bytes]
+    message body
+       (extend body, part 1)            [488 bytes]
+
+  Cell 2:
+    Cell header
+       circid         ..                [4 bytes]
+       command        RELAY             [1 byte]
+    relay cell header
+      recognized     0                 [2 bytes]
+      digest         (...)             [14 bytes]
+    message body, continued
+      (extend body, part 2)            [312 bytes]
+    end-of-messages marker
+      0                                [1 byte]
+    padding up to end of cell
+      random                           [180 bytes]
+
+```
+
+Here is an example with packing only: A begin_dir message and a data
+message in the same cell.
+
+```
+  Cell 1:
+    Cell header
+       circid         ..                [4 bytes]
+       command        RELAY             [1 byte]
+    relay cell header
+       recognized     0                 [2 bytes]
+       digest         (...)             [14 bytes]
+    message header:
+       command        BEGIN_DIR         [1 byte]
+       length         0                 [2 bytes]
+       stream_id      32                [2 bytes]
+    message body:
+       (empty)        ---               [0 bytes]
+    message header:
+       command        DATA              [1 byte]
+       length         25                [2 bytes]
+       stream_id      32                [2 bytes]
+    message body:
+       "HTTP/1.0 GET /tor/foo\r\n\r\n"  [25 bytes]
+    end-of-messages marker
+      0                                 [1 byte]
+    padding up to end of cell
+      random                            [457 bytes]
+
+```
+
+Here is an example with packing and fragmentation: a large DATAGRAM cell, a
+SENDME cell, and an XON cell.  (Note that this sequence of cells would not
+actually be generated by the algorithm described in "Packing decisions"
+above; this is only an example of what parties need to accept.)
+
+```
+  Cell 1:
+    Cell header
+       circid         ..                [4 bytes]
+       command        RELAY             [1 byte]
+    relay cell header
+       recognized     0                [2 bytes]
+       digest         (...)            [14 bytes]
+    message header:
+       command        DATAGRAM         [1 byte]
+       length         1200             [2 bytes]
+       stream_id      99               [2 bytes]
+    message body
+       (datagram body, part 1)         [488 bytes]
+
+  Cell 2:
+    Cell header
+       circid         ..                [4 bytes]
+       command        RELAY             [1 byte]
+    relay cell header
+      recognized     0                 [2 bytes]
+      digest         (...)             [14 bytes]
+    message body, continued
+      (datagram body, part 2)          [493 bytes]
+
+  Cell 3:
+    Cell header
+       circid         ..                [4 bytes]
+       command        RELAY             [1 byte]
+    relay cell header
+      recognized     0                 [2 bytes]
+      digest         (...)             [14 bytes]
+    message body, continued
+      (datagram body, part 3)          [219 bytes] (488+493+219=1200)
+    message header:
+       command        SENDME           [1 byte]
+       length         23               [2 bytes]
+       stream_id      0                [2 bytes]
+    message body:
+       version        1                [1 byte]
+       datalen        20               [2 bytes]
+       data           (digest to ack)  [20 bytes]
+    message header:
+       command        XON              [1 byte]
+       length         1                [2 bytes]
+       stream_id      50               [2 bytes]
+    message body:
+       version        1                [1 byte]
+    end-of-messages marker
+      0                                [1 byte]
+    padding up to end of cell
+      random                           [239 bytes]
+```
+
+[Attachment #5 (text/html)]
+
+&lt;div dir="ltr"&gt;```&lt;br&gt;Filename: 340-packed-and-fragmented.md&lt;br&gt;Title: Packed and \
+fragmented relay messages&lt;br&gt;Author: Nick Mathewson&lt;br&gt;Created: 31 May \
+2022&lt;br&gt;Status: Open&lt;br&gt;```&lt;br&gt;&lt;br&gt;# Introduction&lt;br&gt;&lt;br&gt;Tor sends long-distance \
+messages on circuits via _relay cells_.   The&lt;br&gt;current relay cell format allows one \
+_relay message_ (e.g., "BEGIN" or&lt;br&gt;"DATA" or "END") \
+per relay cell. We want to relax this 1:1 requirement,&lt;br&gt;between messages and cells, \
+for two reasons:&lt;br&gt;&lt;br&gt;  * To support relay messages that are longer than the \
+current 498-byte&lt;br&gt;     limit.   Applications would include wider handshake messages \
+for&lt;br&gt;     postquantum crypto, UDP messages, and SNIP transfer in walking&lt;br&gt;     \
+onions.&lt;br&gt;&lt;br&gt;  * To transmit small messages more efficiently.   Several message \
+types&lt;br&gt;     (notably `SENDME`, `XON`, `XOFF`, and several types from&lt;br&gt;     \
+[proposal 329](./329-traffic-splitting.txt)) are much smaller than&lt;br&gt;     the relay \
+cell size, and could be sent comparatively often.&lt;br&gt;&lt;br&gt;In this proposal, we \
+describe a way to decouple relay cells from relay&lt;br&gt;messages.   Relay messages can \
+now be packed into multiple cells or split&lt;br&gt;across multiple cells.&lt;br&gt;&lt;br&gt;This \
+proposal combines ideas from&lt;br&gt;[proposal 319](./319-wide-everything.md) \
+(fragmentation) and&lt;br&gt;[proposal 325](./325-packed-relay-cells.md) (packed cells).   \
+It requires&lt;br&gt;[ntor v3](./332-ntor-v3-with-extra-data.md) and prepares \
+for&lt;br&gt;[next-generation relay cryptography](./308-counter-galois-onion).&lt;br&gt;&lt;br&gt;## A \
+preliminary change: Relay encryption, version 1.5&lt;br&gt;&lt;br&gt;We are fairly sure that, \
+whatever we do for our next batch of relay&lt;br&gt;cryptography, we will want to increase \
+the size of the data used to&lt;br&gt;authenticate relay cells to 128 bits.   (Currently it \
+uses a 4-byte tag&lt;br&gt;plus 2 bytes of zeros.)&lt;br&gt;&lt;br&gt;To avoid proliferating formats, \
+I'm going to suggest that we make the&lt;br&gt;other changes in this proposal changes \
+concurrently with a change in our&lt;br&gt;relay cryptography, so that we do not have too \
+many incompatible cell&lt;br&gt;formats going on at the same time.&lt;br&gt;&lt;br&gt;The new format \
+for a decrypted relay _cell_ will be:&lt;br&gt;&lt;br&gt;     recognized [2 bytes]&lt;br&gt;     digest \
+[14 bytes]&lt;br&gt;     body          [509 - 16 = 493 bytes]&lt;br&gt;&lt;br&gt;"Digest" and \
+"recognized" are computed as before; the only difference&lt;br&gt;is that they \
+occur _before_ the rest of the cell, and that "digest" is&lt;br&gt;truncated to \
+14 bytes instead of 4.&lt;br&gt;&lt;br&gt;If we are lucky, we won't have to build this \
+encryption at all, and we&lt;br&gt;can just move to some version of GCM-UIV or other RPRP \
+that reserves 16&lt;br&gt;bytes for an authentication tag or similar cryptographic \
+object.&lt;br&gt;&lt;br&gt;## New relay message packing&lt;br&gt;&lt;br&gt;Relay _messages_ now follow the \
+following format:&lt;br&gt;&lt;br&gt;   Header&lt;br&gt;      command    u8&lt;br&gt;      length      \
+u16&lt;br&gt;      stream_id u16&lt;br&gt;   Body&lt;br&gt;      data         u8[length]&lt;br&gt;&lt;br&gt;We \
+require that "command" is never 0.&lt;br&gt;&lt;br&gt;Messages can be split across \
+relay cells; multiple messages can occur in&lt;br&gt;a single relay cell.   We enforce the \
+following rules:&lt;br&gt;&lt;br&gt;   * Headers may not be split across cells.&lt;br&gt;   * If a 0 \
+byte follows any relay message, there are no more messages in&lt;br&gt;      that cell.&lt;br&gt; \
+* A relay cell may not be "empty": it must have at least some part of&lt;br&gt;   \
+some message.&lt;br&gt;&lt;br&gt;Unless specified elsewhere, **all** message types may be packed, \
+and&lt;br&gt;**all** message types may be fragmented.&lt;br&gt;&lt;br&gt;Every command has an \
+associated maximum length for its messages.   If not&lt;br&gt;specified elsewhere, the \
+maximum length for every message is 498 bytes&lt;br&gt;(for legacy \
+reasons).&lt;br&gt;&lt;br&gt;Receivers MUST validate that headers are well-formed and have \
+valid&lt;br&gt;lengths while handling the cell in which the header is encoded.   If \
+the&lt;br&gt;header is invalid, the receiver must destroy the circuit.&lt;br&gt;&lt;br&gt;### Some \
+examples&lt;br&gt;&lt;br&gt;&lt;br&gt;## Negotiation&lt;br&gt;&lt;br&gt;This message format requires a new `Relay` \
+subprotocol version to&lt;br&gt;indicate support.   If a client wants to indicate support \
+for this&lt;br&gt;format, it sends the following extension as part of its \
+`ntor3`&lt;br&gt;handshake:&lt;br&gt;&lt;br&gt;     RELAY_PROTOCOL&lt;br&gt;        version      \
+u8&lt;br&gt;&lt;br&gt;The `version` field is the `Relay` subprotocol version that the \
+client&lt;br&gt;wants to use. The relay must send back the same extension in its \
+ntor3&lt;br&gt;handshake to acknowledge support.&lt;br&gt;&lt;br&gt;## Migration&lt;br&gt;&lt;br&gt;We add a \
+consensus parameter, "streamed-relay-messages", with default&lt;br&gt;value 0, \
+minimum value 0, and maximum value 1.&lt;br&gt;&lt;br&gt;If this value is 0, then clients will \
+not (by default) negotiate this&lt;br&gt;relay protocol.   If it is 1, then clients will \
+negotiate it when relays&lt;br&gt;support it.&lt;br&gt;&lt;br&gt;For testing, clients can override this \
+setting.   Once enough relays&lt;br&gt;support this proposal, we'll change the \
+consensus parameter to 1.&lt;br&gt;Later, we'll change the default to 1 as \
+well.&lt;br&gt;&lt;br&gt;## Packing decisions&lt;br&gt;&lt;br&gt;We specify the following greedy algorithm \
+for making decisions about&lt;br&gt;fragmentation and packing.   Other algorithms are \
+possible, but this one&lt;br&gt;is fairly simple, and using it will help avoid \
+distinguishability&lt;br&gt;issues:&lt;br&gt;&lt;br&gt;Whenever a client or relay is about to send a \
+cell that would leave&lt;br&gt;at least 32 bytes unused in a relay cell, it checks to see \
+whether there&lt;br&gt;is any pending data to be sent in the same circuit (in a data cell). \
+If&lt;br&gt;there is, then it adds a DATA message to the end of the current cell,&lt;br&gt;with \
+as much data as possible.   Otherwise, the client sends the cell&lt;br&gt;with no packed \
+data.&lt;br&gt;&lt;br&gt;## Onion services&lt;br&gt;&lt;br&gt;Negotiating this for onion services will happen \
+in a separate proposal;&lt;br&gt;it is not a current priority, since there is nothing sent \
+over&lt;br&gt;rendezvous circuits that we currently need to fragment or pack.&lt;br&gt;&lt;br&gt;## \
+Miscellany&lt;br&gt;&lt;br&gt;### Handling `RELAY_EARLY`&lt;br&gt;&lt;br&gt;The `RELAY_EARLY` status for a \
+command is determined based on the relay&lt;br&gt;cell in which the command's _header_ \
+appeared.&lt;br&gt;&lt;br&gt;### Handling `SENDME`s&lt;br&gt;&lt;br&gt;SENDME messages may not be fragmented; \
+the body and the command must&lt;br&gt;appear in the same cell.   (This is necessary so \
+authenticated sendmes&lt;br&gt;can have a reasonable implementation.)&lt;br&gt;&lt;br&gt;### An \
+exception for `DATA`.&lt;br&gt;&lt;br&gt;Data messages may not be fragmented.   (There is never a \
+reason to do&lt;br&gt;this.)&lt;br&gt;&lt;br&gt;### Extending message-length maxima&lt;br&gt;&lt;br&gt;For now, the \
+maximum length for every message is 498 bytes, except as&lt;br&gt;follows:&lt;br&gt;&lt;br&gt;     - \
+`DATAGRAM` messages (see proposal 339) have a maximum body length&lt;br&gt;        of 1967 \
+bytes.   (This works out to four relay cells, and&lt;br&gt;        accommodates most \
+reasonable MTU choices)&lt;br&gt;&lt;br&gt;Any increase in maximum length for any other message \
+type requires a new&lt;br&gt;Relay subprotocol version.   (For example, if we later want to \
+allow&lt;br&gt;EXTEND2 messages to be 2000 bytes long, we need to add a new \
+proposal&lt;br&gt;saying so, and reserving a new subprotocol version.)&lt;br&gt;&lt;br&gt;# Appendix: \
+Example cells&lt;br&gt;&lt;br&gt;&lt;br&gt;Here is an example of the simplest case: one message, sent \
+in one relay&lt;br&gt;cell.   Here it is a BEGIN message.&lt;br&gt;&lt;br&gt;```&lt;br&gt;   Cell 1:&lt;br&gt;      \
+Cell header&lt;br&gt;           circid             ..                        [4 bytes]&lt;br&gt;  \
+command            RELAY                   [1 byte]&lt;br&gt;      relay cell header&lt;br&gt;    \
+recognized       0                         [2 bytes]&lt;br&gt;           digest             \
+(...)                   [14 bytes]&lt;br&gt;      message header:&lt;br&gt;           command     \
+BEGIN                   [1 byte]&lt;br&gt;           length             23                  \
+[2 bytes]&lt;br&gt;           stream_id         (...)                   [2 bytes]&lt;br&gt;      \
+message body&lt;br&gt;         "&lt;a \
+href="http://www.torproject.org:443"&gt;www.torproject.org:443&lt;/a&gt;\0"            \
+[23 bytes]&lt;br&gt;      end-of-messages marker&lt;br&gt;         0                              \
+[1 byte]&lt;br&gt;      padding up to end of cell&lt;br&gt;         random                        \
+[464 bytes]&lt;br&gt;&lt;br&gt;```&lt;br&gt;&lt;br&gt;Here's an example with fragmentation only: a large \
+EXTEND2 message split&lt;br&gt;across two relay cells.&lt;br&gt;&lt;br&gt;```&lt;br&gt;   Cell 1:&lt;br&gt;      \
+Cell header&lt;br&gt;           circid             ..                        [4 bytes]&lt;br&gt;  \
+command            RELAY_EARLY          [1 byte]&lt;br&gt;      relay cell header&lt;br&gt;       \
+recognized       0                         [2 bytes]&lt;br&gt;           digest             \
+(...)                   [14 bytes]&lt;br&gt;      message header:&lt;br&gt;           command     \
+EXTEND                  [1 byte]&lt;br&gt;           length             800                 \
+[2 bytes]&lt;br&gt;           stream_id         0                         [2 bytes]&lt;br&gt;     \
+message body&lt;br&gt;           (extend body, part 1)                  [488 bytes]&lt;br&gt;&lt;br&gt; \
+Cell 2:&lt;br&gt;      Cell header&lt;br&gt;           circid             ..                      \
+[4 bytes]&lt;br&gt;           command            RELAY                   [1 byte]&lt;br&gt;      \
+relay cell header&lt;br&gt;         recognized       0                         [2 \
+bytes]&lt;br&gt;         digest             (...)                   [14 bytes]&lt;br&gt;      \
+message body, continued&lt;br&gt;         (extend body, part 2)                  [312 \
+bytes]&lt;br&gt;      end-of-messages marker&lt;br&gt;         0                                  \
+[1 byte]&lt;br&gt;      padding up to end of cell&lt;br&gt;         random                        \
+[180 bytes]&lt;br&gt;&lt;br&gt;```&lt;br&gt;&lt;br&gt;Here is an example with packing only: A begin_dir \
+message and a data&lt;br&gt;message in the same cell.&lt;br&gt;&lt;br&gt;```&lt;br&gt;   Cell 1:&lt;br&gt;      \
+Cell header&lt;br&gt;           circid             ..                        [4 bytes]&lt;br&gt;  \
+command            RELAY                   [1 byte]&lt;br&gt;      relay cell header&lt;br&gt;    \
+recognized       0                         [2 bytes]&lt;br&gt;           digest             \
+(...)                   [14 bytes]&lt;br&gt;      message header:&lt;br&gt;           command     \
+BEGIN_DIR             [1 byte]&lt;br&gt;           length             0                     \
+[2 bytes]&lt;br&gt;           stream_id         32                        [2 bytes]&lt;br&gt;     \
+message body:&lt;br&gt;           (empty)            ---                      [0 bytes]&lt;br&gt; \
+message header:&lt;br&gt;           command            DATA                     [1 \
+byte]&lt;br&gt;           length             25                        [2 bytes]&lt;br&gt;        \
+stream_id         32                        [2 bytes]&lt;br&gt;      message body:&lt;br&gt;      \
+"HTTP/1.0 GET /tor/foo\r\n\r\n"   [25 bytes]&lt;br&gt;      end-of-messages \
+marker&lt;br&gt;         0                                                 [1 byte]&lt;br&gt;     \
+padding up to end of cell&lt;br&gt;         random                                          \
+[457 bytes]&lt;br&gt;&lt;br&gt;```&lt;br&gt;&lt;br&gt;Here is an example with packing and fragmentation: a \
+large DATAGRAM cell, a&lt;br&gt;SENDME cell, and an XON cell.   (Note that this sequence of \
+cells would not&lt;br&gt;actually be generated by the algorithm described in "Packing \
+decisions"&lt;br&gt;above; this is only an example of what parties need to \
+accept.)&lt;br&gt;&lt;br&gt;```&lt;br&gt;   Cell 1:&lt;br&gt;      Cell header&lt;br&gt;           circid           \
+..                        [4 bytes]&lt;br&gt;           command            RELAY            \
+[1 byte]&lt;br&gt;      relay cell header&lt;br&gt;           recognized       0                  \
+[2 bytes]&lt;br&gt;           digest             (...)                  [14 bytes]&lt;br&gt;      \
+message header:&lt;br&gt;           command            DATAGRAM             [1 byte]&lt;br&gt;    \
+length             1200                   [2 bytes]&lt;br&gt;           stream_id         \
+99                      [2 bytes]&lt;br&gt;      message body&lt;br&gt;           (datagram body, \
+part 1)             [488 bytes]&lt;br&gt;&lt;br&gt;   Cell 2:&lt;br&gt;      Cell header&lt;br&gt;           \
+circid             ..                        [4 bytes]&lt;br&gt;           command          \
+RELAY                   [1 byte]&lt;br&gt;      relay cell header&lt;br&gt;         recognized    \
+0                         [2 bytes]&lt;br&gt;         digest             (...)              \
+[14 bytes]&lt;br&gt;      message body, continued&lt;br&gt;         (datagram body, part 2)       \
+[493 bytes]&lt;br&gt;&lt;br&gt;   Cell 3:&lt;br&gt;      Cell header&lt;br&gt;           circid             \
+..                        [4 bytes]&lt;br&gt;           command            RELAY            \
+[1 byte]&lt;br&gt;      relay cell header&lt;br&gt;         recognized       0                    \
+[2 bytes]&lt;br&gt;         digest             (...)                   [14 bytes]&lt;br&gt;      \
+message body, continued&lt;br&gt;         (datagram body, part 3)               [219 bytes] \
+(488+493+219=1200)&lt;br&gt;      message header:&lt;br&gt;           command            SENDME   \
+[1 byte]&lt;br&gt;           length             23                      [2 bytes]&lt;br&gt;       \
+stream_id         0                        [2 bytes]&lt;br&gt;      message body:&lt;br&gt;       \
+version            1                        [1 byte]&lt;br&gt;           datalen            \
+20                      [2 bytes]&lt;br&gt;           data                (digest to ack)   \
+[20 bytes]&lt;br&gt;      message header:&lt;br&gt;           command            XON              \
+[1 byte]&lt;br&gt;           length             1                        [2 bytes]&lt;br&gt;      \
+stream_id         50                      [2 bytes]&lt;br&gt;      message body:&lt;br&gt;        \
+version            1                        [1 byte]&lt;br&gt;      end-of-messages \
+marker&lt;br&gt;         0                                                [1 byte]&lt;br&gt;      \
+padding up to end of cell&lt;br&gt;         random                                        \
+[239 bytes]&lt;br&gt;```&lt;br&gt;&lt;/div&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220121135711</emailId><senderName>Alexander Mages</senderName><senderEmail>magesalexander123@gmail.com</senderEmail><timestampReceived>2022-01-21 13:57:11-0400</timestampReceived><subject>[tor-dev] Relay "Ping" Functionality</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+Hello Tor-Dev,
+
+My name is Alex Mages, and I have been doing pluggable transport research
+with Eugene Vasserman (CC) at Kansas State University.
+
+Right now we're exploring latency-based attacks but are having trouble
+achieving a particular goal: a way to "ping" an arbitrary node in a
+client's already-built ("live") circuit. One-way timing is ideal but round
+trip time would suffice. We can glean this information during circuit
+construction, but what about a "live" circuit? Ideally, this would be a
+periodic thing Tor already keeps track of, but as an on-demand or as a
+byproduct/side-effect of a different function would also work. We have not
+been able to find a way to do this within the Tor (sub)protocol specs or
+the control port spec.
+
+Any ideas, suggestions, or criticisms would be greatly appreciated.
+
+Thanks,
+
+Alex Mages
+
+[Attachment #5 (text/html)]
+
+&lt;div dir="ltr"&gt;&lt;span \
+id="gmail-docs-internal-guid-dca2abfe-7fff-0dca-5430-26d7299bab48"&gt;&lt;p \
+style="line-height:1.38;margin-top:0pt;margin-bottom:0pt"&gt;&lt;span \
+style="background-color:transparent;color:rgb(0,0,0);font-family:Arial;white-space:pre-wrap"&gt;Hello \
+Tor-Dev,&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;br&gt;&lt;p dir="ltr" \
+style="line-height:1.38;margin-top:0pt;margin-bottom:0pt"&gt;&lt;span \
+style="font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-variant-nu \
+meric:normal;font-variant-east-asian:normal;vertical-align:baseline;white-space:pre-wrap"&gt;My \
+name is Alex Mages, and I have been doing pluggable transport research with Eugene \
+Vasserman (CC) at Kansas State University.&lt;/span&gt;&lt;/p&gt;&lt;br&gt;&lt;p dir="ltr" \
+style="line-height:1.38;margin-top:0pt;margin-bottom:0pt"&gt;&lt;span \
+style="font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-variant-nu \
+meric:normal;font-variant-east-asian:normal;vertical-align:baseline;white-space:pre-wrap"&gt;Right \
+now we're exploring latency-based attacks but are having trouble achieving a \
+particular goal: a way to "ping" an arbitrary node in a client's already-built \
+("live") circuit. One-way timing is ideal but round trip time would suffice. We can \
+glean this information during circuit construction, but what about a "live" circuit? \
+Ideally, this would be a periodic thing Tor already keeps track of, but as an \
+on-demand or as a byproduct/side-effect of a different function would also work. We \
+have not been able to find a way to do this within the Tor (sub)protocol specs or the \
+control port spec.&lt;/span&gt;&lt;/p&gt;&lt;br&gt;&lt;p dir="ltr" \
+style="line-height:1.38;margin-top:0pt;margin-bottom:0pt"&gt;&lt;span \
+style="font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-variant-nu \
+meric:normal;font-variant-east-asian:normal;vertical-align:baseline;white-space:pre-wrap"&gt;Any \
+ideas, suggestions, or criticisms would be greatly appreciated.&lt;/span&gt;&lt;/p&gt;&lt;br&gt;&lt;p \
+dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt"&gt;&lt;span \
+style="font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-variant-nu \
+meric:normal;font-variant-east-asian:normal;vertical-align:baseline;white-space:pre-wrap"&gt;Thanks,&lt;/span&gt;&lt;/p&gt;&lt;p \
+dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt"&gt;&lt;span \
+style="font-family:Arial;color:rgb(0,0,0);background-color:transparent;font-variant-nu \
+meric:normal;font-variant-east-asian:normal;vertical-align:baseline;white-space:pre-wrap"&gt;Alex \
+Mages&lt;/span&gt;&lt;/p&gt;&lt;/span&gt;&lt;/div&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220407014106</emailId><senderName>Holmes Wilson</senderName><senderEmail>h@zbay.llc</senderEmail><timestampReceived>2022-04-07 01:41:06-0400</timestampReceived><subject>Re: [tor-dev] Interoperation with libp2p</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+One thing I'm excited about for libp2p/tor is Arti.
+
+It seems like Arti, when it's ready, will make it much easier to build a
+fully functional and audited Tor client into a libp2p transport.
+
+On Sun, Mar 20, 2022, 4:23 PM Jorropo &lt;jorropo.pgm@gmail.com&gt; wrote:
+
+&gt; Hey, I work for protocol labs (however not in the libp2p team) and I am a
+&gt; go-libp2p contributor.
+&gt;
+&gt; &gt; Thinking out loud: NAT traversal can use a rendezvous node, hidden
+&gt; services are an intriguing option
+&gt;
+&gt; Yes there have been people who already thought that however, tor doesn't
+&gt; need to do anything.
+&gt;
+&gt; I've worked on https://github.com/berty/go-libp2p-tor-transport once (PoC
+&gt; leaks IPs with DNS requests, no audit, TLDR don't use it).
+&gt;
+&gt; &gt; This first is to be able to advertise libp2p network in the directory, a
+&gt; 16bit network ID would be sufficient(where about 16 networks could be
+&gt; advertised).
+&gt; &gt; The second is to be able to send tor frames that unwrap to libp2p frames
+&gt; once they reach a node advertising being part of a libp2p network or
+&gt; networks(by way of using masking bits). I feel the second could be
+&gt; accomplished with hidden service, but it feels more natural to want an RPC.
+&gt;
+&gt; If I understand correctly you want for tor clients to be able to dial
+&gt; libp2p clients because something would advertise and relay libp2p endpoints
+&gt; in tor's directory ?
+&gt;
+&gt; That sounds overly complicated and pretty much useless. I mean that looks
+&gt; cool but if libp2p wants to use tor it can just use tor like anyone else
+&gt; does (see my transport above), each libp2p node that wants to use tor just
+&gt; run a tor client, connect to the tor network and register itself in the
+&gt; directory, then advertise the tor hash in libp2p's DHT, to me this is a way
+&gt; better solution because that doesn't make libp2p special, everything works
+&gt; as they are supposed to and keep development efforts to a healthy low.
+&gt;
+&gt; &gt; IPFS might still be inferior to Tahoe LAFS in real terms, especially due
+&gt; to lacking erasure coding.
+&gt;
+&gt; IPFS isn't just a filesharing network, it's a content addressed network
+&gt; (TL;DR no one owns files, it's a network where you query a hash and it
+&gt; return you the content that has that hash).
+&gt; IPFS is in philosophy way closer to bittorrent than Tahoe LAFS, Bittorent
+&gt; is also a network where you query for hash and you get content that has
+&gt; that hash and I don't belive anyone ever said that bittorent is bad because
+&gt; you can't force people to remove your content (actually music and movie
+&gt; lobby did but I don't think you would agree with them) and for me the same
+&gt; apply to IPFS.
+&gt;
+&gt; &gt; Now libp2p doing their own scheme for sending their stuff over Tor's
+&gt; existing streams makes sense.
+&gt;
+&gt; +1
+&gt;
+&gt; &gt; I'd expect libp2p to be a nightmare of downgrade attacks, given the
+&gt; amount of badly rolled stuff they must still support, like their dangerous
+&gt; key exchange SECIO built on the legacy curve sep256k1, but it'll go deep
+&gt; than that.
+&gt;
+&gt; It's really not, we have a fast deprecation cycle, unless you manually
+&gt; choose to add support for it in your build it's not available anymore, any
+&gt; software using libp2p right now use tls1.3, noise
+&gt; &lt;https://github.com/libp2p/specs/blob/master/noise/README.md&gt; or QUIC's
+&gt; layer (so I believe dtls).
+&gt;
+&gt; Le mar. 7 dÃ©c. 2021 Ã  19:33, Jeff Burdges &lt;burdges@gnunet.org&gt; a Ã©crit :
+&gt;
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; &gt; On 7 Dec 2021, at 19:26, Jeff Burdges &lt;burdges@gnunet.org&gt; wrote:
+&gt;&gt; &gt; I advise against allowing any libp2p cruft into tor itself though.
+&gt;&gt;
+&gt;&gt; Among the many reasons. I'd expect libp2p to be a nightmare of downgrade
+&gt;&gt; attacks, given the amount of badly rolled stuff they must still support,
+&gt;&gt; like their dangerous key exchange SECIO built on the legacy curve sep256k1,
+&gt;&gt; but it'll go deep than that.
+&gt;&gt;
+&gt;&gt; Jeff
+&gt;&gt; _______________________________________________
+&gt;&gt; tor-dev mailing list
+&gt;&gt; tor-dev@lists.torproject.org
+&gt;&gt; https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+&gt;&gt;
+&gt; _______________________________________________
+&gt; tor-dev mailing list
+&gt; tor-dev@lists.torproject.org
+&gt; https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+&gt;
+
+[Attachment #5 (text/html)]
+
+&lt;div dir="auto"&gt;One thing I'm excited about for libp2p/tor is Arti.  &lt;div \
+dir="auto"&gt;&lt;br&gt;&lt;/div&gt;&lt;div dir="auto"&gt;It seems like Arti, when it's ready, will \
+make it much easier to build a fully functional and audited Tor client into a libp2p \
+transport.  &lt;/div&gt;&lt;/div&gt;&lt;br&gt;&lt;div class="gmail_quote"&gt;&lt;div dir="ltr" \
+class="gmail_attr"&gt;On Sun, Mar 20, 2022, 4:23 PM Jorropo &lt;&lt;a \
+href="mailto:jorropo.pgm@gmail.com" target="_blank" \
+rel="noreferrer"&gt;jorropo.pgm@gmail.com&lt;/a&gt;&gt; wrote:&lt;br&gt;&lt;/div&gt;&lt;blockquote \
+class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc \
+solid;padding-left:1ex"&gt;&lt;div dir="ltr"&gt;&lt;div&gt;&lt;div \
+dir="ltr"&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;Hey, I work for protocol labs (however not in the \
+libp2p team) and I am a go-libp2p contributor.&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&gt;  \
+Thinking out loud: NAT traversal can use a rendezvous node, hidden services are an \
+intriguing option
+
+&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Yes there have been people who already thought that however, tor \
+doesn't need to do anything.&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;I've worked on &lt;a \
+href="https://github.com/berty/go-libp2p-tor-transport" rel="noreferrer noreferrer" \
+target="_blank"&gt;https://github.com/berty/go-libp2p-tor-transport&lt;/a&gt; once (PoC leaks \
+IPs with DNS requests, no audit, TLDR don't use it).&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&gt; \
+  This first is to be able to advertise libp2p network in the directory, a 16bit \
+network ID would be sufficient(where about 16 networks could be advertised).  
+
+&lt;br&gt;&gt; 
+ The second is to be able to send tor frames that unwrap to libp2p frames once they \
+reach a node advertising being part of a libp2p network or networks(by way of using \
+masking bits).  I feel the second could be accomplished with hidden service, but it \
+feels more natural to want an RPC.&lt;br&gt;&lt;br&gt;&lt;/div&gt;If I understand correctly you want \
+for tor clients to be able to dial libp2p clients because something would advertise \
+and relay libp2p endpoints in tor's directory ?&lt;br&gt;&lt;br&gt;&lt;/div&gt;That sounds overly \
+complicated and pretty much useless. I mean that looks cool but if libp2p wants to \
+use tor it can just use tor like anyone else does (see my transport above), each \
+libp2p node that wants to use tor just run a tor client, connect to the tor network \
+and register itself in the directory, then advertise the tor hash in libp2p's \
+DHT, to me this is a way better solution because that doesn't make libp2p \
+special, everything works as they are supposed to and keep development efforts to a \
+healthy low.&lt;br&gt;&lt;br&gt;&gt; IPFS might still be inferior to Tahoe LAFS in real terms, \
+especially due to lacking erasure coding.&lt;br&gt;&lt;br&gt;&lt;/div&gt;IPFS isn't just a \
+filesharing network, it's a content addressed network (TL;DR no one owns files, \
+it's a network where you query a hash and it return you the content that has that \
+hash).&lt;br&gt;&lt;/div&gt;IPFS is in philosophy way closer to bittorrent than Tahoe LAFS, \
+Bittorent is also a network where you query for hash and you get content that has \
+that hash and I don't belive anyone ever said that bittorent is bad because you \
+can't force people to remove your content (actually music and movie lobby did but \
+I don't think you would agree with them) and for me the same apply to \
+IPFS.&lt;br&gt;&lt;/div&gt;&lt;br&gt;&gt;  Now libp2p doing their own scheme for sending their stuff \
+over Tor's existing streams makes sense.&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+1&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&gt;  \
+I'd expect libp2p to be a nightmare of downgrade attacks, given the  amount of badly \
+rolled stuff they must still support, like their  dangerous key exchange SECIO built \
+on the legacy curve sep256k1, but  it'll go deep than that.&lt;br&gt;&lt;br&gt;&lt;/div&gt;It's \
+really not, we have a fast deprecation cycle, unless you manually choose to add \
+support for it in your build it's not available anymore, any software using \
+libp2p right now use tls1.3, &lt;a \
+href="https://github.com/libp2p/specs/blob/master/noise/README.md" rel="noreferrer \
+noreferrer" target="_blank"&gt;noise&lt;/a&gt; or QUIC's layer (so I believe \
+dtls).&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;div class="gmail_quote"&gt;&lt;div dir="ltr" class="gmail_attr"&gt;Le  \
+mar. 7 dÃ©c. 2021 Ã   19:33, Jeff Burdges &lt;&lt;a href="mailto:burdges@gnunet.org" \
+rel="noreferrer noreferrer" target="_blank"&gt;burdges@gnunet.org&lt;/a&gt;&gt; a Ã©crit  \
+:&lt;br&gt;&lt;/div&gt;&lt;blockquote class="gmail_quote" style="margin:0px 0px 0px \
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"&gt;&lt;br&gt; &lt;br&gt;
+&gt; On 7 Dec 2021, at 19:26, Jeff Burdges &lt;&lt;a href="mailto:burdges@gnunet.org" \
+rel="noreferrer noreferrer" target="_blank"&gt;burdges@gnunet.org&lt;/a&gt;&gt; wrote:&lt;br&gt; \
+&gt; I advise against allowing any libp2p cruft into tor itself though.&lt;br&gt; &lt;br&gt;
+Among the many reasons. I'd expect libp2p to be a nightmare of downgrade attacks, \
+given the amount of badly rolled stuff they must still support, like their dangerous \
+key exchange SECIO built on the legacy curve sep256k1, but it'll go deep than \
+that.&lt;br&gt; &lt;br&gt;
+Jeff&lt;br&gt;
+_______________________________________________&lt;br&gt;
+tor-dev mailing list&lt;br&gt;
+&lt;a href="mailto:tor-dev@lists.torproject.org" rel="noreferrer noreferrer" \
+target="_blank"&gt;tor-dev@lists.torproject.org&lt;/a&gt;&lt;br&gt; &lt;a \
+href="https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev" rel="noreferrer \
+noreferrer noreferrer" \
+target="_blank"&gt;https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev&lt;/a&gt;&lt;br&gt; \
+&lt;/blockquote&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt; _______________________________________________&lt;br&gt;
+tor-dev mailing list&lt;br&gt;
+&lt;a href="mailto:tor-dev@lists.torproject.org" rel="noreferrer noreferrer" \
+target="_blank"&gt;tor-dev@lists.torproject.org&lt;/a&gt;&lt;br&gt; &lt;a \
+href="https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev" rel="noreferrer \
+noreferrer noreferrer" \
+target="_blank"&gt;https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev&lt;/a&gt;&lt;br&gt; \
+&lt;/blockquote&gt;&lt;/div&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220209174817</emailId><senderName>Georg Koppen</senderName><senderEmail>gk@torproject.org</senderEmail><timestampReceived>2022-02-09 17:48:17-0400</timestampReceived><subject>[tor-dev] onbasca - the next-generation bandwidth scanner</subject><body>
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+[Attachment #2 (multipart/mixed)]
+
+[Attachment #4 (text/plain)]
+
+Hello everyone!
+
+As many of you know we have been working on a simple bandwidth scanner 
+(sbws) over the last years to deal with the old and unmaintained Torflow 
+code on our bandwidth authorities. We learned a lot during that process, 
+especially after we started to replace Torflow with the new sbws code on 
+bandwidth authorities (today sbws is powering a majority of them, yay!).
+
+We realized that we needed to improve the robustness and testability of 
+the code significantly, in particular as we want to build exciting 
+features like loadbalancing capability on top of it and decided it would 
+be easier to do so in a new tool: welcome onbasca. Onbasca takes the 
+best out of sbws and makes the code easier to test and more robust for 
+future improvements by deploying a database management system where we 
+previously dealt with JSON files only.[1]
+
+The code repository lives in our network-health group[2] and is open for 
+contributions.
+
+Get in touch in case you are interested, everyone is welcome!
+
+Georg
+
+[1] For a more detailed overview over the bandwidth scanner history, 
+design issues we encountered in sbws, and decisions we made, see: 
+https://tpo.pages.torproject.net/network-health/onbasca/history.html.
+[2] https://gitlab.torproject.org/tpo/network-health/onbasca
+
+["OpenPGP_signature.asc" (application/pgp-signature)]
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+--===============5597490798841586204==--
+
+</body></email><email><emailId>20220314164413</emailId><senderName>Nick Mathewson</senderName><senderEmail>nickm@torproject.org</senderEmail><timestampReceived>2022-03-14 16:44:13-0400</timestampReceived><subject>[tor-dev] Proposal 338: Use an 8-byte handshake in NETINFO cells</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+```
+Filename: 338-netinfo-y2038.md
+Title: Use an 8-byte timestamp in NETINFO cells
+Author: Nick Mathewson
+Created: 2022-03-14
+Status: Open
+```
+
+# Introduction
+
+Currently Tor relays use a 4-byte timestamp (in seconds since the Unix
+epoch) in their NETINFO cells.  Notoriously, such a timestamp will
+overflow on 19 January 2038.
+
+Let's get ahead of the problem and squash this issue now, by expanding
+the timestamp to 8 bytes. (8 bytes worth of seconds will be long enough
+to outlast the Earth's sun.)
+
+# Proposed change
+
+I propose adding a new link protocol version.  (The next one in
+sequence, as of this writing, is version 6.)
+
+I propose that we change the text of tor-spec section 4.5 from:
+
+```
+      TIME       (Timestamp)                     [4 bytes]
+```
+
+to
+
+```
+     TIME       (Timestamp)                     [4 or 8 bytes *]
+```
+
+and specify that this field is 4 bytes wide on link protocols 1-5, but 8
+bytes wide on link protocols 6 and beyond.
+
+# Rejected alternatives
+
+Our protocol specifies that parties MUST ignore extra data at the end of
+cells. Therefore we _could_ add additional data at the end of the
+NETINFO cell, and use that to store the high 4 bytes of the timestamp
+without having to increase the link protocol version number.  I propose
+that we don't do that: it's ugly.
+
+As another alternative, we could declare that parties must interpret the
+timestamp such that its high 4 bytes place it as close as possible to
+their current time.  I'm rejecting this kludge because it would give
+confusing results in the too-common case where clients have their clocks
+mis-set to Jan 1, 1970.
+
+# Impacts on our implementations
+
+Arti won't be able to implement this change until it supports connection
+padding (as required by link protocol 5), which is currently planned for
+the next Arti milestone (1.0.0, scheduled for this fall).
+
+If we think that that's a problem, or if we want to have support for
+implementations without connection padding in the future, we should
+reconsider this plan so that connection padding support is independent
+from 8-byte timestamps.
+
+# Other timestamps in Tor
+
+I've done a cursory search of our protocols to see if we have any other
+instances of the Y2038 problem.
+
+There is a 4-byte timestamp in `cert-spec`, but that one is an unsigned
+integer counting _hours_ since the Unix epoch, which will keep it from
+wrapping around till 478756 C.E. (The rollover date of "10136 CE"
+reported in `cert-spec` is wrong, and seems to be based on the
+misapprehension that the counter is in *minutes*.)
+
+The v2 onion service protocol has 4-byte timestamps, but it is
+thoroughly deprecated and unsupported.
+
+I couldn't find any other 4-byte timestamps, but that is no guarantee:
+others should look for them too.
+
+[Attachment #5 (text/html)]
+
+&lt;div dir="ltr"&gt;```&lt;br&gt;Filename: 338-netinfo-y2038.md&lt;br&gt;Title: Use an 8-byte \
+timestamp in NETINFO cells&lt;br&gt;Author: Nick Mathewson&lt;br&gt;Created: \
+2022-03-14&lt;br&gt;Status: Open&lt;br&gt;```&lt;br&gt;&lt;br&gt;# Introduction&lt;br&gt;&lt;br&gt;Currently Tor relays \
+use a 4-byte timestamp (in seconds since the Unix&lt;br&gt;epoch) in their NETINFO cells.   \
+Notoriously, such a timestamp will&lt;br&gt;overflow on 19 January 2038.&lt;br&gt;&lt;br&gt;Let's \
+get ahead of the problem and squash this issue now, by expanding&lt;br&gt;the timestamp to \
+8 bytes. (8 bytes worth of seconds will be long enough&lt;br&gt;to outlast the Earth's \
+sun.)&lt;br&gt;&lt;br&gt;# Proposed change&lt;br&gt;&lt;br&gt;I propose adding a new link protocol version.   \
+(The next one in&lt;br&gt;sequence, as of this writing, is version 6.)&lt;br&gt;&lt;br&gt;I propose \
+that we change the text of tor-spec section 4.5 from:&lt;br&gt;&lt;br&gt;```&lt;br&gt;         TIME     \
+(Timestamp)                               [4 bytes]&lt;br&gt;```&lt;br&gt;&lt;br&gt;to&lt;br&gt;&lt;br&gt;```&lt;br&gt;   \
+TIME          (Timestamp)                               [4 or 8 bytes \
+*]&lt;br&gt;```&lt;br&gt;&lt;br&gt;and specify that this field is 4 bytes wide on link protocols 1-5, \
+but 8&lt;br&gt;bytes wide on link protocols 6 and beyond.&lt;br&gt;&lt;br&gt;# Rejected \
+alternatives&lt;br&gt;&lt;br&gt;Our protocol specifies that parties MUST ignore extra data at the \
+end of&lt;br&gt;cells. Therefore we _could_ add additional data at the end of \
+the&lt;br&gt;NETINFO cell, and use that to store the high 4 bytes of the \
+timestamp&lt;br&gt;without having to increase the link protocol version number.   I \
+propose&lt;br&gt;that we don't do that: it's ugly.&lt;br&gt;&lt;br&gt;As another alternative, \
+we could declare that parties must interpret the&lt;br&gt;timestamp such that its high 4 \
+bytes place it as close as possible to&lt;br&gt;their current time.   I'm rejecting \
+this kludge because it would give&lt;br&gt;confusing results in the too-common case where \
+clients have their clocks&lt;br&gt;mis-set to Jan 1, 1970.&lt;br&gt;&lt;br&gt;# Impacts on our \
+implementations&lt;br&gt;&lt;br&gt;Arti won't be able to implement this change until it \
+supports connection&lt;br&gt;padding (as required by link protocol 5), which is currently \
+planned for&lt;br&gt;the next Arti milestone (1.0.0, scheduled for this fall).&lt;br&gt;&lt;br&gt;If we \
+think that that's a problem, or if we want to have support for&lt;br&gt;implementations \
+without connection padding in the future, we should&lt;br&gt;reconsider this plan so that \
+connection padding support is independent&lt;br&gt;from 8-byte timestamps.&lt;br&gt;&lt;br&gt;# Other \
+timestamps in Tor&lt;br&gt;&lt;br&gt;I've done a cursory search of our protocols to see if we \
+have any other&lt;br&gt;instances of the Y2038 problem.&lt;br&gt;&lt;br&gt;There is a 4-byte timestamp \
+in `cert-spec`, but that one is an unsigned&lt;br&gt;integer counting _hours_ since the \
+Unix epoch, which will keep it from&lt;br&gt;wrapping around till 478756 C.E. (The rollover \
+date of "10136 CE"&lt;br&gt;reported in `cert-spec` is wrong, and seems to be \
+based on the&lt;br&gt;misapprehension that the counter is in *minutes*.)&lt;br&gt;&lt;br&gt;The v2 \
+onion service protocol has 4-byte timestamps, but it is&lt;br&gt;thoroughly deprecated and \
+unsupported.&lt;br&gt;&lt;br&gt;I couldn't find any other 4-byte timestamps, but that is no \
+guarantee:&lt;br&gt;others should look for them too.&lt;br&gt;&lt;/div&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220417001623</emailId><senderName>David Fifield</senderName><senderEmail>david@bamsoftware.com</senderEmail><timestampReceived>2022-04-17 00:16:23-0400</timestampReceived><subject>[tor-dev] Metrics: Estimating fraction of reported directory-request statistics</subject><body>
+
+I am trying to reproduce the "frac" computation from the Reproducible
+Metrics instructions:
+https://metrics.torproject.org/reproducible-metrics.html#relay-users
+Which is also Section 3 in the tech report on counting bridge users:
+https://research.torproject.org/techreports/counting-daily-bridge-users-2012-10-24.pdf#page=4
+
+
+       h(R^H) * n(H) + h(H) * n(R\H)
+frac = -----------------------------
+                h(H) * n(N)
+
+My minor goal is to reproduce the "frac" column from the Metrics web
+site (which I assume is the same as the frac above, expressed as a
+percentage):
+
+https://metrics.torproject.org/userstats-relay-country.csv?start=2022-04-01&amp;end=2022-04-08&amp;country=all&amp;events=off
+ date,country,users,lower,upper,frac
+2022-04-01,,2262557,,,92
+2022-04-02,,2181639,,,92
+2022-04-03,,2179544,,,93
+2022-04-04,,2350360,,,93
+2022-04-05,,2388772,,,93
+2022-04-06,,2356170,,,93
+2022-04-07,,2323184,,,93
+2022-04-08,,2310170,,,91
+
+I'm having trouble with the computation of n(R\H) and h(R∧H). I
+understand that R is the subset of relays that report directory request
+counts (i.e. that have dirreq-stats-end in their extra-info descriptors)
+and H is the subset of relays that report directory request byte counts
+(i.e. that have dirreq-write-history in their extra-info descriptors).
+R and H partially overlap: there are relays that are in R but not H,
+others that are in H but not R, and others that are in both.
+
+The computations depend on some values that are directly from
+descriptors:
+n(R) = sum of hours, for relays with directory request counts
+n(H) = sum of hours, for relays with directory write histories
+h(H) = sum of written bytes, for relays with directory write histories
+
+&gt; Compute n(R\H) as the number of hours for which responses have been
+&gt; reported but no written directory bytes. This fraction is determined
+&gt; by summing up all interval lengths and then subtracting the written
+&gt; directory bytes interval length from the directory response interval
+&gt; length. Negative results are discarded.
+
+I interpret this to mean: add up all the dirrect-stats-end intervals
+(this is n(R)), add up all the dirreq-write-history intervals
+(this is n(H)), and compute n(R\H) as n(R) − n(H). This seems wrong: it
+would only be true when H is a subset of R.
+
+&gt; Compute h(R∧H) as the number of written directory bytes for the
+&gt; fraction of time when a server was reporting both written directory
+&gt; bytes and directory responses. As above, this fraction is determined
+&gt; by first summing up all interval lengths and then computing the
+&gt; minimum of both sums divided by the sum of reported written directory
+&gt; bytes.
+
+This seems to be saying to compute h(R∧H) (a count of bytes) as
+min(n(R), n(H)) / h(H). This is dimensionally wrong: the units are
+hours / bytes. What would be more natural to me is
+min(n(R), n(H)) / max(n(R), n(H)) × h(H); i.e., divide the smaller of
+n(R) and n(R) by the larger, then multiply this ratio by the observable
+byte count. But this, too, only works when H is a subset of R.
+
+Where is this computation done in the metrics code? I would like to
+refer to it, but I could not find it.
+
+Using the formulas and assumptions above, here's my attempt at computing
+recent "frac" values:
+
+date       `n(N)`  `n(H)`   `h(H)`  `n(R)` `n(R\H)` `h(R∧H)` frac
+2022-04-01 166584 177638.  2.24e13 125491.       0   1.59e13 0.753
+2022-04-02 166951 177466.  2.18e13 125686.       0   1.54e13 0.753
+2022-04-03 167100 177718.  2.27e13 127008.       0   1.62e13 0.760
+2022-04-04 166970 177559.  2.43e13 126412.       0   1.73e13 0.757
+2022-04-05 166729 177585.  2.44e13 125389.       0   1.72e13 0.752
+2022-04-06 166832 177470.  2.39e13 127077.       0   1.71e13 0.762
+2022-04-07 166532 177210.  2.48e13 127815.       0   1.79e13 0.768
+2022-04-08 167695 176879.  2.52e13 127697.       0   1.82e13 0.761
+
+The "frac" column does not match the CSV. Also notice that n(N) &lt; n(H),
+which should be impossible because H is supposed to be a subset of N
+(N is the set of all relays). But this is what I get when I estimate
+n(N) from a network-status-consensus-3 and n(H) from extra-info
+documents. Also notice that n(R) &lt; n(H), which means that H cannot be a
+subset of R, contrary to the observations above.
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220418214529</emailId><senderName>David Fifield</senderName><senderEmail>david@bamsoftware.com</senderEmail><timestampReceived>2022-04-18 21:45:29-0400</timestampReceived><subject>Re: [tor-dev] Metrics: Estimating fraction of reported directory-request statistics</subject><body>
+
+On Sat, Apr 16, 2022 at 06:16:23PM -0600, David Fifield wrote:
+&gt; I am trying to reproduce the "frac" computation from the Reproducible
+&gt; Metrics instructions:
+&gt; https://metrics.torproject.org/reproducible-metrics.html#relay-users
+&gt; Which is also Section 3 in the tech report on counting bridge users:
+&gt; https://research.torproject.org/techreports/counting-daily-bridge-users-2012-10-24.pdf#page=4
+&gt;  
+&gt; h(R^H) * n(H) + h(H) * n(R\H)
+&gt; frac = -----------------------------
+&gt; h(H) * n(N)
+&gt; 
+&gt; My minor goal is to reproduce the "frac" column from the Metrics web
+&gt; site (which I assume is the same as the frac above, expressed as a
+&gt; percentage):
+&gt; 
+&gt; https://metrics.torproject.org/userstats-relay-country.csv?start=2022-04-01&amp;end=2022-04-08&amp;country=all&amp;events=off
+&gt;  date,country,users,lower,upper,frac
+&gt; 2022-04-01,,2262557,,,92
+&gt; 2022-04-02,,2181639,,,92
+&gt; 2022-04-03,,2179544,,,93
+&gt; 2022-04-04,,2350360,,,93
+&gt; 2022-04-05,,2388772,,,93
+&gt; 2022-04-06,,2356170,,,93
+&gt; 2022-04-07,,2323184,,,93
+&gt; 2022-04-08,,2310170,,,91
+&gt; 
+&gt; I'm having trouble with the computation of n(R\H) and h(R∧H). I
+&gt; understand that R is the subset of relays that report directory request
+&gt; counts (i.e. that have dirreq-stats-end in their extra-info descriptors)
+&gt; and H is the subset of relays that report directory request byte counts
+&gt; (i.e. that have dirreq-write-history in their extra-info descriptors).
+&gt; R and H partially overlap: there are relays that are in R but not H,
+&gt; others that are in H but not R, and others that are in both.
+&gt; 
+&gt; The computations depend on some values that are directly from
+&gt; descriptors:
+&gt; n(R) = sum of hours, for relays with directory request counts
+&gt; n(H) = sum of hours, for relays with directory write histories
+&gt; h(H) = sum of written bytes, for relays with directory write histories
+&gt; 
+&gt; ...
+&gt; 
+&gt; Using the formulas and assumptions above, here's my attempt at computing
+&gt; recent "frac" values:
+&gt; 
+&gt; date       `n(N)`  `n(H)`   `h(H)`  `n(R)` `n(R\H)` `h(R∧H)` frac
+&gt; 2022-04-01 166584 177638.  2.24e13 125491.       0   1.59e13 0.753
+&gt; 2022-04-02 166951 177466.  2.18e13 125686.       0   1.54e13 0.753
+&gt; 2022-04-03 167100 177718.  2.27e13 127008.       0   1.62e13 0.760
+&gt; 2022-04-04 166970 177559.  2.43e13 126412.       0   1.73e13 0.757
+&gt; 2022-04-05 166729 177585.  2.44e13 125389.       0   1.72e13 0.752
+&gt; 2022-04-06 166832 177470.  2.39e13 127077.       0   1.71e13 0.762
+&gt; 2022-04-07 166532 177210.  2.48e13 127815.       0   1.79e13 0.768
+&gt; 2022-04-08 167695 176879.  2.52e13 127697.       0   1.82e13 0.761
+
+I tried computing n(R\H) and h(R∧H) from the definitions, rather than by
+using the formulas in the Reproducible Metrics guide. This achieves an
+almost matching "frac" column, though it is still about 1% too high.
+
+date       `n(N)`  `n(H)`   `h(H)`  `n(R)` `n(R\H)` `h(R∧H)` frac
+2022-04-01 166584 177638.  2.24e13 125491.     90.9  1.96e13 0.930
+2022-04-02 166951 177466.  2.18e13 125686.    181.   1.92e13 0.937
+2022-04-03 167100 177718.  2.27e13 127008.    154.   2.00e13 0.942
+2022-04-04 166970 177559.  2.43e13 126412.    134.   2.14e13 0.936
+2022-04-05 166729 177585.  2.44e13 125389.     94.6  2.15e13 0.938
+2022-04-06 166832 177470.  2.39e13 127077.    162.   2.11e13 0.940
+2022-04-07 166532 177210.  2.48e13 127815.    102.   2.18e13 0.938
+2022-04-08 167695 176879.  2.52e13 127697.    158.   2.21e13 0.926
+
+I got this by taking an explicit set intersection between the R and H
+time intervals. So, for example, if the intervals making up n(R) and
+n(H) are (with their lengths):
+
+n(R)    [---10---]  [----12----]          [---9---]
+n(H)         [----12----]    [------16------]      [--7--]
+
+Then the intersection n(R∧H) is:
+
+n(R∧H)       [-5-]  [-5-]    [3]          [3]
+
+h(R∧H) comes pro-rating the n(H) intervals, each of which is associated
+with an h(H) byte count). Suppose the [----12----] interval represents
+1000 bytes. Then each of the [-5-] intervals that result from it in the
+intersection are worth 5/12 × 1000 = 417 bytes.
+
+We get n(R\H) from n(R) − n(R∧H):
+
+n(R\H)  [-5-]            [4-]                [-6--]
+
+This seems overall more correct, though it required a more elaborate
+computation than the Reproducible Metrics guide prescribes. I'm still
+not sure why it does not match exactly, and I would still appreciate a
+pointer to where Tor Metrics does the "frac" computation.
+
+I was initially interested in this for the purpose of better estimating
+the number of Snowflake users. But now I've decided "frac" is not useful
+for that purpose: since there is only one bridge we care about, it does
+not make sense to adjust the numbers to account for other bridges that
+may not report the same set of statistics. I don't plan to take this
+investigation any further for the time being, but here is source code to
+reproduce the above tables. You will need:
+https://collector.torproject.org/archive/relay-descriptors/consensuses/consensuses-2022-04.tar.xz
+ https://collector.torproject.org/archive/relay-descriptors/extra-infos/extra-infos-2022-04.tar.xz
+
+
+./relay_uptime.py consensuses-2022-04.tar.xz &gt; relay_uptime.csv
+./relay_dir.py extra-infos-2022-04.tar.xz &gt; relay_dir.csv
+./frac.py relay_uptime.csv relay_dir.csv
+
+
+["relay_uptime.py" (text/x-python)]
+
+#!/usr/bin/env python3
+
+import getopt
+import multiprocessing
+import sys
+
+import stem
+import stem.descriptor
+import stem.descriptor.reader
+import stem.descriptor.networkstatus
+
+import numpy as np
+import pandas as pd
+
+import common
+
+def process_network_status(network_status):
+    assert type(network_status) == \
+stem.descriptor.networkstatus.NetworkStatusDocumentV3, type(network_status)
+
+    data = {
+        "date": [],
+        "relay_uptime_hours": [],
+    }
+    # We assume the intervals seen by this function are non-overlapping.
+    num_running = sum(stem.Flag.RUNNING in router.flags for router in \
+network_status.routers.values())  for (date, frac_int, _) in \
+common.segment_datetime_interval(network_status.valid_after, \
+network_status.fresh_until):  data["date"].append(date)
+        data["relay_uptime_hours"].append(num_running * frac_int)
+    return pd.DataFrame(data)
+
+def process_file(f):
+    with stem.descriptor.reader.DescriptorReader([f], document_handler = \
+stem.descriptor.DocumentHandler.DOCUMENT) as reader:  return (
+            pd.concat(process_network_status(desc) for desc in reader)
+                .groupby("date").sum().reset_index()
+        )
+
+if __name__ == "__main__":
+    _, inputs = getopt.gnu_getopt(sys.argv[1:], "")
+    with multiprocessing.Pool(common.NUM_PROCESSES) as pool:
+        (
+            pd.concat(pool.imap_unordered(process_file, inputs))
+                .groupby("date").sum().reset_index()
+        ).to_csv(sys.stdout, index = False, float_format = "%.2f", columns = [
+            "date",
+            "relay_uptime_hours",
+        ])
+
+
+["relay_uptime.csv" (text/csv)]
+
+date,relay_uptime_hours
+2022-04-01,166584.00
+2022-04-02,166951.00
+2022-04-03,167100.00
+2022-04-04,166970.00
+2022-04-05,166729.00
+2022-04-06,166832.00
+2022-04-07,166532.00
+2022-04-08,167695.00
+2022-04-09,167592.00
+2022-04-10,167801.00
+2022-04-11,167098.00
+2022-04-12,166777.00
+2022-04-13,166411.00
+2022-04-14,27594.00
+
+["relay_dir.py" (text/x-python)]
+
+#!/usr/bin/env python3
+
+import datetime
+import getopt
+import multiprocessing
+import sys
+
+import stem
+import stem.descriptor
+import stem.descriptor.reader
+import stem.descriptor.networkstatus
+import stem.descriptor.extrainfo_descriptor
+
+import numpy as np
+import pandas as pd
+
+import common
+
+def intersect_intervals(a, b):
+    a = list(sorted(a))
+    b = list(sorted(b))
+    result = []
+    i = 0
+    j = 0
+    while i &lt; len(a) and j &lt; len(b):
+        if a[i][0] &lt; b[j][1] and a[i][1] &gt; b[j][0]:
+            result.append((max(a[i][0], b[j][0]), min(a[i][1], b[j][1]), i, j))
+        # Advance whichever sequence of intervals currently has the leftmost
+        # right edge.
+        if a[i][1] &lt; b[j][1]:
+            i += 1
+        else:
+            j += 1
+    return result
+
+def process_relay_extra_infos(reader):
+    dir_write_history = {
+        "published": [],
+        "fingerprint": [],
+        "nickname": [],
+        "begin": [],
+        "end": [],
+        "bytes": [],
+    }
+    dir_stats = {
+        "published": [],
+        "fingerprint": [],
+        "nickname": [],
+        "begin": [],
+        "end": [],
+        "resp_ok": [],
+    }
+    for desc in reader:
+        assert type(desc) == \
+stem.descriptor.extrainfo_descriptor.RelayExtraInfoDescriptor, type(desc)
+
+        if desc.dir_write_history_end is not None \
+            and desc.published - desc.dir_write_history_end &lt; common.END_THRESHOLD \
+            and datetime.timedelta(seconds = desc.dir_write_history_interval) &lt; \
+                common.INTERVAL_THRESHOLD:
+            # Break the write history into separate rows, one for each interval.
+            end = desc.dir_write_history_end
+            for value in reversed(desc.dir_write_history_values):
+                begin = end - datetime.timedelta(seconds = \
+desc.dir_write_history_interval)  \
+dir_write_history["published"].append(desc.published)  \
+dir_write_history["fingerprint"].append(desc.fingerprint)  \
+dir_write_history["nickname"].append(desc.nickname)  \
+dir_write_history["begin"].append(begin)  dir_write_history["end"].append(end)
+                dir_write_history["bytes"].append(value)
+                end = begin
+
+        if desc.dir_stats_end is not None \
+            and desc.published - desc.dir_stats_end &lt; common.END_THRESHOLD \
+            and datetime.timedelta(seconds = desc.dir_stats_interval) &lt; \
+                common.INTERVAL_THRESHOLD:
+            resp_ok = \
+desc.dir_v3_responses[stem.descriptor.extrainfo_descriptor.DirResponse.OK] - 4  if \
+resp_ok &gt; 0:  dir_stats["published"].append(desc.published)
+                dir_stats["fingerprint"].append(desc.fingerprint)
+                dir_stats["nickname"].append(desc.nickname)
+                dir_stats["begin"].append(desc.dir_stats_end - \
+datetime.timedelta(seconds = desc.dir_stats_interval))  \
+dir_stats["end"].append(desc.dir_stats_end)  dir_stats["resp_ok"].append(resp_ok)
+
+    # Different descriptors for the same relay contain overlapping write
+    # histories. Keep only the most recent "published" for each "end".
+    dir_write_history = (
+        pd.DataFrame(dir_write_history)
+            .sort_values("published")
+            .groupby(["fingerprint", "nickname", "end"])
+            .last()
+            .reset_index()
+    )
+    # Do the same for directory responses, though we don't expect these to
+    # overlap.
+    dir_stats = (
+        pd.DataFrame(dir_stats)
+            .sort_values("published")
+            .groupby(["fingerprint", "nickname", "end"])
+            .last()
+            .reset_index()
+    )
+
+    # Now compute the intervals, for each relay, which are covered by *both*
+    # dir_write_history and dir_stats.
+    both = []
+    dir_write_history_grouped = dir_write_history.groupby(["fingerprint", \
+"nickname"])  dir_stats_grouped = dir_stats.groupby(["fingerprint", "nickname"])
+    for (fingerprint, nickname), dir_write_history_group in \
+dir_write_history_grouped:  try:
+            dir_stats_group = dir_stats_grouped.get_group((fingerprint, nickname))
+        except KeyError:
+            continue
+        # Find the intersection, H∧R, of write history intervals and dir stats
+        # intervals.
+        dir_write_history_intervals = [(row.begin, row.end) for row in \
+                dir_write_history_group.itertuples()]
+        dir_stats_intervals = [(row.begin, row.end) for row in \
+                dir_stats_group.itertuples()]
+        intersection = intersect_intervals(dir_write_history_intervals, \
+dir_stats_intervals)  if not intersection:
+            continue
+        # Each tuple returned by intersect_intervals contains:
+        #   [0]: beginning of interval in intersection
+        #   [1]: end of interval in intersection
+        #   [2]: index in dir_write_history_intervals that contributes to this \
+                interval
+        #   [3]: index in dir_stats_intervals that contributes to this interval
+        # We make a joint dataframe that maps the intersection intervals
+        # (ibegin = [0], iend = [1]) to their [2] corresponding intervals in
+        # dir_write_history_intervals, along with their byte counts. We use this
+        # to scale the byte counts for the intersection intervals.
+        joint = pd.concat([
+            pd.DataFrame({
+                "ibegin": [x[0] for x in intersection],
+                "iend": [x[1] for x in intersection],
+            }),
+            dir_write_history_group.iloc[[x[2] for x in intersection]][["begin", \
+"end", "bytes"]].reset_index(drop = True),  ], axis = 1)
+        both.append(pd.DataFrame({
+            "fingerprint": fingerprint,
+            "nickname": nickname,
+            "begin": joint["ibegin"],
+            "end": joint["iend"],
+            "bytes": joint["bytes"] * (pd.TimedeltaIndex(joint["iend"] - \
+joint["ibegin"]).to_pytimedelta() / pd.TimedeltaIndex(joint["end"] - \
+joint["begin"]).to_pytimedelta()),  }))
+    both = pd.concat(both)
+
+    # Sum by date over all relays.
+    dir_write_history_bydate = {
+        "date": [],
+        "relay_dir_write_hours": [],
+        "relay_dir_write_bytes": [],
+    }
+    dir_stats_bydate = {
+        "date": [],
+        "relay_dir_stats_hours": [],
+        "relay_dir_stats_resp_ok": [],
+    }
+    both_bydate = {
+        "date": [],
+        "both_hours": [],
+        "both_bytes": [],
+    }
+    for row in dir_write_history.itertuples():
+        for (date, frac_int, _) in common.segment_datetime_interval(row.begin, \
+row.end):  dir_write_history_bydate["date"].append(date)
+            dir_write_history_bydate["relay_dir_write_hours"].append((row.end - \
+                row.begin) / datetime.timedelta(hours = 1) * frac_int)
+            dir_write_history_bydate["relay_dir_write_bytes"].append(row.bytes * \
+frac_int)  for row in dir_stats.itertuples():
+        for (date, frac_int, _) in common.segment_datetime_interval(row.begin, \
+row.end):  dir_stats_bydate["date"].append(date)
+            dir_stats_bydate["relay_dir_stats_hours"].append((row.end - row.begin) / \
+                datetime.timedelta(hours = 1) * frac_int)
+            dir_stats_bydate["relay_dir_stats_resp_ok"].append(row.resp_ok * \
+frac_int)  for row in both.itertuples():
+        for (date, frac_int, _) in common.segment_datetime_interval(row.begin, \
+row.end):  both_bydate["date"].append(date)
+            both_bydate["both_hours"].append((row.end - row.begin) / \
+datetime.timedelta(hours = 1) * frac_int)  both_bydate["both_bytes"].append(row.bytes \
+* frac_int)  dir_write_history_bydate = (
+        pd.DataFrame(dir_write_history_bydate)
+            .groupby("date").sum().reset_index()
+    )
+    dir_stats_bydate = (
+        pd.DataFrame(dir_stats_bydate)
+            .groupby("date").sum().reset_index()
+    )
+    both_bydate = (
+        pd.DataFrame(both_bydate)
+            .groupby("date").sum().reset_index()
+    )
+    return pd.merge(
+        pd.merge(dir_write_history_bydate, dir_stats_bydate, on = ["date"], how = \
+"outer"),  both_bydate, on = ["date"], how = "outer",
+    )
+
+def process_file(f):
+    with stem.descriptor.reader.DescriptorReader([f]) as reader:
+        return process_relay_extra_infos(reader)
+
+if __name__ == "__main__":
+    _, inputs = getopt.gnu_getopt(sys.argv[1:], "")
+    with multiprocessing.Pool(common.NUM_PROCESSES) as pool:
+        (
+            pd.concat(pool.imap_unordered(process_file, inputs))
+                .groupby("date").sum().reset_index()
+        ).to_csv(sys.stdout, index = False, float_format = "%.2f", columns = [
+            "date",
+            "relay_dir_write_hours",
+            "relay_dir_write_bytes",
+            "relay_dir_stats_hours",
+            "relay_dir_stats_resp_ok",
+            "both_hours",
+            "both_bytes",
+        ])
+
+
+["relay_dir.csv" (text/csv)]
+
+date,relay_dir_write_hours,relay_dir_write_bytes,relay_dir_stats_hours,relay_dir_stats_resp_ok,both_hours,both_bytes
+ 2022-03-20,82.91,1736713782.47,0.00,0.00,0.00,0.00
+2022-03-21,421.90,6437321840.55,0.00,0.00,0.00,0.00
+2022-03-22,970.53,8279352647.53,0.00,0.00,0.00,0.00
+2022-03-23,1579.50,13942016383.53,0.00,0.00,0.00,0.00
+2022-03-24,2558.18,16947613780.65,0.00,0.00,0.00,0.00
+2022-03-25,5265.61,31445067926.07,0.00,0.00,0.00,0.00
+2022-03-26,49073.66,5239496653355.36,0.00,0.00,0.00,0.00
+2022-03-27,158442.15,20979790952547.85,0.00,0.00,0.00,0.00
+2022-03-28,172902.40,23790345564006.61,0.00,0.00,0.00,0.00
+2022-03-29,175311.71,23872774104777.91,0.00,0.00,0.00,0.00
+2022-03-30,176491.41,24071621689387.25,27273.67,5126398.60,27235.07,5104977982724.75
+2022-03-31,177534.60,23529414875973.20,109920.94,19643266.92,109835.57,18734199905639.44
+ 2022-04-01,177638.09,22439702932089.59,125491.45,21001365.60,125400.58,19561513440430.52
+ 2022-04-02,177466.08,21760791688019.58,125685.84,20363465.06,125504.89,19162123059384.01
+ 2022-04-03,177717.51,22650212443851.81,127008.39,20455819.55,126854.33,20044713521642.67
+ 2022-04-04,177559.24,24329589093181.60,126412.11,21929666.19,126277.69,21407202944760.75
+ 2022-04-05,177585.25,24395314853928.89,125388.58,22312434.77,125294.95,21462939747109.41
+ 2022-04-06,177470.40,23918457487092.34,127077.40,22067464.65,126915.31,21102579463539.30
+ 2022-04-07,177210.36,24768051969233.11,127814.89,21760745.43,127713.06,21811098715725.13
+ 2022-04-08,176879.16,25187290225432.38,127697.28,21309827.80,127539.29,22087431800503.34
+ 2022-04-09,176262.96,23593325365455.48,126498.62,20655939.77,126337.55,20627973646625.13
+ 2022-04-10,175357.06,22622047200557.93,125273.01,20220477.13,125078.36,20043119503663.02
+ 2022-04-11,173470.74,25317282391208.27,125630.57,21293321.28,125232.90,22026316726563.52
+ 2022-04-12,162104.32,24604704321104.66,121130.54,20856377.21,116487.69,20913938468593.55
+ 2022-04-13,64924.25,9802425975580.58,50547.50,8701435.60,33860.77,6183056411127.21
+2022-04-14,192.04,30127318662.96,266.81,39914.44,49.49,3116201356.98
+
+
+["frac.py" (text/x-python)]
+
+#!/usr/bin/env python3
+
+import getopt
+import sys
+
+import numpy as np
+import pandas as pd
+
+if __name__ == "__main__":
+    _, (relay_uptime_csv_filename, relay_dir_csv_filename) = getopt.gnu_getopt(sys.argv[1:], "")
+    relay_uptime = pd.read_csv(relay_uptime_csv_filename)
+    relay_dir = pd.read_csv(relay_dir_csv_filename)
+    j = (
+        pd.merge(relay_uptime, relay_dir, on = "date", how = "inner")
+            .rename(columns = {
+                "relay_uptime_hours": "n(N)",
+                "relay_dir_write_hours": "n(H)",
+                "relay_dir_write_bytes": "h(H)",
+                "relay_dir_stats_hours": "n(R)",
+                "both_hours": "n(R∧H)",
+                "both_bytes": "h(R∧H)",
+            })
+    )
+    j["n(R\\H)"] = j["n(R)"] - j["n(R∧H)"]
+    # Uncomment these to use the formulas for n(R\H) and h(R∧H) from
+    # https://metrics.torproject.org/reproducible-metrics.html#relay-users
+    # j["n(R\\H)"] = np.maximum(0, j["n(R)"] - j["n(H)"])
+    # j["h(R∧H)"] = np.minimum(j["n(R)"], j["n(H)"]) / np.maximum(j["n(R)"], j["n(H)"]) * j["h(H)"]
+    j["frac"] = (j["h(R∧H)"] * j["n(H)"] + j["h(H)"] * j["n(R\\H)"]) / (j["h(H)"] * j["n(N)"])
+    print(j[[
+        "date",
+        "n(N)",
+        "n(H)",
+        "h(H)",
+        "n(R)",
+        "n(R∧H)",
+        "h(R∧H)",
+        "n(R\H)",
+        "frac",
+    ]])
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220419041128</emailId><senderName>David Fifield</senderName><senderEmail>david@bamsoftware.com</senderEmail><timestampReceived>2022-04-19 04:11:28-0400</timestampReceived><subject>Re: [tor-dev] Metrics: Estimating fraction of reported directory-request statistics</subject><body>
+
+On Mon, Apr 18, 2022 at 03:45:29PM -0600, David Fifield wrote:
+&gt; I was initially interested in this for the purpose of better estimating
+&gt; the number of Snowflake users. But now I've decided "frac" is not useful
+&gt; for that purpose: since there is only one bridge we care about, it does
+&gt; not make sense to adjust the numbers to account for other bridges that
+&gt; may not report the same set of statistics. I don't plan to take this
+&gt; investigation any further for the time being, but here is source code to
+&gt; reproduce the above tables. You will need:
+&gt; https://collector.torproject.org/archive/relay-descriptors/consensuses/consensuses-2022-04.tar.xz
+&gt; https://collector.torproject.org/archive/relay-descriptors/extra-infos/extra-infos-2022-04.tar.xz
+&gt; 
+&gt; ./relay_uptime.py consensuses-2022-04.tar.xz &gt; relay_uptime.csv
+&gt; ./relay_dir.py extra-infos-2022-04.tar.xz &gt; relay_dir.csv
+&gt; ./frac.py relay_uptime.csv relay_dir.csv
+
+Missed one of the source files.
+
+["common.py" (text/x-python)]
+
+import datetime
+
+NUM_PROCESSES = 4
+
+# "If the contained statistics end time is more than 1 week older than the
+# descriptor publication time in the "published" line, skip this line..."
+END_THRESHOLD = datetime.timedelta(days = 7)
+
+# "Also skip statistics with an interval length other than 1 day."
+# We set the threshold higher, because some descriptors have an interval a few
+# seconds larger than 86400.
+INTERVAL_THRESHOLD = datetime.timedelta(seconds = 90000)
+
+def datetime_floor(d):
+    return d.replace(hour = 0, minute = 0, second = 0, microsecond = 0)
+
+TIMEDELTA_1DAY = datetime.timedelta(seconds = 86400)
+def segment_datetime_interval(begin, end):
+    cur = begin
+    while cur &lt; end:
+        next = min(datetime_floor(cur + TIMEDELTA_1DAY), end)
+        delta = next - cur
+        yield (cur.date(), delta / (end - begin), delta / TIMEDELTA_1DAY)
+        cur = next
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220314191852</emailId><senderName>Jim Newsome</senderName><senderEmail>jnewsome@torproject.org</senderEmail><timestampReceived>2022-03-14 19:18:52-0400</timestampReceived><subject>Re: [tor-dev] Proposal 338: Use an 8-byte handshake in NETINFO cells</subject><body>
+
+On 3/14/22 11:44, Nick Mathewson wrote:
+
+&lt;snip&gt;
+
+ &gt; Currently Tor relays use a 4-byte timestamp (in seconds since the Unix
+ &gt; epoch) in their NETINFO cells.  Notoriously, such a timestamp will
+ &gt; overflow on 19 January 2038.
+ &gt;
+ &gt; Let's get ahead of the problem and squash this issue now, by expanding
+ &gt; the timestamp to 8 bytes. (8 bytes worth of seconds will be long enough
+ &gt; to outlast the Earth's sun.)
+
+&lt;snip&gt;
+
+With all those extra bits, would there be any value to using a more 
+granular time measure? e.g. microseconds?
+
+If not, would it be worth saving some bytes and only expanding to 5 
+bytes? (I know; it *feels* wrong, but I can't think of much real downside)
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+</body></email><email><emailId>20220314194047</emailId><senderName>Nick Mathewson</senderName><senderEmail>nickm@torproject.org</senderEmail><timestampReceived>2022-03-14 19:40:47-0400</timestampReceived><subject>Re: [tor-dev] Proposal 338: Use an 8-byte handshake in NETINFO cells</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+On Mon, Mar 14, 2022 at 3:18 PM Jim Newsome &lt;jnewsome@torproject.org&gt; wrote:
+
+&gt; On 3/14/22 11:44, Nick Mathewson wrote:
+&gt;
+&gt; &lt;snip&gt;
+&gt;
+&gt;  &gt; Currently Tor relays use a 4-byte timestamp (in seconds since the Unix
+&gt;  &gt; epoch) in their NETINFO cells.  Notoriously, such a timestamp will
+&gt;  &gt; overflow on 19 January 2038.
+&gt;  &gt;
+&gt;  &gt; Let's get ahead of the problem and squash this issue now, by expanding
+&gt;  &gt; the timestamp to 8 bytes. (8 bytes worth of seconds will be long enough
+&gt;  &gt; to outlast the Earth's sun.)
+&gt;
+&gt; &lt;snip&gt;
+&gt;
+&gt; With all those extra bits, would there be any value to using a more
+&gt; granular time measure? e.g. microseconds?
+&gt;
+
+
+I don't think so, necessarily.  We aren't doing full NTP here; in fact,
+we're just trying to detect clock skew that's big enough to break Tor.
+(Like, on the order of hours.)  I don't think we'll get anything useful
+out of sub-second observations.
+
+
+If not, would it be worth saving some bytes and only expanding to 5
+&gt; bytes? (I know; it *feels* wrong, but I can't think of much real downside)
+&gt;
+
+ Hm, possibly.  One downside is that 5-byte decoder/encoder functions
+aren't exactly common, so we'd require everybody to build one.  (Or to do
+something like
+  u8 ts_high;
+  u32 ts_low;
+)
+
+Since the extra 3 bytes are only used once per connection attempt, I'm
+pretty comfortable letting them be useless until 36812 CE or whenever.
+
+[Attachment #5 (text/html)]
+
+&lt;div dir="ltr"&gt;&lt;div dir="ltr"&gt;&lt;br&gt;&lt;/div&gt;&lt;br&gt;&lt;div class="gmail_quote"&gt;&lt;div dir="ltr" \
+class="gmail_attr"&gt;On Mon, Mar 14, 2022 at 3:18 PM Jim Newsome &lt;&lt;a \
+href="mailto:jnewsome@torproject.org"&gt;jnewsome@torproject.org&lt;/a&gt;&gt; \
+wrote:&lt;br&gt;&lt;/div&gt;&lt;blockquote class="gmail_quote" style="margin:0px 0px 0px \
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"&gt;On 3/14/22 11:44, Nick \
+Mathewson wrote:&lt;br&gt; &lt;br&gt;
+&lt;snip&gt;&lt;br&gt;
+&lt;br&gt;
+  &gt; Currently Tor relays use a 4-byte timestamp (in seconds since the Unix&lt;br&gt;
+  &gt; epoch) in their NETINFO cells.   Notoriously, such a timestamp will&lt;br&gt;
+  &gt; overflow on 19 January 2038.&lt;br&gt;
+  &gt;&lt;br&gt;
+  &gt; Let's get ahead of the problem and squash this issue now, by expanding&lt;br&gt;
+  &gt; the timestamp to 8 bytes. (8 bytes worth of seconds will be long enough&lt;br&gt;
+  &gt; to outlast the Earth's sun.)&lt;br&gt;
+&lt;br&gt;
+&lt;snip&gt;&lt;br&gt;
+&lt;br&gt;
+With all those extra bits, would there be any value to using a more &lt;br&gt;
+granular time measure? e.g. microseconds?&lt;br&gt;&lt;/blockquote&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span \
+class="gmail-im"&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/span&gt;&lt;div&gt;I  don't think so, necessarily.   We \
+aren't doing full NTP here; in fact,  we're just trying to detect clock skew \
+that's big enough to break Tor.    (Like, on the order of hours.)   I don't \
+think we'll get anything useful    out of sub-second observations.&lt;br&gt;&lt;/div&gt;&lt;span \
+class="gmail-im"&gt;&lt;div&gt;  &lt;/div&gt;&lt;/span&gt; &lt;br&gt;&lt;/div&gt;&lt;blockquote class="gmail_quote" \
+style="margin:0px 0px 0px 0.8ex;border-left:1px solid \
+rgb(204,204,204);padding-left:1ex"&gt; If not, would it be worth saving some bytes and \
+only expanding to 5 &lt;br&gt; bytes? (I know; it *feels* wrong, but I can't think of \
+much real downside)&lt;br&gt;&lt;/blockquote&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;  Hm, possibly.   One \
+downside is that 5-byte decoder/encoder  functions aren't exactly common, so \
+we'd require everybody to build  one.   (Or to do something like &lt;br&gt;&lt;/div&gt;&lt;div&gt;  \
+u8 ts_high;&lt;/div&gt;&lt;div&gt;   u32 ts_low;&lt;/div&gt;&lt;div&gt;)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Since the \
+extra 3 bytes are only used once per connection attempt, I'm pretty comfortable \
+letting them be useless until 36812 CE or whenever.&lt;br&gt;&lt;/div&gt;  &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220426191926</emailId><senderName>Zhongtang Luo</senderName><senderEmail>zhtluo@gmail.com</senderEmail><timestampReceived>2022-04-26 19:19:26-0400</timestampReceived><subject>[tor-dev] Discussion about Tor Directory Authority Consensus Code</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+Hi all!
+
+I am a PhD student currently doing some experiments on Tor. My advisor and
+I was wondering if we can talk to somebody who takes care of the Tor
+Directory Authority code, since there is a conceptual issue we wish to
+communicate with them. Can somebody direct us to the appropriate person?
+
+Many thanks.
+
+Yours,
+Zhongtang Luo
+
+[Attachment #5 (text/html)]
+
+&lt;div dir="auto"&gt;&lt;div dir="auto"&gt;Hi all!&lt;/div&gt;&lt;div dir="auto"&gt;&lt;br&gt;&lt;/div&gt;I am a PhD \
+student currently doing some experiments on Tor. My advisor and I was wondering if we \
+can talk to somebody who takes care of the Tor Directory Authority code, since there \
+is a conceptual issue we wish to communicate with them. Can somebody direct us to the \
+appropriate person?&lt;div dir="auto"&gt;&lt;br&gt;&lt;/div&gt;&lt;div dir="auto"&gt;Many thanks.&lt;/div&gt;&lt;div \
+dir="auto"&gt;&lt;br&gt;&lt;/div&gt;&lt;div dir="auto"&gt;Yours,&lt;/div&gt;&lt;div dir="auto"&gt;Zhongtang \
+Luo&lt;br&gt;&lt;div dir="auto"&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220415212905</emailId><senderName>Holmes Wilson</senderName><senderEmail>h@zbay.llc</senderEmail><timestampReceived>2022-04-15 21:29:05-0400</timestampReceived><subject>[tor-dev] We built a new Tor-based team chat prototype. Wanna try it?</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+Hi everyone,
+
+My collaborators and I have been working for the past couple years on
+building a Tor-based team chat app which we're calling Quiet*, and I'm
+curious if anyone here would like to try it out!
+
+If you would, please reply! :) I am especially interested in feedback from
+Tor project participants and people who are sometimes in the position of
+advising organizations on their security needs, but everyone on this list
+is welcome! What I'll try to do is find a time that would work for all of
+us so we can try it together in a true test of its team chat possibilities,
+though if that doesn't work I'm happy to do one on one meetings too.
+
+Quiet is still lacking pretty much every feature imaginable except adding
+team members and sending and receiving messages. And mobile apps aren't
+ready yet. And it hasn't been audited so it shouldn't be used for anything
+important at all. And so on. But if you've tried any attempts at p2p group
+chat before, this one will strike you as surprisingly reliable thanks in no
+small part to the reliability of Tor. So it's pretty cool to see it in
+action and it's a fun new way to use Tor. Again, I'm not looking for any
+real end users at this stage—we're just not ready for that yet. But we've
+invested a lot in usability and reliability and we're making a really
+serious go of it. This isn't vaporware and I think it'll be worth your time
+to check it out! :)
+
+Perhaps the coolest part about our approach is that its usefulness goes way
+beyond chat apps. The approach we've taken is adequate for building
+private, F/OSS alternatives to a large class of crucial applications that
+currently lack strong privacy and security properties, such as Trello,
+Asana, Basecamp, Google Docs and Sheets, Figma, Discourse, Airtable, team
+password managers, and more. Specifically, you can use it to build any
+application where a bounded group of people share some common workspace, as
+long as the data would fit on a typical consumer device. And perhaps from
+that foothold we can figure out ways to extend the model to be adequate for
+building large unbounded networks like Signal, Twitter, and Facebook in a
+decentralized way, though that's a much harder class of problem.
+
+(I gave this talk
+&lt;https://archive.org/details/hopeconf2020/20200802_1600_Zbay%2C_Fighting_FAANG%2C_and_P2P_Messaging.mp4&gt;
+a couple years back at HOPE 2020 about these ideas which is a pretty good
+overview of the motivations behind the project, and and I'll be speaking
+again at HOPE 2022 this summer about where we're at now, so it would be
+great to meet up there if anyone else will be there!)
+
+I've included some more notes below on how it works for those who are
+curious. But if you're curious please write me back so I can give you a
+demo :)
+
+Holmes
+
+# How it works
+
+Quiet is like a combination of Slack and Ricochet. Ricochet did not depend
+on any servers except for the Tor network itself, and sent messages
+directly over onion services, but it was only for 1:1 messaging. Like
+Ricochet, Quiet doesn't require any servers except for the Tor network
+itself, but it uses some p2p libraries that have emerged over the past few
+years to enable group chat where—like Slack and Discord—all clients tend to
+display the same message history, even clients that were offline when
+messages were sent.
+
+Specifically, Quiet uses OrbitDB, a CRDT. CRDTs are sort of like Git, where
+they enable syncing between decentralized peers such that all peers
+eventually converge on the same state. OrbitDB is built on IPFS, so unlike
+a lot of CRDTs (like Automerge) it comes with some built-in ability to move
+data around between peers. IPFS is pretty flexible and we set it up so that
+each team has its own totally isolated IPFS network, and all the IPFS
+clients connect to each other over Tor. There's no big, global, leaky p2p
+network, and no blockchain or anything like that. You have a group of
+friends, and you just talk to each others onions. That's it.
+
+To invite a new user, an authorized user shares an onion service link to a
+"registrar" onion service running on their machine, and they add that new
+user's key information to a user table, and give the user a certificate
+they can use to connect to other peers. A single community owner uses
+certificates to grant unique usernames.
+
+Mobile apps use the same approach, though we'll need a centralized service
+for notifications on iOS until someone changes the way Apple Apples, and we
+haven't built that yet. There are a lot of other important pieces of the
+design we haven't tackled yet too, such as timed message deletion, removing
+users, use of onion auth for incoming connections, optimizations for very
+large communities, and so on. But it's all fairly tractable, if a bit slow
+going.
+
+(I'm also really interested if this description is clear and would love
+your feedback and questions!)
+
+[Attachment #5 (text/html)]
+
+&lt;html&gt;&lt;body&gt;&lt;div&gt;&lt;div&gt;&lt;span&gt;Hi everyone,&lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;My collaborators \
+and I have been working for the past couple years on building a Tor-based team chat \
+app which we're calling Quiet*, and I'm curious if anyone here would like to \
+try it out! &lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;If you would, please reply! :) I am \
+especially interested in feedback from Tor project participants and people who are \
+sometimes in the position of advising organizations on their security needs, but \
+everyone on this list is welcome! What I'll try to do is find a time that would \
+work for all of us so we can try it together in a true test of its team chat \
+possibilities, though if that doesn't work I'm happy to do one on one \
+meetings too.&lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;Quiet is still lacking pretty much every \
+feature imaginable except adding team members and sending and receiving messages. And \
+mobile apps aren't ready yet. And it hasn't been audited so it shouldn't \
+be used for anything important at all. And so on. But if you've tried any \
+attempts at p2p group chat before, this one will strike you as surprisingly reliable \
+thanks in no small part to the reliability of Tor. So it's pretty cool to see it \
+in action and it's a fun new way to use Tor. Again, I'm not looking for any \
+real end users at this stage—we're just not ready for that yet. But we've \
+invested a lot in usability and reliability and we're making a really serious go \
+of it. This isn't vaporware and I think it'll be worth your time to check it \
+out! :) &lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;Perhaps the coolest part about our approach is \
+that its usefulness goes way beyond chat apps. The approach we've taken is \
+adequate for building private, F/OSS alternatives to a large class of crucial \
+applications that currently lack strong privacy and security properties, such as \
+Trello, Asana, Basecamp, Google Docs and Sheets, Figma, Discourse, Airtable, team \
+password managers, and more. Specifically, you can use it to build any application \
+where a bounded group of people share some common workspace, as long as the data \
+would fit on a typical consumer device. And perhaps from that foothold we can figure \
+out ways to extend the model to be adequate for building large unbounded networks \
+like Signal, Twitter, and Facebook in a decentralized way, though that's a much \
+harder class of problem.  &lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;(I gave &lt;/span&gt;&lt;a \
+target="_blank" rel="noopener noreferrer" \
+href="https://archive.org/details/hopeconf2020/20200802_1600_Zbay%2C_Fighting_FAANG%2C_and_P2P_Messaging.mp4"&gt;this \
+talk&lt;/a&gt;&lt;span&gt; a couple years back at HOPE 2020 about these ideas which is a pretty \
+good overview of the motivations behind the project, and and I'll be speaking \
+again at HOPE 2022 this summer about where we're at now, so it would be great to \
+meet up there if anyone else will be there!)&lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;I've \
+included some more notes below on how it works for those who are curious. But if \
+you're curious please write me back so I can give you a demo :) \
+&lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;Holmes&lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;# How it works \
+&lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;Quiet is like a combination of Slack and Ricochet. \
+Ricochet did not depend on any servers except for the Tor network itself, and sent \
+messages directly over onion services, but it was only for 1:1 messaging. Like \
+Ricochet, Quiet doesn't require any servers except for the Tor network itself, \
+but it uses some p2p libraries that have emerged over the past few years to enable \
+group chat where—like Slack and Discord—all clients tend to display the same \
+message history, even clients that were offline when messages were sent. \
+&lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;Specifically, Quiet uses OrbitDB, a CRDT. CRDTs are sort \
+of like Git, where they enable syncing between decentralized peers such that all \
+peers eventually converge on the same state. OrbitDB is built on IPFS, so unlike a \
+lot of CRDTs (like Automerge) it comes with some built-in ability to move data around \
+between peers. IPFS is pretty flexible and we set it up so that each team has its own \
+totally isolated IPFS network, and all the IPFS clients connect to each other over \
+Tor. There's no big, global, leaky p2p network, and no blockchain or anything \
+like that. You have a group of friends, and you just talk to each others onions. \
+That's it. &lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;To invite a new user, an authorized user \
+shares an onion service link to a "registrar" onion service running on \
+their machine, and they add that new user's key information to a user table, and \
+give the user a certificate they can use to connect to other peers. A single \
+community owner uses certificates to grant unique \
+usernames.&lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;Mobile apps use the same approach, though \
+we'll need a centralized service for notifications on iOS until someone changes \
+the way Apple Apples, and we haven't built that yet. There are a lot of other \
+important pieces of the design we haven't tackled yet too, such as timed message \
+deletion, removing users, use of onion auth for incoming connections, optimizations \
+for very large communities, and so on. But it's all fairly tractable, if a bit \
+slow going. &lt;/span&gt;&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;span&gt;(I'm also really interested if this \
+description is clear and would love your feedback and questions!) \
+&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220421154712</emailId><senderName>Silvia/Hiro</senderName><senderEmail>hiro@torproject.org</senderEmail><timestampReceived>2022-04-21 15:47:12-0400</timestampReceived><subject>Re: [tor-dev] Metrics: Estimating fraction of reported directory-request statistics</subject><body>
+
+
+On 17/4/22 2:16, David Fifield wrote:
+&gt; I am trying to reproduce the "frac" computation from the Reproducible
+&gt; Metrics instructions:
+&gt; https://metrics.torproject.org/reproducible-metrics.html#relay-users
+&gt; Which is also Section 3 in the tech report on counting bridge users:
+&gt; https://research.torproject.org/techreports/counting-daily-bridge-users-2012-10-24.pdf#page=4
+&gt;  
+&gt; h(R^H) * n(H) + h(H) * n(R\H)
+&gt; frac = -----------------------------
+&gt; h(H) * n(N)
+&gt; 
+&gt; My minor goal is to reproduce the "frac" column from the Metrics web
+&gt; site (which I assume is the same as the frac above, expressed as a
+&gt; percentage):
+&gt; 
+&gt; https://metrics.torproject.org/userstats-relay-country.csv?start=2022-04-01&amp;end=2022-04-08&amp;country=all&amp;events=off
+&gt;  date,country,users,lower,upper,frac
+&gt; 2022-04-01,,2262557,,,92
+&gt; 2022-04-02,,2181639,,,92
+&gt; 2022-04-03,,2179544,,,93
+&gt; 2022-04-04,,2350360,,,93
+&gt; 2022-04-05,,2388772,,,93
+&gt; 2022-04-06,,2356170,,,93
+&gt; 2022-04-07,,2323184,,,93
+&gt; 2022-04-08,,2310170,,,91
+&gt; 
+&gt; I'm having trouble with the computation of n(R\H) and h(R∧H). I
+&gt; understand that R is the subset of relays that report directory request
+&gt; counts (i.e. that have dirreq-stats-end in their extra-info descriptors)
+&gt; and H is the subset of relays that report directory request byte counts
+&gt; (i.e. that have dirreq-write-history in their extra-info descriptors).
+&gt; R and H partially overlap: there are relays that are in R but not H,
+&gt; others that are in H but not R, and others that are in both.
+&gt; 
+&gt; The computations depend on some values that are directly from
+&gt; descriptors:
+&gt; n(R) = sum of hours, for relays with directory request counts
+&gt; n(H) = sum of hours, for relays with directory write histories
+&gt; h(H) = sum of written bytes, for relays with directory write histories
+&gt; 
+&gt; &gt; Compute n(R\H) as the number of hours for which responses have been
+&gt; &gt; reported but no written directory bytes. This fraction is determined
+&gt; &gt; by summing up all interval lengths and then subtracting the written
+&gt; &gt; directory bytes interval length from the directory response interval
+&gt; &gt; length. Negative results are discarded.
+&gt; I interpret this to mean: add up all the dirrect-stats-end intervals
+&gt; (this is n(R)), add up all the dirreq-write-history intervals
+&gt; (this is n(H)), and compute n(R\H) as n(R) − n(H). This seems wrong: it
+&gt; would only be true when H is a subset of R.
+&gt; 
+&gt; &gt; Compute h(R∧H) as the number of written directory bytes for the
+&gt; &gt; fraction of time when a server was reporting both written directory
+&gt; &gt; bytes and directory responses. As above, this fraction is determined
+&gt; &gt; by first summing up all interval lengths and then computing the
+&gt; &gt; minimum of both sums divided by the sum of reported written directory
+&gt; &gt; bytes.
+&gt; This seems to be saying to compute h(R∧H) (a count of bytes) as
+&gt; min(n(R), n(H)) / h(H). This is dimensionally wrong: the units are
+&gt; hours / bytes. What would be more natural to me is
+&gt; min(n(R), n(H)) / max(n(R), n(H)) × h(H); i.e., divide the smaller of
+&gt; n(R) and n(R) by the larger, then multiply this ratio by the observable
+&gt; byte count. But this, too, only works when H is a subset of R.
+&gt; 
+&gt; Where is this computation done in the metrics code? I would like to
+&gt; refer to it, but I could not find it.
+&gt; 
+&gt; Using the formulas and assumptions above, here's my attempt at computing
+&gt; recent "frac" values:
+&gt; 
+&gt; date       `n(N)`  `n(H)`   `h(H)`  `n(R)` `n(R\H)` `h(R∧H)` frac
+&gt; 2022-04-01 166584 177638.  2.24e13 125491.       0   1.59e13 0.753
+&gt; 2022-04-02 166951 177466.  2.18e13 125686.       0   1.54e13 0.753
+&gt; 2022-04-03 167100 177718.  2.27e13 127008.       0   1.62e13 0.760
+&gt; 2022-04-04 166970 177559.  2.43e13 126412.       0   1.73e13 0.757
+&gt; 2022-04-05 166729 177585.  2.44e13 125389.       0   1.72e13 0.752
+&gt; 2022-04-06 166832 177470.  2.39e13 127077.       0   1.71e13 0.762
+&gt; 2022-04-07 166532 177210.  2.48e13 127815.       0   1.79e13 0.768
+&gt; 2022-04-08 167695 176879.  2.52e13 127697.       0   1.82e13 0.761
+&gt; 
+&gt; The "frac" column does not match the CSV. Also notice that n(N) &lt; n(H),
+&gt; which should be impossible because H is supposed to be a subset of N
+&gt; (N is the set of all relays). But this is what I get when I estimate
+&gt; n(N) from a network-status-consensus-3 and n(H) from extra-info
+&gt; documents. Also notice that n(R) &lt; n(H), which means that H cannot be a
+&gt; subset of R, contrary to the observations above.
+
+Hi David,
+
+These computations are a bit hidden in metrics code. Specifically these 
+are in the website repository but in the sql init scripts.
+
+This is the view that is responsible for computing the data that are 
+then published in the csv:
+
+https://gitlab.torproject.org/tpo/network-health/metrics/website/-/blob/master/src/main/sql/clients/init-userstats.sql#L695
+
+
+
+Personally I am not sure what was the rationale behind this. I will try 
+to go through the SQL myself and the reproducible metrics page and give 
+you an answer.
+
+
+Meanwhile I have opened an issue to track this: 
+https://gitlab.torproject.org/tpo/network-health/analysis/-/issues/35
+
+
+&gt; _______________________________________________
+&gt; tor-dev mailing list
+&gt; tor-dev@lists.torproject.org
+&gt; https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220426201538</emailId><senderName>David Goulet</senderName><senderEmail>dgoulet@torproject.org</senderEmail><timestampReceived>2022-04-26 20:15:38-0400</timestampReceived><subject>Re: [tor-dev] Discussion about Tor Directory Authority Consensus Code</subject><body>
+
+[Attachment #2 (multipart/signed)]
+
+
+On 26 Apr (15:19:26), Zhongtang Luo wrote:
+&gt; Hi all!
+&gt; 
+&gt; I am a PhD student currently doing some experiments on Tor. My advisor and
+&gt; I was wondering if we can talk to somebody who takes care of the Tor
+&gt; Directory Authority code, since there is a conceptual issue we wish to
+&gt; communicate with them. Can somebody direct us to the appropriate person?
+
+Greetings,
+
+The network team at the Tor Project is maintaining that code and so there are
+several ways to reach the team.
+
+- Open a ticket here: https://gitlab.torproject.org/tpo/core/tor
+
+- Email tor-dev@ with your issue.
+
+- If this is a security issue, see the section "Report a security issue":
+  https://support.torproject.org/misc/bug-or-feedback/
+
+Cheers!
+David
+
+-- 
+gcEpocK9if4gS21pRIkGN1MmGy4qBHznyxKPRmI+vsQ=
+
+["signature.asc" (application/pgp-signature)]
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220309181241</emailId><senderName>Alessandro Greco via tor-dev</senderName><senderEmail>tor-dev@lists.torproject.org</senderEmail><timestampReceived>2022-03-09 18:12:41-0400</timestampReceived><subject>[tor-dev] Fine Tunneling For Tor Network | Tor Browser</subject><body>
+
+Dear Tor-Dev,
+My name is Alessandro Greco and I am an Italian computer science student, I am \
+finishing my studies and therefore I am working with my thesis and, as a topic, my \
+supervisor and I have chosen the Tor network.
+
+The work done focuses entirely on the Tor Browser torrc configuration file, which is \
+why I wrote Professor Steven Murdoch and he pointed me to this method in order to get \
+in touch with the current Tor-Project developers.
+
+I state that I am not good in English and therefore I may be wrong or not give the \
+right weight to the words.
+
+Going into the matter, I have developed an extension currently available only on \
+Firefox reachable via the \
+addresshttps://addons.mozilla.org/it/firefox/addon/tropea-project/. The initial goal \
+was to simplify the tunneling phase, already editable through the Tor Browser torrc \
+file, through commands such as ExitNode or ExcludeNode and much more. In order to \
+simplify the use, I decided to create an extension and an "advanced" section, thus \
+bringing back user-friendly graphic interfaces already well known to average users \
+(the advanced section consists of a web page), which would allow modify the file to \
+your liking without necessarily having to follow correct syntax and without having to \
+go too far into the technical aspect of Tor Browser.
+
+Why?
+I decided to simplify the use of this configuration file because I believe that the \
+path of "simplification" is the only (or in general one of the most important) way to \
+be able to expand the catchment area by trying to accommodate more people who have \
+the need for a network like Tor in order to be able to divert dictatorial censorship \
+methods by governments.
+
+I want to give a practical example, let's consider the current situation between \
+Russia and Ukraine. Although Putin belongs to Russia, it is also true that there is a \
+large slice of Russian citizens who are intellectually suppressed every day given the \
+limits of censorship by the Russian government and by other governments that limit \
+the people in order to weaken Putin. Russia has currently blocked several social \
+networks so that citizens can no longer share the atrocities that are happening, so \
+much so that Anonymous has asked to publish photos and videos of what is happening \
+through Google Maps or other applications that are currently not censored.
+
+In all this mess, I sincerely think that Tor can significantly affect the protection \
+of truth and rights on the net. But it is also true that many people do not know how \
+to use or modify these settings correctly or, more simply, they may not even know \
+that they can change some settings. I strongly believe that a breakthrough in the \
+world of Tor Networks is needed and so that citizens of every state in the world can \
+have, without minimum IT requirements, the ability to fully use Tor Browser and \
+consequently Tor.
+
+The thesis work is called Tropea-Project (Tropea is a type of onion from our area, if \
+you want to do a search, look for Tropea Onion on Google) and it is completely free \
+and open-source so that anyone can dare to add new features. The features currently \
+available are the following: [Add-Remove] EntryNodes + StrictNodes
+[Add-Remove] ExitNodes + StrictNodes
+[Add-Remove] ExcludeNodes
+[Add-Remove] ExcludeExitNodes
+[Edit] GeoIPExcludeUnknow
+[Edit] Reset configuration
+[Torify App] Torify /*It depends on the application launched, [Working \
+Application](https://github.com/NoNameoN-A/Tropea-Project/blob/main)*/
+
+
+Please consider this project, at the moment I am struggling with the writing of the \
+thesis so in a few weeks an extremely detailed guide on the whole programming aspect \
+will be published so that I can help any student, programmer, hacker and anyone who \
+wants to improve existing features or add new ones.
+
+I am very excited to write you this email and I hope you can consider this \
+development of mine which focuses 100% of the forces so that the Tor project can help \
+free as many people as possible from inhuman web slavery.
+
+I believe that online freedom is a humanitarian right on par with education and \
+water, so I think it is appropriate to develop new features that simplify its use.
+
+If you have read this far I would ask you now to see the demonstration video that I \
+have published so that you can see for yourself what it does and I hope you can \
+understand how much I care. Now more than ever anyone needs Tor.
+
+* Technical notes on the extension *
+In order for it to be used correctly, you must first start a local script called \
+tropea.js, which is located in the socket-tropea folder of the Repository. The \
+extension code is in the tropea folder of the Repository. Since the exact path of the \
+Tor Browser folder is required, due to the configuration of the torrc file, it would \
+be ideal to install it when installing Tor Browser so as to further simplify the \
+whole process so that they don't even have to run the local script as it might launch \
+when Tor Browser starts.
+
+Repository:https://github.com/NoNameoN-A/Tropea-Project
+Demonstration video:https://peertube.uno/w/acz9VzntwYFicwgxk7i9by
+I wrote an informal article on my \
+blog:https://greco-alessandro.netlify.app/articles/tropea-project-la-rete-tor-da-un-altro-punto-di-vista/
+ Thesis with technical documentation of the code: At the moment not available because \
+I haven't finished writing it yet.
+
+Best Regards,
+Alessandro Greco.
+
+-- 
+
+FSF Member (NoNameoN),
+Join the Free Software Foundation! (fsf.org),
+Browse my WebSite! (autistici.org/nonameon)
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220314194350</emailId><senderName>Jim Newsome</senderName><senderEmail>jnewsome@torproject.org</senderEmail><timestampReceived>2022-03-14 19:43:50-0400</timestampReceived><subject>Re: [tor-dev] Proposal 338: Use an 8-byte handshake in NETINFO cells</subject><body>
+
+On 3/14/22 14:40, Nick Mathewson wrote:
+&gt; 
+&gt; 
+&gt; On Mon, Mar 14, 2022 at 3:18 PM Jim Newsome &lt;jnewsome@torproject.org 
+&gt; &lt;mailto:jnewsome@torproject.org&gt;&gt; wrote:
+&gt; 
+&gt;     On 3/14/22 11:44, Nick Mathewson wrote:
+&gt; 
+&gt;     &lt;snip&gt;
+&gt; 
+&gt;       &gt; Currently Tor relays use a 4-byte timestamp (in seconds since
+&gt;     the Unix
+&gt;       &gt; epoch) in their NETINFO cells.  Notoriously, such a timestamp will
+&gt;       &gt; overflow on 19 January 2038.
+&gt;       &gt;
+&gt;       &gt; Let's get ahead of the problem and squash this issue now, by
+&gt;     expanding
+&gt;       &gt; the timestamp to 8 bytes. (8 bytes worth of seconds will be long
+&gt;     enough
+&gt;       &gt; to outlast the Earth's sun.)
+&gt; 
+&gt;     &lt;snip&gt;
+&gt; 
+&gt;     With all those extra bits, would there be any value to using a more
+&gt;     granular time measure? e.g. microseconds?
+&gt; 
+&gt; 
+&gt; 
+&gt; I don't think so, necessarily.  We aren't doing full NTP here; in fact, 
+&gt; we're just trying to detect clock skew that's big enough to break Tor. 
+&gt; (Like, on the order of hours.)  I don't think we'll get anything useful 
+&gt; out of sub-second observations.
+&gt; 
+&gt;     If not, would it be worth saving some bytes and only expanding to 5
+&gt;     bytes? (I know; it *feels* wrong, but I can't think of much real
+&gt;     downside)
+&gt; 
+&gt; 
+&gt;   Hm, possibly.  One downside is that 5-byte decoder/encoder functions 
+&gt; aren't exactly common, so we'd require everybody to build one.  (Or to 
+&gt; do something like
+&gt;    u8 ts_high;
+&gt;    u32 ts_low;
+&gt; )
+&gt; 
+&gt; Since the extra 3 bytes are only used once per connection attempt, I'm 
+&gt; pretty comfortable letting them be useless until 36812 CE or whenever.
+
+Makes sense to me. Thanks!
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+</body></email><email><emailId>20220316214048</emailId><senderName>meejah</senderName><senderEmail>meejah@meejah.ca</senderEmail><timestampReceived>2022-03-16 21:40:48-0400</timestampReceived><subject>[tor-dev] txtorcon v22.0.0</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+I'm pleased to announce txtorcon 22.0.0. This fixes some broken infrastructure.
+
+* Use GitHub Actions (not Travis)
+* Update method to upload coverage to coveralls
+
+You can download the release from PyPI or GitHub (or of
+course "pip install txtorcon"):
+
+  https://pypi.python.org/pypi/txtorcon/22.0.0
+  https://github.com/meejah/txtorcon/releases/tag/v22.0.0
+
+Releases are also available from the hidden service:
+
+  http://fjblvrw2jrxnhtg67qpbzi45r7ofojaoo3orzykesly2j3c2m3htapid.onion/txtorcon-22.0.0.tar.gz
+  http://fjblvrw2jrxnhtg67qpbzi45r7ofojaoo3orzykesly2j3c2m3htapid.onion/txtorcon-22.0.0.tar.gz.asc
+
+
+You can verify the sha256sum of both by running the following 4 lines
+in a shell wherever you have the files downloaded:
+
+cat &lt;&lt;EOF | sha256sum --check
+89a1b65e32a4b369d67e6c166387fbc468cc5d05227448d239a5e7e9718aa053  \
+dist/txtorcon-22.0.0.tar.gz \
+824b5df1977bedabfc1c49c9523b8fa1b7cff11d6fee78015df1ce133685779c  \
+dist/txtorcon-22.0.0-py2.py3-none-any.whl EOF
+
+thanks,
+meejah
+-----BEGIN PGP SIGNATURE-----
+
+iQFFBAEBCgAvFiEEnVor1WiOy4id680/wmAoAxKAaacFAmIyVzMRHG1lZWphaEBt
+ZWVqYWguY2EACgkQwmAoAxKAaaeNYQf/XBYfAvqqvT/jU+z8EUwgj0EJbFusNAls
+8W37RE8fRkxTCYBOnfmK2IlQouHLBVgjzS2H0ZGyAzczxZb/kfY7uRbAm7N63eMx
+rc7urZtDeHS4K7+cUPf03KlqYdKmbIGEezPVQSNRT1/UZ/kTB6CxMqteyXxfYkvY
++pkfIvOJ49Yw6KuMt+iWKRNnfVsMNYX+gV6PNYBHoWGRTWxANReaXRSowe+5Cgus
+4O51I3+1QH1slLIH77Dvpktmqka+Fbs3mDWm1ICzf4rB0z+aJRxt7xYjNnhaLCPQ
+5xeY1IdmmJAxg/WouMQh1Kus8eEWgIhFLeigPN+ABwt2VziL1lL8XQ==
+=HKmX
+-----END PGP SIGNATURE-----
+
+
+[Attachment #5 (text/html)]
+
+&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;&lt;/title&gt;&lt;style \
+type="text/css"&gt;p.MsoNormal,p.MsoNoSpacing{margin:0}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div&gt;-----BEGIN \
+PGP SIGNED MESSAGE-----&lt;br&gt;&lt;/div&gt;&lt;div&gt;Hash: SHA512&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;I'm \
+pleased to announce txtorcon 22.0.0. This fixes some broken \
+infrastructure.&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;* Use GitHub Actions (not \
+Travis)&lt;br&gt;&lt;/div&gt;&lt;div&gt;* Update method to upload coverage to \
+coveralls&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;You can download the release from PyPI or \
+GitHub (or of&lt;br&gt;&lt;/div&gt;&lt;div&gt;course "pip install \
+txtorcon"):&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;  &lt;a \
+href="https://pypi.python.org/pypi/txtorcon/22.0.0"&gt;https://pypi.python.org/pypi/txtorcon/22.0.0&lt;/a&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;  \
+&lt;a href="https://github.com/meejah/txtorcon/releases/tag/v22.0.0"&gt;https://github.com/meejah/txtorcon/releases/tag/v22.0.0&lt;/a&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Releases \
+are also available from the hidden service:&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;  &lt;a \
+href="http://fjblvrw2jrxnhtg67qpbzi45r7ofojaoo3orzykesly2j3c2m3htapid.onion/txtorcon-2 \
+2.0.0.tar.gz"&gt;http://fjblvrw2jrxnhtg67qpbzi45r7ofojaoo3orzykesly2j3c2m3htapid.onion/txtorcon-22.0.0.tar.gz&lt;/a&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;  \
+&lt;a href="http://fjblvrw2jrxnhtg67qpbzi45r7ofojaoo3orzykesly2j3c2m3htapid.onion/txtorco \
+n-22.0.0.tar.gz.asc"&gt;http://fjblvrw2jrxnhtg67qpbzi45r7ofojaoo3orzykesly2j3c2m3htapid.onion/txtorcon-22.0.0.tar.gz.asc&lt;/a&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;You \
+can verify the sha256sum of both by running the following 4 lines&lt;br&gt;&lt;/div&gt;&lt;div&gt;in a \
+shell wherever you have the files downloaded:&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;cat \
+&lt;&lt;EOF | sha256sum \
+--check&lt;br&gt;&lt;/div&gt;&lt;div&gt;89a1b65e32a4b369d67e6c166387fbc468cc5d05227448d239a5e7e9718aa053  \
+dist/txtorcon-22.0.0.tar.gz&lt;br&gt;&lt;/div&gt;&lt;div&gt;824b5df1977bedabfc1c49c9523b8fa1b7cff11d6fee78015df1ce133685779c  \
+dist/txtorcon-22.0.0-py2.py3-none-any.whl&lt;br&gt;&lt;/div&gt;&lt;div&gt;EOF&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;thanks,&lt;br&gt;&lt;/div&gt;&lt;div&gt;meejah&lt;br&gt;&lt;/div&gt;&lt;div&gt;-----BEGIN \
+PGP SIGNATURE-----&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;iQFFBAEBCgAvFiEEnVor1WiOy4id680/wmAoAx \
+KAaacFAmIyVzMRHG1lZWphaEBt&lt;br&gt;&lt;/div&gt;&lt;div&gt;ZWVqYWguY2EACgkQwmAoAxKAaaeNYQf/XBYfAvqqvT/jU \
++z8EUwgj0EJbFusNAls&lt;br&gt;&lt;/div&gt;&lt;div&gt;8W37RE8fRkxTCYBOnfmK2IlQouHLBVgjzS2H0ZGyAzczxZb/kfY7 \
+uRbAm7N63eMx&lt;br&gt;&lt;/div&gt;&lt;div&gt;rc7urZtDeHS4K7+cUPf03KlqYdKmbIGEezPVQSNRT1/UZ/kTB6CxMqteyXx \
+fYkvY&lt;br&gt;&lt;/div&gt;&lt;div&gt;+pkfIvOJ49Yw6KuMt+iWKRNnfVsMNYX+gV6PNYBHoWGRTWxANReaXRSowe+5Cgus&lt;b \
+r&gt;&lt;/div&gt;&lt;div&gt;4O51I3+1QH1slLIH77Dvpktmqka+Fbs3mDWm1ICzf4rB0z+aJRxt7xYjNnhaLCPQ&lt;br&gt;&lt;/div \
+&gt;&lt;div&gt;5xeY1IdmmJAxg/WouMQh1Kus8eEWgIhFLeigPN+ABwt2VziL1lL8XQ==&lt;br&gt;&lt;/div&gt;&lt;div&gt;=HKmX&lt;br&gt;&lt;/div&gt;&lt;div&gt;-----END \
+&gt; PGP SIGNATURE-----&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220319215109</emailId><senderName>Richard Pospesel</senderName><senderEmail>richard@blueprintforfreespeech.net</senderEmail><timestampReceived>2022-03-19 21:51:09-0400</timestampReceived><subject>Re: [tor-dev] Gosling onion-to-onion specifications</subject><body>
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+[Attachment #2 (multipart/mixed)]
+
+[Attachment #4 (multipart/mixed)]
+
+[Attachment #6 (text/plain)]
+
+Hi everyone!
+
+tldr: Is there any reason why one should not use the same ed25519 public 
+key to authenticate with multiple, unrelated ClientAuthV3 onion services?
+
+----
+
+Lots of progress has been made on building the foundation for Gosling 
+over the past few months (rust/C FFI, cryptographic primitives 
+integration, tor controller, etc) and I'm about to begin work actually 
+implementing the protocol! The repo can be found here:
+
+- https://github.com/blueprint-freespeech/gosling
+
+The protocol spec (here for reference: 
+https://github.com/blueprint-freespeech/gosling/blob/main/docs/protocol.md 
+) calls for verified clients (ie 'friends' or 'contacts' in 
+Ricochet-Refresh parlance) to connect to endpoints with v3 onion client 
+authentication (see the 'request_endpoint' function in the 'Introduction 
+Server RPC API' section).
+
+Currently, the API is designed such that a client explicitly provides an 
+ed25519 public key as part of the endpoint request to be used to encrypt 
+their circuit descriptor (ie via the ClientAuthV3 param to ADD_ONION).
+
+However, every client *already* has a public ed25519 public key 
+associated with their identity; their onion service id associated with 
+*their* introduction server (ie their own contact id in Ricochet-Refresh 
+parlance). This public key is used in handshake verification to verify a 
+client is who they say they are (see 'Proof Calculation and 
+Verification' section).
+
+Is there any particular reason why the client's identitying public key 
+and the ClientAuthV3 public keys should be separate?
+
+Being able to reuse this public key would simplify the protocol only a 
+little bit, but if it means not needing to manage a key per contact that 
+seems good. But if this is a terrible idea that's fine too. :)
+
+best,
+-Richard
+
+
+On 12/4/21 14:51, Richard Pospesel wrote:
+&gt; Hi tor-dev,
+&gt; 
+&gt; As part of my work with Blueprint for Free Speech, I recently gave a 
+&gt; short presentation during the 2021 state-of-the-onion where we announced 
+&gt; Gosling ( see https://youtu.be/mNhIjtXuVzk?t=8155 ).
+&gt; 
+&gt; If you missed the talk, the tldr; is that we're developing a 
+&gt; specification and reference implementation library for building (onion 
+&gt; service based) anonymous+private+secure peer-to-peer applications.
+&gt; 
+&gt; Essentially, we're taking what we've learned about onion-to-onion 
+&gt; authentication from Ricochet-Refresh, extracting and improving the 
+&gt; relevant pieces, and packaging it all in a library that developers can 
+&gt; use to build their own anonymous+private+secure peer-to-peer 
+&gt; applications. Our hope is that future developers will not need to be tor 
+&gt; experts to build these types of applications.
+&gt; 
+&gt; Today ,I'm happy to announce that we just made the the gosling repo on 
+&gt; Github public!
+&gt; 
+&gt; - https://github.com/blueprint-freespeech/gosling
+&gt; 
+&gt; Things are little bare-bones at the moment, but the most relevant piece 
+&gt; right now is the protocol specification here:
+&gt; 
+&gt; - 
+&gt; https://github.com/blueprint-freespeech/gosling/blob/main/docs/protocol.md
+&gt; 
+&gt; You'll also find some initial prototyping work under the source 
+&gt; directory (the pace of development should pick up come 2022).
+&gt; 
+&gt; Please go take a look and feel free to respond here with any questions, 
+&gt; concerns, criticisms, etc. Thanks!
+&gt; 
+&gt; best,
+&gt; -Richard
+&gt; 
+
+["OpenPGP_0xDE47360363F34B2C.asc" (application/pgp-keys)]
+["OpenPGP_signature.asc" (application/pgp-signature)]
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+--===============5621391728691885713==--
+
+</body></email><email><emailId>20220323144124</emailId><senderName>David Goulet</senderName><senderEmail>dgoulet@torproject.org</senderEmail><timestampReceived>2022-03-23 14:41:24-0400</timestampReceived><subject>Re: [tor-dev] Time interval for changing Introduction Points in Tor Hidden Services</subject><body>
+
+[Attachment #2 (multipart/signed)]
+
+
+On 23 Mar (09:57:50), Piyush Kumar Sharma wrote:
+&gt;  Thank you David for the prompt reply. The information you provide is
+&gt; helpful.
+&gt; 
+&gt; I would also like to ask one more question related to HSDIRs.
+&gt; From what I understand from the onion service v3 specification, the HSDIRs
+&gt; corresponding to a particular hidden service change every 24 hours.
+&gt; This is achieved with the help of a shared random variable (SRV) advertised
+&gt; in the network consensus, which is changed after every 24 hours.
+&gt; 
+&gt; So my question is: If all the HSDIRs corresponding to a hidden service go
+&gt; down (for some reason), can the hidden service somehow change it's HSDIRs
+&gt; before the 24 hours epoch? Or does it mean that as soon as the HSDIRs are
+&gt; inaccessible, the hidden service corresponding to them cannot be accessed
+&gt; before the next epoch?
+
+They are not pinned to an immutable set of HSDir but rather the location in
+the hashring of where to start picking HSDirs is decided by the SRV.
+
+In other words, HSDirs are picked up by proximity of that location on the
+hashring. If all HSDirs go down, the service will simply pick the next ones on
+the hashring (closer to the location).
+
+A bit like if the location needs to be 0xAAAA and the closer HSDir is 0xAAAB.
+If that one goes down, tor will select the next one let say at 0xAAAC, and so
+on..
+
+The tor code does re-upload descriptors to any new/changing HSDir on the
+hashring (if any) upon receiving a new consensus.
+
+Cheers!
+David
+
+-- 
+bO2GGRweZied5CndmqgrdYdQYdSDW6hcScOCr/c8Xig=
+
+["signature.asc" (application/pgp-signature)]
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220327205025</emailId><senderName>RaphaÃ«l_Fabre</senderName><senderEmail>contact@fabco.tech</senderEmail><timestampReceived>2022-03-27 20:50:25-0400</timestampReceived><subject>Re: [tor-dev] [dappy] Willing to chat with tor devs, about name system issues/solutions</subject><body>
+
+
+
+1) the purpose of trusting a network company is a replacement for having to trust a \
+unique company, which is basically how the DNS works. You have a .com or .net you \
+trust Verisign + your registrar + the DNS resolver of your clients. In dappy those \
+three things disappear, and are melt into a dappy network member and the blockchain \
+beneath it.
+
+2) If 33%+ of the companies collide to censor haribo.dappy haribo.dappy will not be \
+resolved by dappy browser, co-resolution will fail. Dappy does not address all the \
+problems in the world. It addresses some of them, like all DNS attacks, registrar \
+attacks, registries attack, and aldo censorship to a certain extent.
+
+3) This is a very good question. Yes they could share a replicated database, dappy \
+could work this way. The very good thing of using blockchain is that you don't have \
+to care about the payment system, it is all integrated. Plus you can integrate web3 \
+and tipping in the web applications very easily as well (dappy network members are \
+simply nodes of the blockchain).
+
+4) I don't know which existing systems you are refering to. There are other DNS on \
+the blockchain projects, they are less focus on the accuracy of resolution, and more \
+on blockchain ownership.
+
+5) Don't know about this thing on bitcoin, I'll check. One thing for sure is that \
+dappy needs a smart contract platform. Things you can do on bitcoin are too limited.
+
+6) It is the co-resolution final operation. "Reconciliation of the answers" is \
+probably more explicit.
+
+7) Phishing is removed through three ways:
+- dappy only supports a-z0-9 characters goÃ¶gle cannot exist.
+- dappy will provide very simple authentication systems similar to webauthn but \
+                simpler. (passwordless, based on signatures, and domain name \
+                scoping).
+- a "designated authority" system were you can define a domain name as an authority, \
+and the browser automatically fetches the blacklist/whitelist from this domain name.
+
+8) In remaining 10% you have a computer / OS being corrupted, the dappy network \
+colliding (though it's not really an attack). Or some specular attacks occuring at \
+the same time on 66%+ of the dappy network members.
+
+9) Yes anonymous, on rchain blockchain (live very soon) rchain.coop . It does not \
+provide the same anonimity level as monero/zcash though.
+
+11) correct me if wrong please: round-robin is a load-balancing feature, not \
+resiliency feature. When dappy browser receives 20 A records it is able to do \
+rotation over them. You can have 20 replicates of your website, and if 10 are down, \
+the clients don't see any difference. Do DNS / browsers have something similar ?
+
+12) Everything is 100% https / e2e in dappy : the resolution/lookup system as well as \
+the actual browsing with the server.
+
+13) your browser and the browsers of people that visit your site grarpamp.dappy do \
+not need to trust pathrock network, nor dappy. They must trust that the majority of \
+the dappy network will not collide to perform a spoofing/takedown/censorship on the \
+website. This is mainly it. It is exactly like all blockchains : you don't trust a \
+single node, but a network instead. The goal is to be 10/20/more, not to stay just 3.
+
+14)  FABCO is my company, we are aprt of the dappy network.
+
+15) no one must pay to join, and they are not paid by FABCO to join neither. There is \
+nevertheless an economic inceptive models for dappy network members to validate \
+(respond to reuests, have robust infrastructure). This is a huge problem in the DNS : \
+only rich corporations run free DNS resolver.
+
+16) it is not part of the GPL/MIT family. Purists will not label it as open source. \
+Dappy browser is just 1 repo out of 8/9, all the rest is MIT. Dappy browser may go \
+MIT someday.
+
+17) cool that you dive in the code ;) yes we are not live yet, the co-resolution \
+right not is centralized. But the code is there.
+
+I'll stop here and reply to the rest another time. Feel free to join the discord as \
+well, this is all very interesting feedback/questions. https://discord.gg/8Cu5UFV
+
+RaphaÃ«l
+
+
+------- Original Message -------
+
+Le jeudi 24 mars 2022 Ã  05:50, &lt;yanmaani@cock.li&gt; a Ã©crit :
+
+&gt; Reply inline:
+&gt; 
+&gt; On 2021-12-24 14:38, RaphaÃ«l Fabre wrote:
+&gt; 
+&gt; &gt; We are the only name system in the world that does co-resolution,
+&gt; &gt; 
+&gt; &gt; that's the way we found to maintain a consistent name system, and also
+&gt; &gt; 
+&gt; &gt; avoid censorship and phishing.
+&gt; &gt; 
+&gt; &gt; Our system has the following properties:
+&gt; &gt; 
+&gt; &gt; - blockchain-based name system: it simply means that mapping is
+&gt; &gt; 
+&gt; &gt; globally consistent, name management is distributed in the sense that
+&gt; &gt; 
+&gt; &gt; a blockchain handles it, the resolver just connect to this blockchain.
+&gt; 
+&gt; 1) What is the purpose of trusting a "network of independant companies"?
+&gt; 
+&gt; 2) What if these companies collude to censor you?
+&gt; 
+&gt; 3) If you can trust them, why do you need a blockchain? For trusted
+&gt; 
+&gt; groups, there's much simpler K-of-M systems to just distribute a SQL
+&gt; 
+&gt; database.
+&gt; 
+&gt; &gt; - Systematic co-resolution (not rotation): lookup request are always
+&gt; &gt; 
+&gt; &gt; addressed to a network of independant agents: there are many instead
+&gt; &gt; 
+&gt; &gt; of a single one.
+&gt; 
+&gt; 4) How does this compare to existing systems?
+&gt; 
+&gt; 5) By your definition, do other blockchain-based systems fail to support
+&gt; 
+&gt; "co-resolution"? By my understanding, Electrum for Bitcoin uses a
+&gt; 
+&gt; similar algorithm, but with better security guarantees.
+&gt; 
+&gt; &gt; And then there is consensus at browser level. This
+&gt; &gt; 
+&gt; &gt; prevents 90% of attacks or attempt of censorship/phishing.
+&gt; 
+&gt; 6) What is "consensus as browser level"?
+&gt; 
+&gt; 7) How can the same system prevent both censorship and phishing?
+&gt; 
+&gt; Phishing consists in having a domain which is subjectively "wrong" by
+&gt; 
+&gt; human standards (e.g. "goggle.com" instead of "google.com"), whereas
+&gt; 
+&gt; censorship consists in blocking a domain that people voluntarily want to
+&gt; 
+&gt; access. It seems to me that whatever system is used to implement the
+&gt; 
+&gt; former can also be misused to achieve the latter.
+&gt; 
+&gt; 8) What is meant by "90% of attacks," and what are the remaining 10%?
+&gt; 
+&gt; &gt; - Anonymous registrations
+&gt; 
+&gt; 9) Are these registrations anonymous (e.g. Monero), or merely
+&gt; 
+&gt; psuedonymous (e.g. Bitcoin)? Are two "anonymous" registrations by the
+&gt; 
+&gt; same entity linkable?
+&gt; 
+&gt; 10) Is there a mechanism to anonymously obtain the crypto-token used for
+&gt; 
+&gt; registering the name?
+&gt; 
+&gt; &gt; - Load-balancing of names: you can attach 20 IP addresses to your
+&gt; &gt; 
+&gt; &gt; name, dappy browser will try each one of them until it gets a
+&gt; &gt; 
+&gt; &gt; response.
+&gt; 
+&gt; 11) How does this differ from existing systems, such as the DNS?
+&gt; 
+&gt; &gt; - 100% encrypted/https
+&gt; 
+&gt; 12) Is this a feature of the naming system?
+&gt; 
+&gt; &gt; Censorship cannot happen, neither at the storage location (blockchain)
+&gt; &gt; 
+&gt; &gt; or on-the-fly at resolution time (co-resolution)
+&gt; 
+&gt; I am also curious about the following passages from your website:
+&gt; 
+&gt; Re: "The companies that secure the dappy name system"
+&gt; 
+&gt; (https://dappy.tech/)
+&gt; 
+&gt; 13) Does this imply that I need trust "pathrocknetwork" et al to be a
+&gt; 
+&gt; good, honest, etc service provider? If so, what reason do I have for
+&gt; 
+&gt; doing so, and what reason does the system have for requiring me to do
+&gt; 
+&gt; so?
+&gt; 
+&gt; Re: "You don't need to trust us, the trust is distributed in a network
+&gt; 
+&gt; of independant companies" (ibid)
+&gt; 
+&gt; 14) One of the companies listed under the previous heading is "FABCO".
+&gt; 
+&gt; Are they independent?
+&gt; 
+&gt; 15) Do the other two companies received any financial compensation from
+&gt; 
+&gt; anyone in consideration of their participation? If so, does this affect
+&gt; 
+&gt; their impartiality or independence?
+&gt; 
+&gt; Re: "Please read the license file. It is based on Metatask extension
+&gt; 
+&gt; license and limits commercial/for-profit usage to 5.000 users."
+&gt; 
+&gt; (https://github.com/fabcotech/dappy)
+&gt; 
+&gt; 16) Is this an open-source license?
+&gt; 
+&gt; Re:
+&gt; 
+&gt; https://github.com/fabcotech/dappy-lookup/blob/master/src/dappyNetworks.ts
+&gt; 
+&gt; 17) There appears to be only one hardcoded resolver for each network in
+&gt; 
+&gt; this file. What's going on here?
+&gt; 
+&gt; Re: "This page focuses on the ideas that make dappy different from
+&gt; 
+&gt; current legacy systems as well as blockchain-based competitors."
+&gt; 
+&gt; (https://dappy.tech/ideas-and-breakthroughs/)
+&gt; 
+&gt; 18) To which blockchain-based competitors are you comparing? I believe
+&gt; 
+&gt; that all of these except "CSP at the name system level" have been done
+&gt; 
+&gt; before by various projects.
+&gt; 
+&gt; Re: "By doing a multi-request instead of a unique client-server request,
+&gt; 
+&gt; a client is able to read from a public database that he does not have
+&gt; 
+&gt; locally (the state of a blockchain), without having to trust any single
+&gt; 
+&gt; entity." (https://fabco.gitbook.io/dappy-spec/glossary/multi-request)
+&gt; 
+&gt; 19) How does this compare to existing solutions, such as Merkle tree
+&gt; 
+&gt; inclusion checks, which can trustlessly give verifiable answers in a
+&gt; 
+&gt; single query given the latest block hash?
+&gt; 
+&gt; 20) If all the nodes queried collude to lie, can this be detected?
+&gt; 
+&gt; Re: "Partial token offering, and whitepaper release (January 2022)"
+&gt; 
+&gt; 21) Where can I find the whitepaper?
+&gt; 
+&gt; Re: "The general documentation consists in two document, the protocol
+&gt; 
+&gt; overview page on dappy.tech that can be seen as a light white paper, and
+&gt; 
+&gt; the general documentation on gitbook, that is technically more
+&gt; 
+&gt; concrete."
+&gt; 
+&gt; 22) Where is the protocol overview page?
+&gt; 
+&gt; 23) Where is the concrete documentation on gitbook? The "Dappy protocol"
+&gt; 
+&gt; page (https://fabco.gitbook.io/dappy-spec/glossary/dappy-protocol)
+&gt; 
+&gt; says: "The Dappy protocol is right now a very generic term because it
+&gt; 
+&gt; has not been standardized in any way."
+&gt; 
+&gt; In conclusion, I am very bothered by this, because it is much too vague
+&gt; 
+&gt; for me to be able to analyze it properly. The provided documentation
+&gt; 
+&gt; fails to answer the most obvious questions that come to mind:
+&gt; 
+&gt; - Who decides who owns a name?
+&gt; 
+&gt; - How much does it cost to register a name?
+&gt; 
+&gt; - Once registered, for how long does it last until you have to renew it?
+&gt; 
+&gt; - If you own a name, can it be taken from you?
+&gt; 
+&gt; - Is it possible to change these rules, and if so, by whose consent?
+&gt; 
+&gt; - How does this compare to previous efforts, in terms of quality of
+&gt; 
+&gt; implementation and in terms of what trade-offs and design decisions are
+&gt; 
+&gt; made?
+&gt; 
+&gt; It saddens me, because, from reading your website, it appears as if you
+&gt; 
+&gt; have a financial incentive in promoting this project ("To fund the
+&gt; 
+&gt; growth of the team dappy is releasing 20% of the Utility Tokens that
+&gt; 
+&gt; will govern the platform"). It seems like the existence of such
+&gt; 
+&gt; incentives would also be a powerful motivator to re-invent wheels, while
+&gt; 
+&gt; denying that any prior art has ever existed in the past.
+&gt; 
+&gt; This leads to an unfortunate situation where, as Drew DeVault put it
+&gt; 
+&gt; (https://drewdevault.com/2021/04/26/Cryptocurrency-is-a-disaster.html),
+&gt; 
+&gt; "developers are no longer trying to convince you to use their software
+&gt; 
+&gt; because it's good, but because they think that if they can convince you
+&gt; 
+&gt; it will make them rich".
+&gt; 
+&gt; The proliferation of such projects reduces overall trust in society,
+&gt; 
+&gt; with the end result that people stop engaging with new ideas that are
+&gt; 
+&gt; presented to them, in much the same way as how telemarketing has
+&gt; 
+&gt; resulted in a decrease in the willingness to answer phone calls from
+&gt; 
+&gt; strangers.
+&gt; 
+&gt; (This is, of course, only true if the ideas are bad.)
+&gt; 
+&gt; Best,
+&gt; 
+&gt; Yanmaani
+&gt; 
+&gt; P.S.:
+&gt; 
+&gt; &gt; Happy to chat
+&gt; &gt; 
+&gt; &gt; Merry Christmas
+&gt; &gt; 
+&gt; &gt; RaphaÃ«l Fabre
+&gt; 
+&gt; Better late than never, but it's unfortunate that the message took so
+&gt; 
+&gt; long to be delivered. I think it causes problems in terms of maintaining
+&gt; 
+&gt; a discussion if the delay is months long, but it might just be a problem
+&gt; 
+&gt; on my end.
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220208022637</emailId><senderName>David Fifield</senderName><senderEmail>david@bamsoftware.com</senderEmail><timestampReceived>2022-02-08 02:26:37-0400</timestampReceived><subject>[tor-dev] Two features that would help load-balanced bridges</subject><body>
+
+After the blocking of Tor in Russia in December 2022, the number of
+Snowflake users rapidly increased. Eventually the tor process became the
+limiting factor for performance, using all of one CPU core.
+
+In a thread on tor-relays, we worked out a design where we run multiple
+instances of tor on the same host, all with the same identity keys, in
+order to effectively use all the server's CPU resources. It's running on
+the live bridge now, and as a result the bridge's bandwidth use has
+roughly doubled.
+
+Design thread
+	https://forum.torproject.net/t/tor-relays-how-to-reduce-tor-cpu-load-on-a-single-bridge/1483
+ Installation instructions
+	https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Snowfl \
+ake-Bridge-Installation-Guide?version_id=6de6facbb0fd047de978a561213c59224511445f
+
+Two details came up that are awkward to deal with. We have workaround
+for them, but they could benefit from support from core tor. They are:
+
+1. Provide a way to disable onion key rotation, or configure a custom
+   onion key.
+2. Provide a way to set a specific authentication cookie for ExtORPort
+   SAFE_COOKIE authentication, or a new authentication type that doesn't
+   require credentials that change whenever tor is restarted.
+
+I should mention that, apart from the load-balancing design we settled
+on, we have brainstormed some other options for scaling the Snowflake
+bridge or bridges. At this point, none of these ideas can immediately be
+put into practice, because there's no way to tell tor "connect to one of
+these bridges at random, but only one," or "connect to this bridge, but
+accept any of these fingerprints."
+https://bugs.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/28651
+
+
+# Disable onion key rotation
+
+Multiple tor instances with the same identity keys will work fine for
+the first 5 weeks (onion-key-rotation-days + onion-key-grace-period-days),
+but after that time the instances will have independently rotated their
+onion keys, and clients will have connection failures unless the load
+balancer happens to connect them to the instance whose descriptor they
+have cached. This post investigates what the failure looks like:
+https://lists.torproject.org/pipermail/tor-relays/2022-January/020238.html
+
+Examples of what could work here are a torrc option to set
+onion-key-rotation-days to a large value, an option to disable onion key
+rotation, an option to set a certain named file as the onion key.
+
+What we are doing now is a bit of a nasty hack: we create a directory
+named secret_onion_key.old, so that a failed replace_file causes an
+early exit from rotate_onion_key.
+https://gitweb.torproject.org/tor.git/tree/src/feature/relay/router.c?h=tor-0.4.6.9#n494
+ There are a few apparently benign side effects, like tor trying to
+rebuild its descriptor every hour, but it's effective at stopping onion
+key rotation.
+https://lists.torproject.org/pipermail/tor-relays/2022-January/020277.html
+
+
+# Stable ExtORPort authentication
+
+ExtORPort (extended ORPort) is a protocol that lets a pluggable
+transport attach transport and client IP metadata to a connection, for
+metrics purposes. In order to connect to the ExtORPort, the pluggable
+transport needs to authenticate using a scheme like ControlPort
+authentication.
+https://gitweb.torproject.org/torspec.git/tree/proposals/217-ext-orport-auth.txt?id=554d63ad3a60b705c3a5cbe2e3e9b33094a049dd#n75
+ tor generates a secret auth cookie and stores it in a file. When the
+pluggable transport process is managed by tor, tor tells the pluggable
+transport where to find the file by setting the TOR_PT_AUTH_COOKIE_FILE
+environment variable.
+
+In the load-balanced configuration, the pluggable transport server
+(snowflake-server) is not run and managed by tor. It is an independent
+daemon, so it doesn't have access to TOR_PT_AUTH_COOKIE_FILE (which
+anyway would be a different path for every tor instance). The bigger
+problem is that tor regenerates the auth cookie and rewrites the file on
+every restart. All the tor instances have different cookies, and
+snowflake-server does not know which it will get through the load
+balancer, so it doesn't know what cookie to use.
+
+Examples of what would work here are an option to use a certain file as
+the auth cookie, an option to leave the auth cookie file alone if it
+already exists, or a new ExtORPort authentication type that can use the
+same credentials across multiple instances.
+
+What we're doing now is using a shim program, extor-static-cookie, which
+presents an ExtORPort interface with a static auth cookie for
+snowflake-server to authenticate with, then re-authenticates to the
+ExtORPort of its respective instance of tor, using that instance's auth
+cookie.
+https://lists.torproject.org/pipermail/tor-relays/2022-January/020183.html
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220210032428</emailId><senderName>Alexander =?utf-8?B?RsOmcsO4eQ==?=</senderName><senderEmail>ahf@torproject.org</senderEmail><timestampReceived>2022-02-10 03:24:28-0400</timestampReceived><subject>Re: [tor-dev] onbasca - the next-generation bandwidth scanner</subject><body>
+
+On 2022/02/09 17:48, Georg Koppen wrote:
+&gt; welcome onbasca. Onbasca takes the best out of sbws and makes the code
+&gt; easier to test and more robust for future improvements by deploying a
+&gt; database management system where we previously dealt with JSON files
+&gt; only.[1]
+
+Wow. I had not seen this coming already! Very exciting.
+
+Juga and Georg, it has been wonderful to follow you two working together
+on getting sbws ready for production use over the last few years. Seeing
+it running on the directory authorities is an outstanding achievement \o/
+
+Looking forward to follow the development of Onbasca!
+
+All the best,
+Alex.
+
+-- 
+Alexander Færøy
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+</body></email><email><emailId>20220210233129</emailId><senderName>nusenu</senderName><senderEmail>nusenu-lists@riseup.net</senderEmail><timestampReceived>2022-02-10 23:31:29-0400</timestampReceived><subject>Re: [tor-dev] onionoo overload_general_timestamp (prop 328)</subject><body>
+
+&gt; &gt; Was there a particular motivation for this format change and granularity?
+&gt; &gt; And what do you think about changing it to use the YYYY-MM-DD hh:mm:ss
+&gt; &gt; format for consistency and having a direct human readable format here as well?
+&gt; &gt; 
+&gt; &gt; related:
+&gt; &gt; Karsten used to maintain onionoo protocol documentation/changelog and versions:
+&gt; &gt; https://metrics.torproject.org/onionoo.html#versions
+&gt; &gt; Is that and the 'version' field in onionoo no longer maintained?
+&gt; &gt; (since it didn't change with the new fields)
+&gt; 
+&gt; Sure, we intend to maintain the version field, and since new fields have been added \
+&gt; the protocol version should have been updated. 
+&gt; The reason I haven't updated it yet was that I wasn't very pleased that we had to \
+&gt; add the overload_ratelimits [1] and overload_fd_exhausted [2] fields in the \
+&gt; bandwidth document. We needed to expose these fields, but we also knew these didn't \
+&gt; belong to this document. So the idea was to plan a bigger release with a little \
+&gt; restructure of the onionoo internals and update the protocol version then. 
+&gt; Said this I will update both the timestamp and the protocol version for \
+&gt; consistency.
+
+Is there a gitlab issue where this is tracked?
+
+
+btw:
+"DNS timeout reached" can probably be removed from:
+https://metrics.torproject.org/onionoo.html#details_relay_overload_general_timestamp
+
+kind regards,
+nusenu
+-- 
+https://nusenu.github.io
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220219231207</emailId><senderName>Alexander Mages</senderName><senderEmail>magesalexander123@gmail.com</senderEmail><timestampReceived>2022-02-19 23:12:07-0400</timestampReceived><subject>Re: [tor-dev] Relay "Ping" Functionality</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+I appreciate all the suggestions!
+
+Thanks,
+Alex
+
+
+On Sat, Feb 12, 2022 at 3:59 AM &lt;r.a@posteo.net&gt; wrote:
+
+&gt; Hey,
+&gt;
+&gt; On 21.01.22 14:57, Alexander Mages wrote:
+&gt; &gt; Right now we're exploring latency-based attacks but are having trouble
+&gt; &gt; achieving a particular goal: a way to "ping" an arbitrary node in a
+&gt; &gt; client's already-built ("live") circuit. One-way timing is ideal but
+&gt; &gt; round trip time would suffice. We can glean this information during
+&gt; &gt; circuit construction, but what about a "live" circuit? Ideally, this
+&gt; &gt; would be a periodic thing Tor already keeps track of, but as an
+&gt; &gt; on-demand or as a byproduct/side-effect of a different function would
+&gt; &gt; also work. We have not been able to find a way to do this within the Tor
+&gt; &gt; (sub)protocol specs or the control port spec.
+&gt;
+&gt;
+&gt; You can measure the RTT between your client and a node by exiting
+&gt; through that node and intentionally violating its exit policy, such as
+&gt; connecting to 127.0.0.1:80. The node will return an error, and you can
+&gt; measure the RTT as the time between sending the request and receiving
+&gt; the error. See https://naviga-tor.github.io/ for an example.
+&gt;
+&gt;
+&gt; All the best,
+&gt; Robert
+&gt;
+
+[Attachment #5 (text/html)]
+
+&lt;div dir="ltr"&gt;I appreciate  all the \
+suggestions!&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Thanks,&lt;/div&gt;&lt;div&gt;Alex&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;br&gt;&lt;div \
+class="gmail_quote"&gt;&lt;div dir="ltr" class="gmail_attr"&gt;On Sat, Feb 12, 2022 at 3:59 AM \
+&lt;&lt;a href="mailto:r.a@posteo.net"&gt;r.a@posteo.net&lt;/a&gt;&gt; \
+wrote:&lt;br&gt;&lt;/div&gt;&lt;blockquote class="gmail_quote" style="margin:0px 0px 0px \
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"&gt;Hey,&lt;br&gt; &lt;br&gt;
+On 21.01.22 14:57, Alexander Mages wrote:&lt;br&gt;
+&gt; Right now we're exploring latency-based attacks but are having trouble &lt;br&gt;
+&gt; achieving a particular goal: a way to "ping" an arbitrary node in a &lt;br&gt;
+&gt; client's already-built ("live") circuit. One-way timing is ideal but &lt;br&gt;
+&gt; round trip time would suffice. We can glean this information during &lt;br&gt;
+&gt; circuit construction, but what about a "live" circuit? Ideally, this &lt;br&gt;
+&gt; would be a periodic thing Tor already keeps track of, but as an &lt;br&gt;
+&gt; on-demand or as a byproduct/side-effect of a different function would &lt;br&gt;
+&gt; also work. We have not been able to find a way to do this within the Tor &lt;br&gt;
+&gt; (sub)protocol specs or the control port spec.&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+You can measure the RTT between your client and a node by exiting &lt;br&gt;
+through that node and intentionally violating its exit policy, such as &lt;br&gt;
+connecting to &lt;a href="http://127.0.0.1:80" rel="noreferrer" \
+target="_blank"&gt;127.0.0.1:80&lt;/a&gt;. The node will return an error, and you can &lt;br&gt; \
+measure the RTT as the time between sending the request and receiving &lt;br&gt; the error. \
+See &lt;a href="https://naviga-tor.github.io/" rel="noreferrer" \
+target="_blank"&gt;https://naviga-tor.github.io/&lt;/a&gt; for an example.&lt;br&gt; &lt;br&gt;
+&lt;br&gt;
+All the best,&lt;br&gt;
+Robert&lt;br&gt;
+&lt;/blockquote&gt;&lt;/div&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220315231619</emailId><senderName>Piyush Kumar Sharma</senderName><senderEmail>piyushs@iiitd.ac.in</senderEmail><timestampReceived>2022-03-15 23:16:19-0400</timestampReceived><subject>[tor-dev] Time interval for changing Introduction Points in Tor Hidden Services</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+Hi all,
+
+I have been investigating the Tor hidden services for some research work.
+
+I am finding it hard to obtain information about how often do Introduction
+Points of hidden service change.
+
+More specifically, I am looking for answers to the following questions:
+
+1.) If the tor relays selected as Introduction Points for a hidden service
+go down (e.g., due to DoS), then in what time duration does the hidden
+service select new Introduction Points automatically?
+
+2.) Even when the Introduction Points are not down, is there a duration
+after which they are automatically changed by the hidden service? If so,
+what is this duration?
+
+I have already tried to find this information in the Tor-spec about onion
+v3 services. But could not find answers to these specific questions.
+
+Thus, it would be really helpful if someone can answer these questions or
+point to some resources where this information can be obtained.
+
+Thanks
+
+[Attachment #5 (text/html)]
+
+&lt;div dir="ltr"&gt;&lt;div&gt;Hi all,&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;I have been investigating the \
+Tor hidden services for some research work.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;I am finding it \
+hard to obtain information about how often do Introduction Points of hidden service \
+change. &lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;More specifically, I am looking for answers to \
+the following questions:&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;1.) If the tor relays selected as \
+Introduction Points for a hidden service go down (e.g., due to DoS), then in what \
+time duration does the hidden service select new Introduction Points \
+automatically?&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;2.) Even when the Introduction Points are not \
+down, is there a duration after which they are automatically changed by the hidden \
+service? If so, what is this duration?&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;I have already tried \
+to find this information in the Tor-spec about onion v3 services. But could not find \
+answers to these specific questions.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Thus, it would be \
+really helpful if someone can answer these questions or point to some resources where \
+this information can be obtained.&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Thanks&lt;br&gt;&lt;/div&gt;&lt;/div&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220324045001</emailId><senderName></senderName><senderEmail>yanmaani</senderEmail><timestampReceived>2022-03-24 04:50:01-0400</timestampReceived><subject>Re: [tor-dev] [dappy] Willing to chat with tor devs, about name system issues/solutions</subject><body>
+
+Reply inline:
+
+On 2021-12-24 14:38, Raphaël Fabre wrote:
+&gt; We are the only name system in the world that does co-resolution,
+&gt; that's the way we found to maintain a consistent name system, and also
+&gt; avoid censorship and phishing.
+&gt; 
+&gt; Our system has the following properties:
+&gt; 
+&gt; - blockchain-based name system: it simply means that mapping is
+&gt; globally consistent, name management is distributed in the sense that
+&gt; a blockchain handles it, the resolver just connect to this blockchain.
+
+1) What is the purpose of trusting a "network of independant companies"?
+2) What if these companies collude to censor you?
+3) If you can trust them, why do you need a blockchain? For trusted 
+groups, there's much simpler K-of-M systems to just distribute a SQL 
+database.
+
+&gt; - Systematic co-resolution (not rotation): lookup request are always
+&gt; addressed to a network of independant agents: there are many instead
+&gt; of a single one.
+
+4) How does this compare to existing systems?
+5) By your definition, do other blockchain-based systems fail to support 
+"co-resolution"? By my understanding, Electrum for Bitcoin uses a 
+similar algorithm, but with better security guarantees.
+
+&gt; And then there is consensus at browser level. This
+&gt; prevents 90% of attacks or attempt of censorship/phishing.
+
+6) What is "consensus as browser level"?
+7) How can the same system prevent both censorship and phishing? 
+Phishing consists in having a domain which is subjectively "wrong" by 
+human standards (e.g. "goggle.com" instead of "google.com"), whereas 
+censorship consists in blocking a domain that people voluntarily want to 
+access. It seems to me that whatever system is used to implement the 
+former can also be misused to achieve the latter.
+8) What is meant by "90% of attacks," and what are the remaining 10%?
+
+&gt; - Anonymous registrations
+
+9) Are these registrations anonymous (e.g. Monero), or merely 
+psuedonymous (e.g. Bitcoin)? Are two "anonymous" registrations by the 
+same entity linkable?
+10) Is there a mechanism to anonymously obtain the crypto-token used for 
+registering the name?
+
+&gt; - Load-balancing of names: you can attach 20 IP addresses to your
+&gt; name, dappy browser will try each one of them until it gets a
+&gt; response.
+
+11) How does this differ from existing systems, such as the DNS?
+
+&gt; - 100% encrypted/https
+
+12) Is this a feature of the naming system?
+
+&gt; Censorship cannot happen, neither at the storage location (blockchain)
+&gt; or on-the-fly at resolution time (co-resolution)
+
+I am also curious about the following passages from your website:
+
+Re: "The companies that secure the dappy name system" 
+(&lt;https://dappy.tech/&gt;)
+
+13) Does this imply that I need trust "pathrocknetwork" et al to be a 
+good, honest, etc service provider? If so, what reason do I have for 
+doing so, and what reason does the system have for requiring me to do 
+so?
+
+Re: "You don't need to trust us, the trust is distributed in a network 
+of independant companies" (ibid)
+
+14) One of the companies listed under the previous heading is "FABCO". 
+Are they independent?
+15) Do the other two companies received any financial compensation from 
+anyone in consideration of their participation? If so, does this affect 
+their impartiality or independence?
+
+Re: "Please read the license file. It is based on Metatask extension 
+license and limits commercial/for-profit usage to 5.000 users." 
+(&lt;https://github.com/fabcotech/dappy&gt;)
+
+16) Is this an open-source license?
+
+Re: 
+https://github.com/fabcotech/dappy-lookup/blob/master/src/dappyNetworks.ts
+
+17) There appears to be only one hardcoded resolver for each network in 
+this file. What's going on here?
+
+Re: "This page focuses on the ideas that make dappy different from 
+current legacy systems as well as blockchain-based competitors." 
+(&lt;https://dappy.tech/ideas-and-breakthroughs/&gt;)
+
+18) To which blockchain-based competitors are you comparing? I believe 
+that all of these except "CSP at the name system level" have been done 
+before by various projects.
+
+Re: "By doing a multi-request instead of a unique client-server request, 
+a client is able to read from a public database that he does not have 
+locally (the state of a blockchain), without having to trust any single 
+entity." (&lt;https://fabco.gitbook.io/dappy-spec/glossary/multi-request&gt;)
+
+19) How does this compare to existing solutions, such as Merkle tree 
+inclusion checks, which can trustlessly give verifiable answers in a 
+single query given the latest block hash?
+20) If all the nodes queried collude to lie, can this be detected?
+
+Re: "Partial token offering, and whitepaper release (January 2022)"
+
+21) Where can I find the whitepaper?
+
+Re: "The general documentation consists in two document, the protocol 
+overview page on dappy.tech that can be seen as a light white paper, and 
+the general documentation on gitbook, that is technically more 
+concrete."
+
+22) Where is the protocol overview page?
+23) Where is the concrete documentation on gitbook? The "Dappy protocol" 
+page (&lt;https://fabco.gitbook.io/dappy-spec/glossary/dappy-protocol&gt;) 
+says: "The Dappy protocol is right now a very generic term because it 
+has not been standardized in any way."
+
+In conclusion, I am very bothered by this, because it is much too vague 
+for me to be able to analyze it properly. The provided documentation 
+fails to answer the most obvious questions that come to mind:
+
+- Who decides who owns a name?
+- How much does it cost to register a name?
+- Once registered, for how long does it last until you have to renew it?
+- If you own a name, can it be taken from you?
+- Is it possible to change these rules, and if so, by whose consent?
+- How does this compare to previous efforts, in terms of quality of 
+implementation and in terms of what trade-offs and design decisions are 
+made?
+
+It saddens me, because, from reading your website, it appears as if you 
+have a financial incentive in promoting this project ("To fund the 
+growth of the team dappy is releasing 20% of the Utility Tokens that 
+will govern the platform"). It seems like the existence of such 
+incentives would also be a powerful motivator to re-invent wheels, while 
+denying that any prior art has ever existed in the past.
+
+This leads to an unfortunate situation where, as Drew DeVault put it 
+(&lt;https://drewdevault.com/2021/04/26/Cryptocurrency-is-a-disaster.html&gt;), 
+"developers are no longer trying to convince you to use their software 
+because it's good, but because they think that if they can convince you 
+it will make them rich".
+
+The proliferation of such projects reduces overall trust in society, 
+with the end result that people stop engaging with new ideas that are 
+presented to them, in much the same way as how telemarketing has 
+resulted in a decrease in the willingness to answer phone calls from 
+strangers.
+
+(This is, of course, only true if the ideas are bad.)
+
+Best,
+Yanmaani
+
+P.S.:
+&gt; Happy to chat
+&gt; Merry Christmas
+&gt; 
+&gt; Raphaël Fabre
+
+Better late than never, but it's unfortunate that the message took so 
+long to be delivered. I think it causes problems in terms of maintaining 
+a discussion if the delay is months long, but it might just be a problem 
+on my end.
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+</body></email><email><emailId>20220316123711</emailId><senderName>David Goulet</senderName><senderEmail>dgoulet@torproject.org</senderEmail><timestampReceived>2022-03-16 12:37:11-0400</timestampReceived><subject>Re: [tor-dev] Time interval for changing Introduction Points in Tor Hidden Services</subject><body>
+
+[Attachment #2 (multipart/signed)]
+
+
+On 16 Mar (00:16:19), Piyush Kumar Sharma wrote:
+&gt; Hi all,
+&gt; 
+&gt; I have been investigating the Tor hidden services for some research work.
+&gt; 
+&gt; I am finding it hard to obtain information about how often do Introduction
+&gt; Points of hidden service change.
+&gt; 
+&gt; More specifically, I am looking for answers to the following questions:
+&gt; 
+&gt; 1.) If the tor relays selected as Introduction Points for a hidden service
+&gt; go down (e.g., due to DoS), then in what time duration does the hidden
+&gt; service select new Introduction Points automatically?
+
+Almost immediately. Basically, if the introduction circuit collapses, the
+service will select a new one, update its descriptor and upload them.
+
+&gt; 
+&gt; 2.) Even when the Introduction Points are not down, is there a duration
+&gt; after which they are automatically changed by the hidden service? If so,
+&gt; what is this duration?
+
+Yes, it is a random value between 18h and 24h.
+
+https://gitlab.torproject.org/tpo/core/tor/-/blob/main/src/feature/hs/hs_service.c#L481
+
+&gt; 
+&gt; I have already tried to find this information in the Tor-spec about onion
+&gt; v3 services. But could not find answers to these specific questions.
+
+Yeah, these are mostly implementation details rather than specific to the
+protocol.
+
+And so unfortunately, these details can only be found in the source code.
+
+David
+
+-- 
+XCDp/6g7VDnD9DKkqaFIgC6L0xCXfPx8WSh3zXD6JTA=
+
+["signature.asc" (application/pgp-signature)]
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220323085750</emailId><senderName>Piyush Kumar Sharma</senderName><senderEmail>piyushs@iiitd.ac.in</senderEmail><timestampReceived>2022-03-23 08:57:50-0400</timestampReceived><subject>Re: [tor-dev] Time interval for changing Introduction Points in Tor Hidden Services</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+ Thank you David for the prompt reply. The information you provide is
+helpful.
+
+I would also like to ask one more question related to HSDIRs.
+From what I understand from the onion service v3 specification, the HSDIRs
+corresponding to a particular hidden service change every 24 hours.
+This is achieved with the help of a shared random variable (SRV) advertised
+in the network consensus, which is changed after every 24 hours.
+
+So my question is: If all the HSDIRs corresponding to a hidden service go
+down (for some reason), can the hidden service somehow change it's HSDIRs
+before the 24 hours epoch? Or does it mean that as soon as the HSDIRs are
+inaccessible, the hidden service corresponding to them cannot be accessed
+before the next epoch?
+
+Thanks in advance for your response!
+
+On Wed, Mar 16, 2022 at 1:37 PM David Goulet &lt;dgoulet@torproject.org&gt; wrote:
+
+&gt; On 16 Mar (00:16:19), Piyush Kumar Sharma wrote:
+&gt; &gt; Hi all,
+&gt; &gt;
+&gt; &gt; I have been investigating the Tor hidden services for some research work.
+&gt; &gt;
+&gt; &gt; I am finding it hard to obtain information about how often do
+&gt; Introduction
+&gt; &gt; Points of hidden service change.
+&gt; &gt;
+&gt; &gt; More specifically, I am looking for answers to the following questions:
+&gt; &gt;
+&gt; &gt; 1.) If the tor relays selected as Introduction Points for a hidden
+&gt; service
+&gt; &gt; go down (e.g., due to DoS), then in what time duration does the hidden
+&gt; &gt; service select new Introduction Points automatically?
+&gt;
+&gt; Almost immediately. Basically, if the introduction circuit collapses, the
+&gt; service will select a new one, update its descriptor and upload them.
+&gt;
+&gt; &gt;
+&gt; &gt; 2.) Even when the Introduction Points are not down, is there a duration
+&gt; &gt; after which they are automatically changed by the hidden service? If so,
+&gt; &gt; what is this duration?
+&gt;
+&gt; Yes, it is a random value between 18h and 24h.
+&gt;
+&gt;
+&gt; https://gitlab.torproject.org/tpo/core/tor/-/blob/main/src/feature/hs/hs_service.c#L481
+&gt;
+&gt; &gt;
+&gt; &gt; I have already tried to find this information in the Tor-spec about onion
+&gt; &gt; v3 services. But could not find answers to these specific questions.
+&gt;
+&gt; Yeah, these are mostly implementation details rather than specific to the
+&gt; protocol.
+&gt;
+&gt; And so unfortunately, these details can only be found in the source code.
+&gt;
+&gt; David
+&gt;
+&gt; --
+&gt; XCDp/6g7VDnD9DKkqaFIgC6L0xCXfPx8WSh3zXD6JTA=
+&gt; _______________________________________________
+&gt; tor-dev mailing list
+&gt; tor-dev@lists.torproject.org
+&gt; https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+&gt;
+
+[Attachment #5 (text/html)]
+
+&lt;div dir="ltr"&gt;
+&lt;div&gt;Thank you David for the prompt reply. The information you provide is \
+helpful.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;I would also like to ask one more question related \
+to HSDIRs.&lt;/div&gt;&lt;div&gt;From  what I understand from the onion service v3 specification, \
+the HSDIRs  corresponding to a particular hidden service change every 24 \
+hours.&lt;/div&gt;&lt;div&gt;This  is achieved with the help of a shared random variable (SRV) \
+advertised  in the network consensus, which is changed after every 24 \
+hours.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;So  my question is: If all the HSDIRs corresponding \
+to a hidden service go  down (for some reason), can the hidden service somehow change \
+it's  HSDIRs before the 24 hours epoch? Or does it mean that as soon as the 
+HSDIRs are inaccessible, the hidden service corresponding to them cannot
+ be accessed before the next epoch?&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Thanks in advance \
+for your response!&lt;/div&gt;
+
+&lt;/div&gt;&lt;br&gt;&lt;div class="gmail_quote"&gt;&lt;div dir="ltr" class="gmail_attr"&gt;On Wed, Mar 16, \
+2022 at 1:37 PM David Goulet &lt;&lt;a \
+href="mailto:dgoulet@torproject.org"&gt;dgoulet@torproject.org&lt;/a&gt;&gt; \
+wrote:&lt;br&gt;&lt;/div&gt;&lt;blockquote class="gmail_quote" style="margin:0px 0px 0px \
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"&gt;On 16 Mar (00:16:19), \
+Piyush Kumar Sharma wrote:&lt;br&gt; &gt; Hi all,&lt;br&gt;
+&gt; &lt;br&gt;
+&gt; I have been investigating the Tor hidden services for some research work.&lt;br&gt;
+&gt; &lt;br&gt;
+&gt; I am finding it hard to obtain information about how often do Introduction&lt;br&gt;
+&gt; Points of hidden service change.&lt;br&gt;
+&gt; &lt;br&gt;
+&gt; More specifically, I am looking for answers to the following questions:&lt;br&gt;
+&gt; &lt;br&gt;
+&gt; 1.) If the tor relays selected as Introduction Points for a hidden service&lt;br&gt;
+&gt; go down (e.g., due to DoS), then in what time duration does the hidden&lt;br&gt;
+&gt; service select new Introduction Points automatically?&lt;br&gt;
+&lt;br&gt;
+Almost immediately. Basically, if the introduction circuit collapses, the&lt;br&gt;
+service will select a new one, update its descriptor and upload them.&lt;br&gt;
+&lt;br&gt;
+&gt; &lt;br&gt;
+&gt; 2.) Even when the Introduction Points are not down, is there a duration&lt;br&gt;
+&gt; after which they are automatically changed by the hidden service? If so,&lt;br&gt;
+&gt; what is this duration?&lt;br&gt;
+&lt;br&gt;
+Yes, it is a random value between 18h and 24h.&lt;br&gt;
+&lt;br&gt;
+&lt;a href="https://gitlab.torproject.org/tpo/core/tor/-/blob/main/src/feature/hs/hs_service.c#L481" \
+rel="noreferrer" target="_blank"&gt;https://gitlab.torproject.org/tpo/core/tor/-/blob/main/src/feature/hs/hs_service.c#L481&lt;/a&gt;&lt;br&gt;
+ &lt;br&gt;
+&gt; &lt;br&gt;
+&gt; I have already tried to find this information in the Tor-spec about onion&lt;br&gt;
+&gt; v3 services. But could not find answers to these specific questions.&lt;br&gt;
+&lt;br&gt;
+Yeah, these are mostly implementation details rather than specific to the&lt;br&gt;
+protocol.&lt;br&gt;
+&lt;br&gt;
+And so unfortunately, these details can only be found in the source code.&lt;br&gt;
+&lt;br&gt;
+David&lt;br&gt;
+&lt;br&gt;
+-- &lt;br&gt;
+XCDp/6g7VDnD9DKkqaFIgC6L0xCXfPx8WSh3zXD6JTA=&lt;br&gt;
+_______________________________________________&lt;br&gt;
+tor-dev mailing list&lt;br&gt;
+&lt;a href="mailto:tor-dev@lists.torproject.org" \
+target="_blank"&gt;tor-dev@lists.torproject.org&lt;/a&gt;&lt;br&gt; &lt;a \
+href="https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev" rel="noreferrer" \
+target="_blank"&gt;https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev&lt;/a&gt;&lt;br&gt; \
+&lt;/blockquote&gt;&lt;/div&gt;
+
+
+
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+
+</body></email><email><emailId>20220212015711</emailId><senderName>grarpamp</senderName><senderEmail>grarpamp@gmail.com</senderEmail><timestampReceived>2022-02-12 01:57:11-0400</timestampReceived><subject>Re: [tor-dev] Relay "Ping" Functionality</subject><body>
+
+&gt; Right now we're exploring latency-based attacks but are having trouble
+&gt; achieving a particular goal: a way to "ping" an arbitrary node in a
+&gt; client's already-built ("live") circuit. One-way timing is ideal but round
+&gt; trip time would suffice. We can glean this information during circuit
+&gt; construction, but what about a "live" circuit? Ideally, this would be a
+&gt; periodic thing Tor already keeps track of, but as an on-demand or as a
+&gt; byproduct/side-effect of a different function would also work. We have not
+&gt; been able to find a way to do this within the Tor (sub)protocol specs or
+&gt; the control port spec.
+
+Use OnionCat and ping6, it is exactly what you want.
+
+https://www.onioncat.org/
+
+Such "timing" attacks are in the scope of "Tor Stinks  -- NSA"
+document. Users should become familiar with them, and that
+slide deck, and other attacks from over a decade ago.
+And with how tor does not address them.
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+</body></email><email><emailId>20220212020516</emailId><senderName>grarpamp</senderName><senderEmail>grarpamp@gmail.com</senderEmail><timestampReceived>2022-02-12 02:05:16-0400</timestampReceived><subject>Re: [tor-dev] Relay "Ping" Functionality</subject><body>
+
+Well onioncat is not "arbitrary node" but is a set up one.
+Yet some timing differentiations can be divined by
+selectively constructing the "circuit" to test,
+looking at setup timings, pushing characterizing
+traffic through them and your own nodes,
+polling existing services, etc.
+Please publish your results.
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+</body></email><email><emailId>20220212095900</emailId><senderName></senderName><senderEmail>r.a</senderEmail><timestampReceived>2022-02-12 09:59:00-0400</timestampReceived><subject>Re: [tor-dev] Relay "Ping" Functionality</subject><body>
+
+Hey,
+
+On 21.01.22 14:57, Alexander Mages wrote:
+&gt; Right now we're exploring latency-based attacks but are having trouble 
+&gt; achieving a particular goal: a way to "ping" an arbitrary node in a 
+&gt; client's already-built ("live") circuit. One-way timing is ideal but 
+&gt; round trip time would suffice. We can glean this information during 
+&gt; circuit construction, but what about a "live" circuit? Ideally, this 
+&gt; would be a periodic thing Tor already keeps track of, but as an 
+&gt; on-demand or as a byproduct/side-effect of a different function would 
+&gt; also work. We have not been able to find a way to do this within the Tor 
+&gt; (sub)protocol specs or the control port spec.
+
+
+You can measure the RTT between your client and a node by exiting 
+through that node and intentionally violating its exit policy, such as 
+connecting to 127.0.0.1:80. The node will return an error, and you can 
+measure the RTT as the time between sending the request and receiving 
+the error. See https://naviga-tor.github.io/ for an example.
+
+
+All the best,
+Robert
+_______________________________________________
+tor-dev mailing list
+tor-dev@lists.torproject.org
+https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev
+
+</body></email></emails>

@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20090505130803</emailId><senderName></senderName><senderEmail>andreas.ames</senderEmail><timestampReceived>2009-05-05 13:08:03-0400</timestampReceived><subject>Some basic questions from a userland jerk about kernel binary format</subject><body>
+
+Hi all, 
+
+I hope my topic is appropriate for this list, if not please point me 
+in the right direction. 
+
+I know the thing I want to achieve is strange as I could do the same 
+better by using the dynamic module loader.  Unfortunately I've got to 
+port an application from another OS and I'm currently not able to 
+change the inner workings too much. 
+
+What I want to achieve is to dynamically access arbitrary variables in 
+my kernel module by determining the offset of the variable's address 
+offline as an offest regarding a common base address within my 
+module.  To achieve that I need to know the following: 
+
+1. How many segments does a kernel module binary usually have? Is it 
+   the same as in userland, i.e. .bss, .data and .text? Or are there 
+   others or only a single one? 
+
+2. (How) can I instruct the linker to put a certain variable 'near' 
+   the beginning of each segment? This would become my base address, 
+   one for each segment.  I would use the dynamic loader to access 
+   this base address at runtime.  The most important prerequisite 
+   would be that this base address needs to be 'in front of' every 
+   application variable. 
+
+3. I want to use binutils/nm to compute the offset of my application 
+   variables in terms of their distance to the relevant base address. 
+   This can obviously change from revision to revision of my my 
+   module, which is ok.  Is that viable (I don't know the dynamic 
+   linker of the kernel)? 
+
+4. At runtime I want to compute my application variable's address by: 
+
+   real_adr = base address + offset 
+
+   Is that also ok? 
+
+
+TIA, 
+
+Andreas Ames 
+
+--
+ 
+  
+Please consider the environment before you print / Merci de penser à 
+l'environnement avant d'imprimer / Bitte denken Sie an die Umwelt bevor 
+Sie drucken 
+
+Bombardier Transportation GmbH 
+Vorsitzender des Aufsichtsrats / Chairman of Supervisory Board: Peter Witt 
+
+Geschäftsführung / Executive Board: Dr. Klaus Baur 
+(Vorsitzender/Chairman), Luc Charlemagne, Stephan Krenz, Stefan Schönholz 
+Sitz der Gesellschaft / Principal Office: Berlin 
+Registergericht / Registration Court: Amtsgericht Charlottenburg, HRB 
+64838 
+
+_______________________________________________________________________________________________________________ \
+
+
+This e-mail communication (and any attachment/s) may contain confidential 
+or privileged information and is intended only for the individual(s) or 
+entity named above and to others who have been specifically authorized to 
+receive it. If you are not the intended recipient, please do not read, 
+copy, use or disclose the contents of this communication to others. Please 
+notify the sender that you have received this e-mail in error by reply 
+e-mail, and delete the e-mail subsequently. Please note that in order to 
+protect the security of our information systems an AntiSPAM solution is in 
+use and will browse through incoming emails. 
+Thank you. 
+_________________________________________________________________________________________________________________ \
+
+
+
+Ce message (ainsi que le(s) fichier(s)), transmis par courriel, peut 
+contenir des renseignements confidentiels ou protégés et est destiné à 
+l?usage exclusif du destinataire ci-dessus. Toute autre personne est, par 
+les présentes, avisée qu?il est strictement interdit de le diffuser, le 
+distribuer ou le reproduire. Si vous l?avez reçu par inadvertance, 
+veuillez nous en aviser et détruire ce message. Veuillez prendre note 
+qu'une solution antipollupostage (AntiSPAM) est utilisée afin d'assurer la 
+sécurité de nos systèmes d'information et qu'elle furètera les courriels 
+entrants.
+Merci. 
+_________________________________________________________________________________________________________________ \
+
+
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+
+</body></email><email><emailId>20090203050258</emailId><senderName>"Srinivas G."</senderName><senderEmail>srinivasg@esntechnologies.co.in</senderEmail><timestampReceived>2009-02-03 05:02:58-0400</timestampReceived><subject>Unable set the priority for a pthread through pthread_setschedparam</subject><body>
+
+Dear All,
+
+I have written a small thread program in C using the pthreads. I am able
+to set the threads priority with pthread_setschedparam API when I login
+as ROOT. If I login as a normal user other than ROOT, then the API
+returns the error number 1 (EPERM). 
+
+Please let me know whether a normal user can set the pthreads priority
+with pthread_setschedparam API or not.
+
+Here is the sample code for testing.
+
+/* 
+ * Creates two threads, one printing 10 "a"s, 
+ * the other printing 10 "b"s.
+ * Illustrates: thread creation, thread joining. 
+ */
+
+#include &lt;stddef.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include "pthread.h"
+#include &lt;errno.h&gt;
+
+void * process(void * arg)
+{
+  int i;
+  fprintf(stderr, "Starting process %s\n", (char *) arg);
+  for (i = 0; i &lt; 10; i++) {
+    write(1, (char *) arg, 1);
+  }
+  fprintf(stderr,"\n");
+
+  return NULL;
+}
+
+int main()
+{
+  int retcode;
+  pthread_t th_a, th_b;
+  void * retval;
+  struct sched_param sp;
+  int esnRetVal = 0;
+  pthread_attr_t attr;
+
+  pthread_attr_init(&amp;attr);
+  pthread_attr_setinheritsched(&amp;attr, PTHREAD_INHERIT_SCHED);
+ 
+  retcode = pthread_create(&amp;th_a, &amp;attr, process, "a");
+  if (retcode != 0) fprintf(stderr, "create a failed %d\n", retcode);
+
+  sp.sched_priority = 30;
+  esnRetVal = pthread_setschedparam(th_a, SCHED_RR, &amp;sp);
+  if(esnRetVal != 0)
+  {
+     printf("Failed to set the pthread sched param! esnRetVal = %d errno
+= %d\n", esnRetVal, errno);
+     return -1;
+  } 
+
+  retcode = pthread_create(&amp;th_b, NULL, process, "b");
+  if (retcode != 0) fprintf(stderr, "create b failed %d\n", retcode);
+
+  retcode = pthread_join(th_a, &amp;retval);
+  if (retcode != 0) fprintf(stderr, "join a failed %d\n", retcode);
+
+  retcode = pthread_join(th_b, &amp;retval);
+  if (retcode != 0) fprintf(stderr, "join b failed %d\n", retcode);
+
+  return 0;
+}
+
+Thanks in advance.
+
+With Regards,
+Srinivas G
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20090217184448</emailId><senderName>admin</senderName><senderEmail>info@ekipate.es</senderEmail><timestampReceived>2009-02-17 18:44:48-0400</timestampReceived><subject>MEETING</subject><body>
+
+Estas buscando pareja.
+
+ &lt;http://www.ekipate.es/lists/lt.php?id=YR5QBAMLUgUYCFpMBg0EVgA%3D&gt;
+
+
+
+--
+To unsubscribe from this list visit
+http://www.ekipate.es/lists/lt.php?id=YR5QBAMLUgYYCFpMBg0EVgA%3D
+
+To update your preferences visit
+http://www.ekipate.es/lists/lt.php?id=YR5QBAMLUgcYCFpMBg0EVgA%3D
+
+
+
+--
+Powered by PHPlist, www.phplist.com --
+
+
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20090220093809</emailId><senderName>pradeep singh</senderName><senderEmail>pradeep.rautela@gmail.com</senderEmail><timestampReceived>2009-02-20 09:38:09-0400</timestampReceived><subject>Re: The MIT License Modules</subject><body>
+
+I guess you should ask your lawyer, for a precise answer.
+Please see http://en.wikipedia.org/wiki/MIT_License, it is pretty
+simple enough I guess.
+
+Thanks,
+     --Pradeep
+
+
+On Fri, Feb 20, 2009 at 2:00 PM, Srinivas G.
+&lt;srinivasg@esntechnologies.co.in&gt; wrote:
+&gt; Dear All,
+&gt;
+&gt; We have used software (freeglut) which comes under MIT License, in one
+&gt; of our applications. As far as I know, the MIT License is a very liberal
+&gt; software license that was originally developed at the Massachusetts
+&gt; Institute of Technology.
+&gt;
+&gt; My question is, if I use the MIT license software, should we be
+&gt; releasing our source code as well or can we still keep our source as
+&gt; proprietary and sell it. Please let us know so that we can make a
+&gt; decision whether to include the visualization features in our software
+&gt; or not.
+&gt;
+&gt; Thanks in advance.
+&gt;
+&gt; With Regards,
+&gt; Srinivas G
+&gt;
+&gt;
+&gt; --
+&gt; To unsubscribe from this list: send an email with
+&gt; "unsubscribe kernelnewbies" to ecartis@nl.linux.org
+&gt; Please read the FAQ at http://kernelnewbies.org/FAQ
+&gt;
+&gt;
+
+
+
+-- 
+Pradeep
+--
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20090225133103</emailId><senderName>"Srinivas G."</senderName><senderEmail>srinivasg@esntechnologies.co.in</senderEmail><timestampReceived>2009-02-25 13:31:03-0400</timestampReceived><subject>Assembler errors in optimization level 3 (-O3)  -  gcc (4.1.2)</subject><body>
+
+Dear All,
+
+I have written an application where I used a few ASM statements in it.
+The statements are very simple and they look like as shown below.
+
+asm
+(
+	"next:\n\t"
+#ifdef __x86_64__
+	"pop %rax\n\t"
+	"pop %rcx"		
+#else
+	"popl %eax\n\t"
+	"popl %ecx"		
+#endif
+);
+
+asm
+(
+	"xorl %eax, %eax\n\t"
+	"cpuid\n\t"
+	"cmpl $4, %eax\n\t" 	// check if cpuid supports leaf 4
+	"jl .single_core\n\t"	// Single core
+	"movl $4, %eax\n\t"	
+	"movl $0, %ecx\n\t"	// start with index = 0; Leaf 4 reports
+);					// at least one valid cache
+level
+asm
+(
+	"cpuid"
+	: "=a" (Regeax)
+	:
+	: "%ebx", "%ecx", "%edx"
+);		
+asm
+(
+	"jmp .multi_core\n"
+	".single_core:\n\t"
+	"xor %eax, %eax\n"
+	".multi_core:"
+);
+
+I am able to compile the application in optimization level 2 (-O2) where
+as when I specify the optimization level (-O3) I end up with the
+following errors.
+
+{standard input}: Assembler messages:
+{standard input}:275: Error: symbol `next' is already defined 
+{standard input}:532: Error: symbol `.single_core' is already defined 
+{standard input}:534: Error: symbol `.multi_core' is already defined 
+{standard input}:579: Error: symbol `next' is already defined 
+{standard input}:590: Error: symbol `next' is already defined 
+{standard input}:614: Error: symbol `next' is already defined 
+{standard input}:637: Error: symbol `next' is already defined 
+{standard input}:690: Error: symbol `.single_core' is already defined 
+{standard input}:692: Error: symbol `.multi_core' is already defined 
+{standard input}:1007: Error: symbol `.single_core' is already defined 
+{standard input}:1009: Error: symbol `.multi_core' is already defined 
+{standard input}:1045: Error: symbol `.single_core' is already defined 
+{standard input}:1047: Error: symbol `.multi_core' is already defined 
+{standard input}:1083: Error: symbol `.single_core' is already defined 
+{standard input}:1085: Error: symbol `.multi_core' is already defined 
+{standard input}:1196: Error: symbol `.single_core' is already defined 
+{standard input}:1198: Error: symbol `.multi_core' is already defined
+
+I have searched the google and did not find any solution. However, I
+have gone through the following link and there is no much luck to me.
+
+http://lists.atrpms.net/pipermail/atrpms-users/2005-July/003451.html
+
+One thing, I can mention here is, I did update the packages through YUM
+command only. The system configuration is as follows.
+
+1) DELL 64 Bit - Pentium(R) D CPU 3.00 GHz
+2) 1 GB RAM
+3) Linux - CENTOS - 5.2 with default kernel version - 2.6.18-92.el5
+4) gcc version 4.1.2 20071124
+
+Please suggest me a solution to getridof from the above errors.
+
+Thanks in advance.
+
+Thanks and Regards,
+Srinivas G
+--
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20090302211046</emailId><senderName>Qiuyang Wu</senderName><senderEmail>qiuyang.wu@synopsys.com</senderEmail><timestampReceived>2009-03-02 21:10:46-0400</timestampReceived><subject>pread/pwrite bug on linux (RHEL)?</subject><body>
+
+
+Hi All,
+
+Are there any known bugs with pread/pwrite on RHEL Linux when the disk partition is \
+close to full?
+
+Reduced a complex application fatal down to a simple program just opens a regular \
+file and performs 1M sequential pwrite() of size 8KB blocks; at every 100th write, \
+does a pread() to load the very first 8KB block and validate its content still \
+matching what was originally written.
+
+What I observed are the following when running on different machines and \
+writing/reading to a disk partition nearly full with slightly more than 1GB of free \
+space according to 'df' (the program is the only process accessing the disk) -
+
+* Linux 2.6.9-55.ELsmp #1 SMP Fri Apr 20 16:36:54 EDT 2007 x86_64 x86_64 x86_64 \
+GNU/Linux  (RHEL4)
+
+BEHAVIOR: pwrite() works for many iterations, then pread() suddenly returns data of \
+the requested size but filled with 0's, and strerror shows errno="No such file or \
+directory", condition  if(size_to_read != pread(fd, buf, size_to_read, ...)) ...
+is not triggered and application has to check errno immediately after every call to \
+pread.
+
+CONCLUSION: serious bug, why does pread() return the expected size filled with 0? and \
+why doesn't pwrite() fail earlier so application has a chance to bail out and stop \
+pushing more data to the file?
+
+* Linux 2.6.18-8.el5 #1 SMP Fri Jan 26 14:15:14 EST 2007 x86_64 x86_64 x86_64 \
+GNU/Linux (RHEL5)
+
+BEHAVIOR: pwrite() works for much fewer iterations, then pread() errors out again \
+with errno="No such file or directory", and condition (size_to_read!=pread(...)) is \
+asserted at the meantime, which is slightly better but application still very hard to \
+recover.
+
+CONCLUSION: Bug, still, pwrite() should error out earlier if not enough space to \
+commit data, instead of fail on pread() as it's often catastrophic for application to \
+handle.
+
+Interestingly, with Suse Linux Enterprise which has an older kernel version, the \
+behavior seems much more defensive and sane
+
+* Linux 2.6.5-7.244-smp #1 SMP Mon Dec 12 18:32:25 UTC 2005 x86_64 x86_64 x86_64 \
+GNU/Linux
+
+BEHAVIOR: pwrite() works for a few iterations and errors out with errno="Disk quota \
+exceeded" before pread() fails, application easily traps and handles without data \
+lose.
+
+
+Any pointers either to any known bugs or anything I might be missing are highly \
+appreciated!
+
+Thanks
+Qiuyang
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+
+</body></email><email><emailId>20090303144519</emailId><senderName>"Srinivas G."</senderName><senderEmail>srinivasg@esntechnologies.co.in</senderEmail><timestampReceived>2009-03-03 14:45:19-0400</timestampReceived><subject>RE: Assembler errors in optimization level 3 (-O3)  -  gcc (4.1.2)</subject><body>
+
+&gt; asm
+&gt; (
+&gt; 	"next:\n\t"
+&gt; #ifdef __x86_64__
+&gt; 	"pop %rax\n\t"
+&gt; 	"pop %rcx"
+&gt; #else
+&gt; 	"popl %eax\n\t"
+&gt; 	"popl %ecx"
+&gt; #endif
+&gt; );
+&gt; 
+&gt; asm
+&gt; (
+&gt; 	"xorl %eax, %eax\n\t"
+&gt; 	"cpuid\n\t"
+&gt; 	"cmpl $4, %eax\n\t" 	// check if cpuid supports leaf 4
+&gt; 	"jl .single_core\n\t"	// Single core
+&gt; 	"movl $4, %eax\n\t"
+&gt; 	"movl $0, %ecx\n\t"	// start with index = 0; Leaf 4 reports
+&gt; );					// at least one valid cache
+level
+&gt; asm
+&gt; (
+&gt; 	"cpuid"
+&gt; 	: "=a" (Regeax)
+&gt; 	:
+&gt; 	: "%ebx", "%ecx", "%edx"
+&gt; );
+&gt; asm
+&gt; (
+&gt; 	"jmp .multi_core\n"
+&gt; 	".single_core:\n\t"
+&gt; 	"xor %eax, %eax\n"
+&gt; 	".multi_core:"
+&gt; );
+&gt; 
+
+Dear All,
+
+The label redefinition in inline ASM was fixed. The actual error is due
+to the function was called more  than 3 times and in every place the
+code was replaced. So, it was showed the redefinition error. However, by
+looking at the following paragraph and links, I have fixed the error.
+
+GCC allows (and requires) you to specify register constraints in your
+inline assembly code, so the optimizer always know about it; thus,
+inline assembly code is really made of patterns, not forcibly exact
+code.
+
+Thus, you can put your assembly into CPP macros, and inline C functions,
+so anyone can use it in as any C function/macro. Inline functions
+resemble macros very much, but are sometimes cleaner to use. Beware that
+in all those cases, code will be duplicated, so only local labels (of 1:
+style) should be defined in that asm code. However, a macro would allow
+the name for a non local defined label to be passed as a parameter (or
+else, you should use additional meta-programming methods). Also, note
+that propagating inline asm code will spread potential bugs in them; so
+watch out doubly for register constraints in such inline asm code.
+
+http://lists.apple.com/archives/xcode-users/2005/apr/msg00107.html
+
+Thanks and Regards,
+Srinivas G
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20090317130818</emailId><senderName>"Srinivas G."</senderName><senderEmail>srinivasg@esntechnologies.co.in</senderEmail><timestampReceived>2009-03-17 13:08:18-0400</timestampReceived><subject>Non Portable pthread (-np) API for thread creation in suspend mode</subject><body>
+
+Dear All,
+
+I have implemented a threading program using the pthread library on CentOS - 5.2 \
+Linux system. (The CentOS is an Enterprise Linux distribution based on the freely \
+available sources from Red Hat Enterprise Linux.) However, I need to create a pthread \
+that is initially suspended. But, I did not find any API in the pthread library which \
+does the my requirement. So, I googled and found some of the FreeBSD thread API which \
+is as follows.
+
+pthread_attr_setcreatesuspend_np
+pthread_suspend_np
+pthread_resume_np 
+
+pthread_attr_setcreatesuspend_np  - prepare attribute for creation of suspended \
+thread. I have also seen that the "_np" stands for "non portable" API. (The functions \
+with the pthread_ prefix and _np suffix are not portable extensions to POSIX \
+threads.)
+
+My question is, how can I use the "_np" API on my Linux box. I guess, the "_np" API \
+is available in "libthr" shared library. So, I tried to download the "libthr" shared \
+library, but there is no luck to me. 
+
+I have also one more question, Shall I use the "libthr" shared library on my CENTOS \
+without affecting the "libpthread" library. If possible, please suggest me.
+
+I can also able to implement the suspend and resume functionality with the following \
+mechanism. But I have also seen that with "libthr" we get better performance than \
+"libpthread". Please look at the following link. That is the reason, I want to use \
+the "libthr" on my CENTOS Linux box.
+
+http://www.dslreports.com/forum/r19082719-FreeBSD-libthr-libpthread
+
+static int ready_to_go = 0;
+static pthread_mutex_t suspend_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_cond_t suspend_cond = PTHREAD_COND_INITIALIZER;
+
+static void *func(void *arg) {
+        pthread_mutex_lock(&amp;suspend_mutex);
+        while (ready_to_go == 0) {
+               pthread_cond_wait(&amp;suspend_cond, &amp;suspend_mutex);
+        }
+        pthread_mutex_unlock(&amp;suspend_mutex);
+        /* Now do our thing */
+        ...
+        return NULL;
+}
+
+void spawn_thread(void) {
+        pthread_attr_t attr;
+        pthread_t thread;
+
+        pthread_attr_init(&amp;attr);
+        /* We don't need to join this thread */
+        pthread_attr_setdetachstate(&amp;attr, PTHREAD_CREATE_DETACHED);
+        pthread_create(&amp;thread, &amp;attr, func, NULL);
+        pthread_attr_destroy(&amp;attr);
+
+        /* Do some stuff */
+        ...
+        /* Now tell thread to continue */
+        pthread_mutex_lock(&amp;suspend_mutex);
+        ready_to_go = 1;
+        pthread_mutex_unlock(&amp;suspend_mutex);
+        pthread_cond_signal(&amp;suspend_cond);
+}
+
+Thanks in advance.
+
+With Regards,
+Srinivas G
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+
+</body></email><email><emailId>20090330174120</emailId><senderName>"Srinivas G."</senderName><senderEmail>srinivasg@esntechnologies.co.in</senderEmail><timestampReceived>2009-03-30 17:41:20-0400</timestampReceived><subject>Is it possible to use the FreeBSD libthr.a library file on a Redhat Linux box?</subject><body>
+
+Dear All,
+
+I have written an application where I have used the libpthread library
+for creating the pthreads. However, to get the maximum optimization, I
+want to use the libthr.a library instead of libpthread library. However,
+when I tried to use on my Redhat box, I end up with following errors.
+
+../lib/linux/libthr.a(thr_sem.o): In function `_sem_init':
+thr_sem.c:(.text+0x100): undefined reference to `ksem_init'
+thr_sem.c:(.text+0x115): undefined reference to `ksem_destroy'
+../lib/linux/libthr.a(thr_sem.o): In function `_sem_destroy':
+thr_sem.c:(.text+0x216): undefined reference to `ksem_destroy'
+../lib/linux/libthr.a(thr_sem.o): In function `_sem_timedwait':
+thr_sem.c:(.text+0x2ad): undefined reference to `ksem_timedwait'
+../lib/linux/libthr.a(thr_sem.o): In function `_sem_wait':
+....
+....
+....
+
+collect2: ld returned 1 exit status
+make: *** [target] Error 1
+
+I understand that the "ksem_init" is not available on the Redhat box.
+Then, I have tried to use the libc.so.7 from FreeBSD. I have included
+the libc.so.7 in my application to getridof the above undefined
+references. Even though, I end up with the following errors.
+
+/usr/bin/ld: errno@@FBSD_1.0: TLS definition in /lib/libc.so.6 section 
+.tbss mismatches non-TLS definition in ../lib/linux/libc.so section 
+.bss
+/lib/libc.so.6: could not read symbols: Bad value
+
+Here, the lib/libc.so.6 is a Redhat libc library where as 
+../lib/linux/libc.so is a FreeBSD library (libc.so.7). 
+
+Is it possible to use the FreeBSD libthr.a library file on a Redhat
+Linux box? 
+
+Please let me know the whether it is possible to use the libthr.a
+library on Redhat box or not.
+
+Thanks in advance.
+
+With Regards,
+Srinivas G
+--
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20090220084258</emailId><senderName>"Srinivas G."</senderName><senderEmail>srinivasg@esntechnologies.co.in</senderEmail><timestampReceived>2009-02-20 08:42:58-0400</timestampReceived><subject>The MIT License Modules</subject><body>
+
+Dear All,
+
+We have used software (freeglut) which comes under MIT License, in one
+of our applications. As far as I know, the MIT License is a very liberal
+software license that was originally developed at the Massachusetts
+Institute of Technology.
+
+My question is, if I use the MIT license software, should we be
+releasing our source code as well or can we still keep our source as
+proprietary and sell it. Please let us know so that we can make a
+decision whether to include the visualization features in our software
+or not.
+
+Thanks in advance.
+
+With Regards,
+Srinivas G
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20090225132625</emailId><senderName>"Srinivas G."</senderName><senderEmail>srinivasg@esntechnologies.co.in</senderEmail><timestampReceived>2009-02-25 13:26:25-0400</timestampReceived><subject>Assembler errors in optimization level 3 (-O3)  -  gcc (4.1.2)</subject><body>
+
+Dear All,
+
+I have written an application where I used a few ASM statements in it.
+The statements are very simple and they look like as shown below.
+
+	asm
+	(
+		"next:\n\t"
+#ifdef __x86_64__
+		"pop %rax\n\t"
+		"pop %rcx"		
+#else
+		"popl %eax\n\t"
+		"popl %ecx"		
+#endif
+	);
+
+      asm
+	(
+		"xorl %eax, %eax\n\t"
+		"cpuid\n\t"
+		"cmpl $4, %eax\n\t"		// check if cpuid
+supports leaf 4
+		"jl .single_core\n\t"		// Single core
+		"movl $4, %eax\n\t"		
+		"movl $0, %ecx\n\t"		// start with index = 0;
+Leaf 4 reports
+	);						// at least one
+valid cache level
+	asm
+	(
+		"cpuid"
+		: "=a" (Regeax)
+		:
+		: "%ebx", "%ecx", "%edx"
+	);		
+	asm
+	(
+		"jmp .multi_core\n"
+		".single_core:\n\t"
+		"xor %eax, %eax\n"
+		".multi_core:"
+	);
+
+I am able to compile the application in optimization level 2 (-O2) where
+as when I specify the optimization level (-O3) I end up with the
+following errors.
+
+{standard input}: Assembler messages:
+{standard input}:275: Error: symbol `next' is already defined
+{standard input}:532: Error: symbol `.single_core' is already defined
+{standard input}:534: Error: symbol `.multi_core' is already defined
+{standard input}:579: Error: symbol `next' is already defined
+{standard input}:590: Error: symbol `next' is already defined
+{standard input}:614: Error: symbol `next' is already defined
+{standard input}:637: Error: symbol `next' is already defined
+{standard input}:690: Error: symbol `.single_core' is already defined
+{standard input}:692: Error: symbol `.multi_core' is already defined
+{standard input}:1007: Error: symbol `.single_core' is already defined
+{standard input}:1009: Error: symbol `.multi_core' is already defined
+{standard input}:1045: Error: symbol `.single_core' is already defined
+{standard input}:1047: Error: symbol `.multi_core' is already defined
+{standard input}:1083: Error: symbol `.single_core' is already defined
+{standard input}:1085: Error: symbol `.multi_core' is already defined
+{standard input}:1196: Error: symbol `.single_core' is already defined
+{standard input}:1198: Error: symbol `.multi_core' is already defined
+
+I have searched the google and did not find any solution. However, I
+have gone through the following link and there is no much luck to me.
+
+http://lists.atrpms.net/pipermail/atrpms-users/2005-July/003451.html
+
+One thing, I can mention here is, I did update the packages through YUM
+command only. The system configuration is as follows.
+
+1) DELL 64 Bit - Pentium(R) D CPU 3.00 GHz
+2) 1 GB RAM
+3) Linux - CENTOS - 5.2 with default kernel version - 2.6.18-92.el5
+4) gcc version 4.1.2 20071124
+
+Please suggest me a solution to getridof from the above errors.
+
+Thanks in advance.
+
+Thanks and Regards,
+Srinivas G
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email></emails>

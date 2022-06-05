@@ -1,0 +1,5086 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20030506053301</emailId><senderName>"H. J. Lu"</senderName><senderEmail>hjl@lucon.org</senderEmail><timestampReceived>2003-05-06 05:33:01-0400</timestampReceived><subject>The Linux binutils 2.14.90.0.1 is released</subject><body>
+
+This is the beta release of binutils 2.14.90.0.1 for Linux, which is
+based on binutils 2003 0505 in CVS on sourecs.redhat.com plus various
+changes. It is purely for Linux.
+
+The Linux/mips support is added. You have to use
+
+# rpm --target=[mips|mipsel] -ta binutils-xx.xx.xx.xx.xx.tar.gz
+
+to build it. Or you can read mips/README in the source tree to apply
+the mips patches and build it by hand.
+
+Please report any bugs related to binutils 2.14.90.0.1 to hjl@lucon.org.
+
+Changes from binutils 2.13.90.0.20:
+
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.14.90.0.1.tar.gz. Source code.
+2. binutils-2.13.90.0.18-2.14.90.0.1.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.14.90.0.1-1.i386.rpm. IA-32 binary RPM for RedHat 9.
+
+There is no separate source rpm. You can do
+
+# rpm -ta binutils-2.14.90.0.1.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://ftp.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl@lucon.org
+05/05/2003
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030619220703</emailId><senderName>Flemming Greve Skovengaard</senderName><senderEmail>dsl58893@vip.cybercity.dk</senderEmail><timestampReceived>2003-06-19 22:07:03-0400</timestampReceived><subject>Optimization flags</subject><body>
+
+Hey, I'm playing around with the optimization flags for gcc.
+I've set the enviroment varibles $CFLAGS and $CXXFLAGS, so it will
+effect the compilation process went I build new packages from source.
+$CFLAGS and $CXXFLAGS are set to:
+-O2 -mcpu=athlon-xp -march=athlon-xp -mfpmath=sse -m3dnow -msse -mmmx
+
+1) Is there anything I can do to get a better optimization (without
+    changing the '-O2')?
+2) Also is there anything wrong or redundant with my optimization?
+
+My CPU is a Athlon Thoroughbred XP 2600+
+
+-- 
+Flemming Greve Skovengaard               Man still has one belief,
+a.k.a Greven                             One decree that stands alone
+&lt;dsl58893@vip.cybercity.dk&gt;              The laying down of arms
+4168.08 BogoMIPS                         Is like cancer to their bones
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030716143021</emailId><senderName>Oleg Nesterov</senderName><senderEmail>oleg@tv-sign.ru</senderEmail><timestampReceived>2003-07-16 14:30:21-0400</timestampReceived><subject>Q: -fpic and $_GLOBAL_OFFSET_TABLE_</subject><body>
+
+Hello.
+
+I thought, that &amp;GOT == $_GLOBAL_OFFSET_TABLE_ + .
+
+$ cat test.c
+
+void test(void)
+{
+	asm volatile (
+		"addl $_GLOBAL_OFFSET_TABLE_, %eax\n"
+		"addl $_GLOBAL_OFFSET_TABLE_, %ecx\n"
+	);
+}
+
+$ cc -c -fpic -fomit-frame-pointer test.c &amp;&amp; ld -shared -o test.so test.o &amp;&amp; objdump -d test.so
+
+test.so:     file format elf32-i386
+
+Disassembly of section .text:
+
+0000018c &lt;test&gt;:
+ 18c:	05 0d 10 00 00       	addl   $0x100d,%eax	==&gt; &amp;GOT = 0x18c + 0x100d = 0x1199
+ 191:	81 c1 07 10 00 00    	addl   $0x1007,%ecx	==&gt; &amp;GOT = 0x191 + 0x1007 = 0x1198
+ 197:	c3                   	ret    
+
+How can it be?
+
+Oleg.
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030925111902</emailId><senderName>"Mr. Peter Da Costa."</senderName><senderEmail>mrpeterdacosta@post.cz</senderEmail><timestampReceived>2003-09-25 11:19:02-0400</timestampReceived><subject>Mail From:Mr. Peter Da Costa.</subject><body>
+
+From: Peter Da Costa,
+Attn : sir,
+This letter may come as a surprise since we
+have not met before but was borne out of my sincere
+desire to establish a business/partnership relationship with you.
+My name is Mr. Peter Da costa, the personal
+assistant to the Admintrators of Empresa Nacionais de Diamantes 
+de Angola ENDIAMA,the State National Diamond Company in Angola, 
+Mr.Domingos Alfredo Machado I over see and
+coordinate his private businesses, both in angola and Overseas.
+ Mr.Domingos Alfredo Machado,cannot operate a foreign bank 
+account or own a business because of the new legislation passed
+ in Angola banning government officials,their aids and family members
+ from operating such,moreover Angola does not have a good climate
+ for investment right
+now because of the effect of the civil war.
+It is based on this development that I have the mandate of
+ Mr.Domingos Alfredo Machado to contact you and request
+ you to be his business partner
+and assist him set up an investment company
+in your country with the fund he has with a financial institution in 
+Europe and also he is willing to buy an existing business who
+requires capital.Please response as soon as possible for me to
+tell you what is obtainable. I await your response.
+Best regards, 
+Mr. Peter Da Costa.
+ 
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031028164637</emailId><senderName>Paula Berger</senderName><senderEmail>pberger@inf.ufrgs.br</senderEmail><timestampReceived>2003-10-28 16:46:37-0400</timestampReceived><subject>IOCTL problem!!!</subject><body>
+
+
+	Hi everybody.. I'm new here, so let's see if you guys can help me :-)
+
+	I'm trying to use the ioctl function with the SIOCADDRT flag and I'm having 
+some problems! What i want to do is simply add the default gateway to my 
+routing table. I'm using the struct rtentry (don't know if I'm using it 
+correctly though) then I create a datagram socket and the I use the ioctl 
+function... Does anyone know what's wrong? 
+	I'm sending my source as an example... if someone could please help me, I 
+REALLY nedd to do this!!!
+	Thanks,
+
+--
+Paula Berger
+E-mail: pberger@inf.ufrgs.br
+--
+
+EXAMPLE:
+
+int main() {
+	uint32_t IpAddr;
+	uint32_t Dst;
+	uint32_t GenMask;
+	struct sockaddr_in Route;
+	struct rtentry Entry;
+	int SockFd, res = 0;
+
+	memset ((char *)&amp;Entry, 0, sizeof (struct rtentry));
+
+	Entry.rt_gateway.sa_family = AF_INET;
+	Entry.rt_genmask.sa_family = AF_INET;
+	Entry.rt_dst.sa_family = AF_INET;
+	Entry.rt_flags = RTF_UP | RTF_GATEWAY;
+
+	if(inet_aton("0.0.0.0", (struct in_addr *)&amp;GenMask) == 0)
+		printf("\nroute genmasc error\n");
+
+	if(inet_aton("143.54.83.0", (struct in_addr *)&amp;Dst) == 0)
+		printf("\nroute dst error\n");
+
+	if(inet_aton("143.54.83.1", (struct in_addr *)&amp;IpAddr) == 0)
+		printf("\nroute ip error\n");
+
+	Route.sin_addr.s_addr = htonl(IpAddr);
+	memcpy(&amp;Entry.rt_gateway, &amp;Route, sizeof(struct sockaddr));
+
+	Route.sin_addr.s_addr = htonl(Dst);
+	memcpy(&amp;Entry.rt_dst, &amp;Route, sizeof(struct sockaddr));
+
+	Route.sin_addr.s_addr = htonl(GenMask);
+	memcpy(&amp;Entry.rt_genmask, &amp;Route, sizeof(struct sockaddr));
+
+	if ((SockFd = socket(PF_INET, SOCK_DGRAM, 0)) &lt; 0) {
+		perror("socket");
+		return -1;
+    	}
+
+	res = ioctl(SockFd, SIOCADDRT, &amp;Entry);
+
+	if (res &lt; 0) {
+            perror("\nerror: ");
+	    close(SockFd);
+	    return -1;
+        }
+
+	close(SockFd);
+
+	return 0;
+}
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030106013048</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@cd-club.ru</senderEmail><timestampReceived>2003-01-06 01:30:48-0400</timestampReceived><subject>glibc 2.3.1: fix for the i386 inline strings code</subject><body>
+
+Nobody has answered to me for a while, so I'm resending this
+politely...
+
+This is a trivial patch for the inlined i386 strings' header.  Without
+it, say, X11 can't be compiled with -D__USE_STRING_INLINES - a
+problems will be caused by XtNewString and X11's own bzero.  These
+problems are cured by the first and the second chunks of the patch,
+correspondingly.
+
+So, please, apply this.
+
+
+--- sysdeps/i386/i486/bits/string.h.orig	Fri Jan  3 12:17:55 2003
++++ sysdeps/i386/i486/bits/string.h	Sat Jan  4 06:04:08 2003
+@@ -40,10 +40,10 @@
+ 
+ /* The macros are used in some of the optimized implementations below.  */
+ #define __STRING_SMALL_GET16(src, idx) \
+-  (((src)[idx + 1] &lt;&lt; 8) | (src)[idx])
++  ((((char*)(src))[idx + 1] &lt;&lt; 8) | ((char*)(src))[idx])
+ #define __STRING_SMALL_GET32(src, idx) \
+-  ((((src)[idx + 3] &lt;&lt; 8 | (src)[idx + 2]) &lt;&lt; 8				      \
+-    | (src)[idx + 1]) &lt;&lt; 8 | (src)[idx])
++  (((((char*)(src))[idx + 3] &lt;&lt; 8 | ((char*)(src))[idx + 2]) &lt;&lt; 8	      \
++    | ((char*)(src))[idx + 1]) &lt;&lt; 8 | ((char*)(src))[idx])
+ 
+ 
+ /* Copy N bytes of SRC to DEST.  */
+@@ -229,7 +229,7 @@ memcmp (__const void *__s1, __const void
+ 	assignments using immediate operands.  But this uses to much	      \
+ 	memory (7, instead of 4 bytes).  So we force the value in a	      \
+ 	registers.  */							      \
+-     if (n == 3 || n &gt;= 5)						      \
++     if ((n) == 3 || (n) &gt;= 5)						      \
+        __asm__ __volatile__ ("" : "=r" (__c) : "0" (__c));		      \
+ 									      \
+      /* This `switch' statement will be removed at compile-time.  */	      \
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030228055607</emailId><senderName>"Anant Aneja"</senderName><senderEmail>anantaneja@rediffmail.com</senderEmail><timestampReceived>2003-02-28 05:56:07-0400</timestampReceived><subject>ncurses library</subject><body>
+
+anybody can tell me how to start using the ncurses library.
+the man pages are 2 boring.
+Anant
+
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030305203439</emailId><senderName>"Jamie Risk"</senderName><senderEmail>jamie_risk@yahoo.ca</senderEmail><timestampReceived>2003-03-05 20:34:39-0400</timestampReceived><subject>warnings appearing during preprocessor string concatenation (##)</subject><body>
+
+I have the following line in my code,
+
+#define FEATURE(select)     feature_structure. ## select ## .member
+  ...
+   FEATURE(test);
+
+and when I run it through the compiler (gcc 3.2.2 on Linux x86) I get the
+_warning_
+
+  file.c:111:32: warning: pasting "." and "test" does not give a valid
+preprocessing token
+  file.c:111:32: warning: pasting "test" and "." does not give a valid
+preprocessing token
+
+If I look at the preprocessor output, (gcc's -E option) it produces what I'm
+hoping for, although I'd like to avoid the warning.  Suggestions?
+
+- Jamie
+
+Reply to "gmane.linux.c-programming" or me directly.
+
+
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030107034301</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@cd-club.ru</senderEmail><timestampReceived>2003-01-07 03:43:01-0400</timestampReceived><subject>Re: glibc 2.3.1: fix for the i386 inline strings code</subject><body>
+
+On Mon, Jan 06, 2003 at 11:04:29AM +0100, Andreas Jaeger wrote:
+&gt; Denis Zaitsev &lt;zzz@cd-club.ru&gt; writes:
+&gt; 
+&gt; &gt; Nobody has answered to me for a while, so I'm resending this
+&gt; &gt; politely...
+&gt; &gt;
+&gt; &gt; This is a trivial patch for the inlined i386 strings' header.  Without
+&gt; &gt; it, say, X11 can't be compiled with -D__USE_STRING_INLINES - a
+&gt; &gt; problems will be caused by XtNewString and X11's own bzero.  These
+&gt; 
+&gt; What exactly is the problem with X11?
+&gt; 
+&gt; Andreas
+&gt; 
+
+The exact problem with XtNewString is that we have the "void pointer
+dereference" error when it is used with void* argument: XtNewString is
+a macros which uses strcpy, whose inline variant, in turn, uses
+__STRING_SMALL_GET(16|32), which don't cast their (str) argument to
+(char*).  The patch inserts such a casting.  But this is not the
+X-specific problem, I just met it when was compiling X.  It's a
+general error - string functions should work happily with void*
+arguments, so __STRING_SMALL_GET macros' must not assume their (str)
+argument can't be of type void*...
+
+Again, the second problem is not X-specific, but X-exposed (for me).
+X's bzero is defined as memset, and when we have something like
+        bzero(..., col = screen-&gt;max_col + 1)
+the inlined memset, which is a macros, dies, because there is no
+brackets around the second bzero's argument, where it is used in the
+macros.  And, again, it is a general error - the brackets must be
+there.  The second chunk of the patch cures this.
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030107184008</emailId><senderName>Michael Riepe</senderName><senderEmail>michael@stud.uni-hannover.de</senderEmail><timestampReceived>2003-01-07 18:40:08-0400</timestampReceived><subject>Re: glibc 2.3.1: fix for the i386 inline strings code</subject><body>
+
+On Tue, Jan 07, 2003 at 08:43:01AM +0500, Denis Zaitsev wrote:
+[...]
+&gt; The exact problem with XtNewString is that we have the "void pointer
+&gt; dereference" error when it is used with void* argument: XtNewString is
+&gt; a macros which uses strcpy, whose inline variant, in turn, uses
+&gt; __STRING_SMALL_GET(16|32), which don't cast their (str) argument to
+&gt; (char*).  The patch inserts such a casting.  But this is not the
+&gt; X-specific problem, I just met it when was compiling X.  It's a
+&gt; general error - string functions should work happily with void*
+&gt; arguments, so __STRING_SMALL_GET macros' must not assume their (str)
+&gt; argument can't be of type void*...
+
+To be more specific: __STRING_SMALL_GET expects the (str) argument to
+be an `unsigned char *'. Everything else will make it do funny things
+when (signed) characters have values &gt;= 128. Since __strcpy_a_small()
+and __stpcpy_a_small() pass the pointer unmodified, they're broken as
+well.
+
+-- 
+ Michael "Tired" Riepe &lt;Michael.Riepe@stud.uni-hannover.de&gt;
+ "All I wanna do is have a little fun before I die"
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030108053542</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@cd-club.ru</senderEmail><timestampReceived>2003-01-08 05:35:42-0400</timestampReceived><subject>Re: glibc 2.3.1: fix for the i386 inline strings code</subject><body>
+
+On Tue, Jan 07, 2003 at 07:40:08PM +0100, Michael Riepe wrote:
+&gt; On Tue, Jan 07, 2003 at 08:43:01AM +0500, Denis Zaitsev wrote:
+&gt; [...]
+&gt; &gt; The exact problem with XtNewString is that we have the "void pointer
+&gt; &gt; dereference" error when it is used with void* argument: XtNewString is
+&gt; &gt; a macros which uses strcpy, whose inline variant, in turn, uses
+&gt; &gt; __STRING_SMALL_GET(16|32), which don't cast their (str) argument to
+&gt; &gt; (char*).  The patch inserts such a casting.  But this is not the
+&gt; &gt; X-specific problem, I just met it when was compiling X.  It's a
+&gt; &gt; general error - string functions should work happily with void*
+&gt; &gt; arguments, so __STRING_SMALL_GET macros' must not assume their (str)
+&gt; &gt; argument can't be of type void*...
+&gt; 
+&gt; To be more specific: __STRING_SMALL_GET expects the (str) argument to
+&gt; be an `unsigned char *'. Everything else will make it do funny things
+&gt; when (signed) characters have values &gt;= 128. Since __strcpy_a_small()
+&gt; and __stpcpy_a_small() pass the pointer unmodified, they're broken as
+&gt; well.
+
+You are right, indeed...  There must be the (unsigned char*) cast.
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030814235505</emailId><senderName>"Joseph D. Wagner"</senderName><senderEmail>wagnerjd@prodigy.net</senderEmail><timestampReceived>2003-08-14 23:55:05-0400</timestampReceived><subject>RE: GNU server "compromised"? Gimme a break!</subject><body>
+
+I just think this goes a long way to say that GNU/Linux security sucks, the theory of a thousand eyes isn't true because the eyes aren't looking, GNU/Linux security sucks, FSF is administrated by incompetent boobs (notice that even their pre-hacked backups could be compromised -- um, "offsite backups" anyone?), GNU/Linux security sucks, auditing is non-existent because they can't tell who did what (they'd first need ACL's for this), GNU/Linux security sucks, backdoors can be in open source code, ... and did I mention that GNU/Linux security sucks?
+
+&gt; -----Original Message-----
+&gt; From: Scott McCollum [mailto:scott@worldtechtribune.com]
+&gt; Sent: Thursday, August 14, 2003 5:14 PM
+&gt; To: Joseph D. Wagner; bob@bobadkins.com
+&gt; Subject: GNU server "compromised"? Gimme a break!
+&gt; 
+&gt; http://www.internetnews.com/article.php/2248811
+&gt; 
+&gt; So the excuse is that the GNU/Linux servers holding source code for the
+&gt; Free Software Foundation was compromised will be how Stallman and his
+&gt; cronies explain the fact that SCO-owned intellectual property got onto
+&gt; their servers.
+&gt; 
+&gt; How crazy does it sound when you say this out loud: "A hacker broke into
+&gt; our open source servers and slipped proprietary code into the source code
+&gt; of GNU/Linux in an attempt to plant evidence to frame us"?
+&gt; -
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031118002600</emailId><senderName>Keith Whyte</senderName><senderEmail>keith@media-solutions.ie</senderEmail><timestampReceived>2003-11-18 00:26:00-0400</timestampReceived><subject>Re: 2.4.18 fork &amp; defunct child.</subject><body>
+
+Edgar Toernig wrote:
+
+{ strace listing deleted, see 
+http://marc.theaimsgroup.com/?l=linux-kernel&amp;m=106905386725308&amp;w=2 }
+
+&gt;That is not normal /bin/true behaviour.  Sure your system
+&gt;isn't hacked?  Give the -f option to ptrace to see what the
+&gt;forked process is trying to do...  Compare the size of
+&gt;/bin/true with a known-good one.
+&gt;
+&gt;Ciao, ET.
+&gt;
+
+I'm not sure. I should be running tripwire or something, this is the 
+only one of my systems that doesn't run such a thing, as i have the  
+firewall locked down and have been busy.
+But it is true i accidently did iptables -F and it was left that way for 
+a few days.
+
+But this happens with any program, not just /bin/true, also the 
+/bin/true on the root and chroot systems are identical. and with much 
+interest i discovered, that if i unmount /proc, the problem goes away. aggh.
+
+that is why it is not exhibiting itself in the chroot system, - no /proc.
+
+I also remember that when this first happen nearly a year ago, some 
+"unix engineer" at the ISP said, oh yeah that's because something in the 
+ext2 filesystem header is corrupted.. i don't quite remember what he 
+said exactly, something  that sounded so far fetched that i ignored it. 
+does that ring any bells with anyone?
+
+please help, ug, i hate having a linux system that's not reliable. feels 
+like having a pet that's in pain or something.
+
+btw,
+/lib/libc.so.6 -&gt; libc-2.2.5.so
+
+Keith
+
+(i'm cross-posting here to gcc and admin in the hopes of finding someone 
+who has seen this, thanks!)
+
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030815065807</emailId><senderName>"Bob Adkins"</senderName><senderEmail>bob@bobadkins.com</senderEmail><timestampReceived>2003-08-15 06:58:07-0400</timestampReceived><subject>RE: GNU server "compromised"? Gimme a break!</subject><body>
+
+But, it is free!  
+
+I have heard this story before.  Sharing is good.  Freedom, Openess, New World, ...
+
+This is the same foo foo juice that created a generation of single mothers and \
+millions of teens with sexually communicated disease.  The same drunkenness that made \
+it ok to kill millions of babies.  The same BS that created millions of drug users, \
+teen drunks, and theives.  The same spirit that has wiped out millions of kids and \
+just robbed them of any future at all.
+
+They were all defiant.  Anti-establishment.  Claming that, "it is MY body and no one \
+else has the right..."
+
+The end results were really bad and will cause generations of pain.
+
+Stallman and Company are just a bunch of stalled out juvenile delinquents that never \
+grew up.  
+
+Peter Pan from the Dark Side.  The merging of the evil of two consecutive generations \
+into a force for change.  That was called Bolshevism at the turn of the last century. \
+This century, it is called Open Source.  Both were singing the same songs and making \
+the same speeches and marching with the same crowd.  
+
+Both are likely to meet similar ends.  I hope the end of Open Shit is a little less \
+bloody.  The Leninists killed all the Bolsheviks as soon as they had outlived their \
+usefulness.  
+
+Liberated.  Free.  Open.  Common.  Yeah, right!  Dead and dying is a simpler, and \
+more accurate description.
+
+
+
+
+
+---------- Original Message ----------------------------------
+From: "Joseph D. Wagner" &lt;wagnerjd@prodigy.net&gt;
+Date:  Thu, 14 Aug 2003 18:55:05 -0500
+
+&gt; I just think this goes a long way to say that GNU/Linux security sucks, the theory \
+&gt; of a thousand eyes isn't true because the eyes aren't looking, GNU/Linux security \
+&gt; sucks, FSF is administrated by incompetent boobs (notice that even their pre-hacked \
+&gt; backups could be compromised -- um, "offsite backups" anyone?), GNU/Linux security \
+&gt; sucks, auditing is non-existent because they can't tell who did what (they'd first \
+&gt; need ACL's for this), GNU/Linux security sucks, backdoors can be in open source \
+&gt; code, ... and did I mention that GNU/Linux security sucks? 
+&gt; &gt; -----Original Message-----
+&gt; &gt; From: Scott McCollum [mailto:scott@worldtechtribune.com]
+&gt; &gt; Sent: Thursday, August 14, 2003 5:14 PM
+&gt; &gt; To: Joseph D. Wagner; bob@bobadkins.com
+&gt; &gt; Subject: GNU server "compromised"? Gimme a break!
+&gt; &gt; 
+&gt; &gt; http://www.internetnews.com/article.php/2248811
+&gt; &gt; 
+&gt; &gt; So the excuse is that the GNU/Linux servers holding source code for the
+&gt; &gt; Free Software Foundation was compromised will be how Stallman and his
+&gt; &gt; cronies explain the fact that SCO-owned intellectual property got onto
+&gt; &gt; their servers.
+&gt; &gt; 
+&gt; &gt; How crazy does it sound when you say this out loud: "A hacker broke into
+&gt; &gt; our open source servers and slipped proprietary code into the source code
+&gt; &gt; of GNU/Linux in an attempt to plant evidence to frame us"?
+&gt; &gt; -
+&gt; 
+&gt; -
+&gt; 
+&gt; 
+-
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+
+</body></email><email><emailId>20031229035654</emailId><senderName>"Zack Weinberg"</senderName><senderEmail>zack@codesourcery.com</senderEmail><timestampReceived>2003-12-29 03:56:54-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+Ulrich Drepper &lt;drepper@redhat.com&gt; writes:
+
+&gt; Zack Weinberg wrote:
+&gt;&gt; I once tried to get Uli to take them out again, with
+&gt;&gt; hard numbers to back me up, but he ignored me.
+&gt;
+&gt; I have absolutely no problem taking out the inlines once gcc is able to
+&gt; perform the same optimizations.  Problem is that nobody spent the time
+&gt; so far to complete the task in gcc.
+
+This is true - I believe Joseph Myers put a list of yet-to-be-done
+optimizations on the GCC projects page ...
+
+&gt; As far as I know each function we still have has an advantage over
+&gt; the gcc code.
+
+... however, that advantage is only theoretical.  Experiments such as
+Peter Zaitsev's just now, and mine several years ago, demonstrate that
+the bits/string.h and bits/string2.h inlines make code worse, not better.
+Therefore they should be removed.
+
+zw
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229053152</emailId><senderName>Daniel Jacobowitz</senderName><senderEmail>drow@mvista.com</senderEmail><timestampReceived>2003-12-29 05:31:52-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Sun, Dec 28, 2003 at 07:56:54PM -0800, Zack Weinberg wrote:
+&gt; Ulrich Drepper &lt;drepper@redhat.com&gt; writes:
+&gt; 
+&gt; &gt; Zack Weinberg wrote:
+&gt; &gt;&gt; I once tried to get Uli to take them out again, with
+&gt; &gt;&gt; hard numbers to back me up, but he ignored me.
+&gt; &gt;
+&gt; &gt; I have absolutely no problem taking out the inlines once gcc is able to
+&gt; &gt; perform the same optimizations.  Problem is that nobody spent the time
+&gt; &gt; so far to complete the task in gcc.
+&gt; 
+&gt; This is true - I believe Joseph Myers put a list of yet-to-be-done
+&gt; optimizations on the GCC projects page ...
+&gt; 
+&gt; &gt; As far as I know each function we still have has an advantage over
+&gt; &gt; the gcc code.
+&gt; 
+&gt; ... however, that advantage is only theoretical.  Experiments such as
+&gt; Peter Zaitsev's just now, and mine several years ago, demonstrate that
+&gt; the bits/string.h and bits/string2.h inlines make code worse, not better.
+&gt; Therefore they should be removed.
+
+Funny, I conducted this experiment last week and found quite the
+opposite.  Compiling the demangler and a smallish yacc parser
+with -D__NO_STRING_INLINES cost about 20% in runtime.
+
+I'm not convinced.
+
+-- 
+Daniel Jacobowitz
+MontaVista Software                         Debian GNU/Linux Developer
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229055533</emailId><senderName>"Zack Weinberg"</senderName><senderEmail>zack@codesourcery.com</senderEmail><timestampReceived>2003-12-29 05:55:33-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+
+&gt; &gt; ... however, that advantage is only theoretical.  Experiments such as
+&gt; &gt; Peter Zaitsev's just now, and mine several years ago, demonstrate that
+&gt; &gt; the bits/string.h and bits/string2.h inlines make code worse, not better.
+&gt; &gt; Therefore they should be removed.
+&gt;
+&gt; Funny, I conducted this experiment last week and found quite the
+&gt; opposite.  Compiling the demangler and a smallish yacc parser
+&gt; with -D__NO_STRING_INLINES cost about 20% in runtime.
+
+That's interesting.  My testing was with much larger programs where
+str* / mem* aren't the bottleneck anyway.  I wonder if you would be
+willing to take a look at the differences in the assembly language
+and see where that 20% is coming from.
+
+zw
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229065741</emailId><senderName>Jakub Jelinek</senderName><senderEmail>jakub@redhat.com</senderEmail><timestampReceived>2003-12-29 06:57:41-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Sun, Dec 28, 2003 at 10:54:19PM -0500, Andrew Pinski wrote:
+&gt; &gt;Zack Weinberg wrote:
+&gt; &gt;&gt;I once tried to get Uli to take them out again, with
+&gt; &gt;&gt;hard numbers to back me up, but he ignored me.
+&gt; &gt;
+&gt; &gt;I have absolutely no problem taking out the inlines once gcc is able to
+&gt; &gt;perform the same optimizations.  Problem is that nobody spent the time
+&gt; &gt;so far to complete the task in gcc.  As far as I know each function we
+&gt; &gt;still have has an advantage over the gcc code.
+&gt; &gt;
+&gt; &gt;Just look at the inlines to determine what is optimized, do it in gcc,
+&gt; &gt;and let me know.  Then I'll remove the inline.
+&gt; 
+&gt; We already do more when it comes to removing sqrt and other math 
+&gt; functions and also
+&gt; some string functions we optimize without the need for the string 
+&gt; instructions.
+&gt; In fact GCC does more optimizations on string functions than glibc does 
+&gt; already.
+
+I think all inlines/macros which are to be removed from bits/string{,2}.h
+should be benchmarked first with various constant and variable arguments on
+various architectures.
+I did it for some routines 2 years ago:
+http://sources.redhat.com/ml/libc-hacker/2001-11/msg00035.html
+http://sources.redhat.com/ml/libc-hacker/2002-01/msg00091.html
+
+&gt; The functions that GCC does not optimize that glibc does are the 
+&gt; following:
+&gt; memrchr
+&gt; strncat (we do sometimes)
+&gt; strncmp
+&gt; strchr (with a FIXME in GCC)
+&gt; strchrnul
+&gt; strcspn
+&gt; strspn
+&gt; strpbrk
+&gt; strstr (we do a better job for "a", but we do not do it for the general 
+&gt; case)
+&gt; 
+&gt; 
+&gt; The common cases of strcpy, memcpy, etc. we do optimize greatly and as 
+&gt; the math
+&gt; library we do too.
+
+	Jakub
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229183708</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-29 18:37:08-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Mon, Dec 29, 2003 at 12:31:52AM -0500, Daniel Jacobowitz wrote:
+&gt; Funny, I conducted this experiment last week and found quite the
+&gt; opposite.  Compiling the demangler and a smallish yacc parser
+&gt; with -D__NO_STRING_INLINES cost about 20% in runtime.
+
+-D__NO_STRING_INLINES just puts the inlining off.  But nobody here
+tells about the inline/noinline comparing.  Of course, inlining is
+better at speed.  The comparison is doing between some versions of the
+inlining.
+
+&gt; I'm not convinced.
+
+If it's possible, please try you experiment with "memory" vs. "m"
+versions of inlines.  I will send the patch to you, if it's needed.
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229185120</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-29 18:51:20-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Sun, Dec 28, 2003 at 07:56:54PM -0800, Zack Weinberg wrote:
+&gt; ... however, that advantage is only theoretical.  Experiments such as
+&gt; Peter Zaitsev's just now, and mine several years ago, demonstrate that
+  ^^^^^^^^^^^^^
+Do you mean me?  Pete Zaitcev is the real person too (AFAIK), but he
+is the other person...  :)
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229190914</emailId><senderName>"Zack Weinberg"</senderName><senderEmail>zack@codesourcery.com</senderEmail><timestampReceived>2003-12-29 19:09:14-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+Denis Zaitsev &lt;zzz@anda.ru&gt; writes:
+
+&gt; On Mon, Dec 29, 2003 at 12:31:52AM -0500, Daniel Jacobowitz wrote:
+&gt;&gt; Funny, I conducted this experiment last week and found quite the
+&gt;&gt; opposite.  Compiling the demangler and a smallish yacc parser
+&gt;&gt; with -D__NO_STRING_INLINES cost about 20% in runtime.
+&gt;
+&gt; -D__NO_STRING_INLINES just puts the inlining off.  But nobody here
+&gt; tells about the inline/noinline comparing.  Of course, inlining is
+&gt; better at speed.  The comparison is doing between some versions of the
+&gt; inlining.
+
+No.  There is no "of course" here.  If your inlined functions blow out
+the instruction cache, it may wind up being a net lose.  Same if the
+out-of-line memcpy takes several more instructions to set up but makes
+damn sure to do aligned memory accesses (full-bus-width loads,
+nontemporal store, prefetches, etc etc etc), whereas the inline one
+doesn't.
+
+zw
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229191527</emailId><senderName>"Zack Weinberg"</senderName><senderEmail>zack@codesourcery.com</senderEmail><timestampReceived>2003-12-29 19:15:27-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+Denis Zaitsev &lt;zzz@anda.ru&gt; writes:
+
+&gt; On Sun, Dec 28, 2003 at 07:56:54PM -0800, Zack Weinberg wrote:
+&gt;&gt; ... however, that advantage is only theoretical.  Experiments such as
+&gt;&gt; Peter Zaitsev's just now, and mine several years ago, demonstrate that
+&gt;   ^^^^^^^^^^^^^
+&gt; Do you mean me?  Pete Zaitcev is the real person too (AFAIK), but he
+&gt; is the other person...  :)
+
+I'm sorry, I got you mixed up.
+
+zw
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229193147</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-29 19:31:47-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Mon, Dec 29, 2003 at 11:09:14AM -0800, Zack Weinberg wrote:
+&gt; Denis Zaitsev &lt;zzz@anda.ru&gt; writes:
+&gt; 
+&gt; &gt; On Mon, Dec 29, 2003 at 12:31:52AM -0500, Daniel Jacobowitz wrote:
+&gt; &gt;&gt; Funny, I conducted this experiment last week and found quite the
+&gt; &gt;&gt; opposite.  Compiling the demangler and a smallish yacc parser
+&gt; &gt;&gt; with -D__NO_STRING_INLINES cost about 20% in runtime.
+&gt; &gt;
+&gt; &gt; -D__NO_STRING_INLINES just puts the inlining off.  But nobody here
+&gt; &gt; tells about the inline/noinline comparing.  Of course, inlining is
+&gt; &gt; better at speed.  The comparison is doing between some versions of the
+&gt; &gt; inlining.
+&gt; 
+&gt; No.  There is no "of course" here.
+
+Strictly speaking, you are right.  But in general, in the real life in
+average etc., when strings are too short the effects you are
+describing below to appear etc. etc., my "of course" is near enough to
+the truth.
+
+&gt; If your inlined functions blow out the instruction cache, it may
+&gt; wind up being a net lose.
+
+Definitely.  This is why I don't like when the inline functions are
+growing, putting the effects of "m" down...
+
+&gt; Same if the out-of-line memcpy takes several more instructions to
+&gt; set up but makes damn sure to do aligned memory accesses
+&gt; (full-bus-width loads, nontemporal store, prefetches, etc etc etc),
+&gt; whereas the inline one doesn't.
+
+First, they are trying to do so here and there (but ok, not fine).
+
+Second, I have experimented with this nonaligned access some time
+ago.  I don't remember exactly, but it seems that the modern x86
+processors do the job as fine as when the memory access is aligned.
+But as it was too far ago, I can't recollect the details and so I
+won't insist.  Better I will repeat the measurements...
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031227105252</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-27 10:52:52-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Thu, Dec 25, 2003 at 07:40:42PM -0800, Zack Weinberg wrote:
+&gt; Denis Zaitsev &lt;zzz@anda.ru&gt; writes:
+&gt; 
+&gt; &gt; So, does it mean that we are indeed speaking about the problem in
+&gt; &gt; GCC?
+&gt; 
+&gt; I think you've demonstrated that there isn't an ideal way to write
+&gt; this construct right now.  ("memory" clobbers having their own
+&gt; problems).
+
+Really, I did mean that "m" is worse than "memory" (say, "in
+general"), but it was choosen to use and it is enigmatic for me.
+There was a discussion in the past about the advantages given by "m"
+over just "memory".  And as I understand, these advantages are really
+nothing.  But the dummy code size they added to, say, glibc-2.3.2 is
+6Kb.
+
+&gt; The next stage is to figure out (a) what the right notation is, and
+&gt; (b) what needs to be done in GCC to make it work.  I cannot tell
+&gt; whether the semantics of "m" should change, or whether new notation
+
+Semantics?  Or may be implementation?  It seems that all ok with the
+semantics...
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031227113540</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-27 11:35:40-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Sat, Dec 27, 2003 at 02:24:59AM -0800, Zack Weinberg wrote:
+
+&gt; Denis' original example doesn't quote actual code but I think it's
+&gt; talking about stuff like this (from libc cvs,
+&gt; sysdeps/i386/i486/bits/string.h) -
+
+Exactly.  But I've mentioned that...
+
+&gt; __STRING_INLINE void *
+&gt; __memcpy_g (void *__dest, __const void *__src, size_t __n)
+&gt; {
+&gt;   register unsigned long int __d0, __d1, __d2;
+&gt;   register void *__tmp = __dest;
+&gt;   __asm__ __volatile__
+&gt;     ("cld\n\t"
+&gt;      "shrl      $1,%%ecx\n\t"
+&gt;      "jnc       1f\n\t"
+&gt;      "movsb\n"
+&gt;      "1:\n\t"
+&gt;      "shrl      $1,%%ecx\n\t"
+&gt;      "jnc       2f\n\t"
+&gt;      "movsw\n"
+&gt;      "2:\n\t"
+&gt;      "rep; movsl"
+&gt;      : "=&amp;c" (__d0), "=&amp;D" (__d1), "=&amp;S" (__d2),
+&gt;        "=m" ( *(struct { __extension__ char __x[__n]; } *)__dest)
+&gt;      : "0" (__n), "1" (__tmp), "2" (__src),
+&gt;        "m" ( *(struct { __extension__ char __x[__n]; } *)__src)
+&gt;      : "cc");
+&gt;   return __dest;
+&gt; }
+&gt; 
+&gt; so, first off, I don't think this kind of optimization is libc's
+&gt; business; we have the tools to do a better job over here in the
+&gt; compiler.
+
+Should the compiler implement all the string functions?  Very probably
+not.  But anyway, then these problem will be inside the compiler
+(again).  And anyway, there should be the right way to make such
+inline solutions, if so...
+
+&gt; And furthermore I think it's buggy - if the block to be copied is
+&gt; large and not aligned, it will overwrite memory past the end of the
+&gt; destination.
+
+Why do you think so?  The code looks ok.  I don't think it's the
+fastest one, but it's correct.
+
+&gt; But let's suppose /arguendo/ that there is a legitimate use for a
+&gt; construct like this: the notation is frankly appalling.  Let me try
+&gt; to make up some better notation, using C99 variably-modified arrays
+&gt; and GNU forward parameter declarations (we have the blasted things,
+&gt; we might as well get some use out of them...)  Note I am not
+&gt; attempting to fix the bugs in the assembly.
+&gt; 
+&gt; __STRING_INLINE void *
+&gt; __memcpy_g (size_t __n; char __dest[restrict static __n], 
+&gt;             const char __src[restrict static __n], size_t __n)
+&gt; {
+&gt;   void *savedest = __dest;
+&gt;   __asm__ __volatile__
+&gt;     ("cld\n\t"
+&gt;      "shrl      $1,%%ecx\n\t"
+&gt;      "jnc       1f\n\t"
+&gt;      "movsb\n"
+&gt;      "1:\n\t"
+&gt;      "shrl      $1,%%ecx\n\t"
+&gt;      "jnc       2f\n\t"
+&gt;      "movsw\n"
+&gt;      "2:\n\t"
+&gt;      "rep; movsl"
+&gt;      : "+c" (__n), "+@S" (__src), "+@D" (__dest));
+&gt;   return savedest;
+&gt; }
+&gt; 
+&gt; @ is a character not otherwise used in constraints; it means 'the
+&gt; value here is a pointer and the memory pointed to will be accessed'.
+
+Why isn't it documented?  Is it a kind of "new" one?
+
+(The only remark is - it must be "+@&amp;S" etc., there are the
+earlyclobbered operands.)
+
+&gt; Exactly how much memory, and the nature of the access, are
+&gt; determined by the type of the pointer.  Here, both pointers are
+&gt; restrict- qualified and point to memory blocks of known size (that's
+&gt; what "static __n" in the brackets means).  Furthermore, __src points
+&gt; to constant memory, so that block is only read, whereas __dest is
+&gt; not constant so the compiler shall assume it's written.
+
+Does this "@" behaves as well with unrestricted pointers like just
+(char *s)?
+
+&gt; I had to change the types from void to char so the size expressions
+&gt; would be meaningful; if you were actually to use this to implement
+&gt; memcpy, you'd wrap it in another inline function that casted the
+&gt; arguments.
+&gt; 
+&gt; I think that's all that should be needed.  Thoughts?
+
+I've just tried this (on mine examples, with unrestricted pointers).
+The things seem to be fine.  Not ideal (reloading suffers sometimes,
+but this is not the @-specific problem), but completely free of the
+problems introduced by "m".
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031227183849</emailId><senderName>"Zack Weinberg"</senderName><senderEmail>zack@codesourcery.com</senderEmail><timestampReceived>2003-12-27 18:38:49-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+Denis Zaitsev &lt;zzz@anda.ru&gt; writes:
+
+&gt;&gt; so, first off, I don't think this kind of optimization is libc's
+&gt;&gt; business; we have the tools to do a better job over here in the
+&gt;&gt; compiler.
+&gt;
+&gt; Should the compiler implement all the string functions?
+
+That is the trend.  The compiler can make a better decision about
+whether memcpy (for example) should be inlined at all, if it knows the
+properties.  If it does decide to inline a general memcpy algorithm,
+it doesn't have to treat it as a giant opaque block of assembly
+language, not to be modified.  It can schedule other things
+simultaneously, if that's a good move; it can prove that some of the
+insns are unnecessary and eliminate them; etc. etc.
+
+&gt; Very probably not.  But anyway, then these problem will be inside
+&gt; the compiler (again).
+
+No; we have more flexible ways of expressing this sort of thing inside
+the compiler.
+
+&gt;&gt; And furthermore I think it's buggy - if the block to be copied is
+&gt;&gt; large and not aligned, it will overwrite memory past the end of the
+&gt;&gt; destination.
+&gt;
+&gt; Why do you think so?  The code looks ok.  I don't think it's the
+&gt; fastest one, but it's correct.
+
+I misunderstood the consequences of doing rep movsl with unaligned
+pointers.  It just does lots of slow misaligned memory accesses; it
+doesn't overwrite memory outside the destination block.
+
+&gt;&gt; @ is a character not otherwise used in constraints; it means 'the
+&gt;&gt; value here is a pointer and the memory pointed to will be accessed'.
+&gt;
+&gt; Why isn't it documented?  Is it a kind of "new" one?
+
+I just made it up.  It is not implemented at present, nor will it
+necessarily _be_ implemented.  I was making a suggestion for a better
+way to write this stuff.
+
+&gt; (The only remark is - it must be "+@&amp;S" etc., there are the
+&gt; earlyclobbered operands.)
+
+There are now only three operands and they have non-overlapping
+register classes, so &amp; is not necessary.
+
+&gt; Does this "@" behaves as well with unrestricted pointers like just
+&gt; (char *s)?
+
+The less information the compiler has about the pointer, the more
+memory it would have to assume is modified.  At worst, "@" should
+be equivalent to clobbering "memory".
+
+&gt; I've just tried this (on mine examples, with unrestricted pointers).
+&gt; The things seem to be fine.  Not ideal (reloading suffers sometimes,
+&gt; but this is not the @-specific problem), but completely free of the
+&gt; problems introduced by "m".
+
+Please remember that "m" (extension struct blah blah __dest) was
+written in the original for a reason.  You're not going to see it in
+simple test cases, but the compiler has to be told that the asm
+statement modifies memory, or it *will* mis-optimize around it. My
+example code, with no meaning implemented for "@", is like that.
+
+The point of the original construct was to tell the compiler exactly
+what blocks of memory were modified.  This turns out to have
+undesirable side effects, which we're trying to get around here, but
+let's not forget what the original point was.  If there weren't cases
+where clobbering "memory" caused poor optimization, no one would have
+bothered with the "m" mess in the first place.
+
+zw
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031228205820</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-28 20:58:20-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Sat, Dec 27, 2003 at 10:38:49AM -0800, Zack Weinberg wrote:
+&gt; Denis Zaitsev &lt;zzz@anda.ru&gt; writes:
+&gt; 
+&gt; &gt;&gt; so, first off, I don't think this kind of optimization is libc's
+&gt; &gt;&gt; business; we have the tools to do a better job over here in the
+&gt; &gt;&gt; compiler.
+&gt; &gt;
+&gt; &gt; Should the compiler implement all the string functions?
+&gt; 
+&gt; That is the trend.  The compiler can make a better decision about
+&gt; whether memcpy (for example) should be inlined at all, if it knows
+&gt; the properties.
+
+Yes, but even if it can, it is rather a kinda political question -
+should it do so, or this must be defined by the programmer.  I
+personally like the latter approach, but who knows...
+
+&gt; If it does decide to inline a general memcpy algorithm, it doesn't
+&gt; have to treat it as a giant opaque block of assembly language, not
+&gt; to be modified.
+
+I agree definitely.  But the same is necessary for inline-asm as well.
+There should be an ability to show to the compiler the properties of
+the asm block, which would allow the compiler to work well with it.
+For now, as I understand, there are two such possibilities - an
+abcense of the "volatile" keyword and a (manual) splitting the asm
+block into some "volatile" ones.  These don't seem to be bad, but the
+compiler hasn't got some other abilities (ihmo) to work excellent with
+these two.
+
+&gt; It can schedule other things simultaneously, if that's a good move;
+&gt; it can prove that some of the insns are unnecessary and eliminate
+&gt; them; etc. etc.
+
+Ok, ok again.  But in the real life the external inline-asm seems not
+to feel so bad from this point of view.  The real inline-asm defun
+usually contains some prologue and epilogue written in the usual C.
+And there are the places where the compiler may do its optimisation
+job.  It's just like a work with an invariants moved outside the loop.
+
+&gt; &gt; Very probably not.  But anyway, then these problem will be inside
+&gt; &gt; the compiler (again).
+&gt; 
+&gt; No; we have more flexible ways of expressing this sort of thing
+&gt; inside the compiler.
+
+But it seems to be politically wrong - not to keep the library
+functions _in_ the library, doesn't it?  For some _very basic_
+primitives it's ok, but not for the whole library functions, even
+though for the basic ones.
+
+&gt; I just made it up.  It is not implemented at present, nor will it
+&gt; necessarily _be_ implemented.  I was making a suggestion for a better
+&gt; way to write this stuff.
+
+Heh...  :)  And I was trying to play with them...
+
+&gt; &gt; (The only remark is - it must be "+@&amp;S" etc., there are the
+&gt; &gt; earlyclobbered operands.)
+&gt; 
+&gt; There are now only three operands and they have non-overlapping
+&gt; register classes, so &amp; is not necessary.
+
+Ok, I'm sorry.  I don't use "S" etc., so I just overlooked the
+things...
+
+&gt; Please remember that "m" (extension struct blah blah __dest) was
+&gt; written in the original for a reason.  You're not going to see it in
+&gt; simple test cases, but the compiler has to be told that the asm
+&gt; statement modifies memory, or it *will* mis-optimize around it. My
+&gt; example code, with no meaning implemented for "@", is like that.
+
+I understand this.  And I'm not arguing with it.  I just have a
+(grounded?) feeling, that this benefit is quite rare possible to be
+met in the real life.  Other people have the same feeling - look at
+http://gcc.gnu.org/ml/gcc-patches/2002-03/msg00521.html and the thread.
+
+&gt; The point of the original construct was to tell the compiler exactly
+&gt; what blocks of memory were modified.  This turns out to have
+&gt; undesirable side effects, which we're trying to get around here, but
+&gt; let's not forget what the original point was.  If there weren't
+&gt; cases where clobbering "memory" caused poor optimization, no one
+&gt; would have bothered with the "m" mess in the first place.
+
+So about these "undesirable side effects" - they should be left in
+piece till some good time, when GCC will start not to produce them.
+Ok, it sounds nearly reasonable.  But please look thru that
+sysdeps/i386/i486/bits/string.h - it has definitely been written with
+some oter approaches in mind(s).  It's full of misc. workarounds off
+GCC, and it looks like a kind of a way to reach the good machine code
+while the world around it, including the compiler, is not ideal.  So,
+I'm just wondering why one such a subway has been choosen vs. some
+other, while this first one obviously has cons and its pros seems to
+be just ephemeral...  If they are real, then the question in that its
+form is vanishing.  But what I've found for now is a suspicions more
+than the hard evidences... :)
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229022208</emailId><senderName>"Zack Weinberg"</senderName><senderEmail>zack@codesourcery.com</senderEmail><timestampReceived>2003-12-29 02:22:08-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+Denis Zaitsev &lt;zzz@anda.ru&gt; writes:
+
+&gt; On Sat, Dec 27, 2003 at 10:38:49AM -0800, Zack Weinberg wrote:
+&gt;&gt; Denis Zaitsev &lt;zzz@anda.ru&gt; writes:
+&gt;&gt; 
+&gt;&gt; &gt;&gt; so, first off, I don't think this kind of optimization is libc's
+&gt;&gt; &gt;&gt; business; we have the tools to do a better job over here in the
+&gt;&gt; &gt;&gt; compiler.
+&gt;&gt; &gt;
+&gt;&gt; &gt; Should the compiler implement all the string functions?
+&gt;&gt; 
+&gt;&gt; That is the trend.  The compiler can make a better decision about
+&gt;&gt; whether memcpy (for example) should be inlined at all, if it knows
+&gt;&gt; the properties.
+&gt;
+&gt; Yes, but even if it can, it is rather a kinda political question -
+&gt; should it do so, or this must be defined by the programmer.  I
+&gt; personally like the latter approach, but who knows...
+
+Meh.  I personally am convinced that the compiler can do a *much*
+better job, and that trying to improve bits/string.h and
+bits/string2.h is a waste of time; in fact, I've felt that they have
+*always* caused the generated code to get worse, from the day they
+were introduced.  I once tried to get Uli to take them out again, with
+hard numbers to back me up, but he ignored me.
+
+So I have very little interest in pursuing any of your suggestions.
+If you want to keep at them, though, and come up with patches, feel
+free.
+
+zw
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229024447</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-29 02:44:47-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Sun, Dec 28, 2003 at 06:22:08PM -0800, Zack Weinberg wrote:
+&gt; 
+&gt; Meh.  I personally am convinced that the compiler can do a *much*
+&gt; better job, and that trying to improve bits/string.h and
+&gt; bits/string2.h is a waste of time; in fact, I've felt that they have
+&gt; *always* caused the generated code to get worse, from the day they
+&gt; were introduced.  I once tried to get Uli to take them out again,
+&gt; with hard numbers to back me up, but he ignored me.
+
+Who is Uli - Ulrich Drepper?
+
+&gt; So I have very little interest in pursuing any of your suggestions.
+
+But I don't even try to have you to do so!  I'm just trying to
+understand what is/was happening.  I very don't like the content of
+bits/string[2].h too.  And I don't want to offend you.  I'm very
+sorry, if so.
+
+&gt; If you want to keep at them, though, and come up with patches, feel
+&gt; free.
+
+Ok.
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229024633</emailId><senderName>"Zack Weinberg"</senderName><senderEmail>zack@codesourcery.com</senderEmail><timestampReceived>2003-12-29 02:46:33-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+Denis Zaitsev &lt;zzz@anda.ru&gt; writes:
+
+&gt; On Sun, Dec 28, 2003 at 06:22:08PM -0800, Zack Weinberg wrote:
+&gt;&gt; 
+&gt;&gt; Meh.  I personally am convinced that the compiler can do a *much*
+&gt;&gt; better job, and that trying to improve bits/string.h and
+&gt;&gt; bits/string2.h is a waste of time; in fact, I've felt that they have
+&gt;&gt; *always* caused the generated code to get worse, from the day they
+&gt;&gt; were introduced.  I once tried to get Uli to take them out again,
+&gt;&gt; with hard numbers to back me up, but he ignored me.
+&gt;
+&gt; Who is Uli - Ulrich Drepper?
+
+Yes.
+
+&gt;&gt; So I have very little interest in pursuing any of your suggestions.
+&gt;
+&gt; But I don't even try to have you to do so!  I'm just trying to
+&gt; understand what is/was happening.  I very don't like the content of
+&gt; bits/string[2].h too.  And I don't want to offend you.  I'm very
+&gt; sorry, if so.
+
+No offense was taken, and I'm sorry I was so short.
+
+I meant to indicate that I lack the time even to consider the rest of
+your message at any length, so I cannot answer the questions you
+raise.  Again I apologize.
+
+zw
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229025308</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-29 02:53:08-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Sun, Dec 28, 2003 at 06:46:33PM -0800, Zack Weinberg wrote:
+
+&gt; &gt; But I don't even try to have you to do so!  I'm just trying to
+&gt; &gt; understand what is/was happening.  I very don't like the content
+&gt; &gt; of bits/string[2].h too.  And I don't want to offend you.  I'm
+&gt; &gt; very sorry, if so.
+&gt; 
+&gt; No offense was taken, and I'm sorry I was so short.
+&gt; 
+&gt; I meant to indicate that I lack the time even to consider the rest
+&gt; of your message at any length, so I cannot answer the questions you
+&gt; raise.  Again I apologize.
+
+Ok, I understand.
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229033549</emailId><senderName>Ulrich Drepper</senderName><senderEmail>drepper@redhat.com</senderEmail><timestampReceived>2003-12-29 03:35:49-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Zack Weinberg wrote:
+&gt; I once tried to get Uli to take them out again, with
+&gt; hard numbers to back me up, but he ignored me.
+
+I have absolutely no problem taking out the inlines once gcc is able to
+perform the same optimizations.  Problem is that nobody spent the time
+so far to complete the task in gcc.  As far as I know each function we
+still have has an advantage over the gcc code.
+
+Just look at the inlines to determine what is optimized, do it in gcc,
+and let me know.  Then I'll remove the inline.
+
+- -- 
+➧ Ulrich Drepper ➧ Red Hat, Inc. ➧ 444 Castro St ➧ Mountain View, CA ❖
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.3 (GNU/Linux)
+
+iD8DBQE/76EV2ijCOnn/RHQRAiqSAJ94VislJ3isH5sUcxkVnYYPWf5P5wCgtG31
+NshLBBxIoD9h39vlQ4cbjU8=
+=kZHC
+-----END PGP SIGNATURE-----
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229035419</emailId><senderName>Andrew Pinski</senderName><senderEmail>pinskia@physics.uc.edu</senderEmail><timestampReceived>2003-12-29 03:54:19-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+
+On Dec 28, 2003, at 22:35, Ulrich Drepper wrote:
+
+&gt; -----BEGIN PGP SIGNED MESSAGE-----
+&gt; Hash: SHA1
+&gt;
+&gt; Zack Weinberg wrote:
+&gt;&gt; I once tried to get Uli to take them out again, with
+&gt;&gt; hard numbers to back me up, but he ignored me.
+&gt;
+&gt; I have absolutely no problem taking out the inlines once gcc is able to
+&gt; perform the same optimizations.  Problem is that nobody spent the time
+&gt; so far to complete the task in gcc.  As far as I know each function we
+&gt; still have has an advantage over the gcc code.
+&gt;
+&gt; Just look at the inlines to determine what is optimized, do it in gcc,
+&gt; and let me know.  Then I'll remove the inline.
+
+We already do more when it comes to removing sqrt and other math 
+functions and also
+some string functions we optimize without the need for the string 
+instructions.
+In fact GCC does more optimizations on string functions than glibc does 
+already.
+
+The functions that GCC does not optimize that glibc does are the 
+following:
+memrchr
+strncat (we do sometimes)
+strncmp
+strchr (with a FIXME in GCC)
+strchrnul
+strcspn
+strspn
+strpbrk
+strstr (we do a better job for "a", but we do not do it for the general 
+case)
+
+
+The common cases of strcpy, memcpy, etc. we do optimize greatly and as 
+the math
+library we do too.
+
+Thanks,
+Andrew Pinski
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031225011338</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-25 01:13:38-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Wed, Dec 24, 2003 at 04:39:37PM -0800, Roland McGrath wrote:
+&gt; &gt; &gt;From some moment in the past, the next input parameters are used here
+&gt; &gt; and there in sysdeps/i386/i486/bits/string.h:
+&gt; &gt;
+&gt; &gt;         "m" ( *(struct { char __x[0xfffffff]; } *)__s)
+&gt; &gt;
+&gt; &gt; When I was seeking for the reasons to do so, I've found some
+&gt; &gt; discussions about this in libc-alpha and gcc mailing lists.  As I
+&gt; &gt; understand from there, there are an options - to use the "m" arg(s)
+&gt; &gt; shown above or just to use "memory" in the list of a clobbered
+&gt; &gt; registers.  So, the question is: why the "m"-way had been choosen?
+&gt;
+&gt; The reason we use this kind of "m" constraint is that it indicates what we
+&gt; want to say: memory __s points to might be used.  That means that if the C
+&gt; aliasing rules allow the compiler to assume that a given other expression
+&gt; cannot point to the same memory as __s does, it is free to do so and
+&gt; optimize out stores through unrelated pointers that cannot affect __s.
+&gt; Conversely, a "memory" clobber tells the compiler that it must assume that
+&gt; all memory any pointer points to might be read by this asm.
+
+Yes, I understand all this.  But in that discussion in past the
+similar question was already touched - the "precise" "m"-way doesn't
+get any real-life benefit.
+
+&gt; &gt; I'm asking, because I've found that this "m"-way leads GCC to produce
+&gt; &gt; an unoptimal enough assembler, while "memory" code is ok.
+&gt;
+&gt; That is an issue for GCC.
+
+Yes, I have no way other than just to agree...
+
+&gt; It is correct for glibc (and other code) to use the asm constraints
+&gt; that express the true precise set of constraints and tell the
+&gt; compiler it is free to do us much as is in fact safe.  As to whether
+&gt; your "+&amp;r" constraints on the pointer values are correct, I don't
+&gt; know.
+
+"+&amp;r" is just a shortcut for :"=&amp;r":"0":.  It's correct and doesn't
+touch the "m" issue.
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031225011524</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-25 01:15:24-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Wed, Dec 24, 2003 at 04:38:19PM -0800, Richard Henderson wrote:
+&gt; On Thu, Dec 25, 2003 at 05:20:46AM +0500, Denis Zaitsev wrote:
+&gt; &gt; &gt;From some moment in the past, the next input parameters are used here
+&gt; &gt; and there in sysdeps/i386/i486/bits/string.h:
+&gt; &gt;
+&gt; &gt;         "m" ( *(struct { char __x[0xfffffff]; } *)__s)
+&gt; &gt;
+&gt; &gt; When I was seeking for the reasons to do so, I've found some
+&gt; &gt; discussions about this in libc-alpha and gcc mailing lists.  As I
+&gt; &gt; understand from there, there are an options - to use the "m" arg(s)
+&gt; &gt; shown above or just to use "memory" in the list of a clobbered
+&gt; &gt; registers.  So, the question is: why the "m"-way had been choosen?
+&gt;
+&gt; Someone wanted to describe that memory is read, but not written.
+&gt; There's no real good way to do that.
+&gt;
+&gt; You could use the "X" constraint, which is supposed to mean "anything"
+&gt; and by implication "unused", but it's normally only with scratch
+&gt; registers, not memories, and the address reloads don't get deleted.
+ 
+Yes, I've tried the "X" - there is no difference from the "m" - all
+the same unneded extra code (exactly).
+ 
+&gt; You could file an enhancement pr against "X" if you want.
+
+Do you mean a kind of a complain that "X" does't work as it should?
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031225012116</emailId><senderName>"Zack Weinberg"</senderName><senderEmail>zack@codesourcery.com</senderEmail><timestampReceived>2003-12-25 01:21:16-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+Denis Zaitsev &lt;zzz@anda.ru&gt; writes:
+
+&gt;&gt; You could use the "X" constraint, which is supposed to mean "anything"
+&gt;&gt; and by implication "unused", but it's normally only with scratch
+&gt;&gt; registers, not memories, and the address reloads don't get deleted.
+&gt;  
+&gt; Yes, I've tried the "X" - there is no difference from the "m" - all
+&gt; the same unneded extra code (exactly).
+
+I think the most constructive thing for you to do is find out _why_
+all this unneeded extra code is being generated for "m" constraints
+and then submit a patch to fix it.
+
+zw
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031225013850</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-25 01:38:50-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Wed, Dec 24, 2003 at 05:27:11PM -0800, Richard Henderson wrote:
+&gt; On Thu, Dec 25, 2003 at 06:08:50AM +0500, Denis Zaitsev wrote:
+&gt; &gt; Do you mean a kind of a complain that "X" does't work as it should?
+&gt; 
+&gt; Rather, that it could work better.
+
+Ok.  BTW, I was looking around a little - and it seems that "m" suits
+better here than "X" - we deals with a memory operand, not with "Any
+operand whatsoever" (according to the documentation).  But you suggest
+"X" (and this is not the first time).  Why?
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031225014518</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-25 01:45:18-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Wed, Dec 24, 2003 at 05:21:16PM -0800, Zack Weinberg wrote:
+&gt; Denis Zaitsev &lt;zzz@anda.ru&gt; writes:
+&gt; 
+&gt; &gt;&gt; You could use the "X" constraint, which is supposed to mean "anything"
+&gt; &gt;&gt; and by implication "unused", but it's normally only with scratch
+&gt; &gt;&gt; registers, not memories, and the address reloads don't get deleted.
+&gt; &gt;  
+&gt; &gt; Yes, I've tried the "X" - there is no difference from the "m" - all
+&gt; &gt; the same unneded extra code (exactly).
+&gt; 
+&gt; I think the most constructive thing for you to do is find out _why_
+&gt; all this unneeded extra code is being generated for "m" constraints
+&gt; and then submit a patch to fix it.
+
+So, does it mean that we are indeed speaking about the problem in GCC?
+And I agree, probably it's the best way...  So, whould you please to
+show me any points to speed up my start?  For now, the only one part
+of GCC is not really new for me :)
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031225015353</emailId><senderName>Richard Henderson</senderName><senderEmail>rth@redhat.com</senderEmail><timestampReceived>2003-12-25 01:53:53-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Thu, Dec 25, 2003 at 06:38:50AM +0500, Denis Zaitsev wrote:
+&gt; Ok.  BTW, I was looking around a little - and it seems that "m" suits
+&gt; better here than "X" - we deals with a memory operand, not with "Any
+&gt; operand whatsoever" (according to the documentation).  But you suggest
+&gt; "X" (and this is not the first time).  Why?
+
+Because "m" implies (1) that the address must be valid and
+(2) that the address is used.
+
+
+r~
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031225020856</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-25 02:08:56-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Wed, Dec 24, 2003 at 05:53:53PM -0800, Richard Henderson wrote:
+&gt; Because "m" implies (1) that the address must be valid and
+&gt; (2) that the address is used.
+
+Ok.  What's wrong here for the typical string function?  _May be_ (1),
+but in this case we'll get SIGSEGV and oter issues will lose a
+sense...
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031226034042</emailId><senderName>"Zack Weinberg"</senderName><senderEmail>zack@codesourcery.com</senderEmail><timestampReceived>2003-12-26 03:40:42-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+Denis Zaitsev &lt;zzz@anda.ru&gt; writes:
+
+&gt; So, does it mean that we are indeed speaking about the problem in
+&gt; GCC?
+
+I think you've demonstrated that there isn't an ideal way to write
+this construct right now.  ("memory" clobbers having their own
+problems).
+
+The next stage is to figure out (a) what the right notation is, and
+(b) what needs to be done in GCC to make it work.  I cannot tell
+whether the semantics of "m" should change, or whether new notation
+should be introduced.  For a starter, try changing "m" and see how far
+you get.
+
+&gt; So, whould you please to show me any points to speed up my start?
+&gt; For now, the only one part of GCC is not really new for me :)
+
+Sorry, I do not know where this is happening.
+
+zw
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031227045815</emailId><senderName>Richard Henderson</senderName><senderEmail>rth@redhat.com</senderEmail><timestampReceived>2003-12-27 04:58:15-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Thu, Dec 25, 2003 at 07:40:42PM -0800, Zack Weinberg wrote:
+&gt; For a starter, try changing "m" and see how far you get.
+
+That would definitely be wrong when the operand is actually used.
+
+
+r~
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031227102459</emailId><senderName>"Zack Weinberg"</senderName><senderEmail>zack@codesourcery.com</senderEmail><timestampReceived>2003-12-27 10:24:59-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+Richard Henderson &lt;rth@redhat.com&gt; writes:
+
+&gt; On Thu, Dec 25, 2003 at 07:40:42PM -0800, Zack Weinberg wrote:
+&gt;&gt; For a starter, try changing "m" and see how far you get.
+&gt;
+&gt; That would definitely be wrong when the operand is actually used.
+
+I suspected that might be the case.
+
+Denis' original example doesn't quote actual code but I think it's
+talking about stuff like this (from libc cvs,
+sysdeps/i386/i486/bits/string.h) -
+
+__STRING_INLINE void *
+__memcpy_g (void *__dest, __const void *__src, size_t __n)
+{
+  register unsigned long int __d0, __d1, __d2;
+  register void *__tmp = __dest;
+  __asm__ __volatile__
+    ("cld\n\t"
+     "shrl      $1,%%ecx\n\t"
+     "jnc       1f\n\t"
+     "movsb\n"
+     "1:\n\t"
+     "shrl      $1,%%ecx\n\t"
+     "jnc       2f\n\t"
+     "movsw\n"
+     "2:\n\t"
+     "rep; movsl"
+     : "=&amp;c" (__d0), "=&amp;D" (__d1), "=&amp;S" (__d2),
+       "=m" ( *(struct { __extension__ char __x[__n]; } *)__dest)
+     : "0" (__n), "1" (__tmp), "2" (__src),
+       "m" ( *(struct { __extension__ char __x[__n]; } *)__src)
+     : "cc");
+  return __dest;
+}
+
+so, first off, I don't think this kind of optimization is libc's
+business; we have the tools to do a better job over here in the
+compiler.  And furthermore I think it's buggy - if the block to be
+copied is large and not aligned, it will overwrite memory past the end
+of the destination.  
+
+But let's suppose /arguendo/ that there is a legitimate use for a
+construct like this: the notation is frankly appalling.  Let me try to
+make up some better notation, using C99 variably-modified arrays and
+GNU forward parameter declarations (we have the blasted things, we
+might as well get some use out of them...)  Note I am not attempting
+to fix the bugs in the assembly.
+
+__STRING_INLINE void *
+__memcpy_g (size_t __n; char __dest[restrict static __n], 
+            const char __src[restrict static __n], size_t __n)
+{
+  void *savedest = __dest;
+  __asm__ __volatile__
+    ("cld\n\t"
+     "shrl      $1,%%ecx\n\t"
+     "jnc       1f\n\t"
+     "movsb\n"
+     "1:\n\t"
+     "shrl      $1,%%ecx\n\t"
+     "jnc       2f\n\t"
+     "movsw\n"
+     "2:\n\t"
+     "rep; movsl"
+     : "+c" (__n), "+@S" (__src), "+@D" (__dest));
+  return savedest;
+}
+
+@ is a character not otherwise used in constraints; it means 'the
+value here is a pointer and the memory pointed to will be accessed'.
+Exactly how much memory, and the nature of the access, are determined
+by the type of the pointer.  Here, both pointers are restrict-
+qualified and point to memory blocks of known size (that's what
+"static __n" in the brackets means).  Furthermore, __src points to
+constant memory, so that block is only read, whereas __dest is not
+constant so the compiler shall assume it's written.  I had to change
+the types from void to char so the size expressions would be
+meaningful; if you were actually to use this to implement memcpy,
+you'd wrap it in another inline function that casted the arguments.
+
+I think that's all that should be needed.  Thoughts?
+
+zw
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031225002046</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-25 00:20:46-0400</timestampReceived><subject>i386 inline-asm string functions - some questions</subject><body>
+
+From some moment in the past, the next input parameters are used here
+and there in sysdeps/i386/i486/bits/string.h:
+
+        "m" ( *(struct { char __x[0xfffffff]; } *)__s)
+
+When I was seeking for the reasons to do so, I've found some
+discussions about this in libc-alpha and gcc mailing lists.  As I
+understand from there, there are an options - to use the "m" arg(s)
+shown above or just to use "memory" in the list of a clobbered
+registers.  So, the question is: why the "m"-way had been choosen?
+I'm asking, because I've found that this "m"-way leads GCC to produce
+an unoptimal enough assembler, while "memory" code is ok.
+
+Let me describe.  This is some kind of typical inline-asm string
+defun:
+
+extern inline
+_s2(const char *a, const char *b)
+{
+    asm volatile (
+        "/*%0%1%2%3*/"
+        :"+&amp;r"(a), "+&amp;r"(b)
+        :"m"(*(struct{__extension__ char __x[0xfffffff];}*)a),
+         "m"(*(struct{__extension__ char __x[0xfffffff];}*)b)
+        :"cc"
+    );
+}
+
+It's, of course, just an essence from the typical string defun, all
+real elements, which aren't important for the demonstration, are
+omited.  And the references for the asm operands inside the comment
+are inserted - they will be healthy.  So, compile the next:
+
+s2(const char *a, const char *b){return _s2(a,b);}
+
+.globl s2
+	.type	s2, @function
+s2:
+	pushl	%esi
+	pushl	%ebx
+	movl	12(%esp), %edx
+	movl	16(%esp), %eax
+	movl	%edx, %ebx
+	movl	%eax, %esi
+#APP
+	/*%ebx%esi(%edx)(%eax)*/
+#NO_APP
+	popl	%ebx
+	movl	%ecx, %eax
+	popl	%esi
+	ret
+
+Obviously, the following is a garbage:
+
+	pushl	%esi
+	pushl	%ebx
+	movl	%edx, %ebx
+	movl	%eax, %esi
+	popl	%ebx
+	popl	%esi
+
+And this is the "memory" variant:
+
+extern inline
+_s2(const char *a, const char *b)
+{
+    asm volatile (
+        "/*%0%1*/"
+        :"+&amp;r"(a), "+&amp;r"(b):
+        :"cc", "memory"
+    );
+}
+
+.globl s2
+	.type	s2, @function
+s2:
+	movl	4(%esp), %edx
+	movl	8(%esp), %eax
+#APP
+	/*%edx%eax*/
+#NO_APP
+	movl	%ecx, %eax
+	ret
+
+So, we've no garbage at all, only the very good assembler.
+
+Then the next question is: am I understand right that the problem is
+in the combination of the "earlyclobber" modifier of the asm operands
+and the "m" with the corresponding args in the input list?  And for
+some reason GCC decides that "m" is tied with arg itself vs. a memory
+this arg points to, and so a separate copy of the arg is needed, as
+the corresponding output operand is early clobbered?  The content of
+the comment in the "m"-way defun shows (%edx)(%eax), but it seems that
+GCC thinks about %edx%eax instead.  (But very may be I'm wrong - I
+don't know these GCC internals.)
+
+Well, this is a very simple example, but my investigation shows that
+the situation is the same for any C code - either simple or complex.
+Always some extra registers are used, some extra loads are emited etc.
+So, if both the variants are correct, it should be healthy to use the
+"memory" one (as I understand, there was a time when it was really
+used in sysdeps/i386/i486/bits/string.h ?).  For example it's an
+output from 'size libc.so' for the GLIBC-2.3.2 compiled with
+-D__USE_STRING_INLINES:
+
+   text	   data	    bss	    dec	    hex	filename
+1108363	  11296	  10820	1130479	 113fef	libc.so
+
+and this is the same, but if just the only one defun - __strcmp_gg -
+is redone thru the "memory"-way:
+
+   text    data     bss     dec     hex filename
+1107779   11296   10820 1129895  113da7 libc.so
+
+The difference of the text's sizes is a little over 0.5k.  And there
+are tens of such defuns.  So, the third question is about redoing all
+the inline-asm string functions that way (of course, if there are no
+any cons here).
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031225003819</emailId><senderName>Richard Henderson</senderName><senderEmail>rth@redhat.com</senderEmail><timestampReceived>2003-12-25 00:38:19-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Thu, Dec 25, 2003 at 05:20:46AM +0500, Denis Zaitsev wrote:
+&gt; &gt;From some moment in the past, the next input parameters are used here
+&gt; and there in sysdeps/i386/i486/bits/string.h:
+&gt; 
+&gt;         "m" ( *(struct { char __x[0xfffffff]; } *)__s)
+&gt; 
+&gt; When I was seeking for the reasons to do so, I've found some
+&gt; discussions about this in libc-alpha and gcc mailing lists.  As I
+&gt; understand from there, there are an options - to use the "m" arg(s)
+&gt; shown above or just to use "memory" in the list of a clobbered
+&gt; registers.  So, the question is: why the "m"-way had been choosen?
+
+Someone wanted to describe that memory is read, but not written.
+There's no real good way to do that.
+
+You could use the "X" constraint, which is supposed to mean "anything"
+and by implication "unused", but it's normally only with scratch
+registers, not memories, and the address reloads don't get deleted.
+
+You could file an enhancement pr against "X" if you want.
+
+
+
+r~
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031225003937</emailId><senderName>Roland McGrath</senderName><senderEmail>roland@redhat.com</senderEmail><timestampReceived>2003-12-25 00:39:37-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+&gt; &gt;From some moment in the past, the next input parameters are used here
+&gt; and there in sysdeps/i386/i486/bits/string.h:
+&gt; 
+&gt;         "m" ( *(struct { char __x[0xfffffff]; } *)__s)
+&gt; 
+&gt; When I was seeking for the reasons to do so, I've found some
+&gt; discussions about this in libc-alpha and gcc mailing lists.  As I
+&gt; understand from there, there are an options - to use the "m" arg(s)
+&gt; shown above or just to use "memory" in the list of a clobbered
+&gt; registers.  So, the question is: why the "m"-way had been choosen?
+
+The reason we use this kind of "m" constraint is that it indicates what we
+want to say: memory __s points to might be used.  That means that if the C
+aliasing rules allow the compiler to assume that a given other expression
+cannot point to the same memory as __s does, it is free to do so and
+optimize out stores through unrelated pointers that cannot affect __s.
+Conversely, a "memory" clobber tells the compiler that it must assume that
+all memory any pointer points to might be read by this asm.
+
+&gt; I'm asking, because I've found that this "m"-way leads GCC to produce
+&gt; an unoptimal enough assembler, while "memory" code is ok.
+
+That is an issue for GCC.  It is correct for glibc (and other code) to use
+the asm constraints that express the true precise set of constraints and
+tell the compiler it is free to do us much as is in fact safe.  As to
+whether your "+&amp;r" constraints on the pointer values are correct, I don't know.
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031229193720</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@anda.ru</senderEmail><timestampReceived>2003-12-29 19:37:20-0400</timestampReceived><subject>Re: i386 inline-asm string functions - some questions</subject><body>
+
+On Tue, Dec 30, 2003 at 12:31:47AM +0500, Denis Zaitsev wrote:
+
+&gt; On Mon, Dec 29, 2003 at 11:09:14AM -0800, Zack Weinberg wrote:
+
+&gt; &gt; Same if the out-of-line memcpy takes several more instructions to
+&gt; &gt; set up but makes damn sure to do aligned memory accesses
+&gt; &gt; (full-bus-width loads, nontemporal store, prefetches, etc etc etc),
+&gt; &gt; whereas the inline one doesn't.
+
+Sorry, I mean the inline functions below!  Of course!
+
+&gt; First, they are trying to do so here and there (but ok, not fine).
+&gt; 
+&gt; Second, I have experimented with this nonaligned access some time
+&gt; ago.  I don't remember exactly, but it seems that the modern x86
+&gt; processors do the job as fine as when the memory access is aligned.
+&gt; But as it was too far ago, I can't recollect the details and so I
+&gt; won't insist.  Better I will repeat the measurements...
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031118010001</emailId><senderName>Maciej Zenczykowski</senderName><senderEmail>maze@cela.pl</senderEmail><timestampReceived>2003-11-18 01:00:01-0400</timestampReceived><subject>Re: 2.4.18 fork &amp; defunct child.</subject><body>
+
+&gt; { strace listing deleted, see 
+&gt; http://marc.theaimsgroup.com/?l=linux-kernel&amp;m=106905386725308&amp;w=2 }
+
+well, I strace'd by glibc 2.3.2 system /bin/true and it doesn't fork and 
+doesn't open proc (first place the two straces differ).  Maybe your 
+libraries have been hacked - seems the most likely to me - if this is 
+happening for all programs than the libc is likely bad...
+
+I can't understand what it is opening /proc/.../exe for and I don't 
+understand what the ///////// in there is for (I think more than 2 
+consecutive slashes are illegal in POSIX, not sure though, never use more 
+than 2 :) )
+
+On a side note /bin/true should take up somewhere like 10 bytes asm code - 
+what the hell is that thing doing more than exit(1) for? it shouldn't open 
+any files at all... what a bad design (and true --help and true --version 
+don't work anyway... duh!)
+
+perhaps try ltrace'ing /bin/true and see what that prints out?
+
+Cheers,
+MaZe.
+
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031120024238</emailId><senderName>Keith Whyte</senderName><senderEmail>keith@media-solutions.ie</senderEmail><timestampReceived>2003-11-20 02:42:38-0400</timestampReceived><subject>solution: 2.4.18 fork &amp; defunct child.</subject><body>
+
+Folks thanks to everyone who helped me out with this, I just found the 
+file 982235016-gtkrc-429249277 in /tmp
+It kept reappearing as it tried to rm * -r in /tmp and
+a quick google search led me to find out where it came from.
+
+A few weeks ago i installed a binary that i got from a friends machine, 
+and i just checked his machine. It has the trojan also. that explains a 
+lot. It was a realserver binary (no longer available for d/l)and i ran 
+it once as root as it likes to listen on port 554, before I changed that 
+config and set up a user to run it. aggh. so easy to let something slip 
+through. never trust binaries... no matter where they come from.
+
+Keith.
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20031029221238</emailId><senderName>"H. J. Lu"</senderName><senderEmail>hjl@lucon.org</senderEmail><timestampReceived>2003-10-29 22:12:38-0400</timestampReceived><subject>The Linux binutils 2.14.90.0.7 is released</subject><body>
+
+This is the beta release of binutils 2.14.90.0.7 for Linux, which is
+based on binutils 2003 1029 in CVS on sources.redhat.com plus various
+changes. It is purely for Linux.
+
+Please report any bugs related to binutils 2.14.90.0.7 to hjl@lucon.org.
+
+If you don't use
+
+# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.gz
+
+to compile the Linux binutils, please read patches/README in source
+tree to apply Linux patches.
+
+Changes from binutils 2.14.90.0.6:
+
+1. Update from binutils 2003 1029.
+2. Allow type changes for undefined symbols.
+3. Fix EH frame optimization.
+4. Fix the check for undefined versioned symbol with wildcard.
+5. Support generating code for Itanium.
+6. Detect and warn bad symbol index.
+7. Update IPF assemebler DV check.
+
+Changes from binutils 2.14.90.0.5:
+
+1. Update from binutils 2003 0820.
+2. No longer use section names for ELF section types nor flags.
+3. Fix some ELF/IA64 linker bugs.
+4. Fix some ELF/ppc bugs.
+5. Add archive support to readelf.
+
+Changes from binutils 2.14.90.0.4.1:
+
+1. Update from binutils 2003 0722.
+2. Fix an ELF/mips linker bug.
+3. Fix an ELF/hpppa linker bug.
+4. Fix an ELF/ia64 assembler bug.
+5. Fix a linkonce support with C++ debug.
+6. A new working C++ demangler.
+7. Various alpha, mips, ia64, ... bug fixes.
+8. Support for the current gcc and glibc.
+
+Changes from binutils 2.14.90.0.4:
+ 
+1. Fix an ia64 assembler hint@pause bug.
+2. Support Intel Precott New Instructions.
+
+Changes from binutils 2.14.90.0.3:
+
+1. Work around the brain dead libtool.
+
+Changes from binutils 2.14.90.0.2:
+
+1. Update from binutils 2003 0523.
+2. Fix 2 ELF visibility bugs.
+3. Fix ELF/ppc linker bugs.
+
+Changes from binutils 2.14.90.0.1:
+
+1. Update from binutils 2003 0515.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Add more IAS compatibilities to ia64 assembler.
+
+Changes from binutils 2.13.90.0.20:
+
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.14.90.0.7.tar.gz. Source code.
+2. binutils-2.14.90.0.6-2.14.90.0.7.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.14.90.0.7-1.i386.rpm. IA-32 binary RPM for RedHat 9.
+4. binutils-2.14.90.0.7-1.ia64.rpm. IA-64 binary RPM for RedHat AS 2.1.
+
+There is no separate source rpm. You can do
+
+# rpmbuild -ta binutils-2.14.90.0.7.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://www.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl@lucon.org
+10/29/2003
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030815073456</emailId><senderName>"David S. Miller"</senderName><senderEmail>davem@redhat.com</senderEmail><timestampReceived>2003-08-15 07:34:56-0400</timestampReceived><subject>Re: GNU server "compromised"? Gimme a break!</subject><body>
+
+
+Off topic, cut the crap folks.
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030819124354</emailId><senderName>Mehran Rezaei</senderName><senderEmail>mehran@cs.unt.edu</senderEmail><timestampReceived>2003-08-19 12:43:54-0400</timestampReceived><subject>loader</subject><body>
+
+Hello all,
+
+I have installed fortran compiler on an alpha system running tru64. I
+have succeeded to compile a fortran
+program; however, it gave me an error "a.out:/sbin/loader:Fatal Error:
+Insufficient memory to execute program" when I tried to run the program.
+
+I assume this relates to hard limits of the system. Do you have any idea
+how to fix the error?
+Thanks,
+
+Mehran
+
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030821155504</emailId><senderName>"H. J. Lu"</senderName><senderEmail>hjl@lucon.org</senderEmail><timestampReceived>2003-08-21 15:55:04-0400</timestampReceived><subject>The Linux binutils 2.14.90.0.6 is released</subject><body>
+
+This is the beta release of binutils 2.14.90.0.6 for Linux, which is
+based on binutils 2003 0820 in CVS on sources.redhat.com plus various
+changes. It is purely for Linux.
+
+Please report any bugs related to binutils 2.14.90.0.6 to hjl@lucon.org.
+
+If you don't use
+
+# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.gz
+
+to compile the Linux binutils, please read patches/README in source
+tree to apply Linux patches.
+
+Changes from binutils 2.14.90.0.5:
+
+1. Update from binutils 2003 0820.
+2. No longer use section names for ELF section types nor flags.
+3. Fix some ELF/IA64 linker bugs.
+4. Fix some ELF/ppc bugs.
+5. Add archive support to readelf.
+
+Changes from binutils 2.14.90.0.4.1:
+
+1. Update from binutils 2003 0722.
+2. Fix an ELF/mips linker bug.
+3. Fix an ELF/hpppa linker bug.
+4. Fix an ELF/ia64 assembler bug.
+5. Fix a linkonce support with C++ debug.
+6. A new working C++ demangler.
+7. Various alpha, mips, ia64, ... bug fixes.
+8. Support for the current gcc and glibc.
+
+Changes from binutils 2.14.90.0.4:
+ 
+1. Fix an ia64 assembler hint@pause bug.
+2. Support Intel Precott New Instructions.
+
+Changes from binutils 2.14.90.0.3:
+
+1. Work around the brain dead libtool.
+
+Changes from binutils 2.14.90.0.2:
+
+1. Update from binutils 2003 0523.
+2. Fix 2 ELF visibility bugs.
+3. Fix ELF/ppc linker bugs.
+
+Changes from binutils 2.14.90.0.1:
+
+1. Update from binutils 2003 0515.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Add more IAS compatibilities to ia64 assembler.
+
+Changes from binutils 2.13.90.0.20:
+
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.14.90.0.6.tar.gz. Source code.
+2. binutils-2.14.90.0.5-2.14.90.0.6.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.14.90.0.6-1.i386.rpm. IA-32 binary RPM for RedHat 9.
+4. binutils-2.14.90.0.6-1.ia64.rpm. IA-64 binary RPM for RedHat AS 2.1.
+
+There is no separate source rpm. You can do
+
+# rpmbuild -ta binutils-2.14.90.0.6.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://www.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl@lucon.org
+08/21/2003
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030831133219</emailId><senderName>Agri</senderName><senderEmail>agri@desnol.ru</senderEmail><timestampReceived>2003-08-31 13:32:19-0400</timestampReceived><subject>sigill (signal 4) on the i586 with binaries compiled on the i686</subject><body>
+
+i have i686-pc-linux-gnu boxwith working linux system.
+i'm trying to install linux on the i586
+p100 8ram
+
+this is my step by step tries
+
+i have gcc-3.3 compiled for i686-pc-linux-gnu
+i had configured and installed linux kernel 2.4.21 for i586,
+it succesfully booting on the i586 box.
+
+i had compiled and installed busybox. using it as init was failed.
+i booted kernel with init=/bin/sash (standalone shell) - success.
+every try to lunch any programm from that shell results in signal 4 (SIGILL).
+it is not because of memory. I had tried to boot the same system on i686 box
+with mem=8M kernel param - it's OK.
+
+try to use -march=i586 on gcc-3.3 results in nothing.
+i was build cross-compiler for gcc-2.95.3 for i586 with glibc-2.2.4 and tried to use \
+it - nothing changed.
+
+where is the problem? how to fix it?
+
+Agri
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+
+</body></email><email><emailId>20030723161815</emailId><senderName>"H. J. Lu"</senderName><senderEmail>hjl@lucon.org</senderEmail><timestampReceived>2003-07-23 16:18:15-0400</timestampReceived><subject>The Linux binutils 2.14.90.0.5 is released</subject><body>
+
+This is the beta release of binutils 2.14.90.0.5 for Linux, which is
+based on binutils 2003 0722 in CVS on sources.redhat.com plus various
+changes. It is purely for Linux.
+
+Please report any bugs related to binutils 2.14.90.0.5 to hjl@lucon.org.
+
+If you don't use
+
+# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.gz
+
+to compile the Linux binutils, please read patches/README in source
+tree to apply Linux patches.
+
+Changes from binutils 2.14.90.0.4.1:
+
+1. Update from binutils 2003 0722.
+2. Fix an ELF/mips linker bug.
+3. Fix an ELF/hpppa linker bug.
+4. Fix an ELF/ia64 assembler bug.
+5. Fix a linkonce support with C++ debug.
+6. A new working C++ demangler.
+7. Various alpha, mips, ia64, ... bug fixes.
+8. Support for the current gcc and glibc.
+
+Changes from binutils 2.14.90.0.4:
+ 
+1. Fix an ia64 assembler hint@pause bug.
+2. Support Intel Precott New Instructions.
+
+Changes from binutils 2.14.90.0.3:
+
+1. Work around the brain dead libtool.
+
+Changes from binutils 2.14.90.0.2:
+
+1. Update from binutils 2003 0523.
+2. Fix 2 ELF visibility bugs.
+3. Fix ELF/ppc linker bugs.
+
+Changes from binutils 2.14.90.0.1:
+
+1. Update from binutils 2003 0515.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Add more IAS compatibilities to ia64 assembler.
+
+Changes from binutils 2.13.90.0.20:
+
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.14.90.0.5.tar.gz. Source code.
+2. binutils-2.14.90.0.4.1-2.14.90.0.5.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.14.90.0.5-1.i386.rpm. IA-32 binary RPM for RedHat 9.
+4. binutils-2.14.90.0.5-1.ia64.rpm. IA-64 binary RPM for RedHat AS 2.1.
+
+There is no separate source rpm. You can do
+
+# rpmbuild -ta binutils-2.14.90.0.5.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://www.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl@lucon.org
+07/22/2003
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030624232227</emailId><senderName>"H. J. Lu"</senderName><senderEmail>hjl@lucon.org</senderEmail><timestampReceived>2003-06-24 23:22:27-0400</timestampReceived><subject>The Linux binutils 2.14.90.0.4.1 is released</subject><body>
+
+This is the beta release of binutils 2.14.90.0.4.1 for Linux, which is
+based on binutils 2003 0523 in CVS on sourecs.redhat.com plus various
+changes. It is purely for Linux.
+
+Please report any bugs related to binutils 2.14.90.0.4.1 to hjl@lucon.org.
+
+If you don't use
+
+# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.gz
+
+to compile the Linux binutils, please read patches/README in source
+tree to apply Linux patches.
+
+Changes from binutils 2.14.90.0.4:
+
+1. Fix an ia64 assembler hint@pause bug.
+2. Support Intel Precott New Instructions.
+
+Changes from binutils 2.14.90.0.3:
+
+1. Work around the brain dead libtool.
+
+Changes from binutils 2.14.90.0.2:
+
+1. Update from binutils 2003 0523.
+2. Fix 2 ELF visibility bugs.
+3. Fix ELF/ppc linker bugs.
+
+Changes from binutils 2.14.90.0.1:
+
+1. Update from binutils 2003 0515.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Add more IAS compatibilities to ia64 assembler.
+
+Changes from binutils 2.13.90.0.20:
+
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.14.90.0.4.1.tar.gz. Source code.
+2. binutils-2.14.90.0.4-2.14.90.0.4.1.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.14.90.0.4.1-1.i386.rpm. IA-32 binary RPM for RedHat 9.
+4. binutils-2.14.90.0.4.1-1.ia64.rpm. IA-64 binary RPM for RedHat AS 2.1.
+
+There is no separate source rpm. You can do
+
+# rpm -ta binutils-2.14.90.0.4.1.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://www.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl@lucon.org
+06/24/2003
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030506154119</emailId><senderName>"H. J. Lu"</senderName><senderEmail>hjl@lucon.org</senderEmail><timestampReceived>2003-05-06 15:41:19-0400</timestampReceived><subject>PATCH: Don't use empy files in ld-elfvers</subject><body>
+
+On Tue, May 06, 2003 at 09:17:13AM +0200, Andreas Jaeger wrote:
+&gt; "H. J. Lu" &lt;hjl@lucon.org&gt; writes:
+&gt; 
+&gt; &gt; This is the beta release of binutils 2.14.90.0.1 for Linux, which is
+&gt; &gt; based on binutils 2003 0505 in CVS on sourecs.redhat.com plus various
+&gt; &gt; changes. It is purely for Linux.
+&gt; &gt;
+&gt; &gt; The Linux/mips support is added. You have to use
+&gt; &gt;
+&gt; &gt; # rpm --target=[mips|mipsel] -ta binutils-xx.xx.xx.xx.xx.tar.gz
+&gt; &gt;
+&gt; &gt; to build it. Or you can read mips/README in the source tree to apply
+&gt; &gt; the mips patches and build it by hand.
+&gt; &gt;
+&gt; &gt; Please report any bugs related to binutils 2.14.90.0.1 to hjl@lucon.org.
+&gt; 
+&gt; HJ,
+&gt; 
+&gt; the package is broken, the testsuite fails since the following
+&gt; (empty!) files from the ld/testsuite are not part of the tarball:
+&gt; 
+&gt; 
+&gt; ./testsuite/ld-elfvers/vers25b.c
+&gt; ./testsuite/ld-elfvers/vers25b.dsym
+&gt; ./testsuite/ld-elfvers/vers25b.ver
+&gt; ./testsuite/ld-elfvers/vers26b.dsym
+&gt; ./testsuite/ld-elfvers/vers26b.ver
+&gt; ./testsuite/ld-elfvers/vers27b.dsym
+&gt; ./testsuite/ld-elfvers/vers27b.ver
+&gt; ./testsuite/ld-elfvers/vers27c.c
+&gt; ./testsuite/ld-elfvers/vers27c.dsym
+&gt; ./testsuite/ld-elfvers/vers27c.ver
+&gt; 
+
+It is not such a good idea to use empty files in CVS. I will check in
+this patch. Please apply binutils-2.14.90.0.1-empty-test.patch to the
+Linux binutils 2.14.90.0.1.
+
+
+H.J.
+
+["binutils-2.14.90.0.1-empty-test.patch" (text/plain)]
+
+2003-05-06  H.J. Lu &lt;hjl@gnu.org&gt;
+
+	* ld-elfvers/vers.exp (objdump_versionstuff): Support comment
+	in expected version file.
+
+	* ld-elfvers/vers25b.c: Add a line of comment.
+	* ld-elfvers/vers25b.dsym: Likwise.
+	* ld-elfvers/vers25b.ver: Likwise.
+	* ld-elfvers/vers26b.dsym: Likwise.
+	* ld-elfvers/vers26b.ver: Likwise.
+	* ld-elfvers/vers27b.dsym: Likwise.
+	* ld-elfvers/vers27b.ver: Likwise.
+	* ld-elfvers/vers27c.c: Likwise.
+	* ld-elfvers/vers27c.dsym: Likwise.
+	* ld-elfvers/vers27c.ver: Likwise.
+
+--- binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers.exp.empty	2003-05-05 14:46:50.000000000 -0700
++++ binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers.exp	2003-05-06 08:32:18.000000000 -0700
+@@ -457,7 +457,11 @@ proc objdump_versionstuff { objdump obje
+ 
+ 	set f1 [open $tmpdir/objdump.out r]
+ 	set f2 [open $expectfile r]
+-	gets $f2 l2
++	while { [gets $f2 l2] != -1 } {
++	    if { ![regexp "^#.*$" $l2] } then {
++		break
++	    }
++	} 
+ 	while { [gets $f1 l1] != -1 } {
+ 	    if { [string match $l2 $l1] } then {
+ 		if { [gets $f2 l2] == -1 } then {
+--- binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers25b.c.empty	2003-05-06 08:32:18.000000000 -0700
++++ binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers25b.c	2003-05-06 08:32:18.000000000 -0700
+@@ -0,0 +1 @@
++/* Empty file  */
+--- binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers25b.dsym.empty	2003-05-06 08:32:18.000000000 -0700
++++ binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers25b.dsym	2003-05-06 08:32:18.000000000 -0700
+@@ -0,0 +1 @@
++# Empty file.
+--- binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers25b.ver.empty	2003-05-06 08:32:18.000000000 -0700
++++ binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers25b.ver	2003-05-06 08:32:18.000000000 -0700
+@@ -0,0 +1 @@
++# Empty file
+--- binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers26b.dsym.empty	2003-05-06 08:32:18.000000000 -0700
++++ binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers26b.dsym	2003-05-06 08:32:18.000000000 -0700
+@@ -0,0 +1 @@
++# Empty file
+--- binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers26b.ver.empty	2003-05-06 08:32:18.000000000 -0700
++++ binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers26b.ver	2003-05-06 08:32:18.000000000 -0700
+@@ -0,0 +1 @@
++# Empty file
+--- binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers27b.dsym.empty	2003-05-06 08:32:18.000000000 -0700
++++ binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers27b.dsym	2003-05-06 08:32:18.000000000 -0700
+@@ -0,0 +1 @@
++# Empty file
+--- binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers27b.ver.empty	2003-05-06 08:32:18.000000000 -0700
++++ binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers27b.ver	2003-05-06 08:32:18.000000000 -0700
+@@ -0,0 +1 @@
++# Empty file
+--- binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers27c.c.empty	2003-05-06 08:32:18.000000000 -0700
++++ binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers27c.c	2003-05-06 08:32:18.000000000 -0700
+@@ -0,0 +1 @@
++/* Empty file  */
+--- binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers27c.dsym.empty	2003-05-06 08:32:18.000000000 -0700
++++ binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers27c.dsym	2003-05-06 08:32:18.000000000 -0700
+@@ -0,0 +1 @@
++# Empty file
+--- binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers27c.ver.empty	2003-05-06 08:32:18.000000000 -0700
++++ binutils-2.14.90.0.1/ld/testsuite/ld-elfvers/vers27c.ver	2003-05-06 08:32:18.000000000 -0700
+@@ -0,0 +1 @@
++# Empty file
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+</body></email><email><emailId>20030510183758</emailId><senderName>Simon Matthews</senderName><senderEmail>simon@paxonet.com</senderEmail><timestampReceived>2003-05-10 18:37:58-0400</timestampReceived><subject>gcc 3.2.2 segfault compiling aspell</subject><body>
+
+I am getting a segmentation fault when compiling aspell with gcc 3.2.2 on 
+a gentoo system (Duron/KT133). 
+
+Can anyone help me? Searching on google shows some postings on debina 
+mailing lists for the same problem, but I did not see any solutions. 
+
+Many thanks!
+Simon
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030516150544</emailId><senderName>"H. J. Lu"</senderName><senderEmail>hjl@lucon.org</senderEmail><timestampReceived>2003-05-16 15:05:44-0400</timestampReceived><subject>The Linux binutils 2.14.90.0.2 is released</subject><body>
+
+This is the beta release of binutils 2.14.90.0.2 for Linux, which is
+based on binutils 2003 0515 in CVS on sourecs.redhat.com plus various
+changes. It is purely for Linux.
+
+Please report any bugs related to binutils 2.14.90.0.2 to hjl@lucon.org.
+
+Changes from binutils 2.14.90.0.1:
+
+1. Update from binutils 2003 0515.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Add more IAS compatibilities to ia64 assembler.
+
+Changes from binutils 2.13.90.0.20:
+
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.14.90.0.2.tar.gz. Source code.
+2. binutils-2.14.90.0.1-2.14.90.0.2.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.14.90.0.2-1.i386.rpm. IA-32 binary RPM for RedHat 9.
+4. binutils-2.14.90.0.2-1.ia64.rpm. IA-64 binary RPM for RedHat AS 2.1.
+
+There is no separate source rpm. You can do
+
+# rpm -ta binutils-2.14.90.0.2.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://ftp.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl@lucon.org
+05/16/2003
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030523185339</emailId><senderName>"H. J. Lu"</senderName><senderEmail>hjl@lucon.org</senderEmail><timestampReceived>2003-05-23 18:53:39-0400</timestampReceived><subject>The Linux binutils 2.14.90.0.3 is released</subject><body>
+
+This is the beta release of binutils 2.14.90.0.3 for Linux, which is
+based on binutils 2003 0523 in CVS on sourecs.redhat.com plus various
+changes. It is purely for Linux.
+
+Please report any bugs related to binutils 2.14.90.0.3 to hjl@lucon.org.
+
+If you don't use
+
+# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.gz
+
+to compile the Linux binutils, please read patches/README in source
+tree to apply Linux patches.
+
+Changes from binutils 2.14.90.0.2:
+
+1. Update from binutils 2003 0523.
+2. Fix 2 ELF visibility bugs.
+3. Fix ELF/ppc linker bugs.
+
+Changes from binutils 2.14.90.0.1:
+
+1. Update from binutils 2003 0515.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Add more IAS compatibilities to ia64 assembler.
+
+Changes from binutils 2.13.90.0.20:
+
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.14.90.0.3.tar.gz. Source code.
+2. binutils-2.14.90.0.2-2.14.90.0.3.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.14.90.0.3-1.i386.rpm. IA-32 binary RPM for RedHat 9.
+4. binutils-2.14.90.0.3-1.ia64.rpm. IA-64 binary RPM for RedHat AS 2.1.
+
+There is no separate source rpm. You can do
+
+# rpm -ta binutils-2.14.90.0.3.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://ftp.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl@lucon.org
+05/23/2003
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030525152431</emailId><senderName>"H. J. Lu"</senderName><senderEmail>hjl@lucon.org</senderEmail><timestampReceived>2003-05-25 15:24:31-0400</timestampReceived><subject>The Linux binutils 2.14.90.0.4 is released</subject><body>
+
+This release is to work around the libtool issue with libopcodes.
+
+H.J.
+From GCC summit in Ottawa.
+---
+This is the beta release of binutils 2.14.90.0.4 for Linux, which is
+based on binutils 2003 0523 in CVS on sourecs.redhat.com plus various
+changes. It is purely for Linux.
+
+Please report any bugs related to binutils 2.14.90.0.4 to hjl@lucon.org.
+
+If you don't use
+
+# rpmbuild -ta binutils-xx.xx.xx.xx.xx.tar.gz
+
+to compile the Linux binutils, please read patches/README in source
+tree to apply Linux patches.
+
+Changes from binutils 2.14.90.0.3:
+
+1. Work around the brain dead libtool.
+
+Changes from binutils 2.14.90.0.2:
+
+1. Update from binutils 2003 0523.
+2. Fix 2 ELF visibility bugs.
+3. Fix ELF/ppc linker bugs.
+
+Changes from binutils 2.14.90.0.1:
+
+1. Update from binutils 2003 0515.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Add more IAS compatibilities to ia64 assembler.
+
+Changes from binutils 2.13.90.0.20:
+
+1. Update from binutils 2003 0505.
+2. Fix various ELF visibility bugs.
+3. Fix some ia64 linker bugs.
+4. Fix some ia64 assembler bugs.
+5. Add some IAS compatibilities to ia64 assembler.
+6. Fix ELF common symbol alignment.
+7. Fix ELF weak symbol handling.
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+The file list:
+
+1. binutils-2.14.90.0.4.tar.gz. Source code.
+2. binutils-2.14.90.0.3-2.14.90.0.4.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.14.90.0.4-1.i386.rpm. IA-32 binary RPM for RedHat 9.
+4. binutils-2.14.90.0.4-1.ia64.rpm. IA-64 binary RPM for RedHat AS 2.1.
+
+There is no separate source rpm. You can do
+
+# rpm -ta binutils-2.14.90.0.4.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://ftp.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl@lucon.org
+05/25/2003
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030525193023</emailId><senderName></senderName><senderEmail>prasad.simhardi</senderEmail><timestampReceived>2003-05-25 19:30:23-0400</timestampReceived><subject>pthread not abel to create more than 250 threads, in new Linux</subject><body>
+
+
+Hi,
+
+I am facing some problem, in creating more than 255 pthreads in
+"linux-2.4.20-9".
+
+The "gcc -v" gives, the following output ----------------------
+Reading specs from /usr/lib/gcc-lib/i386-redhat-linux/3.2.2/specs
+Configured with: ../configure --prefix=/usr --mandir=/usr/share/man
+--infodir=/usr/share/info --enable-shared --enable-threads=posix
+--disable-checking --with-system-zlib --enable-__cxa_atexit
+--host=i386-redhat-linux
+Thread model: posix
+gcc version 3.2.2 20030222 (Red Hat Linux 3.2.2-5)
+
+The "ulimit -a" gives the following ---------------------
+core file size        (blocks, -c) 0
+data seg size         (kbytes, -d) unlimited
+file size             (blocks, -f) unlimited
+max locked memory     (kbytes, -l) unlimited
+max memory size       (kbytes, -m) unlimited
+open files                    (-n) 1024
+pipe size          (512 bytes, -p) 8
+stack size            (kbytes, -s) 8192
+cpu time             (seconds, -t) unlimited
+max user processes            (-u) unlimited
+virtual memory        (kbytes, -v) unlimited
+
+I am compiling it as "gcc main.c -lpthread".
+
+using the code given below, and am able to create 1000, threads on
+"linux-2.4.18-24.7.x".
+
+where the "gcc -v" gives ------------------
+Reading specs from /usr/lib/gcc-lib/i386-redhat-linux/2.96/specs
+gcc version 2.96 20000731 (Red Hat Linux 7.3 2.96-113)
+
+and "ulimit -a" gives ------------------
+core file size        (blocks, -c) 0
+data seg size         (kbytes, -d) unlimited
+file size             (blocks, -f) unlimited
+max locked memory     (kbytes, -l) unlimited
+max memory size       (kbytes, -m) unlimited
+open files                    (-n) 1024
+pipe size          (512 bytes, -p) 8
+stack size            (kbytes, -s) 8192
+cpu time             (seconds, -t) unlimited
+max user processes            (-u) 3840
+virtual memory        (kbytes, -v) unlimited
+
+
+Can anyone, tell me how to get through,
+
+Thanks,
+Prasad
+
+
+
+/*************************** The test code is as follows
+**************************************/
+#include &lt;pthread.h&gt;
+
+int createTask(void (*taskPtr) (void *), void *dataPtr)
+{
+      pthread_t threadHandle = 0;
+      pthread_attr_t  attr;
+      pthread_attr_init(&amp;attr);
+      if( 0 == pthread_attr_setdetachstate (&amp;attr,
+PTHREAD_CREATE_DETACHED))
+      {
+            if(0 != pthread_create(&amp;threadHandle, &amp;attr, (void *(*) (void
+*))taskPtr, dataPtr))
+            {
+                  threadHandle = 0;
+            }
+            pthread_attr_destroy(&amp;attr);
+      }
+      else
+      {
+            threadHandle = 0;
+      }
+      return threadHandle;
+}// end createTask() method
+
+
+void testThread(void *data)
+{
+      int   val;
+      val = (int) data;
+      while(1)
+      {
+            sleep(1);
+//          printf("Test thread %d is running(%d)\n", val, time(NULL));
+      }
+}
+
+int main()
+{
+      int i = 1;
+      int failed = 0;
+
+      for (i=1; i &lt;=1000; i++)
+      {
+            if (0 == createTask(testThread, (void*) i))
+            {
+                  printf("Create thread failed for i = %d\n", i);
+                  failed = 1;
+                  break;
+            }
+            else
+            {
+                  printf("Create thread for i = %d\n", i);
+            }
+      }
+
+      if (failed)
+      {
+            printf("Failed to create all threads ************\n");
+      }
+      else
+      {
+            printf("all threads created succesfully ************\n");
+            while (1)
+            {
+                  sleep(1);
+            }
+      }
+}
+
+
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030302172022</emailId><senderName>"Anant Aneja"</senderName><senderEmail>anantaneja@rediffmail.com</senderEmail><timestampReceived>2003-03-02 17:20:22-0400</timestampReceived><subject>Inerupts handling</subject><body>
+
+My problem is i was using turbo c++ compiler before and 
+frequently
+used ROM-BIOS interupts for
+certain functions ( like handling the screen, calling the mouse
+etc all in dos based programs
+using 386 based registers like ah al etc).
+
+Now I've started using gcc and find that even a basic screen
+clearing function requires me to use the
+"ncurses" library. this i did but it handles the screen only 
+using
+windows and does not treat the console as an
+unlimited buffer.
+
+I dont wanna use the library therefore. plus it was a lot easier
+calling interupts for most simple tasks.
+I've read somewhere that Linux does not allow BIOS interupts 
+since
+it runs in 'protected' mode.
+therefore, I cant do simple stuff like clearing a screen myself.
+
+Is there some way to do the above task easily (with or without
+assembly ?)
+
+Please help.
+Anant
+
+
+
+
+
+
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030306131047</emailId><senderName>Robert Schiele</senderName><senderEmail>rschiele@uni-mannheim.de</senderEmail><timestampReceived>2003-03-06 13:10:47-0400</timestampReceived><subject>Re: warnings appearing during preprocessor string concatenation (##)</subject><body>
+
+On Wed, Mar 05, 2003 at 03:34:39PM -0500, Jamie Risk wrote:
+&gt; I have the following line in my code,
+&gt; 
+&gt; #define FEATURE(select)     feature_structure. ## select ## .member
+&gt;   ...
+&gt;    FEATURE(test);
+&gt; 
+&gt; and when I run it through the compiler (gcc 3.2.2 on Linux x86) I get the
+&gt; _warning_
+&gt; 
+&gt;   file.c:111:32: warning: pasting "." and "test" does not give a valid
+&gt; preprocessing token
+&gt;   file.c:111:32: warning: pasting "test" and "." does not give a valid
+&gt; preprocessing token
+&gt; 
+&gt; If I look at the preprocessor output, (gcc's -E option) it produces what I'm
+&gt; hoping for, although I'd like to avoid the warning.  Suggestions?
+
+Just remove the '##' operator.  The preprocessor is right here, there
+is nothing to concatenate to a token in your example.
+
+Robert
+
+-- 
+Robert Schiele			Tel.: +49-621-181-2517
+Dipl.-Wirtsch.informatiker	mailto:rschiele@uni-mannheim.de
+
+[Attachment #3 (application/pgp-signature)]
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+</body></email><email><emailId>20030319130457</emailId><senderName>"Mathur, Shobhit"</senderName><senderEmail>shobhit_mathur@adaptec.com</senderEmail><timestampReceived>2003-03-19 13:04:57-0400</timestampReceived><subject>gcc: linker input file unused since linking not done</subject><body>
+
+Hello,
+
+I am facing a problem in compiling my source code with the library
+[static library ], which I have created.
+Upon specifying the appropriate Include-paths,  Lib-paths, and the
+appropriate ".a" to which the programs
+should link, I get the error from gcc as mentioned in the subject :
+
+gcc: -ltcfg: linker input file unused since linking not done
+
+where, ltcfg  points to  libtcfg.a, which is a static library generated
+by me, whose path is specified by  the "-L" directive.
+
+I would like to know why the above message  appears from  gcc.  If so,
+what is the remedy to this problem ?
+
+- Please do let me know what is missing
+
+- Thank you
+
+- Shobhit
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030321161120</emailId><senderName>"H. J. Lu"</senderName><senderEmail>hjl@lucon.org</senderEmail><timestampReceived>2003-03-21 16:11:20-0400</timestampReceived><subject>Linux binutils 2.13.90.0.20 is released</subject><body>
+
+This is the beta release of binutils 2.13.90.0.20 for Linux, which is
+based on binutils 2003 0319 in CVS on sourecs.redhat.com plus various
+changes. It is purely for Linux.
+
+The Linux/mips support is added. You have to use
+
+# rpm --target=[mips|mipsel] -ta binutils-xx.xx.xx.xx.xx.tar.gz
+
+to build it. Or you can read mips/README in the source tree to apply
+the mips patches and build it by hand.
+
+FYI, the binutils man pages now are generated from the texinfo files
+during the build. As the result, those man pages may be changed for
+each build even if you only have done
+
+# ..../configure ...
+# make
+
+That means you may have many failures on the man pages when you apply
+the binutils diffs next time. Those failures can be safely ignored.
+You should remove all those man pages from your source tree by
+
+# find -name *.1 | xargs rm -f
+# find -name *.1.rej | xargs rm -f
+# find -name *.man | xargs rm -f
+# find -name *.man.rej | xargs rm -f
+
+Please report any bugs related to binutils 2.13.90.0.20 to hjl@lucon.org.
+
+For arm-linux targets, there are some important differences in behaviour 
+between these tools and binutils 2.9.1.0.x.  The linker emulation name has 
+changed from elf32arm{26} to armelf_linux{26}.  Also, the "-p" flag must be 
+passed with the linker when working with object files (or static libraries) 
+created using older versions of the assembler.  If this flag is omitted the 
+linker will silently generate bad output when given old input files.
+
+To get the correct behaviour from gcc, amend the *link section of your specs 
+file as follows:
+
+*link:
+%{h*} %{version:-v}    %{b} %{Wl,*:%*}    %{static:-Bstatic}    %{shared:-shared}    \
+%{symbolic:-Bsymbolic}    %{rdynamic:-export-dynamic}    %{!dynamic-linker: \
+-dynamic-linker /lib/ld-linux.so.2}    -X    %{mbig-endian:-EB} %{mapcs-26:-m \
+armelf_linux26} %{!mapcs-26:-m armelf_linux} -p
+
+
+Changes from binutils 2.13.90.0.18:
+
+1. Update from binutils 2003 0319.
+2. Fix an ia64 linker brl relaxation bug.
+3. Fix some ELF/ppc linker bugs.
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+Changes from binutils 2.12.90.0.15:
+
+1. Update from binutils 2002 0802.
+2. Initial support for mips n32 ABI.
+3. Fix some x86 TLS bugs.
+
+Changes from binutils 2.12.90.0.14:
+
+1. Update from binutils 2002 0717.
+2. Fix an ia64 assembler bug.
+3. Fix a symbol versioning bug.
+4. You have to upgrade to modutils 2.4.19 or apply the modutils patch
+enclosed here in order to support System.map generated by the new nm.
+
+Changes from binutils 2.12.90.0.12:
+
+1. Update from binutils 2002 0627.
+2. Fix a linker bug which leads to the incorrect Linux 2.2 kernel.
+
+Changes from binutils 2.12.90.0.11:
+
+1. Update from binutils 2002 0618.
+2. Fix a mips assembler bug.
+
+Changes from binutils 2.12.90.0.9:
+
+1. Update from binutils 2002 0608.
+2. Fix an ELF/mips SHF_MERGE bug.
+
+Changes from binutils 2.12.90.0.7:
+
+1. Update from binutils 2002 0526.
+2. Support "-z muldefs".
+
+Changes from binutils 2.12.90.0.4:
+
+1. Update from binutils 2002 0423.
+2. ELF EH frame bug fix.
+3. MIPS ELF visibility bug fix.
+
+Changes from binutils 2.12.90.0.3:
+
+1. Update from binutils 2002 0408.
+2. Bug fixes for ELF/sparc.
+3. Bug fixes for ELF/CRIS.
+
+Changes from binutils 2.12.90.0.1:
+
+1. Update from binutils 2002 0323.
+2. Fix linking a.out relocatable files with ELF.
+3. Fix a PPC altivec assembler bug.
+
+Changes from binutils 2.11.93.0.2:
+
+1. Update from binutils 2002 0307.
+2. Add the .preinit_array/.init_array/.fini_array support.
+3. Fix eh_frame.
+4. Turn on combreloc by default.
+5. Enable gprof for Linux/mips.
+
+Changes from binutils 2.11.92.0.12.3:
+
+1. Update from binutils 2002 0207.
+2. Fix a weak symbol alpha linker bug for glibc.
+3. More support for gcc 3.1.
+
+Changes from binutils 2.11.92.0.12:
+
+1. Fix a regression in 2.11.92.0.12 when linking with none-ELF object
+files.
+
+Changes from binutils 2.11.92.0.10:
+
+1. Update from binutils 2001 1121.
+2. Fix a linker symbol version bug for common symbols.
+3. Update handling relocations against the discarded sections. You may
+need to apply the kernel patch enclosed here to your kernel source. If
+you still see things like
+
+drivers/char/char.o(.data+0x46b4): undefined reference to `local symbols in discarded \
+section .text.exit'
+
+in the final kernel link, that means you have compiled a driver into
+the kernel which has a reference to the symbol in a discarded section.
+Kernel 2.4.17 or above should work fine.
+
+4. Support "-march=xxx -mipsN" for mips gas if they are compatible.
+
+Changes from binutils 2.11.92.0.7:
+
+1. Update from binutils 2001 1021.
+2. Fix the ELF/PPC linker.
+3. Fix the ELF/cris linker.
+4. Fix ELF strip.
+
+Changes from binutils 2.11.92.0.5:
+
+1. Update from binutils 2001 1016.
+2. Fix all breakages introduced in 2.11.92.0.12.
+
+Changes from binutils 2.11.90.0.31:
+
+1. Update from binutils 2001 1005.
+2. Support gcc 3.1 for ia64.
+3. Support prelink for ELF/PPC.
+4. Fix an ELF/x86 linker bug for Oracle.
+5. Fix a weak symbol bug.
+6. Support locale.
+
+Changes from binutils 2.11.90.0.29:
+
+1. Update from binutils 2001 0830.
+2. Fix a mips linker bug.
+
+Changes from binutils 2.11.90.0.27:
+
+1. Update from binutils 2001 0827.
+2. Fix an alpha assembler bug.
+3. Fix an ia64 linker bug.
+4. Fix a mips linker bug.
+5. Support `-z combreloc|nocombreloc' in linker.
+
+Changes from binutils 2.11.90.0.25:
+
+1. Update from binutils 2001 0810.
+2. Fix an x86 linker bug.
+
+Changes from binutils 2.11.90.0.24:
+
+1. Update from binutils 2001 0726.
+2. Fix an x86 assembler bug.
+3. "make check" in the windres test in binutils may call uudecode. We
+are working on it.
+4. "make check" fails the windres test in binutils if the i386/pe
+is enabled in bfd. Fixed in the next release.
+5. "make check" has 2 failures in the ld-selective test in ld on
+Linux/alpha. They should be marked xfail. Fixed in the next release.
+
+Changes from binutils 2.11.90.0.23:
+
+1. Update from binutils 2001 0714.
+2. Fix Sparc/ElF for Linux/sparc.
+3. Fix Alpha/ELF for gcc 3.0.
+
+Changes from binutils 2.11.90.0.19:
+
+1. Update from binutils 2001 0706.
+2. Fix objcopy/strip broken by accident.
+3. Avoid COPY relocs on ia32.
+4. Fix the ia64 assembler.
+5. This release may not work on Linux/sparc due to the unaligned
+relocation changes, which are not handled by all versions of glibc.
+The current glibc in CVS on sourceware should be ok. The last known
+working binutils for Linux/sparc is 2.11.90.0.8. We are working on it.
+
+Changes from binutils 2.11.90.0.15:
+
+1. Update from binutils 2001 0620.
+2. Fix a static linking the PIC object files on ia32.
+3. Add the verion script support for --export-dynamic. It can be used
+to selectively export dynamic symbols from the executables.
+
+Changes from binutils 2.11.90.0.8:
+
+1. Update from binutils 2001 0610.
+2. Fix a gas bug for gcc 3.0.
+
+Changes from binutils 2.11.90.0.7:
+
+1. Update from binutils 2001 0512.
+2. Fix some P/III SSE 2 assembler bugs.
+3. Fix DT_NEEDED and symbol version bugs.
+4. Support hidden versioned symbols in DSOs.
+
+Changes from binutils 2.11.90.0.6:
+
+1. Update from binutils 2001 0427.
+2. Fix the -Bsymbolic bug introduced in binutils 2.11.90.0.5.
+
+Changes from binutils 2.11.90.0.5:
+
+1. Update from binutils 2001 0425.
+2. Update "ld --multilib-dir PATH".
+
+Changes from binutils 2.11.90.0.4:
+
+1. Update from binutils 2001 0414.
+2. Fix an ia64 assembler bug.
+3. Change Linux/MIPS to use the SVR4 MIPS ABI instead of the IRIX ABI.
+since there are no supports for the IRIX ABI in glibc. The current
+Linux/MIPS targets are elf64-tradlittlemips for little endian MIPS
+instead of elf32-littlemips and elf64-tradbigmips for big endian MIPS
+instead of elf32-bigmips. Glibc, gcc and kernel may have to be modified
+for this change. 
+
+Changes from binutils 2.11.90.0.1:
+
+1. Update from binutils 2001 0401.
+2. Fix a gas bug for the gcc from the CVS main trunk. It involves some
+changes in gas. I compiled kernel 2.2.18, gcc and glibc under
+Linux/ia32. The resulting binaries work fine. 
+3. Fix the linker core dump on unsupported ELF binaries.
+
+Changes from binutils 2.10.91.0.4:
+
+1. Update from binutils 2001 0309.
+
+Changes from binutils 2.10.91.0.2:
+
+1. Update from binutils 2001 0223.
+2. More ia64 bug fixes.
+
+Changes from binutils 2.10.1.0.7:
+
+1. Update from binutils 2001 0215.
+2. More ia64 bug fixes. Support EFI and "ld -relax" on ia64.
+3. Fix a weak definition, -Bsymbolic, non-PIC bug for ia32.
+
+Changes from binutils 2.10.1.0.4:
+
+1. Update from binutils 2001 0206.
+2. Enable the IA64 support.
+3. Now you need to use
+
+# ld --oformat TARGET
+
+instead of
+
+# ld -oformat TARGET
+
+The Linux kernel build may be affected. BTW
+
+# ld --oformat TARGET
+
+should work with all previous releases of binutils.
+
+Changes from binutils 2.10.1.0.2:
+
+1. Update from binutils 2000 1221.
+
+Changes from binutils 2.10.0.33:
+
+1. Update from binutils 2000 1119.
+2. It has some symbol versioning related updates.
+
+Changes from binutils 2.10.0.32:
+
+1. Update from binutils 2000 1018.
+2. A proper ELF/PPC visibility fix.
+3. m68k-a.out is supposed to be fixed.
+
+Changes from binutils 2.10.0.31:
+
+1. Update from binutils 2000 1014.
+2. An ELF/PPC weak symbol bug fix.
+3. A new linkonce section name approach.
+4. m68k-a.out is still broken. To be fixed.
+
+Changes from binutils 2.10.0.29:
+
+1. Update from binutils 2000 1011.
+2. Back out the linkonce section name change so that C++ will work.
+A different approach is being worked on.
+3. m68k-a.out is known to be broken. To be fixed.
+
+Changes from binutils 2.10.0.26:
+
+1. Update from binutils 2000 1008.
+
+Changes from binutils 2.10.0.24:
+
+1. Update from binutils 2000 0907.
+
+Changes from binutils 2.10.0.18:
+
+1. Update from binutils 2000 0823. Fix DT_RPATH/DT_RUNPATH handling.
+Fix the ELF/ia32 DSO not compiled with PIC.
+2. Try to fix the ELF visibility bug on PPC with glibc 2.2.
+
+Changes from binutils 2.10.0.12:
+
+1. Update from binutils 2000 0720.
+2. Fix the DT_NEEDED link bug.
+3. Add the new DT_XXXX dynamic tags. Glibc 2.2 will use them at least
+on libpthread.so.
+
+Changes from binutils 2.10.0.9:
+
+1. Update from binutils 2000 0701. Fix the parallel build in ld when PE
+is enabled.
+
+Changes from binutils 2.9.5.0.46:
+
+1. Update from binutils 2000 0617. The demangler support for the new
+g++ ABI. Minor fix for the ELF visibility. Fix linking non-ELF
+relocatable object files under ELF with symbol versioning.
+2. Support for linking PE relocatable object files under ia32/ELF.
+
+Changes from binutils 2.9.5.0.42:
+
+1. Update from binutils 2000 0604. The ELF visibility attribuite should
+work correctly now.
+2. The ia32 assembler has changed the way it assembles the "jmp"
+instructions to the global symbols. The old assembler will optimize the
+jump to the global symbol defined in the same source file so that no
+relocation will be used. The new assembler will use relocation for
+global jumps. It will mainly affect PIC asm code. The segment like
+
+	.globl  __setjmp
+__setjmp:
+	...
+	jmp __sigsetjmp
+	...
+	.globl __sigsetjmp
+__sigsetjmp:
+
+is no longer PIC safe since "jmp __sigsetjmp" jumps to a global symbol
+and relocation will be used. Instead, it can be changed to
+
+	.globl  __setjmp
+__setjmp:
+	...
+	jmp sigsetjmp
+	...
+	.globl __sigsetjmp
+__sigsetjmp:
+sigsetjmp:
+
+so that "jmp sigsetjmp" jumps to a local symbol and the new assembler
+will optimize out the relocation.
+
+Changes from binutils 2.9.5.0.41:
+
+1. Update from binutils 2000 0512.
+2. Add testsuite for ELF visibility.
+
+Changes from binutils 2.9.5.0.37:
+
+1. Update from binutils 2000 0502.
+2. Support STV_HIDDEN and STV_INTERNAL.
+
+Changes from binutils 2.9.5.0.35:
+
+1. Update from binutils 2000 0418.
+2. Fix an ld demangle style option bug.
+
+Changes from binutils 2.9.5.0.34:
+
+1. Update from binutils 2000 0412. Fix a relocation bug which affects
+the Linux kernel compilation.
+2. An ELF/PPC linker script update.
+
+Changes from binutils 2.9.5.0.33:
+
+1. Update from binutils 2000 0404. Fix the bug report bug.
+
+Changes from binutils 2.9.5.0.32:
+
+1. Update from binutils 2000 0403. Fix the 16bit ia32 assembler bug.
+
+Changes from binutils 2.9.5.0.31:
+
+1. Update from binutils 2000 0331. Fix the Linux/ARM assembler bug.
+2. Fix a Debian assembler security bug.
+
+Changes from binutils 2.9.5.0.29:
+
+1. Update from binutils 2000 0319.
+2. An ELF/alpha bug is fixed.
+
+Changes from binutils 2.9.5.0.27:
+
+1. Update from binutils 2000 0301.
+2. A demangler bug is fixed.
+3. A better fix for undefined symbols with -Bsymbolic when building
+shared library.
+
+Changes from binutils 2.9.5.0.24:
+
+1. Update from binutils 2000 0204.
+2. Added -taso to linker on alpha.
+3. Fixed a -shared -Bsymbolic bug when PIC is not used.
+
+Changes from binutils 2.9.5.0.22:
+
+1. Update from binutils 2000 0113.
+2. A symbol version bug is fixed.
+3. A -Bsymbolic bug is fixed.
+
+Changes from binutils 2.9.5.0.21:
+
+1. Update from binutils 1999 1202.
+2. Remove a MIPS/ELF change.
+3. Enable SOM for HPPA.
+
+Changes from binutils 2.9.5.0.19:
+
+1. Update from binutils 1999 1122. An ia32 gas bug is fixed.
+
+Changes from binutils 2.9.5.0.16:
+
+1. Update from binutils 1999 1104.
+2. i370 is changed to use EM_S370 and ELFOSABI_LINUX. Update readelf.
+3. Fix Compaq's demangler support.
+
+Changes from binutils 2.9.5.0.14:
+
+1. Update from binutils 1999 1012. A gas bug which affects Linux 2.3.21
+is fixed.
+2. i370 update.
+3. The new demangler code. You should use "--style=xxx" to select the
+demnangle style instead of "--lang=xxx".
+
+Changes from binutils 2.9.5.0.13:
+
+1. Update from binutils 1999 0925.
+2. Fix a -s and linker script bug.
+
+Changes from binutils 2.9.5.0.12:
+
+1. Update from binutils 1999 0922.
+2. i370 update.
+
+Changes from binutils 2.9.5.0.11:
+
+1. Update from binutils 1999 0910. It fixed a PIC linker bug on ix86
+   and sparc introduced in the last release.
+2. i370 update.
+
+Changes from binutils 2.9.5.0.10:
+
+1. Update from binutils 1999 0906. It fixed a PIC linker bug on ix86
+   and sparc.
+2. Remove elf/hppa since it is WIP.
+
+Changes from binutils 2.9.5.0.8:
+
+1. Update from binutils 1999 0831. It allows spaces around '(' and ')'
+   in x86 FP register names.
+
+Changes from binutils 2.9.5.0.7:
+
+1. Update from binutils 1999 0821.
+2. Some MIPS changes.
+
+Changes from binutils 2.9.5.0.6:
+
+1. Update from binutils 1999 0813.
+2. i370 update.
+
+Changes from binutils 2.9.5.0.5:
+
+1. Update from binutils 1999 0809. An ELF/Sparc ld bug is fixed.
+
+Changes from binutils 2.9.5.0.4:
+
+1. Update from binutils 1999 0806. A Solaris/Sparc gas bug is fixed.
+2. Remove mips gas patches from binutils 2.9.1.0.25.
+
+Changes from binutils 2.9.5.0.3:
+
+1. Update from binutils 1999 0801.
+2. Support for real mode x86 gcc.
+
+Changes from binutils 2.9.4.0.8:
+
+1. Update from binutils 1999 0719. A libc 5 related bug fix.
+2. Fix a typo in mips gas.
+
+Changes from binutils 2.9.4.0.7:
+
+1. Update from binutils 1999 0710. A weak symbol bug
+
+http://egcs.cygnus.com/ml/egcs-bugs/1999-07/msg00129.html
+
+is fixed.
+
+Changes from binutils 2.9.4.0.6:
+
+1. Update from binutils 1999 0626.
+
+Changes from binutils 2.9.4.0.5:
+
+1. Update from binutils 1999 0620.
+2. Remove my fwait fix and use the one in cvs.
+3. Use "--only-section=section" instead of "--extract-section=section".
+   for objcopy.
+
+Changes from binutils 2.9.4.0.4:
+
+1. Update from binutils 1999 0612.
+2. Remove various temporary fixes of mine since those bugs are fixed
+   now.
+
+Changes from binutils 2.9.4.0.3:
+
+1. Update from binutils 1999 0611.
+2. Remove my ELF/Alpha bfd changes.
+3. Use the local symbol copy fix in binutils 1999 0611.
+
+Changes from binutils 2.9.4.0.2:
+
+1. Update from binutils 1999 0607.
+2. Remove my Sparc hacks.
+3. Fix local symbol copy.
+
+Changes from binutils 2.9.4.0.1:
+
+1. Update from binutils 1999 0606.
+2. Restore relocation overflow checking in binutils 2.9.1.0.25 so that
+   Linux kernel can build.
+3. Fix i370 for the new gas.
+
+Changes from binutils 1999 0605:
+
+1. Fix a -Bsymbolic bug for Linux/alpha.
+2. Add ELF/i370.
+3. Fix 8/16-bit relocations for i386.
+4. Add --redefine-sym=old_form=new_form to objcopy.
+5. Add "-j section" for objcopy.
+6. Fix i386 disassembler for fwait.
+7. Fix a Sparc asm bug.
+8. Add Ada demangle support.
+9. Fix MIPS/ELF bugs.
+10. Add some vxworks suppport.
+11. Fix a.out assembler.
+
+The file list:
+
+1. binutils-2.13.90.0.20.tar.gz. Source code.
+2. binutils-2.13.90.0.18-2.13.90.0.20.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.13.90.0.20-1.i386.rpm. IA-32 binary RPM for RedHat 7.3.
+
+There is no separate source rpm. You can do
+
+# rpm -ta binutils-2.13.90.0.20.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://ftp.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl@lucon.org
+03/19/2003
+----
+&gt; On Mon, Jul 15, 2002 at 04:35:47PM +0930, Alan Modra wrote:
+&gt; &gt; Something you might like to warn about in your next release..
+&gt; &gt; 
+&gt; &gt; The 2002-07-05 bfd change exposes a bug in modutils.  depmod scans the
+&gt; &gt; output of nm for a `?' symbol type when looking for certain symbols.
+&gt; &gt; nm used to return `?' for symbols in sections other than some standard
+&gt; &gt; sections like .text and .data.  Now, nm returns a better guess as to
+&gt; &gt; the symbol type.
+&gt; 
+
+No, but it parses System.map, which is generated by nm.  This was in
+modutils-2.4.16.  Fix follows.
+
+diff -urp modutils-2.4.16.orig/depmod/depmod.c modutils-2.4.16/depmod/depmod.c
+--- modutils-2.4.16.orig/depmod/depmod.c	2002-04-28 17:23:35.000000000 +0930
++++ modutils-2.4.16/depmod/depmod.c	2002-07-15 16:41:20.000000000 +0930
+@@ -1060,12 +1060,9 @@ static int addksyms(char *file_syms)
+ 		if (!isspace(*line))	/* Adressless symbol? */
+ 			p = strtok(NULL, " \t\n");
+ 		/* The second word is either the symbol name or a type */
+-		if (p &amp;&amp; strlen(p) == 1) { /* System.map */
++		if (p &amp;&amp; p[0] &amp;&amp; !p[1]) { /* System.map */
+ 			is_mapfile = 1;
+-			if (*p != '?')
+-				p = NULL;
+-			else
+-				p = strtok(NULL, " \t\n");
++			p = strtok(NULL, " \t\n");
+ 		} else { /* /proc/ksyms copy */
+ 			if (p &amp;&amp; strtok(NULL, " \t\n"))
+ 				p = NULL;
+@@ -1083,7 +1080,7 @@ static int addksyms(char *file_syms)
+ 			if (!isspace(*line))	/* Adressless symbol? */
+ 				p = strtok(NULL, " \t\n");
+ 			if (is_mapfile) {
+-				if (*p != '?')
++				if (!p || !p[0] || p[1])
+ 					continue;
+ 				p = strtok(NULL, " \t\n");
+ 				/* Sparc has symbols like '.div' that need to be
+
+
+-- 
+Alan Modra
+IBM OzLabs - Linux Technology Centre
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+
+</body></email><email><emailId>20030328191837</emailId><senderName>"J."</senderName><senderEmail>mailing-lists@xs4all.nl</senderEmail><timestampReceived>2003-03-28 19:18:37-0400</timestampReceived><subject>Re: Detecting running deamons</subject><body>
+
+On Fri, 28 Mar 2003, Luciano Moreira - igLnx wrote:
+
+&gt; I have a application that run like a deamon, which write in a file its PID,
+&gt; that is used to stop it later by others programs. But, I ve noted that my
+&gt; users send signal 9 to stop deamons, and my application cannot remove its
+&gt; PID file, because it cannot handle singal 9, keeping its PID file at HD
+&gt; (FileSystem).
+&gt; 
+&gt; Can someone sugest me a way to know the deamon's PID, without write it to a
+&gt; file ?
+&gt; OR
+&gt; How can I do to know if my deamon is running and get its PID ?
+&gt; 
+On the command-line:
+ pidof `which program_name`
+or:
+ ps aux | grep program_name
+or perhaps interactive?:
+ top
+
+&gt; Thanks,
+
+No problemo
+
+&gt; Luciano
+
+J.
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030204182031</emailId><senderName>"Jamie Risk"</senderName><senderEmail>jamie_risk@yahoo.ca</senderEmail><timestampReceived>2003-02-04 18:20:31-0400</timestampReceived><subject>Disabling warnings inline ...</subject><body>
+
+How does one disable gcc warnings in a C/H file?
+
+Of course my code it is not the offending matter - it's the system header
+files.
+
+- Jamie
+
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030209161412</emailId><senderName>Jan-Benedict Glaw</senderName><senderEmail>jbglaw@lug-owl.de</senderEmail><timestampReceived>2003-02-09 16:14:12-0400</timestampReceived><subject>IDE for gcc (was: )</subject><body>
+
+On Sun, 2003-02-09 16:08:17 -0000, Anant Aneja &lt;anantaneja@rediffmail.com&gt;
+wrote in message &lt;20030209160817.28799.qmail@webmail8.rediffmail.com&gt;:
+&gt; can anyone suggest a text mode ide for gcc like turbo c++ ide.
+&gt; Anant
+
+Vim? Emacs? Common, ask www.google.com! There are quite *many* of
+those...
+
+MfG, JBG
+
+-- 
+   Jan-Benedict Glaw       jbglaw@lug-owl.de    . +49-172-7608481
+   "Eine Freie Meinung in  einem Freien Kopf    | Gegen Zensur
+    fuer einen Freien Staat voll Freier Bürger" | im Internet!
+   Shell Script APT-Proxy: http://lug-owl.de/~jbglaw/software/ap2/
+
+[Attachment #3 (application/pgp-signature)]
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+</body></email><email><emailId>20030210140114</emailId><senderName>Pamela Paco</senderName><senderEmail>pamela_paco@netbizniz.zzn.com</senderEmail><timestampReceived>2003-02-10 14:01:14-0400</timestampReceived><subject>Register for Free... Earn and Learn!</subject><body>
+
+Hello:
+
+My name is Pamela Paco. I am now focusing in one online opportunity.
+I have tried several of these online opportunities full of
+hype promising us thousands of dollars every month.
+I would get all excited and run to my family and friends with
+another " Great Money Maker ".
+
+It is a sad fact that many people who are in need of additional
+income, are being victimized by these fly by night scam artists.
+Every time I tried one opportunity after the other, I ended up
+more broke than ever.  Not to mention how embarrassing it was.
+
+As a result of trying all these opportunities, I finally found
+the company which is true to their words.  Not full of hype,
+but consistently send me the monthly check.
+They have given me the best compensation plan with their high
+% commission.  I finally have Something my friends and family
+are begging ME for rather then laughing behind my back.
+
+I joined for free and couldn't believe what I've seen. I had
+over 500 people in my organization in less then 3 weeks.
+Within a month of joining this free thing I wasn't really
+even serious about, I found myself with over 1500 people in
+my down line. I was able to quit my job and stay home with the
+kids.  The rent is paid and so are all my utilities.
+
+I didn't have to perform some juggling act to maintain some 60
+to 40% balance in my legs.  It is not a pyramid, so there are
+no legs.  It is not one of those Binary compensation plan
+failures either.  Everyone earns commissions here.
+
+They are providing a real service not the one that simply
+transfers wealth from the new signups to the people at the top.
+When you join, you will have a team of up line sponsors who will
+help you succeed every step of the way.
+Instead of being left alone, you will be guided step by step by
+real people, not those autoresponders.
+
+Do not believe in do nothing, no recruiting, and no selling
+schemes. They are scams. You might want to try it to prove my words.
+Be ware of the ones that want you to invest $1200.00 before you
+start.  How long would it take you to break even?
+
+Only you can make your own success together with the help of
+your sponsors. If you have 2 to 3 hours a day, you will be able
+to earn a full income in a few months. And there is absolutely
+no limit as to how much you can earn. It is designed to gain
+momentum after some time.
+
+But I prefer to avoid such statements as "You will get rich".
+I read it everywhere and will not allow myself to sound like them.
+I experinced it personally, you can be comfortable.
+
+To get your FREE membership ID send email to pamela_paco@america.hm
+and put "Register Me For Free" In the subject and your FULL NAME and COUNTRY in the body of your email.
+
+I will then register you into our program.  You will receive a
+Confirmation email asking you to verify.
+Open it up and activate your free membership immediately.
+Then set back and watch as your new business explodes.
+
+
+Best regards,
+Pamela Paco
+pamela_paco@america.hm
+
+
+Send email to removal@junglemate.com with the subject
+"Remove Me" if you wish to be remove from my
+mailing list and to no longer receive emails from me.
+
+
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030227191613</emailId><senderName>"Nate Jenkins"</senderName><senderEmail>nate@uniwest.com</senderEmail><timestampReceived>2003-02-27 19:16:13-0400</timestampReceived><subject>Re:</subject><body>
+
+
+You may use any command as you would at the commandline by using the
+"system" function.
+
+int retcode = system( "grep ..." );
+
+you can redirect output to a file within the first argument string.
+system(...) will only return the error/success code.  So if you need a
+string result, that is why I suggest redirecting in the command argument.
+
+There are probably more efficient ways to do it, but that will work.  Read
+about system(...) in the man pages...
+
+Nate
+
+----- Original Message -----
+From: "n mishra" &lt;mishra_nn@rediffmail.com&gt;
+To: &lt;linux-gcc@vger.kernel.org&gt;
+Sent: Thursday, February 27, 2003 11:05 AM
+
+
+&gt; Hi all,
+&gt; I am trying to write a program in c to be able to search a file
+&gt; for any pattern which will be given by the user at
+&gt; runtime.Basically a search tool.
+&gt; Could someone suggest a good way of doing this.I've heard of lex
+&gt; and yacc and also awk.Which one is better or is there any other
+&gt; option.
+&gt; Or is there any way i can use something like grep through a 'c'
+&gt; program.
+&gt; Thanks
+&gt; mishra
+&gt;
+&gt; -
+&gt; To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+&gt; the body of a message to majordomo@vger.kernel.org
+&gt; More majordomo info at  http://vger.kernel.org/majordomo-info.html
+&gt;
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030228140339</emailId><senderName>Eduardo Osorio Armenta</senderName><senderEmail>e_osorio@yahoo.com</senderEmail><timestampReceived>2003-02-28 14:03:39-0400</timestampReceived><subject>Re: ncurses library</subject><body>
+
+
+#include &lt;ncurses.h&gt;
+
+gcc yourprogram.c -o yourprogramexe  -lncurses
+
+--- Anant Aneja &lt;anantaneja@rediffmail.com&gt; wrote:
+&gt; anybody can tell me how to start using the ncurses
+&gt; library.
+&gt; the man pages are 2 boring.
+&gt; Anant
+&gt; 
+&gt; 
+&gt; 
+
+
+__________________________________________________
+Do you Yahoo!?
+Yahoo! Tax Center - forms, calculators, tips, more
+http://taxes.yahoo.com/
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030104011350</emailId><senderName>Denis Zaitsev</senderName><senderEmail>zzz@cd-club.ru</senderEmail><timestampReceived>2003-01-04 01:13:50-0400</timestampReceived><subject>Re: glibc 2.3.1 [PATCH] sysdeps/i386/i486/bits/string.h</subject><body>
+
+This is a trivial patch for the inlined i386 strings' header.  Without
+it, say, X11 can't be compiled with -D__USE_STRING_INLINES - a
+problems will be caused by XtNewString and X11's own bzero.  These
+problems are cured by the first and the second chunks of the patch,
+correspondingly.
+
+
+So, please, apply this.
+
+
+--- sysdeps/i386/i486/bits/string.h.orig	Fri Jan  3 12:17:55 2003
++++ sysdeps/i386/i486/bits/string.h	Sat Jan  4 06:04:08 2003
+@@ -40,10 +40,10 @@
+ 
+ /* The macros are used in some of the optimized implementations below.  */
+ #define __STRING_SMALL_GET16(src, idx) \
+-  (((src)[idx + 1] &lt;&lt; 8) | (src)[idx])
++  ((((char*)(src))[idx + 1] &lt;&lt; 8) | ((char*)(src))[idx])
+ #define __STRING_SMALL_GET32(src, idx) \
+-  ((((src)[idx + 3] &lt;&lt; 8 | (src)[idx + 2]) &lt;&lt; 8				      \
+-    | (src)[idx + 1]) &lt;&lt; 8 | (src)[idx])
++  (((((char*)(src))[idx + 3] &lt;&lt; 8 | ((char*)(src))[idx + 2]) &lt;&lt; 8	      \
++    | ((char*)(src))[idx + 1]) &lt;&lt; 8 | ((char*)(src))[idx])
+ 
+ 
+ /* Copy N bytes of SRC to DEST.  */
+@@ -229,7 +229,7 @@ memcmp (__const void *__s1, __const void
+ 	assignments using immediate operands.  But this uses to much	      \
+ 	memory (7, instead of 4 bytes).  So we force the value in a	      \
+ 	registers.  */							      \
+-     if (n == 3 || n &gt;= 5)						      \
++     if ((n) == 3 || (n) &gt;= 5)						      \
+        __asm__ __volatile__ ("" : "=r" (__c) : "0" (__c));		      \
+ 									      \
+      /* This `switch' statement will be removed at compile-time.  */	      \
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030114064341</emailId><senderName>Ulrich Drepper</senderName><senderEmail>drepper@redhat.com</senderEmail><timestampReceived>2003-01-14 06:43:41-0400</timestampReceived><subject>Re: glibc 2.3.1: fix for the i386 inline strings code</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Denis Zaitsev wrote:
+
+&gt; This is a trivial patch for the inlined i386 strings' header.  Without
+&gt; it, say, X11 can't be compiled with -D__USE_STRING_INLINES - a
+&gt; problems will be caused by XtNewString and X11's own bzero.  These
+&gt; problems are cured by the first and the second chunks of the patch,
+&gt; correspondingly.
+
+I've applied the patch after correcting the type used in the casts.  Thanks,
+
+- -- 
+- --------------.                        ,-.            444 Castro Street
+Ulrich Drepper \    ,-----------------'   \ Mountain View, CA 94041 USA
+Red Hat         `--' drepper at redhat.com `---------------------------
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.1 (GNU/Linux)
+
+iD8DBQE+I7Gd2ijCOnn/RHQRAsVBAJ956F4GTF/fv1RpbU9nImKsPvgfxwCghrPN
+UWiP7thvgVDX78LkRQleBks=
+=V2JO
+-----END PGP SIGNATURE-----
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030115195941</emailId><senderName>"Nate"</senderName><senderEmail>nate@uniwest.com</senderEmail><timestampReceived>2003-01-15 19:59:41-0400</timestampReceived><subject>Stack and Heap</subject><body>
+
+Are there any commands / functions to call to find out memory info?
+
+For example, if I am writing a program that is using a ton of memory.
+Everything is working and then I add more code needing more memory but it
+crashes and I think I may be trying to use too much...  Can I call some
+commands to see how much memory is left?  And/Or how much I am using?  For
+Stack and Heap?
+
+
+Thank You,
+
+Nate
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030116010329</emailId><senderName>"n  mishra"</senderName><senderEmail>mishra_nn@rediffmail.com</senderEmail><timestampReceived>2003-01-16 01:03:29-0400</timestampReceived><subject>.intel_syntax</subject><body>
+
+Hi all!
+Could someone please tell me if the .intel_syntax directive for 
+gcc works and if so how.I'm not able to find any reference to it 
+in the man pages.
+Or is there any other way to convert assembly code from the AT&amp;t 
+syntax to Intel and vice-versa.
+Thanks
+mishra.
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030118052720</emailId><senderName>"n  mishra"</senderName><senderEmail>mishra_nn@rediffmail.com</senderEmail><timestampReceived>2003-01-18 05:27:20-0400</timestampReceived><subject></subject><body>
+
+Hi all!
+This sounds slightly silly but is it possible to link the .obj 
+files from one compiler to another.I have been working with bcc 
+and gcc and was wondering if it was possible to link files created 
+in one compiler for eg bcc to the other for eg gcc.
+I tried to create a obj file in bcc and load it using ld but it 
+said the file format was not recognisable.
+Also how do you execute a binary file created using as86 and the 
+-b option.
+Thanks in advance.
+mishra.
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030124184903</emailId><senderName>"H. J. Lu"</senderName><senderEmail>hjl@lucon.org</senderEmail><timestampReceived>2003-01-24 18:49:03-0400</timestampReceived><subject>The Linux binutils 2.13.90.0.18 is rleased</subject><body>
+
+This is the beta release of binutils 2.13.90.0.18 for Linux, which is
+based on binutils 2003 0121 in CVS on sourecs.redhat.com plus various
+changes. It is purely for Linux.
+
+The Linux/mips support is added. You have to use
+
+# rpm --target=[mips|mipsel] -ta binutils-xx.xx.xx.xx.xx.tar.gz
+
+to build it. Or you can read mips/README in the source tree to apply
+the mips patches and build it by hand.
+
+FYI, the binutils man pages now are generated from the texinfo files
+during the build. As the result, those man pages may be changed for
+each build even if you only have done
+
+# ..../configure ...
+# make
+
+That means you may have many failures on the man pages when you apply
+the binutils diffs next time. Those failures can be safely ignored.
+You should remove all those man pages from your source tree by
+
+# find -name *.1 | xargs rm -f
+# find -name *.1.rej | xargs rm -f
+# find -name *.man | xargs rm -f
+# find -name *.man.rej | xargs rm -f
+
+Please report any bugs related to binutils 2.13.90.0.18 to hjl@lucon.org.
+
+For arm-linux targets, there are some important differences in behaviour 
+between these tools and binutils 2.9.1.0.x.  The linker emulation name has 
+changed from elf32arm{26} to armelf_linux{26}.  Also, the "-p" flag must be 
+passed with the linker when working with object files (or static libraries) 
+created using older versions of the assembler.  If this flag is omitted the 
+linker will silently generate bad output when given old input files.
+
+To get the correct behaviour from gcc, amend the *link section of your specs 
+file as follows:
+
+*link:
+%{h*} %{version:-v}    %{b} %{Wl,*:%*}    %{static:-Bstatic}    %{shared:-shared}    \
+%{symbolic:-Bsymbolic}    %{rdynamic:-export-dynamic}    %{!dynamic-linker: \
+-dynamic-linker /lib/ld-linux.so.2}    -X    %{mbig-endian:-EB} %{mapcs-26:-m \
+armelf_linux26} %{!mapcs-26:-m armelf_linux} -p
+
+
+Changes from binutils 2.13.90.0.16:
+
+1. Update from binutils 2003 0121.
+2. Fix an ia64 gas bug.
+3. Fix some TLS bugs.
+4. Fix some ELF/ppc bugs.
+5. Fix an ELF/m68k bug.
+
+2. Include /usr/bin/c++filt.
+Changes from binutils 2.13.90.0.14:
+
+1. Update from binutils 2002 1126.
+2. Include /usr/bin/c++filt.
+3. Fix "ld -r" with execption handling.
+
+Changes from binutils 2.13.90.0.10:
+
+1. Update from binutils 2002 1114.
+2. Fix ELF/alpha bugs.
+3. Fix an ELF/i386 assembler bug.
+
+Changes from binutils 2.13.90.0.4:
+
+1. Update from binutils 2002 1010.
+2. More ELF/PPC linker bug fixes.
+3. Fix an ELF/alpha linker bug.
+4. Fix an ELF/sparc linker bug to support Solaris.
+5. More TLS updates.
+
+Changes from binutils 2.13.90.0.3:
+
+1. Update from binutils 2002 0814.
+2. Fix symbol versioning bugs for gcc 3.2.
+3. Fix mips gas.
+
+Changes from binutils 2.13.90.0.2:
+
+1. Update from binutils 2002 0809.
+2. Fix a mips gas compatibility bug.
+3. Fix an x86 TLS bfd bug.
+4. Fix an x86 PIC gas bug.
+5. Improve symbol versioning support.
+
+Changes from binutils 2.12.90.0.15:
+
+1. Update from binutils 2002 0802.
+2. Initial support for mips n32 ABI.
+3. Fix some x86 TLS bugs.
+
+Changes from binutils 2.12.90.0.14:
+
+1. Update from binutils 2002 0717.
+2. Fix an ia64 assembler bug.
+3. Fix a symbol versioning bug.
+4. You have to upgrade to modutils 2.4.19 or apply the modutils patch
+enclosed here in order to support System.map generated by the new nm.
+
+Changes from binutils 2.12.90.0.12:
+
+1. Update from binutils 2002 0627.
+2. Fix a linker bug which leads to the incorrect Linux 2.2 kernel.
+
+Changes from binutils 2.12.90.0.11:
+
+1. Update from binutils 2002 0618.
+2. Fix a mips assembler bug.
+
+Changes from binutils 2.12.90.0.9:
+
+1. Update from binutils 2002 0608.
+2. Fix an ELF/mips SHF_MERGE bug.
+
+Changes from binutils 2.12.90.0.7:
+
+1. Update from binutils 2002 0526.
+2. Support "-z muldefs".
+
+Changes from binutils 2.12.90.0.4:
+
+1. Update from binutils 2002 0423.
+2. ELF EH frame bug fix.
+3. MIPS ELF visibility bug fix.
+
+Changes from binutils 2.12.90.0.3:
+
+1. Update from binutils 2002 0408.
+2. Bug fixes for ELF/sparc.
+3. Bug fixes for ELF/CRIS.
+
+Changes from binutils 2.12.90.0.1:
+
+1. Update from binutils 2002 0323.
+2. Fix linking a.out relocatable files with ELF.
+3. Fix a PPC altivec assembler bug.
+
+Changes from binutils 2.11.93.0.2:
+
+1. Update from binutils 2002 0307.
+2. Add the .preinit_array/.init_array/.fini_array support.
+3. Fix eh_frame.
+4. Turn on combreloc by default.
+5. Enable gprof for Linux/mips.
+
+Changes from binutils 2.11.92.0.12.3:
+
+1. Update from binutils 2002 0207.
+2. Fix a weak symbol alpha linker bug for glibc.
+3. More support for gcc 3.1.
+
+Changes from binutils 2.11.92.0.12:
+
+1. Fix a regression in 2.11.92.0.12 when linking with none-ELF object
+files.
+
+Changes from binutils 2.11.92.0.10:
+
+1. Update from binutils 2001 1121.
+2. Fix a linker symbol version bug for common symbols.
+3. Update handling relocations against the discarded sections. You may
+need to apply the kernel patch enclosed here to your kernel source. If
+you still see things like
+
+drivers/char/char.o(.data+0x46b4): undefined reference to `local symbols in discarded \
+section .text.exit'
+
+in the final kernel link, that means you have compiled a driver into
+the kernel which has a reference to the symbol in a discarded section.
+Kernel 2.4.17 or above should work fine.
+
+4. Support "-march=xxx -mipsN" for mips gas if they are compatible.
+
+Changes from binutils 2.11.92.0.7:
+
+1. Update from binutils 2001 1021.
+2. Fix the ELF/PPC linker.
+3. Fix the ELF/cris linker.
+4. Fix ELF strip.
+
+Changes from binutils 2.11.92.0.5:
+
+1. Update from binutils 2001 1016.
+2. Fix all breakages introduced in 2.11.92.0.12.
+
+Changes from binutils 2.11.90.0.31:
+
+1. Update from binutils 2001 1005.
+2. Support gcc 3.1 for ia64.
+3. Support prelink for ELF/PPC.
+4. Fix an ELF/x86 linker bug for Oracle.
+5. Fix a weak symbol bug.
+6. Support locale.
+
+Changes from binutils 2.11.90.0.29:
+
+1. Update from binutils 2001 0830.
+2. Fix a mips linker bug.
+
+Changes from binutils 2.11.90.0.27:
+
+1. Update from binutils 2001 0827.
+2. Fix an alpha assembler bug.
+3. Fix an ia64 linker bug.
+4. Fix a mips linker bug.
+5. Support `-z combreloc|nocombreloc' in linker.
+
+Changes from binutils 2.11.90.0.25:
+
+1. Update from binutils 2001 0810.
+2. Fix an x86 linker bug.
+
+Changes from binutils 2.11.90.0.24:
+
+1. Update from binutils 2001 0726.
+2. Fix an x86 assembler bug.
+3. "make check" in the windres test in binutils may call uudecode. We
+are working on it.
+4. "make check" fails the windres test in binutils if the i386/pe
+is enabled in bfd. Fixed in the next release.
+5. "make check" has 2 failures in the ld-selective test in ld on
+Linux/alpha. They should be marked xfail. Fixed in the next release.
+
+Changes from binutils 2.11.90.0.23:
+
+1. Update from binutils 2001 0714.
+2. Fix Sparc/ElF for Linux/sparc.
+3. Fix Alpha/ELF for gcc 3.0.
+
+Changes from binutils 2.11.90.0.19:
+
+1. Update from binutils 2001 0706.
+2. Fix objcopy/strip broken by accident.
+3. Avoid COPY relocs on ia32.
+4. Fix the ia64 assembler.
+5. This release may not work on Linux/sparc due to the unaligned
+relocation changes, which are not handled by all versions of glibc.
+The current glibc in CVS on sourceware should be ok. The last known
+working binutils for Linux/sparc is 2.11.90.0.8. We are working on it.
+
+Changes from binutils 2.11.90.0.15:
+
+1. Update from binutils 2001 0620.
+2. Fix a static linking the PIC object files on ia32.
+3. Add the verion script support for --export-dynamic. It can be used
+to selectively export dynamic symbols from the executables.
+
+Changes from binutils 2.11.90.0.8:
+
+1. Update from binutils 2001 0610.
+2. Fix a gas bug for gcc 3.0.
+
+Changes from binutils 2.11.90.0.7:
+
+1. Update from binutils 2001 0512.
+2. Fix some P/III SSE 2 assembler bugs.
+3. Fix DT_NEEDED and symbol version bugs.
+4. Support hidden versioned symbols in DSOs.
+
+Changes from binutils 2.11.90.0.6:
+
+1. Update from binutils 2001 0427.
+2. Fix the -Bsymbolic bug introduced in binutils 2.11.90.0.5.
+
+Changes from binutils 2.11.90.0.5:
+
+1. Update from binutils 2001 0425.
+2. Update "ld --multilib-dir PATH".
+
+Changes from binutils 2.11.90.0.4:
+
+1. Update from binutils 2001 0414.
+2. Fix an ia64 assembler bug.
+3. Change Linux/MIPS to use the SVR4 MIPS ABI instead of the IRIX ABI.
+since there are no supports for the IRIX ABI in glibc. The current
+Linux/MIPS targets are elf64-tradlittlemips for little endian MIPS
+instead of elf32-littlemips and elf64-tradbigmips for big endian MIPS
+instead of elf32-bigmips. Glibc, gcc and kernel may have to be modified
+for this change. 
+
+Changes from binutils 2.11.90.0.1:
+
+1. Update from binutils 2001 0401.
+2. Fix a gas bug for the gcc from the CVS main trunk. It involves some
+changes in gas. I compiled kernel 2.2.18, gcc and glibc under
+Linux/ia32. The resulting binaries work fine. 
+3. Fix the linker core dump on unsupported ELF binaries.
+
+Changes from binutils 2.10.91.0.4:
+
+1. Update from binutils 2001 0309.
+
+Changes from binutils 2.10.91.0.2:
+
+1. Update from binutils 2001 0223.
+2. More ia64 bug fixes.
+
+Changes from binutils 2.10.1.0.7:
+
+1. Update from binutils 2001 0215.
+2. More ia64 bug fixes. Support EFI and "ld -relax" on ia64.
+3. Fix a weak definition, -Bsymbolic, non-PIC bug for ia32.
+
+Changes from binutils 2.10.1.0.4:
+
+1. Update from binutils 2001 0206.
+2. Enable the IA64 support.
+3. Now you need to use
+
+# ld --oformat TARGET
+
+instead of
+
+# ld -oformat TARGET
+
+The Linux kernel build may be affected. BTW
+
+# ld --oformat TARGET
+
+should work with all previous releases of binutils.
+
+Changes from binutils 2.10.1.0.2:
+
+1. Update from binutils 2000 1221.
+
+Changes from binutils 2.10.0.33:
+
+1. Update from binutils 2000 1119.
+2. It has some symbol versioning related updates.
+
+Changes from binutils 2.10.0.32:
+
+1. Update from binutils 2000 1018.
+2. A proper ELF/PPC visibility fix.
+3. m68k-a.out is supposed to be fixed.
+
+Changes from binutils 2.10.0.31:
+
+1. Update from binutils 2000 1014.
+2. An ELF/PPC weak symbol bug fix.
+3. A new linkonce section name approach.
+4. m68k-a.out is still broken. To be fixed.
+
+Changes from binutils 2.10.0.29:
+
+1. Update from binutils 2000 1011.
+2. Back out the linkonce section name change so that C++ will work.
+A different approach is being worked on.
+3. m68k-a.out is known to be broken. To be fixed.
+
+Changes from binutils 2.10.0.26:
+
+1. Update from binutils 2000 1008.
+
+Changes from binutils 2.10.0.24:
+
+1. Update from binutils 2000 0907.
+
+Changes from binutils 2.10.0.18:
+
+1. Update from binutils 2000 0823. Fix DT_RPATH/DT_RUNPATH handling.
+Fix the ELF/ia32 DSO not compiled with PIC.
+2. Try to fix the ELF visibility bug on PPC with glibc 2.2.
+
+Changes from binutils 2.10.0.12:
+
+1. Update from binutils 2000 0720.
+2. Fix the DT_NEEDED link bug.
+3. Add the new DT_XXXX dynamic tags. Glibc 2.2 will use them at least
+on libpthread.so.
+
+Changes from binutils 2.10.0.9:
+
+1. Update from binutils 2000 0701. Fix the parallel build in ld when PE
+is enabled.
+
+Changes from binutils 2.9.5.0.46:
+
+1. Update from binutils 2000 0617. The demangler support for the new
+g++ ABI. Minor fix for the ELF visibility. Fix linking non-ELF
+relocatable object files under ELF with symbol versioning.
+2. Support for linking PE relocatable object files under ia32/ELF.
+
+Changes from binutils 2.9.5.0.42:
+
+1. Update from binutils 2000 0604. The ELF visibility attribuite should
+work correctly now.
+2. The ia32 assembler has changed the way it assembles the "jmp"
+instructions to the global symbols. The old assembler will optimize the
+jump to the global symbol defined in the same source file so that no
+relocation will be used. The new assembler will use relocation for
+global jumps. It will mainly affect PIC asm code. The segment like
+
+	.globl  __setjmp
+__setjmp:
+	...
+	jmp __sigsetjmp
+	...
+	.globl __sigsetjmp
+__sigsetjmp:
+
+is no longer PIC safe since "jmp __sigsetjmp" jumps to a global symbol
+and relocation will be used. Instead, it can be changed to
+
+	.globl  __setjmp
+__setjmp:
+	...
+	jmp sigsetjmp
+	...
+	.globl __sigsetjmp
+__sigsetjmp:
+sigsetjmp:
+
+so that "jmp sigsetjmp" jumps to a local symbol and the new assembler
+will optimize out the relocation.
+
+Changes from binutils 2.9.5.0.41:
+
+1. Update from binutils 2000 0512.
+2. Add testsuite for ELF visibility.
+
+Changes from binutils 2.9.5.0.37:
+
+1. Update from binutils 2000 0502.
+2. Support STV_HIDDEN and STV_INTERNAL.
+
+Changes from binutils 2.9.5.0.35:
+
+1. Update from binutils 2000 0418.
+2. Fix an ld demangle style option bug.
+
+Changes from binutils 2.9.5.0.34:
+
+1. Update from binutils 2000 0412. Fix a relocation bug which affects
+the Linux kernel compilation.
+2. An ELF/PPC linker script update.
+
+Changes from binutils 2.9.5.0.33:
+
+1. Update from binutils 2000 0404. Fix the bug report bug.
+
+Changes from binutils 2.9.5.0.32:
+
+1. Update from binutils 2000 0403. Fix the 16bit ia32 assembler bug.
+
+Changes from binutils 2.9.5.0.31:
+
+1. Update from binutils 2000 0331. Fix the Linux/ARM assembler bug.
+2. Fix a Debian assembler security bug.
+
+Changes from binutils 2.9.5.0.29:
+
+1. Update from binutils 2000 0319.
+2. An ELF/alpha bug is fixed.
+
+Changes from binutils 2.9.5.0.27:
+
+1. Update from binutils 2000 0301.
+2. A demangler bug is fixed.
+3. A better fix for undefined symbols with -Bsymbolic when building
+shared library.
+
+Changes from binutils 2.9.5.0.24:
+
+1. Update from binutils 2000 0204.
+2. Added -taso to linker on alpha.
+3. Fixed a -shared -Bsymbolic bug when PIC is not used.
+
+Changes from binutils 2.9.5.0.22:
+
+1. Update from binutils 2000 0113.
+2. A symbol version bug is fixed.
+3. A -Bsymbolic bug is fixed.
+
+Changes from binutils 2.9.5.0.21:
+
+1. Update from binutils 1999 1202.
+2. Remove a MIPS/ELF change.
+3. Enable SOM for HPPA.
+
+Changes from binutils 2.9.5.0.19:
+
+1. Update from binutils 1999 1122. An ia32 gas bug is fixed.
+
+Changes from binutils 2.9.5.0.16:
+
+1. Update from binutils 1999 1104.
+2. i370 is changed to use EM_S370 and ELFOSABI_LINUX. Update readelf.
+3. Fix Compaq's demangler support.
+
+Changes from binutils 2.9.5.0.14:
+
+1. Update from binutils 1999 1012. A gas bug which affects Linux 2.3.21
+is fixed.
+2. i370 update.
+3. The new demangler code. You should use "--style=xxx" to select the
+demnangle style instead of "--lang=xxx".
+
+Changes from binutils 2.9.5.0.13:
+
+1. Update from binutils 1999 0925.
+2. Fix a -s and linker script bug.
+
+Changes from binutils 2.9.5.0.12:
+
+1. Update from binutils 1999 0922.
+2. i370 update.
+
+Changes from binutils 2.9.5.0.11:
+
+1. Update from binutils 1999 0910. It fixed a PIC linker bug on ix86
+   and sparc introduced in the last release.
+2. i370 update.
+
+Changes from binutils 2.9.5.0.10:
+
+1. Update from binutils 1999 0906. It fixed a PIC linker bug on ix86
+   and sparc.
+2. Remove elf/hppa since it is WIP.
+
+Changes from binutils 2.9.5.0.8:
+
+1. Update from binutils 1999 0831. It allows spaces around '(' and ')'
+   in x86 FP register names.
+
+Changes from binutils 2.9.5.0.7:
+
+1. Update from binutils 1999 0821.
+2. Some MIPS changes.
+
+Changes from binutils 2.9.5.0.6:
+
+1. Update from binutils 1999 0813.
+2. i370 update.
+
+Changes from binutils 2.9.5.0.5:
+
+1. Update from binutils 1999 0809. An ELF/Sparc ld bug is fixed.
+
+Changes from binutils 2.9.5.0.4:
+
+1. Update from binutils 1999 0806. A Solaris/Sparc gas bug is fixed.
+2. Remove mips gas patches from binutils 2.9.1.0.25.
+
+Changes from binutils 2.9.5.0.3:
+
+1. Update from binutils 1999 0801.
+2. Support for real mode x86 gcc.
+
+Changes from binutils 2.9.4.0.8:
+
+1. Update from binutils 1999 0719. A libc 5 related bug fix.
+2. Fix a typo in mips gas.
+
+Changes from binutils 2.9.4.0.7:
+
+1. Update from binutils 1999 0710. A weak symbol bug
+
+http://egcs.cygnus.com/ml/egcs-bugs/1999-07/msg00129.html
+
+is fixed.
+
+Changes from binutils 2.9.4.0.6:
+
+1. Update from binutils 1999 0626.
+
+Changes from binutils 2.9.4.0.5:
+
+1. Update from binutils 1999 0620.
+2. Remove my fwait fix and use the one in cvs.
+3. Use "--only-section=section" instead of "--extract-section=section".
+   for objcopy.
+
+Changes from binutils 2.9.4.0.4:
+
+1. Update from binutils 1999 0612.
+2. Remove various temporary fixes of mine since those bugs are fixed
+   now.
+
+Changes from binutils 2.9.4.0.3:
+
+1. Update from binutils 1999 0611.
+2. Remove my ELF/Alpha bfd changes.
+3. Use the local symbol copy fix in binutils 1999 0611.
+
+Changes from binutils 2.9.4.0.2:
+
+1. Update from binutils 1999 0607.
+2. Remove my Sparc hacks.
+3. Fix local symbol copy.
+
+Changes from binutils 2.9.4.0.1:
+
+1. Update from binutils 1999 0606.
+2. Restore relocation overflow checking in binutils 2.9.1.0.25 so that
+   Linux kernel can build.
+3. Fix i370 for the new gas.
+
+Changes from binutils 1999 0605:
+
+1. Fix a -Bsymbolic bug for Linux/alpha.
+2. Add ELF/i370.
+3. Fix 8/16-bit relocations for i386.
+4. Add --redefine-sym=old_form=new_form to objcopy.
+5. Add "-j section" for objcopy.
+6. Fix i386 disassembler for fwait.
+7. Fix a Sparc asm bug.
+8. Add Ada demangle support.
+9. Fix MIPS/ELF bugs.
+10. Add some vxworks suppport.
+11. Fix a.out assembler.
+
+The file list:
+
+1. binutils-2.13.90.0.18.tar.gz. Source code.
+2. binutils-2.13.90.0.16-2.13.90.0.18.diff.gz. Patch against the
+   previous beta source code.
+3. binutils-2.13.90.0.18-1.i386.rpm. IA-32 binary RPM for RedHat 7.3.
+
+There is no separate source rpm. You can do
+
+# rpm -ta binutils-2.13.90.0.18.tar.gz
+
+to create both binary and source rpms.
+
+The primary sites for the beta Linux binutils are:
+
+1. http://ftp.kernel.org/pub/linux/devel/binutils/
+
+Thanks.
+
+
+H.J. Lu
+hjl@lucon.org
+01/24/2003
+----
+&gt; On Mon, Jul 15, 2002 at 04:35:47PM +0930, Alan Modra wrote:
+&gt; &gt; Something you might like to warn about in your next release..
+&gt; &gt; 
+&gt; &gt; The 2002-07-05 bfd change exposes a bug in modutils.  depmod scans the
+&gt; &gt; output of nm for a `?' symbol type when looking for certain symbols.
+&gt; &gt; nm used to return `?' for symbols in sections other than some standard
+&gt; &gt; sections like .text and .data.  Now, nm returns a better guess as to
+&gt; &gt; the symbol type.
+&gt; 
+
+No, but it parses System.map, which is generated by nm.  This was in
+modutils-2.4.16.  Fix follows.
+
+diff -urp modutils-2.4.16.orig/depmod/depmod.c modutils-2.4.16/depmod/depmod.c
+--- modutils-2.4.16.orig/depmod/depmod.c	2002-04-28 17:23:35.000000000 +0930
++++ modutils-2.4.16/depmod/depmod.c	2002-07-15 16:41:20.000000000 +0930
+@@ -1060,12 +1060,9 @@ static int addksyms(char *file_syms)
+ 		if (!isspace(*line))	/* Adressless symbol? */
+ 			p = strtok(NULL, " \t\n");
+ 		/* The second word is either the symbol name or a type */
+-		if (p &amp;&amp; strlen(p) == 1) { /* System.map */
++		if (p &amp;&amp; p[0] &amp;&amp; !p[1]) { /* System.map */
+ 			is_mapfile = 1;
+-			if (*p != '?')
+-				p = NULL;
+-			else
+-				p = strtok(NULL, " \t\n");
++			p = strtok(NULL, " \t\n");
+ 		} else { /* /proc/ksyms copy */
+ 			if (p &amp;&amp; strtok(NULL, " \t\n"))
+ 				p = NULL;
+@@ -1083,7 +1080,7 @@ static int addksyms(char *file_syms)
+ 			if (!isspace(*line))	/* Adressless symbol? */
+ 				p = strtok(NULL, " \t\n");
+ 			if (is_mapfile) {
+-				if (*p != '?')
++				if (!p || !p[0] || p[1])
+ 					continue;
+ 				p = strtok(NULL, " \t\n");
+ 				/* Sparc has symbols like '.div' that need to be
+
+
+-- 
+Alan Modra
+IBM OzLabs - Linux Technology Centre
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+
+</body></email><email><emailId>20030125132534</emailId><senderName>Robert Schiele</senderName><senderEmail>rschiele@uni-mannheim.de</senderEmail><timestampReceived>2003-01-25 13:25:34-0400</timestampReceived><subject>Re: compatible header functions</subject><body>
+
+On Sat, Jan 25, 2003 at 11:44:02AM -0000, n  mishra wrote:
+&gt; Hi all!
+&gt; I am new to writing c programs in linux and I have trouble finding 
+&gt; the following functions in the header files.
+
+These are proprietary vendor extensions and not part of the C
+standard.
+
+&gt; 1)itoa: to convert an integer to a string.
+&gt; 2)ltoa: to convert long integer to a string.
+
+You can do the same with sprintf().
+
+&gt; 3)strset: to set the whole string to a given character.
+
+Look up the function memset().
+
+Robert
+
+-- 
+Robert Schiele			Tel.: +49-621-181-2517
+Dipl.-Wirtsch.informatiker	mailto:rschiele@uni-mannheim.de
+
+[Attachment #3 (application/pgp-signature)]
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+</body></email><email><emailId>20030328170822</emailId><senderName>"Luciano Moreira - igLnx"</senderName><senderEmail>lucianolnx@ig.com.br</senderEmail><timestampReceived>2003-03-28 17:08:22-0400</timestampReceived><subject>Detecting running deamons</subject><body>
+
+I have a application that run like a deamon, which write in a file its PID,
+that is used to stop it later by others programs. But, I ve noted that my
+users send signal 9 to stop deamons, and my application cannot remove its
+PID file, because it cannot handle singal 9, keeping its PID file at HD
+(FileSystem).
+
+Can someone sugest me a way to know the deamon's PID, without write it to a
+file ?
+OR
+How can I do to know if my deamon is running and get its PID ?
+
+Thanks,
+
+Luciano
+
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20030125114402</emailId><senderName>"n  mishra"</senderName><senderEmail>mishra_nn@rediffmail.com</senderEmail><timestampReceived>2003-01-25 11:44:02-0400</timestampReceived><subject>compatible header functions</subject><body>
+
+Hi all!
+I am new to writing c programs in linux and I have trouble finding 
+the following functions in the header files.
+1)itoa: to convert an integer to a string.
+2)ltoa: to convert long integer to a string.
+3)strset: to set the whole string to a given character.
+Please tell me if these are present in linux or if they have any 
+equivalent functions.
+Thanks in advance.
+mishra.
+
+-
+To unsubscribe from this list: send the line "unsubscribe linux-gcc" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email></emails>
