@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20040206131653</emailId><senderName>=?iso-8859-1?q?Niels_M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2004-02-06 13:16:53-0400</timestampReceived><subject>(Micro) optimizations.</subject><body>
+
+After being prodded by Jonas Walldén, who showed me how to speed up
+the C implementation of arcfour by 50%, I've been spending a few hours
+on micro optimizing arcfour and sha1.
+
+Benchmark figures below are on my P4 laptop. First, arcfour:
+
+  Original C version:   47 MB/s
+  Improved C version:   43 MB/s [1]
+  x86 assembler:       160 MB/s
+
+[1] So this is actually a slowdown on my machine. Jonas reports a 50%
+    speedup on G4, and a smallish x86 speedup too. I think the new
+    code should be faster on all cpu:s with a decent number of
+    registers.
+
+For sha1, the difference is smaller,
+
+  Original C version: 64 MB/s
+  x86 assembler:      80 MB/s
+
+Now, I'm by no means an x86 guru. I've tried to get a small
+instruction count, and fit as many variables as possible into
+registers. I haven't attempted to do any clever instruction
+scheduling. So if anybody with more x86 experience could have a look
+at the code, that is much appreciated.
+
+Source code can be viewed at
+
+http://cvs.lysator.liu.se/viewcvs/viewcvs.cgi/lsh/src/nettle/x86/sha1-compress.asm?rev=HEAD&amp;cvsroot=lsh&amp;content-type=text/vnd.viewcvs-markup
+ http://cvs.lysator.liu.se/viewcvs/viewcvs.cgi/lsh/src/nettle/x86/arcfour-crypt.asm?rev=HEAD&amp;cvsroot=lsh&amp;content-type=text/vnd.viewcvs-markup
+
+
+If you find the m4 macrology hard to read, you can check out the code
+from cvs (following the instructions on the nettle or lsh homepages),
+build it, and then look at the sha1-compress.s file, which is the
+result of sending sha1-compress.asm through m4.
+
+Happy hacking,
+/Niels
+
+
+</body></email><email><emailId>20040305203802</emailId><senderName>=?iso-8859-1?q?Niels_M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2004-03-05 20:38:02-0400</timestampReceived><subject>ANNOUNCE: nettle-1.10</subject><body>
+
+NEWS for the 1.10 release
+
+	Nettle should now compile also on Tru64, Darwin, FreeBSD and
+	Windows. (The only tested windows build uses the rntcl rsh
+	wrapper to run the command line M$ C compiler "cl". See
+	http://pike.ida.liu.se for those tools, I don't know all
+	details about the Pike team's windows setup).
+
+	There are some known testsuite failures, on Windows and on one
+	of the xenofarm HPUX machines, see
+	http://www.lysator.liu.se/~nisse/xeno-lsh/latest.html. Help
+	tracking these down is appreciated.
+
+	There are no new features.
+	
+	This release is intended to be binary compatible with
+	nettle-1.8 and nettle-1.9.
+
+Available at the usual places,
+
+  http://www.lysator.liu.se/~nisse/archive/nettle-1.10.tar.gz
+  ftp://ftp.lysator.liu.se/pub/security/lsh/nettle-1.10.tar.gz
+
+This release is also made in the good old tradition of releasing the
+evening before one goes on vacation. I'll be offline next week.
+
+Happy hacking,
+/Niels
+
+
+</body></email><email><emailId>20040625010019</emailId><senderName>"Kasandra Lucile"</senderName><senderEmail>obrm9xob@netsol.net</senderEmail><timestampReceived>2004-06-25 01:00:19-0400</timestampReceived><subject>Y WORK SO HARD AND MAKE SO LITTLE? die servant fellow</subject><body>
+
+
+art blue guarantee who quick 
+
+
+
+    O N L I N E   U N I V E R S I T Y   D I P L O M A S   D E G R E E S
+
+                       Obtain Diploma, Degree
+                  
+           We send the certificate to all countries (WORLDWIDE)
+
+            Consider a prosperous future, money earning power
+    
+             No tests, study, coursework, or interviews required. 
+                      Discrete and affordable.
+                         Everyone eligible. 
+
+                 Call now - your diploma awaits you!!!
+
+                    212-330-8202 (24 hours on call)
+                    
+                     Calls returned promptly.
+                     Confidentiality assured.
+ 
+
+
+ CALL NOW -----&gt;&gt;&gt;  212-330-8202 (24 hours on call)
+ 
+ 
+ 
+
+by choose ache history 
+saying try all island later 
+believe system year studied breath surely twenty sweet favorite evil moon occur laid 
+
+
+</body></email><email><emailId>20041026194411</emailId><senderName>=?iso-8859-1?q?Niels_M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2004-10-26 19:44:11-0400</timestampReceived><subject>ANNOUNCE: nettle-1.11</subject><body>
+
+NEWS for the 1.11 release
+
+	Nettle no longer uses automake. Side effects:
+
+	  * Dependency tracking is enabled only for gcc-3 (help with
+	    supporting dependency tracking with other compilers is
+	    appreciated).
+	  
+	  * Makefile compatibility with make programs other than GNU
+	    make is mostly unknown, please report any problems.
+
+	Support for arctwo.
+
+	Fixes to the libdes compatibility code. Declarations should
+	now match openssl/libdes better. des_cbc_cksum pads
+	input with NUL's, if it's not an integral number of blocks (in
+	general, such unreversible padding is a bad idea).
+
+	By default, also the static library is compiled as position
+	independent code. This is needed on some systems to make it
+	possible to link nettle into a dynamically loaded module. Use
+	the configure flag --disable-pic if this is not desired.
+
+	Stricter constness typing for the sexp_iterator_assoc and
+	sexp_iterator_check_types arguments.
+
+	Minor tweaks of arcfour on x86 cpu:s, to speed it up on older
+	x86 variants such as PII and PPro.
+
+	The shared library is intended to be binary compatible with
+	nettle-1.8 - nettle-1.10. Only the minor version number of the
+	shared library is increased. The soname is still
+	libnettle.so.2.
+
+I may well have broken something in the build system, please let me
+know of any problems.
+
+The primary reason for the move away from automake was that recent
+automake releases generate rules that are incompatible in several
+ways with the way nettle builds its assembler files. My impression is
+that automake works against make rather than with make, which is
+unfortunate for projects like nettle, which depends on ordinary make
+behavior for its custom rules. I hope and believe that the
+Makefile.in's and the autoconf macros in this release should be easier
+to maintain than the Makefile.am's of previous releases.
+
+The release is available at
+
+  http://www.lysator.liu.se/~nisse/archive/nettle-1.11.tar.gz
+  ftp://ftp.lysator.liu.se/pub/security/lsh/nettle-1.11.tar.gz
+
+Happy hacking,
+/Niels
+
+</body></email><email><emailId>20041104213430</emailId><senderName>=?iso-8859-1?q?Niels_M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2004-11-04 21:34:30-0400</timestampReceived><subject>ANNOUNCE: nettle-1.12</subject><body>
+
+This is a minor bugfix release.
+
+NEWS for the 1.12 release
+	
+	Fixed a bug in the configure script.
+
+	Updated the description of aes_set_encrypt_key and
+	aes_set_decrypt_key in the manual.
+
+Available at
+
+  http://www.lysator.liu.se/~nisse/archive/nettle-1.12.tar.gz
+  ftp://ftp.lysator.liu.se/pub/security/lsh/nettle-1.12.tar.gz
+
+as usual.
+
+Regards,
+/Niels
+
+</body></email><email><emailId>20040108125641</emailId><senderName>Niels =?iso-8859-1?q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2004-01-08 12:56:41-0400</timestampReceived><subject>Support for systems without alloca or inttypes.h</subject><body>
+
+I've checked in some changes to make nettle compile on systems which
+lack alloca, and on systems which lack inttypes.h.
+
+For systems without alloca, some arbitrary limits have been placed on
+the input of a few functions, but I hope that won't be a problem in
+practice.
+
+As I don't have access to any systems that have these problems, I'll
+appreciate if Simon and any other people that have seen the problems
+could try it out and see if it works.
+
+As some shared but crucial files are not stored in the nettle corner
+of the cvs, the recommended way of cvs access is to check out the
+entire lsh tree, as per the instructions at
+http://www.lysator.liu.se/~nisse/lsh, run the top-level ./.bootstrap
+script (which sets up a few important symlinks and runs .bootstrap
+scripts in subdirectories), and then descend into the src/nettle
+directory for a standard ./configure &amp;&amp; make there.
+
+Best regards,
+/Niels
+
+</body></email><email><emailId>20040718223628</emailId><senderName>Kevin Ryde</senderName><senderEmail>user42@zip.com.au</senderEmail><timestampReceived>2004-07-18 22:36:28-0400</timestampReceived><subject>Re: More failures to install on Solaris</subject><body>
+
+scion+gmp@webrelay.net writes:
+&gt; 
+&gt; 	configure:8781: gcc -o conftest -g -O2   conftest.c -lgmp   &gt;&amp;5
+&gt; 	ld: warning: file \
+&gt; /usr/local/lib/gcc-lib/sparc-sun-solaris2.8/3.3.2/../../../libgmp.a(getlimbn.o): \
+&gt; wrong ELF class: ELFCLASS64 
+&gt; ...
+&gt; 
+&gt; 	./configure --disable-shared ABI=64
+
+"ABI and ISA" in the manual describes the options you need to add to
+application compiles if you want to use the 64-bit ABI.
+
+-- 
+All followups to gmp-bugs@swox.com please.
+
+
+</body></email><email><emailId>20040719152617</emailId><senderName>Torbjorn Granlund</senderName><senderEmail>tg@swox.com</senderEmail><timestampReceived>2004-07-19 15:26:17-0400</timestampReceived><subject>Re: More failures to install on Solaris</subject><body>
+
+scion+gmp@webrelay.net writes:
+
+  Indeed, That's the ticket.  The link chain took me back to
+  -lcrypto.  Our libcrypto.so is a sparc-v8+ so that one pkg
+  can live on all of our sparcs.
+  
+  And so, compiling gmp, *and* nettle, (and pike and caudium)
+  v8+ mode solved the problem.
+  
+Note that this will make GMP run about 2x slower.  Does v8
+compatibility really matter, these days?
+
+Ref: http://swox.com/gmp/32vs64.html
+
+-- 
+Torbjörn
+
+</body></email><email><emailId>20040117061448</emailId><senderName>Simon Josefsson</senderName><senderEmail>jas@extundo.com</senderEmail><timestampReceived>2004-01-17 06:14:48-0400</timestampReceived><subject>Re: Support for systems without alloca or inttypes.h</subject><body>
+
+nisse@lysator.liu.se (Niels Möller) writes:
+
+&gt; I've checked in some changes to make nettle compile on systems which
+&gt; lack alloca, and on systems which lack inttypes.h.
+&gt;
+&gt; For systems without alloca, some arbitrary limits have been placed on
+&gt; the input of a few functions, but I hope that won't be a problem in
+&gt; practice.
+&gt;
+&gt; As I don't have access to any systems that have these problems, I'll
+&gt; appreciate if Simon and any other people that have seen the problems
+&gt; could try it out and see if it works.
+
+I'm using the new nettle files in gsasl 0.0.13, we'll see if I get any
+reports about C89 incompatibilities.
+
+A nit though, I see Nettle configure.ac says
+AX_CREATE_STDINT_H([nettle-types.h]), I think it is better to say
+AX_CREATE_STDINT_H(nettle-types.h, sys/types.h).  Then sys/types.h is
+also searched for the C99 uint*_t etc.  I recall some systems put the
+definitions there.  I asked the AX_CREATE_STDINT_H maintainer to add
+this some time ago, but for some reason it hasn't happened.  (Of
+course, alternatively, you could modify ax_create_stdint_h.m4.)
+
+A wishlist item as well: splitting up hmac.h into hmac.h, hmac-md5.h,
+hmac-sha.h would be useful.  Then you don't have to copy code for sha
+if you only need md5, and vice versa.  Untested code attached, based
+on current CVS.  (Update copyright year etc as appropriate.)
+
+Thanks,
+Simon
+
+["hmac.h" (text/x-chdr)]
+
+/* hmac.h
+ *
+ * HMAC message authentication code (RFC-2104).
+ */
+
+/* nettle, low-level cryptographics library
+ *
+ * Copyright (C) 2001, 2002 Niels Möller
+ *  
+ * The nettle library is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or (at your
+ * option) any later version.
+ * 
+ * The nettle library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+ * License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the nettle library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+ * MA 02111-1307, USA.
+ */
+
+#ifndef NETTLE_HMAC_H_INCLUDED
+#define NETTLE_HMAC_H_INCLUDED
+
+#include "nettle-meta.h"
+
+/* Namespace mangling */
+#define hmac_set_key nettle_hmac_set_key
+#define hmac_update nettle_hmac_update
+#define hmac_digest nettle_hmac_digest
+
+void
+hmac_set_key(void *outer, void *inner, void *state,
+	     const struct nettle_hash *hash,
+	     unsigned length, const uint8_t *key);
+
+/* This function is not strictly needed, it's s just the same as the
+ * hash update function. */
+void
+hmac_update(void *state,
+	    const struct nettle_hash *hash,
+	    unsigned length, const uint8_t *data);
+
+void
+hmac_digest(const void *outer, const void *inner, void *state,
+	    const struct nettle_hash *hash,
+	    unsigned length, uint8_t *digest);
+
+
+#define HMAC_CTX(type) \
+{ type outer; type inner; type state; }
+
+#define HMAC_SET_KEY(ctx, hash, length, key)			\
+  hmac_set_key( &amp;(ctx)-&gt;outer, &amp;(ctx)-&gt;inner, &amp;(ctx)-&gt;state,	\
+                (hash), (length), (key) )
+
+#define HMAC_DIGEST(ctx, hash, length, digest)			\
+  hmac_digest( &amp;(ctx)-&gt;outer, &amp;(ctx)-&gt;inner, &amp;(ctx)-&gt;state,	\
+               (hash), (length), (digest) )
+
+#endif /* NETTLE_HMAC_H_INCLUDED */
+
+["hmac-md5.h" (text/x-chdr)]
+
+/* hmac-md5.h
+ *
+ * HMAC message authentication code (RFC-2104), MD5 part.
+ */
+
+/* nettle, low-level cryptographics library
+ *
+ * Copyright (C) 2001, 2002 Niels Möller
+ *  
+ * The nettle library is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or (at your
+ * option) any later version.
+ * 
+ * The nettle library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+ * License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the nettle library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+ * MA 02111-1307, USA.
+ */
+
+#ifndef NETTLE_HMAC_MD5_H_INCLUDED
+#define NETTLE_HMAC_MD5_H_INCLUDED
+
+#include "hmac.h"
+#include "md5.h"
+
+/* Namespace mangling */
+#define hmac_md5_set_key nettle_hmac_md5_set_key
+#define hmac_md5_update nettle_hmac_md5_update
+#define hmac_md5_digest nettle_hmac_md5_digest
+
+struct hmac_md5_ctx HMAC_CTX(struct md5_ctx);
+
+void
+hmac_md5_set_key(struct hmac_md5_ctx *ctx,
+		 unsigned key_length, const uint8_t *key);
+
+void
+hmac_md5_update(struct hmac_md5_ctx *ctx,
+		unsigned length, const uint8_t *data);
+
+void
+hmac_md5_digest(struct hmac_md5_ctx *ctx,
+		unsigned length, uint8_t *digest);
+
+#endif /* NETTLE_HMAC_MD5_H_INCLUDED */
+
+["hmac-sha.h" (text/x-chdr)]
+
+/* hmac-sha.h
+ *
+ * HMAC message authentication code (RFC-2104), SHA part.
+ */
+
+/* nettle, low-level cryptographics library
+ *
+ * Copyright (C) 2001, 2002 Niels Möller
+ *  
+ * The nettle library is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or (at your
+ * option) any later version.
+ * 
+ * The nettle library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+ * License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the nettle library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+ * MA 02111-1307, USA.
+ */
+
+#ifndef NETTLE_HMAC_SHA_H_INCLUDED
+#define NETTLE_HMAC_SHA_H_INCLUDED
+
+#include "hmac.h"
+#include "sha.h"
+
+/* Namespace mangling */
+#define hmac_sha1_set_key nettle_hmac_sha1_set_key
+#define hmac_sha1_update nettle_hmac_sha1_update
+#define hmac_sha1_digest nettle_hmac_sha1_digest
+#define hmac_sha256_set_key nettle_hmac_sha256_set_key
+#define hmac_sha256_update nettle_hmac_sha256_update
+#define hmac_sha256_digest nettle_hmac_sha256_digest
+
+/* hmac-sha1 */
+struct hmac_sha1_ctx HMAC_CTX(struct sha1_ctx);
+
+void
+hmac_sha1_set_key(struct hmac_sha1_ctx *ctx,
+		  unsigned key_length, const uint8_t *key);
+
+void
+hmac_sha1_update(struct hmac_sha1_ctx *ctx,
+		 unsigned length, const uint8_t *data);
+
+void
+hmac_sha1_digest(struct hmac_sha1_ctx *ctx,
+		 unsigned length, uint8_t *digest);
+
+/* hmac-sha256 */
+struct hmac_sha256_ctx HMAC_CTX(struct sha256_ctx);
+
+void
+hmac_sha256_set_key(struct hmac_sha256_ctx *ctx,
+		    unsigned key_length, const uint8_t *key);
+
+void
+hmac_sha256_update(struct hmac_sha256_ctx *ctx,
+		   unsigned length, const uint8_t *data);
+
+void
+hmac_sha256_digest(struct hmac_sha256_ctx *ctx,
+		   unsigned length, uint8_t *digest);
+
+#endif /* NETTLE_HMAC_SHA_H_INCLUDED */
+
+
+</body></email><email><emailId>20040117190348</emailId><senderName>Niels =?iso-8859-1?q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2004-01-17 19:03:48-0400</timestampReceived><subject>Re: Support for systems without alloca or inttypes.h</subject><body>
+
+Simon Josefsson &lt;jas@extundo.com&gt; writes:
+
+&gt; A nit though, I see Nettle configure.ac says
+&gt; AX_CREATE_STDINT_H([nettle-types.h]), I think it is better to say
+&gt; AX_CREATE_STDINT_H(nettle-types.h, sys/types.h).
+
+The version of AX_CREATE_STDINT_H I use contains code like
+
+  if test "_$ac_cv_header_stdint_x" = "_" ; then
+  if test "_$ac_cv_header_stdint_o" = "_" ; then
+  AC_CACHE_CHECK([for stdint u_int32_t], [ac_cv_header_stdint_u],[
+   ac_cv_header_stdint_u="" # the BSD typedefs (sys/types.h)
+    AC_MSG_RESULT([(..)])
+    for i in sys/types.h inttypes.h sys/inttypes.h $inttype_headers ; do
+
+so it seems sys/types.h should be considered already. Do you know that
+it doesn't work?
+
+&gt; A wishlist item as well: splitting up hmac.h into hmac.h, hmac-md5.h,
+&gt; hmac-sha.h would be useful.  Then you don't have to copy code for sha
+&gt; if you only need md5, and vice versa.
+
+Hmm, can you explain what's the problem with this "copying"? There are
+four different object files, hmac.o, hmac-md5.o, hmac-sha1.o and
+hmac-sha256.o, so with static linking, only the needed ones should be
+dragged into the executable.
+
+I try to keep the number of header files down a little, for example
+sha1 and sha256 are both declared in sha.h, des and des3 are both in
+des.h, all rsa-related functions collected in rsa.h, etc. Do you see a
+problem with that design? (I'm not 100% consistent, in particular md4
+are md5 are declared in separate header files).
+
+One alternative that would almost work is to replace the `#include
+"md5.h"' in hmac.h with a forward declaration `struct md5;'. Then
+users of hmac-md5 would need to include both hmac.h and md5.h. I can't
+say if that would solve your problem, though, as I don't know what it
+is...
+
+The reason a forward declaration won't work right away, is the hmac.h
+declaration
+
+  struct hmac_md5_ctx HMAC_CTX(struct md5_ctx);
+
+which needs the storage size of struct md5_ctx to make sense.
+
+BTW, there's one known bug in the nettle-1.8 distribution: A few of
+the header files are forgotten by the make install target. I'll wait
+some more for bug reports before making a bugfix release to address
+that.
+
+Best regards,
+/Niels
+
+</body></email><email><emailId>20040118053713</emailId><senderName>Simon Josefsson</senderName><senderEmail>jas@extundo.com</senderEmail><timestampReceived>2004-01-18 05:37:13-0400</timestampReceived><subject>Re: Support for systems without alloca or inttypes.h</subject><body>
+
+nisse@lysator.liu.se (Niels Möller) writes:
+
+&gt; Simon Josefsson &lt;jas@extundo.com&gt; writes:
+&gt;
+&gt;&gt; A nit though, I see Nettle configure.ac says
+&gt;&gt; AX_CREATE_STDINT_H([nettle-types.h]), I think it is better to say
+&gt;&gt; AX_CREATE_STDINT_H(nettle-types.h, sys/types.h).
+&gt;
+&gt; The version of AX_CREATE_STDINT_H I use contains code like
+&gt;
+&gt;   if test "_$ac_cv_header_stdint_x" = "_" ; then
+&gt;   if test "_$ac_cv_header_stdint_o" = "_" ; then
+&gt;   AC_CACHE_CHECK([for stdint u_int32_t], [ac_cv_header_stdint_u],[
+&gt;    ac_cv_header_stdint_u="" # the BSD typedefs (sys/types.h)
+&gt;     AC_MSG_RESULT([(..)])
+&gt;     for i in sys/types.h inttypes.h sys/inttypes.h $inttype_headers ; do
+&gt;
+&gt; so it seems sys/types.h should be considered already. Do you know that
+&gt; it doesn't work?
+
+The for loop is in several places, my version only has sys/types.h in
+one of them.  After I added it to the for loop at line 78, for
+uintptr_t, and to line 94, for uint32_t, someone using cygwin managed
+to get it to work.  I'm not familiar with the script to tell if it is
+the right solution, but it did solve a genuine problem at the time.
+Perhaps the AX_CREATE_STDINT_H author can chime in.  I later found out
+it was possible to pass in additional headers as a parameter, so I
+reverted my modified .m4 and used AX_CREATE_STDINT_H(nettle-types.h,
+sys/types.h) and nobody has complained since.
+
+&gt;&gt; A wishlist item as well: splitting up hmac.h into hmac.h, hmac-md5.h,
+&gt;&gt; hmac-sha.h would be useful.  Then you don't have to copy code for sha
+&gt;&gt; if you only need md5, and vice versa.
+&gt;
+&gt; Hmm, can you explain what's the problem with this "copying"? There are
+&gt; four different object files, hmac.o, hmac-md5.o, hmac-sha1.o and
+&gt; hmac-sha256.o, so with static linking, only the needed ones should be
+&gt; dragged into the executable.
+&gt;
+&gt; I try to keep the number of header files down a little, for example
+&gt; sha1 and sha256 are both declared in sha.h, des and des3 are both in
+&gt; des.h, all rsa-related functions collected in rsa.h, etc. Do you see a
+&gt; problem with that design? (I'm not 100% consistent, in particular md4
+&gt; are md5 are declared in separate header files).
+&gt;
+&gt; One alternative that would almost work is to replace the `#include
+&gt; "md5.h"' in hmac.h with a forward declaration `struct md5;'. Then
+&gt; users of hmac-md5 would need to include both hmac.h and md5.h. I can't
+&gt; say if that would solve your problem, though, as I don't know what it
+&gt; is...
+&gt;
+&gt; The reason a forward declaration won't work right away, is the hmac.h
+&gt; declaration
+&gt;
+&gt;   struct hmac_md5_ctx HMAC_CTX(struct md5_ctx);
+&gt;
+&gt; which needs the storage size of struct md5_ctx to make sense.
+
+I guess my use of Nettle isn't the typical one: I copy the files I
+need into my projects.  In gsasl, there is no need for (HMAC-)SHA*,
+but HMAC-MD5 is needed.  So I need hmac.h, but do not want sha*.  The
+source of the problem is that hmac.h #include's sha.h.  I have been
+modifying hmac.h to remove the sha* stuff, but this requires more work
+when copying the files from Nettle.
+
+I guess one solution is to add sha.h, but not sha*.c, so hmac.h works,
+but since I don't need SHA, it feels slightly confusing.
+
+Any ideas appreciated.  Of course, all this is very minor.
+
+Thanks,
+Simon
+
+
+</body></email><email><emailId>20040118105800</emailId><senderName>Niels =?iso-8859-1?q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2004-01-18 10:58:00-0400</timestampReceived><subject>Re: Support for systems without alloca or inttypes.h</subject><body>
+
+Simon Josefsson &lt;jas@extundo.com&gt; writes:
+
+&gt; The for loop is in several places, my version only has sys/types.h in
+&gt; one of them.  After I added it to the for loop at line 78, for
+&gt; uintptr_t, and to line 94, for uint32_t, someone using cygwin managed
+&gt; to get it to work.
+
+I see. I'm changing the AX_CREATE_STDINT_H invocation to
+
+  # According to Simon Josefsson, looking for uint32_t and friends in
+  # sys/types.h is needed on some systems, in particular cygwin.
+  AX_CREATE_STDINT_H([nettle-types.h], [sys/types.h])
+
+&gt; I guess one solution is to add sha.h, but not sha*.c, so hmac.h works,
+&gt; but since I don't need SHA, it feels slightly confusing.
+&gt; 
+&gt; Any ideas appreciated.  Of course, all this is very minor.
+
+Perhaps it would make sense to add something like
+
+  #ifndef NETTLE_WANT_HMAC_SHA1
+  # define NETTLE_WANT_HMAC_SHA1 1
+  #endif
+  
+  ...
+  
+  #if NETTLE_WANT_HMAC_SHA1
+  # include "sha.h"
+  ... hmac-sha1-related stuff ...
+  #endif
+
+to hmac.h. Then you can just add -DNETTLE_WANT_HMAC_SHA1=0 to your
+CPPFLAGS. It will clutter up the header files a little, especially if
+it's done consistently for other header files that declares many
+related structures.
+
+(I've also been thinking of hacks where hmac.h examines
+NETTLE_SHA_H_INCLUDED, but I dislike that because I don't want the
+order of the #include directives in users' files to matter).
+
+Regards,
+/Niels
+
+</body></email><email><emailId>20040719183306</emailId><senderName></senderName><senderEmail>scion+gmp</senderEmail><timestampReceived>2004-07-19 18:33:06-0400</timestampReceived><subject>Re: More failures to install on Solaris</subject><body>
+
+Probably not.  We retired our farm of S1000s late last year.
+But all of the libraries that we use are still v8+.  I'll
+need to recompile over half of our locally installed apps
+if I recompile libcrypto from OpenSSL.  That lib makes it's
+presence known!  Given that performance is not that big an
+issue (We're running Sparc/Solaris after all!), it'll take
+us at least the rest of the year to get it all out of the
+v8+ abi.  By then, we may well be running Opteron/Solaris
+or even Opteron/FreeBSD.
+
+-sam
+
+From: Torbjorn Granlund &lt;tg@swox.com&gt;
+Date: 19 Jul 2004 17:26:17 +0200
+
+scion+gmp@webrelay.net writes:
+
+  Indeed, That's the ticket.  The link chain took me back to
+  -lcrypto.  Our libcrypto.so is a sparc-v8+ so that one pkg
+  can live on all of our sparcs.
+  
+  And so, compiling gmp, *and* nettle, (and pike and caudium)
+  v8+ mode solved the problem.
+  
+Note that this will make GMP run about 2x slower.  Does v8
+compatibility really matter, these days?
+
+Ref: http://swox.com/gmp/32vs64.html
+
+-- 
+Torbjörn
+
+</body></email><email><emailId>20040207230421</emailId><senderName>=?iso-8859-1?q?Niels_M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2004-02-07 23:04:21-0400</timestampReceived><subject>ANNOUNCE: nettle-1.9</subject><body>
+
+NEWS for the 1.9 release
+
+	Optimized C implementation of arcfour. Optimized x86
+	implementations of arcfour and sha1.
+
+	Improved benchmark program.
+	
+	Fixed bug in the rsa-encrypt example program.
+
+	Fixed bug in make install, some of the header files were
+	forgotten.
+	
+	Portability fixes. Fixes to make Nettle compile on systems
+	without gmp. This version has been tested on GNU/Linux,
+	Solaris, HPUX and AIX.
+
+	The shared library is intended to be binary compatible with
+	nettle-1.8. Only the minor version number of the shared
+	library is increased.
+
+Available at
+
+  ftp://ftp.lysator.liu.se/pub/security/lsh/nettle-1.9.tar.gz
+
+  (It will appear at hte usual http location as well, once the dust
+  has settled after the installation of the new lysator webserver).
+
+Regards,
+/Niels
+
+</body></email><email><emailId>20040110230617</emailId><senderName>Niels =?iso-8859-1?q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2004-01-10 23:06:17-0400</timestampReceived><subject>ANNOUNCE: nettle-1.8</subject><body>
+
+NEWS for the 1.8 release
+
+	New example programs, demonstrating encrypting and decrypting
+	files using RSA, and random sessions keys for bulk encryption
+	and message authentication.
+
+	Support for systems that don't have alloca. On such systems,
+	some of Nettle's functions have arbitrary limits applied to
+	their input.
+
+	Uses AX_CREATE_STDINT_H, to support systems without
+	inttypes.h.
+
+	Support for the md2 and md4 hash functions.
+	 
+	New name mangling, to reduce the risk of link collisions. All
+	functions (except memxor) now use a nettle_ or _nettle_ prefix
+	when seen by the linker. For most functions, the header file
+	that declares a function also uses #define to provide a
+	shorter more readable name without the prefix.
+
+	The shared library soname for this version is libnettle.so.2.
+
+Happy hacking,
+/Niels Möller
+
+</body></email><email><emailId>20040122161104</emailId><senderName>Simon Josefsson</senderName><senderEmail>jas@extundo.com</senderEmail><timestampReceived>2004-01-22 16:11:04-0400</timestampReceived><subject>Re: Support for systems without alloca or inttypes.h</subject><body>
+
+nisse@lysator.liu.se (Niels Möller) writes:
+
+&gt;&gt; I guess one solution is to add sha.h, but not sha*.c, so hmac.h works,
+&gt;&gt; but since I don't need SHA, it feels slightly confusing.
+&gt;&gt; 
+&gt;&gt; Any ideas appreciated.  Of course, all this is very minor.
+&gt;
+&gt; Perhaps it would make sense to add something like
+&gt;
+&gt;   #ifndef NETTLE_WANT_HMAC_SHA1
+&gt;   # define NETTLE_WANT_HMAC_SHA1 1
+&gt;   #endif
+&gt;   
+&gt;   ...
+&gt;   
+&gt;   #if NETTLE_WANT_HMAC_SHA1
+&gt;   # include "sha.h"
+&gt;   ... hmac-sha1-related stuff ...
+&gt;   #endif
+&gt;
+&gt; to hmac.h. Then you can just add -DNETTLE_WANT_HMAC_SHA1=0 to your
+&gt; CPPFLAGS. It will clutter up the header files a little, especially if
+&gt; it's done consistently for other header files that declares many
+&gt; related structures.
+
+Yes.  For what it's worth, I think the clutter makes the file
+unreadable, which I (objectively) think is worse than requiring me to
+include an unused sha.h in a package.  Perhaps I can find some use of
+SHA in my package, so the file isn't unused...  But if Nettle
+supported HMAC with many hashes (MD2, MD4, ...), I guess I would once
+again have the feeling that the current hmac.h approach doesn't scale.
+
+Again, this is not that important.
+
+Thanks,
+Simon
+
+
+</body></email></emails>

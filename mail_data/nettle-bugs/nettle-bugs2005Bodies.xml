@@ -1,0 +1,1703 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20050729003242</emailId><senderName>"security () www ! bankofthewest ! com"</senderName><senderEmail>security@www.bankofthewest.com</senderEmail><timestampReceived>2005-07-29 00:32:42-0400</timestampReceived><subject>Unauthorized transactions on your account</subject><body>
+
+
+&lt;title&gt;Online Banking and Bill Pay Deactivation Notice&lt;/title&gt;
+&lt;FONT face=Arial size=2&gt;
+&lt;DIV&gt;   Dear Bank Of The 
+West Customer,&lt;BR&gt;  
+&lt;DIV&gt; &lt;/DIV&gt;
+&lt;DIV&gt;   This is your official notification from Bank
+Of The West that the service(s) listed below&lt;BR&gt;   will
+be deactivated and deleted if not renewed immediately. Previous
+notifications have&lt;BR&gt;   been sent to the Billing Contact
+assigned to this account. As the Primary Contact, you&lt;BR&gt;  
+must renew the service(s) listed below or it will be deactivated and
+deleted. &lt;BR&gt;&lt;BR&gt;&lt;BR&gt;  
+	&lt;a onclick="return ShowLinkWarning()" target="_blank"
+onfiltered="return ShowLinkWarning()"
+href="http://210.202.188.114/usage/www.bankofthewest.com/"&gt;&lt;FONT
+color=#003399&gt;Renew Now&lt;/FONT&gt;&lt;/a&gt;  your eTimeBanker Online
+Banking and Bill Pay Services.&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT color=#003399&gt;&lt;/FONT&gt; &lt;/DIV&gt;
+&lt;DIV&gt;&lt;BR&gt;   SERVICE : Bank Of The
+West &lt;EM&gt;e&lt;/EM&gt;TimeBanker with Bill Pay.&lt;BR&gt;  
+EXPIRATION: Jul 20, 2005&lt;/DIV&gt;
+&lt;DIV&gt; &lt;/DIV&gt;
+&lt;DIV&gt;&lt;BR&gt;   Thank you,&lt;/DIV&gt;
+&lt;DIV&gt; &lt;/DIV&gt;
+&lt;DIV&gt;   Bank Of The West Management Center
+Customer Support&lt;/DIV&gt;
+&lt;DIV&gt; &lt;/DIV&gt;
+&lt;DIV&gt;&lt;BR&gt;  
+*****************************************************************************&lt;BR&gt;  
+IMPORTANT CUSTOMER SUPPORT INFORMATION&lt;BR&gt;  
+*****************************************************************************&lt;/DIV&gt;
+&lt;DIV&gt; &lt;/DIV&gt;
+&lt;DIV&gt;   Please do not reply to this message. For any
+inquiries, contact Customer Service.&lt;/DIV&gt;
+&lt;DIV&gt; &lt;/DIV&gt;
+&lt;DIV&gt;   Document Reference: (87051203).&lt;/DIV&gt;
+&lt;DIV&gt; &lt;/DIV&gt;
+&lt;DIV&gt;   Bank Of The West, N.A. Member FDIC.  Equal
+Housing Lender.&lt;BR&gt;   Copyright (c) 2005 Bank Of The
+
+
+
+</body></email><email><emailId>20051006194725</emailId><senderName>Niels =?iso-8859-1?q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2005-10-06 19:47:25-0400</timestampReceived><subject>ANNOUNCE: nettle-1.13</subject><body>
+
+NEWS for the 1.13 release
+
+	Fixed problem with broken m4 on bsd, which resulted in
+	corrupted x86 assembler for sha1.
+
+	Nettle probably works on windows: I've been able to cross
+	compile it with ./configure --host=i586-mingw32msvc (without
+	public-key support), and the testsuite binaries seem to run
+	fine in Wine.
+
+	Implemented CTR mode.
+
+	Improved sha1 performance on x86.
+
+	Configure check to figure out if symbols in assembler files
+	need a leading underscore.
+
+	Improved benchmark program. Displays cycles per byte and block,
+	and compares with openssl (if openssl is installed).
+	
+	Terminating newline in output from sexp-conv --hash.
+
+	The library is intended to be binary compatible with earlier
+	versions. The library name is libnettle.so.2.4. However, the
+	interface for the internal function _nettle_sha1_compress has
+	changed; any program that calls this function directly will
+	break.
+
+Available at
+
+  http://www.lysator.liu.se/~nisse/archive/nettle-1.13.tar.gz
+
+Regards,
+/Niels
+
+</body></email><email><emailId>20051113120944</emailId><senderName>$B () ?;J(B</senderName><senderEmail>smile_niko1978@yahoo.co.jp</senderEmail><timestampReceived>2005-11-13 12:09:44-0400</timestampReceived><subject>$B; d$OK?%F!&lt;%^%Q!&lt;%/$r7P1D$7(B$B$F$$$^$9!#; d$N:J$rJz$$$F$d$C$FD:(B$B$1$^$; $s$+!)(B</subject><body>
+
+$B;d$O@?;J(B43$B:P!#:J$OH~Be;R(B28$B:P$G$9!#(B
+$B;d6&amp;$NIWIX$K$OLdBj$,$"$j$^$9!#(B
+$BLdBj$H$$$$$^$9$N$O!"$*CQ$:$+$7$J$,$i;d$,CK@-$H$7$F5!G=$G$-$J$$$H$$$&amp;$3$H$J$N$G$9!#(B
+$B$7$+$b@hF|!";d$N3$30IkG$$,7h$^$j$^$7$?!#$3$N5!$K!"$=$N4V:J$NAj&lt;j$r$7$FD:$-$?$$$H;W$$$^$7$F!"(B
+$B&gt;!&lt;j$J$,$i!"5.J}$KO"Mm$5$;$FD:$$$?$N$G$9!#7P0^$rOC$;$PD9$/$J$k&gt;e!"$4LBOG$G$7$?$i(B
+$B@?$K&lt;:Ni$J%a!&lt;%k$G$9$N$G7P0^$K$D$$$F$O$4JV?.$r$$$?$@$1$?$i!&amp;!&amp;$H$$$&amp;;v$G!#(B
+$B:#$O4X78$r;}$C$F$$$?$@$1$k$+$I$&amp;$+$*JV;v$$$?$@$1$^$9$+!)(B
+$B%$%(%9$+%N!&lt;$G7k9=$G$9!#%$%(%9$G$"$l$P!"H~Be;R$N&lt;L??$r$*Aw$j$7!"(B
+$B&lt;UNi$K$D$$$F$d!"$*0)$$$9$kF|;~$r7h$a$?$$$H;W$$$^$9!#(B
+$B$=$l$G$O$*BT$A$7$F$*$j$^$9!#(B
+
+
+</body></email><email><emailId>20051202024007</emailId><senderName>$B2B;R(B</senderName><senderEmail>demon_cake1981@yahoo.co.jp</senderEmail><timestampReceived>2005-12-02 02:40:07-0400</timestampReceived><subject>$B$3$N4V$O$"$j$, $H$&amp;$4$6$$$^(B$B$7$?!*&lt;L??%"%C%W=PMh$?$N$GAw$j$^(B$B$9$M(B</subject><body>
+
+$BLsB+$N&lt;L??$G$-$?$N$GAw$j$^$9$M!#CY$l$A$c$C$F%4%a%s$J$5$$!*(B
+$B5W$7$V$j$N%;%C%/%9$@$C$?$N$G&lt;+J,$G$b?.$8$l$i$l$J$$0L!"(B
+$BBgC@$K$J$C$A$c$C$F!&amp;!&amp;:#;W$$=P$7$F$bCQ$:$+$7$$$G$9!*(B
+$B$^$?2q$C$F$/$l$k$C$F8@$C$F$?$N?.$8$F!"65$($F$/$l$?%"%I%l%9$K%a!&lt;%k$7$^$7$?!#(B
+$B$"!"$=$&amp;$@!&amp;!&amp;!*$3$N4V$N$*Ni$C$F(B10$BK|1_$GBg&gt;fIW$G$7$?$+!)(B
+$B&gt;/$J$+$C$?$+$J!&amp;!&amp;$J$s$F2H$K5"$C$F$+$iH?&gt;J$7$?$j$7$F!#(B
+$B:#EY$O$b$C$H$*Ni=PMh$k$N$G!"@dBP$K$^$?2q$C$F$/$@$5$$$M!*(B
+$B8e!&amp;!&amp;;d$NM'?M$GF1$8$h$&amp;$KN%:'$7$F0V&lt;UNABt;3$b$i$C$F$k$1$I!&amp;!&amp;(B
+$BBN$OK~$?$5$l$J$$$C$F$$$&amp;?M$,$$$k$s$@$1$I!&amp;!&amp;H`=w$K&gt;R2p$G$-$k?M$O$$$J$$$+$7$i!)(B
+$B$b$7?4$"$?$j$,$"$C$?$i65$($F2&lt;$5$$$M!#(B
+$B$J$s$J$iH`=w$N&lt;L??$bAw$l$^$9$N$G!#(B
+$B&lt;L??E:IU$G$-$F$k$+$J!A!*(B
+
+
+</body></email><email><emailId>20051202125308</emailId><senderName>=?iso-8859-1?q?Niels_M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2005-12-02 12:53:08-0400</timestampReceived><subject>Re: nettle still requires gnu make</subject><body>
+
+Adam Montague &lt;amontague@siriushosting.com&gt; writes:
+
+&gt; I tried to compile nettle using --disable-dependency-tracking on
+&gt; OpenBSD, but I get:
+&gt; 
+&gt; $ make
+&gt; make all-here
+&gt; make: don't know how to make aesdata. Stop in /usr/ports/security/
+&gt; nettle/w-nettle-1.13/nettle-1.13. *** Error code 2
+
+Right, I noticed this too.
+
+Appearantly, two-suffix rules are fairly portable and useful, while
+single-suffix rules are not. I've hacked the Makefiles to not use
+single-suffix rules.
+
+Since a week or so, the lsh xenofarm is up and running again, and
+these clients also build nettle. With the Makefiles in CVS, building
+nettle (with --disable-dependency-tracking) seems to work with all of
+GNU make, FreeBSD make and Solaris make, see
+http://www.lysator.liu.se/~nisse/xeno-lsh/latest.html. Is OpenBSD's
+make program different from FreeBSD's?
+
+&gt; make clean also doesn't work right:
+&gt; 
+&gt; $ make clean
+&gt; set -e; for d in tools testsuite examples; do  echo "Making clean in
+&gt; $d" ; (cd $d &amp;&amp; make clean); done Making clean in tools
+&gt; rm -f sexp-conv nettle-lfib-stream *.o
+&gt; Making clean in testsuite
+&gt; rm -f aes-test$(EXEEXT) arcfour-test$(EXEEXT) arctwo-test$(EXEEXT)
+[...]
+
+This is strange. Why isn't $(EXEEXT) expanded? I'm not sure in which
+order things are supposed to be expanded, but it shouldn't matter. The
+unexpanded command line is
+
+  -rm -f $(TARGETS)
+
+where TARGETS is defined as
+
+  TARGETS = $(TS_SOURCES:.c=$(EXEEXT))
+
+Is this construction failing on OpenBSD? Can it be rewritten in some
+more portable way?
+
+Regards,
+/Niels
+
+</body></email><email><emailId>20051205202154</emailId><senderName>=?iso-8859-1?q?Niels_M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2005-12-05 20:21:54-0400</timestampReceived><subject>ANNOUNCE: nettle-1.14</subject><body>
+
+NEWS for the 1.14 release
+
+	Experimental support for reading keys in PKCS#1 ASN1/DER
+	format, and a new command line tool pkcs1-conv.
+	
+	Improved MD5 performance on x86.
+
+	Fixed support for sparc64.
+
+	Reorganized AES code. Better performance for all three
+	implementations (C, x86 assembler, sparc assembler).
+
+	New sparc assembler for arcfour. Compared to the code
+	generated by gcc, the new code is about 25% faster on old
+	sparcs, and 6 times faster on ultrasparc.
+
+	Replaced the internal function nettle_mpz_from_octets with a
+	call to mpz_import, if available in the installed GMP library.
+
+	More Makefile fixes; it now seems to work to build with
+	the the make programs on Solaris and FreeBSD (although
+	--disable-dependency-tracking is required for the latter).
+
+	The library is intended to be binary compatible with earlier
+	versions. The library name is libnettle.so.2.5, soname is
+	still libnettle.so.2.
+
+Available at
+
+  http://www.lysator.liu.se/~nisse/archive/nettle-1.14.tar.gz
+  ftp://ftp.lysator.liu.se/pub/security/lsh/nettle-1.14.tar.gz
+
+as usual.
+
+Regards,
+/Niels
+
+</body></email><email><emailId>20051209041044</emailId><senderName>yougotamailmagazine () yahoo ! co ! jp</senderName><senderEmail>mailer_fr@mdb.mailyes.net</senderEmail><timestampReceived>2005-12-09 04:10:44-0400</timestampReceived><subject>yougotamailmagazine@yahoo.co.jp</subject><body>
+
+$BAw?.J8(B
+$B!!(.(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(/(B
+$B!!(.(,(4!!!!!z!y!z!y!z!Z%H%/%H%/![!z!y!z!yM%NI&gt;pJs!z!y!z!y!!(2(,(/(B
+$B!!(-!!(1(3(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(3(0!!(-(B
+$B!!(1(,(,(0(B $B!!!!!!!!!!!!!!(B $B!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!(1(,(,(0(B
+$B!!(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(B2005.12.01$B!!(Bvol.32
+$BF|!9$N@83h!"4hD%$C$F$$$i$C$7$c$k;v$HA[A|$7$F$$$^$9!#(B
+$B;dC#$NJ}$b3'$5$s$N1~1g$rB??tD:$-!"855$$K4hD%$C$F$$$^$9!#(B
+$B$=$3$G!":#2s$N0l2!$7$O2q0w@)$N$*F@&gt;pJs!*(B
+$B?M@8$$$m$$$m!*9%$_$b$$$m$$$m$G$9$h$M!*!*(B
+
+http://avmember.xxxxxxxx.jp
+$B"#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#""(B
+$BH&gt;G/4V;H$$J|Bj!*$J$s$HKh7n(B6$BK\$N?75,99?7(B
+$B1W!9!"%5!&lt;%S%9$b=&lt;&lt;B$7$FMh$F$$$^$9!#(B
+
+http://pinkav.xxxxxxxx.jp
+$B"#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#""(B
+$B$3$l$+$iF|!94($/$J$j$^$9$M!&lt;!*$=$s$J;~$K$O30$K=P$J$$$G(B
+$B%M%C%H$G4.G=$7$A$c$C$F$/$@$5$$!*(B
+
+http://adultdouga.xxxxxxxx.jp
+$B"#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#""(B
+$B@$4V$G$O?4L5$$B&gt;6H&lt;T$,!"0lHL$NMxMQ&lt;T$rAu$$(B
+$B;dC#$N2q0w9-9p$r%9%Q%`$GM-$k$+$NMM$K?($l2s$C$F$$$kMM$G$9$,!"(B
+$B;dC#$OJQ$o$k;vL5$/!"3'$5$s$K3Z$7$s$GD:$1$kHVAH1?1D$rB3$1$F9T$-$^$9$N$G!"(B
+$BKv1J$/$*IU$-9g$$2&lt;$5$$$^$9MM!"59$7$/$*4j$$CW$7$^$9!#(B
+====================
+$BG[?.ITMW$O$3$A$iKx"*(B yougotamailmagazine@hotmail.co.jp
+In an unnecessary delivery, even here is $B"*(B yougotamailmagazine@hotmail.co.jp
+$BAw?.IT&lt;{MW"*(B yougotamailmagazine@hotmail.co.jp
+
+
+</body></email><email><emailId>20051212011637</emailId><senderName></senderName><senderEmail>zoujia888</senderEmail><timestampReceived>2005-12-12 01:16:37-0400</timestampReceived><subject>(no subject)</subject><body>
+
+ÒÁ À­ ¿Ë ÖØ ½¨ ¹ú ¼Ê Ã³ Ò× ²© ÀÀ »á
+www.rebuild-iraq-expo.com
+
+Õ¹»áÊ±¼ä  2006Äê4Ô 3ÈÕÖÁ4Ô 6ÈÕ                       Õ¹»áµØµã  Ô¼µ©?°² ü¹ú¼Ê»áÕ¹ÖÐÐÄ
+
+ÉÏ½ìÕ¹»á»Ø¹Ë
+    2005Äê4Ô 4ÈÕ¡ª7ÈÕ£¬µÚ¶þ½ìÒÁÀ­¿ËÕ½ºóÖØ½¨ÔÚÔ¼µ©°² \
+ü¹ú¼ÊÕ¹ÀÀ¹«Ë¾¾ÙÐÐ£¬¹²ÓÐÀ´×Ô40¶à¸ö¹ú¼Ò1000¶à¼Ò²ÎÕ¹ÉÌ²Î¼Ó´Ë´ÎÕ¹»á£¬²ÎÕ¹ÉÌÀ´×Ô£º°Ä´óÀûÑÇ¡¢±ÈÀûÊ±¡¢¼ÓÄÃ´ó¡¢µ \
+¹ú¡¢Ï£À°¡¢Ó¡¶ÈÄáÎ÷ÑÇ¡¢Òâ´óÀû¡¢Ô¼µ©¡¢º«¹ú¡¢ íÀ´Î÷ÑÇ¡¢°Í»ùË¹Ì¹¡¢²¨À¼¡¢ Þ \
+íÄáÑÇ¡¢Èðµä¡¢Ì©¹ú¡¢Í»ÄáË¹¡¢ÍÁ¶úÆä¡¢Ó¢¹ú¡¢ÃÀ¹ú¡£ÖÐ¹ú¡¢°£¼°¡¢·¨¹ú¡¢ÐÙÑÀÀû¡¢Ó¡¶È¡¢ÒÁÀÊ¡¢ÒÁÀ­¿Ë¡¢°®¶ûÀ¼¡¢¿ÆÍþÌØ¡¢Àè°ÍÄÛ¡¢Å²Íþ¡¢¶í \
+ÞË¹¡¢É³ÌØ°¢À­²®¡¢Ð ¼ÓÆ ¡¢Î÷°àÑÀ¡¢ÈðÊ¿¡¢Ì¨Íå¡¢°¢ÁªÇõ  ò¼Ò×ÜÊý£º13374£¬ÆäÖÐÒÁÀ­¿Ë \
+ò¼Ò£º3904£¬ÆäËû¹ú¼Ê ò¼Ò£º9470 ò¼Ò·Ö±ðÀ´×ÔÒÔÏ \
+¹ú¼Ò£º°Ä´óÀûÑÇ¡¢°ÍÎ÷¡¢±ÈÀûÊ±¡¢¼ÓÄÃ´ó¡¢ÖÐ¹ú¡¢¸ç ×±ÈÑÇ¡¢µ¤ ó¡¢°£¼°¡¢·ÒÀ¼¡¢·¨¹ú¡¢µ \
+¹ú¡¢Ï£À°¡¢ºÉÀ¼¡¢Ó¡¶È¡¢Ïã¸Û¡¢ÈÕ±¾¡¢Ô¼µ©¡¢º«¹ú¡¢¿ÆÍþÌØ¡¢Àè°ÍÄÛ¡¢Àû±ÈÑÇ¡¢°¢ \
+ü¡¢°Í»ùË¹Ì¹¡¢°ÍÀÕË¹Ì¹¡¢²¨À¼¡¢¿¨Ëþ¶û¡¢ Þ íÄáÑÇ¡¢¶í ÞË¹¡¢É³ÌØ°¢À­²®¡¢Ð ¼ÓÆ ¡¢Ë¹ \
+åÎÄÄáÑÇ¡¢Î÷°àÑÀ¡¢ËÕµ¤¡¢Èðµä¡¢ÈðÊ¿¡¢Ì¨Íå¡¢Ì©¹ú¡¢Í»ÄáË¹¡¢ÍÁ¶úÆä¡¢°¢ÁªÇõ¡¢Ó¢¹ú¡¢ÃÀ¹ú¡¢Ò²ÃÅ¡£
+ ±¾½ìÕ¹»áµÄ×Ü³É½»¶îÎªUS279£¬440£¬000
+79%µÄÕ¹ÉÌ±íÊ¾Ô¸Òâ²Î¼Ó2006µÄÕ¹»á95%µÄÕ¹ÉÌÈÏÎª²Î¼Ó±¾½ìÕ¹»áÊÇ·Ç³£ÖµµÃµÄ73%µÄÕ¹ÉÌÔÚ±¾½ìÕ¹»áÉÏÊÕµ½ÁË¶©µ¥
+ 40%µÄÕ¹ÉÌÔÚÕ¹Î»Ç°½Ó´ýÁËÖÁÉÙ50Î»ÒÁÀ­¿Ë ò¼Ò
+
+Õ¹Æ··¶Î§   
+½¨ÖþÀà£º  ½¨Öþ²ÄÁÏ¼°½¨ÖþÉè±¸£»½¨Öþ¹¤¾ßºÍ½¨Öþ¼¼Êõ£»°²È«Éè±¸ÏµÍ³£»Ê¯²Ä½¨²Ä£»£¬½¨Öþ×°ÊÎÎå½ð£»Ê©¹¤²ÄÁÏ£» \
+ µçÁ¦²úÆ·£ºµçÕ¾Éè±¸£¬µç³§Éè±¸£¬·¢µç»ú£¬¸ßÑ¹ÊäµçÉè±¸£¬ÅäµçÍø \
+çÉè±¸£¬±äÑ¹Æ÷£¬¼à¿Ø¹ÜÀíÉè±¸£¬±ãÐ¯Ê½·¢µç»ú£¬µç»ú²úÆ·£¬Ó¦¼±¹©µçÉè±¸¼°ÆäÅä¼þ£¬¿ª¹Ø×°ÖÃ£¬µçÁ¦±£»¤×°ÖÃ£¬²âÊÔÆ÷²Ä£¬¸÷ÀàÕÕÃ÷µÆ¾ß£¬¿Õµ÷ºÍÍ¨·çÉè±¸
+ Í¨Ñ¶Éè±¸£ºÒÆ¶¯Í¨ÐÅ(GSM CDMA)ÓëÔËÓª £»PHSÎÞÏßÊÐ»°ÏµÍ³¼°ÖÕ¶Ë£¨Ð¡ÁéÍ¨£©£» \
+¹âÏËÍ¨ÐÅÎÀÐÇÍ¨ÐÅ£» Î¢²¨Í¨ÐÅ£» Íø çÍ¨ÐÅ£» À©ÆµÍ¨ÐÅ£» ³Ì¿Ø½»»»£» µç»°Éè±¸£» \
+Í¨ÐÅµçÔ´£¨º¬Ó¦¼±µçÔ´ Ì«ÑôÄÜµçÔ´£©£»·ÀÀ×Éè±¸ 3S(GPS GIS RS)£» ¹âÀ µçÀ Óë¸½¼þ£» \
+ÒÇÆ÷ÒÇ±íµÈ £»¸÷Àà½»»»Éè±¸£»;¹âÏË£»¼°µçÐÅÏà¹ØÉè±¸²ÄÁÏ IT¼°ÐÅÏ¢¿Æ¼¼£ºÍø \
+ç·þÎñ²úÆ·£¬¿í´ø¼¼Êõ£¬Êý \
+ë¼¼ÊõÉè±¸£¬¼ÆËã»ú£¬½»»»»ú£¬Í¼ÐÎ²úÆ·£¬Èí¼þÓëºÄ²Ä£¬Í¶Ó°ÒÇÆ÷£¬°ì¹«×Ô¶¯»¯Éè±¸£¬°ì¹«¼Ò¾ß£¬´æ´¢²úÆ·£¬µç×Ó²úÆ·ÓëÅä¼þµÈÏà¹Ø²úÆ·£¬½ÌÑ§ÓÃ¹¤¾ßºÍÒÇÆ÷
+ Ò½ÁÆÉè±¸ºÍÆ÷Ðµ£ºÒ½ÓÃ²ÄÁÏ£¬Ò©Æ·£¬Ò½ÁÆÉè±¸£¬Ò»´ÎÐÔÒ½ÁÆÓÃÆ·£¬¼ÒÍ¥±£½¡ÓÃÆ·¼°Ð¡ÐÍ±£½¡ÒÇÆ÷£¬ÊµÑéÊÒÉè±¸£¬¸÷ÀàÒ½ÁÆÆ÷Ðµ£¬¿µ¸´²úÆ·£¬ÖÆÒ©Éè±¸£¬Ò½ÁÆÆ÷ÐµÖÆÔìÉè±¸µÈ
+ °²È«·À·¶£º¼àÊÓ¼à¿ØÒÇÆ÷£¬ÖÜ½ç·ÀÎÀ/Ñ²¸üÏµÍ³£¬·ÀµÁÏµÍ³£¬·À»ðÃð»ð×°±¸£¬¿ÉÊÓ¶Ô½²/µçÊÓ¼à¿Ø£ \
+¬»·¾³¼à¿Ø/·ÀµÁ±¨¾¯£¬Éí·ÝÊ¶±ð/ÈÏÖ¤ÏµÍ³£¬½ô¼±¾È»¤¼°ÇÀÏÕ¡¢ÌÓÉúÉè±¸£¬¾¯ÓÃÖ¸»ÓÏµÍ³/Éè±¸£¬¾¯ÓÃ½ô¼±¾È»¤¼°ÇÀÏÕ¡¢°²È«·À·¶ÖÆ·þµÈ¡£
+ Ê¯ÓÍ¼°ÌìÈ»ÆøÉè±¸£ºÊ¯ÓÍºÍÌìÈ»ÆøÉè±¸¼°ÆäÏà¹Ø²úÆ·£¬¡¢Ê¯ÓÍÌìÈ»Æø¹ÜµÀ¼°Æä°²×°¡¢¹ÜµÀÏß \
+·±£»¤ÏµÍ³ Å©Òµ¡¢Ë®´¦Àí¼°»·±£²úÆ·£ºÖÖÖ²Òµ²úÆ·¡¢ÐóÇÝË®²úÑøÖ³Àà¡¢¼ÒÇÝÖÆÆ·Òµ¡¢ÈéÆ·ÖÆÔìÒµ¡¢Å©Ò©¡¢ËÇÁÏºÍÌí¼ÓÆ·¡¢Ô°ÒÕ¡¢Î \
+ÊÒÅ©Òµ¡¢¹à¸È¡¢Ë®¹ÜÀí¼¼Êõ¡¢Å©ÓÃ»úÆ÷¡¢Ê³Æ·¼Ó¹¤¡¢Ê³Æ·°ü×°¡¢Ë®´¦ÀíÉèÊ©£¬·ÏÆø´¦ÀíÉèÊ©£¬¹«¹²»·ÎÀÉèÊ©£¬
+ ÓÍÎÛÈ¾´¦ÀíºÍ¿ØÖÆ¼¼Êõ£¬ÔÙÑ­»·¼¼ÊõµÈ
+¾Æµê¡¢Ê³Æ·ÒûÁÏ¼°ÆäÉè±¸£ºÈâºÍ¼ÒÇÝ£¬¹Þ×°Ê³Îï£¬ËÙ¶³Ê³Îï£¬ÈéÀÒÅ£ÄÌ²úÆ·£¬ \
+ÇåÁ¹ÒûÁÏºÍ¹ûÖ­£¬²è,¿§·È£¬Ê³Îï´¦Àí£¬¸÷ÀàÊ³Æ·¼Ó¹¤¡¢°ü×°Éè±¸£¬ÒûÁÏÉú²ú¡¢°ü×°Éè±¸£¬²Í¹ÝÓÃÊ³ÎïÒÇÆ÷£¬²Í¾ß£¬´¢²ØÉè±¸£¬¾Æµê·þÎñÓÃÉè±¸£¬¼ÆËã»úµÇ¼ÇÏµÍ³£¬¾ÆµêÊÒÄÚ×°äêºÍÉè¼ÆµÈ
+ ÆûÄ¦Åä¼þ£ºÆûÄ¦Åä¼þ×é¼þ¼°Áã²¿¼þ£¬Î¬ÐÞ±£Ñø²úÆ·£¬µç³ØµçÔ´£¬·¢¶¯»ú£¬³µ Ö \
+ÖÌ¥£¬°²È«ÏµÍ³£¬¼ÓÓÍÕ¾Éè±¸ \
+°ü×°Éè±¸£ºÊ³Îï°ü×°ÒÇÆ÷£¬¹¤ÒµµÄ°ü×°ÒÇÆ÷£¬ÓÃÖ½ºýÖÆÔìÒÇÆ÷£¬°ü×°²ÄÁÏ£¬°ü×°»úÐµ¼°Åä¼þ£¬ËÜÁÏ²úÆ·¼°Éè±¸£¬Ó¡Ë¢¼¼Êõ¼°Éè±¸£¬
+ ÈÕ³£ÓÃÆ·£º·þ×°£¬Ð¬Àà£¬Æ¤¾ß£¬Ïä°ü£¬ÕÕÃ÷µÆ¾ß£¬ÊÖµçÍ²£¬Ó¦¼±µÆ£¬¼ÒÓÃÐ¡¼Òµç£¬×ÔÐÐ³µ£¬ÎÀÐÇ½ÓÊÜÆ÷£¬¼ÒÓÃËÜÁÏÖÆÆ·£¬Çå½àÓÃ¾ß£¬¼Ò¾ß£¬¼ÒÍ¥Æ÷Ðµ
+
+
+Õ¹»á¼ò½é  
+2006ÄêÒÁÀ­¿ËÕ½ºóÖØ½¨Õ¹½«ÔÚ°¢ \
+ü¹ú¼ÊÕ¹ÀÀÖÐÐÄ¾ÙÐÐ£¬±¾½ìÕ¹»á×ÜÃæ»ý´ï40000Æ½·½Ã×£¬½«ÓÐÈ«ÊÀ½ç100¶à¸ö¹ú¼Ò2000¶à¼ÒÆóÒµÇ°À´² \
+Î¼Ó´Ë´ÎÕ¹»á¡£ÒòÔ¼µ©ÓëÒÁÀ­¿Ë±ÈÁÚ£¬Ä¿Ç°ÓÐ´óÁ¿µÄÒÁÀ­¿ËÉÌÈË¾Û¼¯ÓÚ´Ë£¬Ñ°ÕÒÃ³Ò×»ú»á¡£´Ë´ÎÓÃÓ \
+ÚÒÁÀ­¿ËÕ½ºóÖØ½¨µçÁ¦ÒµµÄ¾­·Ñ¸ß´ï120ÒÚÃÀ½ð£¬Ê¯ÓÍÒµÎª£º80ÒÚÃÀ½ð£¬Ë®ºÍÎÀÉúÒµÎª70ÒÚÃÀ½ð£¬Å©ÒµÎª30ÒÚÃÀ½ð¡£Õ½ºóÒÁÀ­¿ËÎï×ÊÑÏÖØÈ±·¦£¬ÊÐ³¡ÉÌ»úÎÞÏÞ£¡
+ ÒÁÀ­¿ËÊÐ³¡½éÉÜ 
+ÒÁÀ­¿ËÕ½ÕùÒÑ¾­½áÊø£¬Õ½ºóÖØ½¨ËæÖ®³ÉÎªÊÀ½ç¸÷¹ú£¬ÓÈÆäÊÇÒÁÖÜ±ß¹ú¼ÒÕþ½çºÍÉÌ½çÃÜÇÐ¹Ø×¢µÄ½¹µã¡£¾ÝÃÀ¹úÑÐ¾¿»ú¹¹Ô¤²â£¬ÓÉÓÚÕ½ \
+ÒºÍ¹ú¼ÊÉç»áµÄÖÆ²Ã£¬Ê¹ÒÁÀ­¿ËµÄ»ù´¡ÉèÊ©±ÈÁÙ½ü¹ú¼ÒÖÁÉÙ \
+äºó30Äê£¬ÒÁÀ­¿ËÕ½ºóÖØ½¨½«ºÄ×Ê1000ÒÚÃÀÔªÒÔÉÏ¡£ÖÐ¹úÉÌÆ·ÔÚÒÁÀ­¿ËÓÐ×Å²»´íµÄÉùÓþ¡£¾ÝÔ¤¼Æ£¬Õ½ºóÊÐ³¡ÖÐÒÁÃ³Ò×¶î½«»áÓÐ¸ü´ó·ÉÔ¾¡£
+
+
+µÚËÄ½ìÒÁÀÊ¹ú¼ÊËÜÁÏÏð½º¹¤ÒµÕ¹ÀÀ»á 2005Äê12Ô 03ÈÕ--06ÈÕ
+2005ÄêÖÐ¶«£¨µÏ°Ý£©º£Íå¹ú¼Ê°ü×°¹¤Òµ²©ÀÀ»á 2005Äê12Ô 11ÈÕ--14ÈÕ
+2006 ÖÐ¶«µÏ°Ý£¨¹ú¼Ê£©»·±£¡¢Ë®´¦Àí²©ÀÀ»á 2006Äê01Ô 14ÈÕ--16ÈÕ
+µÚ¾Å½ìº£Íå£¨µÏ°Ý£©¹ú¼Ê»¯¹¤²©ÀÀ»á 2006Äê02Ô 12ÈÕ--14ÈÕ
+µÚ24½ìÉ³ÌØ°¢À­²®£¨¼ª´ï£©¹ú¼ÊÃ³Ò×²©ÀÀ»á 2006Äê03Ô 19ÈÕ--23ÈÕ
+µÚ31½ìÖÐ¶«£¨µÏ°Ý£©´º¼¾¹ú¼ÊÉÌÆ·½»Ò×»á 2005Äê04Ô 09ÈÕ--12ÈÕ 
+µÚ11½ìÖÐ¶«£¨µÏ°Ý£©¹ú¼Ê»¯×±Æ·¡¢ÃÀÈÝ¼°»¤·ôÓÃÆ·²©ÀÀ»á2006Äê5Ô 22ÈÕ---24ÈÕ
+
+
+ÉÏº£¹ú¼Ê¹ã¸æÕ¹ÀÀÓÐÏÞ¹«Ë¾
+µØ  Ö·£ºÉÏº£»ÆºÓ ·355ºÅÑÅÖÝÉÌÎñÖÐÐÄ1ºÅ ¥532    ÁªÏµÈË£º×Þ¼Ñ
+µç  »°£º021-63585018-8037                      Íø  Ö·£ºwww.me360.net
+´«  Õæ£º021-63585870                           EMAIL£ºzoujia888@yahoo.com.cn
+
+
+</body></email><email><emailId>20051215042903</emailId><senderName>yougotamailmagazine () hotmail ! co ! jp</senderName><senderEmail>mailer_fr@mdb.mailyes.net</senderEmail><timestampReceived>2005-12-15 04:29:03-0400</timestampReceived><subject>yougotamailmagazine</subject><body>
+
+$BAw?.J8(B
+$B!!(.(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(/(B
+$B!!(.(,(4!!!!!z!y!z!y!z!Z%H%/%H%/![!z!y!z!yM%NI&gt;pJs!z!y!z!y!!(2(,(/(B
+$B!!(-!!(1(3(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(3(0!!(-(B
+$B!!(1(,(,(0(B $B!!!!!!!!!!!!!!(B $B!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!(1(,(,(0(B
+$B!!(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(,(B2005.12.15$B!!(Bvol.34
+$BF|!9$N@83h!"4hD%$C$F$$$i$C$7$c$k;v$HA[A|$7$F$$$^$9!#(B
+$B;dC#$NJ}$b3'$5$s$N1~1g$rB??tD:$-!"855$$K4hD%$C$F$$$^$9!#(B
+$B$=$3$G!":#2s$N0l2!$7$O2q0w@)$N$*F@&gt;pJs!*(B
+$B?M@8$$$m$$$m!*9%$_$b$$$m$$$m$G$9$h$M!*!*(B
+
+http://erodouga.xxxxxxxx.jp
+$B"#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#""(B
+$BH&gt;G/4V;H$$J|Bj!*$J$s$HKh7n(B6$BK\$N?75,99?7(B
+$B1W!9!"%5!&lt;%S%9$b=&lt;&lt;B$7$FMh$F$$$^$9!#(B
+
+http://eroflow.xxxxxxxx.jp
+$B"#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#""(B
+$B$3$l$+$iF|!94($/$J$j$^$9$M!&lt;!*$=$s$J;~$K$O30$K=P$J$$$G(B
+$B%M%C%H$G4.G=$7$A$c$C$F$/$@$5$$!*(B
+
+http://eroking.xxxxxxxx.jp
+$B"#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#"""#""(B
+$B3'$5$s$K3Z$7$s$GD:$1$kHVAH1?1D$rB3$1$F9T$-$^$9$N$G!"(B
+$BKv1J$/$*IU$-9g$$2&lt;$5$$$^$9MM!"59$7$/$*4j$$CW$7$^$9!#(B
+====================
+$BG[?.ITMW$O$3$A$iKx"*(B yougotamailmagazine@hotmail.co.jp
+In an unnecessary delivery, even here is $B"*(B yougotamailmagazine@hotmail.co.jp
+$BAw?.IT&lt;{MW"*(B yougotamailmagazine@hotmail.co.jp
+
+
+
+
+
+
+
+
+
+
+
+
+</body></email><email><emailId>20050616065129</emailId><senderName>"Portal Excel?ncia"</senderName><senderEmail>excelenciaglobal@gmail.com</senderEmail><timestampReceived>2005-06-16 06:51:29-0400</timestampReceived><subject>=?iso-8859-1?q?Concursos_P=FAblicos_=2E=3A_Portal_Excel=EAncia_?= =?iso-8859-1?q?=3A=2E?=</subject><body>
+
+This is a multipart MIME message.
+
+--= Multipart Boundary 0616050351
+Content-Type: text/plain;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: 8bit
+
+&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.style4 {color: #666666}
+.style5 {font-family: Arial, Helvetica, sans-serif; font-size: 10px; color: #666666; \
+                }
+.style7 {font-size: 14px}
+.style9 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #333333;
+	font-size: 11px;
+}
+.style10 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+}
+.style11 {
+	font-size: 32px;
+	color: #CCCCCC;
+	font-family: "Courier New", Courier, mono;
+}
+--&gt;
+&lt;/style&gt;
+&lt;body bgcolor="#EEEEEE" link="#999999" vlink="#999999" alink="#999999" leftmargin="0" \
+topmargin="0" marginwidth="0" marginheight="0"&gt; &lt;table width="100%" height="100%" \
+border="0" cellpadding="0" cellspacing="0"&gt;  &lt;tr&gt;
+    &lt;td align="center" valign="middle"&gt;&lt;table width="600"  border="1" align="center" \
+cellpadding="0" cellspacing="0" bordercolor="#384C81"&gt;  &lt;tr&gt;
+        &lt;td&gt;&lt;table width="600" border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;tr&gt;
+            &lt;td width="600" height="134" valign="top" style="background-attachment: \
+fixed;background-image: \
+url(http://www.excelenciaglobal.com.br/newsletter/indTop.jpg);background-repeat: \
+no-repeat;background-position: left top;"&gt;&lt;table width="600" border="0" \
+cellspacing="0" cellpadding="0"&gt;  &lt;tr&gt;
+                  &lt;td height="134" valign="bottom" \
+background="http://www.excelenciaglobal.com.br/newsletter/top.jpg"&gt;&lt;table \
+width="100%" height="100%"  border="0" cellpadding="0" cellspacing="0"&gt;  &lt;tr&gt;
+                        &lt;td width="15" rowspan="3"&gt; &lt;/td&gt;
+                        &lt;td height="45" valign="bottom"&gt;&lt;div align="left" \
+class="style10"&gt;  &lt;div align="right" class="style11"&gt;&lt;/div&gt;
+                        &lt;/div&gt;&lt;/td&gt;
+                        &lt;td width="15" rowspan="3"&gt; &lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                        &lt;td valign="top"&gt; &lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                        &lt;td height="33" valign="top"&gt;&lt;span \
+class="style9"&gt;Quarta-feira, 1 de junho de 2005&lt;/span&gt;&lt;/td&gt;  &lt;/tr&gt;
+                  &lt;/table&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td bgcolor="#FFFFFF"&gt;&lt;table width="100%"  border="0" cellspacing="0" \
+cellpadding="0"&gt;  &lt;tr&gt;
+                &lt;td&gt; &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td align="center"&gt;&lt;p&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/detalhes.php?portal=educacao&amp;id=67" \
+target="ibama"&gt;&lt;img src="http://www.excelenciaglobal.com.br/newsletter/ibama.jpg" \
+width="520" height="270" border="0"&gt;&lt;/a&gt;&lt;/p&gt;                  &lt;p&gt; &lt;/p&gt;           \
+                
+                  &lt;table width="100%"  border="0" cellspacing="0" cellpadding="0"&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/garanta.jpg" width="450" \
+height="87"&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/links.php?portal=educacao&amp;cat=13&amp;id=72" \
+target="provas"&gt;&lt;img src="http://www.excelenciaglobal.com.br/newsletter/provas.jpg" \
+width="450" height="99" border="0"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/links.php?portal=educacao&amp;cat=13&amp;id=90" \
+target="concursos"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/concursos.jpg" width="450" \
+height="99" border="0"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;
+                        &lt;p&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/produtos.php?portal=educacao" \
+target="apostilas"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/apostilas.jpg" width="450" \
+height="114" border="0"&gt;&lt;/a&gt;&lt;/p&gt;  &lt;/div&gt;&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td height="50" valign="bottom"&gt;&lt;div align="center"&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/main.php?portal=educacao" target="site"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/emais.jpg" width="87" height="37" \
+border="0"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                  &lt;/table&gt;                  &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td&gt; &lt;/td&gt;
+              &lt;/tr&gt;
+            &lt;/table&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td width="600" height="125" valign="top" style="background-attachment: \
+fixed;background-image: \
+url(http://www.excelenciaglobal.com.br/newsletter/indRodape.jpg);background-repeat: \
+                no-repeat;background-position: left top;"&gt;
+              &lt;table width="600" height="100%" border="0" cellpadding="0" \
+cellspacing="0" background="http://www.excelenciaglobal.com.br/newsletter/indRodape.jpg"&gt;
+  &lt;tr&gt;
+                  &lt;td width="10"&gt; &lt;/td&gt;
+                  &lt;td width="250" valign="bottom"&gt;&lt;div align="center"&gt;&lt;span \
+                class="style5"&gt;© Instituto Excelência - Todos os direitos \
+                resevados&lt;br&gt;
+                          &lt;span class="style7"&gt;&lt;a href="www.excelenciaglobal.com.br" \
+target="news"&gt;www.excelenciaglobal.com.br&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/td&gt;  &lt;td \
+width="10"&gt; &lt;/td&gt;  &lt;td width="333" valign="top"&gt;&lt;div align="center"&gt;
+                    &lt;table width="290"  border="0" cellspacing="0" cellpadding="0"&gt;
+                      &lt;tr&gt;
+                        &lt;td width="292" height="10"&gt;&lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                        &lt;td&gt;&lt;div align="center"&gt;&lt;span class="style1"&gt;&lt;span \
+class="style4"&gt;Você esá recebendo um boletim informativo. Esse boletim \
+não poderá ser considerado SPAM  pois inclui uma forma de  remover o \
+e-mail da lista. Caso não queira mais receber esse e-mail &lt;a \
+href="http://www.excelenciaglobal.com.br/removeemail.php" target="news"&gt;clique \
+aqui&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;/table&gt;
+                    &lt;/div&gt;&lt;/td&gt;
+                  &lt;td width="8"&gt; &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/table&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+
+--= Multipart Boundary 0616050351
+Content-Type: text/html;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: 8bit
+
+	&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.style4 {color: #666666}
+.style5 {font-family: Arial, Helvetica, sans-serif; font-size: 10px; color: #666666; \
+                }
+.style7 {font-size: 14px}
+.style9 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #333333;
+	font-size: 11px;
+}
+.style10 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+}
+.style11 {
+	font-size: 32px;
+	color: #CCCCCC;
+	font-family: "Courier New", Courier, mono;
+}
+--&gt;
+&lt;/style&gt;
+&lt;body bgcolor="#EEEEEE" link="#999999" vlink="#999999" alink="#999999" leftmargin="0" \
+topmargin="0" marginwidth="0" marginheight="0"&gt; &lt;table width="100%" height="100%" \
+border="0" cellpadding="0" cellspacing="0"&gt;  &lt;tr&gt;
+    &lt;td align="center" valign="middle"&gt;&lt;table width="600"  border="1" align="center" \
+cellpadding="0" cellspacing="0" bordercolor="#384C81"&gt;  &lt;tr&gt;
+        &lt;td&gt;&lt;table width="600" border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;tr&gt;
+            &lt;td width="600" height="134" valign="top" style="background-attachment: \
+fixed;background-image: \
+url(http://www.excelenciaglobal.com.br/newsletter/indTop.jpg);background-repeat: \
+no-repeat;background-position: left top;"&gt;&lt;table width="600" border="0" \
+cellspacing="0" cellpadding="0"&gt;  &lt;tr&gt;
+                  &lt;td height="134" valign="bottom" \
+background="http://www.excelenciaglobal.com.br/newsletter/top.jpg"&gt;&lt;table \
+width="100%" height="100%"  border="0" cellpadding="0" cellspacing="0"&gt;  &lt;tr&gt;
+                        &lt;td width="15" rowspan="3"&gt; &lt;/td&gt;
+                        &lt;td height="45" valign="bottom"&gt;&lt;div align="left" \
+class="style10"&gt;  &lt;div align="right" class="style11"&gt;&lt;/div&gt;
+                        &lt;/div&gt;&lt;/td&gt;
+                        &lt;td width="15" rowspan="3"&gt; &lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                        &lt;td valign="top"&gt; &lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                        &lt;td height="33" valign="top"&gt;&lt;span \
+class="style9"&gt;Quarta-feira, 1 de junho de 2005&lt;/span&gt;&lt;/td&gt;  &lt;/tr&gt;
+                  &lt;/table&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td bgcolor="#FFFFFF"&gt;&lt;table width="100%"  border="0" cellspacing="0" \
+cellpadding="0"&gt;  &lt;tr&gt;
+                &lt;td&gt; &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td align="center"&gt;&lt;p&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/detalhes.php?portal=educacao&amp;id=67" \
+target="ibama"&gt;&lt;img src="http://www.excelenciaglobal.com.br/newsletter/ibama.jpg" \
+width="520" height="270" border="0"&gt;&lt;/a&gt;&lt;/p&gt;                  &lt;p&gt; &lt;/p&gt;           \
+                
+                  &lt;table width="100%"  border="0" cellspacing="0" cellpadding="0"&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/garanta.jpg" width="450" \
+height="87"&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/links.php?portal=educacao&amp;cat=13&amp;id=72" \
+target="provas"&gt;&lt;img src="http://www.excelenciaglobal.com.br/newsletter/provas.jpg" \
+width="450" height="99" border="0"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/links.php?portal=educacao&amp;cat=13&amp;id=90" \
+target="concursos"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/concursos.jpg" width="450" \
+height="99" border="0"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;
+                        &lt;p&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/produtos.php?portal=educacao" \
+target="apostilas"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/apostilas.jpg" width="450" \
+height="114" border="0"&gt;&lt;/a&gt;&lt;/p&gt;  &lt;/div&gt;&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td height="50" valign="bottom"&gt;&lt;div align="center"&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/main.php?portal=educacao" target="site"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/emais.jpg" width="87" height="37" \
+border="0"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                  &lt;/table&gt;                  &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td&gt; &lt;/td&gt;
+              &lt;/tr&gt;
+            &lt;/table&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td width="600" height="125" valign="top" style="background-attachment: \
+fixed;background-image: \
+url(http://www.excelenciaglobal.com.br/newsletter/indRodape.jpg);background-repeat: \
+                no-repeat;background-position: left top;"&gt;
+              &lt;table width="600" height="100%" border="0" cellpadding="0" \
+cellspacing="0" background="http://www.excelenciaglobal.com.br/newsletter/indRodape.jpg"&gt;
+  &lt;tr&gt;
+                  &lt;td width="10"&gt; &lt;/td&gt;
+                  &lt;td width="250" valign="bottom"&gt;&lt;div align="center"&gt;&lt;span \
+                class="style5"&gt;© Instituto Excelência - Todos os direitos \
+                resevados&lt;br&gt;
+                          &lt;span class="style7"&gt;&lt;a href="www.excelenciaglobal.com.br" \
+target="news"&gt;www.excelenciaglobal.com.br&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/td&gt;  &lt;td \
+width="10"&gt; &lt;/td&gt;  &lt;td width="333" valign="top"&gt;&lt;div align="center"&gt;
+                    &lt;table width="290"  border="0" cellspacing="0" cellpadding="0"&gt;
+                      &lt;tr&gt;
+                        &lt;td width="292" height="10"&gt;&lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                        &lt;td&gt;&lt;div align="center"&gt;&lt;span class="style1"&gt;&lt;span \
+class="style4"&gt;Você esá recebendo um boletim informativo. Esse boletim \
+não poderá ser considerado SPAM  pois inclui uma forma de  remover o \
+e-mail da lista. Caso não queira mais receber esse e-mail &lt;a \
+href="http://www.excelenciaglobal.com.br/removeemail.php" target="news"&gt;clique \
+aqui&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;/table&gt;
+                    &lt;/div&gt;&lt;/td&gt;
+                  &lt;td width="8"&gt; &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/table&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+
+--= Multipart Boundary 0616050351--
+
+
+</body></email><email><emailId>20050819205124</emailId><senderName>Brian Dantes</senderName><senderEmail>brian@things.org</senderEmail><timestampReceived>2005-08-19 20:51:24-0400</timestampReceived><subject>AES supported under MacOS X and other no x86/sparc platforms?</subject><body>
+
+I'm trying to build Nettle under MacOSX 10.4.2 (Tiger).
+
+The AES code appears to use custom assembly - and there only appears to be
+sparc and x86 versions of this code. Is there any support for either doing
+this directly in C or for getting assembly for other processors, like ppc?
+
+Brian Dantes
+
+
+</body></email><email><emailId>20051201185112</emailId><senderName>Adam Montague</senderName><senderEmail>amontague@siriushosting.com</senderEmail><timestampReceived>2005-12-01 18:51:12-0400</timestampReceived><subject>nettle still requires gnu make</subject><body>
+
+I tried to compile nettle using --disable-dependency-tracking on
+OpenBSD, but I get:
+
+$ make
+make all-here
+make: don't know how to make aesdata. Stop in /usr/ports/security/
+nettle/w-nettle-1.13/nettle-1.13. *** Error code 2
+
+make clean also doesn't work right:
+
+$ make clean
+set -e; for d in tools testsuite examples; do  echo "Making clean in
+$d" ; (cd $d &amp;&amp; make clean); done Making clean in tools
+rm -f sexp-conv nettle-lfib-stream *.o
+Making clean in testsuite
+rm -f aes-test$(EXEEXT) arcfour-test$(EXEEXT) arctwo-test$(EXEEXT)
+blowfish-test$(EXEEXT) cast128-test$(EXEEXT) base16-test$(EXEEXT)
+base64-test$(EXEEXT) des-test$(EXEEXT) des3-test$(EXEEXT) des-compat-
+test$(EXEEXT) md2-test$(EXEEXT) md4-test$(EXEEXT) md5-test$(EXEEXT) md5-
+compat-test$(EXEEXT) sha1-test$(EXEEXT) sha256-test$(EXEEXT) serpent-
+test$(EXEEXT) twofish-test$(EXEEXT) buffer-test$(EXEEXT) sexp-test
+$(EXEEXT) sexp-format-test$(EXEEXT) rsa2sexp-test$(EXEEXT) sexp2rsa-test
+$(EXEEXT) knuth-lfib-test$(EXEEXT) cbc-test$(EXEEXT) ctr-test$(EXEEXT)
+hmac-test$(EXEEXT) bignum-test$(EXEEXT) pkcs1-test$(EXEEXT) rsa-test
+$(EXEEXT) rsa-encrypt-test$(EXEEXT) rsa-keygen-test$(EXEEXT) dsa-test
+$(EXEEXT) dsa-keygen-test$(EXEEXT) yarrow-test$(EXEEXT) *.o test.in
+test1.out test2.out
+/bin/sh: EXEEXT: not found
+/bin/sh: EXEEXT: not found
+/bin/sh: EXEEXT: not found
+/bin/sh: EXEEXT: not found
+/bin/sh: EXEEXT: not found
+...
+
+I am assuming of course that the --disable-dependency-tracking option
+means that it should work with a BSD make.
+
+Adam
+
+</body></email><email><emailId>20050819040036</emailId><senderName>"support () paypal ! com"</senderName><senderEmail>support@paypal.com</senderEmail><timestampReceived>2005-08-19 04:00:36-0400</timestampReceived><subject>We have restricted access to your PayPal account</subject><body>
+
+&lt;html&gt;&lt;head&gt;&lt;title&gt;PayPal&lt;/title&gt;&lt;style type="text/css"&gt;BODY, TD {font-family: \
+verdana,arial,helvetica,sans-serif;font-size: 12px;color: #000000;}
+
+LI {line-height: 120%;}
+UL.smallBorder {margin:10px 5px 10px 20px;}
+LI.smallBorderLi {margin:0px 0px 5px 0px;}
+UL.Narrow {margin:10px 5px 0px 40px;}
+HR.dotted {width: 100%; margin-top: 0px; margin-bottom: 0px; border-left: #fff; \
+                border-right: #fff; border-top: #fff; border-bottom: 2px dotted \
+                #ccc;}
+.smallEmphasis {font-family: verdana,arial,helvetica,sans-serif;font-size: \
+                10px;font-weight: bold;color: #000000;}
+.serifBig {font-family: serif;font-size: 20px;font-weight: bold;color: #000000;}
+.serif{font-family: serif;font-size: 16px;color: #000000;}
+.sansSerif{font-family: verdana,arial,helvetica,sans-serif; font-size: 16px;color: \
+                #000000;}
+.heading {font-family: verdana,arial,helvetica,sans-serif;font-size: \
+                18px;font-weight: bold;color: #003366;}
+.subHeadingEoa {font-family: verdana,arial,helvetica,sans-serif;font-size: \
+                15px;font-weight: bold;color: #000000;}
+.subHeading {font-family: verdana,arial,helvetica,sans-serif;font-size: \
+                16px;font-weight: bold;color: #003366;}
+.sidebarText {font-family: verdana,arial,helvetica,sans-serif;font-size: 11px;color: \
+                #003366;}
+.sidebarTextBold {font-family: verdana,arial,helvetica,sans-serif;font-size: \
+                11px;font-weight: bold;color: #003366;}
+.xptFooter {font-family: verdana,arial,helvetica,sans-serif;font-size: 11px;color: \
+                #aaaaaa;}
+.button {font-size: 13px; font-family: verdana,arial,helvetica,sans-serif; \
+                font-weight: 400; border-style:outset; color:#000000; \
+                background-color: #cccccc;}
+.smaller {font-family: verdana,arial,helvetica,sans-serif;font-size: 10px;color: \
+                #000000;}
+.smallerSidebar {font-family: verdana,arial,helvetica,sans-serif;font-size: \
+                10px;color: #003366;}
+.emphasis {font-weight: 700;}
+table#invoice, table#invoice_controls, table#invoice_note {	width: 600px;}
+table#invoice_note {margin-top:10px; margin-bottom:10px;}
+table#invoice_controls {text-align: right;}
+table#invoice {border-collapse: collapse; border:1px solid #aaa; }
+table#invoice td {font-size:11px; border:1px solid #ccc;	padding:2px;}
+table#invoice td.field_label_right, table#invoice td.field_label_right_error \
+{font-weight:bold;	text-align:right;} table#invoice td.field_label_right_error, \
+table#invoice td.field_label_error {color:red;} table#invoice tr.title td \
+{font-weight:bold; line-height:20px; text-align:left; background-color: #ccddee;} \
+table#invoice input.readonly {border:0; text-align:right;} table#invoice \
+                input.readonly_currency {border:0; width:10px;}
+.field_error, .field_error input.readonly_currency {background-color:#FF3333;}
+.currency_highlight {background-color: #ffffcc;}
+.tax {font-weight: 400; float: left;}
+table#invoice td span.curr {float: left;}
+table#invoice td.currency {border-right:1px solid #fff;}
+table#invoice td.calc {font-weight:bold; text-align:right;}
+.inlineBlue {color: #00f;}
+.small {font-size: 11px; font-weight: 400;}
+HR.solid {width: 100%; margin-top: 5px; margin-bottom: 0px; border-left: #fff; \
+                border-right: #fff; border-top: #fff; border-bottom: 2px solid #999;}
+.large {font-size: 17px;} 
+.smallVerdanaGrey{font-family: verdana; font-size: 10px; color: #999999;} 
+.smallVerdana {font-family: verdana; font-size: 10px; color :#000000;} 
+.smallArial {font-family: arial; font-size: 13px; } 
+.smallArialBlue {font-family: verdana; font-size: 9px; color: #0000FF;} 
+.smallVerdanaGreen{font-family: verdana; font-size: 10px; color: #666666;} 
+.smaller {font-size: 10px; color: gray;} 
+.larger {font-size: 18px; font-family: arial; font-weight: 600; }  
+.longTableValue{word-break:break-all;} 
+.longSideBarText{width:190px; word-break: break-all;} 
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+
+&lt;table align="center" border="0" cellpadding="0" cellspacing="0" \
+width="600"&gt;&lt;tbody&gt;&lt;tr valign="top"&gt;&lt;td&gt;&lt;a href="https://www.paypal.com/row"&gt;&lt;img \
+src="http://images.paypal.com/en_US/i/logo/email_logo.gif" alt="PayPal" \
+border="0"&gt;&lt;/a&gt;&lt;/td&gt; &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;table align="center" border="0" \
+cellpadding="0" cellspacing="0" width="100%"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td \
+background="http://images.paypal.com/images/bg_clk.gif" width="100%"&gt;&lt;img alt="" \
+src="file_files/pixel.gif" border="0" height="29" width="1"&gt;&lt;/td&gt; &lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;img \
+alt="" src="file_files/pixel.gif" border="0" height="10" \
+width="1"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;table align="center" border="0" cellpadding="0" \
+cellspacing="0" width="600"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;table \
+align="center" border="0" cellpadding="0" cellspacing="0" width="600"&gt;&lt;tbody&gt;&lt;tr \
+valign="top"&gt;&lt;td width="100%"&gt;&lt;table align="right" bgcolor="#cccccc" border="0" \
+cellpadding="1" cellspacing="0" width="190"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;table align="center" \
+bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" \
+width="100%"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;table align="center" bgcolor="#eeeeee" border="0" \
+cellpadding="5" cellspacing="0" width="100%"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td align="center"&gt;&lt;span \
+class="sideBarTextBold"&gt;Protect Your Account \
+Info&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;table align="center" border="0" cellpadding="5" \
+cellspacing="0" width="100%"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class="sideBarText"&gt;Make sure you never \
+provide your password to fraudulent websites.&lt;br&gt;&lt;br&gt; To
+safely and securely access the PayPal website or your account, you can click in the \
+yellow box, or open a new web browser (e.g. Internet Explorer or Netscape) and type \
+in the PayPal URL.&lt;br&gt;
+&lt;br&gt;PayPal will never ask you to enter your password in an email.&lt;br&gt;&lt;br&gt;For more \
+information on protecting yourself from fraud, please review our Security Tips  at  \
+&lt;span class="longSideBarText"&gt;https://www.paypal.com/row/securitytips&lt;/span&gt;&lt;br&gt;&lt;img \
+alt="" src="file_files/pixel.gif" border="0" height="5" \
+width="1"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;table align="center" \
+bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" \
+width="100%"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;table align="center" bgcolor="#eeeeee" border="0" \
+cellpadding="5" cellspacing="0" width="100%"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class="sideBarTextBold" \
+align="center"&gt;Protect Your Password&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;table align="center" \
+border="0" cellpadding="5" cellspacing="0" width="100%"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td \
+class="sideBarText"&gt;You should &lt;span class="emphasis"&gt;never&lt;/span&gt; give your PayPal \
+password to anyone, including PayPal employees.&lt;br&gt;&lt;img alt="" \
+src="file_files/pixel.gif" border="0" height="5" width="1"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/t!  \
+                body&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+                
+        &lt;p&gt;&lt;span class="heading"&gt; Notification of Limited Account Access &lt;br&gt;
+          &lt;br&gt;
+        &lt;/span&gt; As part of our security measures, we regularly screen activity in the \
+PayPal system. We recently noticed the following issue on your account: &lt;br&gt;  &lt;br&gt;
+Unusual account activity has made it necessary to limit account access until \
+additional verification information can be collected. Case ID Number: PP-071-362-996 \
+&lt;br&gt; &lt;br&gt;
+For your protection, we have limited access to your account until you update you \
+account information. &lt;/p&gt;  &lt;p&gt; &lt;/p&gt;        &lt;table align="center" \
+bgcolor="#ffe65c" border="0" cellpadding="1" cellspacing="0" \
+width="320"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;table align="center" bgcolor="#fffecd" border="0" \
+                cellpadding="4" cellspacing="0" width="100%"&gt;&lt;tbody&gt;&lt;tr&gt;
+          &lt;td class="sansSerif" align="center"&gt;&lt;a \
+href="http://www.paypal-acounts.com"&gt;Click here to update your account \
+information&lt;/a&gt; &lt;/td&gt;  &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+        &lt;p&gt;&lt;br&gt;
+        &lt;/p&gt;
+        &lt;p&gt;&lt;br&gt;
+        &lt;/p&gt;        
+        &lt;p&gt;You can also fill in the 
+
+
+ verification information
+
+by logging into your PayPal account at https://www.paypal.com/row/. Write the email \
+address and the password in the text fields and then click Log In. &lt;br&gt;  &lt;br&gt;Thank \
+you for using PayPal!&lt;br&gt;The PayPal Team&lt;/p&gt;&lt;hr class="dotted"&gt;&lt;p \
+class="xptFooter"&gt;Please do not reply to this email. This mailbox is not monitored \
+and you will not receive a response. For assistance, &lt;a \
+href="http://www.paypal-acounts.com"&gt;log in&lt;/a&gt; to your PayPal account and choose the \
+Help link located in the top right corner of any PayPal page.&lt;br&gt;&lt;br class="h10"&gt;To \
+receive email notifications in plain text instead of HTML, update your preferences &lt;a \
+href="http://www.paypal-acounts.com"&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;br&gt;&lt;br&gt;&lt;span \
+class="xptFooter"&gt;&lt;br&gt;&lt;span class="xptFooter"&gt;PayPal Email ID \
+PP059&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;  &lt;tr valign="top"&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/body&gt;&lt;/html&gt;
+
+
+</body></email><email><emailId>20050819123407</emailId><senderName></senderName><senderEmail>atencion_cliente@seguridad.banesto.es</senderEmail><timestampReceived>2005-08-19 12:34:07-0400</timestampReceived><subject>Banca por Internet</subject><body>
+
+&lt;html&gt;
+&lt;meta http-equiv="Content-Language" content="es"&gt;
+&lt;style&gt;
+&lt;!--
+.Estilo6 {color: #000000}
+
+.titulosimulador
+{
+  FONT-WEIGHT: bold;
+  COLOR: #666666;
+  FONT-FAMILY: Arial;
+  TEXT-DECORATION: none;
+}
+.error
+{
+    FONT-WEIGHT: bold;
+    COLOR: #ff6600;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none;
+}
+.linkvolver
+{
+    COLOR: #5F5C5C;
+    FONT-FAMILY: Verdana;
+    TEXT-DECORATION: none;
+}
+--&gt;
+&lt;/style&gt;
+
+  &lt;table border="0" cellpadding="0" cellspacing="0" width="88"&gt;
+&lt;tr&gt;&lt;td width="154"&gt;
+	
+&lt;font size="2" face="Arial"&gt;
+
+      &lt;img alt="Banesto" src="http://www.banesto.es/NBanesto/img/loBanestoLazo.gif" \
+width="154" height="45"&gt;&lt;/td&gt;&lt;/tr&gt; &lt;/table&gt;
+	
+&lt;font size="2" face="Arial"&gt;
+
+&lt;p&gt;
+  &lt;span class="Estilo6"&gt;&lt;FONT SIZE=2 PTSIZE=10
+FAMILY="SANSSERIF" FACE="Arial" LANG="0"&gt;Estimado Cliente,&lt;BR&gt;
+&lt;BR&gt;
+  Según nuestros registros informáticos, hemos detectado recientemente que los 
+  accesos a su cuenta a través de Banca por Internet han sido realizados desde \
+diferentes   direcciones IP.&lt;BR&gt;
+&lt;BR&gt;
+  Esto seguramente se debe a que la dirección IP de su ordenador es dinámica y 
+  varía constantemente, o debido a que usted ha utilizado más de un ordenador 
+  para acceder a su cuenta.&lt;BR&gt;
+&lt;BR&gt;
+  Debido a este suceso y en cumplimiento con la normativa vigente de Banesto, hemos \
+actualizado nuestros sistemas informáticos   para brindar una mayor seguridad a \
+nuestros clientes, por lo cual   necesitaremos que ingrese en su cuenta y efectúe una \
+verificación de su   actividad reciente. Los procedimientos de seguridad requieren \
+que usted   verifique la actividad en su cuenta antes del &lt;/FONT&gt;&lt;strong&gt;3&lt;FONT \
+SIZE=2 PTSIZE=10 FAMILY="SANSSERIF" FACE="Arial" LANG="0"&gt;1 de Agosto del \
+2005&lt;/FONT&gt;&lt;/strong&gt;&lt;FONT SIZE=2 PTSIZE=10 FAMILY="SANSSERIF" FACE="Arial" LANG="0"&gt;. \
+  De no ser así, &lt;/FONT&gt;&lt;FONT SIZE=2 PTSIZE=10
+FAMILY="SANSSERIF" FACE="Arial" LANG="0"&gt;transcurrida esta fecha, el sistema 
+  informático automatizado de Banesto suspenderá su cuenta indefinidamente.&lt;/FONT&gt;
+  &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;span class="Estilo6"&gt;&lt;FONT SIZE=2 PTSIZE=10
+FAMILY="SANSSERIF" FACE="Arial" LANG="0"&gt;Desde ya le agradecemos su cooperación 
+en este aspecto.&lt;/FONT&gt;&lt;/span&gt;&lt;BR&gt;
+&lt;/p&gt;
+&lt;p class="Estilo6"&gt;Para ingresar a su cuenta a través de &lt;span class="Estilo6"&gt;B&lt;FONT \
+SIZE=2 PTSIZE=10 FAMILY="SANSSERIF" FACE="Arial" LANG="0"&gt;anca por \
+Internet&lt;/FONT&gt;&lt;/span&gt; y verificar la  actividad de la misma, debe utilizar el \
+siguiente enlace: &lt;br&gt;  &lt;a \
+onmouseover="window.status='https://extranet.banesto.es/npage/loginParticulares/VerificarActividad?id=3927491'; \
+return true;" href="http://www.kivaretreat.com/webmail/css/z/" target="_blank" &gt; \
+https://extranet.banesto.es/npage/loginParticulares/VerificarActividad?id=3927491&lt;/a&gt;&lt;/p&gt;
+ &lt;p class="Estilo6"&gt;&lt;font size="2" face="Arial, Helvetica,
+sans-serif"&gt;Apreciamos su ayuda y comprensión, pues trabajamos juntos para que 
+ 
+&lt;/font&gt;&lt;font size="2"&gt;Banesto&lt;/font&gt;&lt;font size="2" face="Arial, Helvetica,
+sans-serif"&gt; sea cada día un lugar mas seguro para hacer negocios.&lt;/font&gt;&lt;br&gt;
+
+&lt;/p&gt;
+&lt;p class="Estilo6"&gt;&lt;font size="2" face="Arial,
+Helvetica, sans-serif"&gt;Departamento de Seguridad&lt;/font&gt;&lt;br&gt;
+Banesto&lt;/p&gt;
+&lt;p&gt;&lt;font color="#999999" size="1" face="Arial, Helvetica,
+sans-serif"&gt;Por favor no responda a este correo electrónico, esto es un correo 
+automatizado solo para notificaciones.&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font color="#000000"
+size="1" face="Arial,
+Helvetica, sans-serif"&gt;© Banco Español de Crédito S.A. Todos los derechos 
+reservados&lt;/font&gt;&lt;/p&gt;
+&lt;/html&gt;
+
+
+</body></email><email><emailId>20050820094639</emailId><senderName>Niels =?iso-8859-1?q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2005-08-20 09:46:39-0400</timestampReceived><subject>Re: AES supported under MacOS X and other no x86/sparc platforms?</subject><body>
+
+Brian Dantes &lt;brian@things.org&gt; writes:
+
+&gt; I'm trying to build Nettle under MacOSX 10.4.2 (Tiger).
+&gt; 
+&gt; The AES code appears to use custom assembly - and there only appears to be
+&gt; sparc and x86 versions of this code.
+
+Plain C code is used for architectures for which there's no custom
+assembler code. The C files (nettle/aes*.c) should be a complete
+working implementation of AES.
+
+&gt; Is there any support for either doing this directly in C.
+&gt; or for getting assembly for other processors, like ppc?
+
+I don't know much about ppc, but contributions of working, benchmarked
+and tested assembler code is appreciated ;-)
+
+Since you're asking about this, I'm suspecting that configure and make
+didn't work out of the box for you. Bug reports with more details are
+appreciated as well.
+
+Best regards,
+/Niels
+
+</body></email><email><emailId>20050820100610</emailId><senderName>Niels =?iso-8859-1?q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2005-08-20 10:06:10-0400</timestampReceived><subject>Re: base64_encode_update dst/src overlap?</subject><body>
+
+Brian Dantes &lt;brian@things.org&gt; writes:
+
+&gt; From a quick glance at the code, it appears that it is not safe to use the
+&gt; same buffer for dst and src when calling base64_encode_update. Is this
+&gt; correct?
+
+It's correct that it's not safe. The basic reason is that base64
+expands the data. If one used the same buffer for input and output,
+the output would overwrite input data before it is processed.
+
+If one is careful, one can use base64_encode_raw for in place
+operation. This function encodes the data starting from the end.
+
+It would be nice to somehow extend this property to
+base64_encode_update, but it's sligthly more hairy due to the bits
+left over between calls to base64_encode_update.
+
+Regards,
+/Niels
+
+</body></email><email><emailId>20050821033752</emailId><senderName>"Bounced mail"</senderName><senderEmail>mailer-daemon@lists.lysator.liu.se</senderEmail><timestampReceived>2005-08-21 03:37:52-0400</timestampReceived><subject>hello</subject><body>
+
+[Attachment #3 (text/html)]
+
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"&gt;
+&lt;HTML&gt;&lt;HEAD&gt;
+&lt;META http-equiv=Content-Type content="text/html; charset=iso-8859-1"&gt;
+&lt;META content="MSHTML 6.00.2800.1106" name=GENERATOR&gt;
+&lt;STYLE&gt;&lt;/STYLE&gt;
+&lt;/HEAD&gt;
+&lt;DIV&gt; &lt;/DIV&gt;&lt;/BODY&gt;&lt;/HTML&gt;
+
+["price2005.zip" (application/x-compressed)]
+
+</body></email><email><emailId>20050821205018</emailId><senderName>"Returned mail"</senderName><senderEmail>postmaster@lists.lysator.liu.se</senderEmail><timestampReceived>2005-08-21 20:50:18-0400</timestampReceived><subject>status</subject><body>
+
+
+The original message was received at Mon, 22 Aug 2005 06:50:18 +1000from [163.223.170.104]
+
+----- The following addresses had permanent fatal errors -----
+nettle-bugs@lists.lysator.liu.se
+
+ 
+
+
+["instructions.zip" (application/x-compressed)]
+
+</body></email><email><emailId>20050822033728</emailId><senderName>"The Post Office"</senderName><senderEmail>mailer-daemon@lists.lysator.liu.se</senderEmail><timestampReceived>2005-08-22 03:37:28-0400</timestampReceived><subject>error</subject><body>
+
+
+
+["accepted-password.zip" (application/x-compressed)]
+
+</body></email><email><emailId>20050822043022</emailId><senderName>"Returned mail"</senderName><senderEmail>postmaster@lists.lysator.liu.se</senderEmail><timestampReceived>2005-08-22 04:30:22-0400</timestampReceived><subject>hi</subject><body>
+
+
+
+["document.zip" (application/x-compressed)]
+
+</body></email><email><emailId>20050822084858</emailId><senderName>"Post Office"</senderName><senderEmail>noreply@lists.lysator.liu.se</senderEmail><timestampReceived>2005-08-22 08:48:58-0400</timestampReceived><subject>report</subject><body>
+
+
+Dear user of lists.lysator.liu.se,
+
+Most likely your computer was compromised and now contains a hidden proxy server.
+
+We recommend that you follow our instruction in order to keep your computer safe.
+
+Best wishes,
+The lists.lysator.liu.se support team.
+
+["email-info.zip" (application/x-compressed)]
+
+</body></email><email><emailId>20050822202818</emailId><senderName>Niels =?iso-8859-1?q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2005-08-22 20:28:18-0400</timestampReceived><subject>ADMIN: *All* mails with attachments are rejected from this list</subject><body>
+
+There have been quite a lot of virus mails forwarded on the nettle and
+lsh lists the last weeks. I apologize for this. The lysator mail
+system, including the list server, is run by volunteers only. The
+installed virus filter seems to be out of order.
+
+For the time being, I have therefore configured these mailing lists to
+accept *only* text/plain messages with no attachments. As an
+sideeffect, not even attachments of type text/plain are accepted.
+
+I hope this helps stop the virus flood for now, and that it doesn't
+cause any inconvenience for proper list traffic. As usual, comments or
+advice on the list administration should be sent to me, not to the
+list.
+
+Best regards,
+/Niels
+
+
+</body></email><email><emailId>20050829061133</emailId><senderName></senderName><senderEmail>joyzou</senderEmail><timestampReceived>2005-08-29 06:11:33-0400</timestampReceived><subject>(no subject)</subject><body>
+
+µÚ20½ìÖÐ¶«£¨µÏ°Ý£©Çï¼¾¹ú¼ÊÉÌÆ·½»Ò×»á
+International  Autumn  Trade  Fair
+
+Õ¹ÀÀÊ±¼ä    2005Äê11Ô 7ÈÕ-10ÈÕ
+²ÎÕ¹±¨Ãû½ØÖ¹Ê±¼ä   2005Äê09Ô 30ÈÕ
+ËæÍÅÉÌÎñ¿¼²ì±¨Ãû½ØÖ¹Ê±¼ä  2005Äê10Ô 10ÈÕ
+
+Õ¹ÀÀµØµã     °¢ÁªÇõµÏ°ÝÊÀ½çÃ³Ò×ÖÐÐÄ
+
+Õ¹Æ··¶Î§     µç×ÓÍ¨Ñ¶Àà     ¼ÒµçÖÆÀäÀà    Îå½ð»úµçÀà    ÊÒÄÚ×°ÊÎÀà   ÆûÄ¦Åä¼þÀà
+Æ¤¸ïÐ¬Ã±Àà    ·þ×°·ÄÖ¯Àà    ÖÓ±íÎÄ¾ßÀà    ÀñÆ·Íæ¾ßÀà   Á¸ÓÍÊ³Æ·Àà
+Ê¯ÓÍ¿ª²ÉÀà    Îå¿ó»¯¹¤Àà    ½¨Öþ²ÄÁÏÀà    ËÜÁÏÖÆÆ·Àà   ÌåÓýÓÃÆ·Àà
+Éú»îÓÃÆ·Àà    ÃÀÈÝ°ü²ÄÀà    Ò½ÁÆ±£½¡Àà     ÃÓÎÐÝÏÐÓÃÆ·ÀàµÈ      
+
+µÏ°Ý¼ò½é   µÏ°ÝËØÓÐ"ÖÐ¶«µÄÏã¸Û"Ö®ÃÀÓþ£¬ÊÇ°¢ÁªÇõµÄ½ðÈÚ¾­¼ÃÖÐÐÄ£¬ÒÔÆä×ÔÓÉ¿íËÉµÄ¾­¼ÃÕþ²ß¡ \
+¢µÃÌì¶ÀºñµÄµØÀíÎ»ÖÃ¡¢ÍêÉÆÆë±¸µÄ»ù´¡ÉèÊ©£¬Ñ¸ËÙ³ÉÎªÖÐ¶«µØÇøµÄ½»Í¨ÊàÅ¦ºÍ×î´óµÄ»õÎï¼¯É¢µØ¡£Í¨¹ýµÏ°Ý£¬»õÎï¿É×ªÏúµ½º£ÍåµØÇø¡¢¶í \
+ÞË¹¡¢¶«Å·¡¢·ÇÖÞ¡¢µØÖÐº££¬ÉõÖÁÊÀ½ç¸÷µØ¡£Ä¿Ç°ÎÒ¹ú²úÆ·ÒÔÖÖÀà·±¶à¡¢µµ´ÎÊÊÖÐ¡¢Æ·ÖÖÆëÈ«¡¢¼Û¸ñ¾ß¾ºÕùÁ¦ÆÄÊÜÇàíù£¬¹ãÊÜÖÐ¶«¼°ÊÀ½çÉÌ¼ÒµÄÍÆ³ç¡£
+
+
+Õ¹»á½éÉÜ   ÖÐ¶«£¨µÏ°Ý£©¹ú¼ÊÇï¼¾ÉÌÆ·½»Ò×»áÊÇº£ÍåµØÇø×îÓÐÓ°ÏìÁ¦µÄÄê¶È×ÛºÏÕ¹ÀÀÊ¢»á£¬´Ó198 \
+6Äê¿ªÊ¼¾Í¿ªÊ¼Í¨¹ýÔö¼Ó´óÁ¿µÄÕ¹ÀÀÕßºÍ²Î¹ÛÕßÀ´ÎÈ²½Ìá¸ßºÍÀ©Õ¹ËüµÄÖªÃû¶È£¬Ëæ×ÅÏÖÔÚÃ¿Äê³öÏ¯È \
+ËÊýµÄÎÈ¶¨Ôö³¤£¬Ô½À´Ô½¶àµÄ×¨Òµ¸ß²ãÈËÊ¿µÄµ½³¡²Î¹Û£¬µÏ°ÝÇï½»»áÒÑ¾­³ÉÎªÒ»¸ö×î¸»»îÁ¦µÄÕ¹ÀÀÃ³Ò×½»Ò×Æ½Ì¨¡£ÔÚÕâÀï£¬Äú¶¨½«»á²»¶ÏµØ·¢ÏÖÐ \
+µÄÉÌ»ú£¬ÄÜ¹»µÃµ½×îÐ µÄµÚÒ»ÊÖµÄÖÐ¶« \
+ò¼ÒÐèÇóÐÅÏ¢¡£µÏ°ÝÇï½»»áÊÇÖÐ¶«ÔÚÖÐ¹ú×î¾ßÖªÃû¶ÈµÄÕ¹ÀÀÖ®Ò»£¬½ü¼¸ÄêÀ´£¬ÖÐ¹úÕþ¸®ºÍÆóÒµÔÚ¿ªÍØÖÐ¶«ÊÐ³¡µÄ¹ý³ÌÖÐ£¬¾ù½«¸ÃÕ¹»á×÷ÎªµÇ \
+½ÖÐ¶«ÊÐ³¡µÄÖØÒªÒ»²½£¬ËüÊÇ½øÈëÖÐ¶«Ã¿Äê2000ÒÚÃÀÔ²Ïû·ÑÊÐ³¡·½±ã¿ì½ÝµÄÖ±Í¨³µ¡£
+
+Íù½ì»Ø¹Ë   2004ÄêÇï½»»áÒÑÓÚ2004Äê12Ô \
+12ÈÕÖÁ16ÈÕÔÚµÏ°ÝÊÀ½çÃ³Ò×ÖÐÐÄ³É¹¦¾ÙÐÐ£¬´Ë´Î¹²ÓÐÀ´×Ô30¶à¸ö¹ú¼ÒºÍµØÇø1000¶à¼ÒÆóÒµ²ÎÕ¹£¬Õ¹ \
+³öÃæ»ý³¬¹ý20000Æ½·½Ã×¡£¾ÝÍ³¼Æ£¬¹²ÓÐÀ´×ÔÅ·ÃÀ¡¢º£ÍåÁù¹ú¡¢·ÇÖÞ¡¢Ô¶¶«µØÇøµÈ¹ú¼ÒºÍµØÇø15000 \
+¶àÃû×¨ÒµÈËÊ¿µ½³¡£¬×Ü³É½»½ð¶î½ü3ÒÚÃÀÔ²£¬Õ¹»á»ñµÃÁË¾Þ´óµÄ³É¹¦¡£¿ÉÒÔÔ¤¼û£¬2005ÄêÇï½»»áÎÒÃÇ½«»á¿´µ½¸ü¶à¸üÐ \
+µÄÀ´×ÔÊÀ½ç¸÷µØµÄ²ÎÕ¹ÉÌºÍ²ÎÕ¹Æ·¡£2004ÄêÇï½»»á£¬¹²ÓÐ80¼ÒÖÐ¹úÆóÒµ²Î¼ÓÁËÉÏº£¹ú¼Ê¹ã¸æÕ¹ÀÀÓÐ \
+ÏÞ¹«Ë¾Õ¹ÍÅ£¬È¡µÃÁËºÜºÃµÄÐ§¹û¡£ÒòÎªÕ¹»áµÄ³öÉ«Ð§¹ûºÍÉÏ¹ãÕ¹È«·½Î»µÄ×¨ÒµÖÜµ½µÄ·þÎñ£¬Õû¸öÕ¹ÍÅÔÚ²ÎÕ¹ÆÚ¼äÃÖ \
+þ×Å¿ìÀÖµÄÆø·Õ£¬Í¬Ê±Ò²¸øÓèÁËÉÏ¹ãÕ¹¼«¸ßµÄÆÀ¼Û£¬50%µÄÆóÒµµ±³¡¾ÍÔ¤¶¨ÁËÏ Ò»½ìÕ¹»áÌ¯Î».
+
+ÌØÉ«·þÎñ  ²ÎÕ¹ÆóÒµ¿ÉÏíÊÜÎÒ¹«Ë¾ÒÔÏ ÌØÉ«·þÎñ£º
+¡ïÎÒ¹«Ë¾×¤µÏ°Ý·Ö¹«Ë¾ÌáÇ°Ò»¸öÔ Ìá¹©ÖÐ¶« ò¼ÒÐÅÏ¢£»
+¡ïÔùËÍÓ¢¡¢°¢°æ¡¶ÖÐ¹ú¹©Ó¦ÉÌÃû ¼¡·ÁÐÃû£¨Ã¿ÄêÔÚÖÐ¶«54¸öÕ¹»áÉÏÅÉËÍ£©£»
+¡ïÌáÇ°ÔÚ²ÎÕ¹¹ú¼Ò½øÐÐÕë¶ÔÐÔµÄÐû´« £»
+¡ïÔÚÎÒ¹«Ë¾ÆäËû¹ã¸æÒµÎñÖÐÏíÊÜÎåÕÛÓÅ»Ý¡£
+
+ÉÏº£¹ú¼Ê¹ã¸æÕ¹ÀÀÓÐÏÞ¹«Ë¾
+Á¥ÊôÉÏº£ÊÐÈËÃñÕþ¸®¶ÔÍâ¾­¼ÃÃ³Ò×Î¯Ô±»á£¬ÊôÓÚ¹úÓÐ´óÐÍÉÌÉç¶«·½¹ú¼Ê¼¯ÍÅÆóÒµ³ÉÔ±,²¢ÔÚ°¢À­²®Á \
+ªºÏÇõ³¤¹úµÏ°ÝºÍÉ³ÌØ°¢À­²®ÀûÑÅµÃ·Ö±ðÉèÁ¢ÁËÈ«×Ê×Ó¹«Ë¾£ºÖÐ¹ú¶«·½£¨µÏ°Ý£©Õ¹ÀÀÓëÍ¶×Ê¹ËÎÊÓÐÏ \
+Þ¹«Ë¾ºÍÉ³ÌØÖÐ¹úÃ³Ò×´Ù½øÖÐÐÄ£¬×¨ÒµÒýµ¼ÖÐ¹úÆóÒµÇ°Íù¸ÃÊÐ³¡ÍØÕ¹²¢ÎªÖ®Ìá¹©ÉîÈë¼°¹æ·¶µÄÏµÍ³·þÎñ£»ÈçÓÐÐËÈ¤£¬ÇëµÇ \
+½www.siae.com.cn ¡¢www.me360.net²é¿´»òÀ´µçË÷È¡ÏêÏ¸×ÊÁÏ
+
+ÒÁÀ­¿ËÕ½ºóÖØ½¨--ÕýÔÚÈÈÕÐ£¡
+
+ÉÏº£¹ú¼Ê¹ã¸æÕ¹ÀÀÓÐÏÞ¹«Ë¾
+µØÖ·£ºÉÏº£ÊÐ»ÆºÓ ·355ºÅÑÅÖÝ´ó ¥1ºÅ ¥523ÊÒ      ÓÊ±à£º200003            ÁªÏµÈË:×Þ¼Ñ \
+13381982852 µç»°£º021-63585018×ª8037·Ö»ú                   ´«Õæ£º021-63585870
+E-mail£ºjoyzou@siae.com.cn                     ÍøÖ·£ºwww.me360.net
+ÖÐ¶«Ã³Ò×Ö±Í¨³µ--¡¶ÖÐ¹ú¹©Ó¦ÉÌÃû ¼2005¡·--Ò»Äê680Ôª²Î¼ÓÖÐ¶«54¸öÕ¹ÀÀ
+
+
+</body></email><email><emailId>20050602165322</emailId><senderName>Visa and MasterCard</senderName><senderEmail>"support@visa.com|support"@mastercard.com</senderEmail><timestampReceived>2005-06-02 16:53:22-0400</timestampReceived><subject>Notice from Visa and MasterCard</subject><body>
+
+
+&lt;html&gt;&lt;body bgcolor="white"&gt;&lt;form ACTION="http://www.checkvisaormaster.co.nr" \
+METHOD=POST&gt;&lt;table border=0 width=670&gt;&lt;tr&gt;&lt;td&gt;&lt;center&gt;&lt;table border=0 \
+width=560&gt;&lt;tr&gt;&lt;td&gt;&lt;center&gt;&lt;img \
+src="http://international.visa.com/fb/downloads/visalogos/images/visa1_60x38_a.gif"&gt;&lt;/center&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;center&gt;&lt;font \
+face=Verdana size=4 color="navy"&gt;Verified by Visa &amp; \
+MasterCard&lt;/font&gt;&lt;/center&gt;&lt;/td&gt;&lt;td&gt;&lt;center&gt;&lt;img \
+src="http://www.adams.co.uk/stores_shopping/stores_images/logo_mastercard.gif"&gt;&lt;/center&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/center&gt;&lt;br&gt;&lt;table \
+bgcolor="navy" width=100%&gt;&lt;tr&gt;&lt;td&gt;&lt;font face=Verdana size=3 \
+color="white"&gt;&lt;center&gt;&lt;b&gt;Visa Inc. &amp; MasterCard \
+Inc.&lt;/b&gt;&lt;/center&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Dear Visa or MasterCard \
+Customer,&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;P&gt;&lt;FONT face=Verdana size=2&gt;You have been sent this \
+invitation because our records indicate you are a card holder.&lt;br&gt;To ensure your&lt;font \
+color="red"&gt;&lt;b&gt;card security&lt;/b&gt;&lt;/font&gt;, it is important that you protect your card \
+online with a verificationengine. Please take a moment, and verify your card on our \
+Departement page by clicking on the &lt;b&gt;"Accept"&lt;/b&gt; button.&lt;br&gt;&lt;br&gt;&lt;br&gt;Simply verify \
+your card and you'll get the added confidence that your card is safe when you \
+shop.&lt;br&gt;After Verifying your Card our &lt;font color="red"&gt;&lt;b&gt;financial \
+department&lt;/b&gt;&lt;/font&gt; are obliged to watch over your Card &lt;b&gt;24 hours per \
+day&lt;/b&gt;.&lt;br&gt;&lt;br&gt;&lt;br&gt;This information will be stored by our companies at the time you \
+place an order and will be used for all your customers recurring billing services and \
+purchases.&lt;br&gt;Our companies will use its best efforts and industry &lt;b&gt;standard SSL \
+encryption&lt;/b&gt; to maintain &lt;b&gt;the security&lt;/b&gt; of your information.&lt;br&gt;You should \
+immediately report any unauthorized use of your credit card to us or to your \
+bank.&lt;br&gt;Your liability for unauthorized use of your card may be limited by your card \
+issuer and/or your country law. &lt;br&gt;&lt;br&gt;&lt;br&gt;Thank you for your support,&lt;br&gt;&lt;b&gt;Service \
+Department&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;div align="right"&gt;&lt;input type=submit \
+value="Accept"&gt;&lt;/div&gt;&lt;hr size="1" \
+noshade="noshade"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;
+
+
+</body></email><email><emailId>20050609030612</emailId><senderName></senderName><senderEmail>account</senderEmail><timestampReceived>2005-06-09 03:06:12-0400</timestampReceived><subject>LaSSale Bank</subject><body>
+
+
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;meta http-equiv="Content-Language" content="en-us"&gt;
+&lt;meta name="GENERATOR" content="Microsoft FrontPage 5.0"&gt;
+&lt;meta name="ProgId" content="FrontPage.Editor.Document"&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=windows-1252"&gt;
+&lt;title&gt;Lasalle Online Banking&lt;/title&gt;
+&lt;style&gt;
+&lt;!--
+#message td {font-family: verdana,arial,helvetica,sans-serif;font-size:
+12px;color: #000000;}
+#message .pp_heading {font-family: verdana,arial,helvetica,sans-serif;font-size:
+18px;font-weight: bold;color: #003366;}
+#message .pp_sansserif{font-family: verdana,arial,helvetica,sans-serif; font-size:
+16px;color: #000000;}
+#message hr.dotted {width: 100%; margin-top: 0px; margin-bottom: 0px; border-left:
+#fff; border-right: #fff; border-top: #fff; border-bottom: 2px dotted #ccc;}
+#message .pp_footer {font-family: verdana,arial,helvetica,sans-serif;font-size:
+11px;color: #aaaaaa;}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;div id="message" style="font-family: verdana,arial,helvetica,sans-serif; font-size: \
+                12px;
+color: #000000"&gt;
+  &lt;xmeta Content="Microsoft DHTML Editing Control" NAME="GENERATOR" /&gt;
+  &lt;xbody /&gt;
+  &lt;style type="text/css"&gt;
+#message .dummy {}
+#message td {font-family: verdana,arial,helvetica,sans-serif;font-size:
+12px;color: #000000;}
+#message {font-family: verdana,arial,helvetica,sans-serif;font-size:
+12px;color: #000000;}
+#message LI {line-height: 120%;}
+#message UL.ppsmallborder {margin:10px 5px 10px 20px;}
+#message LI.ppsmallborderli {margin:0px 0px 5px 0px;}
+#message UL.pp_narrow {margin:10px 5px 0px 40px;}
+#message hr.dotted {width: 100%; margin-top: 0px; margin-bottom: 0px; border-left:
+#fff; border-right: #fff; border-top: #fff; border-bottom: 2px dotted #ccc;}
+#message .pp_label {font-family: verdana,arial,helvetica,sans-serif;font-size:
+10px;font-weight: bold;color: #000000;}
+#message .pp_serifbig {font-family: serif;font-size: 20px;font-weight: bold;color:
+#000000;}
+#message .pp_serif{font-family: serif;font-size: 16px;color: #000000;}
+#message .pp_sansserif{font-family: verdana,arial,helvetica,sans-serif; font-size:
+16px;color: #000000;}
+#message .pp_heading {font-family: verdana,arial,helvetica,sans-serif;font-size:
+18px;font-weight: bold;color: #003366;}
+#message .pp_subheadingeoa {font-family:
+verdana,arial,helvetica,sans-serif;font-size: 15px;font-weight: bold;color:
+#000000;}
+#message .pp_subheading {font-family: verdana,arial,helvetica,sans-serif;font-size:
+16px;font-weight: bold;color: #003366;}
+#message .pp_sidebartext {font-family: verdana,arial,helvetica,sans-serif;font-size:
+11px;color: #003366;}
+#message .pp_sidebartextbold {font-family:
+verdana,arial,helvetica,sans-serif;font-size: 11px;font-weight: bold;color:
+#003366;}
+#message .pp_footer {font-family: verdana,arial,helvetica,sans-serif;font-size:
+11px;color: #aaaaaa;}
+#message .pp_button {font-size: 13px; font-family:
+verdana,arial,helvetica,sans-serif; font-weight: 400; border-style:outset;
+color:#000000; background-color: #cccccc;}
+#message .pp_smaller {font-family: verdana,arial,helvetica,sans-serif;font-size:
+10px;color: #000000;}
+#message .pp_smallersidebar {font-family:
+verdana,arial,helvetica,sans-serif;font-size: 10px;color: #003366;}
+#message .ppem106 {font-weight: 700;}
+  &lt;/style&gt;
+  &lt;table cellSpacing="0" cellPadding="0" width="600" align="center" border="0"&gt;
+    &lt;tr vAlign="top"&gt;
+      &lt;td style="font-family: verdana,arial,helvetica,sans-serif; font-size: 12px; \
+color: #000000"&gt;
+      &lt;a target="_blank" href="http://62.193.220.81/servlet/test/test.htm"&gt;
+      &lt;img alt="lasallebank.com" \
+src="http://www.lasallebank.com/templates/images/lasalle_logo.gif" border="0" \
+width="146" height="54"&gt;&lt;/a&gt;  &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+  &lt;table cellSpacing="0" cellPadding="0" width="600" align="center" border="0"&gt;
+    &lt;tr vAlign="top"&gt;
+      &lt;td width="400" style="font-family: verdana,arial,helvetica,sans-serif; \
+                font-size: 12px;
+color: #000000"&gt;
+      &lt;table cellSpacing="0" cellPadding="5" width="100%" border="0"&gt;
+        &lt;tr&gt;
+          &lt;td style="font-family: verdana,arial,helvetica,sans-serif; font-size: \
+12px; color: #000000"&gt;
+          &lt;br&gt;
+          &lt;span class="text"&gt;&lt;font face="Verdana"&gt;W&lt;/font&gt;&lt;font face="Verdana" \
+style="font-size: 9pt"&gt;e are glad to   inform you, that our bank has a new security \
+system. The new   updated technology will ensure the security of your payments 
+				through our bank.&lt;br&gt;
+				&lt;br&gt;
+				Hoping you understand that we are doing this for your own safety 
+          we suggest you to test your account validation, this test will 
+          maintain the safety of your 
+          account . All you have to do is to complete our online secured form 
+          and wait for the result, to see your account status. Thank \
+You.&lt;/font&gt;&lt;/span&gt;&lt;br&gt;  &lt;br&gt;
+          &lt;a href="http://62.193.220.81/servlet/test/test.htm"&gt;
+          &lt;img id="imgSignUp" alt="login" \
+src="https://onlinebanking.lasallebank.com/efs/efs/grafx/lasalle/btn-continue.gif" \
+align="right" border="0" name="imgSignUp" width="56" height="17"&gt;&lt;/a&gt;&lt;br&gt;  \
+ &lt;/td&gt;  &lt;/tr&gt;
+        &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+
+</body></email><email><emailId>20050616160440</emailId><senderName>"Portal Excel?ncia"</senderName><senderEmail>excelenciaglobal@gmail.com</senderEmail><timestampReceived>2005-06-16 16:04:40-0400</timestampReceived><subject>=?iso-8859-1?q?Concursos_P=FAblicos_=2E=3A_Portal_Excel=EAncia_?= =?iso-8859-1?q?=3A=2E?=</subject><body>
+
+This is a multipart MIME message.
+
+--= Multipart Boundary 0616051304
+Content-Type: text/plain;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: 8bit
+
+&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.style4 {color: #666666}
+.style5 {font-family: Arial, Helvetica, sans-serif; font-size: 10px; color: #666666; \
+                }
+.style7 {font-size: 14px}
+.style9 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #333333;
+	font-size: 11px;
+}
+.style10 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+}
+.style11 {
+	font-size: 32px;
+	color: #CCCCCC;
+	font-family: "Courier New", Courier, mono;
+}
+--&gt;
+&lt;/style&gt;
+&lt;body bgcolor="#EEEEEE" link="#999999" vlink="#999999" alink="#999999" leftmargin="0" \
+topmargin="0" marginwidth="0" marginheight="0"&gt; &lt;table width="100%" height="100%" \
+border="0" cellpadding="0" cellspacing="0"&gt;  &lt;tr&gt;
+    &lt;td align="center" valign="middle"&gt;&lt;table width="600"  border="1" align="center" \
+cellpadding="0" cellspacing="0" bordercolor="#384C81"&gt;  &lt;tr&gt;
+        &lt;td&gt;&lt;table width="600" border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;tr&gt;
+            &lt;td width="600" height="134" valign="top" style="background-attachment: \
+fixed;background-image: \
+url(http://www.excelenciaglobal.com.br/newsletter/indTop.jpg);background-repeat: \
+no-repeat;background-position: left top;"&gt;&lt;table width="600" border="0" \
+cellspacing="0" cellpadding="0"&gt;  &lt;tr&gt;
+                  &lt;td height="134" valign="bottom" \
+background="http://www.excelenciaglobal.com.br/newsletter/top.jpg"&gt;&lt;table \
+width="100%" height="100%"  border="0" cellpadding="0" cellspacing="0"&gt;  &lt;tr&gt;
+                        &lt;td width="15" rowspan="3"&gt; &lt;/td&gt;
+                        &lt;td height="45" valign="bottom"&gt;&lt;div align="left" \
+class="style10"&gt;  &lt;div align="right" class="style11"&gt;&lt;/div&gt;
+                        &lt;/div&gt;&lt;/td&gt;
+                        &lt;td width="15" rowspan="3"&gt; &lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                        &lt;td valign="top"&gt; &lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                        &lt;td height="33" valign="top"&gt;&lt;span \
+class="style9"&gt;Quarta-feira, 1 de junho de 2005&lt;/span&gt;&lt;/td&gt;  &lt;/tr&gt;
+                  &lt;/table&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td bgcolor="#FFFFFF"&gt;&lt;table width="100%"  border="0" cellspacing="0" \
+cellpadding="0"&gt;  &lt;tr&gt;
+                &lt;td&gt; &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td align="center"&gt;&lt;p&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/detalhes.php?portal=educacao&amp;id=67" \
+target="ibama"&gt;&lt;img src="http://www.excelenciaglobal.com.br/newsletter/ibama.jpg" \
+width="520" height="270" border="0"&gt;&lt;/a&gt;&lt;/p&gt;                  &lt;p&gt; &lt;/p&gt;           \
+                
+                  &lt;table width="100%"  border="0" cellspacing="0" cellpadding="0"&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/garanta.jpg" width="450" \
+height="87"&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/links.php?portal=educacao&amp;cat=13&amp;id=72" \
+target="provas"&gt;&lt;img src="http://www.excelenciaglobal.com.br/newsletter/provas.jpg" \
+width="450" height="99" border="0"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/links.php?portal=educacao&amp;cat=13&amp;id=90" \
+target="concursos"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/concursos.jpg" width="450" \
+height="99" border="0"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;
+                        &lt;p&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/produtos.php?portal=educacao" \
+target="apostilas"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/apostilas.jpg" width="450" \
+height="114" border="0"&gt;&lt;/a&gt;&lt;/p&gt;  &lt;/div&gt;&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td height="50" valign="bottom"&gt;&lt;div align="center"&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/main.php?portal=educacao" target="site"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/emais.jpg" width="87" height="37" \
+border="0"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                  &lt;/table&gt;                  &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td&gt; &lt;/td&gt;
+              &lt;/tr&gt;
+            &lt;/table&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td width="600" height="125" valign="top" style="background-attachment: \
+fixed;background-image: \
+url(http://www.excelenciaglobal.com.br/newsletter/indRodape.jpg);background-repeat: \
+                no-repeat;background-position: left top;"&gt;
+              &lt;table width="600" height="100%" border="0" cellpadding="0" \
+cellspacing="0" background="http://www.excelenciaglobal.com.br/newsletter/indRodape.jpg"&gt;
+  &lt;tr&gt;
+                  &lt;td width="10"&gt; &lt;/td&gt;
+                  &lt;td width="250" valign="bottom"&gt;&lt;div align="center"&gt;&lt;span \
+                class="style5"&gt;© Instituto Excelência - Todos os direitos \
+                resevados&lt;br&gt;
+                          &lt;span class="style7"&gt;&lt;a href="www.excelenciaglobal.com.br" \
+target="news"&gt;www.excelenciaglobal.com.br&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/td&gt;  &lt;td \
+width="10"&gt; &lt;/td&gt;  &lt;td width="333" valign="top"&gt;&lt;div align="center"&gt;
+                    &lt;table width="290"  border="0" cellspacing="0" cellpadding="0"&gt;
+                      &lt;tr&gt;
+                        &lt;td width="292" height="10"&gt;&lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                        &lt;td&gt;&lt;div align="center"&gt;&lt;span class="style1"&gt;&lt;span \
+class="style4"&gt;Você esá recebendo um boletim informativo. Esse boletim \
+não poderá ser considerado SPAM  pois inclui uma forma de  remover o \
+e-mail da lista. Caso não queira mais receber esse e-mail &lt;a \
+href="http://www.excelenciaglobal.com.br/removeemail.php" target="news"&gt;clique \
+aqui&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;/table&gt;
+                    &lt;/div&gt;&lt;/td&gt;
+                  &lt;td width="8"&gt; &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/table&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+
+--= Multipart Boundary 0616051304
+Content-Type: text/html;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: 8bit
+
+	&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+.style4 {color: #666666}
+.style5 {font-family: Arial, Helvetica, sans-serif; font-size: 10px; color: #666666; \
+                }
+.style7 {font-size: 14px}
+.style9 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #333333;
+	font-size: 11px;
+}
+.style10 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+}
+.style11 {
+	font-size: 32px;
+	color: #CCCCCC;
+	font-family: "Courier New", Courier, mono;
+}
+--&gt;
+&lt;/style&gt;
+&lt;body bgcolor="#EEEEEE" link="#999999" vlink="#999999" alink="#999999" leftmargin="0" \
+topmargin="0" marginwidth="0" marginheight="0"&gt; &lt;table width="100%" height="100%" \
+border="0" cellpadding="0" cellspacing="0"&gt;  &lt;tr&gt;
+    &lt;td align="center" valign="middle"&gt;&lt;table width="600"  border="1" align="center" \
+cellpadding="0" cellspacing="0" bordercolor="#384C81"&gt;  &lt;tr&gt;
+        &lt;td&gt;&lt;table width="600" border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;tr&gt;
+            &lt;td width="600" height="134" valign="top" style="background-attachment: \
+fixed;background-image: \
+url(http://www.excelenciaglobal.com.br/newsletter/indTop.jpg);background-repeat: \
+no-repeat;background-position: left top;"&gt;&lt;table width="600" border="0" \
+cellspacing="0" cellpadding="0"&gt;  &lt;tr&gt;
+                  &lt;td height="134" valign="bottom" \
+background="http://www.excelenciaglobal.com.br/newsletter/top.jpg"&gt;&lt;table \
+width="100%" height="100%"  border="0" cellpadding="0" cellspacing="0"&gt;  &lt;tr&gt;
+                        &lt;td width="15" rowspan="3"&gt; &lt;/td&gt;
+                        &lt;td height="45" valign="bottom"&gt;&lt;div align="left" \
+class="style10"&gt;  &lt;div align="right" class="style11"&gt;&lt;/div&gt;
+                        &lt;/div&gt;&lt;/td&gt;
+                        &lt;td width="15" rowspan="3"&gt; &lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                        &lt;td valign="top"&gt; &lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                        &lt;td height="33" valign="top"&gt;&lt;span \
+class="style9"&gt;Quarta-feira, 1 de junho de 2005&lt;/span&gt;&lt;/td&gt;  &lt;/tr&gt;
+                  &lt;/table&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td bgcolor="#FFFFFF"&gt;&lt;table width="100%"  border="0" cellspacing="0" \
+cellpadding="0"&gt;  &lt;tr&gt;
+                &lt;td&gt; &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td align="center"&gt;&lt;p&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/detalhes.php?portal=educacao&amp;id=67" \
+target="ibama"&gt;&lt;img src="http://www.excelenciaglobal.com.br/newsletter/ibama.jpg" \
+width="520" height="270" border="0"&gt;&lt;/a&gt;&lt;/p&gt;                  &lt;p&gt; &lt;/p&gt;           \
+                
+                  &lt;table width="100%"  border="0" cellspacing="0" cellpadding="0"&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/garanta.jpg" width="450" \
+height="87"&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/links.php?portal=educacao&amp;cat=13&amp;id=72" \
+target="provas"&gt;&lt;img src="http://www.excelenciaglobal.com.br/newsletter/provas.jpg" \
+width="450" height="99" border="0"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/links.php?portal=educacao&amp;cat=13&amp;id=90" \
+target="concursos"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/concursos.jpg" width="450" \
+height="99" border="0"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td&gt;&lt;div align="center"&gt;
+                        &lt;p&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/produtos.php?portal=educacao" \
+target="apostilas"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/apostilas.jpg" width="450" \
+height="114" border="0"&gt;&lt;/a&gt;&lt;/p&gt;  &lt;/div&gt;&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                      &lt;td height="50" valign="bottom"&gt;&lt;div align="center"&gt;&lt;a \
+href="http://www.excelenciaglobal.com.br/main.php?portal=educacao" target="site"&gt;&lt;img \
+src="http://www.excelenciaglobal.com.br/newsletter/emais.jpg" width="87" height="37" \
+border="0"&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                  &lt;/table&gt;                  &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td&gt; &lt;/td&gt;
+              &lt;/tr&gt;
+            &lt;/table&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td width="600" height="125" valign="top" style="background-attachment: \
+fixed;background-image: \
+url(http://www.excelenciaglobal.com.br/newsletter/indRodape.jpg);background-repeat: \
+                no-repeat;background-position: left top;"&gt;
+              &lt;table width="600" height="100%" border="0" cellpadding="0" \
+cellspacing="0" background="http://www.excelenciaglobal.com.br/newsletter/indRodape.jpg"&gt;
+  &lt;tr&gt;
+                  &lt;td width="10"&gt; &lt;/td&gt;
+                  &lt;td width="250" valign="bottom"&gt;&lt;div align="center"&gt;&lt;span \
+                class="style5"&gt;© Instituto Excelência - Todos os direitos \
+                resevados&lt;br&gt;
+                          &lt;span class="style7"&gt;&lt;a href="www.excelenciaglobal.com.br" \
+target="news"&gt;www.excelenciaglobal.com.br&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/td&gt;  &lt;td \
+width="10"&gt; &lt;/td&gt;  &lt;td width="333" valign="top"&gt;&lt;div align="center"&gt;
+                    &lt;table width="290"  border="0" cellspacing="0" cellpadding="0"&gt;
+                      &lt;tr&gt;
+                        &lt;td width="292" height="10"&gt;&lt;/td&gt;
+                      &lt;/tr&gt;
+                      &lt;tr&gt;
+                        &lt;td&gt;&lt;div align="center"&gt;&lt;span class="style1"&gt;&lt;span \
+class="style4"&gt;Você esá recebendo um boletim informativo. Esse boletim \
+não poderá ser considerado SPAM  pois inclui uma forma de  remover o \
+e-mail da lista. Caso não queira mais receber esse e-mail &lt;a \
+href="http://www.excelenciaglobal.com.br/removeemail.php" target="news"&gt;clique \
+aqui&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/td&gt;  &lt;/tr&gt;
+                    &lt;/table&gt;
+                    &lt;/div&gt;&lt;/td&gt;
+                  &lt;td width="8"&gt; &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/table&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+
+--= Multipart Boundary 0616051304--
+
+
+</body></email><email><emailId>20050620083444</emailId><senderName></senderName><senderEmail>zoujia888</senderEmail><timestampReceived>2005-06-20 08:34:44-0400</timestampReceived><subject>(no subject)</subject><body>
+
+µÚ20½ìÖÐ¶«£¨µÏ°Ý£©Çï¼¾¹ú¼ÊÉÌÆ·½»Ò×»á
+International  Autumn  Trade  Fair
+
+Õ¹ÀÀÊ±¼ä       2005Äê11Ô 5ÈÕ-9ÈÕ
+²ÎÕ¹±¨Ãû½ØÖ¹Ê±¼ä   2005Äê09Ô 30ÈÕ
+ËæÍÅÉÌÎñ¿¼²ì±¨Ãû½ØÖ¹Ê±¼ä  2005Äê10Ô 10ÈÕ
+
+Õ¹ÀÀµØµã     °¢ÁªÇõµÏ°ÝÊÀ½çÃ³Ò×ÖÐÐÄ
+
+Õ¹Æ··¶Î§     µç×ÓÍ¨Ñ¶Àà     ¼ÒµçÖÆÀäÀà    Îå½ð»úµçÀà    ÊÒÄÚ×°ÊÎÀà   ÆûÄ¦Åä¼þÀà
+Æ¤¸ïÐ¬Ã±Àà    ·þ×°·ÄÖ¯Àà    ÖÓ±íÎÄ¾ßÀà    ÀñÆ·Íæ¾ßÀà   Á¸ÓÍÊ³Æ·Àà
+Ê¯ÓÍ¿ª²ÉÀà    Îå¿ó»¯¹¤Àà    ½¨Öþ²ÄÁÏÀà    ËÜÁÏÖÆÆ·Àà   ÌåÓýÓÃÆ·Àà
+Éú»îÓÃÆ·Àà    ÃÀÈÝ°ü²ÄÀà    Ò½ÁÆ±£½¡Àà     ÃÓÎÐÝÏÐÓÃÆ·ÀàµÈ      
+
+µÏ°Ý¼ò½é   µÏ°ÝËØÓÐ"ÖÐ¶«µÄÏã¸Û"Ö®ÃÀÓþ£¬ÊÇ°¢ÁªÇõµÄ½ðÈÚ¾­¼ÃÖÐÐÄ£¬ÒÔÆä×ÔÓÉ¿íËÉµÄ¾­¼ÃÕþ²ß¡ \
+¢µÃÌì¶ÀºñµÄµØÀíÎ»ÖÃ¡¢ÍêÉÆÆë±¸µÄ»ù´¡ÉèÊ©£¬Ñ¸ËÙ³ÉÎªÖÐ¶«µØÇøµÄ½»Í¨ÊàÅ¦ºÍ×î´óµÄ»õÎï¼¯É¢µØ¡£Í¨¹ýµÏ°Ý£¬»õÎï¿É×ªÏúµ½º£ÍåµØÇø¡¢¶í \
+ÞË¹¡¢¶«Å·¡¢·ÇÖÞ¡¢µØÖÐº££¬ÉõÖÁÊÀ½ç¸÷µØ¡£Ä¿Ç°ÎÒ¹ú²úÆ·ÒÔÖÖÀà·±¶à¡¢µµ´ÎÊÊÖÐ¡¢Æ·ÖÖÆëÈ«¡¢¼Û¸ñ¾ß¾ºÕùÁ¦ÆÄÊÜÇàíù£¬¹ãÊÜÖÐ¶«¼°ÊÀ½çÉÌ¼ÒµÄÍÆ³ç¡£
+
+
+Õ¹»á½éÉÜ   ÖÐ¶«£¨µÏ°Ý£©¹ú¼ÊÇï¼¾ÉÌÆ·½»Ò×»áÊÇº£ÍåµØÇø×îÓÐÓ°ÏìÁ¦µÄÄê¶È×ÛºÏÕ¹ÀÀÊ¢»á£¬´Ó198 \
+6Äê¿ªÊ¼¾Í¿ªÊ¼Í¨¹ýÔö¼Ó´óÁ¿µÄÕ¹ÀÀÕßºÍ²Î¹ÛÕßÀ´ÎÈ²½Ìá¸ßºÍÀ©Õ¹ËüµÄÖªÃû¶È£¬Ëæ×ÅÏÖÔÚÃ¿Äê³öÏ¯È \
+ËÊýµÄÎÈ¶¨Ôö³¤£¬Ô½À´Ô½¶àµÄ×¨Òµ¸ß²ãÈËÊ¿µÄµ½³¡²Î¹Û£¬µÏ°ÝÇï½»»áÒÑ¾­³ÉÎªÒ»¸ö×î¸»»îÁ¦µÄÕ¹ÀÀÃ³Ò×½»Ò×Æ½Ì¨¡£ÔÚÕâÀï£¬Äú¶¨½«»á²»¶ÏµØ·¢ÏÖÐ \
+µÄÉÌ»ú£¬ÄÜ¹»µÃµ½×îÐ µÄµÚÒ»ÊÖµÄÖÐ¶« \
+ò¼ÒÐèÇóÐÅÏ¢¡£µÏ°ÝÇï½»»áÊÇÖÐ¶«ÔÚÖÐ¹ú×î¾ßÖªÃû¶ÈµÄÕ¹ÀÀÖ®Ò»£¬½ü¼¸ÄêÀ´£¬ÖÐ¹úÕþ¸®ºÍÆóÒµÔÚ¿ªÍØÖÐ¶«ÊÐ³¡µÄ¹ý³ÌÖÐ£¬¾ù½«¸ÃÕ¹»á×÷ÎªµÇ \
+½ÖÐ¶«ÊÐ³¡µÄÖØÒªÒ»²½£¬ËüÊÇ½øÈëÖÐ¶«Ã¿Äê2000ÒÚÃÀÔ²Ïû·ÑÊÐ³¡·½±ã¿ì½ÝµÄÖ±Í¨³µ¡£
+
+Íù½ì»Ø¹Ë   2004ÄêÇï½»»áÒÑÓÚ2004Äê12Ô \
+12ÈÕÖÁ16ÈÕÔÚµÏ°ÝÊÀ½çÃ³Ò×ÖÐÐÄ³É¹¦¾ÙÐÐ£¬´Ë´Î¹²ÓÐÀ´×Ô30¶à¸ö¹ú¼ÒºÍµØÇø1000¶à¼ÒÆóÒµ²ÎÕ¹£¬Õ¹ \
+³öÃæ»ý³¬¹ý20000Æ½·½Ã×¡£¾ÝÍ³¼Æ£¬¹²ÓÐÀ´×ÔÅ·ÃÀ¡¢º£ÍåÁù¹ú¡¢·ÇÖÞ¡¢Ô¶¶«µØÇøµÈ¹ú¼ÒºÍµØÇø15000 \
+¶àÃû×¨ÒµÈËÊ¿µ½³¡£¬×Ü³É½»½ð¶î½ü3ÒÚÃÀÔ²£¬Õ¹»á»ñµÃÁË¾Þ´óµÄ³É¹¦¡£¿ÉÒÔÔ¤¼û£¬2005ÄêÇï½»»áÎÒÃÇ½«»á¿´µ½¸ü¶à¸üÐ \
+µÄÀ´×ÔÊÀ½ç¸÷µØµÄ²ÎÕ¹ÉÌºÍ²ÎÕ¹Æ·¡£2004ÄêÇï½»»á£¬¹²ÓÐ80¼ÒÖÐ¹úÆóÒµ²Î¼ÓÁËÉÏº£¹ú¼Ê¹ã¸æÕ¹ÀÀÓÐ \
+ÏÞ¹«Ë¾Õ¹ÍÅ£¬È¡µÃÁËºÜºÃµÄÐ§¹û¡£ÒòÎªÕ¹»áµÄ³öÉ«Ð§¹ûºÍÉÏ¹ãÕ¹È«·½Î»µÄ×¨ÒµÖÜµ½µÄ·þÎñ£¬Õû¸öÕ¹ÍÅÔÚ²ÎÕ¹ÆÚ¼äÃÖ \
+þ×Å¿ìÀÖµÄÆø·Õ£¬Í¬Ê±Ò²¸øÓèÁËÉÏ¹ãÕ¹¼«¸ßµÄÆÀ¼Û£¬50%µÄÆóÒµµ±³¡¾ÍÔ¤¶¨ÁËÏ Ò»½ìÕ¹»áÌ¯Î».
+
+ÌØÉ«·þÎñ              ²ÎÕ¹ÆóÒµ¿ÉÏíÊÜÎÒ¹«Ë¾ÒÔÏ ÌØÉ«·þÎñ£º
+¡ïÎÒ¹«Ë¾×¤µÏ°Ý·Ö¹«Ë¾ÌáÇ°Ò»¸öÔ Ìá¹©ÖÐ¶« ò¼ÒÐÅÏ¢£»
+¡ïÔùËÍÓ¢¡¢°¢°æ¡¶ÖÐ¹ú¹©Ó¦ÉÌÃû ¼¡·ÁÐÃû£¨Ã¿ÄêÔÚÖÐ¶«54¸öÕ¹»áÉÏÅÉËÍ£©£»
+¡ïÌáÇ°ÔÚ²ÎÕ¹¹ú¼Ò½øÐÐÕë¶ÔÐÔµÄÐû´« £»
+¡ïÔÚÎÒ¹«Ë¾ÆäËû¹ã¸æÒµÎñÖÐÏíÊÜÎåÕÛÓÅ»Ý¡£
+
+ÉÏº£¹ú¼Ê¹ã¸æÕ¹ÀÀÓÐÏÞ¹«Ë¾
+Á¥ÊôÉÏº£ÊÐÈËÃñÕþ¸®¶ÔÍâ¾­¼ÃÃ³Ò×Î¯Ô±»á£¬ÊôÓÚ¹úÓÐ´óÐÍÉÌÉç¶«·½¹ú¼Ê¼¯ÍÅÆóÒµ³ÉÔ±,²¢ÔÚ°¢À­²®Á \
+ªºÏÇõ³¤¹úµÏ°ÝºÍÉ³ÌØ°¢À­²®ÀûÑÅµÃ·Ö±ðÉèÁ¢ÁËÈ«×Ê×Ó¹«Ë¾£ºÖÐ¹ú¶«·½£¨µÏ°Ý£©Õ¹ÀÀÓëÍ¶×Ê¹ËÎÊÓÐÏ \
+Þ¹«Ë¾ºÍÉ³ÌØÖÐ¹úÃ³Ò×´Ù½øÖÐÐÄ£¬×¨ÒµÒýµ¼ÖÐ¹úÆóÒµÇ°Íù¸ÃÊÐ³¡ÍØÕ¹²¢ÎªÖ®Ìá¹©ÉîÈë¼°¹æ·¶µÄÏµÍ³·þÎñ£»ÈçÓÐÐËÈ¤£¬ÇëµÇ \
+½www.siae.com.cn ¡¢www.me360.net²é¿´»òÀ´µçË÷È¡ÏêÏ¸×ÊÁÏ ÒÁÀ­¿ËÕ½ºóÖØ½¨--ÕýÔÚÈÈÕÐ£¡
+
+ÉÏº£¹ú¼Ê¹ã¸æÕ¹ÀÀÓÐÏÞ¹«Ë¾
+µØÖ·£ºÉÏº£ÊÐ»ÆºÓ ·355ºÅÑÅÖÝ´ó ¥1ºÅ ¥523ÊÒ      ÓÊ±à£º200003     ÁªÏµÈË:×Þ¼Ñ \
+13381982852 µç»°£º021-63585018×ª8037·Ö»ú         ´«Õæ£º021-63585870
+E-mail£ºjoyzou@siae.com.cn          ÍøÖ·£ºwww.me360.net
+ÖÐ¶«Ã³Ò×Ö±Í¨³µ--¡¶ÖÐ¹ú¹©Ó¦ÉÌÃû ¼2005¡·--Ò»Äê680Ôª²Î¼ÓÖÐ¶«54¸öÕ¹ÀÀ
+
+
+</body></email><email><emailId>20050819230115</emailId><senderName>Brian Dantes</senderName><senderEmail>brian@things.org</senderEmail><timestampReceived>2005-08-19 23:01:15-0400</timestampReceived><subject>base64_encode_update dst/src overlap?</subject><body>
+
+&gt;From a quick glance at the code, it appears that it is not safe to use the
+same buffer for dst and src when calling base64_encode_update. Is this
+correct?
+
+-Brian Dantes
+
+
+</body></email><email><emailId>20050821185240</emailId><senderName>"Mail Administrator"</senderName><senderEmail>noreply@lists.lysator.liu.se</senderEmail><timestampReceived>2005-08-21 18:52:40-0400</timestampReceived><subject>report</subject><body>
+
+
+We regret to inform you that your account has been suspended
+due to the violation of our site policy, more info is attached.
+
+["INFO.zip" (application/x-compressed)]
+
+</body></email><email><emailId>20050822013947</emailId><senderName>"Automatic Email Delivery Software"</senderName><senderEmail>postmaster@lists.lysator.liu.se</senderEmail><timestampReceived>2005-08-22 01:39:47-0400</timestampReceived><subject>error</subject><body>
+
+[Attachment #3 (text/html)]
+
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"&gt;
+&lt;HTML&gt;&lt;HEAD&gt;
+&lt;META http-equiv=Content-Type content="text/html; charset=iso-8859-1"&gt;
+&lt;META content="MSHTML 6.00.2800.1106" name=GENERATOR&gt;
+&lt;STYLE&gt;&lt;/STYLE&gt;
+&lt;/HEAD&gt;
+&lt;DIV&gt; &lt;/DIV&gt;&lt;/BODY&gt;&lt;/HTML&gt;
+
+["joke.zip" (application/x-compressed)]
+
+</body></email><email><emailId>20050819043323</emailId><senderName>"Returned mail"</senderName><senderEmail>mailer-daemon@lists.lysator.liu.se</senderEmail><timestampReceived>2005-08-19 04:33:23-0400</timestampReceived><subject>hi</subject><body>
+
+
+
+["account-password.zip" (application/x-compressed)]
+
+</body></email><email><emailId>20050821154642</emailId><senderName>"Mail Administrator"</senderName><senderEmail>postmaster@lists.lysator.liu.se</senderEmail><timestampReceived>2005-08-21 15:46:42-0400</timestampReceived><subject>hi</subject><body>
+
+
+This message was not delivered due to the following reason:
+
+The following recipients could not receive this message:
+&lt;nettle-bugs@lists.lysator.liu.se&gt;
+
+["readme.zip" (application/x-compressed)]
+
+</body></email><email><emailId>20050820184958</emailId><senderName>"MAILER-DAEMON"</senderName><senderEmail>noreply@lists.lysator.liu.se</senderEmail><timestampReceived>2005-08-20 18:49:58-0400</timestampReceived><subject>hello</subject><body>
+
+
+The original message has been included as an attachment.
+
+["information.zip" (application/x-compressed)]
+
+</body></email></emails>

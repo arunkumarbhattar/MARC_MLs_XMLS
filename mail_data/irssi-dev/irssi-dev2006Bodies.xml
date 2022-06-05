@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20061127212306</emailId><senderName>"Javier Gonel"</senderName><senderEmail>bolibic@gmail.com</senderEmail><timestampReceived>2006-11-27 21:23:06-0400</timestampReceived><subject>First mail and a question/problem.</subject><body>
+
+Hello.
+
+This is my first message in the list, so I'll introduce myself: My name is
+Javier, and my nickname graffic :) I'm from Spain and these days I'm
+investigating some strange behaviour with irssi.
+
+And with the first message.... a strange line of code found:
+File: irc/core/irc-servers-setup.c
+Function: sig_server_setup_fill_chatnet
+Code:
+if (ircnet-&gt;nick != NULL) g_free_and_null(conn-&gt;alternate_nick);
+
+With this line, when I connect for the first time to the servers, I don't
+have an alternate nickname. then irssi tries to build a new nickname (in a
+wrong way, but that's a topic for another mail).
+
+What's the use of that line?
+
+Thanks :)
+
+[Attachment #3 (text/html)]
+
+Hello.&lt;br&gt;&lt;br&gt;This is my first message in the list, so I'll introduce myself: My name \
+is Javier, and my nickname graffic :) I'm from Spain and these days I'm investigating \
+some strange behaviour with irssi.&lt;br&gt;&lt;br&gt;And with the first message.... a strange \
+line of code found: &lt;br&gt;File: irc/core/irc-servers-setup.c&lt;br&gt;Function: \
+sig_server_setup_fill_chatnet&lt;br&gt;Code: &lt;br&gt;if (ircnet-&gt;nick != NULL) \
+g_free_and_null(conn-&gt;alternate_nick);&lt;br&gt;&lt;br&gt;With this line, when I connect for \
+the first time to the servers, I don't have an alternate nickname. then irssi tries \
+to build a new nickname (in a wrong way, but that's a topic for another mail). \
+&lt;br&gt;&lt;br&gt;What's the use of that line?&lt;br&gt;&lt;br&gt;Thanks :)&lt;br&gt;
+
+
+
+</body></email><email><emailId>20061225175458</emailId><senderName>Zoot</senderName><senderEmail>zoot@gamesurge.net</senderEmail><timestampReceived>2006-12-25 17:54:58-0400</timestampReceived><subject>Some contributions</subject><body>
+
+
+I've maintained these patches to irssi in my personal branch for some
+time and thought it was time to contribute them to the mainline. I've
+cleaned them up and generated them against SVN trunk, so they should
+apply with no problem.
+
+irssi-account:
+Display user account information in its own format (whois_auth), so
+users can customize it.
+
+irssi-activity:
+Make /IGNORE work on the HILIGHT level, so you can prevent certain
+users from triggering highlights.
+
+irssi-names:
+Support two new settings that control /NAMES output.
+ - show_nickmode_empty determines whether non-op users' nicks are
+displayed as ' nick' or just 'nick'.
+ - names_nick_max_width is the maximum /NAMES column length.
+
+irssi-target:
+Support for the ircu numeric 439 (target change unavailable).
+
+Let me know if there are any problems.
+
+-- zoot
+
+["irssi-account.patch" (application/octet-stream)]
+["irssi-activity.patch" (application/octet-stream)]
+["irssi-names.patch" (application/octet-stream)]
+["irssi-target.patch" (application/octet-stream)]
+
+</body></email><email><emailId>20060626095037</emailId><senderName>Igor V !  Liferenko</senderName><senderEmail>ivl@krasu.ru</senderEmail><timestampReceived>2006-06-26 09:50:37-0400</timestampReceived><subject>Suggestion</subject><body>
+
+Hi everyone,
+
+I have a suggestion about improving irssi.
+It lacks unicode nicknames and tab completion.
+
+</body></email><email><emailId>20060626112458</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2006-06-26 11:24:58-0400</timestampReceived><subject>Re: Suggestion</subject><body>
+
+On 2006-06-26 17:50:37 +0800, Igor V. Liferenko wrote:
+&gt; I have a suggestion about improving irssi.
+&gt; It lacks unicode nicknames and tab completion.
+
+most irc servers dont allow that anyway. do you have one that allows
+them?
+
+darix
+
+-- 
+           openSUSE - SUSE Linux is my linux
+               openSUSE is good for you
+                   www.opensuse.org
+
+</body></email><email><emailId>20060626114938</emailId><senderName>David Pashley</senderName><senderEmail>david@davidpashley.com</senderEmail><timestampReceived>2006-06-26 11:49:38-0400</timestampReceived><subject>Re: Suggestion</subject><body>
+
+On Jun 26, 2006 at 12:24, Marcus Rueckert praised the llamas by saying:
+&gt; On 2006-06-26 17:50:37 +0800, Igor V. Liferenko wrote:
+&gt; &gt; I have a suggestion about improving irssi.
+&gt; &gt; It lacks unicode nicknames and tab completion.
+&gt; 
+&gt; most irc servers dont allow that anyway. do you have one that allows
+&gt; them?
+&gt; 
+There is a general bug where tab completion no longer works after a
+unicode character in the input bar.
+
+-- 
+David Pashley
+david@davidpashley.com
+Nihil curo de ista tua stulta superstitione.
+
+</body></email><email><emailId>20060626221024</emailId><senderName>"Sergey Al. Safonov"</senderName><senderEmail>spoof@spoofa.info</senderEmail><timestampReceived>2006-06-26 22:10:24-0400</timestampReceived><subject>Re: Suggestion</subject><body>
+
+BTW, irssi has many problems with /recode, including bugs with
+nicklist, motd. I tested it only when locale was in utf-8  and server
+was cp1251/koi8-r. Dont know, maybe its only unicode problem in irssi.
+-- 
+Sergey Al. Safonov &lt;spoof@spoofa.info&gt;
+
+[Attachment #3 (text/html)]
+
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 TRANSITIONAL//EN"&gt;
+&lt;HTML&gt;
+&lt;HEAD&gt;
+  &lt;META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8"&gt;
+  &lt;META NAME="GENERATOR" CONTENT="GtkHTML/3.10.2"&gt;
+&lt;/HEAD&gt;
+&lt;BODY&gt;
+ BTW, irssi has many problems with /recode, including bugs with nicklist, motd. I \
+tested it only when locale was in utf-8  and server was cp1251/koi8-r. Dont \
+know, maybe its only unicode problem in irssi.&lt;BR&gt; &lt;TABLE CELLSPACING="0" \
+CELLPADDING="0" WIDTH="100%"&gt; &lt;TR&gt;
+&lt;TD&gt;
+-- &lt;BR&gt;
+Sergey Al. Safonov &lt;&lt;A HREF="mailto:spoof@spoofa.info"&gt;spoof@spoofa.info&lt;/A&gt;&gt;
+&lt;/TD&gt;
+&lt;/TR&gt;
+&lt;/TABLE&gt;
+&lt;/BODY&gt;
+&lt;/HTML&gt;
+
+
+
+</body></email><email><emailId>20060627051956</emailId><senderName>Ertugrul Soeylemez</senderName><senderEmail>never@drwxr-xr-x.org</senderEmail><timestampReceived>2006-06-27 05:19:56-0400</timestampReceived><subject>Re: Suggestion</subject><body>
+
+
+Marcus Rueckert &lt;darix@web.de&gt; (06-06-26 13:24:58):
+
+&gt; On 2006-06-26 17:50:37 +0800, Igor V. Liferenko wrote:
+&gt; &gt; I have a suggestion about improving irssi.  It lacks unicode
+&gt; &gt; nicknames and tab completion.
+&gt;
+&gt; most irc servers dont allow that anyway. do you have one that allows
+&gt; them?
+
+Well, a recent UnrealIRCd version added support for nick and channel
+names in non-ASCII character sets.  I don't know, if it allows Unicode,
+though, but even if it doesn't, that's just a matter of time.
+
+Unfortunately, that ircd is very popular, so if irssi really lacks
+support for Unicode nick names, someone probably should add it.
+
+Regards,
+E.S.
+
+
+--=20
+Key-ID: CE402012 "Ertugrul Soeylemez &lt;never@drwxr-xr-x.org&gt;"
+FPrint: 0F12 0912 DFC8 2FC5 E2B8  A23E 6BAC 998E CE40 2012
+(hkp) subkeys.pgp.net (ldap) keyserver.pgp.com (http) www.keyserver.de
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email><email><emailId>20060628131633</emailId><senderName></senderName><senderEmail>desi</senderEmail><timestampReceived>2006-06-28 13:16:33-0400</timestampReceived><subject>BOTTI documentation</subject><body>
+
+Hi there, is there any documentation about setting up an irssi-bot?
+
+thanks :D
+
+
+</body></email></emails>

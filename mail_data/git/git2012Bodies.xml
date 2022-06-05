@@ -1,0 +1,2417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20120127214119</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2012-01-27 21:41:19-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise is a sign that people involved don't have
+enough mental/time bandwidth to process them right at the moment, and
+it often helps to wait until the list traffic becomes calmer before
+sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+Some people seem to prefer to read it over NNTP:
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes also be found
+on the #git IRC channel on Freenode.  Its log is available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few gitweb interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a "feature
+release" is cut from the tip of this branch and they typically are named
+with three dotted decimal digits.  The last such release was 1.7.9 done on
+Jan 27, 2012. You can expect that the tip of the "master" branch is always
+more stable than any of the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a feature
+release are applied to this branch and maintenance releases are cut from
+it.  The maintenance releases are named with four dotted decimal, named
+after the feature release they are updates to; the last such release was
+1.7.8.4.  New features never go to this branch.  This branch is also
+merged into "master" to propagate the fixes forward.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches. The topics on the branch are not complete, well tested, nor well
+documented and need further work. When a topic that was in "pu" proves to
+be in testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged.
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://git.kernel.org/pub/scm/gitk/gitk.git
+
+I would like to thank everybody who helped to raise git into the current
+shape.  Especially I would like to thank the git list regulars whose help
+I have relied on and expect to continue relying on heavily:
+
+ - Linus Torvalds, Shawn Pearce, Johannes Schindelin, Nicolas Pitre,
+   René Scharfe, Jeff King, Jonathan Nieder, Johan Herland, Johannes
+   Sixt, Sverre Rabbelier, Michael J Gruber, Nguyễn Thái Ngọc Duy,
+   Ævar Arnfjörð Bjarmason and Thomas Rast on general design and
+   implementation issues and reviews on the mailing list.
+
+ - Shawn and Nicolas Pitre on pack issues.
+
+ - Martin Langhoff, Frank Lichtenheld and Ævar Arnfjörð Bjarmason on
+   cvsserver and cvsimport.
+
+ - Paul Mackerras on gitk.
+
+ - Eric Wong, David D. Kilzer and Sam Vilain on git-svn.
+
+ - Simon Hausmann and Pete Wyckoff on git-p4.
+
+ - Jakub Narebski, John Hawley, Petr Baudis, Luben Tuikov, Giuseppe Bilotta on
+   gitweb.
+
+ - J. Bruce Fields, Jonathan Nieder, Michael J Gruber and Thomas Rast on
+   documentation (and countless others for proofreading and fixing).
+
+ - Alexandre Julliard on Emacs integration.
+
+ - David Aguilar and Charles Bailey for taking good care of git-mergetool
+   (and Theodore Ts'o for creating it in the first place) and git-difftool.
+
+ - Johannes Schindelin, Johannes Sixt, Erik Faye-Lund, Pat Thoyts and others
+   for their effort to move things forward on the Windows front.
+
+ - People on non-Linux platforms for keeping their eyes on portability;
+   especially, Randal Schwartz, Theodore Ts'o, Jason Riedy, Thomas Glanzmann,
+   Brandon Casey, Jeff King, Alex Riesen and countless others.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120306071028</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2012-03-06 07:10:28-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise is a sign that people involved don't have
+enough mental/time bandwidth to process them right at the moment, and
+it often helps to wait until the list traffic becomes calmer before
+sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP (including the maintainer):
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes also be found
+on the #git IRC channel on Freenode.  Its log is available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few gitweb interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a "feature
+release" is cut from the tip of this branch and they typically are named
+with three dotted decimal digits.  The last such release was 1.7.9 done on
+Jan 27, 2012. You can expect that the tip of the "master" branch is always
+more stable than any of the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a feature
+release are applied to this branch and maintenance releases are cut from
+it.  The maintenance releases are named with four dotted decimal, named
+after the feature release they are updates to; the last such release was
+1.7.9.3.  New features never go to this branch.  This branch is also
+merged into "master" to propagate the fixes forward.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches. The topics on the branch are not complete, well tested, nor well
+documented and need further work. When a topic that was in "pu" proves to
+be in testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged.
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://git.kernel.org/pub/scm/gitk/gitk.git
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+I would like to thank everybody who helped to raise git into the current
+shape.  Especially I would like to thank the git list regulars whose help
+I have relied on and expect to continue relying on heavily:
+
+ - Linus Torvalds, Shawn Pearce, Johannes Schindelin, Nicolas Pitre,
+   René Scharfe, Jeff King, Jonathan Nieder, Johan Herland, Johannes
+   Sixt, Sverre Rabbelier, Michael J Gruber, Nguyễn Thái Ngọc Duy,
+   Ævar Arnfjörð Bjarmason and Thomas Rast for helping with general
+   design and implementation issues and reviews on the mailing list.
+
+ - Shawn and Nicolas Pitre for helping with packfile design and
+   implementation issues.
+
+ - Martin Langhoff, Frank Lichtenheld and Ævar Arnfjörð Bjarmason for
+   cvsserver and cvsimport.
+
+ - Paul Mackerras for gitk.
+
+ - Eric Wong, David D. Kilzer and Sam Vilain for git-svn.
+
+ - Simon Hausmann, Pete Wyckoff and Luke Diamond for git-p4.
+
+ - Jakub Narebski, John Hawley, Petr Baudis, Luben Tuikov, Giuseppe
+   Bilotta for maintaining and enhancing gitweb.
+
+ - Ævar Arnfjörð Bjarmason for kicking off the i18n effort, and Jiang
+   Xin for volunteering to be the l10n coordinator.
+
+ - J. Bruce Fields, Jonathan Nieder, Michael J Gruber and Thomas Rast for
+   documentation (and countless others for proofreading and fixing).
+
+ - Alexandre Julliard for Emacs integration.
+
+ - David Aguilar and Charles Bailey for taking good care of git-mergetool
+   (and Theodore Ts'o for creating it in the first place) and git-difftool.
+
+ - Johannes Schindelin, Johannes Sixt, Erik Faye-Lund, Pat Thoyts and others
+   for their effort to move things forward on the Windows front.
+
+ - People on non-Linux platforms for keeping their eyes on portability;
+   especially, Randal Schwartz, Theodore Ts'o, Jason Riedy, Thomas Glanzmann,
+   Brandon Casey, Jeff King, Alex Riesen and countless others.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120619235305</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2012-06-19 23:53:05-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise is a sign that people involved don't have
+enough mental/time bandwidth to process them right at the moment, and
+it often helps to wait until the list traffic becomes calmer before
+sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP (including the maintainer):
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes also be found
+on the #git IRC channel on Freenode.  Its log is available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few gitweb interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a "feature
+release" is cut from the tip of this branch and they typically are named
+with three dotted decimal digits.  The last such release was 1.7.11 done on
+Jun 17, 2012. You can expect that the tip of the "master" branch is always
+more stable than any of the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a feature
+release are applied to this branch and maintenance releases are cut from
+it.  The maintenance releases are named with four dotted decimal, named
+after the feature release they are updates to; the last such release was
+1.7.10.5.  New features never go to this branch.  This branch is also
+merged into "master" to propagate the fixes forward.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches. The topics on the branch are not complete, well tested, nor well
+documented and need further work. When a topic that was in "pu" proves to
+be in testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged.
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://git.kernel.org/pub/scm/gitk/gitk.git
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+I would like to thank everybody who helped to raise git into the current
+shape.  Especially I would like to thank the git list regulars whose help
+I have relied on and expect to continue relying on heavily:
+
+ - Linus Torvalds, Shawn Pearce, Johannes Schindelin, Nicolas Pitre,
+   René Scharfe, Jeff King, Jonathan Nieder, Johan Herland, Johannes
+   Sixt, Sverre Rabbelier, Michael J Gruber, Nguyễn Thái Ngọc Duy,
+   Ævar Arnfjörð Bjarmason and Thomas Rast for helping with general
+   design and implementation issues and reviews on the mailing list.
+
+ - Shawn and Nicolas Pitre for helping with packfile design and
+   implementation issues.
+
+ - Martin Langhoff, Frank Lichtenheld and Ævar Arnfjörð Bjarmason for
+   cvsserver and cvsimport.
+
+ - Paul Mackerras for gitk.
+
+ - Eric Wong, David D. Kilzer and Sam Vilain for git-svn.
+
+ - Simon Hausmann, Pete Wyckoff and Luke Diamond for git-p4.
+
+ - Jakub Narebski, John Hawley, Petr Baudis, Luben Tuikov, Giuseppe
+   Bilotta for maintaining and enhancing gitweb.
+
+ - Ævar Arnfjörð Bjarmason for kicking off the i18n effort, and Jiang
+   Xin for volunteering to be the l10n coordinator.
+
+ - Jens Lehmann, Heiko Voigt and Lars Hjemli for submodule related
+   Porcelains.
+
+ - J. Bruce Fields, Jonathan Nieder, Michael J Gruber and Thomas Rast for
+   documentation (and countless others for proofreading and fixing).
+
+ - Alexandre Julliard for Emacs integration.
+
+ - David Aguilar and Charles Bailey for taking good care of git-mergetool
+   (and Theodore Ts'o for creating it in the first place) and git-difftool.
+
+ - Johannes Schindelin, Johannes Sixt, Erik Faye-Lund, Pat Thoyts and others
+   for their effort to move things forward on the Windows front.
+
+ - People on non-Linux platforms for keeping their eyes on portability;
+   especially, Randal Schwartz, Theodore Ts'o, Jason Riedy, Thomas Glanzmann,
+   Brandon Casey, Jeff King, Alex Riesen and countless others.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120820031619</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2012-08-20 03:16:19-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise is a sign that people involved don't have
+enough mental/time bandwidth to process them right at the moment, and
+it often helps to wait until the list traffic becomes calmer before
+sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP (including the maintainer):
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes also be found
+on the #git IRC channel on Freenode.  Its log is available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few gitweb interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a "feature
+release" is cut from the tip of this branch and they typically are named
+with three dotted decimal digits.  The last such release was 1.7.12 done on
+Aug 19, 2012. You can expect that the tip of the "master" branch is always
+more stable than any of the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a feature
+release are applied to this branch and maintenance releases are cut from
+it.  The maintenance releases are named with four dotted decimal, named
+after the feature release they are updates to; the last such release was
+1.7.11.5.  New features never go to this branch.  This branch is also
+merged into "master" to propagate the fixes forward.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches. The topics on the branch are not complete, well tested, nor well
+documented and need further work. When a topic that was in "pu" proves to
+be in testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged.
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://git.kernel.org/pub/scm/gitk/gitk.git
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+I would like to thank everybody who helped to raise git into the current
+shape.  Especially I would like to thank the git list regulars whose help
+I have relied on and expect to continue relying on heavily:
+
+ - Linus Torvalds, Shawn Pearce, Johannes Schindelin, Nicolas Pitre,
+   René Scharfe, Jeff King, Jonathan Nieder, Johan Herland, Johannes
+   Sixt, Sverre Rabbelier, Michael J Gruber, Nguyễn Thái Ngọc Duy,
+   Ævar Arnfjörð Bjarmason and Thomas Rast for helping with general
+   design and implementation issues and reviews on the mailing list.
+
+ - Shawn and Nicolas Pitre for helping with packfile design and
+   implementation issues.
+
+ - Martin Langhoff, Frank Lichtenheld and Ævar Arnfjörð Bjarmason for
+   cvsserver and cvsimport.
+
+ - Paul Mackerras for gitk.
+
+ - Eric Wong, David D. Kilzer and Sam Vilain for git-svn.
+
+ - Simon Hausmann, Pete Wyckoff and Luke Diamond for git-p4.
+
+ - Jakub Narebski, John Hawley, Petr Baudis, Luben Tuikov, Giuseppe
+   Bilotta for maintaining and enhancing gitweb.
+
+ - Ævar Arnfjörð Bjarmason for kicking off the i18n effort, and Jiang
+   Xin for volunteering to be the l10n coordinator.
+
+ - Jens Lehmann, Heiko Voigt and Lars Hjemli for submodule related
+   Porcelains.
+
+ - J. Bruce Fields, Jonathan Nieder, Michael J Gruber and Thomas Rast for
+   documentation (and countless others for proofreading and fixing).
+
+ - Alexandre Julliard for Emacs integration.
+
+ - David Aguilar and Charles Bailey for taking good care of git-mergetool
+   (and Theodore Ts'o for creating it in the first place) and git-difftool.
+
+ - Johannes Schindelin, Johannes Sixt, Erik Faye-Lund, Pat Thoyts and others
+   for their effort to move things forward on the Windows front.
+
+ - People on non-Linux platforms for keeping their eyes on portability;
+   especially, Randal Schwartz, Theodore Ts'o, Jason Riedy, Thomas Glanzmann,
+   Brandon Casey, Jeff King, Alex Riesen and countless others.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120918231425</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2012-09-18 23:14:25-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise is a sign that people involved don't have
+enough mental/time bandwidth to process them right at the moment, and
+it often helps to wait until the list traffic becomes calmer before
+sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP (including the maintainer):
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes also be found
+on the #git IRC channel on Freenode.  Its log is available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few gitweb interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a "feature
+release" is cut from the tip of this branch and they typically are named
+with three dotted decimal digits.  The last such release was 1.7.12 done on
+Aug 19, 2012. You can expect that the tip of the "master" branch is always
+more stable than any of the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a feature
+release are applied to this branch and maintenance releases are cut from
+it.  The maintenance releases are named with four dotted decimal, named
+after the feature release they are updates to; the last such release was
+1.7.12.1.  New features never go to this branch.  This branch is also
+merged into "master" to propagate the fixes forward.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches. The topics on the branch are not complete, well tested, nor well
+documented and need further work. When a topic that was in "pu" proves to
+be in testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged.
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://git.kernel.org/pub/scm/gitk/gitk.git
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+I would like to thank everybody who helped to raise git into the current
+shape.  Especially I would like to thank the git list regulars whose help
+I have relied on and expect to continue relying on heavily:
+
+ - Linus Torvalds, Shawn Pearce, Johannes Schindelin, Nicolas Pitre,
+   René Scharfe, Jeff King, Jonathan Nieder, Johan Herland, Johannes
+   Sixt, Sverre Rabbelier, Michael J Gruber, Nguyễn Thái Ngọc Duy,
+   Ævar Arnfjörð Bjarmason and Thomas Rast for helping with general
+   design and implementation issues and reviews on the mailing list.
+
+ - Shawn and Nicolas Pitre for helping with packfile design and
+   implementation issues.
+
+ - Martin Langhoff, Frank Lichtenheld and Ævar Arnfjörð Bjarmason for
+   cvsserver and cvsimport.
+
+ - Paul Mackerras for gitk.
+
+ - Eric Wong, David D. Kilzer and Sam Vilain for git-svn.
+
+ - Simon Hausmann, Pete Wyckoff and Luke Diamond for git-p4.
+
+ - Jakub Narebski, John Hawley, Petr Baudis, Luben Tuikov, Giuseppe
+   Bilotta for maintaining and enhancing gitweb.
+
+ - Ævar Arnfjörð Bjarmason for kicking off the i18n effort, and Jiang
+   Xin for volunteering to be the l10n coordinator.
+
+ - Jens Lehmann, Heiko Voigt and Lars Hjemli for submodule related
+   Porcelains.
+
+ - J. Bruce Fields, Jonathan Nieder, Michael J Gruber and Thomas Rast for
+   documentation (and countless others for proofreading and fixing).
+
+ - Alexandre Julliard for Emacs integration.
+
+ - David Aguilar and Charles Bailey for taking good care of git-mergetool
+   (and Theodore Ts'o for creating it in the first place) and git-difftool.
+
+ - Johannes Schindelin, Johannes Sixt, Erik Faye-Lund, Pat Thoyts and others
+   for their effort to move things forward on the Windows front.
+
+ - People on non-Linux platforms for keeping their eyes on portability;
+   especially, Randal Schwartz, Theodore Ts'o, Jason Riedy, Thomas Glanzmann,
+   Brandon Casey, Jeff King, Alex Riesen and countless others.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20121008200838</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2012-10-08 20:08:38-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise is a sign that people involved don't have
+enough mental/time bandwidth to process them right at the moment, and
+it often helps to wait until the list traffic becomes calmer before
+sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP (including the maintainer):
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes also be found
+on the #git IRC channel on Freenode.  Its log is available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few gitweb interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a "feature
+release" is cut from the tip of this branch and they typically are named
+with three dotted decimal digits.  The last such release was 1.7.12 done on
+Aug 19, 2012. You can expect that the tip of the "master" branch is always
+more stable than any of the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a feature
+release are applied to this branch and maintenance releases are cut from
+it.  The maintenance releases are named with four dotted decimal, named
+after the feature release they are updates to; the last such release was
+1.7.12.3.  New features never go to this branch.  This branch is also
+merged into "master" to propagate the fixes forward.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches. The topics on the branch are not complete, well tested, nor well
+documented and need further work. When a topic that was in "pu" proves to
+be in testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged.
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://git.kernel.org/pub/scm/gitk/gitk.git
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+I would like to thank everybody who helped to raise git into the current
+shape.  Especially I would like to thank the git list regulars whose help
+I have relied on and expect to continue relying on heavily:
+
+ - Linus Torvalds, Shawn Pearce, Johannes Schindelin, Nicolas Pitre,
+   René Scharfe, Jeff King, Jonathan Nieder, Johan Herland, Johannes
+   Sixt, Sverre Rabbelier, Michael J Gruber, Nguyễn Thái Ngọc Duy,
+   Ævar Arnfjörð Bjarmason and Thomas Rast for helping with general
+   design and implementation issues and reviews on the mailing list.
+
+ - Shawn and Nicolas Pitre for helping with packfile design and
+   implementation issues.
+
+ - Martin Langhoff, Frank Lichtenheld and Ævar Arnfjörð Bjarmason for
+   cvsserver and cvsimport.
+
+ - Paul Mackerras for gitk.
+
+ - Eric Wong, David D. Kilzer and Sam Vilain for git-svn.
+
+ - Simon Hausmann, Pete Wyckoff and Luke Diamond for git-p4.
+
+ - Jakub Narebski, John Hawley, Petr Baudis, Luben Tuikov, Giuseppe
+   Bilotta for maintaining and enhancing gitweb.
+
+ - Ævar Arnfjörð Bjarmason for kicking off the i18n effort, and Jiang
+   Xin for volunteering to be the l10n coordinator.
+
+ - Jens Lehmann, Heiko Voigt and Lars Hjemli for submodule related
+   Porcelains.
+
+ - J. Bruce Fields, Jonathan Nieder, Michael J Gruber and Thomas Rast for
+   documentation (and countless others for proofreading and fixing).
+
+ - Alexandre Julliard for Emacs integration.
+
+ - David Aguilar and Charles Bailey for taking good care of git-mergetool
+   (and Theodore Ts'o for creating it in the first place) and git-difftool.
+
+ - Johannes Schindelin, Johannes Sixt, Erik Faye-Lund, Pat Thoyts and others
+   for their effort to move things forward on the Windows front.
+
+ - People on non-Linux platforms for keeping their eyes on portability;
+   especially, Randal Schwartz, Theodore Ts'o, Jason Riedy, Thomas Glanzmann,
+   Brandon Casey, Jeff King, Alex Riesen and countless others.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20121021221042</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2012-10-21 22:10:42-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise is a sign that people involved don't have
+enough mental/time bandwidth to process them right at the moment, and
+it often helps to wait until the list traffic becomes calmer before
+sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP (including the maintainer):
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes also be found
+on the #git IRC channel on Freenode.  Its log is available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few gitweb interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a "feature
+release" is cut from the tip of this branch and they typically are named
+with three dotted decimal digits.  The last such release was 1.8.0 done on
+Oct 21, 2012. You can expect that the tip of the "master" branch is always
+more stable than any of the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a feature
+release are applied to this branch and maintenance releases are cut from
+it.  The maintenance releases are named with four dotted decimal, named
+after the feature release they are updates to; the last such release was
+1.7.12.4.  New features never go to this branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic branches.
+The topics on the branch are not complete, well tested, nor well documented
+and need further work. When a topic that was in "pu" proves to be in a
+testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged.
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://git.kernel.org/pub/scm/gitk/gitk.git
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+I would like to thank everybody who helped to raise git into the current
+shape.  Especially I would like to thank the git list regulars whose help
+I have relied on and expect to continue relying on heavily:
+
+ - Linus Torvalds, Shawn Pearce, Johannes Schindelin, Nicolas Pitre,
+   René Scharfe, Jeff King, Jonathan Nieder, Johan Herland, Johannes
+   Sixt, Sverre Rabbelier, Michael J Gruber, Nguyễn Thái Ngọc Duy,
+   Ævar Arnfjörð Bjarmason and Thomas Rast for helping with general
+   design and implementation issues and reviews on the mailing list.
+
+ - Shawn and Nicolas Pitre for helping with packfile design and
+   implementation issues.
+
+ - Martin Langhoff, Frank Lichtenheld and Ævar Arnfjörð Bjarmason for
+   cvsserver and cvsimport.
+
+ - Paul Mackerras for gitk.
+
+ - Eric Wong, David D. Kilzer and Sam Vilain for git-svn.
+
+ - Simon Hausmann, Pete Wyckoff and Luke Diamond for git-p4.
+
+ - Jakub Narebski, John Hawley, Petr Baudis, Luben Tuikov, Giuseppe
+   Bilotta for maintaining and enhancing gitweb.
+
+ - Ævar Arnfjörð Bjarmason for kicking off the i18n effort, and Jiang
+   Xin for volunteering to be the l10n coordinator.
+
+ - Jens Lehmann, Heiko Voigt and Lars Hjemli for submodule related
+   Porcelains.
+
+ - J. Bruce Fields, Jonathan Nieder, Michael J Gruber and Thomas Rast for
+   documentation (and countless others for proofreading and fixing).
+
+ - Alexandre Julliard for Emacs integration.
+
+ - David Aguilar and Charles Bailey for taking good care of git-mergetool
+   (and Theodore Ts'o for creating it in the first place) and git-difftool.
+
+ - Johannes Schindelin, Johannes Sixt, Erik Faye-Lund, Pat Thoyts and others
+   for their effort to move things forward on the Windows front.
+
+ - People on non-Linux platforms for keeping their eyes on portability;
+   especially, Randal Schwartz, Theodore Ts'o, Jason Riedy, Thomas Glanzmann,
+   Brandon Casey, Jeff King, Alex Riesen and countless others.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20121210231638</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2012-12-10 23:16:38-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise is a sign that people involved don't have
+enough mental/time bandwidth to process them right at the moment, and
+it often helps to wait until the list traffic becomes calmer before
+sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP (including the maintainer):
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes also be found
+on the #git IRC channel on Freenode.  Its log is available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few gitweb interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a "feature
+release" is cut from the tip of this branch and they typically are named
+with three dotted decimal digits.  The last such release was 1.8.0 done on
+Oct 21, 2012. You can expect that the tip of the "master" branch is always
+more stable than any of the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a feature
+release are applied to this branch and maintenance releases are cut from
+it.  The maintenance releases are named with four dotted decimal, named
+after the feature release they are updates to; the last such release was
+1.8.0.2.  New features never go to this branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic branches.
+The topics on the branch are not complete, well tested, nor well documented
+and need further work. When a topic that was in "pu" proves to be in a
+testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged.
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+I would like to thank everybody who helped to raise git into the current
+shape.  Especially I would like to thank the git list regulars whose help
+I have relied on and expect to continue relying on heavily:
+
+ - Linus Torvalds, Shawn Pearce, Johannes Schindelin, Nicolas Pitre,
+   René Scharfe, Jeff King, Jonathan Nieder, Johan Herland, Johannes
+   Sixt, Sverre Rabbelier, Michael J Gruber, Nguyễn Thái Ngọc Duy,
+   Ævar Arnfjörð Bjarmason and Thomas Rast for helping with general
+   design and implementation issues and reviews on the mailing list.
+
+ - Shawn and Nicolas Pitre for helping with packfile design and
+   implementation issues.
+
+ - Martin Langhoff, Frank Lichtenheld and Ævar Arnfjörð Bjarmason for
+   cvsserver and cvsimport.
+
+ - Paul Mackerras for gitk.
+
+ - Eric Wong, David D. Kilzer and Sam Vilain for git-svn.
+
+ - Simon Hausmann, Pete Wyckoff and Luke Diamond for git-p4.
+
+ - Jakub Narebski, John Hawley, Petr Baudis, Luben Tuikov, Giuseppe
+   Bilotta for maintaining and enhancing gitweb.
+
+ - Ævar Arnfjörð Bjarmason for kicking off the i18n effort, and Jiang
+   Xin for volunteering to be the l10n coordinator.
+
+ - Jens Lehmann, Heiko Voigt and Lars Hjemli for submodule related
+   Porcelains.
+
+ - J. Bruce Fields, Jonathan Nieder, Michael J Gruber and Thomas Rast for
+   documentation (and countless others for proofreading and fixing).
+
+ - Alexandre Julliard for Emacs integration.
+
+ - David Aguilar and Charles Bailey for taking good care of git-mergetool
+   (and Theodore Ts'o for creating it in the first place) and git-difftool.
+
+ - Johannes Schindelin, Johannes Sixt, Erik Faye-Lund, Pat Thoyts and others
+   for their effort to move things forward on the Windows front.
+
+ - People on non-Linux platforms for keeping their eyes on portability;
+   especially, Randal Schwartz, Theodore Ts'o, Jason Riedy, Thomas Glanzmann,
+   Brandon Casey, Jeff King, Alex Riesen and countless others.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120919173528</emailId><senderName>Felipe Contreras</senderName><senderEmail>felipe.contreras@gmail.com</senderEmail><timestampReceived>2012-09-19 17:35:28-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+Hi,
+
+On Wed, Sep 14, 2011 at 7:39 PM, Jakub Narebski &lt;jnareb@gmail.com&gt; wrote:
+
+&gt; P.S. Would you be interested in running the next survey?
+
+I haven't seen any news regarding the 2012 survey. I'm interested in
+running the survey this time, but I would like to know what that
+entails :)
+
+I think the surveys should continue.
+
+Cheers.
+
+-- 
+Felipe Contreras
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120922224513</emailId><senderName>Jakub_Narębski</senderName><senderEmail>jnareb@gmail.com</senderEmail><timestampReceived>2012-09-22 22:45:13-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+On Wed, Sep 19, 2012 at 7:35 PM, Felipe Contreras
+&lt;felipe.contreras@gmail.com&gt; wrote:
+&gt; Hi,
+&gt;
+&gt; On Wed, Sep 14, 2011 at 7:39 PM, Jakub Narebski &lt;jnareb@gmail.com&gt; wrote:
+&gt;
+&gt;&gt; P.S. Would you be interested in running the next survey?
+&gt;
+&gt; I haven't seen any news regarding the 2012 survey. I'm interested in
+&gt; running the survey this time, but I would like to know what that
+&gt; entails :)
+&gt;
+&gt; I think the surveys should continue.
+
+I have created short (well, at least shorter than previous ones)
+"Git User's Survey 2012" on Survs.com.  The test channel is
+
+  https://www.survs.com/survey/J87I3PDBU4
+
+Note that all answers in this channel would be deleted.
+
+
+I was thinking about running this survey for about three weeks, from
+24 September to 14 October 2012.  The current premium unlimited plan,
+a gift from Survs.com admins, is valid till 26 October.  I don't know if it
+would be prolonged; it usually was.
+
+As to what is involved in running survey: if we want and would be able to
+use Survs.com, one should register there, and I can add them to "git"
+account as a member with admin rights.
+
+-- 
+Jakub Narebski
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120923080903</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2012-09-23 08:09:03-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+Jakub Narębski &lt;jnareb@gmail.com&gt; writes:
+
+&gt; I have created short (well, at least shorter than previous ones)
+&gt; "Git User's Survey 2012" on Survs.com.  The test channel is
+&gt;
+&gt;   https://www.survs.com/survey/J87I3PDBU4
+&gt;
+&gt; Note that all answers in this channel would be deleted.
+&gt;
+&gt; I was thinking about running this survey for about three weeks, from
+&gt; 24 September to 14 October 2012.  The current premium unlimited plan,
+&gt; a gift from Survs.com admins, is valid till 26 October.  I don't know if it
+&gt; would be prolonged; it usually was.
+&gt;
+&gt; As to what is involved in running survey: if we want and would be able to
+&gt; use Survs.com, one should register there, and I can add them to "git"
+&gt; account as a member with admin rights.
+
+Thanks for getting the ball rolling again this year.
+
+A few comments.
+
+  #5. Given that 1.8.0 will ship on Oct 21st, this may want to
+      include 1.8.0 as well.
+
+  #7. Stop "backup", and leave that to 'other (please specify)'.
+      Also, "Frontend to other SCM" feels somewhat out of place.  It
+      would be interesting to see how "work vs personal" and "native
+      vs foreign" are correlated, for example, but this format does
+      not let you measure it.
+
+ #12. I am not sure why EGit applies and Eclipse doesn't.  Is it
+      like saying "vc.el applies but Emacs doesn't" (the former is
+      the interface, the latter is 'the other side' the interface
+      connects git to")?  If so it makes sense to me, but if EGit is
+      the only interface used to connect to Eclipse, perhaps it does
+      not help people who answer these questions to say this.
+
+ #13. This list is intelligible, at least to me.  "git add" but not
+      "git rm"?  What is "incremental add / commit"?  "git add -p"?
+      Is it worth asking about "update-index"?
+
+      It may be simpler to condense the questionaire down to the
+      following three questions:
+
+      - Do you use command line tool to build commit?
+        [Always/Often/Sometimes/Never]
+
+      - When you do, do you build the next commit incrementally with
+        "git add [-p]" and run "git commit" without the "-a" option?
+        [Always/Often/Sometimes/Never]
+
+      - What do you use if you do not commit with the command line?
+        GUI? IDE/Editor? FileManager? Web?
+
+ #21. (nit) Isn't ProGit one of the "printed books (or ebooks)"?
+
+I think the questions are designed to gauge the individual users
+(proficiency, background, etc.), but I think it would be interesting
+to see what kind of projects they are using Git for, but not in
+vague terms like #7 does.
+
+Even within "work projects - code", it would be enlightening to see
+a bit more details, e.g. Are they building phone app?  Controlling
+nuclear reactors?  Bioinformatics?  How big is their team?  How is
+the project structured, e.g. a central repository where everybody
+pushes into?  Workers push to submission branches that are reviewed,
+approved and merged by the official committers?  Use of continuous
+integration?  Issue tracker integration?
+
+      
+
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120923094726</emailId><senderName>Jakub_Narębski</senderName><senderEmail>jnareb@gmail.com</senderEmail><timestampReceived>2012-09-23 09:47:26-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+On Sun, Sep 23, 2012 at 10:09 AM, Junio C Hamano &lt;gitster@pobox.com&gt; wrote:
+&gt; Jakub Narębski &lt;jnareb@gmail.com&gt; writes:
+&gt;
+&gt;&gt; I have created short (well, at least shorter than previous ones)
+&gt;&gt; "Git User's Survey 2012" on Survs.com.  The test channel is
+&gt;&gt;
+&gt;&gt;   https://www.survs.com/survey/J87I3PDBU4
+&gt;&gt;
+&gt;&gt; Note that all answers in this channel would be deleted.
+&gt;&gt;
+&gt;&gt; I was thinking about running this survey for about three weeks, from
+&gt;&gt; 24 September to 14 October 2012.  The current premium unlimited plan,
+&gt;&gt; a gift from Survs.com admins, is valid till 26 October.  I don't know if it
+&gt;&gt; would be prolonged; it usually was.
+&gt;&gt;
+&gt;&gt; As to what is involved in running survey: if we want and would be able to
+&gt;&gt; use Survs.com, one should register there, and I can add them to "git"
+&gt;&gt; account as a member with admin rights.
+&gt;
+&gt; Thanks for getting the ball rolling again this year.
+&gt;
+&gt; A few comments.
+&gt;
+&gt;   #5. Given that 1.8.0 will ship on Oct 21st, this may want to
+&gt;       include 1.8.0 as well.
+
+Thanks for an information.
+Done.
+
+&gt;   #7. Stop "backup", and leave that to 'other (please specify)'.
+&gt;       Also, "Frontend to other SCM" feels somewhat out of place.  It
+&gt;       would be interesting to see how "work vs personal" and "native
+&gt;       vs foreign" are correlated, for example, but this format does
+&gt;       not let you measure it.
+
+I have split this question in two:
+
+#7. What kind of projects etc. do you use Git for?
+#8. I use Git for (check all that apply):
+
+where the first question is about work..private direction, and the second
+one is now reducted to code, documentation, etc.
+
+But now that I think of it, perhaps it might be interesting to put those
+in the matrix form, where one direction would be work vs personal,
+other code vs foreign.
+
+&gt;  #12. I am not sure why EGit applies and Eclipse doesn't.  Is it
+&gt;       like saying "vc.el applies but Emacs doesn't" (the former is
+&gt;       the interface, the latter is 'the other side' the interface
+&gt;       connects git to")?  If so it makes sense to me, but if EGit is
+&gt;       the only interface used to connect to Eclipse, perhaps it does
+&gt;       not help people who answer these questions to say this.
+
+I have reworked / rewritten the description to this question.
+What I wanted here is to not add editor/IDE which is used
+only to edit files and create commit messages via core.editor,
+but without any Git integration.
+
+&gt;  #13. This list is intelligible, at least to me.  "git add" but not
+&gt;       "git rm"?  What is "incremental add / commit"?  "git add -p"?
+&gt;       Is it worth asking about "update-index"?
+&gt;
+&gt;       It may be simpler to condense the questionaire down to the
+&gt;       following three questions:
+&gt;
+&gt;       - Do you use command line tool to build commit?
+&gt;         [Always/Often/Sometimes/Never]
+&gt;
+&gt;       - When you do, do you build the next commit incrementally with
+&gt;         "git add [-p]" and run "git commit" without the "-a" option?
+&gt;         [Always/Often/Sometimes/Never]
+&gt;
+&gt;       - What do you use if you do not commit with the command line?
+&gt;         GUI? IDE/Editor? FileManager? Web?
+
+I have split this question in two:
+
+
+#14. What tool do you use to create new commits?
+#15. How do you create new commits?
+
+The latter is about incremental commits etc.
+
+I wonder if it would not make this survey too complicated to add
+the tool vs how (i.e. rows from 14th rows, columns from 15th rows)
+to complete 3rd dimension ;-)
+
+&gt;  #21. (nit) Isn't ProGit one of the "printed books (or ebooks)"?
+
+I can add "other than above".
+
+&gt; I think the questions are designed to gauge the individual users
+&gt; (proficiency, background, etc.), but I think it would be interesting
+&gt; to see what kind of projects they are using Git for, but not in
+&gt; vague terms like #7 does.
+&gt;
+&gt; Even within "work projects - code", it would be enlightening to see
+&gt; a bit more details, e.g. Are they building phone app?  Controlling
+&gt; nuclear reactors?  Bioinformatics?
+
+This is something hard to ask for... well, we could always use
+free form question, but then the problem is with analyzing the
+data, even if we don't get 10k answers like in last year.
+
+&gt;  How big is their team?
+
+Do any of you have a proposal for sensible ranges? For example
+
+ - 1
+ - a few
+ - several
+ - 10-50
+ - 50-150
+ - more than 150
+
+I think multiple choice would fit better here, with troubles analysing
+and explaining how to format free-form, and people participating
+in different projects.
+
+&gt; How is
+&gt; the project structured, e.g. a central repository where everybody
+&gt; pushes into?  Workers push to submission branches that are reviewed,
+&gt; approved and merged by the official committers?  Use of continuous
+&gt; integration?  Issue tracker integration?
+
+Hmm... the question about workflows used could be interesting.
+BTW. I have added to :kinds of tools" questions, e.g. about CI,
+so this topic is more covered... I think.
+
+-- 
+Jakub Narębski
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120924132343</emailId><senderName>Michael J Gruber</senderName><senderEmail>git@drmicha.warpmail.net</senderEmail><timestampReceived>2012-09-24 13:23:43-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+Jakub Narębski venit, vidit, dixit 23.09.2012 00:45:
+&gt; On Wed, Sep 19, 2012 at 7:35 PM, Felipe Contreras
+&gt; &lt;felipe.contreras@gmail.com&gt; wrote:
+&gt;&gt; Hi,
+&gt;&gt;
+&gt;&gt; On Wed, Sep 14, 2011 at 7:39 PM, Jakub Narebski &lt;jnareb@gmail.com&gt; wrote:
+&gt;&gt;
+&gt;&gt;&gt; P.S. Would you be interested in running the next survey?
+&gt;&gt;
+&gt;&gt; I haven't seen any news regarding the 2012 survey. I'm interested in
+&gt;&gt; running the survey this time, but I would like to know what that
+&gt;&gt; entails :)
+&gt;&gt;
+&gt;&gt; I think the surveys should continue.
+&gt; 
+&gt; I have created short (well, at least shorter than previous ones)
+&gt; "Git User's Survey 2012" on Survs.com.  The test channel is
+&gt; 
+&gt;   https://www.survs.com/survey/J87I3PDBU4
+&gt; 
+&gt; Note that all answers in this channel would be deleted.
+&gt; 
+&gt; 
+&gt; I was thinking about running this survey for about three weeks, from
+&gt; 24 September to 14 October 2012.  The current premium unlimited plan,
+&gt; a gift from Survs.com admins, is valid till 26 October.  I don't know if it
+&gt; would be prolonged; it usually was.
+&gt; 
+&gt; As to what is involved in running survey: if we want and would be able to
+&gt; use Survs.com, one should register there, and I can add them to "git"
+&gt; account as a member with admin rights.
+&gt; 
+
+Other version control systems:
+I think the list needs to be sorted alphabetically, it's really long.
+(You could also reduce and offer a text field "other.)
+
+Resources:
+I wouldn't put git-scm.com and the pro-git book into the same item.
+git-scm.com was supposed to be "the" git community website (and also
+"the" reference on git), and the fact that it looks like a pro-git book
+sales platform is a different matter.
+
+An interesting question would be: "What is the first source you consider
+Git?", or even: "What is the Git homepage?"... Really, getting input on
+what "the Git homepage" should be like would be nice, but not comparable
+to previous surveys.
+
+In any case, thanks for taking care of the survey again!
+
+Michael
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120924143140</emailId><senderName>Jakub_Narębski</senderName><senderEmail>jnareb@gmail.com</senderEmail><timestampReceived>2012-09-24 14:31:40-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+On Mon, Sep 24, 2012 at 3:23 PM, Michael J Gruber
+&lt;git@drmicha.warpmail.net&gt; wrote:
+[...]
+&gt; Other version control systems:
+&gt; I think the list needs to be sorted alphabetically, it's really long.
+
+I have split this list in two: other centralized VCS and other distributed
+VCS; both have "other" field.
+
+&gt; (You could also reduce and offer a text field "other.)
+
+I tried to include all important VCS.  There is always problem with
+analyzing responses from "other" field...
+
+&gt; Resources:
+&gt; I wouldn't put git-scm.com and the pro-git book into the same item.
+&gt; git-scm.com was supposed to be "the" git community website (and also
+&gt; "the" reference on git), and the fact that it looks like a pro-git book
+&gt; sales platform is a different matter.
+
+Good catch. Originally there was "Git Community Book" on Git Homepage,
+and "Pro Git" had its own homepage; now they are folded together.
+
+I have slightly rewritten the description to account for this.
+
+&gt;
+&gt; An interesting question would be: "What is the first source you consider
+&gt; Git?", or even: "What is the Git homepage?"... Really, getting input on
+&gt; what "the Git homepage" should be like would be nice, but not comparable
+&gt; to previous surveys.
+
+As you can see this year survey is [almost] bereft of essay free-form
+questions.  It is because of difficulties and time needed to analyze such
+responses. So I don't think such question will be included this year.
+
+I think it is better discussion for git mailing list or something...
+
+-- 
+Jakub Narebski
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120924153737</emailId><senderName>Matthieu Moy</senderName><senderEmail>matthieu.moy@grenoble-inp.fr</senderEmail><timestampReceived>2012-09-24 15:37:37-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+Jakub Narębski &lt;jnareb@gmail.com&gt; writes:
+
+&gt; I have created short (well, at least shorter than previous ones)
+&gt; "Git User's Survey 2012" on Survs.com.  The test channel is
+&gt;
+&gt;   https://www.survs.com/survey/J87I3PDBU4
+
+If it's still time, it would be nice to add a question on the kind of
+workflow people use. E.g.
+
+Which workflow do you use? (never / rarely / often / always)
+
+Centralized workflow (everyone pushes and pulls to the same shared
+repository).
+
+One-repository per developer (people push to their own public
+repository, and pull from other user's public repository)
+
+
+(and perhaps intermediates).
+
+-- 
+Matthieu Moy
+http://www-verimag.imag.fr/~moy/
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120924161156</emailId><senderName>Jakub_NarÄ™bski</senderName><senderEmail>jnareb@gmail.com</senderEmail><timestampReceived>2012-09-24 16:11:56-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+On Mon, Sep 24, 2012 at 5:37 PM, Matthieu Moy
+&lt;Matthieu.Moy@grenoble-inp.fr&gt; wrote:
+&gt; Jakub Narêbski &lt;jnareb@gmail.com&gt; writes:
+&gt;
+&gt;&gt; I have created short (well, at least shorter than previous ones)
+&gt;&gt; "Git User's Survey 2012" on Survs.com.  The test channel is
+&gt;&gt;
+&gt;&gt;   https://www.survs.com/survey/J87I3PDBU4
+&gt;
+&gt; If it's still time, it would be nice to add a question on the kind of
+&gt; workflow people use. E.g.
+&gt;
+&gt; Which workflow do you use? (never / rarely / often / always)
+&gt;
+&gt; Centralized workflow (everyone pushes and pulls to the same shared
+&gt; repository).
+&gt;
+&gt; One-repository per developer (people push to their own public
+&gt; repository, and pull from other user's public repository)
+
+You were not the only one to ask for question about workflows
+used; Junio also asked for something similar.
+
+I have therefore added the following multiple-choice question:
+
+#19. What git workflow(s) is used by projects in which development you
+participate?
+[ ] single developer, only private repository (no interaction)
+[ ] centralized workflow (push to common repository)
+[ ] branched centralized (push to different branches in common repository)
+[ ] peer-to-peer workflow (all repositories roughly equal)
+[ ] integration-manager workflow (maintainer pulls/applies patches to
+"blessed" repository))
+[ ] dictator and lieutenants workflow (hierarchical workflow)
+[ ] using collaborative code review tool, e.g. Gerrit
+[ ] other workflow, please explai
+
+I was also thinking about adding merge vs rebase question, but it
+is direction orthogonal to above, so maybe as separate question...
+
+-- 
+Jakub Narebski
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120924161808</emailId><senderName>Matthieu Moy</senderName><senderEmail>matthieu.moy@grenoble-inp.fr</senderEmail><timestampReceived>2012-09-24 16:18:08-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+Jakub Narębski &lt;jnareb@gmail.com&gt; writes:
+
+&gt; I have therefore added the following multiple-choice question:
+&gt;
+&gt; #19. What git workflow(s) is used by projects in which development you
+&gt; participate?
+
+If we want to have an idea of which workflows are the most commonly
+used, just a binary answer may be insufficient. We can't distinguish
+between "X% people use workflow W all the time", and "X% people use
+workflow W from time to time".
+
+-- 
+Matthieu Moy
+http://www-verimag.imag.fr/~moy/
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120924162331</emailId><senderName>Jakub_Narębski</senderName><senderEmail>jnareb@gmail.com</senderEmail><timestampReceived>2012-09-24 16:23:31-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+On Mon, Sep 24, 2012 at 6:18 PM, Matthieu Moy
+&lt;Matthieu.Moy@grenoble-inp.fr&gt; wrote:
+&gt; Jakub Narębski &lt;jnareb@gmail.com&gt; writes:
+&gt;
+&gt;&gt; I have therefore added the following multiple-choice question:
+&gt;&gt;
+&gt;&gt; #19. What git workflow(s) is used by projects in which development you
+&gt;&gt; participate?
+&gt;
+&gt; If we want to have an idea of which workflows are the most commonly
+&gt; used, just a binary answer may be insufficient. We can't distinguish
+&gt; between "X% people use workflow W all the time", and "X% people use
+&gt; workflow W from time to time".
+
+The problem is that those workflows are used by _projects_ not _people_,
+so never/rarely/sometimes/often would be IMHO inappropriate.
+
+Besides matrix type question cannot have (on Survs.com) "other, explain"...
+-- 
+Jakub Narebski
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120924193511</emailId><senderName>Matthieu Moy</senderName><senderEmail>matthieu.moy@grenoble-inp.fr</senderEmail><timestampReceived>2012-09-24 19:35:11-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+Jakub Narębski &lt;jnareb@gmail.com&gt; writes:
+
+&gt; On Mon, Sep 24, 2012 at 6:18 PM, Matthieu Moy
+&gt; &lt;Matthieu.Moy@grenoble-inp.fr&gt; wrote:
+&gt;&gt; Jakub Narębski &lt;jnareb@gmail.com&gt; writes:
+&gt;&gt;
+&gt;&gt;&gt; I have therefore added the following multiple-choice question:
+&gt;&gt;&gt;
+&gt;&gt;&gt; #19. What git workflow(s) is used by projects in which development you
+&gt;&gt;&gt; participate?
+&gt;&gt;
+&gt;&gt; If we want to have an idea of which workflows are the most commonly
+&gt;&gt; used, just a binary answer may be insufficient. We can't distinguish
+&gt;&gt; between "X% people use workflow W all the time", and "X% people use
+&gt;&gt; workflow W from time to time".
+&gt;
+&gt; The problem is that those workflows are used by _projects_ not _people_,
+
+Yes, but people are usually involved in multiple projects. Someone
+involved in 10 different distributed projects and sometimes contributing
+to 1 centralized would count 1 for each.
+
+-- 
+Matthieu Moy
+http://www-verimag.imag.fr/~moy/
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120924194305</emailId><senderName>Jakub_NarÄ™bski</senderName><senderEmail>jnareb@gmail.com</senderEmail><timestampReceived>2012-09-24 19:43:05-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+On Mon, Sep 24, 2012 at 9:35 PM, Matthieu Moy
+&lt;Matthieu.Moy@grenoble-inp.fr&gt; wrote:
+&gt; Jakub Narêbski &lt;jnareb@gmail.com&gt; writes:
+&gt;
+&gt;&gt; On Mon, Sep 24, 2012 at 6:18 PM, Matthieu Moy
+&gt;&gt; &lt;Matthieu.Moy@grenoble-inp.fr&gt; wrote:
+&gt;&gt;&gt; Jakub Narêbski &lt;jnareb@gmail.com&gt; writes:
+&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; I have therefore added the following multiple-choice question:
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; #19. What git workflow(s) is used by projects in which development you
+&gt;&gt;&gt;&gt; participate?
+&gt;&gt;&gt;
+&gt;&gt;&gt; If we want to have an idea of which workflows are the most commonly
+&gt;&gt;&gt; used, just a binary answer may be insufficient. We can't distinguish
+&gt;&gt;&gt; between "X% people use workflow W all the time", and "X% people use
+&gt;&gt;&gt; workflow W from time to time".
+&gt;&gt;
+&gt;&gt; The problem is that those workflows are used by _projects_ not _people_,
+&gt;
+&gt; Yes, but people are usually involved in multiple projects. Someone
+&gt; involved in 10 different distributed projects and sometimes contributing
+&gt; to 1 centralized would count 1 for each.
+,
+True.  So responses wouldn't tell us the full story.
+
+But first, never/rarely/sometimes/often/always doesn't fit IMHO here.
+
+Second, the situation is more complicated: one can be actively involved
+in 1 distributed project with 200+ contributors via Gerrit, often contribute
+to 1 centralized project with 15-25 contributors, and rarely interact with
+distributed project using "blessed" repository workflow where number
+of contributors range from few to few hundred.  Too complicated for
+survey IMHO.
+
+Third, no other in matrix form.
+-- 
+Jakub Narebski
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120925061715</emailId><senderName>Matthieu Moy</senderName><senderEmail>matthieu.moy@grenoble-inp.fr</senderEmail><timestampReceived>2012-09-25 06:17:15-0400</timestampReceived><subject>Re: [RFC] Questions for "Git User's Survey 2011"</subject><body>
+
+Jakub Narębski &lt;jnareb@gmail.com&gt; writes:
+
+&gt; Second, the situation is more complicated: one can be actively involved
+&gt; in 1 distributed project with 200+ contributors via Gerrit, often contribute
+&gt; to 1 centralized project with 15-25 contributors, and rarely interact with
+&gt; distributed project using "blessed" repository workflow where number
+&gt; of contributors range from few to few hundred.
+
+We're doing a user survey, so if a project has 200 contributors, it will
+statistically have 10 times more survey participants than a 20
+contributors project. Sure, statistics don't always work, but if we
+don't trust statistics, we shouldn't do a survey.
+
+&gt; Third, no other in matrix form.
+
+Well, forcing the user to chose between existing options is not
+necessarily bad IMHO. It at least avoids free-form answers like "I'm
+doing almost exactly option b) but I don't call it this way so I didn't
+tick b)".
+
+-- 
+Matthieu Moy
+http://www-verimag.imag.fr/~moy/
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20120925065748</emailId><senderName>Jakub_NarÄ™bski</senderName><senderEmail>jnareb@gmail.com</senderEmail><timestampReceived>2012-09-25 06:57:48-0400</timestampReceived><subject>[RFC] Questions for "Git User's Survey 2011"</subject><body>

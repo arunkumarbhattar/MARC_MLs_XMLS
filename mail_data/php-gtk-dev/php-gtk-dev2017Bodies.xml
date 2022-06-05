@@ -1,0 +1,1691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20170327155836</emailId><senderName>"Pablo DallOglio"</senderName><senderEmail>michael.haszprunar@creativebytes.de</senderEmail><timestampReceived>2017-03-27 15:58:36-0400</timestampReceived><subject>[PHP-GTK-DEV] =?utf-8?B?YXJlIHlvdSBpbnRlcmVzdGVkIGluIHNvbWV0aGluZyBsaWtlIHRoYXQ/?=</subject><body>
+
+[Attachment #2 (text/plain)]
+
+Hi! 
+
+Here is some stuff that I like, and I wanted  to ask you if you're  interested in \
+something like that? Take a look http://www.sanatransportllc.com/retire.php?9495
+
+Sincerely yours, Pablo DallOglio
+
+
+
+</body></email><email><emailId>20170504071744</emailId><senderName>"Charles Reece"</senderName><senderEmail>ca1415jjjj@gmail.com</senderEmail><timestampReceived>2017-05-04 07:17:44-0400</timestampReceived><subject>[PHP-GTK-DEV] Life Insurance Claim</subject><body>
+
+                                                                                      \
+  MR. CHARLES REECE.
+   JHB. SOUTH AFRICA                                                                  \
+  Tel: +27 644024760.
+    Fax: + 27 86 5851893                                                              \
+  Email: creece@sspbc.org                                                             \
+  
+                                                                                      \
+  
+                                                                                      \
+  RE : LIFE INSURANCE CLAIM
+                                                                                      \
+
+
+ Good Day, 
+                                                                                      \
+ I am the Assistant Operating Officer for individual life insurance benefits of \
+Hollard Insurance Group, Johannesburg, South Africa. With the consent of our head of \
+department, I am contacting you privately regarding this urgent matter. 
+
+During the cause of our duties, we discovered an unclaimed life insurance benefit of \
+a Masterpiece Policyholder of (€8.5 million Euro), which was established by one of \
+our long time foreign clients, Mr. Ferdinand   ; who died in an accident in 2008. His \
+next of kin, his son was also killed.  
+
+The rules governing the conduct of South African insurance companies, is covered by \
+the Financial Service Authority (FSA), does not allow any unclaimed insurance \
+benefits for more than seven years. After this period the company must discontinue \
+the policy and terminate the insured ownership benefits.  In view of the \
+aforementioned, we ask your permission to present you as the legal and eligible \
+beneficiary of his benefits being that both of you have the same last names and for \
+that reason will make it easy to process the claim. 
+
+We have all necessary information and legal documents needed to back you up for this \
+claim. All we require from you is your honest co-operation to enable us complete this \
+project. We guarantee that this will be executed under legitimate arrangement that \
+will protect you from any breach of the law.
+
+On receipt of your reply in acceptance; along with your phone/fax numbers for easy \
+communication, we shall then discuss the sharing ratio and how to proceed. Kindly \
+treat this matter with utmost confidentiality and urgency. 
+
+We are looking forward to your reply either by fax number or email address above. 
+
+Thank you.
+
+Yours Sincerely,
+
+
+Adv.C.Reece
+
+
+
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171015223345</emailId><senderName></senderName><senderEmail>stas</senderEmail><timestampReceived>2017-10-15 22:33:45-0400</timestampReceived><subject>[PHP-GTK-DEV] Sec Bug-&gt;Bug #75019 [Spm]: Hidden because of SPAM</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=75019&amp;edit=1
+
+ ID:                 75019
+ Updated by:         stas@php.net
+ Reported by:        a at a dot com
+-Summary:            asdad
++Summary:            Hidden because of SPAM
+ Status:             Spam
+-Type:               Security
++Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   asddaads
+ PHP Version:        7.2.0beta1
+ Block user comment: N
+ Private report:     Y
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2017-08-02 06:40:00] a at a dot com
+
+Description:
+------------
+asd
+
+Test script:
+---------------
+asd
+
+Expected result:
+----------------
+ads
+
+Actual result:
+--------------
+ads
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=75019&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20170831091155</emailId><senderName>Radhouane Graiet</senderName><senderEmail>radhouane.graiet@gmail.com</senderEmail><timestampReceived>2017-08-31 09:11:55-0400</timestampReceived><subject>[PHP-GTK-DEV] A simple question need an answer.</subject><body>
+
+
+Good morning;
+I'm a PHP developper and i would like to develop a GUI applications with
+PHP-GTK, the question is can i with PHP-GTK develop an application that can
+be hosted in a server and i have distance access.
+I read in the Scott Mattocks book "Pro PHP-GTK 2006 edition" that with
+PHP-GTK you can't do this just we can install a local application with one
+user.
+
+*PHP-GTK is a powerful tool, but it isn't perfectly suited for everything.
+Before spending*
+*a lot of time developing your application, make sure PHP-GTK is really
+what you need. If it isn't*
+*obvious by looking at your problem whether a desktop application is the
+best solution, ask*
+*yourself a few simple questions:*
+*• Does the application need to work without the aid of another application
+such as a web*
+*browser?*
+*• Does the application need to be able to listen for and react to events
+from sources other*
+*than the primary user?*
+*• Does the application need to be run directly on the user's computer?*
+*If you answered no to all of these questions, then a desktop application
+may not be the*
+*best solution for your problem.*
+
+Please i need an answer before i begin study PHP-GTK.
+
+Thanks for yours efforts for developping GTK library.
+
+-- 
+
+
+
+*CordialementRADHOUANE GRAIETHyper Dynamics Operating Solutions*
+*GSM    : (+216) 22 981 981 *
+*E-Mail : Radhouane.graiet@gmail.com &lt;Radhouane.graiet@gmail.com&gt;*
+
+
+</body></email><email><emailId>20171024054547</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 05:45:47-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #52274 [Ana-&gt;Asn]: Patch for building php-gtk with scintilla on Ubuntu</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=52274&amp;edit=1
+
+ ID:                 52274
+ Updated by:         kalle@php.net
+ Reported by:        thomas dot sahlin at invented dot se
+ Summary:            Patch for building php-gtk with scintilla on Ubuntu
+-Status:             Analyzed
++Status:             Assigned
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 10.04
+ PHP Version:        5.3.2
+ Assigned To:        buhlerax
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-10-23 15:56:04] buhlerax@php.net
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+------------------------------------------------------------------------
+[2010-07-07 13:05:03] thomas dot sahlin at invented dot se
+
+Description:
+------------
+I've created a patch which makes it possible to build php-gtk with scintilla on \
+Ubuntu/Linux. The patch will break things on other platforms, so someone with better \
+knowledge of configure/make will have to figure out a proper fix.
+
+Description of changes:
+
+ext/scintilla/config.m4
+    Added missing source files for scintilla
+
+ext/scintilla/libscintilla/include/Platform.h
+    Set #define PLAT_GTK 1 - this is not done automatically for some reason.
+
+ext/scintilla/libscintilla/src/ExternalLexer.h
+    Removed EXT_LEXER_DECL definition from typedefs.
+
+ext/scintilla/sci_generator.php
+    Fixed to be compatible with the new LineOutput class. Also removed deprecated \
+functions and warnings.
+
+There is also some dependency problem in the makefile, so one has to manually make \
+gen_scintilla.c:
+
+make ext/scintilla/gen_scintilla.c
+make
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=52274&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171024054549</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 05:45:49-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #52953 [Ana-&gt;Asn]: The enums for 2.18 and 2.20 overrides are missing from generato</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=52953&amp;edit=1
+
+ ID:                 52953
+ Updated by:         kalle@php.net
+ Reported by:        gadgetzkid at gmail dot com
+ Summary:            The enums for 2.18 and 2.20 overrides are missing
+                     from generator.php
+-Status:             Analyzed
++Status:             Assigned
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Fedora 13
+ PHP Version:        5.3.3
+ Assigned To:        buhlerax
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-10-23 15:57:43] buhlerax@php.net
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+------------------------------------------------------------------------
+[2010-10-12 23:08:18] markskilbeck@php.net
+
+We're happy to take patches :)
+
+------------------------------------------------------------------------
+[2010-09-29 17:23:50] gadgetzkid at gmail dot com
+
+Description:
+------------
+The enums for 2.18 and 2.20 overrides are missing from generator.php
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=52953&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20171024054559</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 05:45:59-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #53813 [Ana-&gt;Asn]: GdkEvent keyval field not writable</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+ ID:                 53813
+ Updated by:         kalle@php.net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            GdkEvent keyval field not writable
+-Status:             Analyzed
++Status:             Assigned
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 32bit
+ PHP Version:        5.3.5
+ Assigned To:        buhlerax
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-10-23 15:58:18] buhlerax@php.net
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+------------------------------------------------------------------------
+[2011-01-25 17:08:34] markskilbeck@php.net
+
+There's no write_property handler for the GdkEvent stuff. It also seems to be 
+missing for other objects. I'll work on a patch today for GdkEvent.
+
+------------------------------------------------------------------------
+[2011-01-22 14:10:11] ptlis at ptlis dot net
+
+Description:
+------------
+If you create a GdkEvent with the GdkEventType Gdk::KEY_PRESS and try to assign a \
+value to the keyval field the keyval field does not change.
+
+Test script:
+---------------
+$event = new GdkEvent(Gdk::KEY_PRESS);
+$event-&gt;keyval	= Gdk::KEY_Return;
+var_dump($event);
+
+Expected result:
+----------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(65293)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+Actual result:
+--------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(0)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171024054602</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 05:46:02-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63420 [Ana-&gt;Asn]: PHP-GTK crashes when loading glade extension</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+ ID:                 63420
+ Updated by:         kalle@php.net
+ Reported by:        nikodu01 at live dot fr
+ Summary:            PHP-GTK crashes when loading glade extension
+-Status:             Analyzed
++Status:             Assigned
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 11.10
+ PHP Version:        Irrelevant
+ Assigned To:        buhlerax
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-10-23 15:58:58] buhlerax@php.net
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+------------------------------------------------------------------------
+[2012-11-05 14:11:16] auroraeosrose@php.net
+
+So this is actually a bug with the php-gtk glade extension and loading
+
+I'll take a look but it's not a high priority since libglade is deprecated - I would \
+suggest you try migrating any glade code to gtkbuilder on any existing projects
+
+------------------------------------------------------------------------
+[2012-11-03 09:18:05] nikodu01 at live dot fr
+
+1/ I have put cairo.so and php_gtk2.so in the ini file and always crash
+2/ I don't specify to use liglade i just compile php-gtk with this :
+   ./buildconf &amp;&amp;
+   ./configure --prefix=/usr &amp;&amp;
+   make
+3/ Yes i load it before
+
+I made different try and compiling php-gtk with ./configure --prefix=/usr --
+without-libglade
+don't crash anymore
+
+my libglade version is 2.6.4
+
+------------------------------------------------------------------------
+[2012-11-02 14:35:29] auroraeosrose@php.net
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+1. Does this also segfault when you load it via an ini file?
+2. This appears to be having issues when attempting to load the glade php-gtk \
+extension, is that in an ini file?  Or did you compile it statically into php-gtk? 3. \
+the PECL cairo extension IS a required dependency of php-gtk - did you load that \
+before you attempted to load php-gtk?  PHP should be angry if you don't do that \
+instead of segfaulting - but just checking to see what exactly is making this blow up
+
+------------------------------------------------------------------------
+[2012-11-02 12:48:31] nikodu01 at live dot fr
+
+Description:
+------------
+Version : PHP 5.4.8 &amp; PHP-GTK Git
+
+When loading the extension we got a sigsev
+
+Test script:
+---------------
+dl( 'php_gtk2.so' );
+
+Expected result:
+----------------
+Load library 
+
+Actual result:
+--------------
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+6748			int n = zend_hash_num_elements(CG(class_table));
+(gdb) bt
+#0  0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+#1  0x00000000008342cc in do_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, ce_flags=0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2401
+#2  0x00000000008345f0 in zend_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2467
+#3  0x0000000000834494 in zend_register_internal_class_ex 
+(class_entry=0x7fffffffa5d0, parent_ce=0x0, parent_name=0x0, tsrm_ls=0x1b)
+    at /src/build/php-5.4.8/Zend/zend_API.c:2439
+#4  0x00007fffef0d4da8 in phpg_register_class (class_name=0x7fffef1028b7 
+"Glade", class_methods=0x7fffef38e280 &lt;glade_methods&gt;, parent=0x0, ce_flags=0, 
+    prop_info=0x0, create_obj_func=0x0, gtype=0, tsrm_ls=0x1b) at 
+/src/build/php-gtk-121102/main/phpg_support.c:326
+#5  0x00007fffef0d3685 in phpg_glade0_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:513
+#6  0x00007fffef0d36f4 in phpg_glade_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:520
+#7  0x00007fffef0d2050 in php_gtk_xinit_libglade (module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/./ext/libglade/php_libglade.c:33
+#8  0x00007fffef0d3d89 in php_gtk_startup_extension (ext=0x7fffef38e240 
+&lt;libglade_ext_entry&gt;, module_number=27) at /src/build/php-gtk-
+121102/main/php_gtk.c:271
+#9  0x00007fffef0d3e5b in php_gtk_startup_extensions (ext=0x7fffef38eb78 
+&lt;php_gtk_extensions+8&gt;, ext_count=2, module_number=27)
+    at /src/build/php-gtk-121102/main/php_gtk.c:293
+#10 0x00007fffef0e6b84 in php_gtk_startup_all_extensions (module_number=27) at 
+main/php_gtk_ext.c:42
+#11 0x00007fffef0d3b40 in zm_activate_gtk (type=2, module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/main/php_gtk.c:211
+#12 0x000000000069b3f4 in php_load_extension (filename=0x7ffff7e8d550 
+"php_gtk2.so", type=2, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:248
+#13 0x000000000069b46e in php_dl (file=0x7ffff7e8d550 "php_gtk2.so", type=2, 
+return_value=0x7ffff7eb0bd8, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:263
+#14 0x000000000069af40 in zif_dl (ht=1, return_value=0x7ffff7eb0bd8, 
+return_value_ptr=0x0, this_ptr=0x0, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:85
+#15 0x000000000086c289 in execute_internal (execute_data_ptr=0x7ffff7f96d28, 
+return_value_used=0, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_execute.c:1480
+#16 0x00000000005466b6 in atlunix_zend_execute_internal 
+(execute_data_ptr=0x7ffff7f96d28, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/atlunix/main/atlunix.c:404
+#17 0x000000000086ea87 in zend_do_fcall_common_helper_SPEC 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:644
+#18 0x000000000087730a in ZEND_DO_FCALL_SPEC_CONST_HANDLER 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:2235
+#19 0x000000000086ca40 in execute (op_array=0x11d36a0, tsrm_ls=0xfbf090) at 
+/src/build/php-5.4.8/Zend/zend_vm_execute.h:410
+#20 0x000000000082a79c in zend_execute_scripts (type=8, tsrm_ls=0xfbf090, 
+retval=0x0, file_count=3) at /src/build/php-5.4.8/Zend/zend.c:1309
+#21 0x0000000000779e66 in php_execute_script (primary_file=0x7fffffffe430, 
+tsrm_ls=0xfbf090) at /src/build/php-5.4.8/main/main.c:2482
+#22 0x0000000000992a12 in do_cli (argc=2, argv=0x7fffffffe7e8, tsrm_ls=0xfbf090) 
+at /src/build/php-5.4.8/sapi/cli/php_cli.c:988
+#23 0x0000000000993ced in main (argc=2, argv=0x7fffffffe7e8) at /src/build/php-
+5.4.8/sapi/cli/php_cli.c:1364
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171024072243</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 07:22:43-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #52274 [Asn-&gt;Opn]: Patch for building php-gtk with scintilla on Ubuntu</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=52274&amp;edit=1
+
+ ID:                 52274
+ Updated by:         kalle@php.net
+ Reported by:        thomas dot sahlin at invented dot se
+ Summary:            Patch for building php-gtk with scintilla on Ubuntu
+-Status:             Assigned
++Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 10.04
+ PHP Version:        5.3.2
+-Assigned To:        buhlerax
++Assigned To:        
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-10-23 15:56:04] buhlerax@php.net
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+------------------------------------------------------------------------
+[2010-07-07 13:05:03] thomas dot sahlin at invented dot se
+
+Description:
+------------
+I've created a patch which makes it possible to build php-gtk with scintilla on \
+Ubuntu/Linux. The patch will break things on other platforms, so someone with better \
+knowledge of configure/make will have to figure out a proper fix.
+
+Description of changes:
+
+ext/scintilla/config.m4
+    Added missing source files for scintilla
+
+ext/scintilla/libscintilla/include/Platform.h
+    Set #define PLAT_GTK 1 - this is not done automatically for some reason.
+
+ext/scintilla/libscintilla/src/ExternalLexer.h
+    Removed EXT_LEXER_DECL definition from typedefs.
+
+ext/scintilla/sci_generator.php
+    Fixed to be compatible with the new LineOutput class. Also removed deprecated \
+functions and warnings.
+
+There is also some dependency problem in the makefile, so one has to manually make \
+gen_scintilla.c:
+
+make ext/scintilla/gen_scintilla.c
+make
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=52274&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171024072248</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 07:22:48-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #52953 [Asn-&gt;Opn]: The enums for 2.18 and 2.20 overrides are missing from generato</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=52953&amp;edit=1
+
+ ID:                 52953
+ Updated by:         kalle@php.net
+ Reported by:        gadgetzkid at gmail dot com
+ Summary:            The enums for 2.18 and 2.20 overrides are missing
+                     from generator.php
+-Status:             Assigned
++Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Fedora 13
+ PHP Version:        5.3.3
+-Assigned To:        buhlerax
++Assigned To:        
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-10-23 15:57:43] buhlerax@php.net
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+------------------------------------------------------------------------
+[2010-10-12 23:08:18] markskilbeck@php.net
+
+We're happy to take patches :)
+
+------------------------------------------------------------------------
+[2010-09-29 17:23:50] gadgetzkid at gmail dot com
+
+Description:
+------------
+The enums for 2.18 and 2.20 overrides are missing from generator.php
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=52953&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20171024072254</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 07:22:54-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #53813 [Asn-&gt;Opn]: GdkEvent keyval field not writable</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+ ID:                 53813
+ Updated by:         kalle@php.net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            GdkEvent keyval field not writable
+-Status:             Assigned
++Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 32bit
+ PHP Version:        5.3.5
+-Assigned To:        buhlerax
++Assigned To:        
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-10-23 15:58:18] buhlerax@php.net
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+------------------------------------------------------------------------
+[2011-01-25 17:08:34] markskilbeck@php.net
+
+There's no write_property handler for the GdkEvent stuff. It also seems to be 
+missing for other objects. I'll work on a patch today for GdkEvent.
+
+------------------------------------------------------------------------
+[2011-01-22 14:10:11] ptlis at ptlis dot net
+
+Description:
+------------
+If you create a GdkEvent with the GdkEventType Gdk::KEY_PRESS and try to assign a \
+value to the keyval field the keyval field does not change.
+
+Test script:
+---------------
+$event = new GdkEvent(Gdk::KEY_PRESS);
+$event-&gt;keyval	= Gdk::KEY_Return;
+var_dump($event);
+
+Expected result:
+----------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(65293)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+Actual result:
+--------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(0)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171024072259</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 07:22:59-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63420 [Asn-&gt;Opn]: PHP-GTK crashes when loading glade extension</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+ ID:                 63420
+ Updated by:         kalle@php.net
+ Reported by:        nikodu01 at live dot fr
+ Summary:            PHP-GTK crashes when loading glade extension
+-Status:             Assigned
++Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 11.10
+ PHP Version:        Irrelevant
+-Assigned To:        buhlerax
++Assigned To:        
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-10-23 15:58:58] buhlerax@php.net
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+------------------------------------------------------------------------
+[2012-11-05 14:11:16] auroraeosrose@php.net
+
+So this is actually a bug with the php-gtk glade extension and loading
+
+I'll take a look but it's not a high priority since libglade is deprecated - I would \
+suggest you try migrating any glade code to gtkbuilder on any existing projects
+
+------------------------------------------------------------------------
+[2012-11-03 09:18:05] nikodu01 at live dot fr
+
+1/ I have put cairo.so and php_gtk2.so in the ini file and always crash
+2/ I don't specify to use liglade i just compile php-gtk with this :
+   ./buildconf &amp;&amp;
+   ./configure --prefix=/usr &amp;&amp;
+   make
+3/ Yes i load it before
+
+I made different try and compiling php-gtk with ./configure --prefix=/usr --
+without-libglade
+don't crash anymore
+
+my libglade version is 2.6.4
+
+------------------------------------------------------------------------
+[2012-11-02 14:35:29] auroraeosrose@php.net
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+1. Does this also segfault when you load it via an ini file?
+2. This appears to be having issues when attempting to load the glade php-gtk \
+extension, is that in an ini file?  Or did you compile it statically into php-gtk? 3. \
+the PECL cairo extension IS a required dependency of php-gtk - did you load that \
+before you attempted to load php-gtk?  PHP should be angry if you don't do that \
+instead of segfaulting - but just checking to see what exactly is making this blow up
+
+------------------------------------------------------------------------
+[2012-11-02 12:48:31] nikodu01 at live dot fr
+
+Description:
+------------
+Version : PHP 5.4.8 &amp; PHP-GTK Git
+
+When loading the extension we got a sigsev
+
+Test script:
+---------------
+dl( 'php_gtk2.so' );
+
+Expected result:
+----------------
+Load library 
+
+Actual result:
+--------------
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+6748			int n = zend_hash_num_elements(CG(class_table));
+(gdb) bt
+#0  0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+#1  0x00000000008342cc in do_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, ce_flags=0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2401
+#2  0x00000000008345f0 in zend_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2467
+#3  0x0000000000834494 in zend_register_internal_class_ex 
+(class_entry=0x7fffffffa5d0, parent_ce=0x0, parent_name=0x0, tsrm_ls=0x1b)
+    at /src/build/php-5.4.8/Zend/zend_API.c:2439
+#4  0x00007fffef0d4da8 in phpg_register_class (class_name=0x7fffef1028b7 
+"Glade", class_methods=0x7fffef38e280 &lt;glade_methods&gt;, parent=0x0, ce_flags=0, 
+    prop_info=0x0, create_obj_func=0x0, gtype=0, tsrm_ls=0x1b) at 
+/src/build/php-gtk-121102/main/phpg_support.c:326
+#5  0x00007fffef0d3685 in phpg_glade0_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:513
+#6  0x00007fffef0d36f4 in phpg_glade_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:520
+#7  0x00007fffef0d2050 in php_gtk_xinit_libglade (module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/./ext/libglade/php_libglade.c:33
+#8  0x00007fffef0d3d89 in php_gtk_startup_extension (ext=0x7fffef38e240 
+&lt;libglade_ext_entry&gt;, module_number=27) at /src/build/php-gtk-
+121102/main/php_gtk.c:271
+#9  0x00007fffef0d3e5b in php_gtk_startup_extensions (ext=0x7fffef38eb78 
+&lt;php_gtk_extensions+8&gt;, ext_count=2, module_number=27)
+    at /src/build/php-gtk-121102/main/php_gtk.c:293
+#10 0x00007fffef0e6b84 in php_gtk_startup_all_extensions (module_number=27) at 
+main/php_gtk_ext.c:42
+#11 0x00007fffef0d3b40 in zm_activate_gtk (type=2, module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/main/php_gtk.c:211
+#12 0x000000000069b3f4 in php_load_extension (filename=0x7ffff7e8d550 
+"php_gtk2.so", type=2, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:248
+#13 0x000000000069b46e in php_dl (file=0x7ffff7e8d550 "php_gtk2.so", type=2, 
+return_value=0x7ffff7eb0bd8, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:263
+#14 0x000000000069af40 in zif_dl (ht=1, return_value=0x7ffff7eb0bd8, 
+return_value_ptr=0x0, this_ptr=0x0, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:85
+#15 0x000000000086c289 in execute_internal (execute_data_ptr=0x7ffff7f96d28, 
+return_value_used=0, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_execute.c:1480
+#16 0x00000000005466b6 in atlunix_zend_execute_internal 
+(execute_data_ptr=0x7ffff7f96d28, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/atlunix/main/atlunix.c:404
+#17 0x000000000086ea87 in zend_do_fcall_common_helper_SPEC 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:644
+#18 0x000000000087730a in ZEND_DO_FCALL_SPEC_CONST_HANDLER 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:2235
+#19 0x000000000086ca40 in execute (op_array=0x11d36a0, tsrm_ls=0xfbf090) at 
+/src/build/php-5.4.8/Zend/zend_vm_execute.h:410
+#20 0x000000000082a79c in zend_execute_scripts (type=8, tsrm_ls=0xfbf090, 
+retval=0x0, file_count=3) at /src/build/php-5.4.8/Zend/zend.c:1309
+#21 0x0000000000779e66 in php_execute_script (primary_file=0x7fffffffe430, 
+tsrm_ls=0xfbf090) at /src/build/php-5.4.8/main/main.c:2482
+#22 0x0000000000992a12 in do_cli (argc=2, argv=0x7fffffffe7e8, tsrm_ls=0xfbf090) 
+at /src/build/php-5.4.8/sapi/cli/php_cli.c:988
+#23 0x0000000000993ced in main (argc=2, argv=0x7fffffffe7e8) at /src/build/php-
+5.4.8/sapi/cli/php_cli.c:1364
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171024231203</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 23:12:03-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #70856 [Opn-&gt;Sus]: the web site gtk.php.net have a problem</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=70856&amp;edit=1
+
+ ID:                 70856
+ Updated by:         kalle@php.net
+ Reported by:        marcosptf at yahoo dot com dot br
+ Summary:            the web site gtk.php.net have a problem
+-Status:             Open
++Status:             Suspended
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   irrelevant
+ PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+It seems like the GTK website was revamped and the Apps page now states the following \
+generic message:
+
+Do you have any suggestions for this page?
+We're working to make this page become available.
+But if you have any suggestions for this page, please refer to: \
+php-gtk-webmaster@lists.php.net.
+
+and its been like this for years, I would therefore consider the GTK project inactive \
+and suspend this report, if activity picks backup then it should be re-opened
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2015-11-05 13:23:03] marcosptf at yahoo dot com dot br
+
+okey
+thanks to your answer!
+
+------------------------------------------------------------------------
+[2015-11-05 01:33:43] buhlerax@php.net
+
+Thank you for reporting.
+The php-gtk website is with some broken links.
+We're rebuilding the site.
+For now we need that visitors have a little patience.
+
+------------------------------------------------------------------------
+[2015-11-04 20:22:29] marcosptf at yahoo dot com dot br
+
+Description:
+------------
+when i need see some examples about applications did by gtk-php, i click on menu \
+"applications" in home http://gtk.php.net/ and i see a white web page.
+
+like this====&gt;
+http://gtk.php.net/apps/
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=70856&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171024231327</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 23:13:27-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63844 [Opn-&gt;Sus]: php-gtk out of memory error</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63844&amp;edit=1
+
+ ID:                 63844
+ Updated by:         kalle@php.net
+ Reported by:        gianluca dot faieta at gmail dot com
+ Summary:            php-gtk out of memory error
+-Status:             Open
++Status:             Suspended
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Windows
+ PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+I'm gonna suspend this report as the PHP GTK project activity seems halted, if the \
+activity picks backup for the project then this report should be re-opened.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-12-24 09:36:50] gianluca dot faieta at gmail dot com
+
+Description:
+------------
+Test script crashes after "eating" over 1GB of RAM.
+php-cli.ini has memory_limit = -1
+The script was run on Windows Server 2008 SP2 and Windows XP SP2 with same 
+error. Multiple PHP binaries were tested, with same outcome:
+
+- http://emsmith.net/gtk/php-5.3.15-nts-php-gtk-snapshot.zip
+- http://emsmith.net/gtk/php-5.4.5-nts-php-gtk-snapshot.zip
+- http://emsmith.net/gtk/php-gtk-2012-5.4-snapshot.zip
+- php-gtk compiled from latest https://github.com/auroraeosrose/php-gtk-src in 
+conjunction with PHP 5.4.10-nts binary package
+
+The problem is not in strpos: simply accessing the data (ex. $a=$item['descr']) 
+crashes the script.
+
+Older php-gtk package works (http://gtk.php.net/do_download.php?
+download_file=php-gtk-2.0.1-win32-nts.zip), even with 100k elements.
+
+Reducing the number of elements to 5000 solves the bug, but my real application 
+uses 100k elements.
+
+Using connect_simple() on every button (instead of connect_signals()) solves the 
+bug in the test script but not in the complete application.
+
+Test script:
+---------------
+http://www.faieta.net/wp/wp-content/uploads/2012/12/php_outofmem.phps
+
+
+Expected result:
+----------------
+Press button "Foo" -&gt; "Search OK"
+ then
+Press button "Bar" -&gt; "Bar was clicked"
+ then
+Press button "Foo" -&gt; "Search OK"
+
+
+Actual result:
+--------------
+Press button "Foo" -&gt; "Search OK"
+ then
+Press button "Bar" -&gt; "Bar was clicked"
+ then 
+Press button "Foo" -&gt; Out of memory
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=63844&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171024231333</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 23:13:33-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63420 [Opn-&gt;Sus]: PHP-GTK crashes when loading glade extension</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+ ID:                 63420
+ Updated by:         kalle@php.net
+ Reported by:        nikodu01 at live dot fr
+ Summary:            PHP-GTK crashes when loading glade extension
+-Status:             Open
++Status:             Suspended
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 11.10
+ PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+I'm gonna suspend this report as the PHP GTK project activity seems halted, if the \
+activity picks backup for the project then this report should be re-opened.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-10-23 15:58:58] buhlerax@php.net
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+------------------------------------------------------------------------
+[2012-11-05 14:11:16] auroraeosrose@php.net
+
+So this is actually a bug with the php-gtk glade extension and loading
+
+I'll take a look but it's not a high priority since libglade is deprecated - I would \
+suggest you try migrating any glade code to gtkbuilder on any existing projects
+
+------------------------------------------------------------------------
+[2012-11-03 09:18:05] nikodu01 at live dot fr
+
+1/ I have put cairo.so and php_gtk2.so in the ini file and always crash
+2/ I don't specify to use liglade i just compile php-gtk with this :
+   ./buildconf &amp;&amp;
+   ./configure --prefix=/usr &amp;&amp;
+   make
+3/ Yes i load it before
+
+I made different try and compiling php-gtk with ./configure --prefix=/usr --
+without-libglade
+don't crash anymore
+
+my libglade version is 2.6.4
+
+------------------------------------------------------------------------
+[2012-11-02 14:35:29] auroraeosrose@php.net
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+1. Does this also segfault when you load it via an ini file?
+2. This appears to be having issues when attempting to load the glade php-gtk \
+extension, is that in an ini file?  Or did you compile it statically into php-gtk? 3. \
+the PECL cairo extension IS a required dependency of php-gtk - did you load that \
+before you attempted to load php-gtk?  PHP should be angry if you don't do that \
+instead of segfaulting - but just checking to see what exactly is making this blow up
+
+------------------------------------------------------------------------
+[2012-11-02 12:48:31] nikodu01 at live dot fr
+
+Description:
+------------
+Version : PHP 5.4.8 &amp; PHP-GTK Git
+
+When loading the extension we got a sigsev
+
+Test script:
+---------------
+dl( 'php_gtk2.so' );
+
+Expected result:
+----------------
+Load library 
+
+Actual result:
+--------------
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+6748			int n = zend_hash_num_elements(CG(class_table));
+(gdb) bt
+#0  0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+#1  0x00000000008342cc in do_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, ce_flags=0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2401
+#2  0x00000000008345f0 in zend_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2467
+#3  0x0000000000834494 in zend_register_internal_class_ex 
+(class_entry=0x7fffffffa5d0, parent_ce=0x0, parent_name=0x0, tsrm_ls=0x1b)
+    at /src/build/php-5.4.8/Zend/zend_API.c:2439
+#4  0x00007fffef0d4da8 in phpg_register_class (class_name=0x7fffef1028b7 
+"Glade", class_methods=0x7fffef38e280 &lt;glade_methods&gt;, parent=0x0, ce_flags=0, 
+    prop_info=0x0, create_obj_func=0x0, gtype=0, tsrm_ls=0x1b) at 
+/src/build/php-gtk-121102/main/phpg_support.c:326
+#5  0x00007fffef0d3685 in phpg_glade0_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:513
+#6  0x00007fffef0d36f4 in phpg_glade_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:520
+#7  0x00007fffef0d2050 in php_gtk_xinit_libglade (module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/./ext/libglade/php_libglade.c:33
+#8  0x00007fffef0d3d89 in php_gtk_startup_extension (ext=0x7fffef38e240 
+&lt;libglade_ext_entry&gt;, module_number=27) at /src/build/php-gtk-
+121102/main/php_gtk.c:271
+#9  0x00007fffef0d3e5b in php_gtk_startup_extensions (ext=0x7fffef38eb78 
+&lt;php_gtk_extensions+8&gt;, ext_count=2, module_number=27)
+    at /src/build/php-gtk-121102/main/php_gtk.c:293
+#10 0x00007fffef0e6b84 in php_gtk_startup_all_extensions (module_number=27) at 
+main/php_gtk_ext.c:42
+#11 0x00007fffef0d3b40 in zm_activate_gtk (type=2, module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/main/php_gtk.c:211
+#12 0x000000000069b3f4 in php_load_extension (filename=0x7ffff7e8d550 
+"php_gtk2.so", type=2, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:248
+#13 0x000000000069b46e in php_dl (file=0x7ffff7e8d550 "php_gtk2.so", type=2, 
+return_value=0x7ffff7eb0bd8, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:263
+#14 0x000000000069af40 in zif_dl (ht=1, return_value=0x7ffff7eb0bd8, 
+return_value_ptr=0x0, this_ptr=0x0, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:85
+#15 0x000000000086c289 in execute_internal (execute_data_ptr=0x7ffff7f96d28, 
+return_value_used=0, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_execute.c:1480
+#16 0x00000000005466b6 in atlunix_zend_execute_internal 
+(execute_data_ptr=0x7ffff7f96d28, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/atlunix/main/atlunix.c:404
+#17 0x000000000086ea87 in zend_do_fcall_common_helper_SPEC 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:644
+#18 0x000000000087730a in ZEND_DO_FCALL_SPEC_CONST_HANDLER 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:2235
+#19 0x000000000086ca40 in execute (op_array=0x11d36a0, tsrm_ls=0xfbf090) at 
+/src/build/php-5.4.8/Zend/zend_vm_execute.h:410
+#20 0x000000000082a79c in zend_execute_scripts (type=8, tsrm_ls=0xfbf090, 
+retval=0x0, file_count=3) at /src/build/php-5.4.8/Zend/zend.c:1309
+#21 0x0000000000779e66 in php_execute_script (primary_file=0x7fffffffe430, 
+tsrm_ls=0xfbf090) at /src/build/php-5.4.8/main/main.c:2482
+#22 0x0000000000992a12 in do_cli (argc=2, argv=0x7fffffffe7e8, tsrm_ls=0xfbf090) 
+at /src/build/php-5.4.8/sapi/cli/php_cli.c:988
+#23 0x0000000000993ced in main (argc=2, argv=0x7fffffffe7e8) at /src/build/php-
+5.4.8/sapi/cli/php_cli.c:1364
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171024231335</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 23:13:35-0400</timestampReceived><subject>[PHP-GTK-DEV] Req #61438 [Opn-&gt;Sus]: color_to_hex functionally</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=61438&amp;edit=1
+
+ ID:                 61438
+ Updated by:         kalle@php.net
+ Reported by:        bert at bhack dot net
+ Summary:            color_to_hex functionally
+-Status:             Open
++Status:             Suspended
+ Type:               Feature/Change Request
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu
+ PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+I'm gonna suspend this report as the PHP GTK project activity seems halted, if the \
+activity picks backup for the project then this report should be re-opened.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-03-19 16:13:08] bert at bhack dot net
+
+Description:
+------------
+There is no easy way to convert the rgb values from a GdkColor object to normal 
+hex or rgb. GdkColor uses seperate red, green and blue values ranging from 0 to 
+65535.
+
+Test script:
+---------------
+print_r($colorbutton-&gt;get_color());
+
+[0] =&gt; GdkColor Object
+        (
+            [red] =&gt; 56815
+            [green] =&gt; 7663
+            [blue] =&gt; 7663
+            [pixel] =&gt; 0
+        )
+
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=61438&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171024231339</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 23:13:39-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #53813 [Opn-&gt;Sus]: GdkEvent keyval field not writable</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+ ID:                 53813
+ Updated by:         kalle@php.net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            GdkEvent keyval field not writable
+-Status:             Open
++Status:             Suspended
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 32bit
+ PHP Version:        5.3.5
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+I'm gonna suspend this report as the PHP GTK project activity seems halted, if the \
+activity picks backup for the project then this report should be re-opened.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-10-23 15:58:18] buhlerax@php.net
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+------------------------------------------------------------------------
+[2011-01-25 17:08:34] markskilbeck@php.net
+
+There's no write_property handler for the GdkEvent stuff. It also seems to be 
+missing for other objects. I'll work on a patch today for GdkEvent.
+
+------------------------------------------------------------------------
+[2011-01-22 14:10:11] ptlis at ptlis dot net
+
+Description:
+------------
+If you create a GdkEvent with the GdkEventType Gdk::KEY_PRESS and try to assign a \
+value to the keyval field the keyval field does not change.
+
+Test script:
+---------------
+$event = new GdkEvent(Gdk::KEY_PRESS);
+$event-&gt;keyval	= Gdk::KEY_Return;
+var_dump($event);
+
+Expected result:
+----------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(65293)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+Actual result:
+--------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(0)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171024231341</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 23:13:41-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #52953 [Opn-&gt;Sus]: The enums for 2.18 and 2.20 overrides are missing from generato</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=52953&amp;edit=1
+
+ ID:                 52953
+ Updated by:         kalle@php.net
+ Reported by:        gadgetzkid at gmail dot com
+ Summary:            The enums for 2.18 and 2.20 overrides are missing
+                     from generator.php
+-Status:             Open
++Status:             Suspended
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Fedora 13
+ PHP Version:        5.3.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+I'm gonna suspend this report as the PHP GTK project activity seems halted, if the \
+activity picks backup for the project then this report should be re-opened.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-10-23 15:57:43] buhlerax@php.net
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+------------------------------------------------------------------------
+[2010-10-12 23:08:18] markskilbeck@php.net
+
+We're happy to take patches :)
+
+------------------------------------------------------------------------
+[2010-09-29 17:23:50] gadgetzkid at gmail dot com
+
+Description:
+------------
+The enums for 2.18 and 2.20 overrides are missing from generator.php
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=52953&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20171024231347</emailId><senderName></senderName><senderEmail>kalle</senderEmail><timestampReceived>2017-10-24 23:13:47-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #52274 [Opn-&gt;Sus]: Patch for building php-gtk with scintilla on Ubuntu</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=52274&amp;edit=1
+
+ ID:                 52274
+ Updated by:         kalle@php.net
+ Reported by:        thomas dot sahlin at invented dot se
+ Summary:            Patch for building php-gtk with scintilla on Ubuntu
+-Status:             Open
++Status:             Suspended
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 10.04
+ PHP Version:        5.3.2
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+I'm gonna suspend this report as the PHP GTK project activity seems halted, if the \
+activity picks backup for the project then this report should be re-opened.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-10-23 15:56:04] buhlerax@php.net
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+------------------------------------------------------------------------
+[2010-07-07 13:05:03] thomas dot sahlin at invented dot se
+
+Description:
+------------
+I've created a patch which makes it possible to build php-gtk with scintilla on \
+Ubuntu/Linux. The patch will break things on other platforms, so someone with better \
+knowledge of configure/make will have to figure out a proper fix.
+
+Description of changes:
+
+ext/scintilla/config.m4
+    Added missing source files for scintilla
+
+ext/scintilla/libscintilla/include/Platform.h
+    Set #define PLAT_GTK 1 - this is not done automatically for some reason.
+
+ext/scintilla/libscintilla/src/ExternalLexer.h
+    Removed EXT_LEXER_DECL definition from typedefs.
+
+ext/scintilla/sci_generator.php
+    Fixed to be compatible with the new LineOutput class. Also removed deprecated \
+functions and warnings.
+
+There is also some dependency problem in the makefile, so one has to manually make \
+gen_scintilla.c:
+
+make ext/scintilla/gen_scintilla.c
+make
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=52274&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20170831122808</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2017-08-31 12:28:08-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] A simple question need an answer.</subject><body>
+
+
+Hello,
+
+You can host the application and use remote include. But you will need
+something like a bootstrap on local to include remote .phps files
+
+Anyway, I think php-gtk is more like an application like delphi and C#, so
+you will need to do a installer with libs ans application, its normal
+
+Sorry 4 my english
+
+Thank you
+
+- - -
+Bruno Pitteli Gonçalves
+bruno@pitteli.com.br
+
+- - -
+ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+Browse Happy - http://browsehappy.com/
+
+On Thu, Aug 31, 2017 at 6:11 AM, Radhouane Graiet &lt;
+radhouane.graiet@gmail.com&gt; wrote:
+
+&gt; Good morning;
+&gt; I'm a PHP developper and i would like to develop a GUI applications with
+&gt; PHP-GTK, the question is can i with PHP-GTK develop an application that can
+&gt; be hosted in a server and i have distance access.
+&gt; I read in the Scott Mattocks book "Pro PHP-GTK 2006 edition" that with
+&gt; PHP-GTK you can't do this just we can install a local application with one
+&gt; user.
+&gt;
+&gt; *PHP-GTK is a powerful tool, but it isn't perfectly suited for everything.
+&gt; Before spending*
+&gt; *a lot of time developing your application, make sure PHP-GTK is really
+&gt; what you need. If it isn't*
+&gt; *obvious by looking at your problem whether a desktop application is the
+&gt; best solution, ask*
+&gt; *yourself a few simple questions:*
+&gt; *• Does the application need to work without the aid of another application
+&gt; such as a web*
+&gt; *browser?*
+&gt; *• Does the application need to be able to listen for and react to events
+&gt; from sources other*
+&gt; *than the primary user?*
+&gt; *• Does the application need to be run directly on the user's computer?*
+&gt; *If you answered no to all of these questions, then a desktop application
+&gt; may not be the*
+&gt; *best solution for your problem.*
+&gt;
+&gt; Please i need an answer before i begin study PHP-GTK.
+&gt;
+&gt; Thanks for yours efforts for developping GTK library.
+&gt;
+&gt; --
+&gt;
+&gt;
+&gt;
+&gt; *CordialementRADHOUANE GRAIETHyper Dynamics Operating Solutions*
+&gt; *GSM    : (+216) 22 981 981 *
+&gt; *E-Mail : Radhouane.graiet@gmail.com &lt;Radhouane.graiet@gmail.com&gt;*
+&gt;
+
+
+</body></email></emails>

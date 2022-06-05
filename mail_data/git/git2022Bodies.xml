@@ -1,0 +1,1271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20220526193731</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2022-05-26 19:37:31-0400</timestampReceived><subject>Re* jc/http-clear-finished-pointer</subject><body>
+
+Ævar Arnfjörð Bjarmason &lt;avarab@gmail.com&gt; writes:
+
+&gt; On Thu, May 26 2022, Junio C Hamano wrote:
+&gt;
+&gt;&gt; * jc/http-clear-finished-pointer (2022-05-24) 1 commit
+&gt;&gt;  - http.c: clear the 'finished' member once we are done with it
+&gt;&gt;
+&gt;&gt;  Meant to go with js/ci-gcc-12-fixes
+&gt;&gt;
+&gt;&gt;  Will merge to 'next'?
+&gt;&gt;  source: &lt;xmqqczgqjr8y.fsf_-_@gitster.g&gt;
+&gt;
+&gt; The end of the proposed commit message says:
+&gt;
+&gt;     [...]Clear the finished member before the control leaves the
+&gt;     function, which has a side effect of unconfusing compilers like
+&gt;     recent GCC 12 that is over-eager to warn against such an assignment.
+&gt;
+&gt; I cannot reproduce this suppressing the warning as noted in past
+&gt; exchanges, it's not affected by this "clear if we set it" pattern. It
+&gt; needs to be unconditionally cleared.
+
+Interesting.  I still have conditional clearing in the tree, though
+I was reasonably sure I got rid of the conditional and made it
+always clear, when I rewrote that part of the log message.  After
+all, I ran "commit --amend" so that I do not forget the issue after
+sending https://lore.kernel.org/git/xmqqleurlt31.fsf@gitster.g/ X-&lt;.
+
+Thanks for catching.  What is queued is not what I intended to
+queue.
+
+But there is one thing that is puzzling.  Ever since this, together
+with the three patches from Dscho for gcc12, got included in 'seen',
+the branch started passing the Windows build that used to complain
+and did not work, so at least with the version of gcc12 used over
+there, it apparently is sufficient to clear only when we are
+responsible for placing an address that is about to become invalid,
+while leaving the pointer we didn't stuff in unmodified.
+
+As far as I understand, with the most recent analysis by Dscho on
+the http-push codepath, we can return to the loop while the slot is
+holding a different request that is unrelated to ours that has
+already finished without recursively calling run_active_slot(), and
+with the current *(slot-&gt;finished)=1 trick, it will successfully
+notify our loop that our request is done, even though slot-&gt;in_use
+is set to true back again when it happens.  But by definition, at
+that point, slot-&gt;finished is not used by anybody (obviously not by
+us, but also not by the request that is currently using the slot,
+because it hasn't used run_active_slot() and slot-&gt;finished is not
+touched by it), so it is safe to unconditionally clear the member.
+
+----- &gt;8 --------- &gt;8 --------- &gt;8 --------- &gt;8 --------- &gt;8 -----
+Subject: [PATCH v3] http.c: clear the 'finished' member once we are done with it
+
+In http.c, the run_active_slot() function allows the given "slot" to
+make progress by calling step_active_slots() in a loop repeatedly,
+and the loop is not left until the request held in the slot
+completes.
+
+Ages ago, we used to use the slot-&gt;in_use member to get out of the
+loop, which misbehaved when the request in "slot" completes (at
+which time, the result of the request is copied away from the slot,
+and the in_use member is cleared, making the slot ready to be
+reused), and the "slot" gets reused to service a different request
+(at which time, the "slot" becomes in_use again, even though it is
+for a different request).  The loop terminating condition mistakenly
+thought that the original request has yet to be completed.
+
+Today's code, after baa7b67d (HTTP slot reuse fixes, 2006-03-10)
+fixed this issue, uses a separate "slot-&gt;finished" member that is
+set in run_active_slot() to point to an on-stack variable, and the
+code that completes the request in finish_active_slot() clears the
+on-stack variable via the pointer to signal that the particular
+request held by the slot has completed.  It also clears the in_use
+member (as before that fix), so that the slot itself can safely be
+reused for an unrelated request.
+
+One thing that is not quite clean in this arrangement is that,
+unless the slot gets reused, at which point the finished member is
+reset to NULL, the member keeps the value of &amp;finished, which
+becomes a dangling pointer into the stack when run_active_slot()
+returns.  Clear the finished member before the control leaves the
+function, which has a side effect of unconfusing compilers like
+recent GCC 12 that is over-eager to warn against such an assignment.
+
+Signed-off-by: Junio C Hamano &lt;gitster@pobox.com&gt;
+---
+ http.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/http.c b/http.c
+index 229da4d148..9a98372f74 100644
+--- a/http.c
++++ b/http.c
+@@ -1367,6 +1367,32 @@ void run_active_slot(struct active_request_slot *slot)
+ 			select(max_fd+1, &amp;readfds, &amp;writefds, &amp;excfds, &amp;select_timeout);
+ 		}
+ 	}
++
++	/*
++	 * The value of slot-&gt;finished we set before the loop was used
++	 * to set our "finished" variable when our request completed.
++	 *
++	 * 1. The slot may not have been reused for another requst
++	 *    yet, in which case it still has &amp;finished.
++	 *
++	 * 2. The slot may already be in-use to serve another request,
++	 *    which can further be divided into two cases:
++	 *
++	 * (a) If call run_active_slot() hasn't been called for that
++	 *     other request, slot-&gt;finished may still have the
++	 *     address of our &amp;finished.
++	 *
++	 * (b) If the request did call run_active_slot(), then the
++	 *     call would have updated slot-&gt;finished at the beginning
++	 *     of this function, and with the clearing of the member
++	 *     below, we would find that slot-&gt;finished is now NULL.
++	 *
++	 * In all cases, slot-&gt;finished has no useful information to
++	 * anybody at this point.  Some compilers warn us for
++	 * attempting to smuggle a pointer that is about to become
++	 * invalid, i.e. &amp;finished.  We clear it here to assure them.
++	 */
++	slot-&gt;finished = NULL;
+ }
+ 
+ static void release_active_slot(struct active_request_slot *slot)
+-- 
+2.36.1-306-g0dbcc0e187
+</body></email><email><emailId>20220420194532</emailId><senderName>Daniel Habenicht</senderName><senderEmail>daniel-habenicht@outlook.de</senderEmail><timestampReceived>2022-04-20 19:45:32-0400</timestampReceived><subject>Bug Report</subject><body>
+
+Hi there,
+
+I think I found a bug or at least some unexpected behavior. 
+Please have a look at the following reproduction repo: 
+
+https://github.com/DanielHabenicht/bug-reproduction.git-repo/blob/main/README.md
+
+
+
+[System Info]
+git version:
+git version 2.33.1.windows.1
+cpu: x86_64
+built from commit: 05d80adb775077d673fab685009ede4a1003ed92
+sizeof-long: 4
+sizeof-size_t: 8
+shell-path: /bin/sh
+feature: fsmonitor--daemon
+uname: Windows 10.0 19042 
+compiler info: gnuc: 10.3
+libc info: no libc information available
+$SHELL (typically, interactive shell): &lt;unset&gt;
+
+
+[Enabled Hooks]
+None
+
+Also reproduced on: 
+[System Info] 
+git version:
+git version 2.35.1
+cpu: x86_64
+no commit associated with this build
+sizeof-long: 8
+sizeof-size_t: 8
+shell-path: /bin/sh
+uname: Linux 5.4.0-1074-azure #77~18.04.1-Ubuntu SMP Wed Mar 30 15:36:02 UTC 2022 x86_64
+compiler info: gnuc: 9.4
+libc info: glibc: 2.31
+$SHELL (typically, interactive shell): /bin/bash
+
+
+Cheers,
+Daniel
+</body></email><email><emailId>20220420213042</emailId><senderName>"brian m. carlson"</senderName><senderEmail>sandals@crustytoothpaste.net</senderEmail><timestampReceived>2022-04-20 21:30:42-0400</timestampReceived><subject>Re: Bug Report</subject><body>
+
+
+On 2022-04-20 at 19:45:32, Daniel Habenicht wrote:
+&gt; Hi there,
+&gt; 
+&gt; I think I found a bug or at least some unexpected behavior.  
+&gt; Please have a look at the following reproduction repo:  
+&gt; 
+&gt; https://github.com/DanielHabenicht/bug-reproduction.git-repo/blob/main/README.md
+
+You're more likely to get someone to look at this if you post the actual
+text to the list.  While I might be willing to look at it on GitHub,
+other folks won't, and I probably won't get a chance to look at this
+issue anytime soon.
+-- 
+brian m. carlson (he/him or they/them)
+Toronto, Ontario, CA
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email><email><emailId>20220420223400</emailId><senderName></senderName><senderEmail>rsbecker@nexbridge.com</senderEmail><timestampReceived>2022-04-20 22:34:00-0400</timestampReceived><subject>RE: Bug Report</subject><body>
+
+On April 20, 2022 5:31 PM, brian m. carlson wrote:
+&gt; On 2022-04-20 at 19:45:32, Daniel Habenicht wrote:
+&gt; &gt; Hi there,
+&gt; &gt; 
+&gt; &gt; I think I found a bug or at least some unexpected behavior. Please
+&gt; &gt; have a look at the following reproduction repo:
+&gt; &gt; 
+&gt; &gt; https://github.com/DanielHabenicht/bug-reproduction.git-repo/blob/main
+&gt; &gt; /README.md
+&gt; 
+&gt; You're more likely to get someone to look at this if you post the actual text to \
+&gt; the list.  While I might be willing to look at it on GitHub, other folks won't, and \
+&gt; I probably won't get a chance to look at this issue anytime soon.
+
+The only thing that I can see that is apparently a problem is that autocrlf=false is \
+not documented in the config help, so it is not apparent what the expected result \
+should be relative to the test case. That could be considered confusing. There could \
+also be confusion relative to when the git diff was done relative to what is in the \
+staging area given his test case. I think what Daniel may really want is to use \
+autocrlf=input.
+
+Daniel, please post your entire report to this list rather than using GitHub, links, \
+or attachments. I happened to be on GitHub at that moment, so looked, but otherwise, \
+I would not have specifically looked.
+
+--Randall
+
+--
+Brief whoami: NonStop&amp;UNIX developer since approximately
+UNIX(421664400)
+NonStop(211288444200000000)
+-- In real life, I talk too much.
+
+
+</body></email><email><emailId>20220421132037</emailId><senderName>Daniel Habenicht</senderName><senderEmail>daniel-habenicht@outlook.de</senderEmail><timestampReceived>2022-04-21 13:20:37-0400</timestampReceived><subject>Re: Bug Report</subject><body>
+
+Hi Randall and Brian, 
+
+thanks for the fast response. 
+@Randall: I also tried it with autocrlf=input and it still reproduces. I included it \
+in the reproduction. I also added more examples for confusing behaviour. 
+
+
+Here is the full bug report: 
+(You can view a Markdown rendered version of this reproduction at: \
+https://github.com/DanielHabenicht/bug-reproduction.git-repo)
+
+# Description 
+
+When changing the `.gitattributes` file not all changes to the checked in files are \
+apparent. They only get updated on a new clone or when refreshing the index - that's \
+somehow expected.  But it creates confusion and unexpected behavior if they are not \
+updated together with the `.gitattributes` changes.  It can make easy changes between \
+branches impossible, break the flow of squashing commits or lead to confusing state \
+of everlasting uncommited change. These edge cases for confusing behaviour I have \
+added below. 
+
+# Reproduction 
+
+1. Checkout with the following `.gitconfig` settings set:
+
+```gitconfig
+# .gitconfig
+[core]
+    autocrlf = false
+# Or
+    autocrlf = input
+```
+
+2. Clone the repository
+```bash
+git clone https://github.com/DanielHabenicht/bug-reproduction.git-repo.git
+```
+
+3. `test.cs` should be shown as `modified`
+
+&gt; This is confusing to the user, he just checked the repo out and did not change a \
+&gt; thing. At least there should be a warning?
+   
+```
+git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git restore &lt;file&gt;..." to discard changes in working directory)
+        modified:   test.cs
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+5. Running any git command like the ones below will not remove the changed file:
+
+```bash
+git rm --cached -r .
+git reset --hard
+git add --renormalize .
+```
+
+&gt; This as well is very confusing and there is no indication on why this is happening \
+&gt; and there are still modified files after everything should be reset.  Keep in mind \
+&gt; that this could have happened in error and could be happening to a totally \
+&gt; unrelated (to the inital `.gitattributes` change) user. 
+
+6. Running `git diff` is even more confusing, and doing as the warning suggests \
+(`warning: CRLF will be replaced by LF in test.cs. The file will have its original \
+line endings in your working directory`) and replacing `CRLF` by `LF` does silence \
+the warning but does not change the diff itself:
+
+```diff
+warning: CRLF will be replaced by LF in test.cs.
+The file will have its original line endings in your working directory
+diff --git b/test.cs a/test.cs
+index 1e230ed..5464a2d 100644
+--- b/test.cs
++++ a/test.cs
+@@ -1,11 +1,11 @@
+-using System.Diagnostics.CodeAnalysis;
+-using System.Linq;
+-using Xunit;
+-using Moq;
+-
+-
+-
+-namespace Tests
+-{
+-
+-}
++using System.Diagnostics.CodeAnalysis;^M
++using System.Linq;^M
++using Xunit;^M
++using Moq;^M
++^M
++^M
++^M
++namespace Tests^M
++{^M
++^M
++}^M
+```
+
+&gt; This is showing the exact opposite of what git is really doing. Actually it \
+&gt; replaces the line encoding of the index (i/crlf) with the right encoding (i/lf) \
+&gt; (see **[1]**) From the git user perspective everything is in great shape, the file \
+&gt; is LF, as it should be, but still git complains about a change that is not visible \
+&gt; to the user without background knowledge about gitattributes and the git index. 
+
+8. Try changing the branch to a modified copy with `git checkout some-changes` is not \
+possible (also with the recommended command). The only solution would be to commit - \
+nothing else helps (but thats not really a solution). : 
+
+```bash
+error: Your local changes to the following files would be overwritten by checkout:
+        test.cs
+Please commit your changes or stash them before you switch branches.
+Aborting
+```
+
+&gt; This makes changing branches harder, as it can't be force reset and git will always \
+&gt; complain about files being overwritten. It also break the flow for squashing \
+&gt; commits as you would need to manually intervene (and add a commit) if someone \
+&gt; forgot to commit all files after a .gitattributes change and only recognized it at \
+&gt; a later date.
+
+
+**[1]**: I hope this answer explained it right to me: \
+https://stackoverflow.com/a/71937898/9277073.  But it is rather unintuitive to me, \
+and possibly other users, as there seems to be a hidden middle layer leading to this \
+problem. See the graph at the github repo)
+
+
+
+Cheers,
+Daniel
+
+
+
+
+Daniel Habenicht
+
+
+From: rsbecker@nexbridge.com &lt;rsbecker@nexbridge.com&gt;
+Sent: Thursday, April 21, 2022 00:34
+To: 'brian m. carlson' &lt;sandals@crustytoothpaste.net&gt;; 'Daniel Habenicht' \
+                &lt;daniel-habenicht@outlook.de&gt;
+Cc: git@vger.kernel.org &lt;git@vger.kernel.org&gt;
+Subject: RE: Bug Report 
+ 
+On April 20, 2022 5:31 PM, brian m. carlson wrote:
+&gt; On 2022-04-20 at 19:45:32, Daniel Habenicht wrote:
+&gt; &gt; Hi there,
+&gt; &gt; 
+&gt; &gt; I think I found a bug or at least some unexpected behavior. Please
+&gt; &gt; have a look at the following reproduction repo:
+&gt; &gt; 
+&gt; &gt; https://nam12.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2FDan \
+&gt; &gt; ielHabenicht%2Fbug-reproduction.git-repo%2Fblob%2Fmain&amp;data=05%7C01%7C%7C145ae \
+&gt; &gt; 6f595d54ac7b5fd08da231de43c%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C637860908 \
+&gt; &gt; 535410706%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1h \
+&gt; &gt; aWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=HXFm4sBZ5yQGQPkBlkzKhkgDJOXBqSlgETkrhGxgkmI%3D&amp;reserved=0
+&gt; &gt;  /README.md
+&gt; 
+&gt; You're more likely to get someone to look at this if you post the actual text to \
+&gt; the list.  While I might be willing to look at it on GitHub, other folks won't, and \
+&gt; I probably won't get a chance to look at this issue anytime soon.
+
+The only thing that I can see that is apparently a problem is that autocrlf=false is \
+not documented in the config help, so it is not apparent what the expected result \
+should be relative to the test case. That could be considered confusing. There could \
+also be confusion relative to when the git diff was done relative to what is in the \
+staging area given his test case. I think what Daniel may really want is to use \
+autocrlf=input.
+
+Daniel, please post your entire report to this list rather than using GitHub, links, \
+or attachments. I happened to be on GitHub at that moment, so looked, but otherwise, \
+I would not have specifically looked.
+
+--Randall
+
+--
+Brief whoami: NonStop&amp;UNIX developer since approximately
+UNIX(421664400)
+NonStop(211288444200000000)
+-- In real life, I talk too much.
+
+
+</body></email><email><emailId>20220421143931</emailId><senderName>Torsten =?iso-8859-1?Q?B=F6gershausen?=</senderName><senderEmail>tboegi@web.de</senderEmail><timestampReceived>2022-04-21 14:39:31-0400</timestampReceived><subject>Re: Bug Report</subject><body>
+
+
+Hej Daniel,
+
+ $ git clone https://github.com/DanielHabenicht/bug-reproduction.git-repo.git
+ $ cd bug-reproduction.git-repo.git
+ $ git ls-files --eol
+ i/none  w/none  attr/                   .gitattributes
+ i/lf    w/lf    attr/                   README.md
+ i/crlf  w/crlf  attr/text eol=lf        test.cs
+
+Your repo needs to be re-normalized:
+ $ git add --renormalize .
+ $ git status
+ On branch main
+ Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged &lt;file&gt;..." to unstage)
+          modified:   test.cs
+
+That is all that needs to be done.
+
+Users which are confused may put their frustration aside,
+and read the documentation:
+
+https://git-scm.com/docs/gitattributes
+
+especially the part about the line endings and normalization,
+search for "renormalize".
+
+I don't know, if there is something we can do that makes live easier,
+but if yes: suggestions are more than welcome.
+
+So yes, thanks for the report.
+
+
+
+
+On Thu, Apr 21, 2022 at 01:20:37PM +0000, Daniel Habenicht wrote:
+&gt; Hi Randall and Brian, 
+&gt; 
+&gt; thanks for the fast response.
+&gt; @Randall: I also tried it with autocrlf=input and it still reproduces. I included \
+&gt; it in the reproduction. I also added more examples for confusing behaviour. 
+&gt; 
+&gt; Here is the full bug report: 
+&gt; (You can view a Markdown rendered version of this reproduction at: \
+&gt; https://github.com/DanielHabenicht/bug-reproduction.git-repo) 
+&gt; # Description
+&gt; 
+&gt; When changing the `.gitattributes` file not all changes to the checked in files are \
+&gt; apparent. They only get updated on a new clone or when refreshing the index - \
+&gt; that's somehow expected. But it creates confusion and unexpected behavior if they \
+&gt; are not updated together with the `.gitattributes` changes. It can make easy \
+&gt; changes between branches impossible, break the flow of squashing commits or lead to \
+&gt; confusing state of everlasting uncommited change. These edge cases for confusing \
+&gt; behaviour I have added below. 
+&gt; # Reproduction
+&gt; 
+&gt; 1. Checkout with the following `.gitconfig` settings set:
+&gt; 
+&gt; ```gitconfig
+&gt; # .gitconfig
+&gt; [core]
+&gt; autocrlf = false
+&gt; # Or
+&gt; autocrlf = input
+&gt; ```
+&gt; 
+&gt; 2. Clone the repository
+&gt; ```bash
+&gt; git clone https://github.com/DanielHabenicht/bug-reproduction.git-repo.git
+&gt; ```
+&gt; 
+&gt; 3. `test.cs` should be shown as `modified`
+&gt; 
+&gt; &gt; This is confusing to the user, he just checked the repo out and did not change a \
+&gt; &gt; thing. At least there should be a warning?
+&gt; 
+&gt; ```
+&gt; git status
+&gt; On branch main
+&gt; Your branch is up to date with 'origin/main'.
+&gt; 
+&gt; Changes not staged for commit:
+&gt; (use "git add &lt;file&gt;..." to update what will be committed)
+&gt; (use "git restore &lt;file&gt;..." to discard changes in working directory)
+&gt; modified:   test.cs
+&gt; 
+&gt; no changes added to commit (use "git add" and/or "git commit -a")
+&gt; ```
+&gt; 
+&gt; 5. Running any git command like the ones below will not remove the changed file:
+&gt; 
+&gt; ```bash
+&gt; git rm --cached -r .
+&gt; git reset --hard
+&gt; git add --renormalize .
+&gt; ```
+&gt; 
+&gt; &gt; This as well is very confusing and there is no indication on why this is \
+&gt; &gt; happening and there are still modified files after everything should be reset. \
+&gt; &gt; Keep in mind that this could have happened in error and could be happening to a \
+&gt; &gt; totally unrelated (to the inital `.gitattributes` change) user.
+&gt; 
+&gt; 6. Running `git diff` is even more confusing, and doing as the warning suggests \
+&gt; (`warning: CRLF will be replaced by LF in test.cs. The file will have its original \
+&gt; line endings in your working directory`) and replacing `CRLF` by `LF` does silence \
+&gt; the warning but does not change the diff itself: 
+&gt; ```diff
+&gt; warning: CRLF will be replaced by LF in test.cs.
+&gt; The file will have its original line endings in your working directory
+&gt; diff --git b/test.cs a/test.cs
+&gt; index 1e230ed..5464a2d 100644
+&gt; --- b/test.cs
+&gt; +++ a/test.cs
+&gt; @@ -1,11 +1,11 @@
+&gt; -using System.Diagnostics.CodeAnalysis;
+&gt; -using System.Linq;
+&gt; -using Xunit;
+&gt; -using Moq;
+&gt; -
+&gt; -
+&gt; -
+&gt; -namespace Tests
+&gt; -{
+&gt; -
+&gt; -}
+&gt; +using System.Diagnostics.CodeAnalysis;^M
+&gt; +using System.Linq;^M
+&gt; +using Xunit;^M
+&gt; +using Moq;^M
+&gt; +^M
+&gt; +^M
+&gt; +^M
+&gt; +namespace Tests^M
+&gt; +{^M
+&gt; +^M
+&gt; +}^M
+&gt; ```
+&gt; 
+&gt; &gt; This is showing the exact opposite of what git is really doing. Actually it \
+&gt; &gt; replaces the line encoding of the index (i/crlf) with the right encoding (i/lf) \
+&gt; &gt; (see **[1]**) From the git user perspective everything is in great shape, the \
+&gt; &gt; file is LF, as it should be, but still git complains about a change that is not \
+&gt; &gt; visible to the user without background knowledge about gitattributes and the git \
+&gt; &gt; index.
+&gt; 
+&gt; 8. Try changing the branch to a modified copy with `git checkout some-changes` is \
+&gt; not possible (also with the recommended command). The only solution would be to \
+&gt; commit - nothing else helps (but thats not really a solution). : 
+&gt; ```bash
+&gt; error: Your local changes to the following files would be overwritten by checkout:
+&gt; test.cs
+&gt; Please commit your changes or stash them before you switch branches.
+&gt; Aborting
+&gt; ```
+&gt; 
+&gt; &gt; This makes changing branches harder, as it can't be force reset and git will \
+&gt; &gt; always complain about files being overwritten. It also break the flow for \
+&gt; &gt; squashing commits as you would need to manually intervene (and add a commit) if \
+&gt; &gt; someone forgot to commit all files after a .gitattributes change and only \
+&gt; &gt; recognized it at a later date.
+&gt; 
+&gt; 
+&gt; **[1]**: I hope this answer explained it right to me: \
+&gt; https://stackoverflow.com/a/71937898/9277073. But it is rather unintuitive to me, \
+&gt; and possibly other users, as there seems to be a hidden middle layer leading to \
+&gt; this problem. See the graph at the github repo) 
+&gt; 
+&gt; 
+&gt; Cheers,
+&gt; Daniel
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; Daniel Habenicht
+&gt; 
+&gt; 
+&gt; From: rsbecker@nexbridge.com &lt;rsbecker@nexbridge.com&gt;
+&gt; Sent: Thursday, April 21, 2022 00:34
+&gt; To: 'brian m. carlson' &lt;sandals@crustytoothpaste.net&gt;; 'Daniel Habenicht' \
+&gt;                 &lt;daniel-habenicht@outlook.de&gt;
+&gt; Cc: git@vger.kernel.org &lt;git@vger.kernel.org&gt;
+&gt; Subject: RE: Bug Report
+&gt; 
+&gt; On April 20, 2022 5:31 PM, brian m. carlson wrote:
+&gt; &gt; On 2022-04-20 at 19:45:32, Daniel Habenicht wrote:
+&gt; &gt; &gt; Hi there,
+&gt; &gt; &gt; 
+&gt; &gt; &gt; I think I found a bug or at least some unexpected behavior. Please
+&gt; &gt; &gt; have a look at the following reproduction repo:
+&gt; &gt; &gt; 
+&gt; &gt; &gt; https://nam12.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2FD \
+&gt; &gt; &gt; anielHabenicht%2Fbug-reproduction.git-repo%2Fblob%2Fmain&amp;data=05%7C01%7C%7C1 \
+&gt; &gt; &gt; 45ae6f595d54ac7b5fd08da231de43c%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C637 \
+&gt; &gt; &gt; 860908535410706%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJB \
+&gt; &gt; &gt; TiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=HXFm4sBZ5yQGQPkBlkzKhkgDJOXBqSlgETkrhGxgkmI%3D&amp;reserved=0
+&gt; &gt; &gt;  /README.md
+&gt; &gt; 
+&gt; &gt; You're more likely to get someone to look at this if you post the actual text to \
+&gt; &gt; the list.  While I might be willing to look at it on GitHub, other folks won't, \
+&gt; &gt; and I probably won't get a chance to look at this issue anytime soon.
+&gt; 
+&gt; The only thing that I can see that is apparently a problem is that autocrlf=false \
+&gt; is not documented in the config help, so it is not apparent what the expected \
+&gt; result should be relative to the test case. That could be considered confusing. \
+&gt; There could also be confusion relative to when the git diff was done relative to \
+&gt; what is in the staging area given his test case. I think what Daniel may really \
+&gt; want is to use autocrlf=input. 
+&gt; Daniel, please post your entire report to this list rather than using GitHub, \
+&gt; links, or attachments. I happened to be on GitHub at that moment, so looked, but \
+&gt; otherwise, I would not have specifically looked. 
+&gt; --Randall
+&gt; 
+&gt; --
+&gt; Brief whoami: NonStop&amp;UNIX developer since approximately
+&gt; UNIX(421664400)
+&gt; NonStop(211288444200000000)
+&gt; -- In real life, I talk too much.
+
+
+</body></email><email><emailId>20220421175254</emailId><senderName>Torsten =?iso-8859-1?Q?B=F6gershausen?=</senderName><senderEmail>tboegi@web.de</senderEmail><timestampReceived>2022-04-21 17:52:54-0400</timestampReceived><subject>Re: Bug Report</subject><body>
+
+On Thu, Apr 21, 2022 at 03:29:20PM +0000, Daniel Habenicht wrote:
+&gt; Hi Torsten,
+&gt;
+&gt; thanks for your answer.
+&gt; As I explained in the reproduction, I now know why this is happening and=
+ I successfully resolved it for my repository.
+&gt; I just wanted raise awareness that it is not self-explanatory to non-pro=
+fessional users.
+&gt;
+&gt; I would suggest two changes:
+&gt;
+&gt;   1.  Warn the user on commit of the .gitattributes that he also needs t=
+o renormalize the repository (or even better, do that by default).
+&gt;   2.  Include the information about the need for a renormalization commi=
+t on checkouts/restores/reset if there are still files not updated (shown =
+as modified).
+&gt;
+&gt; Regarding the "Users which are confused may put their frustration aside =
+and read the documentation".
+&gt; I think most users won't make the connection for the first 3 google sear=
+ches, if the problem arises only several commits after the gitattributes c=
+hange, or if the repository gets cloned by a new user.
+&gt;
+&gt;
+&gt; Cheers,
+&gt; Daniel
+&gt;
+
+(Sorry for the top-posting before, this list uses bottom-posting)
+
+I still hope that users who are able to find the feature of the
+.gitattributes file(s) are able to find out about the renormalaztion as we=
+ll.
+And you are not the first one who runs into this problem, if that is of an=
+y
+comfort.
+
+Now, back to your suggestions:
+The way Git works does not seam to allow a reliable detection of files
+that are "modified" after a checkout/restore/reset when .gitattributes
+change. (Someone may correct me if this is wrong.
+It is related/connected to the timestamps of "the index"
+and the files in the working tree and the fact that "git add" will
+need to store a new version of the file in the repo e.g CRLF -&gt; LF)
+
+Automatically doing a renormalization seems to be an impossible thing:
+The commit as such is atomic, including all files in the working tree
+with their line endings and the .gitattributes file itself.
+Changing things here seems the wrong way to go, at least for me.
+
+Showing a hint when a .gitattributes file is commited may be more feasable=
+.
+I haven't digged which part of the code would be the best place.
+
+Patches and ideas are welcome
+</body></email><email><emailId>20220124192511</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2022-01-24 19:25:11-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+The current maintainer is Junio C Hamano &lt;gitster@pobox.com&gt;; please
+do not send any message to this address unless it also goes to the
+mailing list, because it is likely that such a message will not be
+seen by any human being.  Spam filters learned that legitimate
+messages to the address come only from a very few sender addresses
+that are known to be good, and messages from all others are likely to
+be spam unless they are also sent to the mailing list at the same time
+(i.e. "Reply-all" to the list message would reach the mailbox, but
+"Reply" will likely be thrown into the spam folder).
+
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+As an anti-spam measure, the mailing list software rejects messages
+that are not text/plain and drops them on the floor.  If you are a
+GMail user, you'd want to make sure "Plain text mode" is checked.
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://lore.kernel.org/git/
+        http://marc.info/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+	nntp://nntp.lore.kernel.org/org.kernel.vger.git
+        nntp://news.public-inbox.org/inbox.comp.version-control.git
+
+are available.
+
+When you point at a message in a mailing list archive, using its
+message ID is often the most robust (if not very friendly) way to do
+so, like this:
+
+	http://lore.kernel.org/git/Pine.LNX.4.58.0504150753440.7211@ppc970.osdl.org
+
+Often these web interfaces accept the message ID with enclosing &lt;&gt;
+stripped (like the above example to point at one of the most important
+message in the Git list).
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on FreeNode (historically, but
+the IRC situation is in flux at the moment).  Their logs are available
+at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+There is a volunteer-run newsletter to serve our community ("Git Rev
+News" http://git.github.io/rev_news/).
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+For our expectations on the behaviour of the community participants
+towards each other, see CODE_OF_CONDUCT.md at the top level of the source
+tree, or:
+
+    https://github.com/git/git/blob/master/CODE_OF_CONDUCT.md
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.  Our `git bugreport` tool gives you a handy way you can use to
+make sure you do not forget these points when filing a bug report.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.  This is
+a closed list that is limited to people who need to know early about
+vulnerabilities, including:
+
+  - people triaging and fixing reported vulnerabilities
+  - people operating major git hosting sites with many users
+  - people packaging and distributing git to large numbers of people
+
+where these issues are discussed without risk of the information
+leaking out before we're ready to make public announcements.
+
+
+* Repositories and documentation.
+
+My public git.git repositories are (mirrored) at:
+
+  https://git.kernel.org/pub/scm/git/git.git/
+  https://kernel.googlesource.com/pub/scm/git/git
+  https://repo.or.cz/alt-git.git/
+  https://github.com/git/git/
+  https://gitlab.com/git-vcs/git/
+
+This one shows not just the main integration branches, but also
+individual topics broken out:
+
+  https://github.com/gitster/git/
+
+A few web interfaces are found at:
+
+  http://git.kernel.org/pub/scm/git/git.git
+  https://kernel.googlesource.com/pub/scm/git/git
+  http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+  https://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+  https://repo.or.cz/git-{htmldocs,manpages}.git/
+  https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+The manual pages formatted in HTML for the tip of 'master' can be
+viewed online at:
+
+  https://git.github.io/htmldocs/git.html
+
+
+* How various branches are used.
+
+There are four "integration" branches in git.git repository that track
+the source tree of git: "master", "maint", "next", and "seen".  They
+however almost never get new commits made directly on them.  Instead,
+a branch is forked from either "master" or "maint" for each "topic",
+whether it is a new feature or fix for a bug, and holds a set of
+commits that belong to the same theme, and then such a "topic branch"
+is merged to these integration branches.
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but we have
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.35 done on Jan 24th, 2022.  You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious and safe fixes after a feature
+release are merged to this branch and maintenance releases are cut
+from it.  Usually these fixes are merged to the "master" branch first,
+several days before merged to the "maint" branch, to reduce the chance
+of last-minute issues.  The maintenance releases used to be named with
+four dotted decimal, named after the feature release they are updates
+to (e.g. "1.8.5.1" was the first maintenance release for "1.8.5"
+feature release).  These days, maintenance releases are named by
+incrementing the last digit of three-dotted decimal name (e.g.
+"2.29.2" was the second maintenance release for the "2.29" series).
+
+New features never go to the "maint" branch.  It is merged into
+"master" primarily to propagate the description in the release notes
+forward.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" (or somewhere older, especially
+when the topic is about fixing an earlier bug) and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".  Please help this process by building &amp; using the
+"next" branch for your daily work, and reporting any new bugs you find to
+the mailing list, before the breakage is merged down to the "master".
+
+The "seen" (formerly "pu", proposed updates) branch bundles all the
+remaining topic branches the maintainer happens to have seen.  There
+is no guarantee that the maintainer has enough bandwidth to pick up any
+and all topics that are remotely promising from the list traffic, so
+please do not read too much into a topic being on (or not on) the "seen"
+branch.  This branch is mainly to remind the maintainer that the topics
+in them may turn out to be interesting when they are polished, nothing
+more.  The topics on this branch aren't usually complete, well tested,
+or well documented and they often need further work.  When a topic that
+was in "seen" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..seen" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "seen" in such a case.
+The output of the above "git log" talks about a "jch" branch, which is an
+early part of the "seen" branch; that branch contains all topics that
+are in "next" and a bit more (but not all of "seen") and is used by the
+maintainer for his daily work.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+Some topics that used to be in "next" during the previous cycle may
+get ejected from "next" when this happens.
+
+A natural consequence of how "next" and "seen" bundles topics together
+is that until a topic is merged to "next", updates to it is expected
+by replacing the patch(es) in the topic with an improved version,
+and once a topic is merged to "next", updates to it needs to come as
+incremental patches, pointing out what was wrong in the previous
+patches and how the problem was corrected.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pratyush Yadav:
+
+        https://github.com/prati0100/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+When sending proposed updates and fixes to these parts of the system,
+please base your patches on these trees, not git.git (the former two
+even have different directory structures).
+</body></email><email><emailId>20220418170324</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2022-04-18 17:03:24-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+The current maintainer is Junio C Hamano &lt;gitster@pobox.com&gt;; please
+do not send any message to this address unless it also goes to the
+mailing list, because it is likely that such a message will not be
+seen by any human being.  Spam filters learned that legitimate
+messages to the address come only from a very few sender addresses
+that are known to be good, and messages from all others are likely to
+be spam unless they are also sent to the mailing list at the same time
+(i.e. "Reply-all" to the list message would reach the mailbox, but
+"Reply" will likely be thrown into the spam folder).
+
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+As an anti-spam measure, the mailing list software rejects messages
+that are not text/plain and drops them on the floor.  If you are a
+GMail user, you'd want to make sure "Plain text mode" is checked.
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://lore.kernel.org/git/
+        http://marc.info/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+	nntp://nntp.lore.kernel.org/org.kernel.vger.git
+        nntp://news.public-inbox.org/inbox.comp.version-control.git
+
+are available.
+
+When you point at a message in a mailing list archive, using its
+message ID is often the most robust (if not very friendly) way to do
+so, like this:
+
+	http://lore.kernel.org/git/Pine.LNX.4.58.0504150753440.7211@ppc970.osdl.org
+
+Often these web interfaces accept the message ID with enclosing &lt;&gt;
+stripped (like the above example to point at one of the most important
+message in the Git list).
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on Libera Chat.  Their logs are
+available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+There is a volunteer-run newsletter to serve our community ("Git Rev
+News" http://git.github.io/rev_news/).
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+For our expectations on the behaviour of the community participants
+towards each other, see CODE_OF_CONDUCT.md at the top level of the source
+tree, or:
+
+    https://github.com/git/git/blob/master/CODE_OF_CONDUCT.md
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.  Our `git bugreport` tool gives you a handy way you can use to
+make sure you do not forget these points when filing a bug report.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.  This is
+a closed list that is limited to people who need to know early about
+vulnerabilities, including:
+
+  - people triaging and fixing reported vulnerabilities
+  - people operating major git hosting sites with many users
+  - people packaging and distributing git to large numbers of people
+
+where these issues are discussed without risk of the information
+leaking out before we're ready to make public announcements.
+
+
+* Repositories and documentation.
+
+My public git.git repositories are (mirrored) at:
+
+  https://git.kernel.org/pub/scm/git/git.git/
+  https://kernel.googlesource.com/pub/scm/git/git
+  https://repo.or.cz/alt-git.git/
+  https://github.com/git/git/
+  https://gitlab.com/git-vcs/git/
+
+This one shows not just the main integration branches, but also
+individual topics broken out:
+
+  https://github.com/gitster/git/
+
+A few web interfaces are found at:
+
+  http://git.kernel.org/pub/scm/git/git.git
+  https://kernel.googlesource.com/pub/scm/git/git
+  http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+  https://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+  https://repo.or.cz/git-{htmldocs,manpages}.git/
+  https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+The manual pages formatted in HTML for the tip of 'master' can be
+viewed online at:
+
+  https://git.github.io/htmldocs/git.html
+
+
+* How various branches are used.
+
+There are four "integration" branches in git.git repository that track
+the source tree of git: "master", "maint", "next", and "seen".  They
+however almost never get new commits made directly on them.  Instead,
+a branch is forked from either "master" or "maint" for each "topic",
+whether it is a new feature or fix for a bug, and holds a set of
+commits that belong to the same theme, and then such a "topic branch"
+is merged to these integration branches.
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but we have
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.36 done on Apr 18th, 2022.  You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious and safe fixes after a feature
+release are merged to this branch and maintenance releases are cut
+from it.  Usually these fixes are merged to the "master" branch first,
+several days before merged to the "maint" branch, to reduce the chance
+of last-minute issues.  The maintenance releases used to be named with
+four dotted decimal, named after the feature release they are updates
+to (e.g. "1.8.5.1" was the first maintenance release for "1.8.5"
+feature release).  These days, maintenance releases are named by
+incrementing the last digit of three-dotted decimal name (e.g.
+"2.29.2" was the second maintenance release for the "2.29" series).
+
+New features never go to the "maint" branch.  It is merged into
+"master" primarily to propagate the description in the release notes
+forward.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" (or somewhere older, especially
+when the topic is about fixing an earlier bug) and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".  Please help this process by building &amp; using the
+"next" branch for your daily work, and reporting any new bugs you find to
+the mailing list, before the breakage is merged down to the "master".
+
+The "seen" (formerly "pu", proposed updates) branch bundles all the
+remaining topic branches the maintainer happens to have seen.  There
+is no guarantee that the maintainer has enough bandwidth to pick up any
+and all topics that are remotely promising from the list traffic, so
+please do not read too much into a topic being on (or not on) the "seen"
+branch.  This branch is mainly to remind the maintainer that the topics
+in them may turn out to be interesting when they are polished, nothing
+more.  The topics on this branch aren't usually complete, well tested,
+or well documented and they often need further work.  When a topic that
+was in "seen" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..seen" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "seen" in such a case.
+The output of the above "git log" talks about a "jch" branch, which is an
+early part of the "seen" branch; that branch contains all topics that
+are in "next" and a bit more (but not all of "seen") and is used by the
+maintainer for his daily work.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+Some topics that used to be in "next" during the previous cycle may
+get ejected from "next" when this happens.
+
+A natural consequence of how "next" and "seen" bundles topics together
+is that until a topic is merged to "next", updates to it is expected
+by replacing the patch(es) in the topic with an improved version,
+and once a topic is merged to "next", updates to it needs to come as
+incremental patches, pointing out what was wrong in the previous
+patches and how the problem was corrected.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pratyush Yadav:
+
+        https://github.com/prati0100/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+When sending proposed updates and fixes to these parts of the system,
+please base your patches on these trees, not git.git (the former two
+even have different directory structures).

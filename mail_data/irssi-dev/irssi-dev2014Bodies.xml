@@ -1,0 +1,1313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20140530123453</emailId><senderName>Tom Wesley</senderName><senderEmail>tom@tomaw.net</senderEmail><timestampReceived>2014-05-30 12:34:53-0400</timestampReceived><subject>Irssi 0.8.16 released!</subject><body>
+
+Hey all!
+
+The Irssi team is pleased to announce the 0.8.16 release of Irssi. It
+has been quite some time since our last release and there has been
+various feature enhancements and bugfixes added since then.
+
+We hope to have Irssi 0.8.17 out in a much shorter time than it took to
+get 0.8.16 out and there may be some announcements on changes to how
+contributing to the project works in the future.
+
+The release can be downloaded from our download[1] page
+
+Remember to check out Irssi's Facebook fan page[2], Google+ Community[3]
+and LinkedIn group[4] as well.
+
+  1: http://irssi.org/download/
+  2: http://www.facebook.com/irssi
+  3: https://plus.google.com/communities/112792798498391615694
+  4: http://www.linkedin.com/groups?gid=147751
+
+Thanks!
+-- 
+Tom Wesley &lt;tom@tomaw.net&gt;
+
+</body></email><email><emailId>20140610082711</emailId><senderName>Alexander Færøy</senderName><senderEmail>ahf@0x90.dk</senderEmail><timestampReceived>2014-06-10 08:27:11-0400</timestampReceived><subject>The Future of Irssi</subject><body>
+
+Hello,
+
+Irssi hasn't been under active development for the last few years. We want
+to
+change that. To make it easier for new contributors to get involved and
+stick
+around, we moved to where most open source contributors are spending their
+time: the source is now maintained on Github.
+
+Contribution Model
+==================
+
+The repositories that are currently available at svn.irssi.org will, over a
+period of the next month, be migrated to our newly created Github
+organization
+(https://github.com/irssi). This means that no new commits will be made to
+our
+Subversion repositories and the Git repositories available on Github are
+from
+today the official way of getting the source code of Irssi. The primary
+Irssi
+client repository has already been migrated to Github and is available at
+https://github.com/irssi/irssi
+
+We will, starting today, expect contributors to fork the official Irssi
+repositories on Github, do their changes on a feature branch, and submit
+Github
+pull requests to us. The team will then review your changes and hopefully,
+together, we will be able to get your code into the official Irssi
+repository.
+This will make getting your contributions reviewed and merged smoother and
+it
+has the added benefit that your patches appears to be coming from you which
+in
+turn is helping to make the gap between being a core developer and a
+contributor close to non-existing.
+
+Issue Tracking
+==============
+
+This is one of the more controversial changes. Over time, you guys have
+submitted tons of bugs to our bug tracker at bugs.irssi.org only to see them
+rot.
+
+We will, starting today, stop using bugs.irssi.org and use Github's issue
+tracker instead.
+
+We have decided **not** to do any automated migration of the bugs.irssi.org
+database. We realize that if we migrate everything over to Github, 1:1, it
+will
+only end up rotting in two bug trackers rather than in just one.
+
+We hope to see interested contributors help us checking which bugs that are
+still affecting Irssi and resubmit them to our Github issue tracker.
+
+We will manually go over opened bugs that contains patches to ensure that no
+code is left behind in the old tracker.
+
+The bug tracker will remain online as a reference, but we will redirect to
+Github for people interested in reporting bugs.
+
+Scripts
+=======
+
+Submitting scripts is historically something you guys have been good at.
+
+The way submitting scripts is currently done is that you write an email to
+scripts@irssi.org and someone from our team will manually add the script to
+the
+website. We're well aware that we've lagged behind requests to add new
+scripts
+and update existing ones so we're hoping to improve that too.
+
+From now on, new scripts **must** be submitted, in a pull request, to the
+irssi/scripts repository (https://github.com/irssi/scripts). The repository
+contains a description on how to contribute.
+
+This will make it much easier for our contributors to both add and maintain
+their scripts in the repository. It will also make it a lot easier for us to
+review and get code into the repository.
+
+Scriptassist Users
+==================
+
+For users using `scriptassist.pl`, you can start using the new repository
+right
+away using:
+
+    /set scriptassist_script_sources http://ghscripts.irssi.org/scripts.dmp
+
+Otherwise, you can wait a month and the website will be migrated and
+everything
+should be working as usual, without you having to touch anything.
+
+Official IRC Channels
+=====================
+
+We are moving the official development and user support channel to `#irssi`
+on
+freenode. Historically, we have had our official development channel on
+IRCnet,
+a social channel on EFnet and a user support channel on freenode, but we
+realize it makes more sense to keep everything together at freenode.
+
+Closing Words
+=============
+
+The changes to our contribution model will also affect people who are
+pulling
+from Subversion or scripts.irssi.org automatically.
+
+**Access to our Subversion repositories will be revoked and the move of
+scripts.irssi.org to the new Github site will happen on July 31st, 2014.**
+Until then, neither of the two systems will be maintained and no new content
+will be published there.
+
+Until the migration to Github is completed, you can find our official script
+repository at http://ghscripts.irssi.org/.  tomaw will continue being in
+charge
+of scripts and will happily review your pull requests on Github.
+
+Feel free to reach out to anyone within the development team for questions,
+comments or ideas. We are hanging out in the #irssi channel on freenode,
+EFnet
+and IRCnet. You can contact us using email at staff@irssi.org. You are also
+welcome to PM me directly for questions; I am `ahf` on most of the larger
+IRC
+networks.
+
+On behalf of the Irssi development team,
+Alex.
+
+-- 
+Alexander Færøy
+
+[Attachment #3 (text/html)]
+
+&lt;div dir="ltr"&gt;&lt;div&gt;Hello,&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Irssi hasn't been under \
+active development for the last few years. We want to&lt;/div&gt;&lt;div&gt;change that. To make \
+it easier for new contributors to get involved and stick&lt;/div&gt;
+
+&lt;div&gt;around, we moved to where most open source contributors are spending \
+their&lt;/div&gt;&lt;div&gt;time: the source is now maintained on \
+Github.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Contribution \
+Model&lt;/div&gt;&lt;div&gt;==================&lt;/div&gt;&lt;div&gt;&lt;br&gt;
+
+&lt;/div&gt;&lt;div&gt;The repositories that are currently available at &lt;a \
+href="http://svn.irssi.org"&gt;svn.irssi.org&lt;/a&gt; will, over a&lt;/div&gt;&lt;div&gt;period of the \
+next month, be migrated to our newly created Github organization&lt;/div&gt;&lt;div&gt;
+
+(&lt;a href="https://github.com/irssi"&gt;https://github.com/irssi&lt;/a&gt;). This means that no \
+new commits will be made to our&lt;/div&gt;&lt;div&gt;Subversion repositories and the Git \
+repositories available on Github are from&lt;/div&gt;&lt;div&gt;today the official way of getting \
+the source code of Irssi. The primary Irssi&lt;/div&gt;
+
+&lt;div&gt;client repository has already been migrated to Github and is available \
+at&lt;/div&gt;&lt;div&gt;&lt;a href="https://github.com/irssi/irssi"&gt;https://github.com/irssi/irssi&lt;/a&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;We \
+will, starting today, expect contributors to fork the official Irssi&lt;/div&gt;
+
+&lt;div&gt;repositories on Github, do their changes on a feature branch, and submit \
+Github&lt;/div&gt;&lt;div&gt;pull requests to us. The team will then review your changes and \
+hopefully,&lt;/div&gt;&lt;div&gt;together, we will be able to get your code into the official \
+Irssi repository.&lt;/div&gt;
+
+&lt;div&gt;This will make getting your contributions reviewed and merged smoother and \
+it&lt;/div&gt;&lt;div&gt;has the added benefit that your patches appears to be coming from you \
+which in&lt;/div&gt;&lt;div&gt;turn is helping to make the gap between being a core developer and \
+a&lt;/div&gt;
+
+&lt;div&gt;contributor close to non-existing.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Issue \
+Tracking&lt;/div&gt;&lt;div&gt;==============&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;This is one of the more \
+controversial changes. Over time, you guys have&lt;/div&gt;&lt;div&gt;submitted tons of bugs to \
+our bug tracker at &lt;a href="http://bugs.irssi.org"&gt;bugs.irssi.org&lt;/a&gt; only to see \
+them&lt;/div&gt;
+
+&lt;div&gt;rot.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;We will, starting today, stop using &lt;a \
+href="http://bugs.irssi.org"&gt;bugs.irssi.org&lt;/a&gt; and use Github's \
+issue&lt;/div&gt;&lt;div&gt;tracker instead.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;We have decided **not** to \
+do any automated migration of the &lt;a \
+href="http://bugs.irssi.org"&gt;bugs.irssi.org&lt;/a&gt;&lt;/div&gt;
+
+&lt;div&gt;database. We realize that if we migrate everything over to Github, 1:1, it \
+will&lt;/div&gt;&lt;div&gt;only end up rotting in two bug trackers rather than in just \
+one.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;We hope to see interested contributors help us checking \
+which bugs that are&lt;/div&gt;
+
+&lt;div&gt;still affecting Irssi and resubmit them to our Github issue \
+tracker.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;We will manually go over opened bugs that contains \
+patches to ensure that no&lt;/div&gt;&lt;div&gt;code is left behind in the old tracker.&lt;/div&gt;
+
+&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;The bug tracker will remain online as a reference, but we will \
+redirect to&lt;/div&gt;&lt;div&gt;Github for people interested in reporting \
+bugs.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Scripts&lt;/div&gt;&lt;div&gt;=======&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;
+
+&lt;div&gt;Submitting scripts is historically something you guys have been good \
+at.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;The way submitting scripts is currently done is that you \
+write an email to&lt;/div&gt;&lt;div&gt;&lt;a href="mailto:scripts@irssi.org"&gt;scripts@irssi.org&lt;/a&gt; \
+and someone from our team will manually add the script to the&lt;/div&gt;
+
+&lt;div&gt;website. We're well aware that we've lagged behind requests to add new \
+scripts&lt;/div&gt;&lt;div&gt;and update existing ones so we're hoping to improve that \
+too.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;From now on, new scripts **must** be submitted, in a \
+pull request, to the&lt;/div&gt;
+
+&lt;div&gt;irssi/scripts repository (&lt;a \
+href="https://github.com/irssi/scripts"&gt;https://github.com/irssi/scripts&lt;/a&gt;). The \
+repository&lt;/div&gt;&lt;div&gt;contains a description on how to \
+contribute.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;This will make it much easier for our \
+contributors to both add and maintain&lt;/div&gt;
+
+&lt;div&gt;their scripts in the repository. It will also make it a lot easier for us \
+to&lt;/div&gt;&lt;div&gt;review and get code into the \
+repository.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Scriptassist \
+Users&lt;/div&gt;&lt;div&gt;==================&lt;/div&gt;&lt;div&gt;&lt;br&gt; &lt;/div&gt;
+&lt;div&gt;For users using `&lt;a href="http://scriptassist.pl"&gt;scriptassist.pl&lt;/a&gt;`, you can \
+start using the new repository right&lt;/div&gt;&lt;div&gt;away using:&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;  \
+/set scriptassist_script_sources &lt;a \
+href="http://ghscripts.irssi.org/scripts.dmp"&gt;http://ghscripts.irssi.org/scripts.dmp&lt;/a&gt;&lt;/div&gt;
+
+
+&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Otherwise, you can wait a month and the website will be migrated \
+and everything&lt;/div&gt;&lt;div&gt;should be working as usual, without you having to touch \
+anything.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Official IRC Channels&lt;/div&gt;
+
+&lt;div&gt;=====================&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;We are moving the official \
+development and user support channel to `#irssi` on&lt;/div&gt;&lt;div&gt;freenode. Historically, \
+we have had our official development channel on IRCnet,&lt;/div&gt;
+
+&lt;div&gt;a social channel on EFnet and a user support channel on freenode, but \
+we&lt;/div&gt;&lt;div&gt;realize it makes more sense to keep everything together at \
+freenode.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Closing Words&lt;/div&gt;&lt;div&gt;=============&lt;/div&gt;
+
+&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;The changes to our contribution model will also affect people who \
+are pulling&lt;/div&gt;&lt;div&gt;from Subversion or &lt;a \
+href="http://scripts.irssi.org"&gt;scripts.irssi.org&lt;/a&gt; \
+automatically.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;
+
+**Access to our Subversion repositories will be revoked and the move of&lt;/div&gt;&lt;div&gt;&lt;a \
+href="http://scripts.irssi.org"&gt;scripts.irssi.org&lt;/a&gt; to the new Github site will \
+happen on July 31st, 2014.**&lt;/div&gt;&lt;div&gt;Until then, neither of the two systems will be \
+maintained and no new content&lt;/div&gt;
+
+&lt;div&gt;will be published there.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Until the migration to Github \
+is completed, you can find our official script&lt;/div&gt;&lt;div&gt;repository at &lt;a \
+href="http://ghscripts.irssi.org/"&gt;http://ghscripts.irssi.org/&lt;/a&gt;.   tomaw will \
+continue being in charge&lt;/div&gt;
+
+&lt;div&gt;of scripts and will happily review your pull requests on \
+Github.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Feel free to reach out to anyone within the \
+development team for questions,&lt;/div&gt;&lt;div&gt;comments or ideas. We are hanging out in \
+the #irssi channel on freenode, EFnet&lt;/div&gt;
+
+&lt;div&gt;and IRCnet. You can contact us using email at &lt;a \
+href="mailto:staff@irssi.org"&gt;staff@irssi.org&lt;/a&gt;. You are also&lt;/div&gt;&lt;div&gt;welcome to \
+PM me directly for questions; I am `ahf` on most of the larger \
+IRC&lt;/div&gt;&lt;div&gt;networks.&lt;/div&gt;
+
+&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;On behalf of the Irssi development \
+team,&lt;/div&gt;&lt;div&gt;Alex.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;-- &lt;br&gt;&lt;div dir="ltr"&gt;&lt;div&gt;Alexander \
+Færøy&lt;br&gt;&lt;/div&gt;&lt;/div&gt; &lt;/div&gt;
+
+
+
+</body></email><email><emailId>20140815205529</emailId><senderName>"Luis R. Rodriguez"</senderName><senderEmail>mcgrof@do-not-panic.com</senderEmail><timestampReceived>2014-08-15 20:55:29-0400</timestampReceived><subject>[PATCH 0/3] irssi: add ssl client certificate passphrase prompt support</subject><body>
+
+From: "Luis R. Rodriguez" &lt;mcgrof@suse.com&gt;
+
+For a while now I've been carrying my own patches for getting irssi to prompt
+me for a passphrase for my client key, now that I don't have to pester stupid
+attorneys for what project I can contribute even on my own time, and that
+you've all moved to github its time to dump my queue, this series is for irssi
+and enabling irssi to prompt you for an password for an SSL PEM client
+certificate file if one has not been supplied. Its not a good idea to be
+putting passwords on files, but if you currently don't supply one irssi goes on
+and depending on the serve configuration may not reject the SSL
+
+I'll also send a pull request through github if this is much
+easier.
+
+Luis R. Rodriguez (3):
+  irssi: embrace the Developer Certificate of Origin for contributions
+  irssi core: add window console set active support
+  irssi core: enable prompting for client certificate password
+
+ CONTRIBUTING                         | 49 ++++++++++++++++++++++++++++++++++++
+ src/core/network-openssl.c           | 41 ++++++++++++++++++++++++++++--
+ src/fe-common/core/fe-windows.c      | 16 ++++++++++++
+ src/fe-common/core/fe-windows.h      |  2 ++
+ src/fe-common/core/window-commands.c | 10 ++++++++
+ 5 files changed, 116 insertions(+), 2 deletions(-)
+ create mode 100644 CONTRIBUTING
+
+-- 
+2.0.3
+
+
+</body></email><email><emailId>20141110164518</emailId><senderName></senderName><senderEmail>noname</senderEmail><timestampReceived>2014-11-10 16:45:18-0400</timestampReceived><subject>SHA256 fingerprints</subject><body>
+
+These 4 patches i just sent there implement SHA256 fingerprint option
+"ssl_sha256".  It can be used to implement "trust on first use" policy
+for self-signed certificates for servers that don't provide full
+certificate chain. When it is impossible to retrieve CA certificate, you
+can still trust the certificate itself by its fingerprint.
+
+Fingerprint is checked only if ssl_sha256 option is present in the
+config file. Other options, such as ssl_verify, are not affected.
+Connection is established only if all requested checks pass.
+
+weechat has similar option called "ssl_fingerprint"
+
+</body></email><email><emailId>20141110171230</emailId><senderName>Guillaume Parent</senderName><senderEmail>gparent@gparent.org</senderEmail><timestampReceived>2014-11-10 17:12:30-0400</timestampReceived><subject>Re: SHA256 fingerprints</subject><body>
+
+Hey,
+
+Note that I'm no irssi developer, just curious about this since I have
+implemented it in my own client a long time ago.
+
+Wouldn't it be better to use an implementation independent name like
+ssl_fingerprint?
+
+Thanks,
+
+On Mon, Nov 10, 2014 at 11:45 AM, &lt;noname@inventati.org&gt; wrote:
+
+&gt; These 4 patches i just sent there implement SHA256 fingerprint option
+&gt; "ssl_sha256".  It can be used to implement "trust on first use" policy
+&gt; for self-signed certificates for servers that don't provide full
+&gt; certificate chain. When it is impossible to retrieve CA certificate, you
+&gt; can still trust the certificate itself by its fingerprint.
+&gt;
+&gt; Fingerprint is checked only if ssl_sha256 option is present in the
+&gt; config file. Other options, such as ssl_verify, are not affected.
+&gt; Connection is established only if all requested checks pass.
+&gt;
+&gt; weechat has similar option called "ssl_fingerprint"
+&gt;
+&gt;
+
+[Attachment #3 (text/html)]
+
+&lt;div dir="ltr"&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;Hey,&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;Note that I'm no \
+irssi developer, just curious about this since I have implemented it in my own client \
+a long time ago.&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Wouldn't it be better to use an implementation \
+independent name like ssl_fingerprint?&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;Thanks,&lt;br&gt;&lt;/div&gt;&lt;div \
+class="gmail_extra"&gt;&lt;br&gt;&lt;div class="gmail_quote"&gt;On Mon, Nov 10, 2014 at 11:45 AM,  \
+&lt;span dir="ltr"&gt;&lt;&lt;a href="mailto:noname@inventati.org" \
+target="_blank"&gt;noname@inventati.org&lt;/a&gt;&gt;&lt;/span&gt; wrote:&lt;br&gt;&lt;blockquote \
+class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc \
+solid;padding-left:1ex"&gt;These 4 patches i just sent there implement SHA256 \
+fingerprint option&lt;br&gt; "ssl_sha256".   It can be used to implement \
+"trust on first use" policy&lt;br&gt; for self-signed certificates for servers \
+that don't provide full&lt;br&gt; certificate chain. When it is impossible to retrieve \
+CA certificate, you&lt;br&gt; can still trust the certificate itself by its \
+fingerprint.&lt;br&gt; &lt;br&gt;
+Fingerprint is checked only if ssl_sha256 option is present in the&lt;br&gt;
+config file. Other options, such as ssl_verify, are not affected.&lt;br&gt;
+Connection is established only if all requested checks pass.&lt;br&gt;
+&lt;br&gt;
+weechat has similar option called "ssl_fingerprint"&lt;br&gt;
+&lt;br&gt;
+&lt;/blockquote&gt;&lt;/div&gt;&lt;br&gt;&lt;/div&gt;
+
+
+
+</body></email><email><emailId>20141110190604</emailId><senderName></senderName><senderEmail>noname</senderEmail><timestampReceived>2014-11-10 19:06:04-0400</timestampReceived><subject>Re: SHA256 fingerprints</subject><body>
+
+On Mon, Nov 10, 2014 at 12:12:30PM -0500, Guillaume Parent wrote:
+&gt;    Hey,
+&gt;    Note that I'm no irssi developer, just curious about this since I have
+&gt;    implemented it in my own client a long time ago.
+&gt;    Wouldn't it be better to use an implementation independent name like
+&gt;    ssl_fingerprint?
+
+I think it is better to use different names for different kinds of
+fingerprints. So, for example, if SHA3 is implemented later, it would be
+possible to have both ssl_sha256 and ssl_sha3 in the same file.
+
+If ssl_fingerprint means sha256 now and changes to sha3 in some version,
+you will get broken configuration file.
+
+Your own client is patched irssi? Can you share the patch too?
+
+</body></email><email><emailId>20141110193719</emailId><senderName>Guillaume Parent</senderName><senderEmail>gparent@gparent.org</senderEmail><timestampReceived>2014-11-10 19:37:19-0400</timestampReceived><subject>Re: SHA256 fingerprints</subject><body>
+
+Hi,
+
+Yes, my client is a patch over 0.8.16-rc1 if I recall correctly. I am busy
+tonight but can possibly share the patch when I'm home.
+
+I think it's an annoying balance between having a generic name for the
+option if the irssi dev team wants to use a different hash in the future
+vs. the clarity of the existing option. I had an attempt where I used the
+length of the fingerprint even though that's pretty inaccurate. It worked
+during my testing but I didnt evolve it beyond that. Maybe something like
+how you specify password hashes?
+
+I was hoping to generate discussion as Id be happy with either options.
+
+Thanks for your work
+
+On Mon, Nov 10, 2014 at 2:06 PM, &lt;noname@inventati.org&gt; wrote:
+
+&gt; On Mon, Nov 10, 2014 at 12:12:30PM -0500, Guillaume Parent wrote:
+&gt; &gt;    Hey,
+&gt; &gt;    Note that I'm no irssi developer, just curious about this since I have
+&gt; &gt;    implemented it in my own client a long time ago.
+&gt; &gt;    Wouldn't it be better to use an implementation independent name like
+&gt; &gt;    ssl_fingerprint?
+&gt;
+&gt; I think it is better to use different names for different kinds of
+&gt; fingerprints. So, for example, if SHA3 is implemented later, it would be
+&gt; possible to have both ssl_sha256 and ssl_sha3 in the same file.
+&gt;
+&gt; If ssl_fingerprint means sha256 now and changes to sha3 in some version,
+&gt; you will get broken configuration file.
+&gt;
+&gt; Your own client is patched irssi? Can you share the patch too?
+&gt;
+&gt;
+
+[Attachment #3 (text/html)]
+
+&lt;div dir="ltr"&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;Hi,&lt;br&gt;&lt;br&gt;&lt;/div&gt;Yes, my client is a patch over \
+0.8.16-rc1 if I recall correctly. I am busy tonight but can possibly share the patch \
+when I'm home.&lt;br&gt;&lt;br&gt;&lt;/div&gt;I think it's an annoying balance between having a \
+generic name for the option if the irssi dev team wants to use a different hash in \
+the future vs. the clarity of the existing option. I had an attempt where I used the \
+length of the fingerprint even though that's pretty inaccurate. It worked during \
+my testing but I didnt evolve it beyond that. Maybe something like how you specify \
+password hashes?&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;I was hoping to generate discussion as Id be happy \
+with either options.&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Thanks for your work&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div \
+class="gmail_extra"&gt;&lt;br&gt;&lt;div class="gmail_quote"&gt;On Mon, Nov 10, 2014 at 2:06 PM,  \
+&lt;span dir="ltr"&gt;&lt;&lt;a href="mailto:noname@inventati.org" \
+target="_blank"&gt;noname@inventati.org&lt;/a&gt;&gt;&lt;/span&gt; wrote:&lt;br&gt;&lt;blockquote \
+class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc \
+solid;padding-left:1ex"&gt;&lt;span class=""&gt;On Mon, Nov 10, 2014 at 12:12:30PM -0500, \
+Guillaume Parent wrote:&lt;br&gt; &gt;      Hey,&lt;br&gt;
+&gt;      Note that I'm no irssi developer, just curious about this since I \
+have&lt;br&gt; &gt;      implemented it in my own client a long time ago.&lt;br&gt;
+&gt;      Wouldn't it be better to use an implementation independent name \
+like&lt;br&gt; &gt;      ssl_fingerprint?&lt;br&gt;
+&lt;br&gt;
+&lt;/span&gt;I think it is better to use different names for different kinds of&lt;br&gt;
+fingerprints. So, for example, if SHA3 is implemented later, it would be&lt;br&gt;
+possible to have both ssl_sha256 and ssl_sha3 in the same file.&lt;br&gt;
+&lt;br&gt;
+If ssl_fingerprint means sha256 now and changes to sha3 in some version,&lt;br&gt;
+you will get broken configuration file.&lt;br&gt;
+&lt;br&gt;
+Your own client is patched irssi? Can you share the patch too?&lt;br&gt;
+&lt;br&gt;
+&lt;/blockquote&gt;&lt;/div&gt;&lt;br&gt;&lt;/div&gt;
+
+
+
+</body></email><email><emailId>20141111190454</emailId><senderName></senderName><senderEmail>noname</senderEmail><timestampReceived>2014-11-11 19:04:54-0400</timestampReceived><subject>Re: SHA256 fingerprints</subject><body>
+
+On Mon, Nov 10, 2014 at 02:37:19PM -0500, Guillaume Parent wrote:
+&gt;    Hi,
+&gt;    Yes, my client is a patch over 0.8.16-rc1 if I recall correctly. I am
+&gt;    busy tonight but can possibly share the patch when I'm home.
+
+&gt;    I think it's an annoying balance between having a generic name for the
+&gt;    option if the irssi dev team wants to use a different hash in the
+&gt;    future vs. the clarity of the existing option. I had an attempt where I
+&gt;    used the length of the fingerprint even though that's pretty
+&gt;    inaccurate. It worked during my testing but I didnt evolve it beyond
+&gt;    that. Maybe something like how you specify password hashes?
+
+Good idea. Maybe something like
+
+ssl_fingerprint="sha256:DE:AD:BE:EF:..."
+
+Irssi passes first token to EVP_get_digestbyname so user can switch to
+new type of hash as soon as it is available in Libre^WOpenSSL.
+
+</body></email><email><emailId>20141110163216</emailId><senderName>noname</senderName><senderEmail>noname@inventati.org</senderEmail><timestampReceived>2014-11-10 16:32:16-0400</timestampReceived><subject>[PATCH 1/4] Remove unused variable from irssi_ssl_verify</subject><body>
+
+---
+ src/core/network-openssl.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/core/network-openssl.c b/src/core/network-openssl.c
+index e16403e..adbbeff 100644
+--- a/src/core/network-openssl.c
++++ b/src/core/network-openssl.c
+@@ -203,7 +203,7 @@ static gboolean irssi_ssl_verify_hostname(X509 *cert, const char \
+*hostname)  return matched;
+ }
+ 
+-static gboolean irssi_ssl_verify(SSL *ssl, SSL_CTX *ctx, const char* hostname, int \
+port, X509 *cert, SERVER_REC *server) +static gboolean irssi_ssl_verify(SSL *ssl, \
+const char *hostname, int port, X509 *cert, SERVER_REC *server)  {
+ 	long result;
+ #ifdef HAVE_DANE
+@@ -601,7 +601,7 @@ int irssi_ssl_handshake(GIOChannel *handle)
+ 		g_warning("SSL server supplied no certificate");
+ 		return -1;
+ 	}
+-	ret = !chan-&gt;verify || irssi_ssl_verify(chan-&gt;ssl, chan-&gt;ctx, \
+chan-&gt;server-&gt;connrec-&gt;address, chan-&gt;port, cert, chan-&gt;server); +	ret = \
+!chan-&gt;verify || irssi_ssl_verify(chan-&gt;ssl, chan-&gt;server-&gt;connrec-&gt;address, \
+chan-&gt;port, cert, chan-&gt;server);  X509_free(cert);
+ 	return ret ? 0 : -1;
+ }
+-- 
+1.8.4
+
+
+</body></email><email><emailId>20141110163245</emailId><senderName>noname</senderName><senderEmail>noname@inventati.org</senderEmail><timestampReceived>2014-11-10 16:32:45-0400</timestampReceived><subject>[PATCH 2/4] Replace MD5 with SHA256</subject><body>
+
+---
+ src/core/network-openssl.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/core/network-openssl.c b/src/core/network-openssl.c
+index adbbeff..efb7525 100644
+--- a/src/core/network-openssl.c
++++ b/src/core/network-openssl.c
+@@ -260,7 +260,7 @@ static gboolean irssi_ssl_verify(SSL *ssl, const char *hostname, int port, X509
+ 			g_warning("  Issuer  : %s", str);
+ 			free(str);
+ 		}
+-		if (! X509_digest(cert, EVP_md5(), md, &amp;n))
++		if (! X509_digest(cert, EVP_sha256(), md, &amp;n))
+ 			g_warning("  Could not get fingerprint from peer certificate");
+ 		else {
+ 			char hex[] = "0123456789ABCDEF";
+@@ -272,7 +272,7 @@ static gboolean irssi_ssl_verify(SSL *ssl, const char *hostname, int port, X509
+ 					fp[i*3+1] = hex[(md[i] &gt;&gt; 0) &amp; 0xF];
+ 					fp[i*3+2] = i == n - 1 ? '\0' : ':';
+ 				}
+-				g_warning("  MD5 Fingerprint : %s", fp);
++				g_warning("  SHA256 Fingerprint : %s", fp);
+ 			}
+ 		}
+ 		return FALSE;
+-- 
+1.8.4
+
+
+</body></email><email><emailId>20141110163311</emailId><senderName>noname</senderName><senderEmail>noname@inventati.org</senderEmail><timestampReceived>2014-11-10 16:33:11-0400</timestampReceived><subject>[PATCH 3/4] Implement ssl_sha256 option</subject><body>
+
+---
+ src/core/network-openssl.c    | 26 +++++++++++++++++++++++++-
+ src/core/server-connect-rec.h |  1 +
+ src/core/server-setup-rec.h   |  1 +
+ src/core/servers-reconnect.c  |  1 +
+ src/core/servers-setup.c      |  7 ++++++-
+ src/core/servers.c            |  1 +
+ src/core/session.c            |  1 +
+ 7 files changed, 36 insertions(+), 2 deletions(-)
+
+diff --git a/src/core/network-openssl.c b/src/core/network-openssl.c
+index efb7525..6daa612 100644
+--- a/src/core/network-openssl.c
++++ b/src/core/network-openssl.c
+@@ -282,6 +282,29 @@ static gboolean irssi_ssl_verify(SSL *ssl, const char *hostname, \
+int port, X509  return TRUE;
+ }
+ 
++static gboolean match_fingerprint(X509 *cert, const char *fingerprint)
++{
++	unsigned char md[EVP_MAX_MD_SIZE];
++	unsigned int i, n;
++	char fp[EVP_MAX_MD_SIZE*3];
++
++	if (! X509_digest(cert, EVP_sha256(), md, &amp;n)) {
++		g_warning("Could not get fingerprint from peer certificate");
++		return FALSE;
++	}
++
++	for (i = 0; i &lt; n; i++)
++		sprintf(fp + 3 * i, "%02X%c", md[i], i + 1 == n ? '\0' : ':');
++
++	if (strcmp(fp, fingerprint) != 0) {
++		g_warning("Fingerprint mismatch");
++		g_warning("Got %s", fp);
++		g_warning("Need %s", fingerprint);
++		return FALSE;
++	}
++	return TRUE;
++}
++
+ static GIOStatus irssi_ssl_read(GIOChannel *handle, gchar *buf, gsize len, gsize \
+*ret, GError **gerr)  {
+ 	GIOSSLChannel *chan = (GIOSSLChannel *)handle;
+@@ -601,7 +624,8 @@ int irssi_ssl_handshake(GIOChannel *handle)
+ 		g_warning("SSL server supplied no certificate");
+ 		return -1;
+ 	}
+-	ret = !chan-&gt;verify || irssi_ssl_verify(chan-&gt;ssl, chan-&gt;server-&gt;connrec-&gt;address, \
+chan-&gt;port, cert, chan-&gt;server); +	ret = (!chan-&gt;verify || \
+irssi_ssl_verify(chan-&gt;ssl, chan-&gt;server-&gt;connrec-&gt;address, chan-&gt;port, cert, \
+chan-&gt;server)) &amp;&amp; +	      (chan-&gt;server-&gt;connrec-&gt;ssl_sha256 == NULL || \
+match_fingerprint(cert, chan-&gt;server-&gt;connrec-&gt;ssl_sha256));  X509_free(cert);
+ 	return ret ? 0 : -1;
+ }
+diff --git a/src/core/server-connect-rec.h b/src/core/server-connect-rec.h
+index 1753750..04ad047 100644
+--- a/src/core/server-connect-rec.h
++++ b/src/core/server-connect-rec.h
+@@ -28,6 +28,7 @@ char *ssl_pkey;
+ char *ssl_pass;
+ char *ssl_cafile;
+ char *ssl_capath;
++char *ssl_sha256;
+ 
+ GIOChannel *connect_handle; /* connect using this handle */
+ 
+diff --git a/src/core/server-setup-rec.h b/src/core/server-setup-rec.h
+index ae79755..53e5978 100644
+--- a/src/core/server-setup-rec.h
++++ b/src/core/server-setup-rec.h
+@@ -13,6 +13,7 @@ char *ssl_pkey;
+ char *ssl_pass;
+ char *ssl_cafile;
+ char *ssl_capath;
++char *ssl_sha256;
+ 
+ char *own_host; /* address to use when connecting this server */
+ IPADDR *own_ip4, *own_ip6; /* resolved own_address if not NULL */
+diff --git a/src/core/servers-reconnect.c b/src/core/servers-reconnect.c
+index 0a08b46..069bbf4 100644
+--- a/src/core/servers-reconnect.c
++++ b/src/core/servers-reconnect.c
+@@ -197,6 +197,7 @@ server_connect_copy_skeleton(SERVER_CONNECT_REC *src, int \
+connect_info)  dest-&gt;ssl_verify = src-&gt;ssl_verify;
+ 	dest-&gt;ssl_cafile = g_strdup(src-&gt;ssl_cafile);
+ 	dest-&gt;ssl_capath = g_strdup(src-&gt;ssl_capath);
++	dest-&gt;ssl_sha256 = g_strdup(src-&gt;ssl_sha256);
+ 
+ 	return dest;
+ }
+diff --git a/src/core/servers-setup.c b/src/core/servers-setup.c
+index 0819ff1..42c6b3a 100644
+--- a/src/core/servers-setup.c
++++ b/src/core/servers-setup.c
+@@ -176,6 +176,8 @@ static void server_setup_fill_server(SERVER_CONNECT_REC *conn,
+ 		conn-&gt;ssl_cafile = g_strdup(sserver-&gt;ssl_cafile);
+ 	if (conn-&gt;ssl_capath == NULL &amp;&amp; sserver-&gt;ssl_capath != NULL &amp;&amp; \
+sserver-&gt;ssl_capath[0] != '\0')  conn-&gt;ssl_capath = g_strdup(sserver-&gt;ssl_capath);
++	if (conn-&gt;ssl_sha256 == NULL &amp;&amp; sserver-&gt;ssl_sha256 != NULL &amp;&amp; \
+sserver-&gt;ssl_sha256[0] != '\0') +		conn-&gt;ssl_sha256 = g_strdup(sserver-&gt;ssl_sha256);
+ 
+ 	server_setup_fill_reconn(conn, sserver);
+ 
+@@ -402,9 +404,10 @@ static SERVER_SETUP_REC *server_setup_read(CONFIG_NODE *node)
+ 	rec-&gt;ssl_verify = config_node_get_bool(node, "ssl_verify", FALSE);
+ 	rec-&gt;ssl_cafile = g_strdup(config_node_get_str(node, "ssl_cafile", NULL));
+ 	rec-&gt;ssl_capath = g_strdup(config_node_get_str(node, "ssl_capath", NULL));
++	rec-&gt;ssl_sha256 = g_strdup(config_node_get_str(node, "ssl_sha256", NULL));
+ 	if (rec-&gt;ssl_cafile || rec-&gt;ssl_capath)
+ 		rec-&gt;ssl_verify = TRUE;
+-	if (rec-&gt;ssl_cert != NULL || rec-&gt;ssl_verify)
++	if (rec-&gt;ssl_cert != NULL || rec-&gt;ssl_verify || rec-&gt;ssl_sha256 != NULL)
+ 		rec-&gt;use_ssl = TRUE;
+ 	rec-&gt;port = port;
+ 	rec-&gt;autoconnect = config_node_get_bool(node, "autoconnect", FALSE);
+@@ -442,6 +445,7 @@ static void server_setup_save(SERVER_SETUP_REC *rec)
+ 	iconfig_node_set_bool(node, "ssl_verify", rec-&gt;ssl_verify);
+ 	iconfig_node_set_str(node, "ssl_cafile", rec-&gt;ssl_cafile);
+ 	iconfig_node_set_str(node, "ssl_capath", rec-&gt;ssl_capath);
++	iconfig_node_set_str(node, "ssl_sha256", rec-&gt;ssl_sha256);
+ 	iconfig_node_set_str(node, "own_host", rec-&gt;own_host);
+ 
+ 	iconfig_node_set_str(node, "family",
+@@ -483,6 +487,7 @@ static void server_setup_destroy(SERVER_SETUP_REC *rec)
+ 	g_free_not_null(rec-&gt;ssl_pass);
+ 	g_free_not_null(rec-&gt;ssl_cafile);
+ 	g_free_not_null(rec-&gt;ssl_capath);
++	g_free_not_null(rec-&gt;ssl_sha256);
+ 	g_free(rec-&gt;address);
+ 	g_free(rec);
+ }
+diff --git a/src/core/servers.c b/src/core/servers.c
+index 6eaad19..5457242 100644
+--- a/src/core/servers.c
++++ b/src/core/servers.c
+@@ -636,6 +636,7 @@ void server_connect_unref(SERVER_CONNECT_REC *conn)
+ 	g_free_not_null(conn-&gt;ssl_pass);
+ 	g_free_not_null(conn-&gt;ssl_cafile);
+ 	g_free_not_null(conn-&gt;ssl_capath);
++	g_free_not_null(conn-&gt;ssl_sha256);
+ 
+ 	g_free_not_null(conn-&gt;channels);
+         g_free_not_null(conn-&gt;away_reason);
+diff --git a/src/core/session.c b/src/core/session.c
+index b300263..4159bad 100644
+--- a/src/core/session.c
++++ b/src/core/session.c
+@@ -165,6 +165,7 @@ static void session_save_server(SERVER_REC *server, CONFIG_REC \
+*config,  config_node_set_bool(config, node, "ssl_verify", \
+server-&gt;connrec-&gt;ssl_verify);  config_node_set_str(config, node, "ssl_cafile", \
+server-&gt;connrec-&gt;ssl_cafile);  config_node_set_str(config, node, "ssl_capath", \
+server-&gt;connrec-&gt;ssl_capath); +	config_node_set_str(config, node, "ssl_sha256", \
+server-&gt;connrec-&gt;ssl_sha256);  
+ 	handle = g_io_channel_unix_get_fd(net_sendbuffer_handle(server-&gt;handle));
+ 	config_node_set_int(config, node, "handle", handle);
+-- 
+1.8.4
+
+
+</body></email><email><emailId>20141110163330</emailId><senderName>noname</senderName><senderEmail>noname@inventati.org</senderEmail><timestampReceived>2014-11-10 16:33:30-0400</timestampReceived><subject>[PATCH 4/4] Simplify fingerprint calculation</subject><body>
+
+Also remove wrong buffer overflow check
+---
+ src/core/network-openssl.c | 15 +++++----------
+ 1 file changed, 5 insertions(+), 10 deletions(-)
+
+diff --git a/src/core/network-openssl.c b/src/core/network-openssl.c
+index 6daa612..c8e2a54 100644
+--- a/src/core/network-openssl.c
++++ b/src/core/network-openssl.c
+@@ -263,17 +263,12 @@ static gboolean irssi_ssl_verify(SSL *ssl, const char *hostname, int port, X509
+ 		if (! X509_digest(cert, EVP_sha256(), md, &amp;n))
+ 			g_warning("  Could not get fingerprint from peer certificate");
+ 		else {
+-			char hex[] = "0123456789ABCDEF";
+ 			char fp[EVP_MAX_MD_SIZE*3];
+-			if (n &lt; sizeof(fp)) {
+-				unsigned int i;
+-				for (i = 0; i &lt; n; i++) {
+-					fp[i*3+0] = hex[(md[i] &gt;&gt; 4) &amp; 0xF];
+-					fp[i*3+1] = hex[(md[i] &gt;&gt; 0) &amp; 0xF];
+-					fp[i*3+2] = i == n - 1 ? '\0' : ':';
+-				}
+-				g_warning("  SHA256 Fingerprint : %s", fp);
+-			}
++			unsigned int i;
++			for (i = 0; i &lt; n; i++)
++				sprintf(fp + 3 * i, "%02X%c", md[i], i + 1 == n ? '\0' : ':');
++
++			g_warning("  SHA256 Fingerprint : %s", fp);
+ 		}
+ 		return FALSE;
+ 	} else if (! irssi_ssl_verify_hostname(cert, hostname)){
+-- 
+1.8.4
+
+
+</body></email><email><emailId>20141114144109</emailId><senderName>Guillaume Parent</senderName><senderEmail>gparent@gparent.org</senderEmail><timestampReceived>2014-11-14 14:41:09-0400</timestampReceived><subject>Re: SHA256 fingerprints</subject><body>
+
+Yes, that approach seems sane, though it would be interesting to see what
+others think about it.
+
+I will be sending you a link to my github irssi repo, because (and sorry
+for that) I've been more busy than expected this week. It should contain
+the commits so you can at least start comparing my code to yours. I'm not a
+C genius, and I love constructive feedback, so don't hesitate to point out
+what sucks and what's good about my version of the patch.
+
+On Tue, Nov 11, 2014 at 2:04 PM, &lt;noname@inventati.org&gt; wrote:
+
+&gt; On Mon, Nov 10, 2014 at 02:37:19PM -0500, Guillaume Parent wrote:
+&gt; &gt;    Hi,
+&gt; &gt;    Yes, my client is a patch over 0.8.16-rc1 if I recall correctly. I am
+&gt; &gt;    busy tonight but can possibly share the patch when I'm home.
+&gt;
+&gt; &gt;    I think it's an annoying balance between having a generic name for the
+&gt; &gt;    option if the irssi dev team wants to use a different hash in the
+&gt; &gt;    future vs. the clarity of the existing option. I had an attempt where
+&gt; I
+&gt; &gt;    used the length of the fingerprint even though that's pretty
+&gt; &gt;    inaccurate. It worked during my testing but I didnt evolve it beyond
+&gt; &gt;    that. Maybe something like how you specify password hashes?
+&gt;
+&gt; Good idea. Maybe something like
+&gt;
+&gt; ssl_fingerprint="sha256:DE:AD:BE:EF:..."
+&gt;
+&gt; Irssi passes first token to EVP_get_digestbyname so user can switch to
+&gt; new type of hash as soon as it is available in Libre^WOpenSSL.
+&gt;
+&gt;
+
+[Attachment #3 (text/html)]
+
+&lt;div dir="ltr"&gt;&lt;div&gt;Yes, that approach seems sane, though it would be interesting to \
+see what others think about it.&lt;br&gt;&lt;br&gt;&lt;/div&gt;I will be sending you a link to my \
+github irssi repo, because (and sorry for that) I've been more busy than expected \
+this week. It should contain the commits so you can at least start comparing my code \
+to yours. I'm not a C genius, and I love constructive feedback, so don't \
+hesitate to point out what sucks and what's good about my version of the \
+patch.&lt;br&gt;&lt;/div&gt;&lt;div class="gmail_extra"&gt;&lt;br&gt;&lt;div class="gmail_quote"&gt;On Tue, Nov 11, \
+2014 at 2:04 PM,  &lt;span dir="ltr"&gt;&lt;&lt;a href="mailto:noname@inventati.org" \
+target="_blank"&gt;noname@inventati.org&lt;/a&gt;&gt;&lt;/span&gt; wrote:&lt;br&gt;&lt;blockquote \
+class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc \
+solid;padding-left:1ex"&gt;&lt;span class=""&gt;On Mon, Nov 10, 2014 at 02:37:19PM -0500, \
+Guillaume Parent wrote:&lt;br&gt; &gt;      Hi,&lt;br&gt;
+&gt;      Yes, my client is a patch over 0.8.16-rc1 if I recall correctly. I am&lt;br&gt;
+&gt;      busy tonight but can possibly share the patch when I'm home.&lt;br&gt;
+&lt;br&gt;
+&gt;      I think it's an annoying balance between having a generic name for \
+the&lt;br&gt; &gt;      option if the irssi dev team wants to use a different hash in \
+the&lt;br&gt; &gt;      future vs. the clarity of the existing option. I had an attempt \
+where I&lt;br&gt; &gt;      used the length of the fingerprint even though that's \
+pretty&lt;br&gt; &gt;      inaccurate. It worked during my testing but I didnt evolve it \
+beyond&lt;br&gt; &gt;      that. Maybe something like how you specify password hashes?&lt;br&gt;
+&lt;br&gt;
+&lt;/span&gt;Good idea. Maybe something like&lt;br&gt;
+&lt;br&gt;
+ssl_fingerprint="sha256:DE:AD:BE:EF:..."&lt;br&gt;
+&lt;br&gt;
+Irssi passes first token to EVP_get_digestbyname so user can switch to&lt;br&gt;
+new type of hash as soon as it is available in Libre^WOpenSSL.&lt;br&gt;
+&lt;br&gt;
+&lt;/blockquote&gt;&lt;/div&gt;&lt;br&gt;&lt;/div&gt;
+
+
+
+</body></email><email><emailId>20140815205530</emailId><senderName>"Luis R. Rodriguez"</senderName><senderEmail>mcgrof@do-not-panic.com</senderEmail><timestampReceived>2014-08-15 20:55:30-0400</timestampReceived><subject>[PATCH 1/3] irssi: embrace the Developer Certificate of Origin for contributions</subject><body>
+
+From: "Luis R. Rodriguez" &lt;mcgrof@suse.com&gt;
+
+The Linux kernel started to embrace a light weight development contribution
+agreement process called the Developer Certificate of Origin (DCO) circa
+2004. Attorneys all over the planet have conferred a lot of respect and
+appreciation for this document and it provides a light weight alternative to
+cumbersome and controversial Contribution License Agreements (CLAs).
+
+Similar to streamlining FOSS licenses we also all stand to gain from
+streamlining a light weight contribution agreement process for development
+and in light of this the the Linux Foundation recently has made the DCO a
+standalone project [0] so that any FOSS project under any FOSS license can
+take advantage of the same gains. The motivation and intent is documented
+on my blog post [1] and later covered extensively on lwn [2] after
+James Bottomley's talk, and Bradley Kuhn went on extensively about it
+as well [3].
+
+Lets take advantage of the new shiny DCO and embrace it for contributions.
+
+[0] http://developercertificate.org/
+[1] http://www.do-not-panic.com/2014/02/developer-certificate-of-origin.html
+[2] http://lwn.net/Articles/592503/
+[3] http://ebb.org/bkuhn/blog/2014/06/09/do-not-need-cla.html
+
+Signed-off-by: Luis R. Rodriguez &lt;mcgrof@suse.com&gt;
+---
+ CONTRIBUTING | 49 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 49 insertions(+)
+ create mode 100644 CONTRIBUTING
+
+diff --git a/CONTRIBUTING b/CONTRIBUTING
+new file mode 100644
+index 0000000..f288959
+--- /dev/null
++++ b/CONTRIBUTING
+@@ -0,0 +1,49 @@
++
++This project embraces the Developer Certificate of Origin (DCO) for
++contributions. This means you must agree to the following prior to submitting
++patches, if you agree with this developer certificate you acknowledge this by
++adding a Signed-off-by tag to your patch commit log. Every submitted patch
++must have this.
++
++The source for the DCO:
++
++http://developercertificate.org/
++
++-----------------------------------------------------------------------
++
++Developer Certificate of Origin
++Version 1.1
++
++Copyright (C) 2004, 2006 The Linux Foundation and its contributors.
++660 York Street, Suite 102,
++San Francisco, CA 94110 USA
++
++Everyone is permitted to copy and distribute verbatim copies of this
++license document, but changing it is not allowed.
++
++
++Developer's Certificate of Origin 1.1
++
++By making a contribution to this project, I certify that:
++
++(a) The contribution was created in whole or in part by me and I
++    have the right to submit it under the open source license
++    indicated in the file; or
++
++(b) The contribution is based upon previous work that, to the best
++    of my knowledge, is covered under an appropriate open source
++    license and I have the right under that license to submit that
++    work with modifications, whether created in whole or in part
++    by me, under the same open source license (unless I am
++    permitted to submit under a different license), as indicated
++    in the file; or
++
++(c) The contribution was provided directly to me by some other
++    person who certified (a), (b) or (c) and I have not modified
++    it.
++
++(d) I understand and agree that this project and the contribution
++    are public and that a record of the contribution (including all
++    personal information I submit with it, including my sign-off) is
++    maintained indefinitely and may be redistributed consistent with
++    this project or the open source license(s) involved.
+-- 
+2.0.3
+
+
+</body></email><email><emailId>20140815205531</emailId><senderName>"Luis R. Rodriguez"</senderName><senderEmail>mcgrof@do-not-panic.com</senderEmail><timestampReceived>2014-08-15 20:55:31-0400</timestampReceived><subject>[PATCH 2/3] irssi core: add window console set active support</subject><body>
+
+From: "Luis R. Rodriguez" &lt;mcgrof@suse.com&gt;
+
+We can't go to the console window easily right now, we'll
+want this in case irssi needs to prompt the user for something
+sensitive such as a password.
+
+Signed-off-by: Luis R. Rodriguez &lt;mcgrof@suse.com&gt;
+---
+ src/fe-common/core/fe-windows.c      | 16 ++++++++++++++++
+ src/fe-common/core/fe-windows.h      |  2 ++
+ src/fe-common/core/window-commands.c | 10 ++++++++++
+ 3 files changed, 28 insertions(+)
+
+diff --git a/src/fe-common/core/fe-windows.c b/src/fe-common/core/fe-windows.c
+index bf9d715..be44ab7 100644
+--- a/src/fe-common/core/fe-windows.c
++++ b/src/fe-common/core/fe-windows.c
+@@ -70,6 +70,8 @@ WINDOW_REC *window_create(WI_ITEM_REC *item, int automatic)
+ 
+ 	rec = g_new0(WINDOW_REC, 1);
+ 	rec-&gt;refnum = window_get_new_refnum();
++	if (rec-&gt;refnum == 1)
++		rec-&gt;console = 1;
+ 	rec-&gt;level = settings_get_level("window_default_level");
+ 
+ 	windows = g_slist_prepend(windows, rec);
+@@ -353,6 +355,20 @@ WINDOW_REC *window_find_refnum(int refnum)
+ 	return NULL;
+ }
+ 
++WINDOW_REC *window_find_console(void)
++{
++	GSList *tmp;
++
++	for (tmp = windows; tmp != NULL; tmp = tmp-&gt;next) {
++		WINDOW_REC *rec = tmp-&gt;data;
++
++		if (rec-&gt;console)
++			return rec;
++	}
++
++	return NULL;
++}
++
+ WINDOW_REC *window_find_name(const char *name)
+ {
+ 	GSList *tmp;
+diff --git a/src/fe-common/core/fe-windows.h b/src/fe-common/core/fe-windows.h
+index 613f15f..28ac671 100644
+--- a/src/fe-common/core/fe-windows.h
++++ b/src/fe-common/core/fe-windows.h
+@@ -35,6 +35,7 @@ struct _WINDOW_REC {
+ 	unsigned int immortal:1;
+ 	unsigned int sticky_refnum:1;
+ 	unsigned int destroying:1;
++	unsigned int console:1;
+ 
+ 	/* window-specific command line history */
+ 	HISTORY_REC *history;
+@@ -75,6 +76,7 @@ const char *window_get_active_name(WINDOW_REC *window);
+ WINDOW_REC *window_find_level(void *server, int level);
+ WINDOW_REC *window_find_closest(void *server, const char *name, int level);
+ WINDOW_REC *window_find_refnum(int refnum);
++WINDOW_REC *window_find_console(void);
+ WINDOW_REC *window_find_name(const char *name);
+ WINDOW_REC *window_find_item(SERVER_REC *server, const char *name);
+ 
+diff --git a/src/fe-common/core/window-commands.c b/src/fe-common/core/window-commands.c
+index a975fe5..aa791da 100644
+--- a/src/fe-common/core/window-commands.c
++++ b/src/fe-common/core/window-commands.c
+@@ -842,6 +842,16 @@ static void cmd_foreach_window(const char *data)
+ 		active_win = old;
+ }
+ 
++void window_console(void)
++{
++	WINDOW_REC *window;
++
++	window = window_find_console();
++	if (!window)
++		return;
++	window_set_active(window);
++}
++
+ void window_commands_init(void)
+ {
+ 	settings_add_bool("lookandfeel", "active_window_ignore_refnum", TRUE);
+-- 
+2.0.3
+
+
+</body></email><email><emailId>20140815205532</emailId><senderName>"Luis R. Rodriguez"</senderName><senderEmail>mcgrof@do-not-panic.com</senderEmail><timestampReceived>2014-08-15 20:55:32-0400</timestampReceived><subject>[PATCH 3/3] irssi core: enable prompting for client certificate password</subject><body>
+
+From: "Luis R. Rodriguez" &lt;mcgrof@suse.com&gt;
+
+irssi supports letting you specify the client SSL password
+using the ssl_pass primitive on the configuration file. Its
+a terrible idea to be putting passwords on unencrypted files
+though so some security rational folks won't ever want to
+do this. If you currently don't supply one irssi goes on and
+assumes you do not want to use it, and depending on the server
+configuration it may or not fail on the SSL handshake and not
+allow any connection to go through... Freenode lets you
+authenticate your username with an SSL client certificate
+so this is not desirable behavior.
+
+This adds support to irrsi so that if an SSL client
+certificate was supplied and if no password was set we prompt
+the user for one.
+
+Upon disconnects we won't have to re-enter the password but
+just in case for whatever reason SSL needs it we redraw the
+screen to the console screen should the user have to enter
+a password again. Users that do not have a password on the
+SSL client certificate can just either enter an empty
+password upon the prompt or set an empty password on the
+configuration file. Its a bad idea to be using passwordless
+client certificate files anyway, so let them do a bit more
+work.
+
+We only prompt for a password if and only if the client
+certificate was set, if you have different client certificate
+files or use the client certificate for different connections
+you'll be asked for a password for each server SSL connection.
+
+Signed-off-by: Luis R. Rodriguez &lt;mcgrof@suse.com&gt;
+---
+ src/core/network-openssl.c | 41 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 39 insertions(+), 2 deletions(-)
+
+diff --git a/src/core/network-openssl.c b/src/core/network-openssl.c
+index 768fd54..23258c6 100644
+--- a/src/core/network-openssl.c
++++ b/src/core/network-openssl.c
+@@ -37,6 +37,8 @@
+ #include &lt;validator/val_dane.h&gt;
+ #endif
+ 
++void window_console(void);
++
+ /* ssl i/o channel object */
+ typedef struct
+ {
+@@ -434,6 +436,7 @@ static int get_pem_password_callback(char *buffer, int max_length, int rwflag, v
+ 	char *password;
+ 	size_t length;
+ 
++	/* should not happen but better leave it */
+ 	if (pass == NULL)
+ 		return 0;
+ 
+@@ -447,6 +450,35 @@ static int get_pem_password_callback(char *buffer, int max_length, int rwflag, v
+ 	return length;
+ }
+ 
++static int prompt_pem_password_callback(char *buffer, int max_length, int rwflag, void *pem_cert)
++{
++	char *password, prompt[256];
++	size_t length;
++
++	window_console();
++
++	/* should not happen but better leave it */
++	if (pem_cert == NULL)
++		return 0;
++
++	snprintf(prompt, 256, "Enter Passphrase for %s:", (char *) pem_cert);
++	password = getpass(prompt);
++
++	if (!password)
++		return 0;
++
++	length = strlen(password);
++
++	if (length &gt; max_length)
++		return 0;
++
++	strncpy(buffer, password, length);
++	irssi_redraw();
++
++	return length;
++}
++
++
+ static GIOChannel *irssi_ssl_get_iochannel(GIOChannel *handle, int port, SERVER_REC *server)
+ {
+ 	GIOSSLChannel *chan;
+@@ -476,8 +508,13 @@ static GIOChannel *irssi_ssl_get_iochannel(GIOChannel *handle, int port, SERVER_
+ 		return NULL;
+ 	}
+ 	SSL_CTX_set_options(ctx, SSL_OP_NO_SSLv2);
+-	SSL_CTX_set_default_passwd_cb(ctx, get_pem_password_callback);
+-	SSL_CTX_set_default_passwd_cb_userdata(ctx, (void *)mypass);
++	if (mypass) {
++		SSL_CTX_set_default_passwd_cb(ctx, get_pem_password_callback);
++		SSL_CTX_set_default_passwd_cb_userdata(ctx, (void *)mypass);
++	} else if (mycert &amp;&amp; *mycert) {
++		SSL_CTX_set_default_passwd_cb(ctx, prompt_pem_password_callback);
++		SSL_CTX_set_default_passwd_cb_userdata(ctx, (void *)mycert);
++	}
+ 
+ 	if (mycert &amp;&amp; *mycert) {
+ 		char *scert = NULL, *spkey = NULL;
+-- 
+2.0.3
+
+
+</body></email><email><emailId>20140305002356</emailId><senderName>Snowy Angelique Maslov</senderName><senderEmail>snowy@snowy.org</senderEmail><timestampReceived>2014-03-05 00:23:56-0400</timestampReceived><subject>Re: Updated Irssi for Windows Installer (0.8.16-rc1</subject><body>
+
+On 5/03/2014 10:04 AM, Josh Dick wrote:
+&gt;
+&gt; Hello,
+&gt;
+&gt; After reaching out to me to ask some questions about building Irssi 
+&gt; on Windows, Delan (CCed on this message) has worked diligently to 
+&gt; update the Irssi for Windows installer to the latest Irssi 0.8.16-rc1 
+&gt; release, and has automated the process of building the installer. His 
+&gt; automation code is available at https://github.com/delan/cygmake.
+&gt;
+&gt; We'd like to know:
+&gt;
+&gt; 1) What would you like to do with the automation code? Should Delan 
+&gt; get SVN access and add his code to Irssi's w32installer repo? Or maybe 
+&gt; that repo can just mirror from GitHub instead?
+&gt;
+&gt; 2) Do you want a copy of the 0.8.16-rc1 installer to make available 
+&gt; for download at irssi.org?
+&gt;
+&gt; Thanks and regards,
+&gt;
+&gt; JD E-Mail Signature Logo &lt;http://joshdick.net&gt;
+&gt;
+&gt; Josh Dick
+&gt;
+
+I think combining into the Irssi w32installer repo and having it 
+available on irssi.org is the best plan; it will keep everything 
+together that way.
+
+-- 
+Snowy Angelique Maslov&lt;snowy@snowy.org&gt;
+
+
+[Attachment #3 (text/html)]
+
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta content="text/html; charset=ISO-8859-1"
+      http-equiv="Content-Type"&gt;
+  &lt;/head&gt;
+  &lt;body text="#000000" bgcolor="#FFFFFF"&gt;
+    &lt;div class="moz-cite-prefix"&gt;On 5/03/2014 10:04 AM, Josh Dick wrote:&lt;br&gt;
+    &lt;/div&gt;
+    &lt;blockquote
+      cite="mid:27546F9E-2199-4CBB-9F4B-9FCD97BABC1C@joshdick.net"
+      type="cite"&gt;
+      &lt;div class="markdown"&gt;
+        &lt;p dir="auto"&gt;Hello,&lt;/p&gt;
+        &lt;p dir="auto"&gt;After reaching out to me to ask some questions
+          about building Irssi on Windows, Delan (CCed on this message)
+          has worked diligently to update the Irssi for Windows
+          installer to the latest Irssi 0.8.16-rc1 release, and has
+          automated the process of building the installer. His
+          automation code is available at &lt;a moz-do-not-send="true"
+            href="https://github.com/delan/cygmake"&gt;https://github.com/delan/cygmake&lt;/a&gt;.&lt;/p&gt;
+  &lt;p dir="auto"&gt;We'd like to know:&lt;/p&gt;
+        &lt;p dir="auto"&gt;1) What would you like to do with the automation
+          code? Should Delan get SVN access and add his code to Irssi's
+          w32installer repo? Or maybe that repo can just mirror from
+          GitHub instead?&lt;/p&gt;
+        &lt;p dir="auto"&gt;2) Do you want a copy of the 0.8.16-rc1 installer
+          to make available for download at irssi.org?&lt;/p&gt;
+        &lt;p dir="auto"&gt;Thanks and regards,&lt;/p&gt;
+        &lt;p dir="auto"&gt;&lt;a moz-do-not-send="true"
+            href="http://joshdick.net"&gt;&lt;img moz-do-not-send="true"
+              src="http://heap.joshdick.net/jd_email_signature.gif"
+              alt="JD E-Mail Signature Logo"&gt;&lt;/a&gt;&lt;/p&gt;
+        &lt;p dir="auto"&gt;Josh Dick&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/blockquote&gt;
+    &lt;br&gt;
+    I think combining into the Irssi w32installer repo and having it
+    available on irssi.org is the best plan; it will keep everything
+    together that way.&lt;br&gt;
+    &lt;br&gt;
+    &lt;pre class="moz-signature" cols="72"&gt;-- 
+Snowy Angelique Maslov&lt;a class="moz-txt-link-rfc2396E" \
+href="mailto:snowy@snowy.org"&gt;&lt;snowy@snowy.org&gt;&lt;/a&gt; &lt;/pre&gt;  &lt;/body&gt;
+&lt;/html&gt;
+
+
+
+</body></email><email><emailId>20140306135723</emailId><senderName>Delan Azabani</senderName><senderEmail>delan@azabani.com</senderEmail><timestampReceived>2014-03-06 13:57:23-0400</timestampReceived><subject>Irssi w32installer</subject><body>
+
+Hi all,
+
+With the help of Josh Dick, I have been able to successfully build and
+package an installer for Irssi 0.8.16-rc1 for Windows. I've even
+automated the process, currently hosting the scripts and other files
+at https://github.com/delan/cygmake that anyone with a Windows
+computer can easily use.
+
+I was wondering if I could acquire access to the w32installer
+subversion repository, so I could push some of my changes and
+improvements back upstream. Hopefully we could then make an official
+Windows package for Irssi 0.8.16-rc1 available.
+
+Thanks and best regards,
+Delan Azabani
+
+</body></email><email><emailId>20140305000429</emailId><senderName>"Josh Dick"</senderName><senderEmail>josh@joshdick.net</senderEmail><timestampReceived>2014-03-05 00:04:29-0400</timestampReceived><subject>Updated Irssi for Windows Installer (0.8.16-rc1</subject><body>
+
+Hello,
+
+=10After reaching out to me to ask some questions about building Irssi on=
+ =
+
+Windows, Delan (CCed on this message) has worked diligently to update =
+
+the Irssi for Windows installer to the latest Irssi 0.8.16-rc1 release, =
+
+and has automated the process of building the installer. His automation =
+
+code is available at https://github.com/delan/cygmake.
+
+We'd like to know:
+
+1) What would you like to do with the automation code? Should Delan get =
+
+SVN access and add his code to Irssi's w32installer repo? Or maybe that =
+
+repo can just mirror from GitHub instead?
+
+2) Do you want a copy of the 0.8.16-rc1 installer to make available for =
+
+download at irssi.org?
+
+Thanks and regards,
+
+[![JD E-Mail Signature =
+
+Logo](http://heap.joshdick.net/jd_email_signature.gif)](http://joshdick.n=
+et)
+
+Josh Dick
+
+[Attachment #3 (text/html)]
+
+&lt;div class="markdown"&gt;
+&lt;p dir="auto"&gt;Hello,&lt;/p&gt;
+
+&lt;p dir="auto"&gt;After reaching out to me to ask some questions about building Irssi on \
+Windows, Delan (CCed on this message) has worked diligently to update the Irssi for \
+Windows installer to the latest Irssi 0.8.16-rc1 release, and has automated the \
+process of building the installer. His automation code is available at &lt;a \
+href="https://github.com/delan/cygmake"&gt;https://github.com/delan/cygmake&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p dir="auto"&gt;We'd like to know:&lt;/p&gt;
+
+&lt;p dir="auto"&gt;1) What would you like to do with the automation code? Should Delan get \
+SVN access and add his code to Irssi's w32installer repo? Or maybe that repo can just \
+mirror from GitHub instead?&lt;/p&gt;
+
+&lt;p dir="auto"&gt;2) Do you want a copy of the 0.8.16-rc1 installer to make available for \
+download at irssi.org?&lt;/p&gt;
+
+&lt;p dir="auto"&gt;Thanks and regards,&lt;/p&gt;
+
+&lt;p dir="auto"&gt;&lt;a href="http://joshdick.net"&gt;&lt;img \
+src="http://heap.joshdick.net/jd_email_signature.gif" alt="JD E-Mail Signature \
+Logo"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p dir="auto"&gt;Josh Dick&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+
+</body></email></emails>

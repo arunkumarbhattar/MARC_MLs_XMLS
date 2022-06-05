@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20180106120622</emailId><senderName>KES</senderName><senderEmail>kes-kes@yandex.ru</senderEmail><timestampReceived>2018-01-06 12:06:22-0400</timestampReceived><subject>Re: Git allow to unconditionaly remove files on other developer host</subject><body>
+
+
+&gt; This happens *only* if the other developers also have somefile mentioned
+&gt; in their .gitignore.
+
+It will be mentioned, because of I can add/push, wait developers pull,  add/push
+
+I can do this because I was angry or was fired. So this is my last "surprise" for \
+others ))
+
+&gt; &gt; EXPECTED: git should warn about that content will be replaced and do not \
+&gt; &gt; pull/checkout until we force pull/checkout
+&gt; 
+&gt; If somefile is *not* mentioned in their .gitignore, the file is not
+&gt; removed and there is a warning.
+
+As you can see the file is not just ignored in my case it is important because added \
+to the repo
+
+
+we can think of some sort of default configuration stored in repo. 
+But added to ignore file because developers do not want to track local changes
+(every developer has own options when configure local instance of application)
+
+it *this very important* to not lose these options while switching between branches \
+or pull from remote.
+
+And I do not expect and do not want to get such "surprises" from anyone
+
+
+</body></email><email><emailId>20180520082447</emailId><senderName>Apinan Ponchan</senderName><senderEmail>jackzajung@icloud.com</senderEmail><timestampReceived>2018-05-20 08:24:47-0400</timestampReceived><subject>Re: [RFC 00/14] Allow fetch-pack to send ref names (globs allowed)</subject><body>
+
+DQoNCuC4quC5iOC4h+C4iOC4suC4gSBpUGhvbmUg4LiC4Lit4LiH4LiJ4Lix4LiZ
+</body></email><email><emailId>20180111200836</emailId><senderName>"rburgstaler"</senderName><senderEmail>rburgstaler@isi.edu</senderEmail><timestampReceived>2018-01-11 20:08:36-0400</timestampReceived><subject>hi Git</subject><body>
+
+Good morning Git
+
+https://goo.gl/NUAiB7
+
+
+rburgstaler
+</body></email><email><emailId>20180410223508</emailId><senderName>Johannes Schindelin</senderName><senderEmail>johannes.schindelin@gmx.de</senderEmail><timestampReceived>2018-04-10 22:35:08-0400</timestampReceived><subject>Re: git remote rename problem with trailing \\ for remote.url config entries (on Windows)</subject><body>
+
+Hi,
+
+[I know, blast from the past...]
+
+On Mon, 13 Feb 2017, Junio C Hamano wrote:
+
+&gt; Marc Strapetz &lt;marc.strapetz@syntevo.com&gt; writes:
+&gt; 
+&gt; &gt; One of our users has just reported that:
+&gt; &gt;
+&gt; &gt; $ git remote rename origin origin2
+&gt; &gt;
+&gt; &gt; will turn following remote entry:
+&gt; &gt;
+&gt; &gt; [remote "origin"]
+&gt; &gt; 	url = c:\\repo\\
+&gt; &gt; 	fetch = +refs/heads/*:refs/remotes/origin/*
+&gt; &gt;
+&gt; &gt; into following entry for which the url is skipped:
+&gt; &gt;
+&gt; &gt; [remote "origin2"]
+&gt; &gt; [remote "origin2"]
+&gt; &gt; 	fetch = +refs/heads/*:refs/remotes/origin2/*
+&gt; &gt;
+&gt; &gt; I understand that this is caused by the trailing \\ and it's easy to
+&gt; &gt; fix, but 'git push' and 'git pull' work properly with such URLs and a
+&gt; &gt;
+&gt; &gt; $ git clone c:\repo\
+&gt; &gt;
+&gt; &gt; will even result in the problematic remote-entry. So I guess some kind
+&gt; &gt; of validation could be helpful.
+&gt; 
+&gt; If you change the original definition of the "origin" to
+&gt; 
+&gt;         [remote "origin"]
+&gt;                url = "c:\\repo\\"
+&gt;                fetch = +refs/heads/*:refs/remotes/origin/*
+&gt; 
+&gt; or
+&gt; 
+&gt;         [remote "origin"]
+&gt;                url = c:\\repo\\ # ends with bs
+&gt;                fetch = +refs/heads/*:refs/remotes/origin/*
+&gt; 
+&gt; it seems to give me a better result.  I didn't dig to determine
+&gt; where things go wrong in "remote rename", and it is possible that
+&gt; the problem is isolated to that command, or the same problem exists
+&gt; with any value that ends with a backslash.  If the latter, "git clone"
+&gt; and anything that writes to configuration such a value needs to be
+&gt; taught about this glitch and learn a workaround, I would think.
+&gt; 
+&gt; Dscho Cc'ed, not for Windows expertise, but as somebody who has done
+&gt; a lot in &lt;config.c&gt;.
+
+So... I finally had a look at this, and while I agree that the quoted
+version is better, I also agree that the backslash is mistaken for a
+continuation character (which is not even allowed in section headers).
+
+A quick test with my `empty-config-section` patch series shows that it
+addresses this issue. A quick bisec confirms that the patch with the
+online "git_config_set: make use of the config parser's event stream" is
+responsible for this fix.
+
+At first, I was puzzled by this, because I expected `git remote rename` to
+be backed by the `git_config_copy_or_rename_section_in_file()` function
+(which my patch series does not touch).
+
+But then I looked at the code of the `mv()` function in builtin/remote.c
+and it uses `git_config_set_multivar()` and `git_config_set()`. And those
+functions were indeed touched (and fixed) by above-mentioned commit.
+
+Ciao,
+Johannes
+</body></email><email><emailId>20180410233114</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2018-04-10 23:31:14-0400</timestampReceived><subject>Re: git remote rename problem with trailing \\ for remote.url config entries (on Windows)</subject><body>
+
+Johannes Schindelin &lt;Johannes.Schindelin@gmx.de&gt; writes:
+
+&gt; A quick test with my `empty-config-section` patch series shows that it
+&gt; addresses this issue. A quick bisec confirms that the patch with the
+&gt; online "git_config_set: make use of the config parser's event stream" is
+&gt; responsible for this fix.
+&gt;
+&gt; At first, I was puzzled by this, because I expected `git remote rename` to
+&gt; be backed by the `git_config_copy_or_rename_section_in_file()` function
+&gt; (which my patch series does not touch).
+
+I played around with this test data:
+
+        [sec "tio"]
+                val = a\\
+                ue = b
+
+and saw "git config --rename-section sec.tio sec.tion" just work
+fine (without the event stream change).  Without the event stream
+change, "git config --unset sec.tio.ue" loses "sec.tio.val" but with
+it we see we only lose the last line, which is the correct thing to
+happen.
+
+Nice.
+</body></email><email><emailId>20180118113738</emailId><senderName>Mohammad Ouattara</senderName><senderEmail>ouattaramohammad0@gmail.com</senderEmail><timestampReceived>2018-01-18 11:37:38-0400</timestampReceived><subject>Assalamu`Alaikum.</subject><body>
+
+
+
+
+Dear Sir/Madam.
+
+Assalamu`Alaikum.
+
+I am Dr mohammad ouattara, I have  ($14.6 Million us dollars) to transfer into your \
+account,
+
+I will send you more details about this deal and the procedures to follow when I \
+receive a positive response from you, 
+
+Have a great day,
+Dr mohammad ouattara.
+
+
+</body></email><email><emailId>20180118113812</emailId><senderName>Mohammad Ouattara</senderName><senderEmail>ouattaramohammad0@gmail.com</senderEmail><timestampReceived>2018-01-18 11:38:12-0400</timestampReceived><subject>Assalamu`Alaikum.</subject><body>
+
+Greetings from Dr. mohammad ouattara.
+ 
+Assalamu`Alaikum.
+ 
+My Name is Dr. mohammad ouattara, I am a banker by profession. I'm from Ouagadougou, \
+Burkina Faso, West Africa. My reason for contacting you is to transfer an abandoned \
+$14.6M to your account.  
+The owner of this fund died since 2004 with his Next Of Kin. I want to present you to \
+the bank as the Next of Kin/beneficiary of this fund.  
+Further details of the transaction shall be forwarded to you as soon as I receive \
+your return mail indicating your interest.
+
+Have a great day,
+Dr. mohammad ouattara.
+ 
+ 
+
+ 
+
+
+</body></email><email><emailId>20180130183758</emailId><senderName>Mohammad Ouattara</senderName><senderEmail>ouattaramohammad0@gmail.com</senderEmail><timestampReceived>2018-01-30 18:37:58-0400</timestampReceived><subject>Assalamu`Alaikum.</subject><body>
+
+Greetings from Dr. mohammad ouattara.
+ 
+Assalamu`Alaikum.
+ 
+My Name is Dr. mohammad ouattara, I am a banker by profession. I'm from Ouagadougou, \
+Burkina Faso, West Africa. My reason for contacting you is to transfer an abandoned \
+$14.6M to your account.  
+The owner of this fund died since 2004 with his Next Of Kin. I want to present you to \
+the bank as the Next of Kin/beneficiary of this fund.  
+Further details of the transaction shall be forwarded to you as soon as I receive \
+your return mail indicating your interest.
+
+1) YOUR FULL NAME...............................
+(2) YOUR AGE AND SEX............................
+(3) YOUR CONTACT ADDRESS..................
+(4) YOUR PRIVATE PHONE N0..........
+(5) FAX NUMBER..............
+(6) YOUR COUNTRY OF ORIGIN..................
+(7) YOUR OCCUPATION.........................
+
+Have a great day,
+Dr. mohammad ouattara.
+ 
+ 
+
+ 
+
+
+</body></email><email><emailId>20180203124453</emailId><senderName>Mohammad ouattara</senderName><senderEmail>nadeemarkh@gmail.com</senderEmail><timestampReceived>2018-02-03 12:44:53-0400</timestampReceived><subject>Assalamu`Alaikum.</subject><body>
+
+Dear Sir/Madam.
+
+Assalamu`Alaikum.
+
+I am Dr mohammad ouattara, I have  ($14.6 Million us dollars) to
+transfer into your account,
+
+I will send you more details about this deal and the procedures to
+follow when I receive a positive response from you,
+
+Have a great day,
+Dr mohammad ouattara.
+</body></email><email><emailId>20180214181350</emailId><senderName>Mohammad Ouattara</senderName><senderEmail>ouattaramohammad0@gmail.com</senderEmail><timestampReceived>2018-02-14 18:13:50-0400</timestampReceived><subject>Assalamu`Alaikum.</subject><body>
+
+
+
+
+Dear Sir/Madam.
+
+Assalamu`Alaikum.
+
+I am Dr mohammad ouattara, I have  ($14.6 Million us dollars) to transfer into your \
+account,
+
+I will send you more details about this deal and the procedures to follow when I \
+receive a positive response from you, 
+
+Have a great day,
+Dr mohammad ouattara.
+
+
+</body></email><email><emailId>20180320183641</emailId><senderName>Mohammad Ouattara</senderName><senderEmail>ouattaramohammad0@gmail.com</senderEmail><timestampReceived>2018-03-20 18:36:41-0400</timestampReceived><subject>Assalamu`Alaikum.</subject><body>

@@ -1,0 +1,1127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20220402122902</emailId><senderName>"allisthegame999 at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2022-04-02 12:29:02-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         allisthegame999 at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+bad bug for sure, thanks
+
+cutt.ly/7DVDR4Y
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2022-03-05 05:14:48] alaxtiger at gmail dot com
+
+https://www.mytvcodeenter.com/
+
+------------------------------------------------------------------------
+[2022-03-05 04:59:36] zoeyaria374 at gmail dot com
+
+Did you make the most of your feast at Jack In The Box Restaurant as of late? Do you \
+have any messages to give Jack In The Box? If your answer is yes, at that point here, \
+you get an opportunity to give your input.
+
+Jack In The Box presents an extraordinary open door for its clients to share their \
+genuine criticism.
+
+By taking an interest in the Jack In The Box Survey, each client can without much of \
+a stretch offer their visit involvement.
+
+https://customerfeedbacks.info/www-jacklistens-com/
+
+------------------------------------------------------------------------
+[2022-03-03 04:46:49] robertartjoe4321 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+https://breakfast-menu.website/aandw-breakfast-menu-prices/
+
+------------------------------------------------------------------------
+[2022-02-28 10:11:43] sofiaeleanor62 at gmail dot com
+
+Are your family or friends guests showed to your house suddenly and you'd like to get \
+food for them at a low cost and also tasty? Then you can look up the Tap Tap Haitian \
+Restaurant Appetizers Menu list and then order the food in accordance with it. You \
+can also access taptaprestaurant's hidden menu prices here
+
+
+https://appetizermenus.com/tap-tap-haitian-restaurant-appetizers-menu/
+
+------------------------------------------------------------------------
+[2022-02-26 08:24:08] latestmenuprices at gmail dot com
+
+Searching for Golden Corral Prices for 2022? We've looked at everything to find it \
+for you starting from Golden Corral Buffet prices to Lunch prices and breakfast price \
+menus. 
+
+https://latestmenuprices.today/golden-corral-menu-prices/
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=37297
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20220120125841</emailId><senderName>"takesurvery11 at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2022-01-20 12:58:41-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         takesurvery11 at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+https://takesurvery.com/myindigocard-login-activation-2022/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2021-12-14 21:36:53] paitynplace7 at gmail dot com
+
+Thanks you it's good
+https://19216811.vn/
+
+------------------------------------------------------------------------
+[2021-12-08 10:59:31] fincherdavid at gmail dot com
+
+Thanks for the best solution and i loved it
+https://19216811.support/
+
+------------------------------------------------------------------------
+[2021-02-05 06:55:30] jeanmitchell191 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+
+
+https://www.krogereschedule.us/
+
+------------------------------------------------------------------------
+[2006-07-30 19:17:24] andrei@php.net
+
+I fixed this in CVS. Now the selection, target, and type properties of \
+GtkSelectionData are GdkAtom objects and you have to cast them to (string) in order \
+to get the string representation. Let me know if this is going to be too cumbersome. \
+I may adjust GtkSelectionData to have just strings instead of GdkAtom objects for \
+properties.
+
+Also, when running your example the 'data' property is NULL. Is that normal?
+
+------------------------------------------------------------------------
+[2006-05-03 18:31:09] cweiske@php.net
+
+Description:
+------------
+Bug in drag'n'drop:
+Drag from "from" button to "to" button.
+You will get a segfault.
+
+
+Reproduce code:
+---------------
+&lt;?php
+$wnd = new GtkWindow();
+$wnd-&gt;connect_simple('destroy', array('Gtk', 'main_quit'));
+$hbox = new GtkHBox();
+$wnd-&gt;add($hbox);
+
+$btnFrom = new GtkButton('From');
+$btnTo   = new GtkButton('To');
+
+$hbox-&gt;pack_start($btnFrom);
+$hbox-&gt;pack_start($btnTo);
+
+$btnFrom-&gt;drag_source_set(
+    Gdk::BUTTON1_MASK,
+    //change to text/plain, and it works
+    array(array('text/xml', 0, 1)),
+    Gdk::ACTION_COPY | Gdk::ACTION_MOVE
+);
+$btnFrom-&gt;connect('drag-data-get', 'onGetDragData');
+
+
+$btnTo-&gt;drag_dest_set(
+    Gtk::DEST_DEFAULT_ALL,
+    //change to text/plain, and it works
+    array(array('text/xml', 0, 1)),
+    Gdk::ACTION_COPY | Gdk::ACTION_MOVE
+);
+
+function onGetDragData($widget, $context, $selection, $info, $time) {
+    var_dump($selection);
+}
+
+
+$wnd-&gt;show_all();
+Gtk::main();
+?&gt;
+
+Actual result:
+--------------
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 16384 (LWP 20870)]
+0xb7c5b203 in strlen () from /lib/libc.so.6
+(gdb) bt
+#0  0xb7c5b203 in strlen () from /lib/libc.so.6
+#1  0xb75dbcbd in phpg_GtkSelectionData_read_type (object=0x8eb03ec,
+    return_value=0xbf8f3cf0) at gen_gtk.c:45552
+#2  0xb75ff86b in phpg_get_properties (object=0x8d9bb74)
+    at /data/cvs/phpgtk2/php-gtk/main/phpg_support.c:173
+#3  0x082c852b in php_var_dump (struc=0x87d1e64, level=1)
+    at /data/cvs/php/php-5.1.2/ext/standard/var.c:139
+#4  0x082c8736 in zif_var_dump (ht=1, return_value=0x8da9a74,
+    return_value_ptr=0x0, this_ptr=0x0, return_value_used=0)
+    at /data/cvs/php/php-5.1.2/ext/standard/var.c:192
+#5  0x0834a906 in zend_do_fcall_common_helper_SPEC (execute_data=0xbf8f3e20)
+    at zend_vm_execute.h:192
+#6  0x0834a218 in execute (op_array=0x8d95078) at zend_vm_execute.h:92
+#7  0x08328339 in zend_call_function (fci=0xbf8f3f50, fci_cache=0x0)
+    at /data/cvs/php/php-5.1.2/Zend/zend_execute_API.c:907
+#8  0x08327bae in call_user_function_ex (function_table=0x0, object_pp=0x0,
+    function_name=0x0, retval_ptr_ptr=0x0, param_count=0, params=0x0,
+    no_separation=0, symbol_table=0x0)
+    at /data/cvs/php/php-5.1.2/Zend/zend_execute_API.c:571
+#9  0xb7605a8a in phpg_closure_marshal (closure=0x8da9b50, return_value=0x0,
+    n_param_values=5, param_values=0xbf8f4210, invocation_hint=0xbf8f40f8,
+    marshal_data=0x0) at /data/cvs/phpgtk2/php-gtk/main/phpg_closure.c:124
+#10 0xb6fe330e in g_closure_invoke () from /usr/lib/libgobject-2.0.so.0
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20220305051448</emailId><senderName>"alaxtiger at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2022-03-05 05:14:48-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         alaxtiger at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+https://www.mytvcodeenter.com/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2022-03-05 04:59:36] zoeyaria374 at gmail dot com
+
+Did you make the most of your feast at Jack In The Box Restaurant as of late? Do you \
+have any messages to give Jack In The Box? If your answer is yes, at that point here, \
+you get an opportunity to give your input.
+
+Jack In The Box presents an extraordinary open door for its clients to share their \
+genuine criticism.
+
+By taking an interest in the Jack In The Box Survey, each client can without much of \
+a stretch offer their visit involvement.
+
+https://customerfeedbacks.info/www-jacklistens-com/
+
+------------------------------------------------------------------------
+[2022-03-03 04:46:49] robertartjoe4321 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+https://breakfast-menu.website/aandw-breakfast-menu-prices/
+
+------------------------------------------------------------------------
+[2022-02-28 10:11:43] sofiaeleanor62 at gmail dot com
+
+Are your family or friends guests showed to your house suddenly and you'd like to get \
+food for them at a low cost and also tasty? Then you can look up the Tap Tap Haitian \
+Restaurant Appetizers Menu list and then order the food in accordance with it. You \
+can also access taptaprestaurant's hidden menu prices here
+
+
+https://appetizermenus.com/tap-tap-haitian-restaurant-appetizers-menu/
+
+------------------------------------------------------------------------
+[2022-02-26 08:24:08] latestmenuprices at gmail dot com
+
+Searching for Golden Corral Prices for 2022? We've looked at everything to find it \
+for you starting from Golden Corral Buffet prices to Lunch prices and breakfast price \
+menus. 
+
+https://latestmenuprices.today/golden-corral-menu-prices/
+
+------------------------------------------------------------------------
+[2022-02-26 03:56:31] williamw55612 at gmail dot com
+
+PF Chang's Appetizers Menu: P.F. Changs's is an American restaurant chain that serves \
+casual dining. It's known for its Asian-themed restaurant interiors and menus. They \
+offer a variety of Chinese dishes, including dim sum, chicken, beef, fish, \
+Appetizers, seafood entrees, and rice meals. It is America's largest casual-dining \
+Chinese restaurant chain.
+
+They have over 200 locations in the United States, and more than 50 internationally.
+
+Below are the latest PF Chang's Appetizers Menu prices.
+
+https://appetizermenus.com/pf-changs-appetizers-menu/
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=37297
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20220228101143</emailId><senderName>"sofiaeleanor62 at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2022-02-28 10:11:43-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         sofiaeleanor62 at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Are your family or friends guests showed to your house suddenly and you'd like to get \
+food for them at a low cost and also tasty? Then you can look up the Tap Tap Haitian \
+Restaurant Appetizers Menu list and then order the food in accordance with it. You \
+can also access taptaprestaurant's hidden menu prices here
+
+
+https://appetizermenus.com/tap-tap-haitian-restaurant-appetizers-menu/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2022-02-26 08:24:08] latestmenuprices at gmail dot com
+
+Searching for Golden Corral Prices for 2022? We've looked at everything to find it \
+for you starting from Golden Corral Buffet prices to Lunch prices and breakfast price \
+menus. 
+
+https://latestmenuprices.today/golden-corral-menu-prices/
+
+------------------------------------------------------------------------
+[2022-02-26 03:56:31] williamw55612 at gmail dot com
+
+PF Chang's Appetizers Menu: P.F. Changs's is an American restaurant chain that serves \
+casual dining. It's known for its Asian-themed restaurant interiors and menus. They \
+offer a variety of Chinese dishes, including dim sum, chicken, beef, fish, \
+Appetizers, seafood entrees, and rice meals. It is America's largest casual-dining \
+Chinese restaurant chain.
+
+They have over 200 locations in the United States, and more than 50 internationally.
+
+Below are the latest PF Chang's Appetizers Menu prices.
+
+https://appetizermenus.com/pf-changs-appetizers-menu/
+
+------------------------------------------------------------------------
+[2022-02-25 08:12:05] happyhours865 at gmail dot com
+
+Freebirds Happy Hour menu takes one of their most sought-after menu items and offers \
+it at a price that is nearly 2 dollars less than their usual cost. What this means \
+for people who dine in the afternoon and evening is that you'll get to get the most \
+value for money Freebird offers without paying more for it. 
+
+https://happy-hours-menu.info/freebirds-happy-hour/
+
+------------------------------------------------------------------------
+[2022-02-18 10:31:54] coyogac833 at chatich dot com
+
+Postalexperience.com/pos – USPS conducted a U.S. Postal Service Survey for all \
+customers who want to share their experience. Check U.S. Postal Service Customer \
+Experience Survey Steps.
+
+https://takesurvey.onl/usps-customer-satisfaction-survey/
+
+------------------------------------------------------------------------
+[2022-02-12 15:00:47] johndav201986 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+
+https://takesurveyofficial.com/mcdvoice-survey-2022/
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=37297
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20220208185546</emailId><senderName>"paitynplace7 at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2022-02-08 18:55:46-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         paitynplace7 at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+https://19216811.world/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2022-01-20 12:58:41] takesurvery11 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+https://takesurvery.com/myindigocard-login-activation-2022/
+
+------------------------------------------------------------------------
+[2021-12-14 21:36:53] paitynplace7 at gmail dot com
+
+Thanks you it's good
+https://19216811.vn/
+
+------------------------------------------------------------------------
+[2021-12-08 10:59:31] fincherdavid at gmail dot com
+
+Thanks for the best solution and i loved it
+https://19216811.support/
+
+------------------------------------------------------------------------
+[2021-02-05 06:55:30] jeanmitchell191 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+
+
+https://www.krogereschedule.us/
+
+------------------------------------------------------------------------
+[2006-07-30 19:17:24] andrei@php.net
+
+I fixed this in CVS. Now the selection, target, and type properties of \
+GtkSelectionData are GdkAtom objects and you have to cast them to (string) in order \
+to get the string representation. Let me know if this is going to be too cumbersome. \
+I may adjust GtkSelectionData to have just strings instead of GdkAtom objects for \
+properties.
+
+Also, when running your example the 'data' property is NULL. Is that normal?
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=37297
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20220212150047</emailId><senderName>"johndav201986 at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2022-02-12 15:00:47-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         johndav201986 at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure it out for more.
+
+
+https://takesurveyofficial.com/mcdvoice-survey-2022/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2022-02-08 18:55:46] paitynplace7 at gmail dot com
+
+https://19216811.world/
+
+------------------------------------------------------------------------
+[2022-01-20 12:58:41] takesurvery11 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure it out for more.
+
+https://takesurvery.com/myindigocard-login-activation-2022/
+
+------------------------------------------------------------------------
+[2021-12-14 21:36:53] paitynplace7 at gmail dot com
+
+Thanks you it's good
+https://19216811.vn/
+
+------------------------------------------------------------------------
+[2021-12-08 10:59:31] fincherdavid at gmail dot com
+
+Thanks for the best solution and i loved it
+https://19216811.support/
+
+------------------------------------------------------------------------
+[2021-02-05 06:55:30] jeanmitchell191 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure it out for more.
+
+
+
+https://www.krogereschedule.us/
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=37297
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20220218103154</emailId><senderName>"coyogac833 at chatich dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2022-02-18 10:31:54-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         coyogac833 at chatich dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Postalexperience.com/pos – USPS conducted a U.S. Postal Service Survey for all \
+customers who want to share their experience. Check U.S. Postal Service Customer \
+Experience Survey Steps.
+
+https://takesurvey.onl/usps-customer-satisfaction-survey/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2022-02-12 15:00:47] johndav201986 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+
+https://takesurveyofficial.com/mcdvoice-survey-2022/
+
+------------------------------------------------------------------------
+[2022-02-08 18:55:46] paitynplace7 at gmail dot com
+
+https://19216811.world/
+
+------------------------------------------------------------------------
+[2022-01-20 12:58:41] takesurvery11 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+https://takesurvery.com/myindigocard-login-activation-2022/
+
+------------------------------------------------------------------------
+[2021-12-14 21:36:53] paitynplace7 at gmail dot com
+
+Thanks you it's good
+https://19216811.vn/
+
+------------------------------------------------------------------------
+[2021-12-08 10:59:31] fincherdavid at gmail dot com
+
+Thanks for the best solution and i loved it
+https://19216811.support/
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=37297
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20220225081205</emailId><senderName>"happyhours865 at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2022-02-25 08:12:05-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         happyhours865 at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Freebirds Happy Hour menu takes one of their most sought-after menu items and offers \
+it at a price that is nearly 2 dollars less than their usual cost. What this means \
+for people who dine in the afternoon and evening is that you'll get to get the most \
+value for money Freebird offers without paying more for it. 
+
+https://happy-hours-menu.info/freebirds-happy-hour/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2022-02-18 10:31:54] coyogac833 at chatich dot com
+
+Postalexperience.com/pos – USPS conducted a U.S. Postal Service Survey for all \
+customers who want to share their experience. Check U.S. Postal Service Customer \
+Experience Survey Steps.
+
+https://takesurvey.onl/usps-customer-satisfaction-survey/
+
+------------------------------------------------------------------------
+[2022-02-12 15:00:47] johndav201986 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+
+https://takesurveyofficial.com/mcdvoice-survey-2022/
+
+------------------------------------------------------------------------
+[2022-02-08 18:55:46] paitynplace7 at gmail dot com
+
+https://19216811.world/
+
+------------------------------------------------------------------------
+[2022-01-20 12:58:41] takesurvery11 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+https://takesurvery.com/myindigocard-login-activation-2022/
+
+------------------------------------------------------------------------
+[2021-12-14 21:36:53] paitynplace7 at gmail dot com
+
+Thanks you it's good
+https://19216811.vn/
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=37297
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20220226035631</emailId><senderName>"williamw55612 at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2022-02-26 03:56:31-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         williamw55612 at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+PF Chang's Appetizers Menu: P.F. Changs's is an American restaurant chain that serves \
+casual dining. It's known for its Asian-themed restaurant interiors and menus. They \
+offer a variety of Chinese dishes, including dim sum, chicken, beef, fish, \
+Appetizers, seafood entrees, and rice meals. It is America's largest casual-dining \
+Chinese restaurant chain.
+
+They have over 200 locations in the United States, and more than 50 internationally.
+
+Below are the latest PF Chang's Appetizers Menu prices.
+
+https://appetizermenus.com/pf-changs-appetizers-menu/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2022-02-25 08:12:05] happyhours865 at gmail dot com
+
+Freebirds Happy Hour menu takes one of their most sought-after menu items and offers \
+it at a price that is nearly 2 dollars less than their usual cost. What this means \
+for people who dine in the afternoon and evening is that you'll get to get the most \
+value for money Freebird offers without paying more for it. 
+
+https://happy-hours-menu.info/freebirds-happy-hour/
+
+------------------------------------------------------------------------
+[2022-02-18 10:31:54] coyogac833 at chatich dot com
+
+Postalexperience.com/pos – USPS conducted a U.S. Postal Service Survey for all \
+customers who want to share their experience. Check U.S. Postal Service Customer \
+Experience Survey Steps.
+
+https://takesurvey.onl/usps-customer-satisfaction-survey/
+
+------------------------------------------------------------------------
+[2022-02-12 15:00:47] johndav201986 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+
+https://takesurveyofficial.com/mcdvoice-survey-2022/
+
+------------------------------------------------------------------------
+[2022-02-08 18:55:46] paitynplace7 at gmail dot com
+
+https://19216811.world/
+
+------------------------------------------------------------------------
+[2022-01-20 12:58:41] takesurvery11 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+https://takesurvery.com/myindigocard-login-activation-2022/
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=37297
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20220226082408</emailId><senderName>"latestmenuprices at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2022-02-26 08:24:08-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         latestmenuprices at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Searching for Golden Corral Prices for 2022? We've looked at everything to find it \
+for you starting from Golden Corral Buffet prices to Lunch prices and breakfast price \
+menus. 
+
+https://latestmenuprices.today/golden-corral-menu-prices/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2022-02-26 03:56:31] williamw55612 at gmail dot com
+
+PF Chang's Appetizers Menu: P.F. Changs's is an American restaurant chain that serves \
+casual dining. It's known for its Asian-themed restaurant interiors and menus. They \
+offer a variety of Chinese dishes, including dim sum, chicken, beef, fish, \
+Appetizers, seafood entrees, and rice meals. It is America's largest casual-dining \
+Chinese restaurant chain.
+
+They have over 200 locations in the United States, and more than 50 internationally.
+
+Below are the latest PF Chang's Appetizers Menu prices.
+
+https://appetizermenus.com/pf-changs-appetizers-menu/
+
+------------------------------------------------------------------------
+[2022-02-25 08:12:05] happyhours865 at gmail dot com
+
+Freebirds Happy Hour menu takes one of their most sought-after menu items and offers \
+it at a price that is nearly 2 dollars less than their usual cost. What this means \
+for people who dine in the afternoon and evening is that you'll get to get the most \
+value for money Freebird offers without paying more for it. 
+
+https://happy-hours-menu.info/freebirds-happy-hour/
+
+------------------------------------------------------------------------
+[2022-02-18 10:31:54] coyogac833 at chatich dot com
+
+Postalexperience.com/pos – USPS conducted a U.S. Postal Service Survey for all \
+customers who want to share their experience. Check U.S. Postal Service Customer \
+Experience Survey Steps.
+
+https://takesurvey.onl/usps-customer-satisfaction-survey/
+
+------------------------------------------------------------------------
+[2022-02-12 15:00:47] johndav201986 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+
+https://takesurveyofficial.com/mcdvoice-survey-2022/
+
+------------------------------------------------------------------------
+[2022-02-08 18:55:46] paitynplace7 at gmail dot com
+
+https://19216811.world/
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=37297
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20220303044649</emailId><senderName>"robertartjoe4321 at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2022-03-03 04:46:49-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         robertartjoe4321 at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+https://breakfast-menu.website/aandw-breakfast-menu-prices/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2022-02-28 10:11:43] sofiaeleanor62 at gmail dot com
+
+Are your family or friends guests showed to your house suddenly and you'd like to get \
+food for them at a low cost and also tasty? Then you can look up the Tap Tap Haitian \
+Restaurant Appetizers Menu list and then order the food in accordance with it. You \
+can also access taptaprestaurant's hidden menu prices here
+
+
+https://appetizermenus.com/tap-tap-haitian-restaurant-appetizers-menu/
+
+------------------------------------------------------------------------
+[2022-02-26 08:24:08] latestmenuprices at gmail dot com
+
+Searching for Golden Corral Prices for 2022? We've looked at everything to find it \
+for you starting from Golden Corral Buffet prices to Lunch prices and breakfast price \
+menus. 
+
+https://latestmenuprices.today/golden-corral-menu-prices/
+
+------------------------------------------------------------------------
+[2022-02-26 03:56:31] williamw55612 at gmail dot com
+
+PF Chang's Appetizers Menu: P.F. Changs's is an American restaurant chain that serves \
+casual dining. It's known for its Asian-themed restaurant interiors and menus. They \
+offer a variety of Chinese dishes, including dim sum, chicken, beef, fish, \
+Appetizers, seafood entrees, and rice meals. It is America's largest casual-dining \
+Chinese restaurant chain.
+
+They have over 200 locations in the United States, and more than 50 internationally.
+
+Below are the latest PF Chang's Appetizers Menu prices.
+
+https://appetizermenus.com/pf-changs-appetizers-menu/
+
+------------------------------------------------------------------------
+[2022-02-25 08:12:05] happyhours865 at gmail dot com
+
+Freebirds Happy Hour menu takes one of their most sought-after menu items and offers \
+it at a price that is nearly 2 dollars less than their usual cost. What this means \
+for people who dine in the afternoon and evening is that you'll get to get the most \
+value for money Freebird offers without paying more for it. 
+
+https://happy-hours-menu.info/freebirds-happy-hour/
+
+------------------------------------------------------------------------
+[2022-02-18 10:31:54] coyogac833 at chatich dot com
+
+Postalexperience.com/pos – USPS conducted a U.S. Postal Service Survey for all \
+customers who want to share their experience. Check U.S. Postal Service Customer \
+Experience Survey Steps.
+
+https://takesurvey.onl/usps-customer-satisfaction-survey/
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=37297
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20220305045937</emailId><senderName>"zoeyaria374 at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2022-03-05 04:59:37-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         zoeyaria374 at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Did you make the most of your feast at Jack In The Box Restaurant as of late? Do you \
+have any messages to give Jack In The Box? If your answer is yes, at that point here, \
+you get an opportunity to give your input.
+
+Jack In The Box presents an extraordinary open door for its clients to share their \
+genuine criticism.
+
+By taking an interest in the Jack In The Box Survey, each client can without much of \
+a stretch offer their visit involvement.
+
+https://customerfeedbacks.info/www-jacklistens-com/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2022-03-03 04:46:49] robertartjoe4321 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+https://breakfast-menu.website/aandw-breakfast-menu-prices/
+
+------------------------------------------------------------------------
+[2022-02-28 10:11:43] sofiaeleanor62 at gmail dot com
+
+Are your family or friends guests showed to your house suddenly and you'd like to get \
+food for them at a low cost and also tasty? Then you can look up the Tap Tap Haitian \
+Restaurant Appetizers Menu list and then order the food in accordance with it. You \
+can also access taptaprestaurant's hidden menu prices here
+
+
+https://appetizermenus.com/tap-tap-haitian-restaurant-appetizers-menu/
+
+------------------------------------------------------------------------
+[2022-02-26 08:24:08] latestmenuprices at gmail dot com
+
+Searching for Golden Corral Prices for 2022? We've looked at everything to find it \
+for you starting from Golden Corral Buffet prices to Lunch prices and breakfast price \
+menus. 
+
+https://latestmenuprices.today/golden-corral-menu-prices/
+
+------------------------------------------------------------------------
+[2022-02-26 03:56:31] williamw55612 at gmail dot com
+
+PF Chang's Appetizers Menu: P.F. Changs's is an American restaurant chain that serves \
+casual dining. It's known for its Asian-themed restaurant interiors and menus. They \
+offer a variety of Chinese dishes, including dim sum, chicken, beef, fish, \
+Appetizers, seafood entrees, and rice meals. It is America's largest casual-dining \
+Chinese restaurant chain.
+
+They have over 200 locations in the United States, and more than 50 internationally.
+
+Below are the latest PF Chang's Appetizers Menu prices.
+
+https://appetizermenus.com/pf-changs-appetizers-menu/
+
+------------------------------------------------------------------------
+[2022-02-25 08:12:05] happyhours865 at gmail dot com
+
+Freebirds Happy Hour menu takes one of their most sought-after menu items and offers \
+it at a price that is nearly 2 dollars less than their usual cost. What this means \
+for people who dine in the afternoon and evening is that you'll get to get the most \
+value for money Freebird offers without paying more for it. 
+
+https://happy-hours-menu.info/freebirds-happy-hour/
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=37297
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email></emails>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20110113120844</emailId><senderName>jer mar</senderName><senderEmail>jahrome11@gmail.com</senderEmail><timestampReceived>2011-01-13 12:08:44-0400</timestampReceived><subject>Irssi on Android</subject><body>
+
+Hi !
+
+I've managed to build Irssi so it can run natively on Android. For those
+interested in the details, please check my blog post below.
+http://jahrome.free.fr/index.php/gnu-screen-irc-irssi-android-port-xmpp-plugin
+
+Regards,
+
+Jerome Marty
+
+</body></email></emails>

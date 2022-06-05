@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20130214133907</emailId><senderName>Moritz Wilhelmy</senderName><senderEmail>moritz@wzff.de</senderEmail><timestampReceived>2013-02-14 13:39:07-0400</timestampReceived><subject>[PATCH] Do not beep if the source of the beep is in activity_hide_targets</subject><body>
+
+Hi,
+
+This patch against irssi trunk r5217 makes irssi not emit a beep if the source
+of the beep is part of the activity_hide_targets setting.
+
+So far, it seems to work for my limited test case (after putting myself into the
+activity_hide_targets list and sending myself a message, irssi stops beeping and
+after I remove my nick from the list, it starts beeping and displaying window
+activity again).
+
+
+Best regards,
+
+Moritz
+
+
+Index: src/fe-common/core/printtext.c
+===================================================================
+--- src/fe-common/core/printtext.c	(revision 5217)
++++ src/fe-common/core/printtext.c	(working copy)
+@@ -32,6 +32,8 @@
+ #include "fe-windows.h"
+ #include "printtext.h"
+ 
++#include "window-activity.h" /* target_is_hidden() */
++
+ static int beep_msg_level, beep_when_away, beep_when_window_active;
+ 
+ static int signal_gui_print_text_finished;
+@@ -407,7 +409,8 @@
+ 
+ static void msg_beep_check(TEXT_DEST_REC *dest)
+ {
+-	if (dest-&gt;level != 0 &amp;&amp; (dest-&gt;level &amp; MSGLEVEL_NO_ACT) == 0 &amp;&amp;
++	if (dest-&gt;level != 0 &amp;&amp; !target_is_hidden(dest) &amp;&amp; 
++	    (dest-&gt;level &amp; MSGLEVEL_NO_ACT) == 0 &amp;&amp;
+ 	    (beep_msg_level &amp; dest-&gt;level) &amp;&amp;
+ 	    (beep_when_away || (dest-&gt;server != NULL &amp;&amp;
+ 				!dest-&gt;server-&gt;usermode_away)) &amp;&amp;
+Index: src/fe-common/core/window-activity.c
+===================================================================
+--- src/fe-common/core/window-activity.c	(revision 5217)
++++ src/fe-common/core/window-activity.c	(working copy)
+@@ -70,6 +70,12 @@
+ 		    GINT_TO_POINTER(old_data_level));
+ }
+ 
++int target_is_hidden(TEXT_DEST_REC *dest)
++{
++	return hide_targets &amp;&amp; dest &amp;&amp; dest-&gt;target &amp;&amp;
++		strarray_find_dest(hide_targets, dest);
++}
++
+ static void sig_hilight_text(TEXT_DEST_REC *dest, const char *msg)
+ {
+ 	WI_ITEM_REC *item;
+Index: src/fe-common/core/window-activity.h
+===================================================================
+--- src/fe-common/core/window-activity.h	(revision 5217)
++++ src/fe-common/core/window-activity.h	(working copy)
+@@ -9,5 +9,6 @@
+ 
+ void window_activity_init(void);
+ void window_activity_deinit(void);
++int target_is_hidden(TEXT_DEST_REC *dest);
+ 
+ #endif
+
+</body></email><email><emailId>20130615070134</emailId><senderName>Kamil Izdebski</senderName><senderEmail>kamil.izdebski@deuxres.net</senderEmail><timestampReceived>2013-06-15 07:01:34-0400</timestampReceived><subject>FS#305: PEM password bug</subject><body>
+
+
+Bug FS#305[1] is quite some time on bugs.irssi.org with proper patch, but has 
+not been picked up by any devs. Is there any problem with pushing this patch 
+to svn?
+
+[1] http://bugs.irssi.org/index.php?do=details&amp;task_id=305
+
+-- 
+Verum volo dici mihi ...
+</body></email><email><emailId>20130915194518</emailId><senderName>Alexander_Færøy</senderName><senderEmail>ahf@0x90.dk</senderEmail><timestampReceived>2013-09-15 19:45:18-0400</timestampReceived><subject>Irssi 0.8.16-rc1 Released</subject><body>
+
+Hello,
+
+Irssi 0.8.16-rc1 have been released and is available from
+http://irssi.org/- please report bugs back to us such that we can get
+the final version out
+:-)
+
+You can read a summary of the changes here: http://irssi.org/news/ChangeLog
+
+Cheers,
+Alex.
+
+-- 
+Alexander Færøy
+
+[Attachment #3 (text/html)]
+
+&lt;div dir="ltr"&gt;Hello,&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Irssi 0.8.16-rc1 have been released and is \
+available from &lt;a href="http://irssi.org/"&gt;http://irssi.org/&lt;/a&gt; - please report bugs \
+back to us such that we can get the final version out :-)&lt;/div&gt;
+
+&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;You can read a summary of the changes here: &lt;a \
+href="http://irssi.org/news/ChangeLog"&gt;http://irssi.org/news/ChangeLog&lt;/a&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Cheers,&lt;/div&gt;&lt;div&gt;Alex.&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;-- \
+&lt;br&gt;
+
+&lt;div dir="ltr"&gt;&lt;div&gt;Alexander Færøy&lt;br&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;
+
+
+
+</body></email><email><emailId>20131210174036</emailId><senderName>David Hill</senderName><senderEmail>dhill@mindcry.org</senderEmail><timestampReceived>2013-12-10 17:40:36-0400</timestampReceived><subject>irc-commands.diff</subject><body></body></email></emails>

@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20070330175500</emailId><senderName>"John Anderson"</senderName><senderEmail>sontek@gmail.com</senderEmail><timestampReceived>2007-03-30 17:55:00-0400</timestampReceived><subject>Mentoring for non-soc person?</subject><body>
+
+Hey, I was wondering how hard it would be to add a window into irssi that
+had a nicklist in it? (I use nicklist.pl right now, which works somewhat)
+but I'd like to implement native support for this feature, I'd just need
+someone to bounce questions off of and point me to the places to look at to
+do this.
+
+Would this be possible?
+
+
+Thanks,
+John
+
+[Attachment #3 (text/html)]
+
+Hey, I was wondering how hard it would be to add a window into irssi that had a \
+nicklist in it? (I use nicklist.pl right now, which works somewhat)  but I'd \
+like to implement native support for this feature, I'd just need someone to \
+bounce questions off of and point me to the places to look at to do this. \
+&lt;br&gt;&lt;br&gt;Would this be possible?&lt;br&gt;&lt;br&gt;&lt;br&gt;Thanks,&lt;br&gt;John&lt;br&gt;
+
+
+
+</body></email><email><emailId>20070402004629</emailId><senderName>"Jay L. T. Cornwall"</senderName><senderEmail>jay@esuna.co.uk</senderEmail><timestampReceived>2007-04-02 00:46:29-0400</timestampReceived><subject>RPM builder patch</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hi,
+
+I've attached a patch against today's trunk to repair 'make rpm'
+functionality in irssi. A few bugs are fixed:
+
+* 'rpm -ta' is deprecated and broken in recent releases. Change to use
+rpmbuild instead.
+
+* The "includes" directory gets installed but not packaged, causing
+rpmbuild to fail. Add this to the package list.
+
+* RPM does not allow the dash symbol in version numbers, creating an
+obvious problem for 0.8.11-rc1. Fixed with a post-dist script to switch
+the dash for an underscore.
+
+Tested on CentOS 4 and CentOS 5 beta, all working well. Now I don't have
+to hash up my system to get irssi installed. :)
+
+- --
+Jay L. T. Cornwall, http://www.esuna.co.uk/~jay/
+PhD Student
+Imperial College London
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.6 (MingW32)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iD8DBQFGEFJloHnC75cy2zgRAjSYAKCAGEocBcGeugCml7QGH6WI5uP9oACeNQ0k
+ZiAVdAQjnjtjuVoeUdCOeEE=
+=i8Le
+-----END PGP SIGNATURE-----
+
+["irssi-20070402-rpmbuild.patch" (text/plain)]
+
+Index: irssi.spec.in
+===================================================================
+--- irssi.spec.in	(revision 4433)
++++ irssi.spec.in	(working copy)
+@@ -41,7 +41,7 @@
+ 
+ %install
+ rm -rf ${RPM_BUILD_ROOT}
+-make DESTDIR=${RPM_BUILD_ROOT} PREFIX=${RPM_BUILD_ROOT}%{_prefix} \
+PERL_INSTALL_ROOT=${RPM_BUILD_ROOT} install +make DESTDIR=${RPM_BUILD_ROOT} install
+ strip ${RPM_BUILD_ROOT}%{_bindir}/*
+ strip ${RPM_BUILD_ROOT}%{_libdir}/irssi/modules/lib*.so*
+ 
+@@ -65,8 +65,12 @@
+ %{_libdir}/irssi/
+ %{perl_archlib}
+ %{_datadir}/irssi/
++%{_includedir}/irssi/
+ 
+ %changelog
++* Mon Apr 02 2007 Jay L. T. Cornwall &lt;jay@esuna.co.uk&gt;
++  Fixed broken Perl module installation. Added include files to list.
++
+ * Mon Nov 17 2003 Robert Scheck &lt;irssi@robert-scheck.de&gt;
+   Fixed many things for better rebuilding and a good package
+ 
+Index: Makefile.am
+===================================================================
+--- Makefile.am	(revision 4433)
++++ Makefile.am	(working copy)
+@@ -41,4 +41,20 @@
+ ## make rpms
+ rpm: Makefile
+ 	$(MAKE) dist
+-	rpm -ta --clean $(PACKAGE)-$(VERSION).tar.gz
++
++	rpmversion=`echo $(VERSION) | sed 's/\(.*\)-\(.*\)/\1_\2/'`          &amp;&amp; \
++	if test "$(VERSION)" != "$$rpmversion"; then                            \
++		tar zxf $(PACKAGE)-$(VERSION).tar.gz                               &amp;&amp; \
++		rpmdir="$(PACKAGE)-$$rpmversion"                                   &amp;&amp; \
++		mv $(PACKAGE)-$(VERSION) $$rpmdir                                  &amp;&amp; \
++		sed "s/$(VERSION)/$$rpmversion/" $$rpmdir/irssi.spec &gt; irssi.spec  &amp;&amp; \
++		rm -f $$rpmdir/irssi.spec                                          &amp;&amp; \
++		mv irssi.spec $$rpmdir/                                            &amp;&amp; \
++		rpmtar="$$rpmdir.tar.gz"                                           &amp;&amp; \
++		tar zcf $$rpmtar $$rpmdir                                          &amp;&amp; \
++		rm -fr $$rpmdir                                                    &amp;&amp; \
++		rpmbuild -ta --clean $$rpmtar                                      &amp;&amp; \
++		rm -f $$rpmtar;                                                       \
++	else                                                                    \
++		rpmbuild -ta --clean $(PACKAGE)-$(VERSION).tar.gz;                    \
++	fi
+
+
+["irssi-20070402-rpmbuild.patch.sig" (application/octet-stream)]
+
+</body></email><email><emailId>20070610112208</emailId><senderName>Paul-Kenji Cahier</senderName><senderEmail>pkc@f1-photo.com</senderEmail><timestampReceived>2007-06-10 11:22:08-0400</timestampReceived><subject>Problem with irssi::windows</subject><body>
+
+Hello,
+
+I posted this earlier to irssi-users, but after investigating it a bit
+more I think it might be related to the src/perl/ui/Window.c file.
+Basically, the problem is that, on most computers, the following
+command:
+/script exec $^W=1; Irssi::windows;
+(turns on warnings and calls Irssi::windows(),
+just do '/script exec $^W=0;' to turn it off again)
+
+will cause the following warnings:
+Cant locate package Irssi::Nick for @Irssi::Irc::Nick::ISA at (eval
+xx) line yy.
+
+At first, I thought it was a faulty perl installation or a wrong irssi
+compile, but I've seen it on over a dozen different installations of
+freebsd/gentoo/debian, all running different perl/irssi(some
+compiled, some packaged).
+
+The following section of src/perl/ui/Window.c is the one causing the
+warnings:
+
+        for (tmp = windows; tmp != NULL; tmp = tmp-&gt;next) {
+                XPUSHs(sv_2mortal(plain_bless(tmp-&gt;data, "Irssi::UI::Window")));
+        }
+
+For comparison, with a different type of 'similar' cycling, Irssi::queries
+is the same except(of course since it's not the same objects) in the
+for loop which looks like that:
+
+        for (tmp = queries; tmp != NULL; tmp = tmp-&gt;next) {
+                QUERY_REC *rec = tmp-&gt;data;
+                XPUSHs(sv_2mortal(iobject_bless(rec)));
+        }
+
+
+
+        
+My uneducated guess would be that there is a different returning behavior
+between plain_bless and iobject_bless that's causing sv_2mortal to
+spit the errors somehow(since removing the sv_2mortal does not yield
+the error anymore).
+
+
+
+On another side in src/perl/ui/UI.c there's the following:
+
+        for (tmp = processes; tmp != NULL; tmp = tmp-&gt;next) {
+                XPUSHs(sv_2mortal(plain_bless(tmp-&gt;data, "Irssi::UI::Process")));
+        }
+
+        
+But this one does not cause any warnings, so I'm (maybe wrongly)
+assuming that it's related to "Irssi::UI::Window" with plain_bless.
+
+Any clarification/solution/help would be really appreciated, as this error
+makes pedantic/strict perl scripts very annoying to debug.
+
+-- 
+Best regards,
+ Paul-Kenji Cahier
+
+
+</body></email><email><emailId>20071006102444</emailId><senderName>Colin =?iso-8859-1?B?qyBlcnJ0dSC7?= Didier</senderName><senderEmail>errtu@cybione.org</senderEmail><timestampReceived>2007-10-06 10:24:44-0400</timestampReceived><subject>fe-text headers</subject><body>
+
+Hi,
+
+I'm writing a module to connect to jabber, called irssi-xmpp
+(http://cybione.org/src/irssi-xmpp/).
+
+In this module, I need to deal with statusbar to show composing events
+(already done) and to show the real nick in a MUC which can be different
+in others channels (planned).
+
+I've done something like that :
+http://cvs.gna.org/cvsweb/irssi-xmpp/src/fe-text/text-xmpp-composing.c?rev=1.1;content-type=text%2Fx-cvsweb-markup;cvsroot=irssi-xmpp
+
+
+It works well, but "fe-text/statusbar.h" isn't installed in
+/usr/.../includes/irssi, so the module won't build if you don't have the
+full sources of irssi. fe-text's headers are in noinst_HEADERS in
+src/fe-text/Makefile.am, that's why they won't be installed.
+
+Is there an other way to deal with statusbar (in a module in C) ? or
+should the fe-text's headers be installed ?
+
+Thanks!
+
+-- 
+Colin « errtu » Didier                                      http://cybione.org
+                                                     xmpp:errtu@im.cybione.org
+
+
+</body></email><email><emailId>20071205034051</emailId><senderName>"Jon Stanley"</senderName><senderEmail>jonstanley@gmail.com</senderEmail><timestampReceived>2007-12-05 03:40:51-0400</timestampReceived><subject>[PATCH] change default behavior of /ping</subject><body>
+
+This patch will, instead of assuming the active window as target for a
+/ping, require an argument.  This is to prevent accidental /ping of
+entire channels.
+
+Index: src/irc/core/irc-commands.c
+===================================================================
+--- src/irc/core/irc-commands.c (revision 4648)
++++ src/irc/core/irc-commands.c (working copy)
+@@ -513,9 +513,7 @@
+         CMD_IRC_SERVER(server);
+
+        if (*data == '\0') {
+-               if (!IS_QUERY(item))
+-                       cmd_return_error(CMDERR_NOT_ENOUGH_PARAMS);
+-               data = window_item_get_target(item);
++               cmd_return_error(CMDERR_NOT_ENOUGH_PARAMS);
+        }
+
+        g_get_current_time(&amp;tv);
+
+</body></email><email><emailId>20070829112534</emailId><senderName>"The Unforgiven"</senderName><senderEmail>theunforgiven@gmail.com</senderEmail><timestampReceived>2007-08-29 11:25:34-0400</timestampReceived><subject>Interested in helping</subject><body>
+
+i was interested in helping in the developement of Irssi.  I love the
+client and use it everyday, so i was hoping to give something back.
+Any hints as to where to begin?
+
+</body></email><email><emailId>20071105041431</emailId><senderName>Max Englander</senderName><senderEmail>zempftman@yahoo.com</senderEmail><timestampReceived>2007-11-05 04:14:31-0400</timestampReceived><subject>Module development advice</subject><body>
+
+Hi all, first time poster, please forgive ignorance.
+
+I'm writing an irssi module which allows users to interface with music players on \
+Win* machines, by remotely calling and servicing a program called AMIP (a module \
+which can integrate with Winamp, iTunes, foobar2k, etc...).
+
+So far, I have written a module which allows song and playlist information to be \
+retrieved and printed in irssi, using added commands like '/mymodule np', '/mymodule \
+nextsong', '/mymodule showplaylist 3 10'. 
+
+However, I want to develop a statusbar which shows information of the users' choice. \
+For example, a user could have the statusbar display "$player $artist $title $album \
+$bitrate $time_remaining/$total_time", or any other combination of the many variables \
+exposed and available through my C module, as well as defining text formatting (bold, \
+colors, etc.). The user would set the information they desire to be displayed in the \
+status bar through a setting, such as 'mymodule_sbstr' (e.g., 'mymodule_sbstr = \
+"%B$0%n[%1 - %2]"), and could define if the statusbar hides when a song is \
+stopped/paused with 'mymodule_hide_on_pause', 'mymodule_hide_one_stop'...
+
+I am looking for advice on different ways to implement such a statusbar; thus far I \
+have a few ideas. (1) Implement completely in C.
+    (*) Not sure if/how this could be done.
+(2) Implement in C and perl.
+    (*) Perl script would use '/mymodule getvariable $&lt;variable&gt;'
+    (*) Would retrieve result through signal emitted by C module.
+(3) C and perl, expose part of module through XS.
+    (*) Allow perl to get information through 'Irssi::MyModule'.
+    (*) Allow perl to execute commands like 'mymodule_getvar( var );'
+
+Any comments appreciated.
+Max Englander.
+
+ __________________________________________________
+Do You Yahoo!?
+Tired of spam?  Yahoo! Mail has the best spam protection around 
+http://mail.yahoo.com 
+
+
+[Attachment #3 (text/html)]
+
+ Hi all, first time poster, please forgive ignorance.&lt;br&gt;&lt;br&gt;I'm writing an irssi \
+module which allows users to interface with music players on Win* machines, by \
+remotely calling and servicing a program called AMIP (a module which can integrate \
+with Winamp, iTunes, foobar2k, etc...).&lt;br&gt;&lt;br&gt;So far, I have written a module which \
+allows song and playlist information to be retrieved and printed in irssi, using \
+added commands like '/mymodule np', '/mymodule nextsong', '/mymodule showplaylist 3 \
+10'. &lt;br&gt;&lt;br&gt;However, I want to develop a statusbar which shows information of the \
+users' choice. For example, a user could have the statusbar display "$player $artist \
+$title $album $bitrate $time_remaining/$total_time", or any other combination of the \
+many variables exposed and available through my C module, as well as defining text \
+formatting (bold, colors, etc.). The user would set the information they desire to be \
+displayed in the status bar through a setting, such as 'mymodule_sbstr'  (e.g., \
+'mymodule_sbstr = "%B$0%n[%1 - %2]"), and could define if the statusbar hides when a \
+song is stopped/paused with 'mymodule_hide_on_pause', \
+'mymodule_hide_one_stop'...&lt;br&gt;&lt;br&gt;I am looking for advice on different ways to \
+implement such a statusbar; thus far I have a few ideas.&lt;br&gt;(1) Implement completely \
+in C.&lt;br&gt;    (*) Not sure if/how this could be done.&lt;br&gt;(2) Implement \
+in C and perl.&lt;br&gt;    (*) Perl script would use '/mymodule getvariable \
+$&lt;variable&gt;'&lt;br&gt;    (*) Would retrieve result through signal \
+emitted by C module.&lt;br&gt;(3) C and perl, expose part of module through \
+XS.&lt;br&gt;    (*) Allow perl to get information through \
+'Irssi::MyModule'.&lt;br&gt;    (*) Allow perl to execute commands like \
+'mymodule_getvar( var );'&lt;br&gt;&lt;br&gt;Any comments appreciated.&lt;br&gt;Max \
+Englander.&lt;br&gt;&lt;p&gt; __________________________________________________&lt;br&gt;Do You \
+Yahoo!?&lt;br&gt;Tired of spam?  Yahoo! Mail has the best  spam protection around \
+&lt;br&gt;http://mail.yahoo.com 
+
+
+
+</body></email><email><emailId>20071110212608</emailId><senderName>Max Englander</senderName><senderEmail>zempftman@yahoo.com</senderEmail><timestampReceived>2007-11-10 21:26:08-0400</timestampReceived><subject>Re: Module development advice</subject><body>
+
+I have another issue related to my module development.
+
+My module has two components, a client and a service. The client sends commands and \
+requests to AMIP (Winamp/iTunes/fb2k plugin), and certain requests receive responses. \
+The service listens for unsolicited messages from AMIP, such as "play", "pause", \
+etc..
+
+Because I cannot run the service within the Irssi thread (would block normal Irssi \
+usage), I have to decouple the service from Irssi somehow. I have begun development \
+using libpthread, but this creates a problem. Irssi is not linked, nor provides the \
+option to link, with libpthread. When Irssi calls dlclose() on my module, it \
+segfaults. This occurs because of (perhaps) a bug in dlclose() which creates an error \
+when a non-pthread-linked parent unloads a pthread-linked module. I was able to \
+create a fix for this by linking Irssi with libpthread.
+
+I have a few questions about this fix, and other possible non-threaded solutions.
+* Will linking Irssi with libpthread create other issues in Irssi?
+* Could Irssi distribute with a --with-pthreads option to allow for pthreaded \
+                modules?
+* If I loaded my module from perl (build an Xs module), would this circumvent the \
+dlclose() problem or simply move the point of fault to a different location (seeing \
+                as the perl interpreter is loaded in Irssi as a module, if I'm not \
+                mistaken) ?
+* Would using perl threads allow me to safely and efficiently decouple the service \
+from Irssi?
+
+Any other ideas on how to efficiently decouple my service (fork, exec* + \
+FIFOs/sockets, etc.) would also be greatly appreciated.
+
+Thanks,
+Max
+
+ __________________________________________________
+Do You Yahoo!?
+Tired of spam?  Yahoo! Mail has the best spam protection around 
+http://mail.yahoo.com 
+
+
+[Attachment #3 (text/html)]
+
+I have another issue related to my module development.&lt;br&gt;&lt;br&gt;My module has two \
+components, a client and a service. The client sends commands and requests to AMIP \
+(Winamp/iTunes/fb2k plugin), and certain requests receive responses. The service \
+listens for unsolicited messages from AMIP, such as "play", "pause", \
+etc..&lt;br&gt;&lt;br&gt;Because I cannot run the service within the Irssi thread (would block \
+normal Irssi usage), I have to decouple the service from Irssi somehow. I have begun \
+development using libpthread, but this creates a problem. Irssi is not linked, nor \
+provides the option to link, with libpthread. When Irssi calls dlclose() on my \
+module, it segfaults. This occurs because of (perhaps) a bug in dlclose() which \
+creates an error when a non-pthread-linked parent unloads a pthread-linked module. I \
+was able to create a fix for this by linking Irssi with libpthread.&lt;br&gt;&lt;br&gt;I have a \
+few questions about this fix, and other possible non-threaded solutions.&lt;br&gt;* Will \
+linking Irssi  with libpthread create other issues in Irssi?&lt;br&gt;* Could Irssi \
+distribute with a --with-pthreads option to allow for pthreaded modules?&lt;br&gt;* If I \
+loaded my module from perl (build an Xs module), would this circumvent the dlclose() \
+problem or simply move the point of fault to a different location (seeing as the perl \
+interpreter is loaded in Irssi as a module, if I'm not mistaken) ?&lt;br&gt;* Would using \
+perl threads allow me to safely and efficiently decouple the service from \
+Irssi?&lt;br&gt;&lt;br&gt;Any other ideas on how to efficiently decouple my service (fork, exec* \
++ FIFOs/sockets, etc.) would also be greatly \
+appreciated.&lt;br&gt;&lt;br&gt;Thanks,&lt;br&gt;Max&lt;br&gt;&lt;p&gt; __________________________________________________&lt;br&gt;Do \
+You Yahoo!?&lt;br&gt;Tired of spam?  Yahoo! Mail has the best spam protection around \
+&lt;br&gt;http://mail.yahoo.com 
+
+
+
+</body></email><email><emailId>20071206225310</emailId><senderName>Max Englander</senderName><senderEmail>zempftman@yahoo.com</senderEmail><timestampReceived>2007-12-06 22:53:10-0400</timestampReceived><subject>Irssi's config_parse_data does not behave as expected.</subject><body>
+
+If I am not mistaken, config_parse_data( CONFIG_REC results, const char *data input, \
+const char *error_id ) should take input "data", parse it, and store the results in \
+"results". "results" can then be traversed, searched, added to or other operations as \
+desired. This is what I am trying to determine with the following code:
+
+=== START CODE ===
+  CONFIG_REC * config;
+  CONFIG_NODE * node, * tmp;
+  GSList * list;
+
+/* iconfig.h instructs to use config_open like this in order
+ * to just use config_parse_data(...) */
+  config = config_open(NULL, -1);
+
+/* we shouldn't expect to see anything from this */
+  printtext(NULL, NULL, MSGLEVEL_CLIENTNOTICE,
+    "{ fname %s }", config-&gt;fname);
+
+/* parse some data that i want */
+  config_parse_data(config, "statusbar = { check = { it = \"out\"; }; }; };",  
+                             "my config test");
+  node = iconfig_node_traverse("statusbar", FALSE);
+  if (node == NULL) return;
+
+/* print out all the nodes in the parsed data */
+  int index = 0;
+  for (tmp = node; tmp != NULL; tmp = config_node_nth(node, index))
+  {
+
+    printtext(NULL, NULL, MSGLEVEL_CLIENTNOTICE,
+      "{ node%d-&gt;key %s }",
+       index, tmp-&gt;key);
+
+    if (config_node_nth(node,index+1) == NULL)
+    {
+      node = config_node_nth(node, index);
+      index = 0;
+      if (config_node_next((GSList*)(node-&gt;value)) ==  NULL)
+        break;
+    }
+    else
+      index++;
+  }
+
+  config_close(config);
+=== END CODE === 
+
+The result of running the code in a module loaded into Irssi is this:
+=== START RESULTS ===
+(17:39) ### { fname  }
+(17:39) ### { node0-&gt;key statusbar }
+(17:39) ### { node1-&gt;key default }
+(17:39) ### { node0-&gt;key window }
+(17:39) ### { node1-&gt;key topic }
+(17:39) ### { node2-&gt;key dccstat }
+(17:39) ### { node0-&gt;key items }
+(17:39) ### { node1-&gt;key position }
+(17:39) ### { node2-&gt;key placement }
+(17:39) ### { node3-&gt;key disabled }
+=== END RESULTS ===
+
+As expected, fname does not return anything, because I opened a NULL config.
+However, the results of the data iteration are not what I expected. Instead of \
+parsing the data I instructed it to, it parsed my actual Irssi config, even though I \
+never referred to it. The expected results should have been something like this:
+
+node0-&gt;key statusbar
+node1-&gt;key check
+node2-&gt;key it
+
+Can anyone point to me what I am doing wrong, or if I am using config_parse_data(...) \
+completely other than intended? I thought I was correct based on my perusals of Irssi \
+code thus far.
+
+Thanks,
+Max Englander
+
+       
+---------------------------------
+Never miss a thing.   Make Yahoo your homepage.
+
+
+[Attachment #3 (text/html)]
+
+&lt;br&gt;If I am not mistaken, config_parse_data( CONFIG_REC results, const char *data \
+input, const char *error_id ) should take input "data", parse it, and store the \
+results in "results". "results" can then be traversed, searched, added to or other \
+operations as desired. This is what I am trying to determine with the following \
+code:&lt;br&gt;&lt;br&gt;=== START CODE ===&lt;br&gt;  CONFIG_REC * config;&lt;br&gt;  CONFIG_NODE \
+* node, * tmp;&lt;br&gt;  GSList * list;&lt;br&gt;&lt;br&gt;/* iconfig.h instructs to use \
+config_open like this in order&lt;br&gt; * to just use config_parse_data(...) \
+*/&lt;br&gt;  config = config_open(NULL, -1);&lt;br&gt;&lt;br&gt;/* we shouldn't expect to see \
+anything from this */&lt;br&gt;  printtext(NULL, NULL, \
+MSGLEVEL_CLIENTNOTICE,&lt;br&gt;    "{ fname %s }", \
+config-&gt;fname);&lt;br&gt;&lt;br&gt;/* parse some data that i want */&lt;br&gt;  \
+config_parse_data(config, "statusbar = { check = { it = \"out\"; }; }; };",   \
+&lt;br&gt;             &amp;nbs \
+p;               \
+"my config test");&lt;br&gt;  node = iconfig_node_traverse("statusbar", \
+FALSE);&lt;br&gt;  if (node == NULL) return;&lt;br&gt;&lt;br&gt;/* print out all the nodes in the \
+parsed data */&lt;br&gt;  int index = 0;&lt;br&gt;  for (tmp = node; tmp != NULL; tmp = \
+config_node_nth(node, index))&lt;br&gt;  {&lt;br&gt;&lt;br&gt;    printtext(NULL, \
+NULL, MSGLEVEL_CLIENTNOTICE,&lt;br&gt;      "{ node%d-&gt;key %s \
+}",&lt;br&gt;       index, \
+tmp-&gt;key);&lt;br&gt;&lt;br&gt;    if (config_node_nth(node,index+1) == \
+NULL)&lt;br&gt;    {&lt;br&gt;      node = \
+config_node_nth(node, index);&lt;br&gt;      index = \
+0;&lt;br&gt;      if (config_node_next((GSList*)(node-&gt;value)) \
+==   NULL)&lt;br&gt;        break;&lt;br&gt;    \
+}&lt;br&gt;    else&lt;br&gt;      index++;&lt;br&gt;  \
+}&lt;br&gt;&lt;br&gt;  config_close(config);&lt;br&gt;=== END CODE === &lt;br&gt;&lt;br&gt;The result of \
+running the code in a module loaded into Irssi is this:&lt;br&gt;=== START RESULTS \
+===&lt;br&gt;(17:39) ### { fname  }&lt;br&gt;(17:39) ### { node0-&gt;key statusbar \
+}&lt;br&gt;(17:39) ### { node1-&gt;key default }&lt;br&gt;(17:39) ### { node0-&gt;key window \
+}&lt;br&gt;(17:39) ### { node1-&gt;key topic }&lt;br&gt;(17:39) ### { node2-&gt;key dccstat \
+}&lt;br&gt;(17:39) ### { node0-&gt;key items }&lt;br&gt;(17:39) ### { node1-&gt;key position \
+}&lt;br&gt;(17:39) ### { node2-&gt;key placement }&lt;br&gt;(17:39) ### { node3-&gt;key disabled \
+}&lt;br&gt;=== END RESULTS ===&lt;br&gt;&lt;br&gt;As expected, fname does not return anything, because \
+I opened a NULL config.&lt;br&gt;However, the results of the data iteration are not what I \
+expected. Instead of parsing the data I instructed it to, it parsed my actual Irssi \
+config,  even though I never referred to it. The expected results should have been \
+something like this:&lt;br&gt;&lt;br&gt;node0-&gt;key statusbar&lt;br&gt;node1-&gt;key \
+check&lt;br&gt;node2-&gt;key it&lt;br&gt;&lt;br&gt;Can anyone point to me what I am doing wrong, or if \
+I am using config_parse_data(...) completely other than intended? I thought I was \
+correct based on my perusals of Irssi code thus far.&lt;br&gt;&lt;br&gt;Thanks,&lt;br&gt;Max \
+Englander&lt;br&gt;&lt;p&gt; 
+
+      &lt;hr size=1&gt;Never miss a thing.  &lt;a \
+href="http://us.rd.yahoo.com/evt=51438/*http://www.yahoo.com/r/hs"&gt; Make Yahoo your \
+homepage.&lt;/a&gt;
+
+
+
+</body></email><email><emailId>20071110213903</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2007-11-10 21:39:03-0400</timestampReceived><subject>Re: Module development advice</subject><body>
+
+On 2007-11-10 13:26:08 -0800, Max Englander wrote:
+&gt; I have another issue related to my module development.
+&gt; 
+&gt; My module has two components, a client and a service. The client sends
+&gt; commands and requests to AMIP (Winamp/iTunes/fb2k plugin), and certain
+&gt; requests receive responses. The service listens for unsolicited
+&gt; messages from AMIP, such as "play", "pause", etc..
+&gt; 
+&gt; Because I cannot run the service within the Irssi thread (would block
+&gt; normal Irssi usage), I have to decouple the service from Irssi
+&gt; somehow. I have begun development using libpthread, but this creates a
+&gt; problem. Irssi is not linked, nor provides the option to link, with
+&gt; libpthread. When Irssi calls dlclose() on my module, it segfaults.
+&gt; This occurs because of (perhaps) a bug in dlclose() which creates an
+&gt; error when a non-pthread-linked parent unloads a pthread-linked
+&gt; module. I was able to create a fix for this by linking Irssi with
+&gt; libpthread.
+&gt; 
+&gt; I have a few questions about this fix, and other possible non-threaded solutions.
+&gt; * Will linking Irssi with libpthread create other issues in Irssi?
+&gt; * Could Irssi distribute with a --with-pthreads option to allow for pthreaded modules?
+&gt; * If I loaded my module from perl (build an Xs module), would this
+&gt;   circumvent the dlclose() problem or simply move the point of fault to
+&gt;   a different location (seeing as the perl interpreter is loaded in
+&gt;   Irssi as a module, if I'm not mistaken) ?
+&gt; * Would using perl threads allow me to safely and efficiently decouple
+&gt;   the service from Irssi?
+&gt; 
+&gt; Any other ideas on how to efficiently decouple my service (fork, exec*
+&gt; + FIFOs/sockets, etc.) would also be greatly appreciated.
+
+http://www.irssi.org/scripts/html/leodict.pl.html
+
+    darix
+
+-- 
+           openSUSE - SUSE Linux is my linux
+               openSUSE is good for you
+                   www.opensuse.org
+
+</body></email><email><emailId>20071008165122</emailId><senderName>"Damjan Lango"</senderName><senderEmail>damjan.lango@gmail.com</senderEmail><timestampReceived>2007-10-08 16:51:22-0400</timestampReceived><subject>irssi on cygwin: log locked</subject><body>
+
+Hello!
+
+I'm using irssi on cygwin and it works great, I just have a little nuisance
+with the log files - I can't read them while irssi is running, while if i
+remember correctly on unix it was possbile to read the logs while irssi was
+running.
+So i tried removing the following pieces of code:
+
+#ifdef HAVE_FCNTL
+        memset(&amp;lock, 0, sizeof(lock));
+        lock.l_type = F_WRLCK;
+        if (fcntl(log-&gt;handle, F_SETLK, &amp;lock) == -1 &amp;&amp; errno == EACCES) {
+                close(log-&gt;handle);
+                log-&gt;handle = -1;
+                signal_emit("log locked", 1, log);
+                log-&gt;failed = TRUE;
+                return FALSE;
+        }
+#endif
+
+#ifdef HAVE_FCNTL
+        memset(&amp;lock, 0, sizeof(lock));
+        lock.l_type = F_UNLCK;
+        fcntl(log-&gt;handle, F_SETLK, &amp;lock);
+#endif
+
+and now it works ok.
+So, I have a question, what other implications are there if I remove this
+code?
+Should this be made into a configurable option, or, are there other more
+appropriate options for locking that would allow for it to work under cygwin
+better? Or maybe is cygwin's locking too strict as it seems to me that only
+write lock is used...
+any hint?
+
+[Attachment #3 (text/html)]
+
+Hello!&lt;br&gt;&lt;br&gt;I'm using irssi on cygwin and it works great, I just have a little \
+nuisance with the log files - I can't read them while irssi is running, while if \
+i remember correctly on unix it was possbile to read the logs while irssi was \
+running. &lt;br&gt;So i tried removing the following pieces of code:&lt;br&gt;&lt;br&gt;#ifdef \
+HAVE_FCNTL&lt;br&gt;        memset(&amp;lock, 0, \
+sizeof(lock));&lt;br&gt;        lock.l_type = \
+F_WRLCK;&lt;br&gt;        if (fcntl(log-&gt;handle, \
+F_SETLK, &amp;lock) == -1 &amp;&amp; errno == EACCES) { \
+&lt;br&gt;                \
+close(log-&gt;handle);&lt;br&gt;                \
+log-&gt;handle = -1;&lt;br&gt;                \
+signal_emit("log locked", 1, \
+log);&lt;br&gt;                \
+log-&gt;failed = TRUE;&lt;br&gt;                \
+return FALSE; &lt;br&gt;        \
+}&lt;br&gt;#endif&lt;br&gt;&lt;br&gt;#ifdef HAVE_FCNTL&lt;br&gt;        \
+memset(&amp;lock, 0, sizeof(lock));&lt;br&gt;        \
+lock.l_type = F_UNLCK;&lt;br&gt;        \
+fcntl(log-&gt;handle, F_SETLK, &amp;lock);&lt;br&gt;#endif&lt;br&gt;&lt;br&gt;and now it works ok. \
+&lt;br&gt;So, I have a question, what other implications are there if I remove this \
+code?&lt;br&gt;Should this be made into a configurable option, or, are there other more \
+appropriate options for locking that would allow for it to work under cygwin better? \
+Or maybe is cygwin's locking too strict as it seems to me that only write lock is \
+used... &lt;br&gt;any hint?&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+
+</body></email><email><emailId>20070831184122</emailId><senderName>Wouter Coekaerts</senderName><senderEmail>coekie@irssi.org</senderEmail><timestampReceived>2007-08-31 18:41:22-0400</timestampReceived><subject>Re: Interested in helping</subject><body>
+
+On Wednesday 29 August 2007 13:25, The Unforgiven wrote:
+&gt; i was interested in helping in the developement of Irssi.  I love the
+&gt; client and use it everyday, so i was hoping to give something back.
+&gt; Any hints as to where to begin?
+
+If there's something in particular that annoys you or that you would like to 
+see, try to do that, or if you don't know what to do, look around on 
+http://bugs.irssi.org and try to find a bug to fix or feature to implement. 
+
+Browse around the source, start by changing something simple to get familiar 
+with it, and well, just dive in :). And don't hesitate to ask questions, or 
+add comments to tickets if a have a particular problem...
+
+Writing (and reading) scripts can also help a lot, because the interface 
+scripts use isn't really much different from how irssi works internally.
+
+Wouter.
+
+</body></email><email><emailId>20070611052827</emailId><senderName>Paul-Kenji Cahier</senderName><senderEmail>pkc@f1-photo.com</senderEmail><timestampReceived>2007-06-11 05:28:27-0400</timestampReceived><subject>Another problem with testcase</subject><body>
+
+Hello all,
+
+Here is the testcase:
+problem confirmed on two different irssi installations
+with different perl&amp;versions.
+
+
+
+#Instruction for test case:
+#1 Load irssi, load irssi-proxy
+#2 connect to irssi-proxy
+#have the connected client log raw traffic to a file or to a separate window
+#so you can see what is going on
+#3 load this script
+#4 do /testsend in irssi
+#5 look at the raw output in the client, it's supposed to go to 5000
+
+
+#it stops roughly after 200-250 iterations here.
+#If I decrease the fillertext size, it goes through, meaning
+#it's a question of "rate" I guess.
+#you might have to make the fillertext bigger to make the rate higher.
+#and it might not work on "slower" computer where processing wouldnt
+#be fast enough
+
+
+sub stop_sig { Irssi::signal_stop(); }
+sub testsend {
+ my ($data, $server, $item) = @_;
+ Irssi::signal_add_first('print text', 'stop_sig');
+ my $fillertext = "abcdefghiklmnopqrstuvwxyz abcdefghiklmnopqrstuvwxyz \
+01234567890123456789 0123456789 aaaaaaaaaa0";  for (my $k = 0; $k &lt; 5000;$k+=1) { \
+Irssi::signal_emit('server incoming', $server, ":backlog-!backlog\@back.log NOTICE \
+#test :Playing " . $k . $fillertext . $filltertext); }  Irssi::signal_remove('print \
+text', 'stop_sig'); }
+Irssi::command_bind('testsend','testsend');
+
+
+
+
+
+
+
+
+
+
+
+Thanks for any help...
+
+
+Paul-Kenji Cahier
+
+
+</body></email><email><emailId>20070614041829</emailId><senderName>JARI MATILAINEN</senderName><senderEmail>jari.matilainen@btinternet.com</senderEmail><timestampReceived>2007-06-14 04:18:29-0400</timestampReceived><subject>datatype of $server-&gt;{tag} in $server-&gt;query_create()?</subject><body>
+
+Hi,
+
+I don't know if this is a bug, something I don't understand or something I've missed \
+but this is what I've got:
+
+When running a script with the correct function call
+$server-&gt;query_create($server-&gt;{tag},$nick,0); I get an error
+Usage: Irssi::Irc::Server::query_create(server_tag, nick, automatic) at (eval 95535) \
+line 175.
+
+Changing the function call to
+$server-&gt;query_create($nick,$server-&gt;{tag}); the call works with a new querywindow \
+being created but not connected to any network:
+Irssi: Starting query in Irssi::Irc::Server=HASH(0x83189cc) with XS4-687
+where Irssi::Irc::Server=HASH(0x83189cc) should be the string "EFNet",
+as shown below.
+
+print CLIENTCRAP "$server-&gt;{tag}, $nick"; shows
+EFNet, XS4-687 
+which is as it should be.
+
+
+I'm at my wits end here and I hope somebody will be able to tell me where I'm going \
+wrong.
+
+
+I'm using:
+irssi-0.8.11 with
+ldd /usr/bin/irssi
+        linux-gate.so.1 =&gt;  (0xffffe000)
+        libperl.so.1 =&gt; /usr/lib/libperl.so.1 (0xb7e5c000)
+        libpthread.so.0 =&gt; /lib/libpthread.so.0 (0xb7e49000)
+        libnsl.so.1 =&gt; /lib/libnsl.so.1 (0xb7e34000)
+        libm.so.6 =&gt; /lib/libm.so.6 (0xb7e0f000)
+        libcrypt.so.1 =&gt; /lib/libcrypt.so.1 (0xb7de0000)
+        libutil.so.1 =&gt; /lib/libutil.so.1 (0xb7ddc000)
+        libgmodule-2.0.so.0 =&gt; /usr/lib/libgmodule-2.0.so.0 (0xb7dd9000)
+        libglib-2.0.so.0 =&gt; /usr/lib/libglib-2.0.so.0 (0xb7d46000)
+        libssl.so.0.9.7 =&gt; /usr/lib/libssl.so.0.9.7 (0xb7d15000)
+        libcrypto.so.0.9.7 =&gt; /usr/lib/libcrypto.so.0.9.7 (0xb7c10000)
+        libdl.so.2 =&gt; /lib/libdl.so.2 (0xb7c0b000)
+        libncurses.so.5 =&gt; /lib/libncurses.so.5 (0xb7bca000)
+        libc.so.6 =&gt; /lib/libc.so.6 (0xb7aac000)
+        /lib/ld-linux.so.2 (0xb7f6e000)
+and
+perl -v
+This is perl, v5.8.8 built for i686-linux
+
+
+
+BR.
+Jari, vague@efnet
+
+
+[Attachment #3 (text/html)]
+
+&lt;html&gt;&lt;head&gt;&lt;style type="text/css"&gt;&lt;!-- DIV {margin:0px;} \
+--&gt;&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div style="font-family:times new roman, new york, times, \
+serif;font-size:12pt"&gt;&lt;div&gt;Hi,&lt;br&gt;&lt;br&gt;I don't know if this is a bug, something I \
+don't understand or something I've missed but this is what I've got:&lt;br&gt;&lt;br&gt;When \
+running a script with the correct function \
+call&lt;br&gt;$server-&gt;query_create($server-&gt;{tag},$nick,0); I get an error&lt;br&gt;Usage: \
+Irssi::Irc::Server::query_create(server_tag, nick, automatic) at (eval 95535) line \
+175.&lt;br&gt;&lt;br&gt;Changing the function call \
+to&lt;br&gt;$server-&gt;query_create($nick,$server-&gt;{tag}); the call works with a new \
+querywindow being created but&lt;br&gt;not connected to any network:&lt;br&gt;Irssi: Starting \
+query in Irssi::Irc::Server=HASH(0x83189cc) with XS4-687&lt;br&gt;where \
+Irssi::Irc::Server=HASH(0x83189cc) should be the string "EFNet",&lt;br&gt;as shown \
+below.&lt;br&gt;&lt;br&gt;print CLIENTCRAP "$server-&gt;{tag}, $nick"; shows&lt;br&gt;EFNet, XS4-687 \
+&lt;br&gt;which is as it should be.&lt;br&gt;&lt;br&gt;&lt;br&gt;I'm  at my wits end here and I hope somebody \
+will be able to tell me where I'm going wrong.&lt;br&gt;&lt;br&gt;&lt;br&gt;I'm using:&lt;br&gt;irssi-0.8.11 \
+with&lt;br&gt;ldd /usr/bin/irssi&lt;br&gt;        \
+linux-gate.so.1 =&gt;  \
+(0xffffe000)&lt;br&gt;        libperl.so.1 =&gt; \
+/usr/lib/libperl.so.1 (0xb7e5c000)&lt;br&gt;        \
+libpthread.so.0 =&gt; /lib/libpthread.so.0 \
+(0xb7e49000)&lt;br&gt;        libnsl.so.1 =&gt; \
+/lib/libnsl.so.1 (0xb7e34000)&lt;br&gt;        libm.so.6 \
+=&gt; /lib/libm.so.6 (0xb7e0f000)&lt;br&gt;        \
+libcrypt.so.1 =&gt; /lib/libcrypt.so.1 \
+(0xb7de0000)&lt;br&gt;        libutil.so.1 =&gt; \
+/lib/libutil.so.1 (0xb7ddc000)&lt;br&gt;        \
+libgmodule-2.0.so.0 =&gt; /usr/lib/libgmodule-2.0.so.0 \
+(0xb7dd9000)&lt;br&gt;         libglib-2.0.so.0 =&gt; \
+/usr/lib/libglib-2.0.so.0 (0xb7d46000)&lt;br&gt;        \
+libssl.so.0.9.7 =&gt; /usr/lib/libssl.so.0.9.7 \
+(0xb7d15000)&lt;br&gt;        libcrypto.so.0.9.7 =&gt; \
+/usr/lib/libcrypto.so.0.9.7 \
+(0xb7c10000)&lt;br&gt;        libdl.so.2 =&gt; \
+/lib/libdl.so.2 (0xb7c0b000)&lt;br&gt;        \
+libncurses.so.5 =&gt; /lib/libncurses.so.5 \
+(0xb7bca000)&lt;br&gt;        libc.so.6 =&gt; \
+/lib/libc.so.6 (0xb7aac000)&lt;br&gt;        \
+/lib/ld-linux.so.2 (0xb7f6e000)&lt;br&gt;and&lt;br&gt;perl -v&lt;br&gt;This is perl, v5.8.8 built for \
+i686-linux&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;BR.&lt;br&gt;Jari, vague@efnet&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+
+
+
+</body></email></emails>

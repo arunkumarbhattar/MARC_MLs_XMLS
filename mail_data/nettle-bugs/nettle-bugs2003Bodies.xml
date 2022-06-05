@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20030311095010</emailId><senderName>Niels =?iso-8859-1?q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2003-03-11 09:50:10-0400</timestampReceived><subject>libspki (informal announce)</subject><body>
+
+This is the first informal announcement of libspki. SPKI, the Simple
+Public Key Infrastructure, is a sane way of using certificates. The
+original design is by Carl Ellison and Ron Rivest. The emphasis, at
+least from my point of view, is on association of authorization to
+keys (in contrast to X.509, which tries to bind X.500 names to keys),
+and on delegation of some or all of one's authorization. For some
+background, read RFC 2693.
+
+I think the primary applications where SPKI would be useful is in
+authentication (like public key ssh login, as well as host
+authentication), access control for various network servers, perhaps
+also peer-to-peer servers, etc.
+
+I've been working on an SPKI library from time to time since November
+last year. As the name promises, it *is* pretty simple. I have the
+most important features in place and it's still less than 7000 lines.
+For an example of what the objects look like, see the delegation
+testcase, &lt;URL:
+http://cvs.lysator.liu.se/viewcvs/viewcvs.cgi/lsh/src/spki/testsuite/delegate-test?rev=HEAD&amp;cvsroot=lsh&amp;content-type=text/vnd.viewcvs-markup&gt;
+
+
+The purpose if this announcement is to find out if there are any other
+people in the community who are interested in SPKI. I'm not in a
+desperate need for coding help, but I could really use feedback on the
+code and functionality: If the interfaces are reasonable or need
+generalization, which of the missing features are important, how to
+organize the directory of SPKI-related information, which parts are in
+the most need of documentation, etc.
+
+To me, SPKI seems like the obvious way to go whenever one needs public
+keys, and has the luxury of not having to be backwards compatible
+with X.509. (Actually, SPKI is designed so that it *can* interoperate
+with alien PKI stuff, such as X.509, but I'm not going to write that
+code any time soon).
+
+There's no polished distribution, so the easiest way to try out
+libspki is to pull the latest lsh from cvs.
+
+For further pointers and instructions, see &lt;URL:
+http://www.lysator.liu.se/~nisse/libspki&gt;.
+
+Please let me know what you think about it.
+
+Happy hacking,
+/Niels
+
+
+</body></email><email><emailId>20030817103648</emailId><senderName>Simon Josefsson</senderName><senderEmail>jas@extundo.com</senderEmail><timestampReceived>2003-08-17 10:36:48-0400</timestampReceived><subject>netbsd des crash fix</subject><body>
+
+des encryption on netbsd crashes, and the compiler warns
+
+/tmp/cch12003.s:5740: Warning: GOT relocation burb: `_des_keymap' should be global
+
+the problem is des_keymap, in des.c:
+
+static const uint32_t
+des_keymap[] = {
+#include	"keymap.h"
+};
+
+in desCode.h:
+
+extern const uint32_t des_keymap[];
+
+Assuming you want des_keymap to be private, the fix below works.  If
+you want to make des_keymap public, simply removing the 'static'
+keyword works.
+
+Thanks.
+
+Index: des.c
+===================================================================
+RCS file: /cvsroot/shishi/shishi/crypto/des.c,v
+retrieving revision 1.2
+diff -u -p -r1.2 des.c
+--- des.c	15 Aug 2003 16:25:03 -0000	1.2
++++ des.c	17 Aug 2003 10:33:17 -0000
+@@ -40,9 +40,6 @@
+ 
+ #include "desCode.h"
+ 
+-static ENCRYPT(DesSmallFipsEncrypt,TEMPSMALL, LOADFIPS,KEYMAPSMALL,SAVEFIPS)
+-static DECRYPT(DesSmallFipsDecrypt,TEMPSMALL, LOADFIPS,KEYMAPSMALL,SAVEFIPS)
+-
+ /* various tables */
+ 
+ static const uint32_t
+@@ -59,6 +56,9 @@ static const char
+ parity[] = {
+ #include	"parity.h"
+ };
++
++static ENCRYPT(DesSmallFipsEncrypt,TEMPSMALL, LOADFIPS,KEYMAPSMALL,SAVEFIPS)
++static DECRYPT(DesSmallFipsDecrypt,TEMPSMALL, LOADFIPS,KEYMAPSMALL,SAVEFIPS)
+ 
+ void
+ des_fix_parity(unsigned length, uint8_t *dst,
+Index: desCode.h
+===================================================================
+RCS file: /cvsroot/shishi/shishi/crypto/desCode.h,v
+retrieving revision 1.1
+diff -u -p -r1.1 desCode.h
+--- desCode.h	9 Aug 2003 01:30:44 -0000	1.1
++++ desCode.h	17 Aug 2003 10:33:17 -0000
+@@ -9,7 +9,6 @@
+ 
+ #include "des.h"
+ 
+-extern const uint32_t des_keymap[];
+ extern const uint32_t des_bigmap[];
+ 
+ /* optional customization:
+
+
+</body></email><email><emailId>20030817153424</emailId><senderName>Niels =?iso-8859-1?q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2003-08-17 15:34:24-0400</timestampReceived><subject>Re: netbsd des crash fix</subject><body>
+
+Simon Josefsson &lt;jas@extundo.com&gt; writes:
+
+&gt; des encryption on netbsd crashes, and the compiler warns
+
+...
+
+&gt; Assuming you want des_keymap to be private, the fix below works.  If
+&gt; you want to make des_keymap public, simply removing the 'static'
+&gt; keyword works.
+
+Thanks. Checked in now (the table should indeed be private).
+
+/Niels
+
+</body></email><email><emailId>20030817154414</emailId><senderName>Simon Josefsson</senderName><senderEmail>jas@extundo.com</senderEmail><timestampReceived>2003-08-17 15:44:14-0400</timestampReceived><subject>Re: netbsd des crash fix</subject><body>
+
+Thanks.  Btw, in
+
+http://josefsson.org/cgi-bin/viewcvs.cgi/shishi/shishi/crypto/?cvsroot=Savannah+mirror+%28read-only%29
+
+there is a md4, hmac-md4, cbc-cts and cbc-mac implementation in
+nettle-style, in case you want to include it.  Unfortunately no self
+tests.
+
+
+</body></email><email><emailId>20030830133324</emailId><senderName>Niels =?iso-8859-1?q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2003-08-30 13:33:24-0400</timestampReceived><subject>Re: Why isn't the first octect encypted?</subject><body>
+
+
+&lt;wyrainer@sohu.com&gt; writes:
+
+&gt; I am using AES.
+&gt; My Key is: uint8_t key[32] = \
+&gt; {2,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}; 
+&gt; The results is:
+&gt; 
+&gt; Before encrypt: abcdefghijklmno 
+&gt; After encrypt: a??Äþ·Ý}??U
+&gt; After decrypt: abcdefghijklmno 
+
+I have some difficulty verifying this odd effect. The last octet of
+your input strings are spaces, like "abcdefghijklmno ", right? When
+reporting problems like this, it's a good idea to include a complete C
+program that demonstrates the problem.
+
+I wrote the attached program, and I get these results (printed as hex
+values, and the corresponding ASCII-character, if any):
+
+Before encrypt:
+61=a 62=b 63=c 64=d 65=e 66=f 67=g 68=h 69=i 6a=j 6b=k 6c=l 6d=m 6e=n 6f=o 20=
+After encrypt:
+41=A 6a=j 71=q 34=4 2b=+ a8   55=U 9e   94   37=7 b4   9a   c3   c1   6e=n 41=A
+
+Before encrypt:
+62=b 62=b 63=c 64=d 65=e 66=f 67=g 68=h 69=i 6a=j 6b=k 6c=l 6d=m 6e=n 6f=o 20=
+After encrypt:
+42=B 61=a c6   48=H a3   79=y 7b={ 32=2 e1   be   c3   65=e de   b0   c8   07
+
+Before encrypt:
+63=c 62=b 63=c 64=d 65=e 66=f 67=g 68=h 69=i 6a=j 6b=k 6c=l 6d=m 6e=n 6f=o 20=
+After encrypt:
+9e   da   1e   c6   88   b3   ac   bc   23=# 31=1 94   7d=} b3   b5   da   6e=n
+
+So with this key, the first octets are encrypted as a-&gt;A, b-&gt;B and
+c-&gt;0x9e. I agree that's a little odd.
+
+Regards,
+/Niels
+
+
+[Attachment #3 (application/octet-stream)]
+
+</body></email><email><emailId>20030311164131</emailId><senderName>Niels =?iso-8859-1?q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2003-03-11 16:41:31-0400</timestampReceived><subject>ANNOUNCE: nettle-1.7</subject><body>
+
+There have been lot of smaller and larger changes since the previous
+release half a year ago, so I've decided to package up the current
+code as a release. There's also one new section in the manual,
+describing DSA.
+
+NEWS for the 1.7 release
+
+	Implemented DSA.
+
+	Renamed RSA functions for consistency. Now it's
+	rsa_public_key_init, not rsa_init_public_key, etc.
+
+	Both RSA and DSA now have sign/verify functions that take the
+	hash digest as argument.
+
+	A rewritten and much more powerful sexp-conv program.
+
+	Other changes to the sexp code, in particular updating it to
+	the latest SPKI draft.
+
+	Building nettle as a shared library (ELF only) seems to work.
+	The version number is increased, so the library "soname" for
+	this release is "libnettle.so.1".
+
+	Bugfixes. Fixes for build and portability problems.
+
+Available at
+
+  http://www.lysator.liu.se/~nisse/archive/nettle-1.7.tar.gz
+  ftp://ftp.lysator.liu.se/pub/security/lsh/nettle-1.7.tar.gz
+
+Regards,
+/Niels
+
+</body></email><email><emailId>20030828182139</emailId><senderName></senderName><senderEmail>wyrainer@sohu.com</senderEmail><timestampReceived>2003-08-28 18:21:39-0400</timestampReceived><subject>Why isn't the first octect encypted?</subject><body>
+
+Sorry my english is very poor!
+
+I am using AES.
+My Key is: uint8_t key[32] = \
+{2,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+
+The results is:
+
+Before encrypt: abcdefghijklmno 
+After encrypt: a??Äþ·Ý}??U
+ After decrypt: abcdefghijklmno 
+
+Before encrypt: bbcdefghijklmno 
+After encrypt: b????_???
+ After decrypt: bbcdefghijklmno 
+
+Before encrypt: cbcdefghijklmno 
+After encrypt: c6,?åÅ4??pT
+ After decrypt: cbcdefghijklmno 
+
+
+
+http://goto.sohu.com/goto.php3?code=libo-gz096mailzhujiao ÇòÃÔ£ºÓ¢³¬Õý°æÇòÒ \
+Ãâ·ÑµÈÄãÄÃ£¡
+
+
+</body></email></emails>

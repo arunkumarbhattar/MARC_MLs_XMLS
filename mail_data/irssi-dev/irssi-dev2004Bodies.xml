@@ -1,0 +1,3340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20040201153010</emailId><senderName>Mathieu Doidy</senderName><senderEmail>mdoidy@roulaize.net</senderEmail><timestampReceived>2004-02-01 15:30:10-0400</timestampReceived><subject>bug with whois on away people</subject><body>
+
+Hi,
+
+it seems that doing a whois on someone reset the 'gone' flag whatever
+the away state of the nick (this can lead to a person away with 
+the 'gone' flag set to 0)
+doing a who on the same person corrects the away state and sets the 'gone'
+flag correctly
+
+this behaviour happens at least in version 0.8.9
+
+/mathieu
+
+
+</body></email><email><emailId>20040908213055</emailId><senderName>Adhamh Findlay</senderName><senderEmail>irssi@adhamh.com</senderEmail><timestampReceived>2004-09-08 21:30:55-0400</timestampReceived><subject>Re: settings_find question/problem</subject><body>
+
+Hi Geert,
+
+I updated to the current CVS tree and I still get this error when launching:
+
+setting title to [(status)]
+
+** (process:2322): WARNING (recursed) **: 
+settings_get_default_str(term_charset) : unknown setting
+aborting...
+
+I get this crash before the GUI even appears so there's not much I can 
+do with the recode command.
+
+Senneth pointed me to a bug which sounds like it is the same issue I'm 
+having.  So I'm patiently waiting for him to finish the fix.  :-)
+
+Adhamh
+
+Geert Hauwaerts wrote:
+
+&gt;On Tue, 2004-09-07 at 07:31, Adhamh Findlay wrote:
+&gt;  
+&gt;
+&gt;&gt;Hello,
+&gt;&gt;
+&gt;&gt;I'm trying to port Irssix (native OS X GUI for irsssi) to RC4 and I 'm 
+&gt;&gt;having a problem.  The settings_find method fails because it can't find 
+&gt;&gt;term_charset.  When I try to connect to an irc server in the GUI.  
+&gt;&gt;Here's the error:
+&gt;&gt;    
+&gt;&gt;
+&gt;
+&gt;Current CVS has /recode and other term settings. Take a look at CVS
+&gt;first.
+&gt;
+&gt;You can contact senneth@irssi.org for more information about recode.
+&gt;
+&gt;Regards,
+&gt;Geert Hauwaerts.
+&gt;  
+&gt;
+
+
+</body></email><email><emailId>20040922165421</emailId><senderName>Tomá¹_Janou¹ek</senderName><senderEmail>tomi@nomi.cz</senderEmail><timestampReceived>2004-09-22 16:54:21-0400</timestampReceived><subject>Multiple IRC clients PASS command bug (unability to use password with spaces in it)</subject><body>
+
+Hello,
+
+I've found, that irssi, X-Chat and mIRC violate the RFC when sending a
+password with spaces in it, resulting in unability to use such passwords.
+
+In RFC a parameter can contain a space only if it is a trailing parameter
+preceded by a ':'. And that's what I thought an intelligent IRC client will
+do for a PASS command too.
+
+As an workaround, I had to write a hack which made my program accept PASS
+command without ':' as PASS with one big argument, but it's ugly and it's not
+my problem ;).
+
+Yours sincerely,
+-- 
+.---------    Tomá¹ Janou¹ek   a.k.a. Liskni_si    ---------.
+: NOMI team, developer, http://tomi.nomi.cz/   tomi@nomi.cz :
+' JID:liskni_si@jabber.cz, ICQ#161807083, tel:+420608876277 '
+
+</body></email><email><emailId>20040714121538</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2004-07-14 12:15:38-0400</timestampReceived><subject>Re: Os X Frontend development: Why sending SIGTERM?</subject><body>
+
+
+On Mon, 2004-06-28 at 16:23, Manuel Holtgrewe wrote:
+&gt; However, Using the latest source release (0.8.9) the program "crashes" 
+&gt; with SIGABRT on the start process... As far as I could track the error, 
+&gt; the function "init_configfile" (defined in settings.c) always sends a 
+&gt; SIGTERM "signal()" in line 705:
+
+No, signal() adds a signal handler. It doesn't send any signal. SIGABRT
+happens because abort() is called. Usually because some assert() failed.
+You should see where it really crashes by getting backtrace with gdb.
+
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email><email><emailId>20040719204836</emailId><senderName>Piotr Krukowiecki</senderName><senderEmail>piotr@pingu.ii.uj.edu.pl</senderEmail><timestampReceived>2004-07-19 20:48:36-0400</timestampReceived><subject>Re: /ignore -log</subject><body>
+
+On Sun, 18 Jul 2004, Marcus Rueckert wrote:
+
+&gt; On 2004-07-18 20:47:18 +0200, Piotr Krukowiecki wrote:
+&gt; i talked to cras about this a long time ago. he suggested a script which
+&gt; catches the signal with signal_add_first() and signal_add_last() and
+&gt; logs all msgs not reaching signal_add_last() function.
+
+Thanks, I'll look at it.
+That's an interesting idea, although at first glance, quite ugly to 
+implement :)
+
+For example, is there a way to identify a signal (to check if signal X
+from signal_add_first() is the same as signal Y from signal_add_last())?
+
+
+-- 
+Piotrek
+irc: #debian.pl
+Mors Drosophilis melanogastribus!
+
+</body></email><email><emailId>20040603113454</emailId><senderName>Jakub Jankowski</senderName><senderEmail>shasta@atn.pl</senderEmail><timestampReceived>2004-06-03 11:34:54-0400</timestampReceived><subject>Re: Re: names-command</subject><body>
+
+On 2004-06-03, Petr Baudis wrote:
+
+&gt;&gt; This statement is true at least for ircnet ircd: WHOIS nick shows nick's
+&gt;&gt; awaystatus only if both you and nick are on the same ircserver. I don't
+&gt;&gt; thinks it's an ,,irssi bug''.
+&gt;
+&gt; That's not true, in fact. Only the away message is not shown if you
+&gt; aren't on the same message, the away status is always shown in the whois
+&gt; report.
+
+True. That's what I meant, wrong wording though. :)
+
+s.
+
+-- 
+(0&gt;  Jakub Jankowski  [url]: s.atn.pl  "Nawet w Krainie Czarow
+//\   shasta@IRCnet   [rlu]: 174516     latwiej jest spotkac
+V_/_  shasta@atn.pl   [ekg]: 921514     Babe Jage niz Alicje"
+Fingerprint: FCBF F03D 9ADB B768 8B92 BB52 0341 9037 A875 942D
+
+</body></email><email><emailId>20040104011911</emailId><senderName>Simon Shine</senderName><senderEmail>simon@blueshell.dk</senderEmail><timestampReceived>2004-01-04 01:19:11-0400</timestampReceived><subject>'Bug' with /completion</subject><body>
+
+Irssi 0.8.8 (20031124) does not complete anything with "," in it. For 
+instance:
+Key        Value                                    Auto
+,)         ;)                                       yes
+
+Is this intended or is it not, in which case I hope it's significant 
+enough to fix.
+
+Best regards,
+Simon Shine
+GCS d--&gt;--- s: a18 C+++&gt;++ UB+++@ P+++@ L+++ E---
+W--(+) N K !w O- M+@ V- PS+++ Y+ PGP- t++&gt;+++@ 5-
+X+ R++(*) tv+ b DI(+) D++ G+++&gt;++++ e-&gt;+++ h! r- y+
+
+
+</body></email><email><emailId>20040309194253</emailId><senderName>Felix SPORTELLI</senderName><senderEmail>neo@fsportelli.org</senderEmail><timestampReceived>2004-03-09 19:42:53-0400</timestampReceived><subject>Compilation for Debian</subject><body>
+
+
+Hi,
+I'm trying to do a new package for xirssi, but i have a problem while
+the compilation, which comes from a package i don't own probably, but i
+really don't know which one it is, if you know his name ... :
+
+
+gcc-3.2: /usr/lib/perl/5.8.2/auto/DynaLoader/DynaLoader.a: No such file
+or directory
+
+Thanks
+
+-- 
+*-------------------------------------------------------*
+|Félix Sportelli (alias neo)	neo@fsportelli.org     	|
+|25 rue des chevreaux		http://fsportelli.org  	|
+|91250 Saint Germain lès Corbeil			|
+|Debian User						|
+|FP: 645B A7EC E026 1CF0 90D4  E385 601F E6DA 58EC 668A	|
+*-------------------------------------------------------*
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20040513131545</emailId><senderName>Johan Grahn</senderName><senderEmail>johan.grahn82@home.se</senderEmail><timestampReceived>2004-05-13 13:15:45-0400</timestampReceived><subject>names-command</subject><body>
+
+Hello
+
+I was wondering if you could modify the /names command so that it lists the 
+name in gray if it is has away-status??
+
+</body></email><email><emailId>20040718184718</emailId><senderName>Piotr Krukowiecki</senderName><senderEmail>piotr@pingu.ii.uj.edu.pl</senderEmail><timestampReceived>2004-07-18 18:47:18-0400</timestampReceived><subject>/ignore -log</subject><body>
+
+Hello
+
+When you put someone on /ignore he also disappears from /log.
+I'd like to have a person on ignore (not to see his texts on channels
+for example) but still have everything logged (if adequate log is 
+defined, of course). I think that /ignore -log option would be 
+suitable.
+The reason is that i might need to check what that person did etc.
+
+Would it be hard to add this as native irssi feature, not as a 
+script?
+
+-- 
+Piotrek
+irc: #debian.pl
+Mors Drosophilis melanogastribus!
+
+</body></email><email><emailId>20040718212808</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2004-07-18 21:28:08-0400</timestampReceived><subject>Re: /ignore -log</subject><body>
+
+On 2004-07-18 20:47:18 +0200, Piotr Krukowiecki wrote:
+&gt; When you put someone on /ignore he also disappears from /log.
+&gt; I'd like to have a person on ignore (not to see his texts on channels
+&gt; for example) but still have everything logged (if adequate log is 
+&gt; defined, of course). I think that /ignore -log option would be 
+&gt; suitable.
+&gt; The reason is that i might need to check what that person did etc.
+&gt; 
+&gt; Would it be hard to add this as native irssi feature, not as a 
+&gt; script?
+
+i talked to cras about this a long time ago. he suggested a script which
+catches the signal with signal_add_first() and signal_add_last() and
+logs all msgs not reaching signal_add_last() function.
+
+hope this helps
+
+darix
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20040514175133</emailId><senderName>Mathieu Doidy</senderName><senderEmail>mdoidy@roulaize.net</senderEmail><timestampReceived>2004-05-14 17:51:33-0400</timestampReceived><subject>Re: names-command</subject><body>
+
+On 2004-05-13, Johan Grahn &lt;johan.grahn82@home.se&gt; wrote:
+&gt; Hello
+&gt;
+&gt; I was wondering if you could modify the /names command so that it lists the 
+&gt; name in gray if it is has away-status??
+&gt;
+&gt;
+
+Hi,
+
+actually, i already made that :)
+check for enames here : http://irssi.roulaize.net/
+
+* there is an issue with it due to an irssi bug : if you /whois someone, he
+loses his away state even if he is away
+* doing a /who on the chan can reactualize the away state of people on a chan
+
+i should submit my irssi scripts one day
+
+/mathieu
+
+
+</body></email><email><emailId>20040514221248</emailId><senderName>Jakub Jankowski</senderName><senderEmail>shasta@atn.pl</senderEmail><timestampReceived>2004-05-14 22:12:48-0400</timestampReceived><subject>Re: names-command</subject><body>
+
+On 2004-05-14, Mathieu Doidy wrote:
+
+&gt; On 2004-05-13, Johan Grahn &lt;johan.grahn82@home.se&gt; wrote:
+&gt;&gt; Hello
+&gt;&gt;
+&gt;&gt; I was wondering if you could modify the /names command so that it lists the
+&gt;&gt; name in gray if it is has away-status??
+[...]
+&gt; * there is an issue with it due to an irssi bug : if you /whois someone, he
+&gt; loses his away state even if he is away
+
+What irssi bug?
+
+This statement is true at least for ircnet ircd: WHOIS nick shows nick's 
+awaystatus only if both you and nick are on the same ircserver. I don't 
+thinks it's an ,,irssi bug''.
+
+s.
+
+-- 
+(0&gt;  Jakub Jankowski  [url]: s.atn.pl  "Nawet w Krainie Czarow
+//\   shasta@IRCnet   [rlu]: 174516     latwiej jest spotkac
+V_/_  shasta@atn.pl   [ekg]: 921514     Babe Jage niz Alicje"
+Fingerprint: FCBF F03D 9ADB B768 8B92 BB52 0341 9037 A875 942D
+
+</body></email><email><emailId>20040603112758</emailId><senderName>Petr Baudis</senderName><senderEmail>pasky@ucw.cz</senderEmail><timestampReceived>2004-06-03 11:27:58-0400</timestampReceived><subject>Re: Re: names-command</subject><body>
+
+Dear diary, on Sat, May 15, 2004 at 12:12:48AM CEST, I got a letter,
+where Jakub Jankowski &lt;shasta@atn.pl&gt; told me, that...
+&gt; On 2004-05-14, Mathieu Doidy wrote:
+&gt; 
+&gt; &gt;On 2004-05-13, Johan Grahn &lt;johan.grahn82@home.se&gt; wrote:
+&gt; &gt;&gt;Hello
+&gt; &gt;&gt;
+&gt; &gt;&gt;I was wondering if you could modify the /names command so that it lists 
+&gt; &gt;&gt;the
+&gt; &gt;&gt;name in gray if it is has away-status??
+&gt; [...]
+&gt; &gt;* there is an issue with it due to an irssi bug : if you /whois someone, he
+&gt; &gt;loses his away state even if he is away
+&gt; 
+&gt; What irssi bug?
+&gt; 
+&gt; This statement is true at least for ircnet ircd: WHOIS nick shows nick's 
+&gt; awaystatus only if both you and nick are on the same ircserver. I don't 
+&gt; thinks it's an ,,irssi bug''.
+
+That's not true, in fact. Only the away message is not shown if you
+aren't on the same message, the away status is always shown in the whois
+report.
+
+-- 
+				Petr "Pasky" Baudis
+Stuff: http://pasky.or.cz/
+The rest is silence.  -- Hamlet, V.2
+
+</body></email><email><emailId>20040309194702</emailId><senderName>Wouter Coekaerts</senderName><senderEmail>coekie@irssi.org</senderEmail><timestampReceived>2004-03-09 19:47:02-0400</timestampReceived><subject>Re: Compilation for Debian</subject><body>
+
+
+On Tuesday 09 March 2004 20:42, Felix SPORTELLI wrote:
+&gt; I'm trying to do a new package for xirssi, but i have a problem while
+&gt; the compilation, which comes from a package i don't own probably, but i
+&gt; really don't know which one it is, if you know his name ... :
+&gt;
+&gt; gcc-3.2: /usr/lib/perl/5.8.2/auto/DynaLoader/DynaLoader.a: No such file
+&gt; or directory
+
+It's in perl-base.
+You can search package contents on http://packages.debian.org
+
+Wouter.
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20040907053103</emailId><senderName>Adhamh Findlay</senderName><senderEmail>irssi@adhamh.com</senderEmail><timestampReceived>2004-09-07 05:31:03-0400</timestampReceived><subject>settings_find question/problem</subject><body>
+
+Hello,
+
+I'm trying to port Irssix (native OS X GUI for irsssi) to RC4 and I 'm 
+having a problem.  The settings_find method fails because it can't find 
+term_charset.  When I try to connect to an irc server in the GUI.  
+Here's the error:
+
+command: [/connect "irc.freenode.net" "6667" ""]
+
+** (process:23986): WARNING (recursed) **: 
+settings_get_default_str(term_charset) : unknown setting
+aborting...
+Abort trap
+
+What makes this odd is that the command line version of RC4 connects 
+fine to servers.
+
+Any suggestions on why this would be happening?  On OS X the locale 
+command doesn't exist, so I would think that the term_charset setting 
+would fail on the command line as well...
+
+Thanks,
+
+Adhamh
+
+</body></email><email><emailId>20040908121813</emailId><senderName>Geert Hauwaerts</senderName><senderEmail>geert@safeweb.be</senderEmail><timestampReceived>2004-09-08 12:18:13-0400</timestampReceived><subject>Re: settings_find question/problem</subject><body>
+
+On Tue, 2004-09-07 at 07:31, Adhamh Findlay wrote:
+&gt; Hello,
+&gt; 
+&gt; I'm trying to port Irssix (native OS X GUI for irsssi) to RC4 and I 'm 
+&gt; having a problem.  The settings_find method fails because it can't find 
+&gt; term_charset.  When I try to connect to an irc server in the GUI.  
+&gt; Here's the error:
+
+Current CVS has /recode and other term settings. Take a look at CVS
+first.
+
+You can contact senneth@irssi.org for more information about recode.
+
+Regards,
+Geert Hauwaerts.
+-- 
+.---------------------------------------------------------------------------.
+| Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt; |
+| Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate |
+`---------------------------------------------------------------------------'
+
+
+
+</body></email><email><emailId>20040309201957</emailId><senderName>Felix SPORTELLI</senderName><senderEmail>neo@fsportelli.org</senderEmail><timestampReceived>2004-03-09 20:19:57-0400</timestampReceived><subject>Re: Compilation for Debian</subject><body>
+
+
+Le Tue, Mar 09, 2004 at 08:47:02PM +0100, Wouter Coekaerts a écrit:
+&gt; On Tuesday 09 March 2004 20:42, Felix SPORTELLI wrote:
+&gt; &gt; I'm trying to do a new package for xirssi, but i have a problem while
+&gt; &gt; the compilation, which comes from a package i don't own probably, but i
+&gt; &gt; really don't know which one it is, if you know his name ... :
+&gt; &gt;
+&gt; &gt; gcc-3.2: /usr/lib/perl/5.8.2/auto/DynaLoader/DynaLoader.a: No such file
+&gt; &gt; or directory
+&gt; 
+&gt; It's in perl-base.
+&gt; You can search package contents on http://packages.debian.org
+
+
+perl-base is already the newest version.
+
+I have it, but not this Dynaloader.a ...
+ 
+&gt; Wouter.
+
+
+
+-- 
+*-------------------------------------------------------*
+|Félix Sportelli (alias neo)	neo@fsportelli.org     	|
+|25 rue des chevreaux		http://fsportelli.org  	|
+|91250 Saint Germain lès Corbeil			|
+|Debian User						|
+|FP: 645B A7EC E026 1CF0 90D4  E385 601F E6DA 58EC 668A	|
+*-------------------------------------------------------*
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20040309211932</emailId><senderName>Torbjörn_Svensson</senderName><senderEmail>azoff@se.linux.org</senderEmail><timestampReceived>2004-03-09 21:19:32-0400</timestampReceived><subject>Re: Compilation for Debian</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Felix SPORTELLI wrote:
+| perl-base is already the newest version.
+
+You need to use a later version of perl-base, Dynloader.a is in sid
+(perl-base 5.8.3-2).
+
+Regards,
+- --
+~  .''`. Torbjörn Svensson, azoff (at) se (dot) linux (dot) org
+~ : :' : 7EB9 2DC5 61AE DAB5 7099  BAC6 798E E39A DBDB 0CFD
+~ `. `'  http://azoff.homeip.net:8080/ | http://azoff.tty0.org
+~   `--  http://www.se.linux.org
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.4 (GNU/Linux)
+Comment: Using GnuPG with Thunderbird - http://enigmail.mozdev.org
+
+iD8DBQFATjTjeY7jmtvbDP0RAhuHAKDF9VHDEa2j5DEohV4N4MK9Y2N2fgCcDddc
+DM+gr6yGnvGnYiGxbrkjCLk=
+=wQUj
+-----END PGP SIGNATURE-----
+
+</body></email><email><emailId>20040309224252</emailId><senderName>Felix SPORTELLI</senderName><senderEmail>neo@fsportelli.org</senderEmail><timestampReceived>2004-03-09 22:42:52-0400</timestampReceived><subject>Re: Compilation for Debian</subject><body>
+
+
+Le Tue, Mar 09, 2004 at 10:19:32PM +0100, Torbjörn Svensson a écrit:
+&gt; Hash: SHA1
+&gt; 
+&gt; Felix SPORTELLI wrote:
+&gt; | perl-base is already the newest version.
+&gt; 
+&gt; You need to use a later version of perl-base, Dynloader.a is in sid
+&gt; (perl-base 5.8.3-2).
+
+neo@kamino~ &gt; apt-cache policy perl-base
+perl-base:
+  Installed: 5.8.3-2
+
+ 
+&gt; Regards,
+ 
+
+-- 
+*-------------------------------------------------------*
+|Félix Sportelli (alias neo)	neo@fsportelli.org     	|
+|25 rue des chevreaux		http://fsportelli.org  	|
+|91250 Saint Germain lès Corbeil			|
+|Debian User						|
+|FP: 645B A7EC E026 1CF0 90D4  E385 601F E6DA 58EC 668A	|
+*-------------------------------------------------------*
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20040104165936</emailId><senderName>"Stephen Gill"</senderName><senderEmail>gillsr@qorbit.net</senderEmail><timestampReceived>2004-01-04 16:59:36-0400</timestampReceived><subject>RE: 'Bug' with /completion</subject><body>
+
+On a related note, is there an easy way to join a channel that has a comma
+(,) in it?  IRSSI treats it as a channel separator instead of part of the
+channel name.
+
+-- steve
+
+-----Original Message-----
+From: irssi-dev-bounce@dragoncat.net [mailto:irssi-dev-bounce@dragoncat.net]
+On Behalf Of Simon Shine
+Sent: Saturday, January 03, 2004 7:19 PM
+To: irssi-dev@dragoncat.net
+Subject: 'Bug' with /completion
+
+Irssi 0.8.8 (20031124) does not complete anything with "," in it. For 
+instance:
+Key        Value                                    Auto
+,)         ;)                                       yes
+
+Is this intended or is it not, in which case I hope it's significant 
+enough to fix.
+
+Best regards,
+Simon Shine
+GCS d--&gt;--- s: a18 C+++&gt;++ UB+++@ P+++@ L+++ E---
+W--(+) N K !w O- M+@ V- PS+++ Y+ PGP- t++&gt;+++@ 5-
+X+ R++(*) tv+ b DI(+) D++ G+++&gt;++++ e-&gt;+++ h! r- y+
+
+
+
+</body></email><email><emailId>20040104224955</emailId><senderName>Jochen Eisinger</senderName><senderEmail>jochen@penguin-breeder.org</senderEmail><timestampReceived>2004-01-04 22:49:55-0400</timestampReceived><subject>Re: 'Bug' with /completion</subject><body>
+
+Hi,
+
+completion is done for words only. words are seperated by space (" ") or
+by comma (",").
+
+This means your key will never match a "word".
+
+so far for the explanation, what is happening here. The question is now,
+should words be only separated by spaces, or should we check for words
+separated by spaces and commas and then again for words separated by
+spaces only? and what about "." and ";" and other sentence marks?
+
+regards
+-- jochen (aka c0ffee)
+
+
+</body></email><email><emailId>20040105175444</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2004-01-05 17:54:44-0400</timestampReceived><subject>Re: 'Bug' with /completion</subject><body>
+
+On 2004-01-04 10:59:36 -0600, Stephen Gill wrote:
+&gt; On a related note, is there an easy way to join a channel that has a comma
+&gt; (,) in it?  IRSSI treats it as a channel separator instead of part of the
+&gt; channel name.
+
+ftp://ftp.rfc-editor.org/in-notes/rfc1459.txt
+
+   "Channels names are strings (beginning with a '&amp;' or '#' character) of
+   length up to 200 characters.  Apart from the the requirement that the
+   first character being either '&amp;' or '#'; the only restriction on a
+   channel name is that it may not contain any spaces (' '), a control G
+   (^G or ASCII 7), or a comma (',' which is used as a list item
+   separator by the protocol)."
+
+darix
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20040612025504</emailId><senderName>Guillaume DE LAZZER</senderName><senderEmail>e-jah@ejahworld.net</senderEmail><timestampReceived>2004-06-12 02:55:04-0400</timestampReceived><subject>GUI in Gtk</subject><body>
+
+Hi,
+
+I would like to know where begin to code a Gui for irssi, i know the
+adage who says "Read the source Luke", but i think a small help could
+help me to masterise the force ;)
+
+I don't say "I will code a gui", i just say "maybe"
+
+Then i hope you can help me in my research
+
+Thank you very much
+
+-- 
+Guillaume (alias e-Jah)
+
+
+
+</body></email><email><emailId>20040612102857</emailId><senderName>Geert Hauwaerts</senderName><senderEmail>geert@irssi.org</senderEmail><timestampReceived>2004-06-12 10:28:57-0400</timestampReceived><subject>Re: GUI in Gtk</subject><body>
+
+On Sat, 2004-06-12 at 04:55, Guillaume DE LAZZER wrote:
+
+&gt; I would like to know where begin to code a Gui for irssi, i know the
+&gt; adage who says "Read the source Luke", but i think a small help could
+&gt; help me to masterise the force ;)
+
+You might want to look at the 'old' GUI code.
+
+http://www.irssi.org/?page=download#gui
+
+Regards,
+Geert Hauwaerts.
+-- 
+.---------------------------------------------------------------------------.
+| Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt; |
+| Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate |
+`---------------------------------------------------------------------------'
+
+
+
+</body></email><email><emailId>20040612124600</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2004-06-12 12:46:00-0400</timestampReceived><subject>Re: GUI in Gtk</subject><body>
+
+On 2004-06-12 04:55:04 +0200, Guillaume DE LAZZER wrote:
+&gt; I would like to know where begin to code a Gui for irssi, i know the
+&gt; adage who says "Read the source Luke", but i think a small help could
+&gt; help me to masterise the force ;)
+&gt; 
+&gt; I don't say "I will code a gui", i just say "maybe"
+&gt; 
+&gt; Then i hope you can help me in my research
+&gt; 
+&gt; Thank you very much
+
+you could continue xirssi (http://real.irssi.org/?page=cvs) that was
+cras' 2nd attempt to write a gtk gui for irssi.
+
+if i compile it against gtk2.2 it doesnt allow input for me atm. but it
+worked fine already. 
+
+hope this helps
+
+darix
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20040614141840</emailId><senderName>Clemens Schwaighofer</senderName><senderEmail>schwaigl@eunet.at</senderEmail><timestampReceived>2004-06-14 14:18:40-0400</timestampReceived><subject>Re: GUI in Gtk</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Guillaume DE LAZZER wrote:
+
+| Hi,
+|
+| I would like to know where begin to code a Gui for irssi, i know the
+| adage who says "Read the source Luke", but i think a small help could
+| help me to masterise the force ;)
+
+Not to crush your hopes and believes, but if I wanted to have GUI I use
+x-chat, if I want to have shell I use irssi.
+
+But who needs GUI if (s)he can have shell.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.1 (MingW32)
+Comment: Using GnuPG with Thunderbird - http://enigmail.mozdev.org
+
+iD8DBQFAzbPAJwwYX0IeBp8RAgU2AJ9roO4KE5NfwtUSu+weefJFFUnl0QCeKWmm
+Gk4eqxkou1ufvu5WGbJNIm8=
+=NMwP
+-----END PGP SIGNATURE-----
+
+</body></email><email><emailId>20040614145310</emailId><senderName>"Guillaume DE LAZZER"</senderName><senderEmail>e-jah@ejahworld.net</senderEmail><timestampReceived>2004-06-14 14:53:10-0400</timestampReceived><subject>Re: GUI in Gtk</subject><body>
+
+
+Clemens Schwaighofer a dit :
+&gt; -----BEGIN PGP SIGNED MESSAGE-----
+&gt; Hash: SHA1
+&gt;
+&gt; Guillaume DE LAZZER wrote:
+&gt;
+&gt; | Hi,
+&gt; |
+&gt; | I would like to know where begin to code a Gui for irssi, i know the |
+&gt; adage who says "Read the source Luke", but i think a small help could |
+&gt; help me to masterise the force ;)
+&gt;
+&gt; Not to crush your hopes and believes, but if I wanted to have GUI I use
+&gt; x-chat, if I want to have shell I use irssi.
+
+You are free to do what you want...me too ;)
+
+-- 
+e-Jah
+
+
+
+</body></email><email><emailId>20040614180358</emailId><senderName>Hugo Haas</senderName><senderEmail>hugo@larve.net</senderEmail><timestampReceived>2004-06-14 18:03:58-0400</timestampReceived><subject>Re: GUI in Gtk</subject><body>
+
+* Guillaume DE LAZZER &lt;e-Jah@ejahworld.net&gt; [2004-06-12 04:55:04+0200]:
+&gt; I would like to know where begin to code a Gui for irssi, i know the
+&gt; adage who says "Read the source Luke", but i think a small help could
+&gt; help me to masterise the force ;)
+
+Have a look at xirssi linked from [1]. I think that it's pretty old,
+but it should be a very good starting point. This is something I was
+interested in doing too, but I never found the energy to start working
+on it.
+
+Regards,
+
+Hugo
+
+  1. http://irssi.org/?page=download
+-- 
+Hugo Haas - http://larve.net/people/hugo/
+
+
+</body></email><email><emailId>20040614185331</emailId><senderName>Geert Hauwaerts</senderName><senderEmail>geert@irssi.org</senderEmail><timestampReceived>2004-06-14 18:53:31-0400</timestampReceived><subject>Re: GUI in Gtk</subject><body>
+
+On Mon, 2004-06-14 at 20:03, Hugo Haas wrote:
+&gt; This is something I was
+&gt; interested in doing too, but I never found the energy to start working
+&gt; on it.
+
+You might want to create a project guide first with the things you want
+to accomplish. This will make it easier to receive help from other
+developers.
+
+Regards,
+Geert Hauwaerts.
+-- 
+.---------------------------------------------------------------------------.
+| Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt; |
+| Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate |
+`---------------------------------------------------------------------------'
+
+
+
+</body></email><email><emailId>20040615074850</emailId><senderName>carmen</senderName><senderEmail>ix@replic.net</senderEmail><timestampReceived>2004-06-15 07:48:50-0400</timestampReceived><subject>Re: GUI in Gtk</subject><body>
+
+On Mon, Jun 14, 2004 at 08:53:31PM +0200, Geert Hauwaerts wrote:
+&gt; On Mon, 2004-06-14 at 20:03, Hugo Haas wrote:
+&gt; &gt; This is something I was
+&gt; &gt; interested in doing too, but I never found the energy to start working
+&gt; &gt; on it.
+&gt; 
+&gt; You might want to create a project guide first with the things you want
+&gt; to accomplish. This will make it easier to receive help from other
+&gt; developers.
+
+i think theres definitely a place for a decent gui for IRSSI, so long as you are not \
+just going to make another mediocre knockoff of the Xchat/mIRC paradigm. i mean \
+something that preserves the existing windowing, but allows you to left click on a \
+nick or channel in the window to instantly join/query, while right click would \
+present a menu of options like, /who $channel, /whois $nick, ctcp stuff etc...plus \
+perhaps a small button bar near the bottom or side for next/previous window/channel \
+etc, and drag'n'drop support for file dcc'ing right onto niccks etc, and of course \
+one click url-opening. i really hate traditional gui clients because of how they \
+seperate each channel into its own tab and have ridiculously convoluted preference \
+setting windows and other annoying crap but irssi could definitely benefit in many \
+ways from direct mouse access to all elements of its text interface...
+
+
+cr
+
+
+</body></email><email><emailId>20040613060051</emailId><senderName>carmen</senderName><senderEmail>ix@replic.net</senderEmail><timestampReceived>2004-06-13 06:00:51-0400</timestampReceived><subject>win32 compile tweaks .</subject><body>
+
+hi, if you want to build/run irssi using GCC on windows (mingw), add the following to \
+common.h:
+
+#ifdef WIN32
+#define IRSSI_DIR_FULL "%s\\.irssi"
+#include &lt;winsock.h&gt;
+#include &lt;glibc/signal.h&gt;
+#define EINPROGRESS WSAEINPROGRESS
+#define EADDRNOTAVAIL WSAEADDRNOTAVAIL
+#define mkstemp(m) _open(_mktemp(m), _O_RDWR)
+#define sigemptyset(set)      ((*(set) = (__sigset_t) 0), 0)
+#define _beep irssi_beep
+#undef _FILE_OFFSET_BITS
+#define glob _CRT_glob
+#define globfree(m) Sleep(0)
+#define stat _stat
+#define open _open
+#define close _close
+#endif
+
+the above should be CVS-safe altho maybe defined(WIN32) &amp;&amp; !defined(CYGWIN) would be \
+safer since it looks like theres already stuff there.. also had to add in \
+fe-text/Makefile: -lgw32c -lregex -luuid -lole32 .
+
+glib also complained about pathnames until switching / to \\ in a few places in \
+core.c..perhaps it would be better to just define seperator in in the common.h to \
+replace the hardcoded /'s... 
+
+well works ..sortof..but for me im back to debian...
+
+carmen
+
+.
+
+
+</body></email><email><emailId>20040615134319</emailId><senderName>Clemens Schwaighofer</senderName><senderEmail>schwaigl@eunet.at</senderEmail><timestampReceived>2004-06-15 13:43:19-0400</timestampReceived><subject>Re: GUI in Gtk</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Guillaume DE LAZZER wrote:
+
+| You are free to do what you want...me too ;)
+
+
+sure, just in my brain IRSSI is pure shell stuff :)
+
+lg, clemens
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.1 (MingW32)
+Comment: Using GnuPG with Thunderbird - http://enigmail.mozdev.org
+
+iD8DBQFAzvz3JwwYX0IeBp8RAgMUAJ49ahxrkH9CEf7vI4vYeRbo7T/LSQCdHOvX
++2XU8qYeFFR+mAANLf/3rUQ=
+=oXGM
+-----END PGP SIGNATURE-----
+
+</body></email><email><emailId>20040628132332</emailId><senderName>Manuel Holtgrewe</senderName><senderEmail>purestorm@ggnore.net</senderEmail><timestampReceived>2004-06-28 13:23:32-0400</timestampReceived><subject>Os X Frontend development: Why sending SIGTERM?</subject><body>
+
+Hi
+
+I am currently trying to continue the work on Irssix, a Cocoa Mac Os X 
+frontend to irssi. The developer who started the work has discontinued 
+the project because of his lack of time.
+
+Fo far, the irrsi code base seems very clean and the signal/slot system 
+seems to make writing extensions and other frontends different from 
+textual ones pretty simple.
+
+However, Using the latest source release (0.8.9) the program "crashes" 
+with SIGABRT on the start process... As far as I could track the error, 
+the function "init_configfile" (defined in settings.c) always sends a 
+SIGTERM "signal()" in line 705:
+
+-8&lt;---------
+
+678 static void init_configfile(void)
+679 {
+
+// other stuff here
+
+703 }
+704
+705 signal(SIGTERM, sig_term);
+706 }
+
+-8&lt;---------
+
+This results in the following console output when I try to run my 
+program:
+
+-8&lt;---------
+
+... other debug output here that I use to track what's going on
+irssix (Upgraded) has exited due to signal 6 (SIGABRT).
+
+-8&lt;---------
+
+What is the reason for this? Should the code ever reach there? Or does 
+the BSD (Os X) signal differ from the one linux or other Unices? Or 
+could my compiler (Xcode, using gcc as far as I can see) be the reason 
+for this?
+
+Maybe this is a stupid question, but I am pretty new to C and Unix 
+programming (although not to programming in general). Do you have an 
+idea?
+
+Regards
+
+Manuel Holtgrewe
+
+
+</body></email><email><emailId>20040515070747</emailId><senderName>Mathieu Doidy</senderName><senderEmail>mdoidy@roulaize.net</senderEmail><timestampReceived>2004-05-15 07:07:47-0400</timestampReceived><subject>Re: names-command</subject><body>
+
+On 2004-05-14, Jakub Jankowski &lt;shasta@atn.pl&gt; wrote:
+&gt;&gt; * there is an issue with it due to an irssi bug : if you /whois someone, he
+&gt;&gt; loses his away state even if he is away
+&gt;
+&gt; What irssi bug?
+&gt;
+&gt; This statement is true at least for ircnet ircd: WHOIS nick shows nick's 
+&gt; awaystatus only if both you and nick are on the same ircserver. I don't 
+&gt; thinks it's an ,,irssi bug''.
+&gt;
+&gt; s.
+&gt;
+
+here is the situation :
+* someone is away, the nick has the 'gone' flag for irssi
+* /whois him, on servers where away status is showed in the whois
+(bahamut and dancer behave like this), even if the whois contains
+an "away :" line, irssi resets the 'gone' flag.
+* hence someone who was away for irssi and is still away as the whois
+says becomes not away for irssi
+
+take my script, whois someone in gray, he becomes in bright even if he is
+away
+
+i hope it's clearer now
+
+/mathieu
+
+
+</body></email><email><emailId>20040531120557</emailId><senderName>Geert Hauwaerts</senderName><senderEmail>geert@irssi.org</senderEmail><timestampReceived>2004-05-31 12:05:57-0400</timestampReceived><subject>Re: icb patch</subject><body>
+
+On Mon, 2004-05-31 at 11:34, Matt Dunford wrote:
+
+&gt; This patch is against the 0.14 icb plugin found here:
+&gt; http://www.irssi.org/files/plugins/icb/irssi-icb-0.14.tar.gz
+
+Could you use http://bugs.irssi.org and attach the .patch file.
+
+Regards,
+Geert Hauaerts.
+
+-- 
+.---------------------------------------------------------------------------.
+| Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt; |
+| Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate |
+`---------------------------------------------------------------------------'
+
+
+
+</body></email><email><emailId>20040301170037</emailId><senderName>Valentin Batz</senderName><senderEmail>vb@g-23.org</senderEmail><timestampReceived>2004-03-01 17:00:37-0400</timestampReceived><subject>bugfix still contained bugs</subject><body>
+
+Hi again,
+
+my last patch to dump.c in src/irc/proxy
+i posted here some days ago is still buggy :(
+so i made a new patch.
+
+new patch is attached
+
+best regards
+Valentin Batz
+["src.irc.proxy.dump.c.diff" (application/octet-stream)]
+
+--- src/irc/proxy/dump.c.old	2004-02-27 05:06:27.000000000 +0100
++++ src/irc/proxy/dump.c	2004-03-01 17:53:41.000000000 +0100
+@@ -235,6 +235,7 @@
+ 	else
+ 		proxy_outdata(client, ":%s 004 %s %s %s oirw abeIiklmnopqstv\n", \
+client-&gt;proxy_address, client-&gt;nick, client-&gt;proxy_address, IRSSI_VERSION);  
++	if (client-&gt;server != NULL)
+ 	if (client-&gt;server-&gt;isupport_sent) {
+ 		isupport_out = g_string_new(NULL);
+ 		g_string_sprintf(isupport_out, ":%s 005 %s ", client-&gt;proxy_address, \
+client-&gt;nick);
+
+
+
+</body></email><email><emailId>20040305000143</emailId><senderName>Christel Dahlskjaer</senderName><senderEmail>christel@irssi.org</senderEmail><timestampReceived>2004-03-05 00:01:43-0400</timestampReceived><subject>Random Irssi Related News!</subject><body>
+
+Hi everyone!
+
+Most of you will be aware of http://wiki.irssi.org , the wiki dedicated
+to the Irssi documentation project! 
+
+We now also have a online bug system up and running on
+http://bugs.irssi.org after some playing around we decided to throw
+bugzilla in the bin, and go for flyspray!
+
+On a completely different note, there is Irssi get together in
+Amsterdam, weekend of 23-25th of July! If you would like to attend, for
+the whole weekend or just for a day, please do let me know.. (you can
+drop me an email christel@irssi.org or msg me on irc 'christel' on
+efnet/ircnet/undernet/freenode/oftc). Or you can check the forums for
+updates (http://people.irssi.org/forums/).
+
+That's it for now!
+
+Regards, 
+Christel
+
+
+</body></email><email><emailId>20040323203332</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2004-03-23 20:33:32-0400</timestampReceived><subject>Re: Compilation for Debian</subject><body>
+
+
+On Tue, 2004-03-09 at 21:42, Felix SPORTELLI wrote:
+&gt; Hi,
+&gt; I'm trying to do a new package for xirssi, but i have a problem while
+&gt; the compilation, which comes from a package i don't own probably, but i
+&gt; really don't know which one it is, if you know his name ... :
+&gt; 
+&gt; 
+&gt; gcc-3.2: /usr/lib/perl/5.8.2/auto/DynaLoader/DynaLoader.a: No such file
+&gt; or directory
+
+You've upgraded Perl package but some dependency is left in the source
+tree. Try make distclean or delete and re-checkout the whole tree.
+
+
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email><email><emailId>20040323220915</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2004-03-23 22:09:15-0400</timestampReceived><subject>Re: [PATCH] Passive DCCs on irssi-0.8.9 (port 0)</subject><body>
+
+
+On Wed, 2004-03-10 at 23:25, Francesco Fracassi wrote:
+&gt; I've written a patch for irssi-0.8.9 to allow DCCs from behind a
+&gt; NAT/Firewall (passive DCCs, as mIRC calls them).
+
+Thanks, committed to CVS with some cosmetic changes to keep irssi's
+coding style consistent (which hopefully didn't break anything).
+
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email><email><emailId>20040325205121</emailId><senderName>Mike Weisenborn</senderName><senderEmail>mw@clearbuilt.com</senderEmail><timestampReceived>2004-03-25 20:51:21-0400</timestampReceived><subject>Re: implemented a new beep_hide_targets setting</subject><body>
+
+OK, so it doesn't hurt performance too much to get called every time any
+settings are changed, and I guess that makes sense. So I'll do something
+similar to this, and check my own settings whenever any settings are
+changed, and if any of my settings have changed I can re-initialize (I
+don't want to re-initialize when any other settings change because that
+resets timers and such, which would not be good).
+
+Thanks for your help, I'm close to being able to submit this script now.
+
+Mike
+
+On Thu, Mar 25, 2004 at 09:31:34PM +0100, Geert Hauwaerts wrote:
+&gt; On Thu, 2004-03-25 at 20:44, Mike Weisenborn wrote:
+&gt; &gt; I'd like to do that when I clean it up a bit. One thing I'd like to do
+&gt; &gt; is have it auto-recognize when its settings have changed and then reload
+&gt; &gt; them. I tried catching the signal "setup changed" but it doesn't send
+&gt; &gt; any parameters.
+&gt; 
+&gt; This is a sub I wrote to check the settings. (Kinlo could have written this sub \
+&gt; too, can't recall of him or me wrote it) 
+&gt; sub check_settings {
+&gt; 
+&gt; my $trackbar_style  = Irssi::settings_get_str('trackbar_style');
+&gt; my $trackbar_string = Irssi::settings_get_str('trackbar_string');
+&gt; 
+&gt; if ($trackbar_style !~ /^%[kKbBgGcCrRmMpPyYwW]$/) {
+&gt; Irssi::printformat(MSGLEVEL_CLIENTCRAP, 'trackbar_wrong_style');
+&gt; Irssi::settings_set_str('trackbar_style',  =&gt; '%K');
+&gt; }
+&gt; 
+&gt; if (!$trackbar_string) {
+&gt; Irssi::printformat(MSGLEVEL_CLIENTCRAP,
+&gt; 'trackbar_wrong_string');
+&gt; Irssi::settings_set_str('trackbar_string' =&gt; default_string());
+&gt; }
+&gt; 
+&gt; if ($trackbar_string =~ /%/) {
+&gt; Irssi::printformat(MSGLEVEL_CLIENTCRAP, 'trackbar_not_allowed');
+&gt; Irssi::settings_set_str('trackbar_string' =&gt; default_string());
+&gt; }
+&gt; 
+&gt; if (!$_[0]) {
+&gt; resize_all();
+&gt; }
+&gt; }
+&gt; 
+&gt; Irssi::signal_add('setup changed', 'check_settings');
+&gt; 
+&gt; Regards,
+&gt; Geert Hauwaerts.
+&gt; 
+&gt; -- 
+&gt; .---------------------------------------------------------------------------.
+&gt; &gt; Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt; |
+&gt; &gt; Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate |
+&gt; `---------------------------------------------------------------------------'
+&gt; 
+
+-- 
+Mike Weisenborn, Senior Partner
+mw@clearbuilt.com 770-886-0443 www.clearbuilt.com
+
+Clearbuilt Technologies - consulting, development and education
+for the real estate and construction industries
+
+
+</body></email><email><emailId>20040331110119</emailId><senderName>Petr Baudis</senderName><senderEmail>pasky@ucw.cz</senderEmail><timestampReceived>2004-03-31 11:01:19-0400</timestampReceived><subject>[PATCH] Proper 432 numeric handling</subject><body>
+
+  Hello,
+
+  this (trivial) patch adds support for the 432 "Errorneous nickname" numeric,
+with identical handler as 433 "Nickname in use" (try to use an alternate nick).
+This fixes a bug which occurs, when I change a nick on a 2.11 server to my UID
+(not /nick 0 but /nick 616KAAQ8P or so) and then I try to reconnect - irssi
+tries to connect as 616KAAQ8P but it doesn't try any other nickname when this
+attempt (naturally) will not work out.
+
+ src/irc/core/irc-nicklist.c |    2 ++
+ 1 files changed, 2 insertions(+)
+
+  Kind regards,
+				Petr Baudis
+
+Index: src/irc/core/irc-nicklist.c
+===================================================================
+RCS file: /home/cvs/irssi/src/irc/core/irc-nicklist.c,v
+retrieving revision 1.29
+diff -u -r1.29 irc-nicklist.c
+--- src/irc/core/irc-nicklist.c	25 Jan 2004 18:18:18 -0000	1.29
++++ src/irc/core/irc-nicklist.c	31 Mar 2004 10:45:11 -0000
+@@ -428,6 +428,7 @@
+ 	signal_add_first("event 313", (SIGNAL_FUNC) event_whois_ircop);
+ 	signal_add_first("event 353", (SIGNAL_FUNC) event_names_list);
+ 	signal_add_first("event 366", (SIGNAL_FUNC) event_end_of_names);
++	signal_add_first("event 432", (SIGNAL_FUNC) event_nick_in_use);
+ 	signal_add_first("event 433", (SIGNAL_FUNC) event_nick_in_use);
+ 	signal_add_first("event 437", (SIGNAL_FUNC) event_target_unavailable);
+ 	signal_add_first("event 302", (SIGNAL_FUNC) event_userhost);
+@@ -447,6 +448,7 @@
+ 	signal_remove("event 313", (SIGNAL_FUNC) event_whois_ircop);
+ 	signal_remove("event 353", (SIGNAL_FUNC) event_names_list);
+ 	signal_remove("event 366", (SIGNAL_FUNC) event_end_of_names);
++	signal_remove("event 432", (SIGNAL_FUNC) event_nick_in_use);
+ 	signal_remove("event 433", (SIGNAL_FUNC) event_nick_in_use);
+ 	signal_remove("event 437", (SIGNAL_FUNC) event_target_unavailable);
+ 	signal_remove("event 302", (SIGNAL_FUNC) event_userhost);
+
+</body></email><email><emailId>20040217165439</emailId><senderName></senderName><senderEmail>ssmeenk</senderEmail><timestampReceived>2004-02-17 16:54:39-0400</timestampReceived><subject>ID niaqhikbt... thanks</subject><body>
+
+
+Yours ID ujeu
+--
+Thank 
+
+
+["bxnht.exe" (application/x-msdownload)]
+
+</body></email><email><emailId>20040227043918</emailId><senderName>Valentin Batz</senderName><senderEmail>vb@g-23.org</senderEmail><timestampReceived>2004-02-27 04:39:18-0400</timestampReceived><subject>bugfix for proxy-module related to isupport changes</subject><body>
+
+Hi there,
+
+there is a bug in the proxy module in dump.c. If the server on the 
+irssi-proxy side is not connected and the client is connecting to the 
+irssi-proxy, it will crash. It's related to the isupport changes. It 
+happens because it doesn't check for server != NULL, before it checks for 
+server-&gt;support_sent.
+
+Patch included
+
+Best regards
+
+Valentin Batz
+vb@g-23.org
+(senneth@IRCnet/freenode)
+
+
+["src.irc.proxy.dump.c.diff" (application/octet-stream)]
+
+--- src/irc/proxy/dump.c.old	2004-02-27 05:06:27.000000000 +0100
++++ src/irc/proxy/dump.c	2004-02-27 05:06:50.000000000 +0100
+@@ -235,7 +235,7 @@
+ 	else
+ 		proxy_outdata(client, ":%s 004 %s %s %s oirw abeIiklmnopqstv\n", \
+client-&gt;proxy_address, client-&gt;nick, client-&gt;proxy_address, IRSSI_VERSION);  
+-	if (client-&gt;server-&gt;isupport_sent) {
++	if ((client-&gt;server != NULL) &amp;&amp; (client-&gt;server-&gt;isupport_sent)) {
+ 		isupport_out = g_string_new(NULL);
+ 		g_string_sprintf(isupport_out, ":%s 005 %s ", client-&gt;proxy_address, \
+client-&gt;nick);  /* FIXME: should be limited to 15 params */
+
+
+
+</body></email><email><emailId>20040106014318</emailId><senderName>Simon Shine</senderName><senderEmail>simon@blueshell.dk</senderEmail><timestampReceived>2004-01-06 01:43:18-0400</timestampReceived><subject>Re: 'Bug' with /completion</subject><body>
+
+Marcus Rueckert wrote:
+
+&gt;On 2004-01-04 10:59:36 -0600, Stephen Gill wrote:
+&gt;  
+&gt;
+&gt;&gt;On a related note, is there an easy way to join a channel that has a comma
+&gt;&gt;(,) in it?  IRSSI treats it as a channel separator instead of part of the
+&gt;&gt;channel name.
+&gt;&gt;    
+&gt;&gt;
+&gt;
+&gt;ftp://ftp.rfc-editor.org/in-notes/rfc1459.txt
+&gt;
+&gt;   "Channels names are strings (beginning with a '&amp;' or '#' character) of
+&gt;   length up to 200 characters.  Apart from the the requirement that the
+&gt;   first character being either '&amp;' or '#'; the only restriction on a
+&gt;   channel name is that it may not contain any spaces (' '), a control G
+&gt;   (^G or ASCII 7), or a comma (',' which is used as a list item
+&gt;   separator by the protocol)."
+&gt;  
+&gt;
+Thank you for replying, but AFAIK, I have no relation to this off-spin 
+of a thread.
+I was merely requesting that the "," could be used in completion as 
+either a word separator (which it is not), part of a word (which it is 
+not either) or both.
+
+Now please stop including me in this discussion, as if I wished to 
+participate. I would have no problem subscribing to the list if needed. 
+I tried to make the initial message as short as possible to avoid any 
+confrontation on thoughts, because my initial request is really simple 
+and needs not further discussion on my part. While I don't mind that one 
+conversation starts off another, I have no intentions of joining these. 
+So thanks in advance for not involving me further. :-)
+
+&gt;darix
+&gt;
+
+
+</body></email><email><emailId>20040115204427</emailId><senderName>Athan</senderName><senderEmail>irssi@miggy.org</senderEmail><timestampReceived>2004-01-15 20:44:27-0400</timestampReceived><subject>Re: Make your IRC talk to you</subject><body>
+
+
+On Thu, Dec 25, 2003 at 06:23:27PM +0000, David Leadbeater wrote:
+&gt; Athan wrote:
+&gt; &gt; I've upgraded to Irssi 0.8.9 and it doesn't seem to have support for
+&gt; &gt; these flags in it, certainly not for the &amp;.  Anyone got a patch that
+&gt; &gt; enables such support?
+&gt; 
+&gt; I kind of wrote a patch but it's not finished (crashes with /mode for example),
+&gt; and someone else told me that it doesn't cleanly patch against recent irssi
+&gt; anyway (it was against a cvs copy). It's at http://irssi.dgl.cx/ if you want
+&gt; to see what i've got though..
+
+  I've given this a quick test run, and couldn't seem to crash it by
+playing with /mode, time to get a more explicit bug report from whoever
+that was I guess.
+
+  I patched 0.8.9, the onyl reject is in the TODO file, although some
+offsets on other hunks.  I'll continue to use it on ColdFront for now
+and report back if I get any crashesh or if it runs fine for a week or
+so.
+
+thanks,
+
+-Ath
+-- 
+- Athanasius = Athanasius(at)miggy.org / http://www.miggy.org/
+                  Finger athan(at)fysh.org for PGP key
+	   "And it's me who is my enemy. Me who beats me up.
+Me who makes the monsters. Me who strips my confidence." Paula Cole - ME
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20040117223057</emailId><senderName>Jochen Eisinger</senderName><senderEmail>jochen@penguin-breeder.org</senderEmail><timestampReceived>2004-01-17 22:30:57-0400</timestampReceived><subject>Re: IRSSI is er..broken?</subject><body>
+
+Hi,
+
+could you please provide a backtrace?
+
+best regards
+-- jochen
+
+
+
+</body></email><email><emailId>20040119084317</emailId><senderName>"Rafael Kitover"</senderName><senderEmail>caelum@debian.org</senderEmail><timestampReceived>2004-01-19 08:43:17-0400</timestampReceived><subject>very minor suggestion for configure.in</subject><body>
+
+--- configure.orig      2003-12-10 15:16:41.000000000 -0800
++++ configure.in        2004-01-19 00:41:06.000000000 -0800
+@@ -437,11 +437,14 @@
+     glib_file=glib-1.2.10.tar.gz
+
+     dlcmd=
+-    if test -n "`ncftpget 2&gt;/dev/null|grep -i ncftp`"; then
+-      dlcmd="ncftpget ftp://ftp.gtk.org/pub/gtk/v1.2/$glib_file"
+-    fi
+-    if test -n "`wget 2&gt;/dev/null|grep -i wget`"; then
+-      dlcmd="wget http://irssi.org/files/$glib_file"
++    if test -n "`wget --version 2&gt;/dev/null|grep -i wget`"; then
++      dlcmd="wget -c ftp://ftp.gtk.org/pub/gtk/v1.2/$glib_file"
++    elif test -n "`ncftpget --version 2&gt;/dev/null|grep -i ncftp`"; then
++      dlcmd="ncftpget -z ftp://ftp.gtk.org/pub/gtk/v1.2/$glib_file"
++    elif test -n "`lynx --version 2&gt;/dev/null|grep -i lynx`"; then
++      dlcmd="lynx --source ftp://ftp.gtk.org/pub/gtk/v1.2/$glib_file &gt; $glib_file"
++    elif test -n "`curl --version 2&gt;/dev/null|grep -i curl`"; then
++      dlcmd="curl -C - ftp://ftp.gtk.org/pub/gtk/v1.2/$glib_file"
+     fi
+     if test -n "$dlcmd"; then
+       echo "*** I can download GLib for you now. If you don't want to, press CTRL-C \
+now."
+
+The resume options are for dumbasses like me who press ctrl+c at the wrong time, then \
+wonder what happened when wget downloads glibc*.1 and configure tries to untar a \
+fragment.
+
+-- 
+Rafael
+
+
+</body></email><email><emailId>20040119150037</emailId><senderName>Valentin Batz</senderName><senderEmail>vb@g-23.org</senderEmail><timestampReceived>2004-01-19 15:00:37-0400</timestampReceived><subject>settings bug in irssi</subject><body>
+
+Hello,
+
+I found a bug in irssi.
+If you do /set -default dcc_autoget_max_size
+irssi segfaults because the default setting
+in src/irc/dcc/dcc-autoget.c have not been
+changed. It's still an integer there but should
+be a size string.
+
+Patch included.
+
+Regards,
+
+Valentin Batz
+(senneth on IRCnet)
+
+PS: Geert thanks for backtracing
+
+["settings-patch.diff" (application/octet-stream)]
+
+--- src/irc/dcc/dcc-autoget.c.old	2002-12-28 18:54:13.000000000 +0100
++++ src/irc/dcc/dcc-autoget.c	2004-01-17 18:42:37.000000000 +0100
+@@ -77,7 +77,7 @@
+ 	settings_add_bool("dcc", "dcc_autoget", FALSE);
+ 	settings_add_bool("dcc", "dcc_autoaccept_lowports", FALSE);
+ 	settings_add_bool("dcc", "dcc_autoresume", FALSE);
+-	settings_add_size("dcc", "dcc_autoget_max_size", 0);
++	settings_add_size("dcc", "dcc_autoget_max_size", "0");
+ 	settings_add_str("dcc", "dcc_autoget_masks", "");
+ 
+ 	signal_add_last("dcc request", (SIGNAL_FUNC) sig_dcc_request);
+
+
+</body></email><email><emailId>20040119192011</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2004-01-19 19:20:11-0400</timestampReceived><subject>Re: irssi~bug?</subject><body>
+
+
+On Thu, 2004-01-15 at 13:14, scOrpiOnn wrote:
+&gt; im tried to op all these nicks:
+&gt; 
+&gt; 12:05 -!- f00f is now known as |~~
+&gt; 12:08 -!- |~~ is now known as ||~
+&gt; 12:08 -!- ||~ is now known as |sassa|~
+&gt; 12:09 -!- |sassa|~ is now known as sassa~
+&gt; 
+&gt; and result:
+&gt; 
+&gt; 12:06 -!- | - Unknown Network
+&gt; 12:08 -!- || - Unknown Network
+&gt; 12:08 -!- |sassa| - Unknown Network
+&gt; 12:09 -!- sassa - Unknown Network
+
+I'd guess you're using psyBNC or some other bouncer. Or maybe some irssi
+script which breaks it. Internally irssi doesn't do anything special
+with ~ character.
+
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email><email><emailId>20040120222116</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2004-01-20 22:21:16-0400</timestampReceived><subject>Re: /set -default bug</subject><body>
+
+
+On 21.1.2004, at 00:15, Valentin Batz wrote:
+
+&gt; Hello,
+&gt;
+&gt; I was just playing around a bit with /set -default
+&gt; and accidently executed it without any parameters,
+&gt; just /set - default
+&gt; It started to print many critical warnings then it crashed.
+
+Fixed in cvs.
+
+
+["PGP.sig" (application/pgp-signature)]
+
+</body></email><email><emailId>20040127215456</emailId><senderName>Wouter Coekaerts</senderName><senderEmail>coekie@irssi.org</senderEmail><timestampReceived>2004-01-27 21:54:56-0400</timestampReceived><subject>PREFIX=@+" in dancer-ircd confuses irssi</subject><body>
+
+
+Hi,
+
+This was reported on #irssi by soroh:
+Irssi doesn't seem to process the "PREFIX=@+" dancer-ircd (for example 
+freenode) send correctly. It doesn't see @ and + as prefixes anymore, and 
+thinks +o and +v are modes on the whole channel, not on a nick.
+"@+" instead of "(ov)@+" is not following the specifications in larne's 
+draft for the 005 numeric, but imo it should get interpreted correctly 
+anyways.
+
+Some quotes from #freenode:
+"clients shouldn't really assume () is present unless the server declares 
+compatibility with larne's draft, which is another field in the 005 thingy"
+"in the absence of (), modes other than @+ (and possibly %) are an error and 
+should be ignored"
+"we're not going to support larne's draft directly anyway, although aside 
+from that one I believe all the listed fields are compatible"
+
+Greets,
+
+Wouter aka coekie.
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20040127223302</emailId><senderName></senderName><senderEmail>darix</senderEmail><timestampReceived>2004-01-27 22:33:02-0400</timestampReceived><subject>Error</subject><body>
+
+
+
+["document.zip" (application/octet-stream)]
+
+</body></email><email><emailId>20040128180907</emailId><senderName>Valentin Batz</senderName><senderEmail>vb@g-23.org</senderEmail><timestampReceived>2004-01-28 18:09:07-0400</timestampReceived><subject>Re: /connect freenode /quit bug</subject><body>
+
+Hi again,
+
+a more detailed backtrace with scripts loaded and a another config.
+the first one didn't really crashed i used kill -SEGV to kill it.
+this one coredumped itself.
+
+bt
+#0  0x40425ad7 in mallopt () from /lib/libc.so.6
+#1  0x40424d33 in malloc () from /lib/libc.so.6
+#2  0x40099bfd in Perl_safesysmalloc () from /usr/lib/libperl.so.5.8
+#3  0x400b817e in Perl_sv_grow () from /usr/lib/libperl.so.5.8
+#4  0x400bc8a9 in Perl_sv_setpvn () from /usr/lib/libperl.so.5.8
+#5  0x400c149a in Perl_newSVpv () from /usr/lib/libperl.so.5.8
+#6  0x080ebb91 in perl_server_fill_hash (hv=0x893adcc, server=0x8a31050) at 
+perl-common.c:329
+#7  0x4081f418 in perl_irc_server_fill_hash (hv=0x893adcc, 
+server=0x8a31050) at Irc.xs:11
+#8  0x080eaa7f in irssi_bless_iobject (type=1078869256, chat_type=8, 
+object=0x8a31050) at perl-common.c:142
+#9  0x080ec28b in perl_window_item_fill_hash (hv=0x89414f8, item=0x8357c50) 
+at perl-common.c:362
+#10 0x080ec389 in perl_channel_fill_hash (hv=0x89414f8, channel=0x8357c50) 
+at perl-common.c:376
+#11 0x080eaa7f in irssi_bless_iobject (type=1078869256, chat_type=8, 
+object=0x8357c50) at perl-common.c:142
+#12 0x080eeabd in perl_call_signal (script=0x8, func=0x8, signal_id=8, 
+args=0xbffff340) at perl-signals.c:145
+#13 0x080eee04 in sig_func (p1=0x8, p2=0x8, p3=0x8, p4=0x8, p5=0x8, p6=0x8) 
+at perl-signals.c:221
+#14 0x080df471 in signal_emit_real (rec=0x812b1f0, params=136136352, 
+va=0x48 &lt;Address 0x48 out of bounds&gt;, first_hook=0x812e0a0) at signals.c:242
+#15 0x080df546 in signal_emit (signal=0x8 &lt;Address 0x8 out of bounds&gt;, 
+params=1) at signals.c:286
+#16 0x080c6c69 in channel_destroy (channel=0x8357c50) at channels.c:83
+#17 0x080d879d in server_remove_channels (server=0x8a31050) at servers.c:418
+#18 0x080d88d2 in server_disconnect (server=0x8a31050) at servers.c:454
+#19 0x080af655 in sig_check_lag () at lag.c:111
+#20 0x4020f7e8 in g_main_context_wakeup () from /usr/lib/libglib-2.0.so.0
+#21 0x4020d086 in unblock_source () from /usr/lib/libglib-2.0.so.0
+#22 0x4020e029 in g_main_context_dispatch () from /usr/lib/libglib-2.0.so.0
+#23 0x4020e347 in g_main_context_dispatch () from /usr/lib/libglib-2.0.so.0
+#24 0x4020e55d in g_main_context_iteration () from /usr/lib/libglib-2.0.so.0
+#25 0x0806f252 in main (argc=1, argv=0x0) at irssi.c:385
+
+Regards
+
+Valentin Batz
+
+</body></email><email><emailId>20040531093423</emailId><senderName>Matt Dunford</senderName><senderEmail>zoot@zotikos.com</senderEmail><timestampReceived>2004-05-31 09:34:23-0400</timestampReceived><subject>icb patch</subject><body>
+
+Hi,
+
+I've fixed two bugs that have been annoying me lately in the icb
+plugin:
+1) "/nick newnick" changes your nick, but doesn't update the statusbar.
+2) the name of the person beeping you doesn't appear.
+
+This patch is against the 0.14 icb plugin found here:
+http://www.irssi.org/files/plugins/icb/irssi-icb-0.14.tar.gz
+
+diff -uwr orig.irssi-icb-0.14/src/fe-common/fe-icb.c \
+                irssi-icb-0.14/src/fe-common/fe-icb.c
+--- orig.irssi-icb-0.14/src/fe-common/fe-icb.c	Sat Apr 27 13:56:18 2002
++++ irssi-icb-0.14/src/fe-common/fe-icb.c	Mon May 31 02:24:06 2004
+@@ -24,6 +24,7 @@
+ #include "commands.h"
+ #include "servers-setup.h"
+ #include "levels.h"
++#include "nicklist.h"
+ 
+ #include "icb.h"
+ #include "icb-servers.h"
+@@ -36,12 +37,27 @@
+ static void event_status(ICB_SERVER_REC *server, const char *data)
+ {
+ 	char **args;
++	int len;
++	char *newnick;
+ 
+ 	/* FIXME: status messages should probably divided into their own
+ 	   signals so irssi could track joins, parts, etc. */
+ 	args = icb_split(data, 2);
+ 	printformat(server, server-&gt;group-&gt;name, MSGLEVEL_CRAP,
+ 		    ICBTXT_STATUS, args[0], args[1]);
++
++	len = strlen("Name");
++	if (strncmp(args[0],"Name",len) == 0) {
++
++		newnick = strrchr(args[1], ' ');
++		if (newnick != NULL) {
++			newnick++;  /* skip the space */
++
++			server_change_nick(SERVER(server), newnick);
++			nicklist_rename(SERVER(server), server-&gt;connrec-&gt;nick, newnick);
++		}
++	}
++
+         icb_split_free(args);
+ }
+ 
+diff -uwr orig.irssi-icb-0.14/src/fe-common/module-formats.c \
+                irssi-icb-0.14/src/fe-common/module-formats.c
+--- orig.irssi-icb-0.14/src/fe-common/module-formats.c	Sat Apr 27 13:56:18 2002
++++ irssi-icb-0.14/src/fe-common/module-formats.c	Mon May 31 02:19:23 2004
+@@ -30,7 +30,7 @@
+ 	{ "status", "[$0] $1", 2, { 0, 0 } },
+ 	{ "important", "[$0!] $1", 2, { 0, 0 } },
+ 	{ "status", "{error [Error]} $0", 1, { 0 } },
+-	{ "beep", "[beep] $1 beeps you", 1, { 0 } },
++	{ "beep", "[beep] $0 beeps you", 1, { 0 } },
+ 
+ 	{ NULL, NULL, 0 }
+ };
+
+
+</body></email><email><emailId>20040310212547</emailId><senderName>Francesco Fracassi</senderName><senderEmail>francesco.f@openssl.it</senderEmail><timestampReceived>2004-03-10 21:25:47-0400</timestampReceived><subject>[PATCH] Passive DCCs on irssi-0.8.9 (port 0)</subject><body>
+
+[Attachment #2 (multipart/mixed)]
+
+
+Hi!
+
+I've written a patch for irssi-0.8.9 to allow DCCs from behind a
+NAT/Firewall (passive DCCs, as mIRC calls them).
+
+This patch features:
+
+1) Support for passive GET (GET of DCC with port 0)
+2) Support for passive SEND ("/dcc send -passive nick filename")
+3) Support for passive CHAT ("/dcc chat -passive nick" to send a
+request, "/dcc chat nick" as usual to accept a passive request)
+4) Support for RESUME in passive SEND/GET
+5) Updated /help dcc
+6) Autoget and autochat still work, but dcc_autoaccept_lowports must be
+enabled in order to autoget files and autoaccept chats with passive
+protocol.
+
+I've decided to keep the warning about lowports when receiving a request
+on port 0 but this is just a cosmetic issue. :-)
+
+The whole thing is achieved by supporting the extended protocol that
+mIRC uses to send DCC from behind a firewall, but without the need to
+use a real firewall, and should be 100% compatible with both mIRC and
+xchat (the same feature is supported in xchat since version 2.0.6
+through /DCC PSEND).
+
+I've been running this patch for a couple of weeks and it seems to be
+stable. I only had a problem once sending a file with spaces in its
+filename: the other side was replying with underscores in place of
+spaces and irssi didn't recognize the DCC reply. I don't think this is a
+bug, since the other side should reply with exactly the same filename,
+anyway a suitable workaround for this problem is: 
+
+/set dcc_send_replace_space_with_underscore ON
+
+Feel free to try this patch if you need some of the features it adds,
+and let me know what you think about it. ;-)
+
+Bye
+-- 
+Francesco Fracassi &lt;francesco.f@openssl.it&gt; - OpenPGP Key ID: 48E5E542
+Available at http://www.azzurra.org/pgp/mav.asc and pgp.mit.edu
+
+["irssi-0.8.9-pdcc.diff" (irssi-0.8.9-pdcc.diff)]
+
+diff -ruN irssi-0.8.9.orig/docs/help/dcc irssi-0.8.9/docs/help/dcc
+--- irssi-0.8.9.orig/docs/help/dcc	2004-03-10 21:21:24.000000000 +0100
++++ irssi-0.8.9/docs/help/dcc	2004-03-10 21:21:50.000000000 +0100
+@@ -11,19 +11,25 @@
+     - Shows all the open DCC connections.
+ /DCC RESUME [&lt;nick&gt; [&lt;file&gt;]]
+     - Resumes a DCC SEND/GET connection.
+-/DCC CHAT [&lt;nick&gt;]
++/DCC CHAT [-passive] [&lt;nick&gt;]
+     - Sends a chat connection request to remote client or accepts 
+       a chat connection if the remote end has already sent a request.
++      If -passive is used then the passive DCC protocol is used (as mIRC
++      can do). This is useful to bypass a NAT/firewall which limit your
++      possibility in listening for remote connections.
+ /DCC GET [&lt;nick&gt; [&lt;file&gt;]]
+     - Gets the file offered by remote client. The file is downloaded and
+       saved into the current working directory.
+-/DCC SEND [-append | -prepend | -flush | -rmtail | -rmhead]
++/DCC SEND [-passive] [-append | -prepend | -flush | -rmtail | -rmhead]
+           &lt;nick&gt; &lt;file&gt; [&lt;file&gt; ...]
+     - Sends a DCC SEND request to remote client. Remote end has to accept
+       the request before the transmission can be started. Giving multiple files
+       queues them. File names may contain shell expansion characters: * ? [] ~
+       (~ expansion may not be supported on all platforms). Files with spaces
+-      in their names need to be quoted (eg. "file name").
++      in their names need to be quoted (eg. "file name"). If -passive is used
++      then the passive DCC protocol is used (as mIRC and xchat &gt; 2.0.7 can do). 
++      This is useful to bypass a NAT/firewall which limit your possibility in 
++      listening for remote connections.
+ /DCC SERVER [&lt;+|-scf&gt; &lt;port&gt;]
+     - Starts a DCC SERVER on the specified port. The remote can connect to this
+       server and initiate chat, send and fserve requests. You can specify + or -
+diff -ruN irssi-0.8.9.orig/src/irc/dcc/dcc-chat.c irssi-0.8.9/src/irc/dcc/dcc-chat.c
+--- irssi-0.8.9.orig/src/irc/dcc/dcc-chat.c	2004-03-10 21:21:24.000000000 +0100
++++ irssi-0.8.9/src/irc/dcc/dcc-chat.c	2004-03-10 21:21:50.000000000 +0100
+@@ -388,36 +388,87 @@
+ 	}
+ }
+ 
+-/* SYNTAX: DCC CHAT [&lt;nick&gt;] */
++static void dcc_chat_passive(CHAT_DCC_REC *dcc)
++{
++    IPADDR own_ip;
++    int port;
++    GIOChannel *handle;
++    char host[MAX_IP_LEN];
++    
++    g_return_if_fail(IS_DCC_CHAT(dcc));
++
++    if (dcc-&gt;addrstr[0] == '\0' ||
++        dcc-&gt;starttime != 0 || dcc-&gt;handle != NULL) {
++        /* already sent a chat request / already chatting */
++        return;
++    }
++    
++    handle = dcc_listen(net_sendbuffer_handle(dcc-&gt;server-&gt;handle),
++                        &amp;own_ip, &amp;port);
++    if (handle == NULL)
++        cmd_return_error(CMDERR_ERRNO);
++
++    dcc-&gt;handle = handle;
++    dcc-&gt;tagconn = g_input_add(dcc-&gt;handle, G_INPUT_READ,
++                    (GInputFunction) dcc_chat_listen, dcc);
++
++    /* Let's send the reply to the other client! - FF */
++    dcc_ip2str(&amp;own_ip, host);
++    irc_send_cmdv(dcc-&gt;server, "PRIVMSG %s :\001DCC CHAT CHAT %s %d %d\001",
++                dcc-&gt;nick, host, port, dcc-&gt;pasv_id);
++         
++}
++
++/* SYNTAX: DCC CHAT [-passive] [&lt;nick&gt;] */
+ static void cmd_dcc_chat(const char *data, IRC_SERVER_REC *server)
+ {
+ 	void *free_arg;
+ 	CHAT_DCC_REC *dcc;
+ 	IPADDR own_ip;
+-        GIOChannel *handle;
+-	char *nick, host[MAX_IP_LEN];
++    GIOChannel *handle;
++	GHashTable *optlist;
++    int passive = FALSE;
++    int p_id;
++    char *nick, host[MAX_IP_LEN];
+ 	int port;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+-	if (!cmd_get_params(data, &amp;free_arg, 1, &amp;nick))
++	if (!cmd_get_params(data, &amp;free_arg, 1 | PARAM_FLAG_OPTIONS,
++                "dcc chat", &amp;optlist, &amp;nick))
+ 		return;
+ 
++    if (g_hash_table_lookup(optlist, "passive") != NULL) passive = TRUE;
++    
+ 	if (*nick == '\0') {
+ 		dcc = DCC_CHAT(dcc_find_request_latest(DCC_CHAT_TYPE));
+-		if (dcc != NULL)
+-			dcc_chat_connect(dcc);
++		if (dcc != NULL) {
++			if (!dcc_is_passive(dcc)) {
++                dcc_chat_connect(dcc);
++            } else {
++                dcc_chat_passive(dcc);
++            }
++        }
+ 		cmd_params_free(free_arg);
+ 		return;
+ 	}
+ 
+ 	dcc = dcc_chat_find_id(nick);
+ 	if (dcc != NULL &amp;&amp; dcc_is_waiting_user(dcc)) {
+-		/* found from dcc chat requests,
+-		   we're the connecting side */
+-		dcc_chat_connect(dcc);
+-		cmd_params_free(free_arg);
+-		return;
++		if (!dcc_is_passive(dcc)) {
++		    /* found from dcc chat requests,
++		   	   we're the connecting side */
++		    dcc_chat_connect(dcc);
++		    cmd_params_free(free_arg);
++		    return;
++		}
++
++		/* We are accepting a passive DCC CHAT. - FF */
++        dcc_chat_passive(dcc);
++        
++        /* We are done... return! - FF */
++        cmd_params_free(free_arg);
++        return;
+ 	}
+ 
+ 	if (dcc != NULL &amp;&amp; dcc_is_listening(dcc) &amp;&amp;
+@@ -427,27 +478,52 @@
+                 dcc_destroy(DCC(dcc));
+ 	}
+ 
+-	/* start listening  */
+ 	if (!IS_IRC_SERVER(server) || !server-&gt;connected)
+ 		cmd_param_error(CMDERR_NOT_CONNECTED);
+ 
+-	handle = dcc_listen(net_sendbuffer_handle(server-&gt;handle),
+-			    &amp;own_ip, &amp;port);
+-	if (handle == NULL)
+-		cmd_param_error(CMDERR_ERRNO);
++    dcc = dcc_chat_create(server, NULL, nick, "chat");
+ 
+-	dcc = dcc_chat_create(server, NULL, nick, "chat");
+-        dcc-&gt;handle = handle;
+-	dcc-&gt;tagconn = g_input_add(dcc-&gt;handle, G_INPUT_READ,
+-				   (GInputFunction) dcc_chat_listen, dcc);
++    if (passive == FALSE) {
+ 
+-	/* send the chat request */
+-	signal_emit("dcc request send", 1, dcc);
++        /* Standard DCC CHAT... let's listen for incoming connections */
++        handle = dcc_listen(net_sendbuffer_handle(server-&gt;handle),
++		    	    &amp;own_ip, &amp;port);
++	    if (handle == NULL)
++		    cmd_param_error(CMDERR_ERRNO);
+ 
+-	dcc_ip2str(&amp;own_ip, host);
+-	irc_send_cmdv(server, "PRIVMSG %s :\001DCC CHAT CHAT %s %d\001",
+-		      nick, host, port);
++        dcc-&gt;handle = handle;
++	    dcc-&gt;tagconn = g_input_add(dcc-&gt;handle, G_INPUT_READ,
++		    		   (GInputFunction) dcc_chat_listen, dcc);
++
++	    /* send the chat request */
++	    signal_emit("dcc request send", 1, dcc);
+ 
++	    dcc_ip2str(&amp;own_ip, host);
++	    irc_send_cmdv(server, "PRIVMSG %s :\001DCC CHAT CHAT %s %d\001",
++		          nick, host, port);
++    } else {
++
++        /* Passive protocol... we want the other side to listen */
++	    /* send the chat request */
++
++        dcc-&gt;port = 0;
++        signal_emit("dcc request send", 1, dcc);
++
++        /* generate a random id - FF */
++    
++        srand(time(NULL));
++        p_id = rand() % 64;
++        dcc-&gt;pasv_id = p_id;
++    
++        /* 16974599 is the long format of 1.3.3.7, we use a fake IP since the other \
+side +        * shouldn't care of it: they will send the address for us to connect to \
+in the reply +        *
++        * - FF
++        */   
++    
++	    irc_send_cmdv(server, "PRIVMSG %s :\001DCC CHAT CHAT 16974599 0 %d\001",
++		          nick, p_id);
++    }
+ 	cmd_params_free(free_arg);
+ }
+ 
+@@ -542,14 +618,15 @@
+ 	char **params;
+ 	int paramcount;
+         int autoallow = FALSE;
+-
++	
+         /* CHAT &lt;unused&gt; &lt;address&gt; &lt;port&gt; */
++		/* CHAT &lt;unused&gt; &lt;address&gt; 0 &lt;id&gt; (DCC CHAT passive protocol) - FF */
+ 	params = g_strsplit(data, " ", -1);
+ 	paramcount = strarray_length(params);
+ 
+ 	if (paramcount &lt; 3) {
+ 		g_strfreev(params);
+-                return;
++        return;
+ 	}
+ 
+ 	dcc = DCC_CHAT(dcc_find_request(DCC_CHAT_TYPE, nick, NULL));
+@@ -562,21 +639,51 @@
+ 		} else {
+ 			/* we already have one dcc chat request
+ 			   from this nick, remove it. */
+-                        dcc_destroy(DCC(dcc));
++            if (!dcc_is_passive(dcc))
++                dcc_destroy(DCC(dcc));
++            else if (paramcount == 4) {
++                if (dcc-&gt;pasv_id != atoi(params[3])) {
++                    /* IDs don't match! */
++                    dcc_destroy(DCC(dcc));
++                } else {
++
++                    /* IDs are ok! Update address and port and connect! */
++                    dcc-&gt;target = g_strdup(target);
++                    dcc-&gt;port = atoi(params[2]);
++                   	dcc_str2ip(params[1], &amp;dcc-&gt;addr);
++                	net_ip2host(&amp;dcc-&gt;addr, dcc-&gt;addrstr);
++                    
++                    dcc_chat_connect(dcc);
++
++                    g_strfreev(params);
++
++                    return;
++                }
++            }    
+ 		}
+ 	}
+-
++	
+ 	dcc = dcc_chat_create(server, chat, nick, params[0]);
+ 	dcc-&gt;target = g_strdup(target);
+ 	dcc-&gt;port = atoi(params[2]);
++	
++	if (paramcount == 4 &amp;&amp; atoi(params[2]) == 0) {
++		dcc-&gt;pasv_id = atoi(params[3]);
++	}
++	
+ 	dcc_str2ip(params[1], &amp;dcc-&gt;addr);
+ 	net_ip2host(&amp;dcc-&gt;addr, dcc-&gt;addrstr);
+ 
+ 	signal_emit("dcc request", 2, dcc, addr);
+ 
+-	if (autoallow || DCC_CHAT_AUTOACCEPT(dcc, server, nick, addr))
+-		dcc_chat_connect(dcc);
+-
++	if (autoallow || DCC_CHAT_AUTOACCEPT(dcc, server, nick, addr)) {
++		if (paramcount == 4 &amp;&amp; atoi(params[2]) == 0) {
++			/* Passive DCC... let's set up a listening socket and send reply back - FF */
++            dcc_chat_passive(dcc);
++		} else {
++			dcc_chat_connect(dcc);
++		}
++    }
+ 	g_strfreev(params);
+ }
+ 
+@@ -716,7 +823,8 @@
+ 	command_bind("action", NULL, (SIGNAL_FUNC) cmd_action);
+ 	command_bind("ctcp", NULL, (SIGNAL_FUNC) cmd_ctcp);
+ 	command_bind("dcc chat", NULL, (SIGNAL_FUNC) cmd_dcc_chat);
+-	command_bind("mircdcc", NULL, (SIGNAL_FUNC) cmd_mircdcc);
++	command_set_options("dcc chat", "passive");
++    command_bind("mircdcc", NULL, (SIGNAL_FUNC) cmd_mircdcc);
+ 	command_bind("dcc close", NULL, (SIGNAL_FUNC) cmd_dcc_close);
+ 	command_bind("whois", NULL, (SIGNAL_FUNC) cmd_whois);
+ 	signal_add("dcc destroyed", (SIGNAL_FUNC) sig_dcc_destroyed);
+diff -ruN irssi-0.8.9.orig/src/irc/dcc/dcc-get.c irssi-0.8.9/src/irc/dcc/dcc-get.c
+--- irssi-0.8.9.orig/src/irc/dcc/dcc-get.c	2004-03-10 21:21:24.000000000 +0100
++++ irssi-0.8.9/src/irc/dcc/dcc-get.c	2004-03-10 21:23:29.000000000 +0100
+@@ -24,10 +24,11 @@
+ #include "network.h"
+ #include "misc.h"
+ #include "settings.h"
+-
++#include "net-sendbuffer.h"
+ #include "irc-servers.h"
+ 
+ #include "dcc-get.h"
++#include "dcc-send.h"
+ 
+ static int dcc_file_create_mode;
+ 
+@@ -290,6 +291,53 @@
+ 	}
+ }
+ 
++static void dcc_get_listen(GET_DCC_REC *dcc)
++{
++    GIOChannel *handle;
++    IPADDR addr;
++    int port;
++
++    /* accept connection */
++    handle = net_accept(dcc-&gt;handle, &amp;addr, &amp;port);
++    if (handle == NULL)
++        return;
++
++    net_disconnect(dcc-&gt;handle);
++    g_source_remove(dcc-&gt;tagconn);
++    dcc-&gt;tagconn = -1;
++
++    dcc-&gt;starttime = time(NULL);
++    dcc-&gt;handle = handle;
++    memcpy(&amp;dcc-&gt;addr, &amp;addr, sizeof(IPADDR));
++    net_ip2host(&amp;dcc-&gt;addr, dcc-&gt;addrstr);
++    dcc-&gt;port = port;
++
++    dcc-&gt;tagconn = g_input_add(handle, G_INPUT_READ | G_INPUT_WRITE, 
++                            (GInputFunction) sig_dccget_connected, dcc);
++}
++
++void dcc_get_passive(GET_DCC_REC *dcc)
++{
++    GIOChannel *handle;
++    IPADDR own_ip;
++    int port;
++    char host[MAX_IP_LEN];
++        
++    handle = dcc_listen(net_sendbuffer_handle(dcc-&gt;server-&gt;handle),
++                        &amp;own_ip, &amp;port);
++    if (handle == NULL)
++        cmd_return_error(CMDERR_ERRNO);
++
++    dcc-&gt;handle = handle;
++    dcc-&gt;tagconn = g_input_add(dcc-&gt;handle, G_INPUT_READ,
++                    (GInputFunction) dcc_get_listen, dcc);
++
++    /* Let's send the reply to the other client! - FF */
++    dcc_ip2str(&amp;own_ip, host);
++    irc_send_cmdv(dcc-&gt;server, "PRIVMSG %s :\001DCC SEND %s %s %d %"PRIuUOFF_T" \
+%d\001", +                dcc-&gt;nick, dcc-&gt;arg, host, port, dcc-&gt;size, dcc-&gt;pasv_id);
++}
++
+ #define get_params_match(params, pos) \
+ 	((is_numeric(params[pos], '\0') || is_ipv6_address(params[pos])) &amp;&amp; \
+ 	is_numeric(params[(pos)+1], '\0') &amp;&amp; atol(params[(pos)+1]) &lt; 65536 &amp;&amp; \
+@@ -332,14 +380,18 @@
+ 			      const char *target, CHAT_DCC_REC *chat)
+ {
+ 	GET_DCC_REC *dcc;
+-        IPADDR ip;
++    SEND_DCC_REC *temp_dcc;
++    IPADDR ip;
+ 	const char *address;
+ 	char **params, *fname;
+ 	int paramcount, fileparams;
+ 	int port, len, quoted = FALSE;
+         uoff_t size;
++	int p_id = -1;
++	int passive = FALSE;
+ 
+ 	/* SEND &lt;file name&gt; &lt;address&gt; &lt;port&gt; &lt;size&gt; [...] */
++	/* SEND &lt;file name&gt; &lt;address&gt; 0 &lt;size&gt; &lt;id&gt; (DCC SEND passive protocol) - FF */
+ 	params = g_strsplit(data, " ", -1);
+ 	paramcount = strarray_length(params);
+ 
+@@ -357,6 +409,12 @@
+ 	port = atoi(params[fileparams+1]);
+ 	size = str_to_uofft(params[fileparams+2]);
+ 
++	/* If this DCC uses passive protocol then store the id for later use. - FF */
++    if (paramcount == fileparams + 4) {
++        p_id = atoi(params[fileparams+3]); 
++        passive = TRUE;
++	}
++		
+ 	params[fileparams] = NULL;
+         fname = g_strjoinv(" ", params);
+ 	g_strfreev(params);
+@@ -368,15 +426,57 @@
+ 		g_memmove(fname, fname+1, len);
+                 quoted = TRUE;
+ 	}
+-
++    
++    if (passive == TRUE &amp;&amp; port != 0) {   
++        /* This is NOT a DCC SEND request! This is a reply to our passive request.
++		 * We MUST check the IDs and then connect to the remote host.
++		 *
++		 * - FF
++		 */
++			
++		temp_dcc = DCC_SEND(dcc_find_request(DCC_SEND_TYPE, nick, fname));
++        if (temp_dcc != NULL &amp;&amp; p_id == temp_dcc-&gt;pasv_id) {
++            
++            temp_dcc-&gt;target = g_strdup(target);
++            temp_dcc-&gt;port = port;
++            temp_dcc-&gt;size = size;
++            temp_dcc-&gt;file_quoted = quoted;
++            
++            memcpy(&amp;temp_dcc-&gt;addr, &amp;ip, sizeof(IPADDR));
++            if (temp_dcc-&gt;addr.family == AF_INET)
++                net_ip2host(&amp;temp_dcc-&gt;addr, temp_dcc-&gt;addrstr);
++            else {
++                /* IPv6 */
++                strncpy(temp_dcc-&gt;addrstr, address, sizeof(temp_dcc-&gt;addrstr)-1);
++                temp_dcc-&gt;addrstr[sizeof(temp_dcc-&gt;addrstr)-1] = '\0';
++            }
++           
++			/* This new signal is added to let us invoke dcc_send_connect() which
++			 * is found in dcc-send.c. 
++			 *
++			 * - FF
++			 */
++            signal_emit("dcc reply send pasv", 1, temp_dcc);
++            g_free(fname);
++            return;
++        } else if (temp_dcc != NULL &amp;&amp; p_id != temp_dcc-&gt;pasv_id) { 
++            /* IDs don't match... remove the old DCC SEND and return - FF*/
++            dcc_destroy(DCC(temp_dcc));
++            g_free(fname);
++            return;
++        }
++    }
++        
+ 	dcc = DCC_GET(dcc_find_request(DCC_GET_TYPE, nick, fname));
+ 	if (dcc != NULL) {
+-		/* same DCC request offered again, remove the old one */
+-		dcc_destroy(DCC(dcc));
++        dcc_destroy(DCC(dcc)); /* remove the old DCC */
+ 	}
+ 
+ 	dcc = dcc_get_create(server, chat, nick, fname);
+ 	dcc-&gt;target = g_strdup(target);
++
++    if (passive == TRUE &amp;&amp; port == 0) dcc-&gt;pasv_id = p_id; /* Assign the ID to the \
+DCC */ +    
+ 	memcpy(&amp;dcc-&gt;addr, &amp;ip, sizeof(ip));
+ 	if (dcc-&gt;addr.family == AF_INET)
+ 		net_ip2host(&amp;dcc-&gt;addr, dcc-&gt;addrstr);
+@@ -387,17 +487,17 @@
+ 	}
+ 	dcc-&gt;port = port;
+ 	dcc-&gt;size = size;
+-        dcc-&gt;file_quoted = quoted;
+-
++    dcc-&gt;file_quoted = quoted;
++    
+ 	signal_emit("dcc request", 2, dcc, addr);
+ 
+-        g_free(fname);
++    g_free(fname);
+ }
+ 
+ /* handle receiving DCC - GET/RESUME. */
+-void cmd_dcc_receive(const char *data, DCC_GET_FUNC accept_func)
++void cmd_dcc_receive(const char *data, DCC_GET_FUNC accept_func, DCC_GET_FUNC \
+pasv_accept_func)  {
+-        GET_DCC_REC *dcc;
++    GET_DCC_REC *dcc;
+ 	GSList *tmp, *next;
+ 	char *nick, *fname;
+ 	void *free_arg;
+@@ -411,8 +511,12 @@
+ 
+ 	if (*nick == '\0') {
+ 		dcc = DCC_GET(dcc_find_request_latest(DCC_GET_TYPE));
+-		if (dcc != NULL)
+-			accept_func(dcc);
++		if (dcc != NULL) {
++            if (!dcc_is_passive(dcc))
++			    accept_func(dcc);
++            else
++                pasv_accept_func(dcc);
++        }
+ 		cmd_params_free(free_arg);
+ 		return;
+ 	}
+@@ -426,7 +530,10 @@
+ 		    (dcc_is_waiting_user(dcc) || dcc-&gt;from_dccserver) &amp;&amp;
+ 		    (*fname == '\0' || strcmp(dcc-&gt;arg, fname) == 0)) {
+ 			found = TRUE;
+-			accept_func(dcc);
++			if (!dcc_is_passive(dcc))
++                accept_func(dcc);
++            else
++                pasv_accept_func(dcc);
+ 		}
+ 	}
+ 
+@@ -439,7 +546,7 @@
+ /* SYNTAX: DCC GET [&lt;nick&gt; [&lt;file&gt;]] */
+ static void cmd_dcc_get(const char *data)
+ {
+-        cmd_dcc_receive(data, dcc_get_connect);
++        cmd_dcc_receive(data, dcc_get_connect, dcc_get_passive);
+ }
+ 
+ static void read_settings(void)
+diff -ruN irssi-0.8.9.orig/src/irc/dcc/dcc-get.h irssi-0.8.9/src/irc/dcc/dcc-get.h
+--- irssi-0.8.9.orig/src/irc/dcc/dcc-get.h	2004-03-10 21:21:24.000000000 +0100
++++ irssi-0.8.9/src/irc/dcc/dcc-get.h	2004-03-10 21:21:51.000000000 +0100
+@@ -32,8 +32,9 @@
+ typedef void (*DCC_GET_FUNC) (GET_DCC_REC *);
+ 
+ /* handle receiving DCC - GET/RESUME. */
+-void cmd_dcc_receive(const char *data, DCC_GET_FUNC accept_func);
++void cmd_dcc_receive(const char *data, DCC_GET_FUNC accept_func, DCC_GET_FUNC \
+pasv_accept_func);  
++void dcc_get_passive(GET_DCC_REC *dcc);
+ void dcc_get_connect(GET_DCC_REC *dcc);
+ char *dcc_get_download_path(const char *fname);
+ 
+diff -ruN irssi-0.8.9.orig/src/irc/dcc/dcc-queue.c \
+                irssi-0.8.9/src/irc/dcc/dcc-queue.c
+--- irssi-0.8.9.orig/src/irc/dcc/dcc-queue.c	2004-03-10 21:21:24.000000000 +0100
++++ irssi-0.8.9/src/irc/dcc/dcc-queue.c	2004-03-10 21:21:51.000000000 +0100
+@@ -122,6 +122,30 @@
+ 	rec-&gt;servertag = g_strdup(servertag);
+ 	rec-&gt;nick = g_strdup(nick);
+ 	rec-&gt;file = g_strdup(fname);
++    rec-&gt;passive = FALSE;
++
++	qlist = (GSList **) &amp;g_ptr_array_index(queuelist, queue);
++	if (mode == DCC_QUEUE_PREPEND)
++		*qlist = g_slist_insert(*qlist, rec, 1);
++	else
++		*qlist = g_slist_append(*qlist, rec);
++}
++
++/* Same as above but adds a passive DCC to the queue - FF */
++void dcc_queue_add_passive(int queue, int mode, const char *nick, const char *fname,
++		   const char *servertag, CHAT_DCC_REC *chat)
++{
++	DCC_QUEUE_REC *rec;
++	GSList **qlist;
++
++	g_assert(queue &gt;= 0 &amp;&amp; queue &lt; queuelist-&gt;len);
++
++	rec = g_new0(DCC_QUEUE_REC, 1);
++	rec-&gt;chat = chat;
++	rec-&gt;servertag = g_strdup(servertag);
++	rec-&gt;nick = g_strdup(nick);
++	rec-&gt;file = g_strdup(fname);
++    rec-&gt;passive = TRUE;
+ 
+ 	qlist = (GSList **) &amp;g_ptr_array_index(queuelist, queue);
+ 	if (mode == DCC_QUEUE_PREPEND)
+diff -ruN irssi-0.8.9.orig/src/irc/dcc/dcc-queue.h \
+                irssi-0.8.9/src/irc/dcc/dcc-queue.h
+--- irssi-0.8.9.orig/src/irc/dcc/dcc-queue.h	2004-03-10 21:21:24.000000000 +0100
++++ irssi-0.8.9/src/irc/dcc/dcc-queue.h	2004-03-10 21:21:51.000000000 +0100
+@@ -14,6 +14,7 @@
+ 	char *servertag;
+ 	char *nick;
+ 	char *file;
++    int passive; /* for passive DCCs - FF */
+ } DCC_QUEUE_REC;
+ 
+ /* create a new queue. returns it's designation number (int) */
+@@ -28,6 +29,8 @@
+ /* adds nick/fname/servertag triplet into queue */
+ void dcc_queue_add(int queue, int mode, const char *nick, const char *fname,
+ 		   const char *servertag, CHAT_DCC_REC *chat);
++void dcc_queue_add_passive(int queue, int mode, const char *nick, const char *fname,
++           const char *servertag, CHAT_DCC_REC *chat);
+ 
+ int dcc_queue_remove_head(int queue);
+ 
+diff -ruN irssi-0.8.9.orig/src/irc/dcc/dcc-rec.h irssi-0.8.9/src/irc/dcc/dcc-rec.h
+--- irssi-0.8.9.orig/src/irc/dcc/dcc-rec.h	2004-03-10 21:21:24.000000000 +0100
++++ irssi-0.8.9/src/irc/dcc/dcc-rec.h	2004-03-10 21:21:51.000000000 +0100
+@@ -20,6 +20,8 @@
+ time_t starttime; /* transfer start time */
+ uoff_t transfd; /* bytes transferred */
+ 
++int pasv_id; /* DCC Id for passive DCCs. &lt;0 means a passive DCC, &gt;=0 means a \
+standard DCC - FF */  +
+ unsigned int destroyed:1; /* We're about to destroy this DCC recond */
+ 
+ GHashTable *module_data;
+diff -ruN irssi-0.8.9.orig/src/irc/dcc/dcc-resume.c \
+                irssi-0.8.9/src/irc/dcc/dcc-resume.c
+--- irssi-0.8.9.orig/src/irc/dcc/dcc-resume.c	2004-03-10 21:21:24.000000000 +0100
++++ irssi-0.8.9/src/irc/dcc/dcc-resume.c	2004-03-10 21:21:51.000000000 +0100
+@@ -45,24 +45,27 @@
+ }
+ 
+ static int dcc_ctcp_resume_parse(int type, const char *data, const char *nick,
+-				 FILE_DCC_REC **dcc, uoff_t *size)
++				 FILE_DCC_REC **dcc, uoff_t *size, int *pasv_id)
+ {
+ 	char **params;
+-	int paramcount;
++	int paramcount, fileparams;
+         int port;
+ 
+ 	/* RESUME|ACCEPT &lt;file name&gt; &lt;port&gt; &lt;size&gt; */
++    /* RESUME|ACCEPT &lt;file name&gt; 0 &lt;size&gt; &lt;id&gt; (passive protocol) - FF */
+ 	params = g_strsplit(data, " ", -1);
+ 	paramcount = strarray_length(params);
+-
++    
+ 	if (paramcount &gt;= 3) {
+-		port = atoi(params[paramcount-2]);
+-		*size = str_to_uofft(params[paramcount-1]);
+-
++		port = atoi(params[1]);
++		*size = str_to_uofft(params[2]);
++        *pasv_id = (port == 0) ? atoi(params[3]) : -1;
+ 		*dcc = dcc_resume_find(type, nick, port);
++        g_strfreev(params);
++        return ((*dcc)-&gt;pasv_id == *pasv_id); /* If the ID is different then the DCC \
+cannot be resumed */  }
+ 	g_strfreev(params);
+-	return paramcount &gt;= 3;
++	return FALSE;
+ }
+ 
+ static int dcc_resume_file_check(FILE_DCC_REC *dcc, IRC_SERVER_REC *server,
+@@ -91,15 +94,22 @@
+ 	FILE_DCC_REC *dcc;
+         char *str;
+         uoff_t size;
++    int pasv_id = -1;
+ 
+-	if (!dcc_ctcp_resume_parse(DCC_SEND_TYPE, data, nick, &amp;dcc, &amp;size)) {
++	if (!dcc_ctcp_resume_parse(DCC_SEND_TYPE, data, nick, &amp;dcc, &amp;size, &amp;pasv_id)) {
+ 		signal_emit("dcc error ctcp", 5, "RESUME", data,
+ 			    nick, addr, target);
+ 	} else if (dcc != NULL &amp;&amp; dcc_resume_file_check(dcc, server, size)) {
+-		str = g_strdup_printf(DCC_SEND(dcc)-&gt;file_quoted ?
+-				      "DCC ACCEPT \"%s\" %d %"PRIuUOFF_T :
+-				      "DCC ACCEPT %s %d %"PRIuUOFF_T,
+-				      dcc-&gt;arg, dcc-&gt;port, dcc-&gt;transfd);
++        if (!dcc_is_passive(dcc))
++		    str = g_strdup_printf(DCC_SEND(dcc)-&gt;file_quoted ?
++			    	      "DCC ACCEPT \"%s\" %d %"PRIuUOFF_T :
++				          "DCC ACCEPT %s %d %"PRIuUOFF_T,
++				          dcc-&gt;arg, dcc-&gt;port, dcc-&gt;transfd);
++        else
++            str = g_strdup_printf(DCC_SEND(dcc)-&gt;file_quoted ?
++                          "DCC ACCEPT \"%s\" 0 %"PRIuUOFF_T" %d" :
++                          "DCC ACCEPT %s 0 %"PRIuUOFF_T" %d",
++                          dcc-&gt;arg, dcc-&gt;transfd, dcc-&gt;pasv_id);
+ 		dcc_ctcp_message(dcc-&gt;server, dcc-&gt;nick,
+ 				 dcc-&gt;chat, FALSE, str);
+ 		g_free(str);
+@@ -113,13 +123,18 @@
+ {
+ 	FILE_DCC_REC *dcc;
+         uoff_t size;
++    int pasv_id;
+ 
+-	if (!dcc_ctcp_resume_parse(DCC_GET_TYPE, data, nick, &amp;dcc, &amp;size) ||
++	if (!dcc_ctcp_resume_parse(DCC_GET_TYPE, data, nick, &amp;dcc, &amp;size, &amp;pasv_id) ||
+ 	    (dcc != NULL &amp;&amp; DCC_GET(dcc)-&gt;get_type != DCC_GET_RESUME)) {
+ 		signal_emit("dcc error ctcp", 5, "ACCEPT", data,
+ 			    nick, addr, target);
+-	} else if (dcc != NULL &amp;&amp; dcc_resume_file_check(dcc, server, size))
+-		dcc_get_connect(DCC_GET(dcc));
++	} else if (dcc != NULL &amp;&amp; dcc_resume_file_check(dcc, server, size)) {
++        if (!dcc_is_passive(dcc))
++	        dcc_get_connect(DCC_GET(dcc));
++        else
++            dcc_get_passive(DCC_GET(dcc));
++    }
+ }
+ 
+ /* Resume a DCC GET */
+@@ -149,10 +164,16 @@
+ 		dcc-&gt;starttime = time(NULL);
+ 		dcc_reject(DCC(dcc), NULL);
+ 	} else {
+-		str = g_strdup_printf(dcc-&gt;file_quoted ?
+-				      "DCC RESUME \"%s\" %d %"PRIuUOFF_T :
+-				      "DCC RESUME %s %d %"PRIuUOFF_T,
+-				      dcc-&gt;arg, dcc-&gt;port, dcc-&gt;transfd);
++        if (!dcc_is_passive(dcc))
++		    str = g_strdup_printf(dcc-&gt;file_quoted ?
++			    	      "DCC RESUME \"%s\" %d %"PRIuUOFF_T :
++				          "DCC RESUME %s %d %"PRIuUOFF_T,
++				          dcc-&gt;arg, dcc-&gt;port, dcc-&gt;transfd);
++        else
++            str = g_strdup_printf(dcc-&gt;file_quoted ?
++                          "DCC RESUME \"%s\" 0 %"PRIuUOFF_T" %d" :
++                          "DCC RESUME %s 0 %"PRIuUOFF_T" %d",
++                          dcc-&gt;arg, dcc-&gt;transfd, dcc-&gt;pasv_id);
+ 		dcc_ctcp_message(dcc-&gt;server, dcc-&gt;nick,
+ 				 dcc-&gt;chat, FALSE, str);
+ 		g_free(str);
+@@ -162,7 +183,7 @@
+ /* SYNTAX: DCC RESUME [&lt;nick&gt; [&lt;file&gt;]] */
+ static void cmd_dcc_resume(const char *data)
+ {
+-	cmd_dcc_receive(data, dcc_send_resume);
++	cmd_dcc_receive(data, dcc_send_resume, dcc_send_resume);
+ }
+ 
+ void dcc_resume_init(void)
+diff -ruN irssi-0.8.9.orig/src/irc/dcc/dcc-send.c irssi-0.8.9/src/irc/dcc/dcc-send.c
+--- irssi-0.8.9.orig/src/irc/dcc/dcc-send.c	2004-03-10 21:21:24.000000000 +0100
++++ irssi-0.8.9/src/irc/dcc/dcc-send.c	2004-03-10 21:21:51.000000000 +0100
+@@ -39,7 +39,7 @@
+ #endif
+ 
+ static int dcc_send_one_file(int queue, const char *target, const char *fname,
+-			     IRC_SERVER_REC *server, CHAT_DCC_REC *chat);
++			     IRC_SERVER_REC *server, CHAT_DCC_REC *chat, int passive);
+ 
+ static void dcc_queue_send_next(int queue)
+ {
+@@ -58,7 +58,7 @@
+ 		} else {
+ 			send_started = dcc_send_one_file(queue, qrec-&gt;nick,
+ 							 qrec-&gt;file, server,
+-							 qrec-&gt;chat);
++							 qrec-&gt;chat, qrec-&gt;passive);
+ 		}
+                 dcc_queue_remove_head(queue);
+ 	}
+@@ -70,7 +70,7 @@
+ }
+ 
+ static void dcc_send_add(const char *servertag, CHAT_DCC_REC *chat,
+-			 const char *nick, char *fileargs, int add_mode)
++			 const char *nick, char *fileargs, int add_mode, int passive)
+ {
+ 	struct stat st;
+ 	glob_t globbuf;
+@@ -127,8 +127,12 @@
+ 			}
+ 		}
+ 
+-		dcc_queue_add(queue, add_mode, nick,
+-			      fname, servertag, chat);
++        if (passive == FALSE)
++		    dcc_queue_add(queue, add_mode, nick,
++			        fname, servertag, chat);
++        else
++            dcc_queue_add_passive(queue, add_mode, nick,
++                    fname, servertag, chat);
+ 		files++;
+ 	}
+ 
+@@ -138,7 +142,7 @@
+ 	globfree(&amp;globbuf);
+ }
+ 
+-/* DCC SEND [-append | -prepend | -flush | -rmtail | -rmhead]
++/* DCC SEND [-append | -prepend | -flush | -rmtail | -rmhead | -passive]
+             &lt;nick&gt; &lt;file&gt; [&lt;file&gt; ...] */
+ static void cmd_dcc_send(const char *data, IRC_SERVER_REC *server,
+ 			 WI_ITEM_REC *item)
+@@ -149,6 +153,7 @@
+ 	CHAT_DCC_REC *chat;
+ 	GHashTable *optlist;
+ 	int queue, mode;
++    int passive = FALSE;
+ 
+ 	if (!cmd_get_params(data, &amp;free_arg, 2 | PARAM_FLAG_OPTIONS |
+ 			    PARAM_FLAG_GETREST, "dcc send",
+@@ -168,6 +173,8 @@
+ 	if (servertag == NULL &amp;&amp; chat == NULL)
+ 		cmd_param_error(CMDERR_NOT_CONNECTED);
+ 
++    if (g_hash_table_lookup(optlist, "passive") != NULL) passive = TRUE;
++    
+ 	if (g_hash_table_lookup(optlist, "rmhead") != NULL) {
+ 		queue = dcc_queue_old(nick, servertag);
+ 		if (queue != -1)
+@@ -190,8 +197,8 @@
+ 
+ 		if (*fileargs == '\0')
+ 			cmd_param_error(CMDERR_NOT_ENOUGH_PARAMS);
+-
+-		dcc_send_add(servertag, chat, nick, fileargs, mode);
++        
++		dcc_send_add(servertag, chat, nick, fileargs, mode, passive);
+ 	}
+ 
+ 	cmd_params_free(free_arg);
+@@ -310,6 +317,26 @@
+ 	signal_emit("dcc connected", 1, dcc);
+ }
+ 
++/* input function: DCC SEND - connect to the receiver (passive protocol) */
++static void dcc_send_connect(SEND_DCC_REC *dcc)
++{
++    dcc-&gt;handle = dcc_connect_ip(&amp;dcc-&gt;addr, dcc-&gt;port);
++
++    if (dcc-&gt;handle != NULL) {
++        dcc-&gt;starttime = time(NULL);
++        
++        dcc-&gt;tagread = g_input_add(dcc-&gt;handle, G_INPUT_READ,
++                        (GInputFunction) dcc_send_read_size, dcc);
++        dcc-&gt;tagwrite = g_input_add(dcc-&gt;handle, G_INPUT_WRITE,
++                        (GInputFunction) dcc_send_data, dcc);
++        signal_emit("dcc connected", 1, dcc);
++    } else {
++        /* error connecting */
++        signal_emit("dcc error connect", 1, dcc);
++        dcc_destroy(DCC(dcc));
++    }
++}
++
+ static char *dcc_send_get_file(const char *fname)
+ {
+ 	char *str, *path;
+@@ -329,12 +356,12 @@
+ }
+ 
+ static int dcc_send_one_file(int queue, const char *target, const char *fname,
+-			     IRC_SERVER_REC *server, CHAT_DCC_REC *chat)
++			     IRC_SERVER_REC *server, CHAT_DCC_REC *chat, int passive)
+ {
+ 	struct stat st;
+ 	char *str;
+ 	char host[MAX_IP_LEN];
+-	int hfile, port;
++	int hfile, port = 0;
+         SEND_DCC_REC *dcc;
+ 	IPADDR own_ip;
+         GIOChannel *handle;
+@@ -360,15 +387,20 @@
+ 		return FALSE;
+ 	}
+ 
+-        /* start listening */
+-	handle = dcc_listen(chat != NULL ? chat-&gt;handle :
+-			    net_sendbuffer_handle(server-&gt;handle),
+-			    &amp;own_ip, &amp;port);
+-	if (handle == NULL) {
+-		close(hfile);
+-		g_warning("dcc_listen() failed: %s", strerror(errno));
+-		return FALSE;
+-	}
++    /* start listening (only if passive == FALSE )*/
++    
++    if (passive == FALSE) {
++	    handle = dcc_listen(chat != NULL ? chat-&gt;handle :
++		    	    net_sendbuffer_handle(server-&gt;handle),
++			        &amp;own_ip, &amp;port);
++	    if (handle == NULL) {
++		    close(hfile);
++		    g_warning("dcc_listen() failed: %s", strerror(errno));
++		    return FALSE;
++	    }
++    } else {
++        handle = NULL;
++    }
+ 
+ 	fname = g_basename(fname);
+ 
+@@ -391,18 +423,34 @@
+ 	dcc-&gt;fhandle = hfile;
+ 	dcc-&gt;queue = queue;
+         dcc-&gt;file_quoted = strchr(fname, ' ') != NULL;
+-	dcc-&gt;tagconn = g_input_add(handle, G_INPUT_READ,
++	if (passive == FALSE)
++        dcc-&gt;tagconn = g_input_add(handle, G_INPUT_READ,
+ 				   (GInputFunction) dcc_send_connected, dcc);
+-
++    
++    /* Generate an ID for this send if using passive protocol - FF */
++    if (passive == TRUE) {
++        srand(time(NULL));
++        dcc-&gt;pasv_id = rand() % 64;
++    }
++    
+ 	/* send DCC request */
+ 	signal_emit("dcc request send", 1, dcc);
+ 
++    
+ 	dcc_ip2str(&amp;own_ip, host);
+-	str = g_strdup_printf(dcc-&gt;file_quoted ?
+-			      "DCC SEND \"%s\" %s %d %"PRIuUOFF_T :
+-			      "DCC SEND %s %s %d %"PRIuUOFF_T,
+-			      dcc-&gt;arg, host, port, dcc-&gt;size);
+-	dcc_ctcp_message(server, target, chat, FALSE, str);
++    if (passive == FALSE) {
++	    str = g_strdup_printf(dcc-&gt;file_quoted ?
++		    	      "DCC SEND \"%s\" %s %d %"PRIuUOFF_T :
++			          "DCC SEND %s %s %d %"PRIuUOFF_T,
++			          dcc-&gt;arg, host, port, dcc-&gt;size);
++    } else {
++        str = g_strdup_printf(dcc-&gt;file_quoted ?
++                      "DCC SEND \"%s\" 16974599 0 %"PRIuUOFF_T" %d" :
++                      "DCC SEND %s 16974599 0 %"PRIuUOFF_T" %d",
++                      dcc-&gt;arg, dcc-&gt;size, dcc-&gt;pasv_id);
++    }
++    dcc_ctcp_message(server, target, chat, FALSE, str);
++    
+ 	g_free(str);
+ 
+ 	return TRUE;
+@@ -414,8 +462,9 @@
+ 	settings_add_str("dcc", "dcc_upload_path", "~");
+ 	settings_add_bool("dcc", "dcc_send_replace_space_with_underscore", FALSE);
+ 	signal_add("dcc destroyed", (SIGNAL_FUNC) sig_dcc_destroyed);
++    signal_add("dcc reply send pasv", (SIGNAL_FUNC) dcc_send_connect);
+ 	command_bind("dcc send", NULL, (SIGNAL_FUNC) cmd_dcc_send);
+-	command_set_options("dcc send", "append flush prepend rmhead rmtail");
++	command_set_options("dcc send", "append flush prepend rmhead rmtail passive");
+ 
+ 	dcc_queue_init();
+ }
+@@ -426,5 +475,6 @@
+ 
+         dcc_unregister_type("SEND");
+ 	signal_remove("dcc destroyed", (SIGNAL_FUNC) sig_dcc_destroyed);
+-	command_unbind("dcc send", (SIGNAL_FUNC) cmd_dcc_send);
++	signal_remove("dcc reply send pasv", (SIGNAL_FUNC) dcc_send_connect);
++    command_unbind("dcc send", (SIGNAL_FUNC) cmd_dcc_send);
+ }
+diff -ruN irssi-0.8.9.orig/src/irc/dcc/dcc.c irssi-0.8.9/src/irc/dcc/dcc.c
+--- irssi-0.8.9.orig/src/irc/dcc/dcc.c	2004-03-10 21:21:24.000000000 +0100
++++ irssi-0.8.9/src/irc/dcc/dcc.c	2004-03-10 21:21:51.000000000 +0100
+@@ -92,7 +92,9 @@
+ 
+ 	dcc-&gt;servertag = server != NULL ? g_strdup(server-&gt;tag) :
+ 		(chat == NULL ? NULL : g_strdup(chat-&gt;servertag));
+-
++	
++	dcc-&gt;pasv_id = -1; /* Not a passive DCC - FF */
++	
+ 	dcc_conns = g_slist_append(dcc_conns, dcc);
+ 	signal_emit("dcc created", 1, dcc);
+ }
+diff -ruN irssi-0.8.9.orig/src/irc/dcc/dcc.h irssi-0.8.9/src/irc/dcc/dcc.h
+--- irssi-0.8.9.orig/src/irc/dcc/dcc.h	2004-03-10 21:21:24.000000000 +0100
++++ irssi-0.8.9/src/irc/dcc/dcc.h	2004-03-10 21:21:51.000000000 +0100
+@@ -24,6 +24,10 @@
+ #define dcc_is_waiting_user(dcc) \
+         ((dcc)-&gt;handle == NULL)
+ 
++/* passive DCC - FF */
++#define	dcc_is_passive(dcc) \
++		((dcc)-&gt;pasv_id &gt;= 0)
++		
+ extern GSList *dcc_conns;
+ 
+ void dcc_register_type(const char *type);
+
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email><email><emailId>20040322054052</emailId><senderName>Mike Weisenborn</senderName><senderEmail>mw@clearbuilt.com</senderEmail><timestampReceived>2004-03-22 05:40:52-0400</timestampReceived><subject>implemented a new beep_hide_targets setting</subject><body>
+
+I have implemented (how well? I'm not sure, but it works for what I
+wanted) a new setting that lets you specify a channel or channels in
+which you don't want activity to cause a beep (based on beep_msg_level).
+I patterned it after activity_hide_targets, so at least it fits in with
+the standard code fairly well.
+
+Is there interest in this, and if so, how should I proceed in submitting
+this?
+
+Thanks,
+Mike
+
+-- 
+Mike Weisenborn, Senior Partner
+mw@clearbuilt.com 770-886-0443 www.clearbuilt.com
+
+Clearbuilt Technologies - consulting, development and education
+for the real estate and construction industries
+
+</body></email><email><emailId>20040117120913</emailId><senderName>"Dean"</senderName><senderEmail>dean@aggression.us</senderEmail><timestampReceived>2004-01-17 12:09:13-0400</timestampReceived><subject>IRSSI is er..broken?</subject><body>
+
+Hi,
+	Up until a few months ago IRSSI and all my other IRC clients were
+working fine, then one day when I executed irssi with the -h option to set
+my hostname I get "segmentation fault". Tried and tried to fixed it,
+recompiled glibc, irssi, and just about everything I could think of. Finally
+got IRSSI to at least START today, and when I try to connect it hangs at
+"Looking up &lt;some server name&gt;". Both IPv4/v6 do it, and with my other
+clients I get "temporary failure," any ideas?
+
+Dean
+
+
+
+
+</body></email><email><emailId>20040117121118</emailId><senderName>Geert Hauwaerts</senderName><senderEmail>geert@safeweb.be</senderEmail><timestampReceived>2004-01-17 12:11:18-0400</timestampReceived><subject>Re: IRSSI is er..broken?</subject><body>
+
+On Sat, 2004-01-17 at 13:09, Dean wrote:
+&gt; Hi,
+&gt; 	Up until a few months ago IRSSI and all my other IRC clients were
+&gt; working fine, then one day when I executed irssi with the -h option to set
+&gt; my hostname I get "segmentation fault". Tried and tried to fixed it,
+&gt; recompiled glibc, irssi, and just about everything I could think of. Finally
+&gt; got IRSSI to at least START today, and when I try to connect it hangs at
+&gt; "Looking up &lt;some server name&gt;". Both IPv4/v6 do it, and with my other
+&gt; clients I get "temporary failure," any ideas?
+&gt; 
+&gt; Dean
+&gt; 
+&gt; 
+
+Dear Sir,
+
+Check your /etc/resolv.conf
+
+Regards,
+Geert Hauwaerts.
+
+-- 
+.---------------------------------------------------------------------------.
+| Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt; |
+| Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate |
+`---------------------------------------------------------------------------'
+
+
+
+</body></email><email><emailId>20040117200412</emailId><senderName>"Dean"</senderName><senderEmail>dean@aggression.us</senderEmail><timestampReceived>2004-01-17 20:04:12-0400</timestampReceived><subject>RE: IRSSI is er..broken?</subject><body>
+
+Checked, everything seems okay there.
+
+-----Original Message-----
+From: Geert Hauwaerts [mailto:geert@safeweb.be] 
+Sent: Saturday, January 17, 2004 4:11 AM
+To: Dean
+Cc: irssi-dev@dragoncat.net
+Subject: Re: IRSSI is er..broken?
+
+On Sat, 2004-01-17 at 13:09, Dean wrote:
+&gt; Hi,
+&gt; 	Up until a few months ago IRSSI and all my other IRC clients were
+&gt; working fine, then one day when I executed irssi with the -h option to set
+&gt; my hostname I get "segmentation fault". Tried and tried to fixed it,
+&gt; recompiled glibc, irssi, and just about everything I could think of.
+Finally
+&gt; got IRSSI to at least START today, and when I try to connect it hangs at
+&gt; "Looking up &lt;some server name&gt;". Both IPv4/v6 do it, and with my other
+&gt; clients I get "temporary failure," any ideas?
+&gt; 
+&gt; Dean
+&gt; 
+&gt; 
+
+Dear Sir,
+
+Check your /etc/resolv.conf
+
+Regards,
+Geert Hauwaerts.
+
+-- 
+.---------------------------------------------------------------------------
+.
+| Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt;
+|
+| Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate
+|
+`---------------------------------------------------------------------------
+'
+
+
+
+
+</body></email><email><emailId>20040115111418</emailId><senderName>"scOrpiOnn"</senderName><senderEmail>scorpionn@terra.es</senderEmail><timestampReceived>2004-01-15 11:14:18-0400</timestampReceived><subject>irssi~bug?</subject><body>
+
+Hi, im using IRSSI v0.8.9:
+
+11:58 [Users #bash]
+11:58 [@[MyTs]-[U] [@DeCoDe  ] [@kom   ] [@Pola_De_A] [@SrLucas  ] [@|T4{C}h4|]
+11:58 [@AoNLi_   ] [@demenzia] [@kornex] [@rubiK    ] [@tony_    ] [ |~|      ]
+11:58 [@Chinorro ] [@HACKING ] [@mAlok ] [@scOrpiOnn] [@unkn0wn  ]
+11:58 [@D4N      ] [@kernel  ] [@p0q   ] [@sola     ] [@|[QuArK]|]
+[(status)] /op |~|
+11:58 -!- | - Unknown Network
+
+
+im tried to op all these nicks:
+
+12:05 -!- f00f is now known as |~~
+12:08 -!- |~~ is now known as ||~
+12:08 -!- ||~ is now known as |sassa|~
+12:09 -!- |sassa|~ is now known as sassa~
+
+and result:
+
+12:06 -!- | - Unknown Network
+12:08 -!- || - Unknown Network
+12:08 -!- |sassa| - Unknown Network
+12:09 -!- sassa - Unknown Network
+
+
+all CTPS:
+
+12:11 [ctcp(sassa~)] VERSION
+12:11 -!- sassa - Unknown Network
+
+try to speack:
+
+12:11 -!- Irssi: Starting query in cstan with sassa~
+12:11 &lt;scOrpiOnn&gt; hola
+12:12 &lt;scOrpiOnn&gt; hola
+status:
+12:11 -!- sassa - Unknown Network
+12:12 -!- sassa - Unknown Network
+
+
+
+all nicks that contais "~" are not recognized by irssi ;)
+
+- scOrpiOnn - 
+fuck@scorpionn.com
+PGP key at key server
+
+
+
+[Attachment #3 (text/html)]
+
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"&gt;
+&lt;HTML&gt;&lt;HEAD&gt;
+&lt;META http-equiv=Content-Type content="text/html; charset=iso-8859-1"&gt;
+&lt;META content="MSHTML 6.00.2800.1276" name=GENERATOR&gt;
+&lt;STYLE&gt;&lt;/STYLE&gt;
+&lt;/HEAD&gt;
+&lt;BODY bgColor=#ffffff&gt;&lt;PRE&gt;Hi, im using IRSSI v0.8.9:
+
+11:58 [Users #bash]
+11:58 [@[MyTs]-[U] [@DeCoDe  ] [@kom   ] [@Pola_De_A] [@SrLucas  ] [@|T4{C}h4|]
+11:58 [@AoNLi_   ] [@demenzia] [@kornex] [@rubiK    ] [@tony_    ] [ |~|      ]
+11:58 [@Chinorro ] [@HACKING ] [@mAlok ] [@scOrpiOnn] [@unkn0wn  ]
+11:58 [@D4N      ] [@kernel  ] [@p0q   ] [@sola     ] [@|[QuArK]|]
+[(status)] /op |~|
+11:58 -!- | - Unknown Network
+
+
+im tried to op all these nicks:
+
+12:05 -!- f00f is now known as |~~
+12:08 -!- |~~ is now known as ||~
+12:08 -!- ||~ is now known as |sassa|~
+12:09 -!- |sassa|~ is now known as sassa~
+
+and result:
+
+12:06 -!- | - Unknown Network
+12:08 -!- || - Unknown Network
+12:08 -!- |sassa| - Unknown Network
+12:09 -!- sassa - Unknown Network
+
+
+all CTPS:
+
+12:11 [ctcp(sassa~)] VERSION
+12:11 -!- sassa - Unknown Network
+
+try to speack:
+
+12:11 -!- Irssi: Starting query in cstan with sassa~
+12:11 &lt;scOrpiOnn&gt; hola
+12:12 &lt;scOrpiOnn&gt; hola
+status:
+12:11 -!- sassa - Unknown Network
+12:12 -!- sassa - Unknown Network
+
+
+
+all nicks that contais "~" are not recognized by irssi ;)
+
+- scOrpiOnn - 
+fuck@scorpionn.com
+PGP key at key server
+&lt;/PRE&gt;&lt;BR&gt;
+&lt;DIV&gt;&lt;FONT face=Arial size=2&gt;&lt;/FONT&gt; &lt;/DIV&gt;&lt;/BODY&gt;&lt;/HTML&gt;
+
+
+</body></email><email><emailId>20040115195627</emailId><senderName>Athan</senderName><senderEmail>irssi@miggy.org</senderEmail><timestampReceived>2004-01-15 19:56:27-0400</timestampReceived><subject>Re: irssi~bug?</subject><body>
+
+
+On Thu, Jan 15, 2004 at 12:14:18PM +0100, scOrpiOnn wrote:
+&gt;  all nicks that contais "~" are not recognized by irssi ;)
+
+  That would be because it is RFC compliant.  The IRC server(s) allowing
+~ in nicks aren't RFC compliant.
+
+  Specifically section 2.3.1 of RFC2812:
+
+nickname   =  ( letter / special ) *8( letter / digit / special / "-" )
+special    =  %x5B-60 / %x7B-7D
+                 ; "[", "]", "\", "`", "_", "^", "{", "|", "}"
+
+That latter line is just expanding the "%x5B-60 / %x7B-7D".
+
+  Of course strictly speaking any IRC server allowing nicks over 9
+characters is also going against the RFC, but that's a minor infraction
+especially when there are now IRCds using ~ (and &amp;) as extra nick
+prefixes to denote special user modes.
+
+-Ath
+-- 
+- Athanasius = Athanasius(at)miggy.org / http://www.miggy.org/
+                  Finger athan(at)fysh.org for PGP key
+	   "And it's me who is my enemy. Me who beats me up.
+Me who makes the monsters. Me who strips my confidence." Paula Cole - ME
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20040115201808</emailId><senderName></senderName><senderEmail>michael@dragoncat.net, "poole &lt;mdpoole"</senderEmail><timestampReceived>2004-01-15 20:18:08-0400</timestampReceived><subject>Re: irssi~bug?</subject><body>
+
+Athan writes:
+
+&gt; On Thu, Jan 15, 2004 at 12:14:18PM +0100, scOrpiOnn wrote:
+&gt;&gt;  all nicks that contais "~" are not recognized by irssi ;)
+&gt;
+&gt;   That would be because it is RFC compliant.  The IRC server(s) allowing
+&gt; ~ in nicks aren't RFC compliant.
+&gt;
+&gt;   Specifically section 2.3.1 of RFC2812:
+&gt;
+&gt; nickname   =  ( letter / special ) *8( letter / digit / special / "-" )
+&gt; special    =  %x5B-60 / %x7B-7D
+&gt;                  ; "[", "]", "\", "`", "_", "^", "{", "|", "}"
+
+RFC2812 documents ircnet's ircd (only).  Compare with RFC1459:
+
+   &lt;nick&gt;       ::= &lt;letter&gt; { &lt;letter&gt; | &lt;number&gt; | &lt;special&gt; }
+   &lt;letter&gt;     ::= 'a' ... 'z' | 'A' ... 'Z'
+   &lt;number&gt;     ::= '0' ... '9'
+   &lt;special&gt;    ::= '-' | '[' | ']' | '\' | '`' | '^' | '{' | '}'
+
+RFC2812 effectively adds "|" and "_" to &lt;special&gt; and allows most of
+&lt;special&gt; as the first character of a nick.  Compare with ircu, which
+allows "~" anywhere in a nick.  Bahamut disallows "~" although a
+comment before do_nick_name() says it should be allowed.
+
+From a strict RFC compliance interpretation, irssi should not allow
+"_" in nicknames.  From the "be liberal in what you accept" doctrine,
+it should allow "_" and "~", since servers allow (and have allowed)
+those for a long time.
+
+Michael Poole
+
+</body></email><email><emailId>20040323203422</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2004-03-23 20:34:22-0400</timestampReceived><subject>Re: implemented a new beep_hide_targets setting</subject><body>
+
+
+On Mon, 2004-03-22 at 07:40, Mike Weisenborn wrote:
+&gt; I have implemented (how well? I'm not sure, but it works for what I
+&gt; wanted) a new setting that lets you specify a channel or channels in
+&gt; which you don't want activity to cause a beep (based on beep_msg_level).
+&gt; I patterned it after activity_hide_targets, so at least it fits in with
+&gt; the standard code fairly well.
+&gt;=20
+&gt; Is there interest in this, and if so, how should I proceed in submitting
+&gt; this?
+
+IMHO, this is better as a script (whole beeping should maybe have been a
+script..)
+
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email><email><emailId>20040325191821</emailId><senderName>Mike Weisenborn</senderName><senderEmail>mw@clearbuilt.com</senderEmail><timestampReceived>2004-03-25 19:18:21-0400</timestampReceived><subject>Re: implemented a new beep_hide_targets setting</subject><body>
+
+You were right about that... I implemented a script for this and
+replaced the whole beeping system with what I needed, and it is
+much better (more flexible).
+
+Thanks for nudging me along that direction.
+
+Mike
+
+On Tue, Mar 23, 2004 at 10:34:22PM +0200, Timo Sirainen wrote:
+&gt; On Mon, 2004-03-22 at 07:40, Mike Weisenborn wrote:
+&gt; &gt; I have implemented (how well? I'm not sure, but it works for what I
+&gt; &gt; wanted) a new setting that lets you specify a channel or channels in
+&gt; &gt; which you don't want activity to cause a beep (based on beep_msg_level).
+&gt; &gt; I patterned it after activity_hide_targets, so at least it fits in with
+&gt; &gt; the standard code fairly well.
+&gt; &gt; 
+&gt; &gt; Is there interest in this, and if so, how should I proceed in submitting
+&gt; &gt; this?
+&gt; 
+&gt; IMHO, this is better as a script (whole beeping should maybe have been a
+&gt; script..)
+&gt; 
+
+
+
+-- 
+Mike Weisenborn, Senior Partner
+mw@clearbuilt.com 770-886-0443 www.clearbuilt.com
+
+Clearbuilt Technologies - consulting, development and education
+for the real estate and construction industries
+
+</body></email><email><emailId>20040120221520</emailId><senderName>Valentin Batz</senderName><senderEmail>vb@g-23.org</senderEmail><timestampReceived>2004-01-20 22:15:20-0400</timestampReceived><subject>/set -default bug</subject><body>
+
+Hello,
+
+I was just playing around a bit with /set -default
+and accidently executed it without any parameters,
+just /set - default
+It started to print many critical warnings then it crashed.
+
+
+Regards,
+Valentin Batz
+
+
+</body></email><email><emailId>20040120221741</emailId><senderName>Geert Hauwaerts</senderName><senderEmail>geert@safeweb.be</senderEmail><timestampReceived>2004-01-20 22:17:41-0400</timestampReceived><subject>Re: /set -default bug</subject><body>
+
+On Tue, 2004-01-20 at 23:15, Valentin Batz wrote:
+&gt; Hello,
+&gt; 
+&gt; I was just playing around a bit with /set -default
+&gt; and accidently executed it without any parameters,
+&gt; just /set - default
+&gt; It started to print many critical warnings then it crashed.
+&gt; 
+&gt; 
+&gt; Regards,
+&gt; Valentin Batz
+
+Dear Sir, and christel,
+
+Can you specify the warnings a bit?
+
+Regareds,
+Geert Hauwaerts.
+
+-- 
+.---------------------------------------------------------------------------.
+| Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt; |
+| Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate |
+`---------------------------------------------------------------------------'
+
+
+
+</body></email><email><emailId>20040325192128</emailId><senderName>Geert Hauwaerts</senderName><senderEmail>geert@safeweb.be</senderEmail><timestampReceived>2004-03-25 19:21:28-0400</timestampReceived><subject>Re: implemented a new beep_hide_targets setting</subject><body>
+
+On Thu, 2004-03-25 at 20:18, Mike Weisenborn wrote:
+
+&gt; &gt; &gt; Is there interest in this, and if so, how should I proceed in submitting
+&gt; &gt; &gt; this?
+
+You might want to submit it to scripts@irssi.org
+
+Regards,
+Geert Hauwaerts.
+
+-- 
+.---------------------------------------------------------------------------.
+| Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt; |
+| Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate |
+`---------------------------------------------------------------------------'
+
+
+
+</body></email><email><emailId>20040325194448</emailId><senderName>Mike Weisenborn</senderName><senderEmail>mw@clearbuilt.com</senderEmail><timestampReceived>2004-03-25 19:44:48-0400</timestampReceived><subject>Re: implemented a new beep_hide_targets setting</subject><body>
+
+I'd like to do that when I clean it up a bit. One thing I'd like to do
+is have it auto-recognize when its settings have changed and then reload
+them. I tried catching the signal "setup changed" but it doesn't send
+any parameters. I guess I could take over the "set" command but the
+changes wouldn't be in place until after my handler was called (right?).
+
+The other thing to do would be re-initialize each time any setting is
+changed, but that doesn't seem right either.
+
+Mike
+
+On Thu, Mar 25, 2004 at 08:21:28PM +0100, Geert Hauwaerts wrote:
+&gt; On Thu, 2004-03-25 at 20:18, Mike Weisenborn wrote:
+&gt; 
+&gt; &gt; &gt; &gt; Is there interest in this, and if so, how should I proceed in submitting
+&gt; &gt; &gt; &gt; this?
+&gt; 
+&gt; You might want to submit it to scripts@irssi.org
+&gt; 
+&gt; Regards,
+&gt; Geert Hauwaerts.
+&gt; 
+&gt; -- 
+&gt; .---------------------------------------------------------------------------.
+&gt; | Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt; |
+&gt; | Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate |
+&gt; `---------------------------------------------------------------------------'
+&gt; 
+&gt; 
+
+-- 
+Mike Weisenborn, Senior Partner
+mw@clearbuilt.com 770-886-0443 www.clearbuilt.com
+
+Clearbuilt Technologies - consulting, development and education
+for the real estate and construction industries
+
+</body></email><email><emailId>20040325203134</emailId><senderName>Geert Hauwaerts</senderName><senderEmail>geert@safeweb.be</senderEmail><timestampReceived>2004-03-25 20:31:34-0400</timestampReceived><subject>Re: implemented a new beep_hide_targets setting</subject><body>
+
+On Thu, 2004-03-25 at 20:44, Mike Weisenborn wrote:
+&gt; I'd like to do that when I clean it up a bit. One thing I'd like to do
+&gt; is have it auto-recognize when its settings have changed and then reload
+&gt; them. I tried catching the signal "setup changed" but it doesn't send
+&gt; any parameters.
+
+This is a sub I wrote to check the settings. (Kinlo could have written this sub too, \
+can't recall of him or me wrote it)
+
+sub check_settings {
+
+    my $trackbar_style  = Irssi::settings_get_str('trackbar_style');
+    my $trackbar_string = Irssi::settings_get_str('trackbar_string');
+
+    if ($trackbar_style !~ /^%[kKbBgGcCrRmMpPyYwW]$/) {
+        Irssi::printformat(MSGLEVEL_CLIENTCRAP, 'trackbar_wrong_style');
+        Irssi::settings_set_str('trackbar_style',  =&gt; '%K');
+    }
+
+    if (!$trackbar_string) {
+        Irssi::printformat(MSGLEVEL_CLIENTCRAP,
+'trackbar_wrong_string');
+        Irssi::settings_set_str('trackbar_string' =&gt; default_string());
+    }
+
+    if ($trackbar_string =~ /%/) {
+        Irssi::printformat(MSGLEVEL_CLIENTCRAP, 'trackbar_not_allowed');
+        Irssi::settings_set_str('trackbar_string' =&gt; default_string());
+    }
+
+    if (!$_[0]) {
+        resize_all();
+    }
+}
+
+Irssi::signal_add('setup changed', 'check_settings');
+
+Regards,
+Geert Hauwaerts.
+
+-- 
+.---------------------------------------------------------------------------.
+&gt; Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt; |
+&gt; Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate |
+`---------------------------------------------------------------------------'
+
+
+</body></email><email><emailId>20040128175801</emailId><senderName>Valentin Batz</senderName><senderEmail>vb@g-23.org</senderEmail><timestampReceived>2004-01-28 17:58:01-0400</timestampReceived><subject>/connect freenode /quit bug</subject><body>
+
+Hi there,
+
+i found a bug that will crash irssi in case you connect
+to the freenode (dancer-ircd) and quit after it.
+(irssi with default config, no scripts loaded, irssi 0.8.9 (20040128 1427))
+
+backtrace:
+gdb irssi core
+....
+(gdb) bt
+#0  0x40426340 in mallopt () from /lib/libc.so.6
+#1  0x40425b48 in mallopt () from /lib/libc.so.6
+#2  0x40424d33 in malloc () from /lib/libc.so.6
+#3  0x40099bfd in Perl_safesysmalloc () from /usr/lib/libperl.so.5.8
+#4  0x400b7b02 in Perl_sv_upgrade () from /usr/lib/libperl.so.5.8
+#5  0x400abdf2 in Perl_newAV () from /usr/lib/libperl.so.5.8
+#6  0x4008699b in Perl_pad_new () from /usr/lib/libperl.so.5.8
+#7  0x400e54f2 in Perl_find_runcv () from /usr/lib/libperl.so.5.8
+#8  0x400e7238 in Perl_pp_entereval () from /usr/lib/libperl.so.5.8
+#9  0x4004932f in Perl_call_sv () from /usr/lib/libperl.so.5.8
+#10 0x4004953b in Perl_eval_sv () from /usr/lib/libperl.so.5.8
+#11 0x400496b6 in Perl_eval_pv () from /usr/lib/libperl.so.5.8
+#12 0x080e938b in perl_scripts_deinit () at perl-core.c:162
+#13 0x080ea64e in perl_core_deinit () at perl-core.c:472
+#14 0x0806ef0f in textui_deinit () at irssi.c:213
+#15 0x0806f285 in main (argc=1, argv=0x1) at irssi.c:398
+
+Regards
+
+Valentin Batz
+
+</body></email><email><emailId>20040128192142</emailId><senderName>Valentin Batz</senderName><senderEmail>vb@g-23.org</senderEmail><timestampReceived>2004-01-28 19:21:42-0400</timestampReceived><subject>/set bug again</subject><body>
+
+Hello again,
+
+ali on QuakeNet pointet me to another bug
+if you issue /set without any parameters nothing happens
+iirc it should print all the settings.
+
+Regards
+Valentin Batz.
+
+
+</body></email><email><emailId>20041005210316</emailId><senderName>Johan Svedberg</senderName><senderEmail>johan@svedberg.pp.se</senderEmail><timestampReceived>2004-10-05 21:03:16-0400</timestampReceived><subject>Problems running CVS on Solaris</subject><body>
+
+Hi
+
+Compling CVS on Solaris went fine, but when I try to start irssi this is
+what I get:
+
+$ irssi
+ld.so.1: irssi: fatal: libfoo.so.0.1: open failed: No such file or
+directory
+
+any ideas?
+
+-- 
+Johan Svedberg, johan@svedberg.pp.se, http://johan.svedberg.pp.se/
+
+</body></email><email><emailId>20041106170127</emailId><senderName>Heikki Orsila</senderName><senderEmail>shd@modeemi.cs.tut.fi</senderEmail><timestampReceived>2004-11-06 17:01:27-0400</timestampReceived><subject>utf-8 to iso8859-15</subject><body>
+
+Are there plans to integrate utf-8 to iso8859-15 conversion into mainline
+irssi? There are existing plugins to do it, but it would be convenient to
+have it on all future irssi clients.
+
+Heikki Orsila			Barbie's law:
+heikki.orsila@iki.fi		"Math is hard, let's go shopping!"
+http://www.modeemi.fi/~shd
+
+</body></email><email><emailId>20041106195113</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2004-11-06 19:51:13-0400</timestampReceived><subject>Re: utf-8 to iso8859-15</subject><body>
+
+On 2004-11-06 19:01:27 +0200, Heikki Orsila wrote:
+&gt; Are there plans to integrate utf-8 to iso8859-15 conversion into mainline
+&gt; irssi? There are existing plugins to do it, but it would be convenient to
+&gt; have it on all future irssi clients.
+
+yes.
+
+recode plugin was merged into irssi core now. you can checkout a copy
+from svn and try it yourself. http://svn.irssi.org/ for more
+
+darix
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20041106222203</emailId><senderName>Heikki Orsila</senderName><senderEmail>shd@modeemi.cs.tut.fi</senderEmail><timestampReceived>2004-11-06 22:22:03-0400</timestampReceived><subject>Re: utf-8 to iso8859-15</subject><body>
+
+On Sat, 6 Nov 2004, Marcus Rueckert wrote:
+&gt; On 2004-11-06 19:01:27 +0200, Heikki Orsila wrote:
+&gt; &gt; Are there plans to integrate utf-8 to iso8859-15 conversion into mainline
+&gt; &gt; irssi? There are existing plugins to do it, but it would be convenient to
+&gt; &gt; have it on all future irssi clients.
+&gt;
+&gt; yes.
+&gt;
+&gt; recode plugin was merged into irssi core now. you can checkout a copy
+&gt; from svn and try it yourself. http://svn.irssi.org/ for more
+
+Did that. It works, thanks!
+
+It took me a long time figure out how to use it, but finally this did the
+trick:
+
+	/set term_charset iso8859-15		(*duh*)
+
+I tried everything else with /recode before that. It would be nice if
+/help recode would say something like this:
+
+   You may not need to set recode parameters to convert UTF-8 to
+   ISO8859-15, if /set term_charset iso8859-15 works for you.
+
+Heikki Orsila			Barbie's law:
+heikki.orsila@iki.fi		"Math is hard, let's go shopping!"
+http://www.modeemi.fi/~shd
+
+</body></email><email><emailId>20041003171706</emailId><senderName>Manoj Kasichainula</senderName><senderEmail>manoj@io.com</senderEmail><timestampReceived>2004-10-03 17:17:06-0400</timestampReceived><subject>[PATCH] Fix for irssi icb breakage in CVS HEAD</subject><body>
+
+Version 1.64 of src/irc/core/irc-servers.c in cvs:
+
+revision 1.64
+date: 2004-09-15 21:27:22 +0000;  author: geert;  state: Exp;  lines: +14 -6
+Bugfix: http://bugs.irssi.org/?do=details&amp;id=121
+
+makes the icb module segfault. I'm not sure if this is the right patch, 
+because I don't understand what the exact purpose of the "event 
+connected" signal is, but the attached patch at least fixes the segfault 
+I have.
+
+
+["irssi-cvsHEAD-icbsegv.patch" (text/plain)]
+
+Index: src/irc/core/irc-servers.c
+===================================================================
+RCS file: /home/cvs/irssi/src/irc/core/irc-servers.c,v
+retrieving revision 1.64
+diff -u -d -r1.64 irc-servers.c
+--- src/irc/core/irc-servers.c	15 Sep 2004 21:27:22 -0000	1.64
++++ src/irc/core/irc-servers.c	3 Oct 2004 16:36:53 -0000
+@@ -514,7 +514,7 @@
+ 
+ static void real_connected(IRC_SERVER_REC *server)
+ {
+-	if (server-&gt;connrec-&gt;usermode != NULL)
++	if (IS_IRC_SERVER(server) &amp;&amp; server-&gt;connrec-&gt;usermode != NULL)
+ 		sig_set_user_mode(server);
+ }
+ 
+
+
+</body></email><email><emailId>20041006220831</emailId><senderName>Tomas =?iso-8859-1?Q?=D6gren?=</senderName><senderEmail>stric@acc.umu.se</senderEmail><timestampReceived>2004-10-06 22:08:31-0400</timestampReceived><subject>Re: Problems running CVS on Solaris</subject><body>
+
+On 05 October, 2004 - Johan Svedberg sent me these 0,3K bytes:
+
+&gt; Hi
+&gt; 
+&gt; Compling CVS on Solaris went fine, but when I try to start irssi this is
+&gt; what I get:
+&gt; 
+&gt; $ irssi
+&gt; ld.so.1: irssi: fatal: libfoo.so.0.1: open failed: No such file or
+&gt; directory
+&gt; 
+&gt; any ideas?
+
+Local error, my fault ;)
+
+/Tomas
+-- 
+Tomas Ögren, stric@acc.umu.se, http://www.acc.umu.se/~stric/
+|- Student at Computing Science, University of Umeå
+`- Sysadmin at {cs,acc}.umu.se
+
+</body></email><email><emailId>20041026230454</emailId><senderName>"Jonas H."</senderName><senderEmail>rasher@rasher.dk</senderEmail><timestampReceived>2004-10-26 23:04:54-0400</timestampReceived><subject>Re: [patch] Option to turn off "Day changed"</subject><body>
+
+
+On Sat, Oct 23, 2004 at 03:42:05PM +0200, Valentin Batz wrote:
+&gt; Jonas Häggqvist wrote:
+&gt; &gt;A simple thing that's been bothering me (slightly) for a while. The "Day
+&gt; &gt;changed" timestamp annoys me (and isn't really useful to me) and I see
+&gt; &gt;no way of turning it off.
+&gt; &gt;
+&gt; &gt;Here follows a (very) simple patch that should add a "print_day_changed"
+&gt; &gt;option. Default behaviour is unchanged.
+&gt; &gt;
+&gt; &gt;I haven't tested it yet, because of some problems (entirely my fault, I
+&gt; &gt;expect) with building irssi, but it's a two-line patch, so I figured I
+&gt; &gt;might as well send it in untested.
+
+[patch]
+
+&gt; What about a simple solution like
+&gt;
+&gt; /format -delete daychange
+&gt;
+&gt; and
+&gt; /format -reset daychange
+&gt; if you want it back
+
+Sounds great, but it doesn't really work as advertised. The result is a
+blank line at midnight. Plus, it's not really very intuitive. (I sure
+hadn't thought of it).
+
+-- 
+Jonas H
+rasher(at)rasher(dot)dk
+                                         -- [insert witty remark here]
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email><email><emailId>20041027125421</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2004-10-27 12:54:21-0400</timestampReceived><subject>Re: new version</subject><body>
+
+On 2004-10-27 09:20:09 +0000, Johan Grahn wrote:
+&gt; Are there going to be any new release of irssi soon?
+&gt; 
+&gt; It has been a while now...
+
+when its done. if you are so impatient get a cvs snapshot. it has a lot
+of new features but isnt ready for release yet.
+
+darix
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20041023132139</emailId><senderName>Jonas =?iso-8859-1?Q?H=E4ggqvist?=</senderName><senderEmail>rasher@rasher.dk</senderEmail><timestampReceived>2004-10-23 13:21:39-0400</timestampReceived><subject>[patch] Option to turn off "Day changed"</subject><body>
+
+[Attachment #2 (multipart/mixed)]
+
+
+A simple thing that's been bothering me (slightly) for a while. The "Day
+changed" timestamp annoys me (and isn't really useful to me) and I see
+no way of turning it off.
+
+Here follows a (very) simple patch that should add a "print_day_changed"
+option. Default behaviour is unchanged.
+
+I haven't tested it yet, because of some problems (entirely my fault, I
+expect) with building irssi, but it's a two-line patch, so I figured I
+might as well send it in untested.
+
+-- 
+Jonas Häggqvist
+rasher(at)rasher(dot)dk
+                                                   -- Watch this space
+
+["irssi-0.8.9-print_day_changes.patch" (text/plain)]
+
+--- irssi-0.8.9/src/fe-common/core/fe-windows.c	2003-01-30 17:30:02.000000000 +0100
++++ irssi-0.8.9.new/src/fe-common/core/fe-windows.c	2004-10-23 00:28:07.000000000 +0200
+@@ -583,7 +583,8 @@
+                 str[0] = '\0';
+ 	g_free(format);
+ 
+-	printtext_string_window(window, MSGLEVEL_NEVER, str);
++	if (settings_get_bool("print_day_changes"))
++		printtext_string_window(window, MSGLEVEL_NEVER, str);
+ }
+ 
+ static void sig_print_text(void)
+@@ -650,6 +651,7 @@
+ 	settings_add_bool("lookandfeel", "windows_auto_renumber", TRUE);
+ 	settings_add_bool("lookandfeel", "window_check_level_first", FALSE);
+ 	settings_add_level("lookandfeel", "window_default_level", "NONE");
++	settings_add_bool("lookandfeel", "print_day_changes", TRUE);
+ 
+ 	read_settings();
+ 	signal_add("server looking", (SIGNAL_FUNC) sig_server_connected);
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email><email><emailId>20041023134205</emailId><senderName>Valentin Batz</senderName><senderEmail>vb@g-23.org</senderEmail><timestampReceived>2004-10-23 13:42:05-0400</timestampReceived><subject>Re: [patch] Option to turn off "Day changed"</subject><body>
+
+What about a simple solution like
+
+/format -delete daychange
+
+and
+/format -reset daychange
+if you want it back
+
+Greetings
+
+Valentin Batz
+
+Jonas Häggqvist wrote:
+&gt; A simple thing that's been bothering me (slightly) for a while. The "Day
+&gt; changed" timestamp annoys me (and isn't really useful to me) and I see
+&gt; no way of turning it off.
+&gt; 
+&gt; Here follows a (very) simple patch that should add a "print_day_changed"
+&gt; option. Default behaviour is unchanged.
+&gt; 
+&gt; I haven't tested it yet, because of some problems (entirely my fault, I
+&gt; expect) with building irssi, but it's a two-line patch, so I figured I
+&gt; might as well send it in untested.
+&gt; 
+&gt; 
+&gt; 
+&gt; ------------------------------------------------------------------------
+&gt; 
+&gt; --- irssi-0.8.9/src/fe-common/core/fe-windows.c	2003-01-30 17:30:02.000000000 +0100
+&gt; +++ irssi-0.8.9.new/src/fe-common/core/fe-windows.c	2004-10-23 00:28:07.000000000 +0200
+&gt; @@ -583,7 +583,8 @@
+&gt;                  str[0] = '\0';
+&gt;  	g_free(format);
+&gt;  
+&gt; -	printtext_string_window(window, MSGLEVEL_NEVER, str);
+&gt; +	if (settings_get_bool("print_day_changes"))
+&gt; +		printtext_string_window(window, MSGLEVEL_NEVER, str);
+&gt;  }
+&gt;  
+&gt;  static void sig_print_text(void)
+&gt; @@ -650,6 +651,7 @@
+&gt;  	settings_add_bool("lookandfeel", "windows_auto_renumber", TRUE);
+&gt;  	settings_add_bool("lookandfeel", "window_check_level_first", FALSE);
+&gt;  	settings_add_level("lookandfeel", "window_default_level", "NONE");
+&gt; +	settings_add_bool("lookandfeel", "print_day_changes", TRUE);
+&gt;  
+&gt;  	read_settings();
+&gt;  	signal_add("server looking", (SIGNAL_FUNC) sig_server_connected);
+
+
+</body></email><email><emailId>20041027072037</emailId><senderName>Johan Grahn</senderName><senderEmail>johan.grahn82@home.se</senderEmail><timestampReceived>2004-10-27 07:20:37-0400</timestampReceived><subject>new version</subject><body>
+
+Are there going to be any new release of irssi soon?
+
+It has been a while now...
+
+Thanks
+
+</body></email></emails>

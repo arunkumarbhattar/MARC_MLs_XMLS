@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20100129182224</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2010-01-29 18:22:24-0400</timestampReceived><subject>Re: Server /jump command?</subject><body>
+
+On 2010-01-27 03:01:15 +0000, dila wrote:
+&gt; I wonder if there is a command (or a script) that will jump/hop to the
+&gt; next server in the network list.
+&gt; 
+&gt; I was surprised when /jump didn't work, but then i remembered it was
+&gt; an eggdrop command (http://www.egghelp.org/commands/server.htm#jump).
+
+if you are in a window with the same ircnet just call /server somenet
+and it will jump
+
+    darix
+
+-- 
+           openSUSE - SUSE Linux is my linux
+               openSUSE is good for you
+                   www.opensuse.org
+
+</body></email><email><emailId>20100222172246</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2010-02-22 17:22:46-0400</timestampReceived><subject>Re: irssi fixes, access to repo?</subject><body>
+
+On 2010-02-21 22:12:51 -0500, fred wrote:
+&gt; Made some changes to irssi/ trunk: 
+&gt; 
+&gt; in src/core/network-openssl.c:540 
+&gt; 
+&gt; GIOChannel *net_connect_ip_ssl(IPADDR *ip, int port, const char*
+&gt; hostname, IPADDR *my_ip, const char *cert, const char *pkey, const char
+&gt; *cafile, const char *capath, gboolean verify) 
+&gt; /* added hostname to get this working */
+&gt; 
+&gt; and I made faq.txt in docs/ as required by docs_DATA in Makefile.am 
+&gt; (htmltotext faq.html &gt; faq.txt) 
+&gt; 
+&gt; Does somebody else want to commit these seeing as the repo is protected
+&gt; or can I have access to the repo?
+
+for the start it helps when you attach the output of svn diff to your
+mails. that way people can review your changes right away and comment on
+them.
+
+    darix
+
+-- 
+           openSUSE - SUSE Linux is my linux
+               openSUSE is good for you
+                   www.opensuse.org
+
+</body></email><email><emailId>20100127030115</emailId><senderName>dila</senderName><senderEmail>dilabox@gmail.com</senderEmail><timestampReceived>2010-01-27 03:01:15-0400</timestampReceived><subject>Server /jump command?</subject><body>
+
+Hello list,
+
+I wonder if there is a command (or a script) that will jump/hop to the
+next server in the network list.
+
+I was surprised when /jump didn't work, but then i remembered it was
+an eggdrop command (http://www.egghelp.org/commands/server.htm#jump).
+
+Kind regards,
+
+dila
+
+</body></email><email><emailId>20100222031251</emailId><senderName>fred</senderName><senderEmail>fred@fredri.cc</senderEmail><timestampReceived>2010-02-22 03:12:51-0400</timestampReceived><subject>irssi fixes, access to repo?</subject><body>
+
+
+Made some changes to irssi/ trunk: 
+
+in src/core/network-openssl.c:540 
+
+GIOChannel *net_connect_ip_ssl(IPADDR *ip, int port, const char*
+hostname, IPADDR *my_ip, const char *cert, const char *pkey, const char
+*cafile, const char *capath, gboolean verify) 
+/* added hostname to get this working */
+
+and I made faq.txt in docs/ as required by docs_DATA in Makefile.am 
+(htmltotext faq.html &gt; faq.txt) 
+
+Does somebody else want to commit these seeing as the repo is protected
+or can I have access to the repo?
+
+- Fred Concklin 
+Hampshire College
+
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email><email><emailId>20100322112240</emailId><senderName>Alexander =?iso-8859-1?B?RuZy+Hk=?=</senderName><senderEmail>ahf@0x90.dk</senderEmail><timestampReceived>2010-03-22 11:22:40-0400</timestampReceived><subject>Irssi 0.8.15-rc1 Released</subject><body>
+
+
+Hi,
+
+Irssi 0.8.15-rc1 has been released yesterday. This is mostly a bugfix
+release, but it includes new features that hopefully will make the IRC
+life a bit nicer for some users.
+
+Please test it and give us feedback if you find any bugs :)
+
+For more information please see our website[1] and remember to check-out
+the ChangeLog[2].
+
+Downloads:
+  http://irssi.org/files/irssi-0.8.15-rc1.tar.gz
+  http://irssi.org/files/irssi-0.8.15-rc1.tar.bz2
+
+Best regards,
+Alex
+
+[1]: http://www.irssi.org/
+[2]: http://www.irssi.org/news/ChangeLog
+
+-- 
+Alexander Færøy
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20100329075643</emailId><senderName>Enrico Scholz</senderName><senderEmail>enrico.scholz@informatik.tu-chemnitz.de</senderEmail><timestampReceived>2010-03-29 07:56:43-0400</timestampReceived><subject>Re: Bug#518235: [PATCH] SOCKS, "socksify irssi" vs linking</subject><body>
+
+Christoph Fritz &lt;chf.fritz@googlemail.com&gt; writes:
+
+&gt; [PATCH] Proxy enhancements (incl. native SOCKS5 support) 
+&gt; at http://bugs.irssi.org/index.php?do=details&amp;task_id=691
+&gt; looks nice, why isn't this in trunk?
+
+dunno; there was neither a response on the maillist nor in the bugtracker.
+Perhaps, proxies are such an exotic feature that nobody needs them.
+
+
+Enrico
+
+</body></email><email><emailId>20100329103134</emailId><senderName>Christoph Fritz</senderName><senderEmail>chf.fritz@googlemail.com</senderEmail><timestampReceived>2010-03-29 10:31:34-0400</timestampReceived><subject>Re: [PATCH] SOCKS, "socksify irssi" vs linking</subject><body>
+
+On Sun, Mar 28, 2010 at 06:30:38PM -0700, tabris wrote:
+&gt; Last time I played with this (several years ago) when I did a build with
+&gt; socks support, I then found that I couldn't use it WITHOUT socks. This
+&gt; wasn't worth it imo, so I reverted to a non-SOCKS build.
+&gt; 
+&gt; If this is no longer the case, I'd be glad to know.
+&gt; 
+
+depends on your configuration in /etc/dante.conf if SOCKS is used or not
+
+</body></email><email><emailId>20100905210117</emailId><senderName></senderName><senderEmail>xmatou08@stud.fit.vutbr.cz</senderEmail><timestampReceived>2010-09-05 21:01:17-0400</timestampReceived><subject>FS#723 [PATCH] Channel names recoding</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hi,
+I enclose the patch that recodes channel names according to the
+encoding specified for the chatnet.
+Now it is possible to join and control channels the names of which are
+in different encoding than the current encoding is.
+
+Denis
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iEYEARECAAYFAkyEBQkACgkQ2NWb5jcEx3zr4gCfSoidKRb/a+XK0r8976Ryg0Ky
+uuUAn0wpVOCwTYiMfFwGKZkUfwlWg9k1
+=g4qv
+-----END PGP SIGNATURE-----
+
+["channel-name-recode.diff" (text/x-patch)]
+
+Index: src/fe-common/irc/fe-events.c
+===================================================================
+--- src/fe-common/irc/fe-events.c	(revision 5190)
++++ src/fe-common/irc/fe-events.c	(working copy)
+@@ -50,6 +50,8 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2 | PARAM_FLAG_GETREST, &amp;target, &amp;msg);
++	if (ischannel(*target))
++		target = recode_in(SERVER(server), target, NULL);
+ 	if (nick == NULL) nick = server-&gt;real_address;
+ 	if (addr == NULL) addr = "";
+ 	if (*target == '@' &amp;&amp; ischannel(target[1])) {
+@@ -65,6 +67,8 @@
+ 			    server, recoded, nick, addr,
+ 			    get_visible_target(server, target));
+ 	}
++	if (ischannel(*target))
++		g_free(target);
+ 
+ 	g_free(params);
+ 	g_free(recoded);
+@@ -115,26 +119,33 @@
+ 	params = event_get_params(data, 1, &amp;channel);
+ 	tmp = strchr(channel, 7); /* ^G does something weird.. */
+ 	if (tmp != NULL) *tmp = '\0';
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	signal_emit("message join", 4, server,
+ 		    get_visible_target(server, channel), nick, addr);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+ static void event_part(IRC_SERVER_REC *server, const char *data,
+ 		       const char *nick, const char *addr)
+ {
+-	char *params, *channel, *reason, *recoded;
++	char *params, *channel, *reason;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2 | PARAM_FLAG_GETREST,
+ 				  &amp;channel, &amp;reason);
+-	recoded = recode_in(SERVER(server), reason, channel);
++	channel = recode_in(SERVER(server), channel, NULL);
++	reason = recode_in(SERVER(server), reason, channel);
++
+ 	signal_emit("message part", 5, server,
+-		    get_visible_target(server, channel), nick, addr, recoded);
++		    get_visible_target(server, channel), nick, addr, reason);
++
++	g_free(reason);
++	g_free(channel);
+ 	g_free(params);
+-	g_free(recoded);
+ }
+ 
+ static void event_quit(IRC_SERVER_REC *server, const char *data,
+@@ -153,18 +164,22 @@
+ static void event_kick(IRC_SERVER_REC *server, const char *data,
+ 		       const char *kicker, const char *addr)
+ {
+-	char *params, *channel, *nick, *reason, *recoded;
++	char *params, *channel, *nick, *reason;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 3 | PARAM_FLAG_GETREST,
+ 				  &amp;channel, &amp;nick, &amp;reason);
+-	recoded = recode_in(SERVER(server), reason, channel);
++	channel = recode_in(SERVER(server), channel, NULL);
++	reason = recode_in(SERVER(server), reason, channel);
++
+ 	signal_emit("message kick", 6,
+ 		    server, get_visible_target(server, channel),
+-		    nick, kicker, addr, recoded);
++		    nick, kicker, addr, reason);
++
++	g_free(reason);
++	g_free(channel);
+ 	g_free(params);
+-	g_free(recoded);
+ }
+ 
+ static void event_kill(IRC_SERVER_REC *server, const char *data,
+@@ -225,10 +240,13 @@
+ 
+ 	params = event_get_params(data, 2 | PARAM_FLAG_GETREST,
+ 				  &amp;channel, &amp;mode);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	signal_emit("message irc mode", 5,
+ 		    server, get_visible_target(server, channel),
+ 		    nick, addr, g_strchomp(mode));
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -252,25 +270,33 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
++
+ 	signal_emit("message invite", 4,
+ 		    server, get_visible_target(server, channel), nick, addr);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+ static void event_topic(IRC_SERVER_REC *server, const char *data,
+ 			const char *nick, const char *addr)
+ {
+-	char *params, *channel, *topic, *recoded;
++	char *params, *channel, *topic;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2 | PARAM_FLAG_GETREST,
+ 				  &amp;channel, &amp;topic);
+-	recoded = recode_in(SERVER(server), topic, channel);
++	channel = recode_in(SERVER(server), channel, NULL);
++	topic = recode_in(SERVER(server), topic, channel);
++
+ 	signal_emit("message topic", 5, server,
+-		    get_visible_target(server, channel), recoded, nick, addr);
++		    get_visible_target(server, channel), topic, nick, addr);
++
++	g_free(topic);
++	g_free(channel);
+ 	g_free(params);
+-	g_free(recoded);
+ }
+ 
+ static void event_error(IRC_SERVER_REC *server, const char *data)
+Index: src/fe-common/irc/fe-events-numeric.c
+===================================================================
+--- src/fe-common/irc/fe-events-numeric.c	(revision 5190)
++++ src/fe-common/irc/fe-events-numeric.c	(working copy)
+@@ -75,6 +75,7 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 4, NULL, NULL, &amp;channel, &amp;names);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	chanrec = irc_channel_find(server, channel);
+ 	if (chanrec == NULL || chanrec-&gt;names_got) {
+@@ -84,6 +85,7 @@
+                 printtext(server, channel, MSGLEVEL_CRAP, "%s", names);
+ 
+ 	}
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -96,35 +98,44 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	chanrec = irc_channel_find(server, channel);
+ 	if (chanrec == NULL || chanrec-&gt;names_got)
+ 		print_event_received(server, data, nick, FALSE);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+ static void event_who(IRC_SERVER_REC *server, const char *data)
+ {
+ 	char *params, *nick, *channel, *user, *host, *stat, *realname, *hops;
+-	char *serv, *recoded;
++	char *serv;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 8, NULL, &amp;channel, &amp;user,
+ 				  &amp;host, &amp;serv, &amp;nick, &amp;stat, &amp;realname);
+ 
++	channel = recode_in(SERVER(server), channel, NULL);
++	user = recode_in(SERVER(server), user, NULL);
++	host = recode_in(SERVER(server), host, NULL);
+ 	/* split hops/realname */
+ 	hops = realname;
+ 	while (*realname != '\0' &amp;&amp; *realname != ' ') realname++;
+ 	if (*realname == ' ')
+ 		*realname++ = '\0';
+-	
+-	recoded = recode_in(SERVER(server), realname, nick);
++	realname = recode_in(SERVER(server), realname, nick);
++
+ 	printformat(server, NULL, MSGLEVEL_CRAP, IRCTXT_WHO,
+-		    channel, nick, stat, hops, user, host, recoded, serv);
++		    channel, nick, stat, hops, user, host, realname, serv);
+ 
++	//g_free(realname);
++	g_free(host);
++	g_free(user);
++	g_free(channel);
+ 	g_free(params);
+-	g_free(recoded);
+ }
+ 
+ static void event_end_of_who(IRC_SERVER_REC *server, const char *data)
+@@ -134,7 +145,11 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
++
+ 	printformat(server, NULL, MSGLEVEL_CRAP, IRCTXT_END_OF_WHO, channel);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -142,47 +157,50 @@
+ {
+ 	IRC_CHANNEL_REC *chanrec;
+ 	BAN_REC *banrec;
+-	const char *channel;
+-	char *params, *ban, *setby, *tims;
++	char *params, *channel, *ban, *setby, *tims;
++	const char *target;
+ 	long secs;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 5, NULL, &amp;channel,
+ 				  &amp;ban, &amp;setby, &amp;tims);
++	channel = recode_in(SERVER(server), channel, NULL);
++	target = get_visible_target(server, channel);
++	chanrec = irc_channel_find(server, target);
++	banrec = chanrec == NULL ? NULL : banlist_find(chanrec-&gt;banlist, ban);
+ 	secs = *tims == '\0' ? 0 :
+ 		(long) (time(NULL) - atol(tims));
+ 
+-	chanrec = irc_channel_find(server, channel);
+-	banrec = chanrec == NULL ? NULL : banlist_find(chanrec-&gt;banlist, ban);
+-
+-	channel = get_visible_target(server, channel);
+-	printformat(server, channel, MSGLEVEL_CRAP,
++	printformat(server, target, MSGLEVEL_CRAP,
+ 		    *setby == '\0' ? IRCTXT_BANLIST : IRCTXT_BANLIST_LONG,
+ 		    banrec == NULL ? 0 : g_slist_index(chanrec-&gt;banlist, banrec)+1,
+-		    channel, ban, setby, secs);
++		    target, ban, setby, secs);
+ 
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+ static void event_eban_list(IRC_SERVER_REC *server, const char *data)
+ {
+-	const char *channel;
+-	char *params, *ban, *setby, *tims;
++	char *params, *channel, *ban, *setby, *tims;
++	const char *target;
+ 	long secs;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 5, NULL, &amp;channel,
+ 				  &amp;ban, &amp;setby, &amp;tims);
++	channel = recode_in(SERVER(server), channel, NULL);
++	target = get_visible_target(server, channel);
+ 	secs = *tims == '\0' ? 0 :
+ 		(long) (time(NULL) - atol(tims));
+ 
+-	channel = get_visible_target(server, channel);
+-	printformat(server, channel, MSGLEVEL_CRAP,
++	printformat(server, target, MSGLEVEL_CRAP,
+ 		    *setby == '\0' ? IRCTXT_EBANLIST : IRCTXT_EBANLIST_LONG,
+-		    channel, ban, setby, secs);
++		    target, ban, setby, secs);
+ 
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -213,21 +231,24 @@
+ 
+ static void event_invite_list(IRC_SERVER_REC *server, const char *data)
+ {
+-	const char *channel;
+-	char *params, *invite, *setby, *tims;
++	char *params, *channel, *invite, *setby, *tims;
++	const char *target;
+ 	long secs;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 5, NULL, &amp;channel, &amp;invite,
+ 			&amp;setby, &amp;tims);
++	channel = recode_in(SERVER(server), channel, NULL);
++	target = get_visible_target(server, channel);
+ 	secs = *tims == '\0' ? 0 :
+ 		(long) (time(NULL) - atol(tims));
+ 
+-	channel = get_visible_target(server, channel);
+-	printformat(server, channel, MSGLEVEL_CRAP,
++	printformat(server, target, MSGLEVEL_CRAP,
+ 		    *setby == '\0' ? IRCTXT_INVITELIST : IRCTXT_INVITELIST_LONG,
+-		    channel, invite, setby, secs);
++		    target, invite, setby, secs);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -248,72 +269,85 @@
+ 
+ static void event_topic_get(IRC_SERVER_REC *server, const char *data)
+ {
+-	const char *channel;
+-	char *params, *topic, *recoded;
++	char *params, *channel, *topic;
++	const char *target;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 3, NULL, &amp;channel, &amp;topic);
+-	recoded = recode_in(SERVER(server), topic, channel);
+-	channel = get_visible_target(server, channel);
+-	printformat(server, channel, MSGLEVEL_CRAP,
+-		    IRCTXT_TOPIC, channel, recoded);
++	channel = recode_in(SERVER(server), channel, NULL);
++	topic = recode_in(SERVER(server), topic, channel);
++	target = get_visible_target(server, channel);
++
++	printformat(server, target, MSGLEVEL_CRAP,
++		    IRCTXT_TOPIC, target, topic);
++
++	g_free(topic);
++	g_free(channel);
+ 	g_free(params);
+-	g_free(recoded);
+ }
+ 
+ static void event_topic_info(IRC_SERVER_REC *server, const char *data)
+ {
+-	const char *channel;
+-	char *params, *timestr, *bynick, *byhost, *topictime;
++	char *params, *channel, *timestr, *bynick, *byhost, *topictime;
++	const char *target;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 4, NULL, &amp;channel,
+ 				  &amp;bynick, &amp;topictime);
+-
++	channel = recode_in(SERVER(server), channel, NULL);
++	target = get_visible_target(server, channel);
+         timestr = my_asctime((time_t) atol(topictime));
+ 
+ 	byhost = strchr(bynick, '!');
+ 	if (byhost != NULL)
+ 		*byhost++ = '\0';
+ 
+-	channel = get_visible_target(server, channel);
+-	printformat(server, channel, MSGLEVEL_CRAP, IRCTXT_TOPIC_INFO,
++	printformat(server, target, MSGLEVEL_CRAP, IRCTXT_TOPIC_INFO,
+ 		    bynick, timestr, byhost == NULL ? "" : byhost);
++
+ 	g_free(timestr);
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+ static void event_channel_mode(IRC_SERVER_REC *server, const char *data)
+ {
+-	const char *channel;
+-	char *params, *mode;
++	char *params, *channel, *mode;
++	const char *target;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 3 | PARAM_FLAG_GETREST,
+ 				  NULL, &amp;channel, &amp;mode);
+-	channel = get_visible_target(server, channel);
+-	printformat(server, channel, MSGLEVEL_CRAP,
+-		    IRCTXT_CHANNEL_MODE, channel, g_strchomp(mode));
++	channel = recode_in(SERVER(server), channel, NULL);
++	target = get_visible_target(server, channel);
++
++	printformat(server, target, MSGLEVEL_CRAP,
++		    IRCTXT_CHANNEL_MODE, target, g_strchomp(mode));
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+ static void event_channel_created(IRC_SERVER_REC *server, const char *data)
+ {
+-	const char *channel;
+-	char *params, *createtime, *timestr;
++	char *params, *channel, *createtime, *timestr;
++	const char *target;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 3, NULL, &amp;channel, &amp;createtime);
++	channel = recode_in(SERVER(server), channel, NULL);
++	target = get_visible_target(server, channel);
++	timestr = my_asctime((time_t) atol(createtime));
+ 
+-        timestr = my_asctime((time_t) atol(createtime));
+-	channel = get_visible_target(server, channel);
+-	printformat(server, channel, MSGLEVEL_CRAP,
+-		    IRCTXT_CHANNEL_CREATED, channel, timestr);
++	printformat(server, target, MSGLEVEL_CRAP,
++		    IRCTXT_CHANNEL_CREATED, target, timestr);
++
+ 	g_free(timestr);
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -370,22 +404,30 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 3, NULL, &amp;nick, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
++
+ 	printformat(server, nick, MSGLEVEL_CRAP,
+ 		    IRCTXT_INVITING, nick, channel);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+ static void event_chanserv_url(IRC_SERVER_REC *server, const char *data)
+ {
+-	const char *channel;
+-	char *params, *url;
++	char *params, *channel, *url;
++	const char *target;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 3, NULL, &amp;channel, &amp;url);
+-	channel = get_visible_target(server, channel);
+-	printformat(server, channel, MSGLEVEL_CRAP,
+-		    IRCTXT_CHANNEL_URL, channel, url);
++	channel = recode_in(SERVER(server), channel, NULL);
++	target = get_visible_target(server, channel);
++
++	printformat(server, target, MSGLEVEL_CRAP,
++		    IRCTXT_CHANNEL_URL, target, url);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -393,17 +435,18 @@
+ 				     const char *nick, const char *addr)
+ {
+ 	IRC_CHANNEL_REC *chanrec;
+-	char *params, *target;
++	char *params, *channel, *target;
+ 
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2, NULL, &amp;target);
+-	if (!ischannel(*target)) {
++	channel = recode_in(SERVER(server), target, NULL);
++	if (!ischannel(*channel)) {
+ 		/* nick unavailable */
+ 		printformat(server, NULL, MSGLEVEL_CRAP,
+ 			    IRCTXT_NICK_UNAVAILABLE, target);
+ 	} else {
+-		chanrec = irc_channel_find(server, target);
++		chanrec = irc_channel_find(server, channel);
+ 		if (chanrec != NULL &amp;&amp; chanrec-&gt;joined) {
+ 			/* dalnet - can't change nick while being banned */
+ 			print_event_received(server, data, nick, FALSE);
+@@ -414,6 +457,7 @@
+ 		}
+ 	}
+ 
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -441,8 +485,12 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
++
+ 	printformat(server, channel, MSGLEVEL_CRAP,
+ 		    IRCTXT_NO_SUCH_CHANNEL, channel);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -453,7 +501,11 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
++
+ 	printformat(server, NULL, MSGLEVEL_CRAP, format, channel);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -472,6 +524,7 @@
+ 	/* this new addition to ircd breaks completely with older
+ 	   "standards", "nick Duplicate ::!!channel ...." */
+ 	params = event_get_params(data, 3, NULL, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 	p = strchr(channel, ' ');
+ 	if (p != NULL) *p = '\0';
+ 
+@@ -481,6 +534,7 @@
+ 	} else
+ 		print_event_received(server, data, nick, FALSE);
+ 
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -523,9 +577,12 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	chanrec = irc_channel_find(server, channel);
+ 	print_event_received(server, data, nick, chanrec == NULL || chanrec-&gt;joined);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -542,9 +599,12 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	chanrec = irc_channel_find(server, channel);
+ 	print_event_received(server, data, nick, chanrec == NULL || chanrec-&gt;joined);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+Index: src/irc/core/irc-channels.c
+===================================================================
+--- src/irc/core/irc-channels.c	(revision 5190)
++++ src/irc/core/irc-channels.c	(working copy)
+@@ -23,6 +23,7 @@
+ #include "misc.h"
+ #include "levels.h"
+ #include "channels-setup.h"
++#include "recode.h"
+ 
+ #include "bans.h"
+ #include "modes.h"
+@@ -146,11 +147,21 @@
+ 				continue;
+ 		}
+ 		if (outchans-&gt;len &gt; 0) {
++			char *outchans_recoded;
++			char *outkeys_recoded;
++
+ 			g_string_truncate(outchans, outchans-&gt;len-1);
++			outchans_recoded = recode_out(SERVER(server),
++			        outchans-&gt;str, NULL);
+ 			g_string_truncate(outkeys, outkeys-&gt;len-1);
++			outkeys_recoded = recode_out(SERVER(server),
++			        outkeys-&gt;str, NULL);
+ 			irc_send_cmdv(IRC_SERVER(server),
+ 				      use_keys ? "JOIN %s %s" : "JOIN %s",
+-				      outchans-&gt;str, outkeys-&gt;str);
++				      outchans_recoded, outkeys_recoded);
++
++			g_free(outkeys_recoded);
++			g_free(outchans_recoded);
+ 		}
+ 		cmdlen = 0;
+ 		g_string_truncate(outchans,0);
+Index: src/irc/core/irc-nicklist.c
+===================================================================
+--- src/irc/core/irc-nicklist.c	(revision 5190)
++++ src/irc/core/irc-nicklist.c	(working copy)
+@@ -21,6 +21,7 @@
+ #include "module.h"
+ #include "signals.h"
+ #include "misc.h"
++#include "recode.h"
+ 
+ #include "irc-servers.h"
+ #include "irc-channels.h"
+@@ -110,10 +111,12 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 4, NULL, &amp;type, &amp;channel, &amp;names);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	chanrec = irc_channel_find(server, channel);
+ 	if (chanrec == NULL || chanrec-&gt;names_got) {
+ 		/* unknown channel / names list already read */
++		g_free(channel);
+ 		g_free(params);
+ 		return;
+ 	}
+@@ -168,6 +171,7 @@
+ 		}
+ 	}
+ 
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -181,6 +185,7 @@
+ 	g_return_if_fail(server != NULL);
+ 
+ 	params = event_get_params(data, 2, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	chanrec = irc_channel_find(server, channel);
+ 	if (chanrec != NULL &amp;&amp; !chanrec-&gt;names_got) {
+@@ -199,6 +204,7 @@
+ 		signal_emit("channel joined", 1, chanrec);
+ 	}
+ 
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -212,6 +218,7 @@
+ 
+ 	params = event_get_params(data, 8, NULL, &amp;channel, &amp;user, &amp;host,
+ 				  NULL, &amp;nick, &amp;stat, &amp;realname);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	/* get hop count */
+ 	hops = realname;
+@@ -238,6 +245,7 @@
+ 			      strchr(stat, 'G') != NULL, /* gone */
+ 			      strchr(stat, '*') != NULL); /* ircop */
+ 
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+Index: src/irc/core/channel-events.c
+===================================================================
+--- src/irc/core/channel-events.c	(revision 5190)
++++ src/irc/core/channel-events.c	(working copy)
+@@ -59,10 +59,12 @@
+ 	   which we haven't joined yet. 4xx are error codes and should
+ 	   indicate that the join failed. */
+ 	params = event_get_params(line, 3, &amp;numeric, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	if (numeric[0] == '4')
+ 		check_join_failure(server, channel);
+ 
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -73,6 +75,7 @@
+ 	char *params, *channel;
+ 
+ 	params = event_get_params(data, 2, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 	chanrec = *channel == '!' &amp;&amp; channel[1] != '\0' ?
+ 		channel_find(SERVER(server), channel) : NULL;
+ 
+@@ -83,12 +86,15 @@
+ 		if (setup != NULL &amp;&amp; setup-&gt;autojoin) {
+ 			/* it's autojoin channel though, so create it */
+ 			irc_send_cmdv(server, "JOIN !%s", chanrec-&gt;name);
++			g_free(channel);
+ 			g_free(params);
+                         return;
+ 		}
+ 	}
+ 
+ 	check_join_failure(server, channel);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -102,6 +108,7 @@
+ 	/* this new addition to ircd breaks completely with older
+ 	   "standards", "nick Duplicate ::!!channel ...." */
+ 	params = event_get_params(data, 3, NULL, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 	p = strchr(channel, ' ');
+ 	if (p != NULL) *p = '\0';
+ 
+@@ -114,6 +121,7 @@
+ 		}
+ 	}
+ 
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -150,7 +158,11 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 3, NULL, &amp;channel, &amp;topic);
++	channel = recode_in(SERVER(server), channel, NULL);
++
+ 	channel_change_topic(server, channel, topic, NULL, 0);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -162,10 +174,14 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2, &amp;channel, &amp;topic);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 	mask = addr == NULL ? g_strdup(nick) :
+ 		g_strconcat(nick, "!", addr, NULL);
++
+ 	channel_change_topic(server, channel, topic, mask, time(NULL));
++
+ 	g_free(mask);
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -178,9 +194,12 @@
+ 
+ 	params = event_get_params(data, 4, NULL, &amp;channel,
+ 				  &amp;topicby, &amp;topictime);
++	channel = recode_in(SERVER(server), channel, NULL);
++	t = (time_t) atol(topictime);
+ 
+-	t = (time_t) atol(topictime);
+ 	channel_change_topic(server, channel, NULL, topicby, t);
++
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -223,6 +242,7 @@
+ 		server-&gt;userhost = g_strdup(address);
+ 
+ 	params = event_get_params(data, 1, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 	tmp = strchr(channel, 7); /* ^G does something weird.. */
+ 	if (tmp != NULL) *tmp = '\0';
+ 
+@@ -276,6 +296,7 @@
+ 	}
+ 
+ 	g_free(shortchan);
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -292,6 +313,7 @@
+ 	}
+ 
+ 	params = event_get_params(data, 2, &amp;channel, &amp;reason);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	chanrec = channel_find(SERVER(server), channel);
+ 	if (chanrec != NULL &amp;&amp; chanrec-&gt;joined) {
+@@ -299,6 +321,7 @@
+ 		channel_destroy(chanrec);
+ 	}
+ 
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -310,6 +333,7 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 3, &amp;channel, &amp;nick, &amp;reason);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	if (g_strcasecmp(nick, server-&gt;nick) != 0) {
+ 		/* someone else was kicked, no need to do anything */
+@@ -324,6 +348,7 @@
+ 		channel_destroy(chanrec);
+ 	}
+ 
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+@@ -334,6 +359,7 @@
+ 	g_return_if_fail(data != NULL);
+ 
+ 	params = event_get_params(data, 2, NULL, &amp;channel);
++	channel = recode_in(SERVER(server), channel, NULL);
+ 
+ 	if (irc_channel_find(server, channel) == NULL) {
+                 /* check if we're supposed to autojoin this channel */
+@@ -353,6 +379,7 @@
+ 
+ 	g_free_not_null(server-&gt;last_invite);
+ 	server-&gt;last_invite = g_strdup(channel);
++	g_free(channel);
+ 	g_free(params);
+ }
+ 
+Index: src/irc/core/irc-commands.c
+===================================================================
+--- src/irc/core/irc-commands.c	(revision 5190)
++++ src/irc/core/irc-commands.c	(working copy)
+@@ -170,17 +170,20 @@
+ 
+ 	if (*msg != '\0')
+ 		recoded = recode_out(SERVER(server), msg, channame);
++	channame = recode_out(SERVER(server), channame, NULL);
++
+ 	irc_send_cmdv(server, ! recoded ? "PART %s" : "PART %s :%s",
+ 		      channame, recoded);
+ 
+ 	g_free(recoded);
++	g_free(channame);
+ 	cmd_params_free(free_arg);
+ }
+ 
+ /* SYNTAX: KICK [&lt;channel&gt;] &lt;nicks&gt; [&lt;reason&gt;] */
+ static void cmd_kick(const char *data, IRC_SERVER_REC *server, WI_ITEM_REC *item)
+ {
+-	char *channame, *nicks, *reason, *recoded;
++	char *channame, *nicks, *reason;
+ 	void *free_arg;
+ 
+         CMD_IRC_SERVER(server);
+@@ -193,12 +196,14 @@
+ 	if (*channame == '\0' || *nicks == '\0') cmd_param_error(CMDERR_NOT_ENOUGH_PARAMS);
+ 	if (!ischannel(*channame)) cmd_param_error(CMDERR_NOT_JOINED);
+ 
+-	recoded = recode_out(SERVER(server), reason, channame);
+-	g_string_printf(tmpstr, "KICK %s %s :%s", channame, nicks, recoded);
+-	g_free(recoded);
++	reason = recode_out(SERVER(server), reason, channame);
++	channame = recode_out(SERVER(server), channame, NULL);
++	g_string_printf(tmpstr, "KICK %s %s :%s", channame, nicks, reason);
+ 
+ 	irc_send_cmd_split(server, tmpstr-&gt;str, 3, server-&gt;max_kicks_in_cmd);
+ 
++	g_free(reason);
++	g_free(channame);
+ 	cmd_params_free(free_arg);
+ }
+ 
+@@ -207,7 +212,6 @@
+ {
+ 	GHashTable *optlist;
+ 	char *channame, *topic;
+-	char *recoded = NULL;
+ 	void *free_arg;
+ 
+         CMD_IRC_SERVER(server);
+@@ -218,11 +222,13 @@
+ 		return;
+ 
+ 	if (*topic != '\0' || g_hash_table_lookup(optlist, "delete") != NULL)
+-		recoded = recode_out(SERVER(server), topic, channame);
+-	irc_send_cmdv(server, recoded == NULL ? "TOPIC %s" : "TOPIC %s :%s",
+-		      channame, recoded);
+-	g_free(recoded);
++		topic = recode_out(SERVER(server), topic, channame);
++	channame = recode_out(SERVER(server), channame, NULL);
++	irc_send_cmdv(server, topic == NULL ? "TOPIC %s" : "TOPIC %s :%s",
++		      channame, topic);
+ 
++	g_free(topic);
++	g_free(channame);
+ 	cmd_params_free(free_arg);
+ }
+ 
+@@ -244,8 +250,11 @@
+ 
+ 		channame = IRC_CHANNEL(item)-&gt;name;
+ 	}
++	channame = recode_out(SERVER(server), channame, NULL);
+ 
+ 	irc_send_cmdv(server, "INVITE %s %s", nick, channame);
++
++	g_free(channame);
+ 	cmd_params_free(free_arg);
+ }
+ 
+@@ -268,7 +277,10 @@
+ 	     server-&gt;channels_formed &gt; LIST_MAX_CHANNELS_PASS))
+ 		cmd_param_error(CMDERR_NOT_GOOD_IDEA);
+ 
++	str = recode_out(SERVER(server), str, NULL);
+ 	irc_send_cmdv(server, "LIST %s", str);
++
++	g_free(str);
+ 	cmd_params_free(free_arg);
+ }
+ 
+@@ -292,11 +304,14 @@
+ 	}
+ 	if (strcmp(channel, "**") == 0) {
+ 		/* ** displays all nicks.. */
+-		*channel = '\0';
++		irc_send_cmd(server, "WHO");
++	} else {
++		channel = recode_out(SERVER(server), channel, NULL);
++		irc_send_cmdv(server, *rest == '\0' ? "WHO %s" : "WHO %s %s",
++		      channel, rest);
++		g_free(channel);
+ 	}
+ 
+-	irc_send_cmdv(server, *rest == '\0' ? "WHO %s" : "WHO %s %s",
+-		      channel, rest);
+ 	cmd_params_free(free_arg);
+ }
+ 
+@@ -324,7 +339,9 @@
+ 		/* ** displays all nicks.. */
+                 irc_send_cmd(server, "NAMES");
+ 	} else {
++		channel = recode_out(SERVER(server), channel, NULL);
+ 		irc_send_cmdv(server, "NAMES %s", channel);
++		g_free(channel);
+ 	}
+ 
+ 	cmd_params_free(free_arg);
+
+</body></email><email><emailId>20100329001358</emailId><senderName>Christoph Fritz</senderName><senderEmail>chf.fritz@googlemail.com</senderEmail><timestampReceived>2010-03-29 00:13:58-0400</timestampReceived><subject>[PATCH] SOCKS, "socksify irssi" vs linking</subject><body>
+
+$ socksify irssi
+-!- Irssi: Unable to connect server irc.freenode.net port 6667 [No route to host]
+
+So I brought lenny's dante up to date and did some small changes to
+configure.in:
+
+1. apt-get source irssi
+2. apply patch
+3. autoreconf -i
+4. dpkg-buildpackage 2&gt;&amp;1 | tee /tmp/irssi_buil.log
+5. dpkg -i irssi_0.8.12-8_i386.deb
+
+$ irssi
+-!- Welcome to the freenode Internet Relay Chat Network
+
+Why doesn't "socksify irssi" work but linking?
+
+[PATCH] Proxy enhancements (incl. native SOCKS5 support) 
+at http://bugs.irssi.org/index.php?do=details&amp;task_id=691
+looks nice, why isn't this in trunk?
+
+---
+ configure.in     |   43 +++++++++++++++++++++++++++++++------------
+ debian/changelog |    7 +++++++
+ debian/control   |    4 +++-
+ debian/rules     |    2 +-
+ 4 files changed, 42 insertions(+), 14 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index a864415..3cfb484 100644
+--- a/configure.in
++++ b/configure.in
+@@ -282,18 +282,37 @@ dnl ** check for socks
+ dnl **
+ 
+ if test "x$want_socks" = "xyes"; then
+-	AC_CHECK_LIB(socks, connect, [
+-		AC_DEFINE(HAVE_SOCKS,, Build with socks support)
+-		LIBS="$LIBS -lsocks"
+-		AC_CHECK_HEADER(socks.h, [
+-			AC_DEFINE(HAVE_SOCKS_H)
+-			CFLAGS="$CFLAGS -DSOCKS"
+-			AC_MSG_RESULT(["socks5 library found, building with it"])
+-		], [
+-			AC_MSG_RESULT(["socks4 library found, building with it"])
+-			CFLAGS="$CFLAGS -Dconnect=Rconnect -Dgetsockname=Rgetsockname \
+-Dgetpeername=Rgetpeername -Dbind=Rbind -Daccept=Raccept -Dlisten=Rlisten \
+                -Dselect=Rselect"
+-		])
+-	])
++		AC_MSG_CHECKING([for socks])
++		oldLIBS=$LIBS
++		LIBS="-lsocks $LIBS"
++		AC_TRY_LINK([void check() { }],
++			[connect();],
++				SOCKS_LIB="-lsocks",
++			SOCKS_LIB="")
++		LIBS=$oldLIBS
++		dnl Debian uses libsocksd
++		if test -z "$SOCKS_LIB"; then
++			oldLIBS=$LIBS
++			LIBS="-lsocksd $LIBS"
++			AC_TRY_LINK([void check() { }],
++				[Rconnect();],
++					SOCKS_LIB="-lsocksd",
++			SOCKS_LIB="")
++			LIBS=$oldLIBS
++		fi
++		if test "$SOCKS_LIB"; then
++			AC_MSG_RESULT(["$SOCKS_LIB found"])
++			AC_DEFINE(HAVE_SOCKS,, Build with socks support)
++			LIBS="$LIBS $SOCKS_LIB"
++			AC_CHECK_HEADER(socks.h, [
++				AC_DEFINE(HAVE_SOCKS_H)
++				CFLAGS="$CFLAGS -DSOCKS"
++				AC_MSG_RESULT(["socks5 library found, building with it"])
++			], [
++				AC_MSG_RESULT(["socks4 library found, building with it"])
++				CFLAGS="$CFLAGS -Dconnect=Rconnect -Dgetsockname=Rgetsockname \
+-Dgetpeername=Rgetpeername -Dbind=Rbind -Daccept=Raccept -Dlisten=Rlisten \
+-Dselect=Rselect" +			])
++		fi
+ fi
+ 
+ dnl **
+diff --git a/debian/changelog b/debian/changelog
+index 74df6db..9e3d965 100644
+--- a/debian/changelog
++++ b/debian/changelog
+@@ -1,3 +1,10 @@
++irssi (0.8.12-8) unstable; urgency=low
++
++  * add SOCKS support
++    (closes: #518235)
++
++ -- Christoph Fritz &lt;chf.fritz@googlemail.com&gt;  Sun, 28 Mar 2010 18:43:23 +0200
++
+ irssi (0.8.12-7) stable; urgency=medium
+ 
+   * Fetch patch wallops-fix to fix CVE-2009-1959 off-by-one in event_wallops
+diff --git a/debian/control b/debian/control
+index fa1197f..bbf929a 100644
+--- a/debian/control
++++ b/debian/control
+@@ -3,7 +3,7 @@ Section: net
+ Priority: optional
+ Maintainer: David Pashley &lt;david@davidpashley.com&gt;
+ Uploaders: Gerfried Fuchs &lt;rhonda@debian.at&gt;
+-Build-Depends: debhelper (&gt;= 5), autotools-dev, libglib2.0-dev, perl (&gt;= 5.8.1), \
+libperl-dev (&gt;= 5.8.1), libncurses5-dev, libssl-dev, openssl, quilt +Build-Depends: \
+debhelper (&gt;= 5), autotools-dev, libglib2.0-dev, perl (&gt;= 5.8.1), libperl-dev (&gt;= \
+5.8.1), libncurses5-dev, libsocksd0-dev, libssl-dev, openssl, quilt  \
+Standards-Version: 3.8.0  Homepage: http://irssi.org/
+ Vcs-Git: git://git.debian.org/git/users/alfie/irssi.git
+@@ -26,6 +26,7 @@ Description: terminal based IRC client
+   * Irssi-proxy
+   * Transparent upgrading
+   * Recode support
++  * SOCKS support
+ 
+ Package: irssi-dev
+ Architecture: any
+@@ -43,5 +44,6 @@ Description: text-mode version of the irssi IRC client development \
+                files
+   * Irssi-proxy
+   * Transparent upgrading
+   * Recode support
++  * SOCKS support
+  .
+  This package includes the development files for the irssi client.
+diff --git a/debian/rules b/debian/rules
+index d5841ad..174ae4d 100755
+--- a/debian/rules
++++ b/debian/rules
+@@ -31,7 +31,7 @@ config.status: patch configure
+ 	CFLAGS="$(CFLAGS)" ./configure --host=$(DEB_HOST_GNU_TYPE) \
+                --build=$(DEB_BUILD_GNU_TYPE) \
+ 			 --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info \
+ 			 --sysconfdir=/etc \
+-	--without-servertest --enable-ipv6 --with-bot --with-proxy \
++	--without-servertest --enable-ipv6 --with-bot --with-proxy --with-socks \
+ 	--enable-perl --with-perl-lib=vendor
+ 
+ 
+-- 
+1.5.6.5
+
+
+</body></email><email><emailId>20100329013038</emailId><senderName>tabris</senderName><senderEmail>tabris@tabris.net</senderEmail><timestampReceived>2010-03-29 01:30:38-0400</timestampReceived><subject>Re: [PATCH] SOCKS, "socksify irssi" vs linking</subject><body>
+
+
+Christoph Fritz wrote:
+&gt; $ socksify irssi
+&gt; -!- Irssi: Unable to connect server irc.freenode.net port 6667 [No route to host]
+&gt;
+&gt; So I brought lenny's dante up to date and did some small changes to
+&gt; configure.in:
+&gt;
+&gt; 1. apt-get source irssi
+&gt; 2. apply patch
+&gt; 3. autoreconf -i
+&gt; 4. dpkg-buildpackage 2&gt;&amp;1 | tee /tmp/irssi_buil.log
+&gt; 5. dpkg -i irssi_0.8.12-8_i386.deb
+&gt;
+&gt; $ irssi
+&gt; -!- Welcome to the freenode Internet Relay Chat Network
+&gt;
+&gt; Why doesn't "socksify irssi" work but linking?
+&gt;
+&gt; [PATCH] Proxy enhancements (incl. native SOCKS5 support) 
+&gt; at http://bugs.irssi.org/index.php?do=details&amp;task_id=691
+&gt; looks nice, why isn't this in trunk?
+&gt;
+&gt; ---
+&gt;  configure.in     |   43 +++++++++++++++++++++++++++++++------------
+&gt;  debian/changelog |    7 +++++++
+&gt;  debian/control   |    4 +++-
+&gt;  debian/rules     |    2 +-
+&gt;  4 files changed, 42 insertions(+), 14 deletions(-)
+&gt;   
+Last time I played with this (several years ago) when I did a build with
+socks support, I then found that I couldn't use it WITHOUT socks. This
+wasn't worth it imo, so I reverted to a non-SOCKS build.
+
+If this is no longer the case, I'd be glad to know.
+
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email></emails>

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20180118195904</emailId><senderName>"commandcom at o2 dot pl"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2018-01-18 19:59:04-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #75845 [NEW]: Missing GtkToolbar::set_orientation() and get_orientation </subject><body></body></email></emails>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20210205065530</emailId><senderName>"jeanmitchell191 at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2021-02-05 06:55:30-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body></body></email><email><emailId>20211214213653</emailId><senderName>"paitynplace7 at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2021-12-14 21:36:53-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         paitynplace7 at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Thanks you it's good
+https://19216811.vn/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2021-12-08 10:59:31] fincherdavid at gmail dot com
+
+Thanks for the best solution and i loved it
+https://19216811.support/
+
+------------------------------------------------------------------------
+[2021-02-05 06:55:30] jeanmitchell191 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+
+
+https://www.krogereschedule.us/
+
+------------------------------------------------------------------------
+[2006-07-30 19:17:24] andrei@php.net
+
+I fixed this in CVS. Now the selection, target, and type properties of \
+GtkSelectionData are GdkAtom objects and you have to cast them to (string) in order \
+to get the string representation. Let me know if this is going to be too cumbersome. \
+I may adjust GtkSelectionData to have just strings instead of GdkAtom objects for \
+properties.
+
+Also, when running your example the 'data' property is NULL. Is that normal?
+
+------------------------------------------------------------------------
+[2006-05-03 18:31:09] cweiske@php.net
+
+Description:
+------------
+Bug in drag'n'drop:
+Drag from "from" button to "to" button.
+You will get a segfault.
+
+
+Reproduce code:
+---------------
+&lt;?php
+$wnd = new GtkWindow();
+$wnd-&gt;connect_simple('destroy', array('Gtk', 'main_quit'));
+$hbox = new GtkHBox();
+$wnd-&gt;add($hbox);
+
+$btnFrom = new GtkButton('From');
+$btnTo   = new GtkButton('To');
+
+$hbox-&gt;pack_start($btnFrom);
+$hbox-&gt;pack_start($btnTo);
+
+$btnFrom-&gt;drag_source_set(
+    Gdk::BUTTON1_MASK,
+    //change to text/plain, and it works
+    array(array('text/xml', 0, 1)),
+    Gdk::ACTION_COPY | Gdk::ACTION_MOVE
+);
+$btnFrom-&gt;connect('drag-data-get', 'onGetDragData');
+
+
+$btnTo-&gt;drag_dest_set(
+    Gtk::DEST_DEFAULT_ALL,
+    //change to text/plain, and it works
+    array(array('text/xml', 0, 1)),
+    Gdk::ACTION_COPY | Gdk::ACTION_MOVE
+);
+
+function onGetDragData($widget, $context, $selection, $info, $time) {
+    var_dump($selection);
+}
+
+
+$wnd-&gt;show_all();
+Gtk::main();
+?&gt;
+
+Actual result:
+--------------
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 16384 (LWP 20870)]
+0xb7c5b203 in strlen () from /lib/libc.so.6
+(gdb) bt
+#0  0xb7c5b203 in strlen () from /lib/libc.so.6
+#1  0xb75dbcbd in phpg_GtkSelectionData_read_type (object=0x8eb03ec,
+    return_value=0xbf8f3cf0) at gen_gtk.c:45552
+#2  0xb75ff86b in phpg_get_properties (object=0x8d9bb74)
+    at /data/cvs/phpgtk2/php-gtk/main/phpg_support.c:173
+#3  0x082c852b in php_var_dump (struc=0x87d1e64, level=1)
+    at /data/cvs/php/php-5.1.2/ext/standard/var.c:139
+#4  0x082c8736 in zif_var_dump (ht=1, return_value=0x8da9a74,
+    return_value_ptr=0x0, this_ptr=0x0, return_value_used=0)
+    at /data/cvs/php/php-5.1.2/ext/standard/var.c:192
+#5  0x0834a906 in zend_do_fcall_common_helper_SPEC (execute_data=0xbf8f3e20)
+    at zend_vm_execute.h:192
+#6  0x0834a218 in execute (op_array=0x8d95078) at zend_vm_execute.h:92
+#7  0x08328339 in zend_call_function (fci=0xbf8f3f50, fci_cache=0x0)
+    at /data/cvs/php/php-5.1.2/Zend/zend_execute_API.c:907
+#8  0x08327bae in call_user_function_ex (function_table=0x0, object_pp=0x0,
+    function_name=0x0, retval_ptr_ptr=0x0, param_count=0, params=0x0,
+    no_separation=0, symbol_table=0x0)
+    at /data/cvs/php/php-5.1.2/Zend/zend_execute_API.c:571
+#9  0xb7605a8a in phpg_closure_marshal (closure=0x8da9b50, return_value=0x0,
+    n_param_values=5, param_values=0xbf8f4210, invocation_hint=0xbf8f40f8,
+    marshal_data=0x0) at /data/cvs/phpgtk2/php-gtk/main/phpg_closure.c:124
+#10 0xb6fe330e in g_closure_invoke () from /usr/lib/libgobject-2.0.so.0
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20211208105931</emailId><senderName>"fincherdavid at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2021-12-08 10:59:31-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37297 [Com]: segfault when dumping GtkSelectionData</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+ ID:                 37297
+ Comment by:         fincherdavid at gmail dot com
+ Reported by:        cweiske@php.net
+ Summary:            segfault when dumping GtkSelectionData
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux/Gentoo
+ PHP Version:        5.1.3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Thanks for the best solution and i loved it
+https://19216811.support/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2021-02-05 06:55:30] jeanmitchell191 at gmail dot com
+
+Facing same issue here. Help is appreciated. Thanks for the info i will try to figure \
+it out for more.
+
+
+
+https://www.krogereschedule.us/
+
+------------------------------------------------------------------------
+[2006-07-30 19:17:24] andrei@php.net
+
+I fixed this in CVS. Now the selection, target, and type properties of \
+GtkSelectionData are GdkAtom objects and you have to cast them to (string) in order \
+to get the string representation. Let me know if this is going to be too cumbersome. \
+I may adjust GtkSelectionData to have just strings instead of GdkAtom objects for \
+properties.
+
+Also, when running your example the 'data' property is NULL. Is that normal?
+
+------------------------------------------------------------------------
+[2006-05-03 18:31:09] cweiske@php.net
+
+Description:
+------------
+Bug in drag'n'drop:
+Drag from "from" button to "to" button.
+You will get a segfault.
+
+
+Reproduce code:
+---------------
+&lt;?php
+$wnd = new GtkWindow();
+$wnd-&gt;connect_simple('destroy', array('Gtk', 'main_quit'));
+$hbox = new GtkHBox();
+$wnd-&gt;add($hbox);
+
+$btnFrom = new GtkButton('From');
+$btnTo   = new GtkButton('To');
+
+$hbox-&gt;pack_start($btnFrom);
+$hbox-&gt;pack_start($btnTo);
+
+$btnFrom-&gt;drag_source_set(
+    Gdk::BUTTON1_MASK,
+    //change to text/plain, and it works
+    array(array('text/xml', 0, 1)),
+    Gdk::ACTION_COPY | Gdk::ACTION_MOVE
+);
+$btnFrom-&gt;connect('drag-data-get', 'onGetDragData');
+
+
+$btnTo-&gt;drag_dest_set(
+    Gtk::DEST_DEFAULT_ALL,
+    //change to text/plain, and it works
+    array(array('text/xml', 0, 1)),
+    Gdk::ACTION_COPY | Gdk::ACTION_MOVE
+);
+
+function onGetDragData($widget, $context, $selection, $info, $time) {
+    var_dump($selection);
+}
+
+
+$wnd-&gt;show_all();
+Gtk::main();
+?&gt;
+
+Actual result:
+--------------
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 16384 (LWP 20870)]
+0xb7c5b203 in strlen () from /lib/libc.so.6
+(gdb) bt
+#0  0xb7c5b203 in strlen () from /lib/libc.so.6
+#1  0xb75dbcbd in phpg_GtkSelectionData_read_type (object=0x8eb03ec,
+    return_value=0xbf8f3cf0) at gen_gtk.c:45552
+#2  0xb75ff86b in phpg_get_properties (object=0x8d9bb74)
+    at /data/cvs/phpgtk2/php-gtk/main/phpg_support.c:173
+#3  0x082c852b in php_var_dump (struc=0x87d1e64, level=1)
+    at /data/cvs/php/php-5.1.2/ext/standard/var.c:139
+#4  0x082c8736 in zif_var_dump (ht=1, return_value=0x8da9a74,
+    return_value_ptr=0x0, this_ptr=0x0, return_value_used=0)
+    at /data/cvs/php/php-5.1.2/ext/standard/var.c:192
+#5  0x0834a906 in zend_do_fcall_common_helper_SPEC (execute_data=0xbf8f3e20)
+    at zend_vm_execute.h:192
+#6  0x0834a218 in execute (op_array=0x8d95078) at zend_vm_execute.h:92
+#7  0x08328339 in zend_call_function (fci=0xbf8f3f50, fci_cache=0x0)
+    at /data/cvs/php/php-5.1.2/Zend/zend_execute_API.c:907
+#8  0x08327bae in call_user_function_ex (function_table=0x0, object_pp=0x0,
+    function_name=0x0, retval_ptr_ptr=0x0, param_count=0, params=0x0,
+    no_separation=0, symbol_table=0x0)
+    at /data/cvs/php/php-5.1.2/Zend/zend_execute_API.c:571
+#9  0xb7605a8a in phpg_closure_marshal (closure=0x8da9b50, return_value=0x0,
+    n_param_values=5, param_values=0xbf8f4210, invocation_hint=0xbf8f40f8,
+    marshal_data=0x0) at /data/cvs/phpgtk2/php-gtk/main/phpg_closure.c:124
+#10 0xb6fe330e in g_closure_invoke () from /usr/lib/libgobject-2.0.so.0
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=37297&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email></emails>

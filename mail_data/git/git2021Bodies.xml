@@ -1,0 +1,1677 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20211112042232</emailId><senderName>Theodore Li</senderName><senderEmail>teddy.litheodore@gmail.com</senderEmail><timestampReceived>2021-11-12 04:22:32-0400</timestampReceived><subject>bug report</subject><body>
+
+Thank you for filling out a Git bug report!
+Please answer the following questions to help us understand your issue.
+
+What did you do before the bug happened? (Steps to reproduce your issue)
+After cloning a remote repository with the --no-checkout option and
+executing git sparse-checkout init, the bug occurs with any
+sparse-checkout command with the /* pattern (i.e. git sparse-checkout
+set /*).
+
+What did you expect to happen? (Expected behavior)
+The contents of .git/info/sparse-checkout and the output of git
+sparse-checkout list should be '/*'
+
+What happened instead? (Actual behavior)
+Instead, the output is the contents of the user's local root directory
+(i.e. /bin, /boot, /cdrom, etc.).
+
+What's different between what you expected and what actually happened?
+It should set sparse-checkout to the pattern /*, corresponding to the
+remote repository's root directory instead of adding all the folders
+and files in the root directory of the user's local machine.
+
+Anything else you want to add:
+
+Please review the rest of the bug report below.
+You can delete any lines you don't wish to share.
+
+
+[System Info]
+git version:
+git version 2.33.1
+cpu: x86_64
+no commit associated with this build
+sizeof-long: 8
+sizeof-size_t: 8
+shell-path: /bin/sh
+compiler info: gnuc: 9.3
+libc info: glibc: 2.31
+$SHELL (typically, interactive shell): /bin/bash
+
+
+[Enabled Hooks]
+</body></email><email><emailId>20211112042959</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2021-11-12 04:29:59-0400</timestampReceived><subject>Re: bug report</subject><body>
+
+Theodore Li &lt;teddy.litheodore@gmail.com&gt; writes:
+
+&gt; Thank you for filling out a Git bug report!
+&gt; Please answer the following questions to help us understand your issue.
+&gt;
+&gt; What did you do before the bug happened? (Steps to reproduce your issue)
+&gt; After cloning a remote repository with the --no-checkout option and
+&gt; executing git sparse-checkout init, the bug occurs with any
+&gt; sparse-checkout command with the /* pattern (i.e. git sparse-checkout
+&gt; set /*).
+&gt;
+&gt; What did you expect to happen? (Expected behavior)
+&gt; The contents of .git/info/sparse-checkout and the output of git
+&gt; sparse-checkout list should be '/*'
+&gt;
+&gt; What happened instead? (Actual behavior)
+&gt; Instead, the output is the contents of the user's local root directory
+&gt; (i.e. /bin, /boot, /cdrom, etc.).
+
+A blind guess, as I do not use sparse patterns, but perhaps you did
+not quote the "/*' pattern, i.e. you typed
+
+    $ git sparse-checkout set /*
+
+where you would have got a better behaviour if you typed
+
+    $ git sparse-checkout set "/*"
+
+?
+</body></email><email><emailId>20211112065949</emailId><senderName>Theodore Li</senderName><senderEmail>teddy.litheodore@gmail.com</senderEmail><timestampReceived>2021-11-12 06:59:49-0400</timestampReceived><subject>Re: bug report</subject><body>
+
+Yes, though other patterns like !/*/ don't need the quotes. I thought
+it worked the same way without the quotes in earlier versions, but
+after testing with version 2.32.0, it seems like the behavior is the
+same. Guess I remembered wrong.
+
+On Thu, Nov 11, 2021 at 11:30 PM Junio C Hamano &lt;gitster@pobox.com&gt; wrote:
+&gt;
+&gt; Theodore Li &lt;teddy.litheodore@gmail.com&gt; writes:
+&gt;
+&gt; &gt; Thank you for filling out a Git bug report!
+&gt; &gt; Please answer the following questions to help us understand your issue.
+&gt; &gt;
+&gt; &gt; What did you do before the bug happened? (Steps to reproduce your issue)
+&gt; &gt; After cloning a remote repository with the --no-checkout option and
+&gt; &gt; executing git sparse-checkout init, the bug occurs with any
+&gt; &gt; sparse-checkout command with the /* pattern (i.e. git sparse-checkout
+&gt; &gt; set /*).
+&gt; &gt;
+&gt; &gt; What did you expect to happen? (Expected behavior)
+&gt; &gt; The contents of .git/info/sparse-checkout and the output of git
+&gt; &gt; sparse-checkout list should be '/*'
+&gt; &gt;
+&gt; &gt; What happened instead? (Actual behavior)
+&gt; &gt; Instead, the output is the contents of the user's local root directory
+&gt; &gt; (i.e. /bin, /boot, /cdrom, etc.).
+&gt;
+&gt; A blind guess, as I do not use sparse patterns, but perhaps you did
+&gt; not quote the "/*' pattern, i.e. you typed
+&gt;
+&gt;     $ git sparse-checkout set /*
+&gt;
+&gt; where you would have got a better behaviour if you typed
+&gt;
+&gt;     $ git sparse-checkout set "/*"
+&gt;
+&gt; ?
+</body></email><email><emailId>20211112140556</emailId><senderName>Paul Smith</senderName><senderEmail>paul@mad-scientist.net</senderEmail><timestampReceived>2021-11-12 14:05:56-0400</timestampReceived><subject>Re: bug report</subject><body>
+
+On Fri, 2021-11-12 at 01:59 -0500, Theodore Li wrote:
+&gt; Yes, though other patterns like !/*/ don't need the quotes. I thought
+&gt; it worked the same way without the quotes in earlier versions, but
+&gt; after testing with version 2.32.0, it seems like the behavior is the
+&gt; same. Guess I remembered wrong.
+
+It's important to realize that in a POSIX-style shell (as you'll find
+on GNU/Linux or MacOS, or in the Git for Windows shell), wildcard
+expansion is performed _by the shell_ before the program is even
+invoked.  It's not performed by the program itself (in this case, Git).
+
+In a POSIX-style shell it works like this (by default): first the shell
+will try to expand the wildcards in your command line by matching them
+for files.  If any match, the wildcard expression is replaced on the
+command line.  If no files match, then the wildcard expression is
+passed to the command without change.
+
+So if you run:
+
+  git sparse-checkout /*
+
+then the shell will check if any files match the wildcard /*: since
+clearly you will get matches for this expression, they will be expanded
+and the shell will actually run:
+
+  git sparse-checkout /bin /boot /cdrom /dev /...
+
+Note, Git does not receive any indication that there ever was a
+wildcard expression here!
+
+On the other hand if you run:
+
+  git sparse-checkout /blah/*/blah
+
+(assuming you don't have any files on your system that match this
+wildcard) then it won't match and the shell will run:
+
+  git sparse-checkout /blah/*/blah
+
+Now Git can examine this wildcard and do an appropriate thing with it.
+
+In short, if you want to be _sure_ that a wildcard expression is passed
+to the command and not expanded by the shell, you must always quote it:
+
+  git sparse-checkout "/*"
+
+If you don't quote it then it may or may not do what you intended,
+depending on whether the wildcard happens to match any files.
+
+</body></email><email><emailId>20211201223103</emailId><senderName>Josh Rampersad</senderName><senderEmail>josh.rampersad@voiceflow.com</senderEmail><timestampReceived>2021-12-01 22:31:03-0400</timestampReceived><subject>Bug Report</subject><body>
+
+
+Thank you for filling out a Git bug report!
+Please answer the following questions to help us understand your issue.
+
+What did you do before the bug happened? (Steps to reproduce your issue)
+
+Navigated to a non-default branch of the repo.
+I wanted a list of tagged commits for a specific tag pattern relating to a
+package in my repo.
+Ran the command: `git log origin/master --no-walk --grep='my-package' \
+--tags='*my-package*' --decorate-refs='*my-package*'  --format='format:%ct %H %D'` \
+The output was as expected with the tags not relating to my-package being filtered \
+out from the output by the decorate-refs option. I then, wanted to pipe this output \
+to a separate program.
+
+
+What did you expect to happen? (Expected behavior)
+
+I expected that the piped output would be the same as the output in my terminal.
+
+What happened instead? (Actual behavior)
+
+The filtering I got from the decorate-refs flag was no longer being applied. Thus \
+giving me a bunch of tags I did not want
+
+What's different between what you expected and what actually happened?
+
+Whether the decorate-refs option worked as expected.
+
+Anything else you want to add:
+
+Please review the rest of the bug report below.
+You can delete any lines you don't wish to share.
+
+
+[System Info]
+git version:
+git version 2.31.1
+cpu: x86_64
+no commit associated with this build
+sizeof-long: 8
+sizeof-size_t: 8
+shell-path: /bin/sh
+uname: Darwin 20.6.0 Darwin Kernel Version 20.6.0: Wed Jun 23 00:26:27 PDT
+2021; root:xnu-7195.141.2~5/RELEASE_ARM64_T8101 x86_64
+compiler info: clang: 12.0.0 (clang-1200.0.32.29)
+libc info: no libc information available
+$SHELL (typically, interactive shell): /bin/zsh
+
+
+[Enabled Hooks]=
+
+
+</body></email><email><emailId>20211202152904</emailId><senderName>"Mrs. bill Chantal"</senderName><senderEmail>etimbukudo345@gmail.com</senderEmail><timestampReceived>2021-12-02 15:29:04-0400</timestampReceived><subject>BUSINESS PROPOSAL</subject><body>
+
+Dear Friend
+You have been compensated with the sum of 5.4 million dollars in this
+united nation the payment will be Issue into ATM visa card and send to
+you from the bank  we need your address, passport and your Whatsapp
+Number.
+Thanks
+
+Mrs.Bill Chantal
+</body></email><email><emailId>20211213110435</emailId><senderName>ESKOM HOLDINGS LIMITED</senderName><senderEmail>rusxxx112@gmail.com</senderEmail><timestampReceived>2021-12-13 11:04:35-0400</timestampReceived><subject>business proposal</subject><body>
+
+-- 
+ESKOM HOLDINGS LIMITED
+FROM OFFICE OF THE DIRECTOR,
+C/O MS JACKY MOLISANE
+PROJECT IMPLEMENTATION UNIT
+ESKOM HOLDINGS LIMITED
+REPUBLIC OF SOUTH AFRICA
+
+
+I would like you to co-operate with me so that this US$2M (Overdraft)
+will be released and transferred into your account.
+
+I am chairman of contract award committee of Eskom Company Ltd,
+Republic of South Africa. It is my profound intention to contact you
+for this very important and highly confidential opportunity for the
+transfer of US$2,000, 000.00 into your account. The (US$2,000,000.00)
+was the overestimated balance from the contracts awarded to both
+foreign and local contractors, the actual contract value was $120
+million united states dollars, but it was over estimated to the tune
+of (US$122,000, 000,00) (one hundred and twenty two million united
+states dollars only).
+
+The contract has been successfully executed by the contractors and
+their contract sum of (US$120M) has been paid to them, leaving the
+overestimated balance of (US$2,000, 000. 00) United States dollars
+still pending at the bank. Right now, we are left with this over
+estimated balance of (US$2M) which is still floating at the escrow
+account of the South African Reserve Bank awaiting final payment to
+any reliable foreign bank account that may be provided genuinely and
+accordingly.
+
+I am therefore asking you to co-operate with me so that the fund will
+be released and transferred into your account. if you are interested
+in this my proposal, reply me so that we can negotiate your percentage
+before we can proceed however, when the fund is transferred into your
+account over there, I shall obtain visa and travel over there for my
+own share of the money.
+
+
+Thank you and I am looking forward to hearing from you and working
+with you soon, bye for now and have a nice day.
+
+
+My best regards,
+Ms Jacky Molisane
+msjackymolisane@gmail.com
+{+276 573 77 885}
+</body></email><email><emailId>20210130105545</emailId><senderName></senderName><senderEmail>test</senderEmail><timestampReceived>2021-01-30 10:55:45-0400</timestampReceived><subject>DONATION</subject><body>
+
+My name is Charles W. Jackson Jr. and i won $344.6 million Powerball
+jackpot June 4, 2019.
+ I am giving donation to 5 randomly selected emails and yours is one
+of the email i selected from a raffle draw.
+I am donating the sum of $1,000,000 to you and your family in good faith.
+Contact me through email at charlesjacksonjr2@gmail.com to claim
+your donation
+</body></email><email><emailId>20210315193416</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2021-03-15 19:34:16-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+The current maintainer is Junio C Hamano &lt;gitster@pobox.com&gt;; please
+do not send any private message to this address, because it is likely
+that such a message will not be seen by any human being.  Spam filters
+learned that legitimate messages to the address come only from a very
+few sender addresses that are known to be good, and messages from all
+others are likely to be spam unless they are also sent to the mailing
+list at the same time (i.e. "Reply-all" to the list message would
+reach the mailbox, but "Reply" will likely be thrown into the spam
+folder).
+
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+As an anti-spam measure, the mailing list software rejects messages
+that are not text/plain and drops them on the floor.  If you are a
+GMail user, you'd want to make sure "Plain text mode" is checked.
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://lore.kernel.org/git/
+        http://marc.info/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+	nntp://nntp.lore.kernel.org/org.kernel.vger.git
+        nntp://news.public-inbox.org/inbox.comp.version-control.git
+
+are available.
+
+When you point at a message in a mailing list archive, using its
+message ID is often the most robust (if not very friendly) way to do
+so, like this:
+
+	http://lore.kernel.org/git/Pine.LNX.4.58.0504150753440.7211@ppc970.osdl.org
+
+Often these web interfaces accept the message ID with enclosing &lt;&gt;
+stripped (like the above example to point at one of the most important
+message in the Git list).
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on Freenode.  Their logs are
+available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+There is a volunteer-run newsletter to serve our community ("Git Rev
+News" http://git.github.io/rev_news/).
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+For our expectations on the behaviour of the community participants
+towards each other, see CODE_OF_CONDUCT.md at the top level of the source
+tree, or:
+
+    https://github.com/git/git/blob/master/CODE_OF_CONDUCT.md
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.  Our `git bugreport` tool gives you a handy way you can use to
+make sure you do not forget these points when filing a bug report.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.  This is
+a closed list that is limited to people who need to know early about
+vulnerabilities, including:
+
+  - people triaging and fixing reported vulnerabilities
+  - people operating major git hosting sites with many users
+  - people packaging and distributing git to large numbers of people
+
+where these issues are discussed without risk of the information
+leaking out before we're ready to make public announcements.
+
+
+* Repositories and documentation.
+
+My public git.git repositories are (mirrored) at:
+
+  https://git.kernel.org/pub/scm/git/git.git/
+  https://kernel.googlesource.com/pub/scm/git/git
+  https://repo.or.cz/alt-git.git/
+  https://github.com/git/git/
+  https://gitlab.com/git-vcs/git/
+
+This one shows not just the main integration branches, but also
+individual topics broken out:
+
+  https://github.com/gitster/git/
+
+A few web interfaces are found at:
+
+  http://git.kernel.org/pub/scm/git/git.git
+  https://kernel.googlesource.com/pub/scm/git/git
+  http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+  https://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+  https://repo.or.cz/git-{htmldocs,manpages}.git/
+  https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+The manual pages formatted in HTML for the tip of 'master' can be
+viewed online at:
+
+  https://git.github.io/htmldocs/git.html
+
+
+* How various branches are used.
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "seen".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but we have
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.31 done on Mar 15th, 2021.  You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious and safe fixes after a feature
+release are applied to this branch and maintenance releases are cut
+from it.  Usually the fixes are merged to the "master" branch first,
+several days before merged to the "maint" branch, to reduce the chance
+of last-minute issues.  The maintenance releases used to be named with
+four dotted decimal, named after the feature release they are updates
+to (e.g. "1.8.5.1" was the first maintenance release for "1.8.5"
+feature release).  These days, maintenance releases are named by
+incrementing the last digit of three-dotted decimal name (e.g. "2.29.2"
+was the second maintenance release for the "2.29" series).
+
+New features never go to the 'maint' branch.  It is merged into "master"
+primarily to propagate the description in the release notes forward.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" (or somewhere older, especially
+when the topic is about fixing an earlier bug) and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".  Please help this process by building &amp; using the
+"next" branch for your daily work, and reporting any new bugs you find to
+the mailing list, before the breakage is merged down to the "master".
+
+The "seen" (formerly "pu", proposed updates) branch bundles all the
+remaining topic branches the maintainer happens to have seen.  There
+is no guarantee that the maintainer has enough bandwidth to pick up any
+and all topics that are remotely promising from the list traffic, so
+please do not read too much into a topic being on (or not on) the "seen"
+branch.  This branch is mainly to remind the maintainer that the topics
+in them may turn out to be interesting when they are polished, nothing
+more.  The topics on this branch aren't usually complete, well tested,
+or well documented and they often need further work.  When a topic that
+was in "seen" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..seen" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "seen" in such a case.
+The output of the above "git log" talks about a "jch" branch, which is an
+early part of the "seen" branch; that branch contains all topics that
+are in "next" and a bit more (but not all of "seen") and is used by the
+maintainer for his daily work.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+Some topics that used to be in "next" during the previous cycle may
+get ejected from "next" when this happens.
+
+A natural consequence of how "next" and "seen" bundles topics together
+is that until a topic is merged to "next", updates to it is expected
+by replacing the patch(es) in the topic with an improved version,
+and once a topic is merged to "next", updates to it needs to come as
+incremental patches, pointing out what was wrong in the previous
+patches and how the problem was corrected.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pratyush Yadav:
+
+        https://github.com/prati0100/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+When sending proposed updates and fixes to these parts of the system,
+please base your patches on these trees, not git.git (the former two
+even have different directory structures).
+</body></email><email><emailId>20210326225324</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2021-03-26 22:53:24-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+The current maintainer is Junio C Hamano &lt;gitster@pobox.com&gt;; please
+do not send any private message to this address, because it is likely
+that such a message will not be seen by any human being.  Spam filters
+learned that legitimate messages to the address come only from a very
+few sender addresses that are known to be good, and messages from all
+others are likely to be spam unless they are also sent to the mailing
+list at the same time (i.e. "Reply-all" to the list message would
+reach the mailbox, but "Reply" will likely be thrown into the spam
+folder).
+
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+As an anti-spam measure, the mailing list software rejects messages
+that are not text/plain and drops them on the floor.  If you are a
+GMail user, you'd want to make sure "Plain text mode" is checked.
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://lore.kernel.org/git/
+        http://marc.info/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+	nntp://nntp.lore.kernel.org/org.kernel.vger.git
+        nntp://news.public-inbox.org/inbox.comp.version-control.git
+
+are available.
+
+When you point at a message in a mailing list archive, using its
+message ID is often the most robust (if not very friendly) way to do
+so, like this:
+
+	http://lore.kernel.org/git/Pine.LNX.4.58.0504150753440.7211@ppc970.osdl.org
+
+Often these web interfaces accept the message ID with enclosing &lt;&gt;
+stripped (like the above example to point at one of the most important
+message in the Git list).
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on Freenode.  Their logs are
+available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+There is a volunteer-run newsletter to serve our community ("Git Rev
+News" http://git.github.io/rev_news/).
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+For our expectations on the behaviour of the community participants
+towards each other, see CODE_OF_CONDUCT.md at the top level of the source
+tree, or:
+
+    https://github.com/git/git/blob/master/CODE_OF_CONDUCT.md
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.  Our `git bugreport` tool gives you a handy way you can use to
+make sure you do not forget these points when filing a bug report.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.  This is
+a closed list that is limited to people who need to know early about
+vulnerabilities, including:
+
+  - people triaging and fixing reported vulnerabilities
+  - people operating major git hosting sites with many users
+  - people packaging and distributing git to large numbers of people
+
+where these issues are discussed without risk of the information
+leaking out before we're ready to make public announcements.
+
+
+* Repositories and documentation.
+
+My public git.git repositories are (mirrored) at:
+
+  https://git.kernel.org/pub/scm/git/git.git/
+  https://kernel.googlesource.com/pub/scm/git/git
+  https://repo.or.cz/alt-git.git/
+  https://github.com/git/git/
+  https://gitlab.com/git-vcs/git/
+
+This one shows not just the main integration branches, but also
+individual topics broken out:
+
+  https://github.com/gitster/git/
+
+A few web interfaces are found at:
+
+  http://git.kernel.org/pub/scm/git/git.git
+  https://kernel.googlesource.com/pub/scm/git/git
+  http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+  https://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+  https://repo.or.cz/git-{htmldocs,manpages}.git/
+  https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+The manual pages formatted in HTML for the tip of 'master' can be
+viewed online at:
+
+  https://git.github.io/htmldocs/git.html
+
+
+* How various branches are used.
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "seen".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but we have
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.31 done on Mar 15th, 2021.  You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious and safe fixes after a feature
+release are applied to this branch and maintenance releases are cut
+from it.  Usually the fixes are merged to the "master" branch first,
+several days before merged to the "maint" branch, to reduce the chance
+of last-minute issues.  The maintenance releases used to be named with
+four dotted decimal, named after the feature release they are updates
+to (e.g. "1.8.5.1" was the first maintenance release for "1.8.5"
+feature release).  These days, maintenance releases are named by
+incrementing the last digit of three-dotted decimal name (e.g. "2.29.2"
+was the second maintenance release for the "2.29" series).
+
+New features never go to the 'maint' branch.  It is merged into "master"
+primarily to propagate the description in the release notes forward.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" (or somewhere older, especially
+when the topic is about fixing an earlier bug) and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".  Please help this process by building &amp; using the
+"next" branch for your daily work, and reporting any new bugs you find to
+the mailing list, before the breakage is merged down to the "master".
+
+The "seen" (formerly "pu", proposed updates) branch bundles all the
+remaining topic branches the maintainer happens to have seen.  There
+is no guarantee that the maintainer has enough bandwidth to pick up any
+and all topics that are remotely promising from the list traffic, so
+please do not read too much into a topic being on (or not on) the "seen"
+branch.  This branch is mainly to remind the maintainer that the topics
+in them may turn out to be interesting when they are polished, nothing
+more.  The topics on this branch aren't usually complete, well tested,
+or well documented and they often need further work.  When a topic that
+was in "seen" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..seen" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "seen" in such a case.
+The output of the above "git log" talks about a "jch" branch, which is an
+early part of the "seen" branch; that branch contains all topics that
+are in "next" and a bit more (but not all of "seen") and is used by the
+maintainer for his daily work.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+Some topics that used to be in "next" during the previous cycle may
+get ejected from "next" when this happens.
+
+A natural consequence of how "next" and "seen" bundles topics together
+is that until a topic is merged to "next", updates to it is expected
+by replacing the patch(es) in the topic with an improved version,
+and once a topic is merged to "next", updates to it needs to come as
+incremental patches, pointing out what was wrong in the previous
+patches and how the problem was corrected.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pratyush Yadav:
+
+        https://github.com/prati0100/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+When sending proposed updates and fixes to these parts of the system,
+please base your patches on these trees, not git.git (the former two
+even have different directory structures).
+</body></email><email><emailId>20210327065908</emailId><senderName>Bagas Sanjaya</senderName><senderEmail>bagasdotme@gmail.com</senderEmail><timestampReceived>2021-03-27 06:59:08-0400</timestampReceived><subject>Re: A note from the maintainer</subject><body>
+
+On 27/03/21 05.53, Junio C Hamano wrote:
+&gt; Welcome to the Git development community.
+&gt; 
+&gt; This message is written by the maintainer and talks about how Git
+&gt; project is managed, and how you can work with it.
+&gt; 
+&gt; The current maintainer is Junio C Hamano &lt;gitster@pobox.com&gt;; please
+&gt; do not send any private message to this address, because it is likely
+&gt; that such a message will not be seen by any human being.  Spam filters
+&gt; learned that legitimate messages to the address come only from a very
+&gt; few sender addresses that are known to be good, and messages from all
+&gt; others are likely to be spam unless they are also sent to the mailing
+&gt; list at the same time (i.e. "Reply-all" to the list message would
+&gt; reach the mailbox, but "Reply" will likely be thrown into the spam
+&gt; folder).
+&gt; 
+&gt; 
+&gt; * Mailing list and the community
+&gt; 
+&gt; The development is primarily done on the Git mailing list. Help
+&gt; requests, feature proposals, bug reports and patches should be sent to
+&gt; the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+&gt; subscribed to send messages.  The convention on the list is to keep
+&gt; everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+&gt; I am not subscribed".
+&gt; 
+&gt; As an anti-spam measure, the mailing list software rejects messages
+&gt; that are not text/plain and drops them on the floor.  If you are a
+&gt; GMail user, you'd want to make sure "Plain text mode" is checked.
+&gt; 
+&gt; Before sending patches, please read Documentation/SubmittingPatches
+&gt; and Documentation/CodingGuidelines to familiarize yourself with the
+&gt; project convention.
+&gt; 
+&gt; If you sent a patch and you did not hear any response from anybody for
+&gt; several days, it could be that your patch was totally uninteresting,
+&gt; but it also is possible that it was simply lost in the noise.  Please
+&gt; do not hesitate to send a reminder message in such a case.  Messages
+&gt; getting lost in the noise may be a sign that those who can evaluate
+&gt; your patch don't have enough mental/time bandwidth to process them
+&gt; right at the moment, and it often helps to wait until the list traffic
+&gt; becomes calmer before sending such a reminder.
+&gt; 
+&gt; The list archive is available at a few public sites:
+&gt; 
+&gt;          http://lore.kernel.org/git/
+&gt;          http://marc.info/?l=git
+&gt;          http://www.spinics.net/lists/git/
+&gt; 
+&gt; For those who prefer to read it over NNTP:
+&gt; 
+&gt; 	nntp://nntp.lore.kernel.org/org.kernel.vger.git
+&gt;          nntp://news.public-inbox.org/inbox.comp.version-control.git
+&gt; 
+&gt; are available.
+&gt; 
+&gt; When you point at a message in a mailing list archive, using its
+&gt; message ID is often the most robust (if not very friendly) way to do
+&gt; so, like this:
+&gt; 
+&gt; 	http://lore.kernel.org/git/Pine.LNX.4.58.0504150753440.7211@ppc970.osdl.org
+&gt; 
+&gt; Often these web interfaces accept the message ID with enclosing &lt;&gt;
+&gt; stripped (like the above example to point at one of the most important
+&gt; message in the Git list).
+&gt; 
+&gt; Some members of the development community can sometimes be found on
+&gt; the #git and #git-devel IRC channels on Freenode.  Their logs are
+&gt; available at:
+&gt; 
+&gt;          http://colabti.org/irclogger/irclogger_log/git
+&gt;          http://colabti.org/irclogger/irclogger_log/git-devel
+&gt; 
+&gt; There is a volunteer-run newsletter to serve our community ("Git Rev
+&gt; News" http://git.github.io/rev_news/).
+&gt; 
+&gt; Git is a member project of software freedom conservancy, a non-profit
+&gt; organization (https://sfconservancy.org/).  To reach a committee of
+&gt; liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+&gt; 
+&gt; For our expectations on the behaviour of the community participants
+&gt; towards each other, see CODE_OF_CONDUCT.md at the top level of the source
+&gt; tree, or:
+&gt; 
+&gt;      https://github.com/git/git/blob/master/CODE_OF_CONDUCT.md
+&gt; 
+&gt; 
+&gt; * Reporting bugs
+&gt; 
+&gt; When you think git does not behave as you expect, please do not stop
+&gt; your bug report with just "git does not work".  "I used git in this
+&gt; way, but it did not work" is not much better, neither is "I used git
+&gt; in this way, and X happend, which is broken".  It often is that git is
+&gt; correct to cause X happen in such a case, and it is your expectation
+&gt; that is broken. People would not know what other result Y you expected
+&gt; to see instead of X, if you left it unsaid.
+&gt; 
+&gt; Please remember to always state
+&gt; 
+&gt;   - what you wanted to achieve;
+&gt; 
+&gt;   - what you did (the version of git and the command sequence to reproduce
+&gt;     the behavior);
+&gt; 
+&gt;   - what you saw happen (X above);
+&gt; 
+&gt;   - what you expected to see (Y above); and
+&gt; 
+&gt;   - how the last two are different.
+&gt; 
+&gt; See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+&gt; hints.  Our `git bugreport` tool gives you a handy way you can use to
+&gt; make sure you do not forget these points when filing a bug report.
+&gt; 
+&gt; If you think you found a security-sensitive issue and want to disclose
+&gt; it to us without announcing it to wider public, please contact us at
+&gt; our security mailing list &lt;git-security@googlegroups.com&gt;.  This is
+&gt; a closed list that is limited to people who need to know early about
+&gt; vulnerabilities, including:
+&gt; 
+&gt;    - people triaging and fixing reported vulnerabilities
+&gt;    - people operating major git hosting sites with many users
+&gt;    - people packaging and distributing git to large numbers of people
+&gt; 
+&gt; where these issues are discussed without risk of the information
+&gt; leaking out before we're ready to make public announcements.
+&gt; 
+&gt; 
+&gt; * Repositories and documentation.
+&gt; 
+&gt; My public git.git repositories are (mirrored) at:
+&gt; 
+&gt;    https://git.kernel.org/pub/scm/git/git.git/
+&gt;    https://kernel.googlesource.com/pub/scm/git/git
+&gt;    https://repo.or.cz/alt-git.git/
+&gt;    https://github.com/git/git/
+&gt;    https://gitlab.com/git-vcs/git/
+&gt; 
+&gt; This one shows not just the main integration branches, but also
+&gt; individual topics broken out:
+&gt; 
+&gt;    https://github.com/gitster/git/
+&gt; 
+&gt; A few web interfaces are found at:
+&gt; 
+&gt;    http://git.kernel.org/pub/scm/git/git.git
+&gt;    https://kernel.googlesource.com/pub/scm/git/git
+&gt;    http://repo.or.cz/w/alt-git.git
+&gt; 
+&gt; Preformatted documentation from the tip of the "master" branch can be
+&gt; found in:
+&gt; 
+&gt;    https://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+&gt;    https://repo.or.cz/git-{htmldocs,manpages}.git/
+&gt;    https://github.com/gitster/git-{htmldocs,manpages}.git/
+&gt; 
+&gt; The manual pages formatted in HTML for the tip of 'master' can be
+&gt; viewed online at:
+&gt; 
+&gt;    https://git.github.io/htmldocs/git.html
+&gt; 
+&gt; 
+&gt; * How various branches are used.
+&gt; 
+&gt; There are four branches in git.git repository that track the source tree
+&gt; of git: "master", "maint", "next", and "seen".
+&gt; 
+&gt; The "master" branch is meant to contain what are very well tested and
+&gt; ready to be used in a production setting.  Every now and then, a
+&gt; "feature release" is cut from the tip of this branch.  They used to be
+&gt; named with three dotted decimal digits (e.g. "1.8.5"), but we have
+&gt; switched the versioning scheme and "feature releases" are named with
+&gt; three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+&gt; 
+&gt; The last such release was 2.31 done on Mar 15th, 2021.  You can expect
+&gt; that the tip of the "master" branch is always more stable than any of
+&gt; the released versions.
+&gt; 
+&gt; Whenever a feature release is made, "maint" branch is forked off from
+&gt; "master" at that point.  Obvious and safe fixes after a feature
+&gt; release are applied to this branch and maintenance releases are cut
+&gt; from it.  Usually the fixes are merged to the "master" branch first,
+&gt; several days before merged to the "maint" branch, to reduce the chance
+&gt; of last-minute issues.  The maintenance releases used to be named with
+&gt; four dotted decimal, named after the feature release they are updates
+&gt; to (e.g. "1.8.5.1" was the first maintenance release for "1.8.5"
+&gt; feature release).  These days, maintenance releases are named by
+&gt; incrementing the last digit of three-dotted decimal name (e.g. "2.29.2"
+&gt; was the second maintenance release for the "2.29" series).
+&gt; 
+&gt; New features never go to the 'maint' branch.  It is merged into "master"
+&gt; primarily to propagate the description in the release notes forward.
+&gt; 
+&gt; A new development does not usually happen on "master". When you send a
+&gt; series of patches, after review on the mailing list, a separate topic
+&gt; branch is forked from the tip of "master" (or somewhere older, especially
+&gt; when the topic is about fixing an earlier bug) and your patches are queued
+&gt; there, and kept out of "master" while people test it out. The quality of
+&gt; topic branches are judged primarily by the mailing list discussions.
+&gt; 
+&gt; Topic branches that are in good shape are merged to the "next" branch. In
+&gt; general, the "next" branch always contains the tip of "master".  It might
+&gt; not be quite rock-solid, but is expected to work more or less without major
+&gt; breakage. The "next" branch is where new and exciting things take place. A
+&gt; topic that is in "next" is expected to be polished to perfection before it
+&gt; is merged to "master".  Please help this process by building &amp; using the
+&gt; "next" branch for your daily work, and reporting any new bugs you find to
+&gt; the mailing list, before the breakage is merged down to the "master".
+&gt; 
+&gt; The "seen" (formerly "pu", proposed updates) branch bundles all the
+&gt; remaining topic branches the maintainer happens to have seen.  There
+&gt; is no guarantee that the maintainer has enough bandwidth to pick up any
+&gt; and all topics that are remotely promising from the list traffic, so
+&gt; please do not read too much into a topic being on (or not on) the "seen"
+&gt; branch.  This branch is mainly to remind the maintainer that the topics
+&gt; in them may turn out to be interesting when they are polished, nothing
+&gt; more.  The topics on this branch aren't usually complete, well tested,
+&gt; or well documented and they often need further work.  When a topic that
+&gt; was in "seen" proves to be in a testable shape, it is merged to "next".
+&gt; 
+&gt; You can run "git log --first-parent master..seen" to see what topics are
+&gt; currently in flight.  Sometimes, an idea that looked promising turns out
+&gt; to be not so good and the topic can be dropped from "seen" in such a case.
+&gt; The output of the above "git log" talks about a "jch" branch, which is an
+&gt; early part of the "seen" branch; that branch contains all topics that
+&gt; are in "next" and a bit more (but not all of "seen") and is used by the
+&gt; maintainer for his daily work.
+&gt; 
+&gt; The two branches "master" and "maint" are never rewound, and "next"
+&gt; usually will not be either.  After a feature release is made from
+&gt; "master", however, "next" will be rebuilt from the tip of "master"
+&gt; using the topics that didn't make the cut in the feature release.
+&gt; Some topics that used to be in "next" during the previous cycle may
+&gt; get ejected from "next" when this happens.
+&gt; 
+&gt; A natural consequence of how "next" and "seen" bundles topics together
+&gt; is that until a topic is merged to "next", updates to it is expected
+&gt; by replacing the patch(es) in the topic with an improved version,
+&gt; and once a topic is merged to "next", updates to it needs to come as
+&gt; incremental patches, pointing out what was wrong in the previous
+&gt; patches and how the problem was corrected.
+&gt; 
+&gt; Note that being in "next" is not a guarantee to appear in the next
+&gt; release, nor even in any future release.  There were cases that topics
+&gt; needed reverting a few commits in them before graduating to "master",
+&gt; or a topic that already was in "next" was reverted from "next" because
+&gt; fatal flaws were found in it after it was merged to "next".
+&gt; 
+&gt; 
+&gt; * Other people's trees.
+&gt; 
+&gt; Documentation/SubmittingPatches outlines to whom your proposed changes
+&gt; should be sent.  As described in contrib/README, I would delegate fixes
+&gt; and enhancements in contrib/ area to the primary contributors of them.
+&gt; 
+&gt; Although the following are included in git.git repository, they have their
+&gt; own authoritative repository and maintainers:
+&gt; 
+&gt;   - git-gui/ comes from git-gui project, maintained by Pratyush Yadav:
+&gt; 
+&gt;          https://github.com/prati0100/git-gui.git
+&gt; 
+&gt;   - gitk-git/ comes from Paul Mackerras's gitk project:
+&gt; 
+&gt;          git://ozlabs.org/~paulus/gitk
+&gt; 
+&gt;   - po/ comes from the localization coordinator, Jiang Xin:
+&gt; 
+&gt; 	https://github.com/git-l10n/git-po/
+&gt; 
+&gt; When sending proposed updates and fixes to these parts of the system,
+&gt; please base your patches on these trees, not git.git (the former two
+&gt; even have different directory structures).
+&gt; 
+Grazie Junio for this message note.
+
+I would like to see the note above in CONTRIBUTING.md, because new
+contributors will most likely read CONTRIBUTING.md rather than searching
+this ML archive for the note.
+
+-- 
+An old man doll... just what I always wanted! - Clara
+</body></email><email><emailId>20210606141423</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2021-06-06 14:14:23-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+The current maintainer is Junio C Hamano &lt;gitster@pobox.com&gt;; please
+do not send any private message to this address, because it is likely
+that such a message will not be seen by any human being.  Spam filters
+learned that legitimate messages to the address come only from a very
+few sender addresses that are known to be good, and messages from all
+others are likely to be spam unless they are also sent to the mailing
+list at the same time (i.e. "Reply-all" to the list message would
+reach the mailbox, but "Reply" will likely be thrown into the spam
+folder).
+
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+As an anti-spam measure, the mailing list software rejects messages
+that are not text/plain and drops them on the floor.  If you are a
+GMail user, you'd want to make sure "Plain text mode" is checked.
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://lore.kernel.org/git/
+        http://marc.info/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+	nntp://nntp.lore.kernel.org/org.kernel.vger.git
+        nntp://news.public-inbox.org/inbox.comp.version-control.git
+
+are available.
+
+When you point at a message in a mailing list archive, using its
+message ID is often the most robust (if not very friendly) way to do
+so, like this:
+
+	http://lore.kernel.org/git/Pine.LNX.4.58.0504150753440.7211@ppc970.osdl.org
+
+Often these web interfaces accept the message ID with enclosing &lt;&gt;
+stripped (like the above example to point at one of the most important
+message in the Git list).
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on FreeNode (historically, but
+the IRC situation is in flux at the moment).  Their logs are available
+at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+There is a volunteer-run newsletter to serve our community ("Git Rev
+News" http://git.github.io/rev_news/).
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+For our expectations on the behaviour of the community participants
+towards each other, see CODE_OF_CONDUCT.md at the top level of the source
+tree, or:
+
+    https://github.com/git/git/blob/master/CODE_OF_CONDUCT.md
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.  Our `git bugreport` tool gives you a handy way you can use to
+make sure you do not forget these points when filing a bug report.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.  This is
+a closed list that is limited to people who need to know early about
+vulnerabilities, including:
+
+  - people triaging and fixing reported vulnerabilities
+  - people operating major git hosting sites with many users
+  - people packaging and distributing git to large numbers of people
+
+where these issues are discussed without risk of the information
+leaking out before we're ready to make public announcements.
+
+
+* Repositories and documentation.
+
+My public git.git repositories are (mirrored) at:
+
+  https://git.kernel.org/pub/scm/git/git.git/
+  https://kernel.googlesource.com/pub/scm/git/git
+  https://repo.or.cz/alt-git.git/
+  https://github.com/git/git/
+  https://gitlab.com/git-vcs/git/
+
+This one shows not just the main integration branches, but also
+individual topics broken out:
+
+  https://github.com/gitster/git/
+
+A few web interfaces are found at:
+
+  http://git.kernel.org/pub/scm/git/git.git
+  https://kernel.googlesource.com/pub/scm/git/git
+  http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+  https://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+  https://repo.or.cz/git-{htmldocs,manpages}.git/
+  https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+The manual pages formatted in HTML for the tip of 'master' can be
+viewed online at:
+
+  https://git.github.io/htmldocs/git.html
+
+
+* How various branches are used.
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "seen".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but we have
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.32 done on June 6th, 2021.  You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious and safe fixes after a feature
+release are applied to this branch and maintenance releases are cut
+from it.  Usually the fixes are merged to the "master" branch first,
+several days before merged to the "maint" branch, to reduce the chance
+of last-minute issues.  The maintenance releases used to be named with
+four dotted decimal, named after the feature release they are updates
+to (e.g. "1.8.5.1" was the first maintenance release for "1.8.5"
+feature release).  These days, maintenance releases are named by
+incrementing the last digit of three-dotted decimal name (e.g. "2.29.2"
+was the second maintenance release for the "2.29" series).
+
+New features never go to the 'maint' branch.  It is merged into "master"
+primarily to propagate the description in the release notes forward.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" (or somewhere older, especially
+when the topic is about fixing an earlier bug) and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".  Please help this process by building &amp; using the
+"next" branch for your daily work, and reporting any new bugs you find to
+the mailing list, before the breakage is merged down to the "master".
+
+The "seen" (formerly "pu", proposed updates) branch bundles all the
+remaining topic branches the maintainer happens to have seen.  There
+is no guarantee that the maintainer has enough bandwidth to pick up any
+and all topics that are remotely promising from the list traffic, so
+please do not read too much into a topic being on (or not on) the "seen"
+branch.  This branch is mainly to remind the maintainer that the topics
+in them may turn out to be interesting when they are polished, nothing
+more.  The topics on this branch aren't usually complete, well tested,
+or well documented and they often need further work.  When a topic that
+was in "seen" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..seen" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "seen" in such a case.
+The output of the above "git log" talks about a "jch" branch, which is an
+early part of the "seen" branch; that branch contains all topics that
+are in "next" and a bit more (but not all of "seen") and is used by the
+maintainer for his daily work.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+Some topics that used to be in "next" during the previous cycle may
+get ejected from "next" when this happens.
+
+A natural consequence of how "next" and "seen" bundles topics together
+is that until a topic is merged to "next", updates to it is expected
+by replacing the patch(es) in the topic with an improved version,
+and once a topic is merged to "next", updates to it needs to come as
+incremental patches, pointing out what was wrong in the previous
+patches and how the problem was corrected.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pratyush Yadav:
+
+        https://github.com/prati0100/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+When sending proposed updates and fixes to these parts of the system,
+please base your patches on these trees, not git.git (the former two
+even have different directory structures).
+</body></email><email><emailId>20210816230618</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2021-08-16 23:06:18-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+The current maintainer is Junio C Hamano &lt;gitster@pobox.com&gt;; please
+do not send any private message to this address, because it is likely
+that such a message will not be seen by any human being.  Spam filters
+learned that legitimate messages to the address come only from a very
+few sender addresses that are known to be good, and messages from all
+others are likely to be spam unless they are also sent to the mailing
+list at the same time (i.e. "Reply-all" to the list message would
+reach the mailbox, but "Reply" will likely be thrown into the spam
+folder).
+
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+As an anti-spam measure, the mailing list software rejects messages
+that are not text/plain and drops them on the floor.  If you are a
+GMail user, you'd want to make sure "Plain text mode" is checked.
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://lore.kernel.org/git/
+        http://marc.info/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+	nntp://nntp.lore.kernel.org/org.kernel.vger.git
+        nntp://news.public-inbox.org/inbox.comp.version-control.git
+
+are available.
+
+When you point at a message in a mailing list archive, using its
+message ID is often the most robust (if not very friendly) way to do
+so, like this:
+
+	http://lore.kernel.org/git/Pine.LNX.4.58.0504150753440.7211@ppc970.osdl.org
+
+Often these web interfaces accept the message ID with enclosing &lt;&gt;
+stripped (like the above example to point at one of the most important
+message in the Git list).
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on FreeNode (historically, but
+the IRC situation is in flux at the moment).  Their logs are available
+at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+There is a volunteer-run newsletter to serve our community ("Git Rev
+News" http://git.github.io/rev_news/).
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+For our expectations on the behaviour of the community participants
+towards each other, see CODE_OF_CONDUCT.md at the top level of the source
+tree, or:
+
+    https://github.com/git/git/blob/master/CODE_OF_CONDUCT.md
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.  Our `git bugreport` tool gives you a handy way you can use to
+make sure you do not forget these points when filing a bug report.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.  This is
+a closed list that is limited to people who need to know early about
+vulnerabilities, including:
+
+  - people triaging and fixing reported vulnerabilities
+  - people operating major git hosting sites with many users
+  - people packaging and distributing git to large numbers of people
+
+where these issues are discussed without risk of the information
+leaking out before we're ready to make public announcements.
+
+
+* Repositories and documentation.
+
+My public git.git repositories are (mirrored) at:
+
+  https://git.kernel.org/pub/scm/git/git.git/
+  https://kernel.googlesource.com/pub/scm/git/git
+  https://repo.or.cz/alt-git.git/
+  https://github.com/git/git/
+  https://gitlab.com/git-vcs/git/
+
+This one shows not just the main integration branches, but also
+individual topics broken out:
+
+  https://github.com/gitster/git/
+
+A few web interfaces are found at:
+
+  http://git.kernel.org/pub/scm/git/git.git
+  https://kernel.googlesource.com/pub/scm/git/git
+  http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+  https://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+  https://repo.or.cz/git-{htmldocs,manpages}.git/
+  https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+The manual pages formatted in HTML for the tip of 'master' can be
+viewed online at:
+
+  https://git.github.io/htmldocs/git.html
+
+
+* How various branches are used.
+
+There are four "integration" branches in git.git repository that track
+the source tree of git: "master", "maint", "next", and "seen".  They
+however almost never get new commits made directly on them.  Instead,
+a branch is forked from either "master" or "maint" for each "topic",
+whether it is a new feature or fix for a bug, and holds a set of
+commits that belong to the same theme, and then such a "topic branch"
+is merged to these integration branches.
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but we have
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.33 done on August 16th, 2021.  You can
+expect that the tip of the "master" branch is always more stable than
+any of the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious and safe fixes after a feature
+release are merged to this branch and maintenance releases are cut
+from it.  Usually these fixes are merged to the "master" branch first,
+several days before merged to the "maint" branch, to reduce the chance
+of last-minute issues.  The maintenance releases used to be named with
+four dotted decimal, named after the feature release they are updates
+to (e.g. "1.8.5.1" was the first maintenance release for "1.8.5"
+feature release).  These days, maintenance releases are named by
+incrementing the last digit of three-dotted decimal name (e.g.
+"2.29.2" was the second maintenance release for the "2.29" series).
+
+New features never go to the "maint" branch.  It is merged into
+"master" primarily to propagate the description in the release notes
+forward.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" (or somewhere older, especially
+when the topic is about fixing an earlier bug) and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".  Please help this process by building &amp; using the
+"next" branch for your daily work, and reporting any new bugs you find to
+the mailing list, before the breakage is merged down to the "master".
+
+The "seen" (formerly "pu", proposed updates) branch bundles all the
+remaining topic branches the maintainer happens to have seen.  There
+is no guarantee that the maintainer has enough bandwidth to pick up any
+and all topics that are remotely promising from the list traffic, so
+please do not read too much into a topic being on (or not on) the "seen"
+branch.  This branch is mainly to remind the maintainer that the topics
+in them may turn out to be interesting when they are polished, nothing
+more.  The topics on this branch aren't usually complete, well tested,
+or well documented and they often need further work.  When a topic that
+was in "seen" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..seen" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "seen" in such a case.
+The output of the above "git log" talks about a "jch" branch, which is an
+early part of the "seen" branch; that branch contains all topics that
+are in "next" and a bit more (but not all of "seen") and is used by the
+maintainer for his daily work.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+Some topics that used to be in "next" during the previous cycle may
+get ejected from "next" when this happens.
+
+A natural consequence of how "next" and "seen" bundles topics together
+is that until a topic is merged to "next", updates to it is expected
+by replacing the patch(es) in the topic with an improved version,
+and once a topic is merged to "next", updates to it needs to come as
+incremental patches, pointing out what was wrong in the previous
+patches and how the problem was corrected.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pratyush Yadav:
+
+        https://github.com/prati0100/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+When sending proposed updates and fixes to these parts of the system,
+please base your patches on these trees, not git.git (the former two
+even have different directory structures).

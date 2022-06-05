@@ -1,0 +1,1475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20141108192832</emailId><senderName>Michael Blume</senderName><senderEmail>blume.mike@gmail.com</senderEmail><timestampReceived>2014-11-08 19:28:32-0400</timestampReceived><subject>Test failure</subject><body>
+
+I'm on a macbook running a beta of Mac OS Yosemite 10.10.1. I've never
+been able to get GETTEXT to work so I have
+
+NO_GETTEXT=1
+
+in my makefile, but other than that I'm using the master branch of the
+official github mirror.
+
+When I build and run tests I get
+
+[11:17][michael.blume@tcc-michael-4:~/workspace/git/t(master)]$
+./t1410-reflog.sh
+ok 1 - setup
+ok 2 - rewind
+ok 3 - corrupt and check
+ok 4 - reflog expire --dry-run should not touch reflog
+ok 5 - reflog expire
+ok 6 - prune and fsck
+ok 7 - recover and check
+ok 8 - delete
+ok 9 - rewind2
+ok 10 - --expire=never
+ok 11 - gc.reflogexpire=never
+ok 12 - gc.reflogexpire=false
+ok 13 - checkout should not delete log for packed ref
+not ok 14 - stale dirs do not cause d/f conflicts (reflogs on)
+#
+# test_when_finished "git branch -d a || git branch -d a/b" &amp;&amp;
+#
+# git branch a/b master &amp;&amp;
+# echo "a/b@{0} branch: Created from master" &gt;expect &amp;&amp;
+# git log -g --format="%gd %gs" a/b &gt;actual &amp;&amp;
+# test_cmp expect actual &amp;&amp;
+# git branch -d a/b &amp;&amp;
+#
+# # now logs/refs/heads/a is a stale directory, but
+# # we should move it out of the way to create "a" reflog
+# git branch a master &amp;&amp;
+# echo "a@{0} branch: Created from master" &gt;expect &amp;&amp;
+# git log -g --format="%gd %gs" a &gt;actual &amp;&amp;
+# test_cmp expect actual
+#
+not ok 15 - stale dirs do not cause d/f conflicts (reflogs off)
+#
+# test_when_finished "git branch -d a || git branch -d a/b" &amp;&amp;
+#
+# git branch a/b master &amp;&amp;
+# echo "a/b@{0} branch: Created from master" &gt;expect &amp;&amp;
+# git log -g --format="%gd %gs" a/b &gt;actual &amp;&amp;
+# test_cmp expect actual &amp;&amp;
+# git branch -d a/b &amp;&amp;
+#
+# # same as before, but we only create a reflog for "a" if
+# # it already exists, which it does not
+# git -c core.logallrefupdates=false branch a master &amp;&amp;
+# : &gt;expect &amp;&amp;
+# git log -g --format="%gd %gs" a &gt;actual &amp;&amp;
+# test_cmp expect actual
+#
+# failed 2 among 15 test(s)
+
+(I get the same thing with 'make test' but this is me just running the
+problematic test)
+
+A quick search seems to indicate the test is pretty new?
+http://www.mail-archive.com/git@vger.kernel.org/msg60495.html
+
+Test passes in my ubuntu vm.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20141022065714</emailId><senderName>"Michael S. Tsirkin"</senderName><senderEmail>mst@redhat.com</senderEmail><timestampReceived>2014-10-22 06:57:14-0400</timestampReceived><subject>[PATCH] rebase: convert revert to squash on autosquash</subject><body>
+
+Reverts can typically be treated like squash.  Eliminating both the
+original commit and the revert would be even nicer, but this seems a bit
+harder to implement.
+
+Signed-off-by: Michael S. Tsirkin &lt;mst@redhat.com&gt;
+---
+ git-rebase--interactive.sh | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/git-rebase--interactive.sh b/git-rebase--interactive.sh
+index 86edac7..a82bbdf 100644
+--- a/git-rebase--interactive.sh
++++ b/git-rebase--interactive.sh
+@@ -745,7 +745,7 @@ rearrange_squash () {
+ 	while read -r pick sha1 message
+ 	do
+ 		case "$message" in
+-		"squash! "*|"fixup! "*|"ack! "*)
++		"squash! "*|"fixup! "*|"ack! "*|"Revert \""*)
+ 			action="${message%%!*}"
+ 			rest=$message
+ 			prefix=
+@@ -757,6 +757,12 @@ rearrange_squash () {
+ 					prefix="$prefix${rest%%!*},"
+ 					rest="${rest#*! }"
+ 					;;
++				"Revert \""*\")
++					action="squash"
++					prefix="Revert,"
++					rest="${rest#Revert \"}"
++					rest="${rest%%\"}"
++					;;
+ 				*)
+ 					break
+ 					;;
+-- 
+MST
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140218165025</emailId><senderName></senderName><senderEmail>frederique.berrucas@chu-lyon.fr</senderEmail><timestampReceived>2014-02-18 16:50:25-0400</timestampReceived><subject>Business Proposal</subject><body>
+
+I am Mr. Mr. Leung Wing Lok and I work with Hang Seng Bank, Hong Kong. I have a Business Proposal of $19,500,000.00 of mutual benefits. Contact me via leungwlok005@yahoo.com.vn
+for more info.--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140518211747</emailId><senderName>"Michael S. Tsirkin"</senderName><senderEmail>mst@redhat.com</senderEmail><timestampReceived>2014-05-18 21:17:47-0400</timestampReceived><subject>[PATCH 1/4] rebase -i: add ack action</subject><body>
+
+This implements a new ack! action for git rebase -i
+It is essentially a middle ground between fixup! and squash!:
+- commits are squashed silently without editor being started
+- commit logs are concatenated (with action line being discarded)
+- because of the above, empty commits aren't discarded,
+  their log is also included.
+
+I am using it as follows:
+	git am -s &lt; mailbox #creates first commit
+	hack ...
+	get mail with Ack
+	git commit --allow-empty -m `cat &lt;&lt;-EOF
+	ack! first
+
+	Acked-by: maintainer
+	EOF`
+	repeat cycle
+	git rebase --autosquash -i origin/master
+	before public branch push
+
+The "cat" command above is actually a script that
+parses the Ack mail to create the empty commit -
+to be submitted separately.
+
+Signed-off-by: Michael S. Tsirkin &lt;mst@redhat.com&gt;
+---
+ git-rebase--interactive.sh | 34 +++++++++++++++++++++++++++-------
+ 1 file changed, 27 insertions(+), 7 deletions(-)
+
+diff --git a/git-rebase--interactive.sh b/git-rebase--interactive.sh
+index 6ec9d3c..821872c 100644
+--- a/git-rebase--interactive.sh
++++ b/git-rebase--interactive.sh
+@@ -140,6 +140,7 @@ Commands:
+  r, reword = use commit, but edit the commit message
+  e, edit = use commit, but stop for amending
+  s, squash = use commit, but meld into previous commit
++ a, ack = like "squash", but append commit body only to previous commit
+  f, fixup = like "squash", but discard this commit's log message
+  x, exec = run command (the rest of the line) using shell
+ 
+@@ -412,6 +413,15 @@ update_squash_messages () {
+ 		echo
+ 		commit_message $2
+ 		;;
++	ack)
++		if test -f "$fixup_msg"
++		then
++			commit_message $2 | git stripspace --strip-comments | sed -e '1,2d' &gt;&gt; "$fixup_msg"
++		fi
++		printf '%s\n' "$comment_char This is the $(nth_string $count) commit message:"
++		echo
++		commit_message $2
++		;;
+ 	fixup)
+ 		echo
+ 		printf '%s\n' "$comment_char The $(nth_string $count) commit message will be skipped:"
+@@ -453,7 +463,7 @@ record_in_rewritten() {
+ 	echo "$oldsha1" &gt;&gt; "$rewritten_pending"
+ 
+ 	case "$(peek_next_command)" in
+-	squash|s|fixup|f)
++	squash|s|fixup|f|ack|a)
+ 		;;
+ 	*)
+ 		flush_rewritten_pending
+@@ -521,8 +531,11 @@ do_next () {
+ 		warn "Stopped at $sha1... $rest"
+ 		exit_with_patch $sha1 0
+ 		;;
+-	squash|s|fixup|f)
++	squash|s|fixup|f|ack|a)
+ 		case "$command" in
++		ack|a)
++			squash_style=ack
++			;;
+ 		squash|s)
+ 			squash_style=squash
+ 			;;
+@@ -546,7 +559,7 @@ do_next () {
+ 			die_failed_squash $sha1 "$rest"
+ 		fi
+ 		case "$(peek_next_command)" in
+-		squash|s|fixup|f)
++		squash|s|fixup|f|ack|a)
+ 			# This is an intermediate commit; its message will only be
+ 			# used in case of trouble.  So use the long version:
+ 			do_with_author output git commit --amend --no-verify -F "$squash_msg" \
+@@ -557,7 +570,7 @@ do_next () {
+ 			# This is the final command of this squash/fixup group
+ 			if test -f "$fixup_msg"
+ 			then
+-				do_with_author git commit --amend --no-verify -F "$fixup_msg" \
++				do_with_author git commit --quiet --amend --no-verify -F "$fixup_msg" \
+ 					${gpg_sign_opt:+"$gpg_sign_opt"} ||
+ 					die_failed_squash $sha1 "$rest"
+ 			else
+@@ -690,7 +703,7 @@ skip_unnecessary_picks () {
+ 	done &lt;"$todo" &gt;"$todo.new" 3&gt;&gt;"$done" &amp;&amp;
+ 	mv -f "$todo".new "$todo" &amp;&amp;
+ 	case "$(peek_next_command)" in
+-	squash|s|fixup|f)
++	squash|s|fixup|f|ack|a)
+ 		record_in_rewritten "$onto"
+ 		;;
+ 	esac ||
+@@ -732,7 +745,7 @@ rearrange_squash () {
+ 	while read -r pick sha1 message
+ 	do
+ 		case "$message" in
+-		"squash! "*|"fixup! "*)
++		"squash! "*|"fixup! "*|"ack! "*)
+ 			action="${message%%!*}"
+ 			rest=$message
+ 			prefix=
+@@ -740,7 +753,7 @@ rearrange_squash () {
+ 			while :
+ 			do
+ 				case "$rest" in
+-				"squash! "*|"fixup! "*)
++				"squash! "*|"fixup! "* |"ack! "*)
+ 					prefix="$prefix${rest%%!*},"
+ 					rest="${rest#*! }"
+ 					;;
+@@ -975,6 +988,13 @@ do
+ 		comment_out=
+ 	fi
+ 
++	# keep empty ack! commits around: useful to add text to commit log
++	case "$rest" in
++	"ack! "*)
++		comment_out=
++		;;
++	esac
++
+ 	if test t != "$preserve_merges"
+ 	then
+ 		printf '%s\n' "${comment_out}pick $shortsha1 $rest" &gt;&gt;"$todo"
+-- 
+MST
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140604093056</emailId><senderName>Chris Packham</senderName><senderEmail>judge.packham@gmail.com</senderEmail><timestampReceived>2014-06-04 09:30:56-0400</timestampReceived><subject>[RFC PATCH] clone: add clone.recursesubmodules config option</subject><body>
+
+Add a config option that will cause clone to recurse into submodules as
+if the --recurse-submodules option had been specified on the command
+line. This can be overridden with the --no-recurse-submodules option.
+
+Signed-off-by: Chris Packham &lt;judge.packham@gmail.com&gt;
+---
+On 04/06/14 09:05, Junio C Hamano wrote:
+&gt;&gt; Mara Kim &lt;mara.kim@vanderbilt.edu&gt; writes:
+&gt;&gt;
+&gt;&gt;&gt; Apologies if this question has been asked already, but what is the
+&gt;&gt;&gt; reasoning behind making git clone not recursive (--recursive) by
+&gt;&gt;&gt; default?
+&gt;&gt;
+&gt;&gt; The primary reason why submodules are separate repositories is not
+&gt;&gt; to require people to have everything.  Some people want recursive,
+&gt;&gt; some others don't, and the world is not always "majority wins" (not
+&gt;&gt; that I am saying that majority will want recursive).
+&gt;&gt;
+&gt;&gt; Inertia, aka backward compatibility and not surprising existing
+&gt;&gt; users, plays some role when deciding the default.
+&gt;&gt;
+&gt;&gt; Also, going --recursive when the user did not want is a lot more
+&gt;&gt; expensive mistake to fix than not being --recursive when the user
+&gt;&gt; wanted to.
+&gt; 
+&gt; Having said all that, I do not mean to say that I am opposed to
+&gt; introduce some mechanism to let the users express their preference
+&gt; between recursive and non-recursive better, so that "git clone"
+&gt; without an explicit --recursive (or --no-recursive) can work to
+&gt; their taste.  A configuration in $HOME/.gitconfig might be a place
+&gt; to start, even though that has the downside of assuming that the
+&gt; given user would want to use the same settings for all his projects,
+&gt; which may not be the case in practice.
+
+And here's a quick proof of concept. Not sure about the config variable name
+and it could probably do with a negative test as well.
+
+ builtin/clone.c              |  9 +++++++++
+ t/t7407-submodule-foreach.sh | 17 +++++++++++++++++
+ 2 files changed, 26 insertions(+)
+
+diff --git a/builtin/clone.c b/builtin/clone.c
+index b12989d..92aea81 100644
+--- a/builtin/clone.c
++++ b/builtin/clone.c
+@@ -734,6 +734,14 @@ static void write_refspec_config(const char* src_ref_prefix,
+ 	strbuf_release(&amp;value);
+ }
+ 
++static int git_clone_config(const char *key, const char *value, void *data)
++{
++	if (!strcmp(key, "clone.recursesubmodules"))
++		option_recursive = git_config_bool(key, value);
++
++	return 0;
++}
++
+ int cmd_clone(int argc, const char **argv, const char *prefix)
+ {
+ 	int is_bundle = 0, is_local;
+@@ -759,6 +767,7 @@ int cmd_clone(int argc, const char **argv, const char *prefix)
+ 	junk_pid = getpid();
+ 
+ 	packet_trace_identity("clone");
++	git_config(git_clone_config, NULL);
+ 	argc = parse_options(argc, argv, prefix, builtin_clone_options,
+ 			     builtin_clone_usage, 0);
+ 
+diff --git a/t/t7407-submodule-foreach.sh b/t/t7407-submodule-foreach.sh
+index 7ca10b8..fc2c189 100755
+--- a/t/t7407-submodule-foreach.sh
++++ b/t/t7407-submodule-foreach.sh
+@@ -307,6 +307,23 @@ test_expect_success 'use "update --recursive nested1" to checkout all submodules
+ 	)
+ '
+ 
++test_expect_success 'use "git clone" with clone.recursesubmodules to checkout all submodules' '
++	git config --local clone.recursesubmodules true &amp;&amp;
++	git clone super clone7 &amp;&amp;
++	(
++		cd clone7 &amp;&amp;
++		git rev-parse --resolve-git-dir .git &amp;&amp;
++		git rev-parse --resolve-git-dir sub1/.git &amp;&amp;
++		git rev-parse --resolve-git-dir sub2/.git &amp;&amp;
++		git rev-parse --resolve-git-dir sub3/.git &amp;&amp;
++		git rev-parse --resolve-git-dir nested1/.git &amp;&amp;
++		git rev-parse --resolve-git-dir nested1/nested2/.git &amp;&amp;
++		git rev-parse --resolve-git-dir nested1/nested2/nested3/.git &amp;&amp;
++		git rev-parse --resolve-git-dir nested1/nested2/nested3/submodule/.git
++	) &amp;&amp;
++	git config --local --unset clone.recursesubmodules
++'
++
+ test_expect_success 'command passed to foreach retains notion of stdin' '
+ 	(
+ 		cd super &amp;&amp;
+-- 
+2.0.0.153.g79dcccc
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140604172406</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2014-06-04 17:24:06-0400</timestampReceived><subject>Re: [RFC PATCH] clone: add clone.recursesubmodules config option</subject><body>
+
+Chris Packham &lt;judge.packham@gmail.com&gt; writes:
+
+&gt; On 04/06/14 09:05, Junio C Hamano wrote:
+&gt;&gt;&gt; Also, going --recursive when the user did not want is a lot more
+&gt;&gt;&gt; expensive mistake to fix than not being --recursive when the user
+&gt;&gt;&gt; wanted to.
+&gt;&gt; 
+&gt;&gt; Having said all that, I do not mean to say that I am opposed to
+&gt;&gt; introduce some mechanism to let the users express their preference
+&gt;&gt; between recursive and non-recursive better, so that "git clone"
+&gt;&gt; without an explicit --recursive (or --no-recursive) can work to
+&gt;&gt; their taste.  A configuration in $HOME/.gitconfig might be a place
+&gt;&gt; to start, even though that has the downside of assuming that the
+&gt;&gt; given user would want to use the same settings for all his projects,
+&gt;&gt; which may not be the case in practice.
+&gt;
+&gt; And here's a quick proof of concept. Not sure about the config variable name
+&gt; and it could probably do with a negative test as well.
+
+I would be more worried about the semantics than the name, though;
+re-read the part you quoted with extra stress on "has the downside".
+
+I think I heard the submodule folks (cc'ed) discuss an approach to
+allow various submodules to be marked with "tags" with a new type of
+entry in .gitmodules file in the superproject, and use these tags to
+signal "by default, a new clone will recurse into this submodule".
+
+E.g. if projects standardized on "defaultClone" to mark such
+submodules, then $HOME/.gitconfig could say
+
+    [clone]
+        recursesubmodules = defaultClone
+
+Or the projects may mark platform specific submodules with tags,
+e.g. a .gitmodules in a typical superproject might say something
+like this:
+
+    [submodule "posix"]
+    	path = ports/posix
+        tags = linux obsd fbsd osx
+    [submodule "windows"]
+        path = ports/windows
+        tags = win32
+    [submodule "doc"]
+    	path = documentation
+        tags = defaultClone
+
+and then the user's $HOME/.gitconfig might say
+
+    [clone]
+        recursesubmodules = defaultClone win32
+
+to tell a "git clone" of such a superproject to clone the top-level,
+read its .gitmodules, and choose documentation/ and ports/windows
+submodules but not ports/posix submodule to be further cloned into
+the working tree of the superproject.
+
+Of course, if this kind of project organization proves to be useful,
+we should try to standardize the set of tags early before people
+start coming up with random variations of the same thing, spelling
+the same concept in different ways only to be different, and if that
+happens, then we could even give a non-empty default value for the
+clone.recursesubmodules when $HOME/.gitconfig is missing one.
+
+Just a random thought.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140604190658</emailId><senderName>Jens Lehmann</senderName><senderEmail>jens.lehmann@web.de</senderEmail><timestampReceived>2014-06-04 19:06:58-0400</timestampReceived><subject>Re: [RFC PATCH] clone: add clone.recursesubmodules config option</subject><body>
+
+Am 04.06.2014 19:24, schrieb Junio C Hamano:
+&gt; Chris Packham &lt;judge.packham@gmail.com&gt; writes:
+&gt; 
+&gt;&gt; On 04/06/14 09:05, Junio C Hamano wrote:
+&gt;&gt;&gt;&gt; Also, going --recursive when the user did not want is a lot more
+&gt;&gt;&gt;&gt; expensive mistake to fix than not being --recursive when the user
+&gt;&gt;&gt;&gt; wanted to.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Having said all that, I do not mean to say that I am opposed to
+&gt;&gt;&gt; introduce some mechanism to let the users express their preference
+&gt;&gt;&gt; between recursive and non-recursive better, so that "git clone"
+&gt;&gt;&gt; without an explicit --recursive (or --no-recursive) can work to
+&gt;&gt;&gt; their taste.  A configuration in $HOME/.gitconfig might be a place
+&gt;&gt;&gt; to start, even though that has the downside of assuming that the
+&gt;&gt;&gt; given user would want to use the same settings for all his projects,
+&gt;&gt;&gt; which may not be the case in practice.
+&gt;&gt;
+&gt;&gt; And here's a quick proof of concept. Not sure about the config variable name
+&gt;&gt; and it could probably do with a negative test as well.
+&gt; 
+&gt; I would be more worried about the semantics than the name, though;
+&gt; re-read the part you quoted with extra stress on "has the downside".
+&gt; 
+&gt; I think I heard the submodule folks (cc'ed) discuss an approach to
+&gt; allow various submodules to be marked with "tags" with a new type of
+&gt; entry in .gitmodules file in the superproject, and use these tags to
+&gt; signal "by default, a new clone will recurse into this submodule".
+&gt; 
+&gt; E.g. if projects standardized on "defaultClone" to mark such
+&gt; submodules, then $HOME/.gitconfig could say
+&gt; 
+&gt;     [clone]
+&gt;         recursesubmodules = defaultClone
+&gt; 
+&gt; Or the projects may mark platform specific submodules with tags,
+&gt; e.g. a .gitmodules in a typical superproject might say something
+&gt; like this:
+&gt; 
+&gt;     [submodule "posix"]
+&gt;     	path = ports/posix
+&gt;         tags = linux obsd fbsd osx
+&gt;     [submodule "windows"]
+&gt;         path = ports/windows
+&gt;         tags = win32
+&gt;     [submodule "doc"]
+&gt;     	path = documentation
+&gt;         tags = defaultClone
+&gt; 
+&gt; and then the user's $HOME/.gitconfig might say
+&gt; 
+&gt;     [clone]
+&gt;         recursesubmodules = defaultClone win32
+&gt; 
+&gt; to tell a "git clone" of such a superproject to clone the top-level,
+&gt; read its .gitmodules, and choose documentation/ and ports/windows
+&gt; submodules but not ports/posix submodule to be further cloned into
+&gt; the working tree of the superproject.
+&gt; 
+&gt; Of course, if this kind of project organization proves to be useful,
+&gt; we should try to standardize the set of tags early before people
+&gt; start coming up with random variations of the same thing, spelling
+&gt; the same concept in different ways only to be different, and if that
+&gt; happens, then we could even give a non-empty default value for the
+&gt; clone.recursesubmodules when $HOME/.gitconfig is missing one.
+
+Yes, but maybe we can define how the user wants to set the global or
+per-repo default (that is honored as long as upstream or local
+config doesn't provide more specific settings, e.g. via tags) and
+implement that for clone as a first step, even when we do not now
+how e.g. the tags setting might look like in the end. I believe we
+should have one or two switches telling Git "I want my submodules be
+updated without having to use the 'git submodule' command". And
+after that submodule specific overrides can kick in, e.g. when
+"submodule.&lt;name&gt;.update" is set to "none" the submodule won't be
+updated no matter how the default is.
+
+We had two settings in mind, first "submodule.autoinit" (which would
+automate the "git submodule --init" step and also control that a
+new submodule is fetched into .git/modules; it'd be fetched there
+soon as the fetch in the superproject sees a commit introducing it).
+That would kick in on clone, fetch and pull, as the underlying fetch
+honors it. And the "submodule.autoupdate" setting which will make
+running "git submodule update" obsolete by updating all init'ed
+submodules on each clone, checkout, merge, reset etc.. Together
+they'd achieve for all relevant commands what Chris' proposed option
+would only do for clone.
+
+So what if clone would just do an "git submodule init" for now when
+"submodule.autoinit" is set but "submodule.autoupdate" isn't (and as
+soon as fetch learns to honor autoinit we could remove that one
+again). And if both are set it'd do a "git submodule update --init
+--recursive", just like it does when the --recurse-submodules option
+is used. As soon as we also have recursive submodule update, we could
+remove the latter from clone.
+
+But maybe we are to close to the implementation side of things (where
+fetch and checkout just like init and update are two separate things)
+and a single "submodule.auto" setting would be what users really want?
+
+Comments welcome.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140604194216</emailId><senderName>Heiko Voigt</senderName><senderEmail>hvoigt@hvoigt.net</senderEmail><timestampReceived>2014-06-04 19:42:16-0400</timestampReceived><subject>Re: Re: [RFC PATCH] clone: add clone.recursesubmodules config option</subject><body>
+
+On Wed, Jun 04, 2014 at 10:24:06AM -0700, Junio C Hamano wrote:
+&gt; Chris Packham &lt;judge.packham@gmail.com&gt; writes:
+&gt; 
+&gt; &gt; On 04/06/14 09:05, Junio C Hamano wrote:
+&gt; &gt;&gt;&gt; Also, going --recursive when the user did not want is a lot more
+&gt; &gt;&gt;&gt; expensive mistake to fix than not being --recursive when the user
+&gt; &gt;&gt;&gt; wanted to.
+&gt; &gt;&gt; 
+&gt; &gt;&gt; Having said all that, I do not mean to say that I am opposed to
+&gt; &gt;&gt; introduce some mechanism to let the users express their preference
+&gt; &gt;&gt; between recursive and non-recursive better, so that "git clone"
+&gt; &gt;&gt; without an explicit --recursive (or --no-recursive) can work to
+&gt; &gt;&gt; their taste.  A configuration in $HOME/.gitconfig might be a place
+&gt; &gt;&gt; to start, even though that has the downside of assuming that the
+&gt; &gt;&gt; given user would want to use the same settings for all his projects,
+&gt; &gt;&gt; which may not be the case in practice.
+&gt; &gt;
+&gt; &gt; And here's a quick proof of concept. Not sure about the config variable name
+&gt; &gt; and it could probably do with a negative test as well.
+&gt; 
+&gt; I would be more worried about the semantics than the name, though;
+&gt; re-read the part you quoted with extra stress on "has the downside".
+&gt; 
+&gt; I think I heard the submodule folks (cc'ed) discuss an approach to
+&gt; allow various submodules to be marked with "tags" with a new type of
+&gt; entry in .gitmodules file in the superproject, and use these tags to
+&gt; signal "by default, a new clone will recurse into this submodule".
+&gt; 
+&gt; E.g. if projects standardized on "defaultClone" to mark such
+&gt; submodules, then $HOME/.gitconfig could say
+&gt; 
+&gt;     [clone]
+&gt;         recursesubmodules = defaultClone
+&gt; 
+&gt; Or the projects may mark platform specific submodules with tags,
+&gt; e.g. a .gitmodules in a typical superproject might say something
+&gt; like this:
+&gt; 
+&gt;     [submodule "posix"]
+&gt;     	path = ports/posix
+&gt;         tags = linux obsd fbsd osx
+&gt;     [submodule "windows"]
+&gt;         path = ports/windows
+&gt;         tags = win32
+&gt;     [submodule "doc"]
+&gt;     	path = documentation
+&gt;         tags = defaultClone
+&gt; 
+&gt; and then the user's $HOME/.gitconfig might say
+&gt; 
+&gt;     [clone]
+&gt;         recursesubmodules = defaultClone win32
+&gt; 
+&gt; to tell a "git clone" of such a superproject to clone the top-level,
+&gt; read its .gitmodules, and choose documentation/ and ports/windows
+&gt; submodules but not ports/posix submodule to be further cloned into
+&gt; the working tree of the superproject.
+&gt; 
+&gt; Of course, if this kind of project organization proves to be useful,
+&gt; we should try to standardize the set of tags early before people
+&gt; start coming up with random variations of the same thing, spelling
+&gt; the same concept in different ways only to be different, and if that
+&gt; happens, then we could even give a non-empty default value for the
+&gt; clone.recursesubmodules when $HOME/.gitconfig is missing one.
+&gt; 
+&gt; Just a random thought.
+
+I like this idea of specifying different "views" by giving tags. But
+does it rule out a boolean clone.recursesubmodules? For the simple case
+some people might not want to worry about specifying tags but just want
+to configure: "Yes give me everything". So if we were to do this I would
+like it if we could have both. Also because the option for clone is
+--recurse-submodules and our typical schema is that a configuration
+option is named similar so clone.recursesubmodules would fit here.
+
+So either we do this "magically" and all valid boolean values are
+forbidden as tags or we would need a different config option. Further
+thinking about it: Maybe a general option that does not only apply to
+clone would suit the "views" use-case more. E.g. "submodule.tags" or
+similar.
+
+Also please note: We have been talking about adding two configurations
+for submodules:
+
+	submodule."name".autoclone (IIRC)
+
+I am not sure whether that was the correct name, but this option should
+tell recursive fetch / clone whether to automatically clone a submodule
+when it appears on a fetch in the history.
+
+	submodule."name".autoinit
+
+And this one is for recursive checkout and tells whether an appearing
+submodule should automatically be initialized.
+
+These options fullfill a similar use-case and are planned for the future
+when recursive fetch/clone and checkout are in place (which is not that
+far away). We might need to rethink these to incoporate the "views from
+tags" idea nicely and since we do not want a configuration nightmare.
+
+Cheers Heiko
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140605074833</emailId><senderName>Chris Packham</senderName><senderEmail>judge.packham@gmail.com</senderEmail><timestampReceived>2014-06-05 07:48:33-0400</timestampReceived><subject>Re: [RFC PATCH] clone: add clone.recursesubmodules config option</subject><body>
+
+On 05/06/14 07:42, Heiko Voigt wrote:
+&gt; On Wed, Jun 04, 2014 at 10:24:06AM -0700, Junio C Hamano wrote:
+&gt;&gt; Chris Packham &lt;judge.packham@gmail.com&gt; writes:
+&gt;&gt;
+&gt;&gt;&gt; On 04/06/14 09:05, Junio C Hamano wrote:
+&gt;&gt;&gt;&gt;&gt; Also, going --recursive when the user did not want is a lot more
+&gt;&gt;&gt;&gt;&gt; expensive mistake to fix than not being --recursive when the user
+&gt;&gt;&gt;&gt;&gt; wanted to.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Having said all that, I do not mean to say that I am opposed to
+&gt;&gt;&gt;&gt; introduce some mechanism to let the users express their preference
+&gt;&gt;&gt;&gt; between recursive and non-recursive better, so that "git clone"
+&gt;&gt;&gt;&gt; without an explicit --recursive (or --no-recursive) can work to
+&gt;&gt;&gt;&gt; their taste.  A configuration in $HOME/.gitconfig might be a place
+&gt;&gt;&gt;&gt; to start, even though that has the downside of assuming that the
+&gt;&gt;&gt;&gt; given user would want to use the same settings for all his projects,
+&gt;&gt;&gt;&gt; which may not be the case in practice.
+&gt;&gt;&gt;
+&gt;&gt;&gt; And here's a quick proof of concept. Not sure about the config variable name
+&gt;&gt;&gt; and it could probably do with a negative test as well.
+&gt;&gt;
+&gt;&gt; I would be more worried about the semantics than the name, though;
+&gt;&gt; re-read the part you quoted with extra stress on "has the downside".
+&gt;&gt;
+&gt;&gt; I think I heard the submodule folks (cc'ed) discuss an approach to
+&gt;&gt; allow various submodules to be marked with "tags" with a new type of
+&gt;&gt; entry in .gitmodules file in the superproject, and use these tags to
+&gt;&gt; signal "by default, a new clone will recurse into this submodule".
+&gt;&gt;
+&gt;&gt; E.g. if projects standardized on "defaultClone" to mark such
+&gt;&gt; submodules, then $HOME/.gitconfig could say
+&gt;&gt;
+&gt;&gt;     [clone]
+&gt;&gt;         recursesubmodules = defaultClone
+&gt;&gt;
+&gt;&gt; Or the projects may mark platform specific submodules with tags,
+&gt;&gt; e.g. a .gitmodules in a typical superproject might say something
+&gt;&gt; like this:
+&gt;&gt;
+&gt;&gt;     [submodule "posix"]
+&gt;&gt;     	path = ports/posix
+&gt;&gt;         tags = linux obsd fbsd osx
+&gt;&gt;     [submodule "windows"]
+&gt;&gt;         path = ports/windows
+&gt;&gt;         tags = win32
+&gt;&gt;     [submodule "doc"]
+&gt;&gt;     	path = documentation
+&gt;&gt;         tags = defaultClone
+&gt;&gt;
+&gt;&gt; and then the user's $HOME/.gitconfig might say
+&gt;&gt;
+&gt;&gt;     [clone]
+&gt;&gt;         recursesubmodules = defaultClone win32
+&gt;&gt;
+&gt;&gt; to tell a "git clone" of such a superproject to clone the top-level,
+&gt;&gt; read its .gitmodules, and choose documentation/ and ports/windows
+&gt;&gt; submodules but not ports/posix submodule to be further cloned into
+&gt;&gt; the working tree of the superproject.
+&gt;&gt;
+&gt;&gt; Of course, if this kind of project organization proves to be useful,
+&gt;&gt; we should try to standardize the set of tags early before people
+&gt;&gt; start coming up with random variations of the same thing, spelling
+&gt;&gt; the same concept in different ways only to be different, and if that
+&gt;&gt; happens, then we could even give a non-empty default value for the
+&gt;&gt; clone.recursesubmodules when $HOME/.gitconfig is missing one.
+&gt;&gt;
+&gt;&gt; Just a random thought.
+&gt; 
+&gt; I like this idea of specifying different "views" by giving tags. But
+&gt; does it rule out a boolean clone.recursesubmodules? For the simple case
+&gt; some people might not want to worry about specifying tags but just want
+&gt; to configure: "Yes give me everything". So if we were to do this I would
+&gt; like it if we could have both. Also because the option for clone is
+&gt; --recurse-submodules and our typical schema is that a configuration
+&gt; option is named similar so clone.recursesubmodules would fit here.
+
+Maybe using a glob pattern would work.
+
+The user might say
+
+     [clone]
+         recursesubmodules = x86*
+
+And .gitmodules might say
+
+     [submodule "foo"]
+         tags = x86_64
+     [submodule "bar"]
+         tags = x86
+     [submodule "frotz"]
+         tags = powerpc
+
+For the "Yes give me everything" case the user could say
+
+     [clone]
+         recursesubmodules = *
+
+&gt; 
+&gt; So either we do this "magically" and all valid boolean values are
+&gt; forbidden as tags or we would need a different config option. Further
+&gt; thinking about it: Maybe a general option that does not only apply to
+&gt; clone would suit the "views" use-case more. E.g. "submodule.tags" or
+&gt; similar.
+&gt; 
+&gt; Also please note: We have been talking about adding two configurations
+&gt; for submodules:
+&gt; 
+&gt; 	submodule."name".autoclone (IIRC)
+&gt; 
+&gt; I am not sure whether that was the correct name, but this option should
+&gt; tell recursive fetch / clone whether to automatically clone a submodule
+&gt; when it appears on a fetch in the history.
+&gt; 
+&gt; 	submodule."name".autoinit
+&gt; 
+&gt; And this one is for recursive checkout and tells whether an appearing
+&gt; submodule should automatically be initialized.
+&gt; 
+&gt; These options fullfill a similar use-case and are planned for the future
+&gt; when recursive fetch/clone and checkout are in place (which is not that
+&gt; far away). We might need to rethink these to incoporate the "views from
+&gt; tags" idea nicely and since we do not want a configuration nightmare.
+&gt; 
+&gt; Cheers Heiko
+&gt; 
+
+I'm a little confused at how autoclone and autoinit differ. Aren't they
+the same? i.e. when this module appears grab it by default. I see
+autoupdate as a little different meaning update it if it's been
+initialised. Also does autoinit imply autoupdate?
+
+At $dayjob we have a superproject which devs clone this has submodules
+for the important and/or high touch repositories. We have other
+repositories that are normally build from a tarball (or not built at
+all) but we can build them from external repositories if needed. The
+latter case is painfully manual. If autoinit/autoupdate existed we'd
+probably setup out projects with.
+
+    [submodule "linux"]
+        autoinit = true
+	autoupdate = true
+    [submodule "userland"]
+        autoinit = true
+	autoupdate = true
+    [submodule "not-used-that-much"]
+	autoupdate = true
+
+We probably wouldn't make use of tags because we're building complete
+embedded systems and generally want everything, even if we are doing
+most of our work on a particular target we need to do builds for other
+targets for sanity checks.
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140605181828</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2014-06-05 18:18:28-0400</timestampReceived><subject>Re: [RFC PATCH] clone: add clone.recursesubmodules config option</subject><body>
+
+Jens Lehmann &lt;Jens.Lehmann@web.de&gt; writes:
+
+&gt; ... I believe we
+&gt; should have one or two switches telling Git "I want my submodules be
+&gt; updated without having to use the 'git submodule' command". And
+&gt; after that submodule specific overrides can kick in, e.g. when
+&gt; "submodule.&lt;name&gt;.update" is set to "none" the submodule won't be
+&gt; updated no matter how the default is.
+
+OK, so submodule.*.update for each submodule, and a default value
+for submodules that do not have submodule.*.update set to anything.
+
+Sounds workable.
+
+&gt; We had two settings in mind,...
+&gt; So what if clone would just do an "git submodule init" for now when
+&gt; "submodule.autoinit" is set but "submodule.autoupdate" isn't [?]
+&gt; ... and a single "submodule.auto" setting would be what users really want?
+
+I do not offhand think of a sensible scenario where you want to init
+a submodule once but do not want to update it when the superproject
+changes.  Even if the user uses the mode to detach the submodule
+HEAD, i.e. the branches in submodules do not matter and the whole
+tree is described by the superproject's commit and gitlinks recorded
+in it, the user would want the new objects necessary for the updated
+superproject, which means a submodule that is init'ed (whether it is
+via "git submodule init" or the submodule.autoinit variable) must be
+updated.
+
+So I am not sure why a user wants to disable autoupdate in the first
+place.  For the same reason, setting submodule.*.update to none
+would not make much sense, either.  Perhaps I am missing something.
+
+Unless the user is very conservative and suspects that these
+recursive behaviour we are going to bolt on to various commands
+could be buggy and untrustworthy, in which case the user might want
+to manually run "git submodule update", or even run "git fetch"
+after going there while bypassing the whole "git submodule".  But I
+do not think that is healthy in the longer run.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140605184340</emailId><senderName>"W. Trevor King"</senderName><senderEmail>wking@tremily.us</senderEmail><timestampReceived>2014-06-05 18:43:40-0400</timestampReceived><subject>Re: [git] Re: [RFC PATCH] clone: add clone.recursesubmodules config option</subject><body>
+
+On Thu, Jun 05, 2014 at 11:18:28AM -0700, Junio C Hamano wrote:
+&gt; Jens Lehmann &lt;Jens.Lehmann@web.de&gt; writes:
+&gt; &gt; We had two settings in mind,...
+&gt; &gt; So what if clone would just do an "git submodule init" for now when
+&gt; &gt; "submodule.autoinit" is set but "submodule.autoupdate" isn't [?]
+&gt; &gt; ... and a single "submodule.auto" setting would be what users really want?
+&gt; 
+&gt; I do not offhand think of a sensible scenario where you want to init
+&gt; a submodule once but do not want to update it when the superproject
+&gt; changes.  Even if the user uses the mode to detach the submodule
+&gt; HEAD, i.e. the branches in submodules do not matter and the whole
+&gt; tree is described by the superproject's commit and gitlinks recorded
+&gt; in it, the user would want the new objects necessary for the updated
+&gt; superproject, which means a submodule that is init'ed (whether it is
+&gt; via "git submodule init" or the submodule.autoinit variable) must be
+&gt; updated.
+
+I agreed that once we have the ability to do so, autoupdating any
+initialized submodules should be automatic and non-optional.  However,
+making it optional during a transition period while the ability gets
+fleshed out would make sense too (so checkout-mode folks can opt in
+before we clobber the local-branch folks ;).
+
+Ceers,
+Trevor
+
+-- 
+This email may be signed or encrypted with GnuPG (http://www.gnupg.org).
+For more information, see http://en.wikipedia.org/wiki/Pretty_Good_Privacy
+
+["signature.asc" (application/pgp-signature)]
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+</body></email><email><emailId>20140606052601</emailId><senderName>Heiko Voigt</senderName><senderEmail>hvoigt@hvoigt.net</senderEmail><timestampReceived>2014-06-06 05:26:01-0400</timestampReceived><subject>Re: Re: [RFC PATCH] clone: add clone.recursesubmodules config option</subject><body>
+
+On Thu, Jun 05, 2014 at 11:18:28AM -0700, Junio C Hamano wrote:
+&gt; Jens Lehmann &lt;Jens.Lehmann@web.de&gt; writes:
+&gt; &gt; We had two settings in mind,...
+&gt; &gt; So what if clone would just do an "git submodule init" for now when
+&gt; &gt; "submodule.autoinit" is set but "submodule.autoupdate" isn't [?]
+&gt; &gt; ... and a single "submodule.auto" setting would be what users really want?
+&gt; 
+&gt; I do not offhand think of a sensible scenario where you want to init
+&gt; a submodule once but do not want to update it when the superproject
+&gt; changes.  Even if the user uses the mode to detach the submodule
+&gt; HEAD, i.e. the branches in submodules do not matter and the whole
+&gt; tree is described by the superproject's commit and gitlinks recorded
+&gt; in it, the user would want the new objects necessary for the updated
+&gt; superproject, which means a submodule that is init'ed (whether it is
+&gt; via "git submodule init" or the submodule.autoinit variable) must be
+&gt; updated.
+&gt; 
+&gt; So I am not sure why a user wants to disable autoupdate in the first
+&gt; place.  For the same reason, setting submodule.*.update to none
+&gt; would not make much sense, either.  Perhaps I am missing something.
+&gt; 
+&gt; Unless the user is very conservative and suspects that these
+&gt; recursive behaviour we are going to bolt on to various commands
+&gt; could be buggy and untrustworthy, in which case the user might want
+&gt; to manually run "git submodule update", or even run "git fetch"
+&gt; after going there while bypassing the whole "git submodule".  But I
+&gt; do not think that is healthy in the longer run.
+
+I think autoupdate is mainly there for the transition phase. Since
+submodule can e.g. contain a lot of files a checkout would take much
+longer. Similar to when Jens implemented the recursive diff, many people
+were annoyed by the new files showing up and some with the impact on
+performance (thats why we have the --ignore-submodules option).
+
+In case of very big submodules and people already ignore their diff it
+might even be necessary that the update is only done manually. E.g. for
+a big media repository.
+
+Cheers Heiko
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140606055430</emailId><senderName>Heiko Voigt</senderName><senderEmail>hvoigt@hvoigt.net</senderEmail><timestampReceived>2014-06-06 05:54:30-0400</timestampReceived><subject>Re: Re: [RFC PATCH] clone: add clone.recursesubmodules config option</subject><body>
+
+On Thu, Jun 05, 2014 at 07:48:33PM +1200, Chris Packham wrote:
+&gt; On 05/06/14 07:42, Heiko Voigt wrote:
+&gt; &gt; I like this idea of specifying different "views" by giving tags. But
+&gt; &gt; does it rule out a boolean clone.recursesubmodules? For the simple case
+&gt; &gt; some people might not want to worry about specifying tags but just want
+&gt; &gt; to configure: "Yes give me everything". So if we were to do this I would
+&gt; &gt; like it if we could have both. Also because the option for clone is
+&gt; &gt; --recurse-submodules and our typical schema is that a configuration
+&gt; &gt; option is named similar so clone.recursesubmodules would fit here.
+&gt; 
+&gt; Maybe using a glob pattern would work.
+&gt; 
+&gt; The user might say
+&gt; 
+&gt;      [clone]
+&gt;          recursesubmodules = x86*
+&gt; 
+&gt; And .gitmodules might say
+&gt; 
+&gt;      [submodule "foo"]
+&gt;          tags = x86_64
+&gt;      [submodule "bar"]
+&gt;          tags = x86
+&gt;      [submodule "frotz"]
+&gt;          tags = powerpc
+&gt; 
+&gt; For the "Yes give me everything" case the user could say
+&gt; 
+&gt;      [clone]
+&gt;          recursesubmodules = *
+
+Thats interesting. Lets me/us think about that a little more.
+
+&gt; &gt; So either we do this "magically" and all valid boolean values are
+&gt; &gt; forbidden as tags or we would need a different config option. Further
+&gt; &gt; thinking about it: Maybe a general option that does not only apply to
+&gt; &gt; clone would suit the "views" use-case more. E.g. "submodule.tags" or
+&gt; &gt; similar.
+&gt; &gt; 
+&gt; &gt; Also please note: We have been talking about adding two configurations
+&gt; &gt; for submodules:
+&gt; &gt; 
+&gt; &gt; 	submodule."name".autoclone (IIRC)
+&gt; &gt; 
+&gt; &gt; I am not sure whether that was the correct name, but this option should
+&gt; &gt; tell recursive fetch / clone whether to automatically clone a submodule
+&gt; &gt; when it appears on a fetch in the history.
+&gt; &gt; 
+&gt; &gt; 	submodule."name".autoinit
+&gt; &gt; 
+&gt; &gt; And this one is for recursive checkout and tells whether an appearing
+&gt; &gt; submodule should automatically be initialized.
+&gt; &gt; 
+&gt; &gt; These options fullfill a similar use-case and are planned for the future
+&gt; &gt; when recursive fetch/clone and checkout are in place (which is not that
+&gt; &gt; far away). We might need to rethink these to incoporate the "views from
+&gt; &gt; tags" idea nicely and since we do not want a configuration nightmare.
+&gt; 
+&gt; I'm a little confused at how autoclone and autoinit differ. Aren't they
+&gt; the same? i.e. when this module appears grab it by default. I see
+&gt; autoupdate as a little different meaning update it if it's been
+&gt; initialised. Also does autoinit imply autoupdate?
+
+autoclone is about cloning the history of submodules. So e.g. when a
+submodule first appears in the superprojects history whether it should
+automatically be cloned to .git/modules.
+
+autoinit is all about the checkout phase. When a commit with a new
+submodule is checked out: Should that new submodule be automatically
+initialised?
+
+As far as autoupdate is concerned: Maybe autoinit can imply that it is
+enabled, yes. But I guess we still need autoupdate for the case of big
+submodules that cause to much performance trouble if updated by every
+checkout.
+
+So its actually three values: autoclone, autoinit, autoupdate. Damn,
+these configurations become more complicated everytime. Maybe we should
+try to clean them, up once we have everything, with Git 3.0 ;-) If
+anyone has an idea how to get rid of some right now...
+
+Radically different thinking: How about just one: submodule.auto =
+true/false configuration and that means you opt in to doing everything
+as automatic as possible. Since we are still implementing we could stick
+a prominent warning in the documentation that the user should be
+prepared for behavioral changes.
+
+Once everybody is happy with that we could switch the default from false
+to true.
+
+&gt; At $dayjob we have a superproject which devs clone this has submodules
+&gt; for the important and/or high touch repositories. We have other
+&gt; repositories that are normally build from a tarball (or not built at
+&gt; all) but we can build them from external repositories if needed. The
+&gt; latter case is painfully manual. If autoinit/autoupdate existed we'd
+&gt; probably setup out projects with.
+&gt; 
+&gt;     [submodule "linux"]
+&gt;         autoinit = true
+&gt; 	autoupdate = true
+&gt;     [submodule "userland"]
+&gt;         autoinit = true
+&gt; 	autoupdate = true
+&gt;     [submodule "not-used-that-much"]
+&gt; 	autoupdate = true
+&gt; 
+&gt; We probably wouldn't make use of tags because we're building complete
+&gt; embedded systems and generally want everything, even if we are doing
+&gt; most of our work on a particular target we need to do builds for other
+&gt; targets for sanity checks.
+
+Yep thats exactly what we already do at $dayjob but with
+submodule.*.update=none. Since that conveniently also disables the
+initialisation, developers only get the basic code and not everyone
+needs to have the media and some big external libs.
+
+I would reuse 'update' in the long run. But I guess for the transition
+we will need the extra autoupdate one to keep annoyance levels low.
+
+We currently also do not have real use cases for the tags/views
+scenario, but as repositories grow I can see that it could be useful so
+I would like it if we could keep the configuration open to that.
+
+Cheers Heiko
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140606163555</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2014-06-06 16:35:55-0400</timestampReceived><subject>Re: [RFC PATCH] clone: add clone.recursesubmodules config option</subject><body>
+
+Heiko Voigt &lt;hvoigt@hvoigt.net&gt; writes:
+
+&gt; On Thu, Jun 05, 2014 at 07:48:33PM +1200, Chris Packham wrote:
+&gt; ...
+&gt;&gt; I'm a little confused at how autoclone and autoinit differ. Aren't they
+&gt;&gt; the same? i.e. when this module appears grab it by default. I see
+&gt;&gt; autoupdate as a little different meaning update it if it's been
+&gt;&gt; initialised. Also does autoinit imply autoupdate?
+&gt;
+&gt; autoclone is about cloning the history of submodules. So e.g. when a
+&gt; submodule first appears in the superprojects history whether it should
+&gt; automatically be cloned to .git/modules.
+&gt;
+&gt; autoinit is all about the checkout phase. When a commit with a new
+&gt; submodule is checked out: Should that new submodule be automatically
+&gt; initialised?
+&gt;
+&gt; As far as autoupdate is concerned: Maybe autoinit can imply that it is
+&gt; enabled, yes. But I guess we still need autoupdate for the case of big
+&gt; submodules that cause to much performance trouble if updated by every
+&gt; checkout.
+
+&gt; So its actually three values: autoclone, autoinit, autoupdate. Damn,
+&gt; these configurations become more complicated everytime.
+
+I suspect that as an end-user you do not need to set all three in
+most cases.  Just like an unspecified autoupdate can default to
+whatever autoinit setting for the submodule is, because it is less
+likely that a user wants to have a submodule checked out *and* leave
+it stale, an unspecified autoinit can default to the autoclone
+setting, because it is less likely that a user who does not want to
+have a checkout would want to spend network bandwidth to clone it.
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140609131707</emailId><senderName>Jens Lehmann</senderName><senderEmail>jens.lehmann@web.de</senderEmail><timestampReceived>2014-06-09 13:17:07-0400</timestampReceived><subject>Re: [RFC PATCH] clone: add clone.recursesubmodules config option</subject><body>
+
+Am 06.06.2014 07:54, schrieb Heiko Voigt:
+&gt; On Thu, Jun 05, 2014 at 07:48:33PM +1200, Chris Packham wrote:
+&gt;&gt; On 05/06/14 07:42, Heiko Voigt wrote:
+&gt;&gt;&gt; So either we do this "magically" and all valid boolean values are
+&gt;&gt;&gt; forbidden as tags or we would need a different config option. Further
+&gt;&gt;&gt; thinking about it: Maybe a general option that does not only apply to
+&gt;&gt;&gt; clone would suit the "views" use-case more. E.g. "submodule.tags" or
+&gt;&gt;&gt; similar.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Also please note: We have been talking about adding two configurations
+&gt;&gt;&gt; for submodules:
+&gt;&gt;&gt;
+&gt;&gt;&gt; 	submodule."name".autoclone (IIRC)
+&gt;&gt;&gt;
+&gt;&gt;&gt; I am not sure whether that was the correct name, but this option should
+&gt;&gt;&gt; tell recursive fetch / clone whether to automatically clone a submodule
+&gt;&gt;&gt; when it appears on a fetch in the history.
+&gt;&gt;&gt;
+&gt;&gt;&gt; 	submodule."name".autoinit
+&gt;&gt;&gt;
+&gt;&gt;&gt; And this one is for recursive checkout and tells whether an appearing
+&gt;&gt;&gt; submodule should automatically be initialized.
+&gt;&gt;&gt;
+&gt;&gt;&gt; These options fullfill a similar use-case and are planned for the future
+&gt;&gt;&gt; when recursive fetch/clone and checkout are in place (which is not that
+&gt;&gt;&gt; far away). We might need to rethink these to incoporate the "views from
+&gt;&gt;&gt; tags" idea nicely and since we do not want a configuration nightmare.
+&gt;&gt;
+&gt;&gt; I'm a little confused at how autoclone and autoinit differ. Aren't they
+&gt;&gt; the same? i.e. when this module appears grab it by default. I see
+&gt;&gt; autoupdate as a little different meaning update it if it's been
+&gt;&gt; initialised. Also does autoinit imply autoupdate?
+&gt; 
+&gt; autoclone is about cloning the history of submodules. So e.g. when a
+&gt; submodule first appears in the superprojects history whether it should
+&gt; automatically be cloned to .git/modules.
+&gt; 
+&gt; autoinit is all about the checkout phase. When a commit with a new
+&gt; submodule is checked out: Should that new submodule be automatically
+&gt; initialised?
+
+To me those two only make sense together, so I see them as a single
+option. But then maybe some developers would like to clone everything
+so they are plane-safe in case they intend to do "git submodule
+update --init" later at 30.000 feet without internet access ... so
+yes, technically we have three distinct steps: clone, init &amp; update.
+
+&gt; As far as autoupdate is concerned: Maybe autoinit can imply that it is
+&gt; enabled, yes. But I guess we still need autoupdate for the case of big
+&gt; submodules that cause to much performance trouble if updated by every
+&gt; checkout.
+&gt; 
+&gt; So its actually three values: autoclone, autoinit, autoupdate. Damn,
+&gt; these configurations become more complicated everytime. Maybe we should
+&gt; try to clean them, up once we have everything, with Git 3.0 ;-) If
+&gt; anyone has an idea how to get rid of some right now...
+
+I suspect that once they are introduced we'll never be able to get
+rid of them again ;-)
+
+&gt; Radically different thinking: How about just one: submodule.auto =
+&gt; true/false configuration and that means you opt in to doing everything
+&gt; as automatic as possible. Since we are still implementing we could stick
+&gt; a prominent warning in the documentation that the user should be
+&gt; prepared for behavioral changes.
+&gt; 
+&gt; Once everybody is happy with that we could switch the default from false
+&gt; to true.
+
+I like that. (And if we really need /clone-but-no-init-or-update/ or
+/clone-and-init-but-no-update/ settings later we could add two new
+values additionally to true/false to make that work with a single
+setting too). So I'm convinced that a single option is the way to go.
+
+&gt;&gt; At $dayjob we have a superproject which devs clone this has submodules
+&gt;&gt; for the important and/or high touch repositories. We have other
+&gt;&gt; repositories that are normally build from a tarball (or not built at
+&gt;&gt; all) but we can build them from external repositories if needed. The
+&gt;&gt; latter case is painfully manual. If autoinit/autoupdate existed we'd
+&gt;&gt; probably setup out projects with.
+&gt;&gt;
+&gt;&gt;     [submodule "linux"]
+&gt;&gt;         autoinit = true
+&gt;&gt; 	autoupdate = true
+&gt;&gt;     [submodule "userland"]
+&gt;&gt;         autoinit = true
+&gt;&gt; 	autoupdate = true
+&gt;&gt;     [submodule "not-used-that-much"]
+&gt;&gt; 	autoupdate = true
+&gt;&gt;
+&gt;&gt; We probably wouldn't make use of tags because we're building complete
+&gt;&gt; embedded systems and generally want everything, even if we are doing
+&gt;&gt; most of our work on a particular target we need to do builds for other
+&gt;&gt; targets for sanity checks.
+&gt; 
+&gt; Yep thats exactly what we already do at $dayjob but with
+&gt; submodule.*.update=none. Since that conveniently also disables the
+&gt; initialisation, developers only get the basic code and not everyone
+&gt; needs to have the media and some big external libs.
+&gt; 
+&gt; I would reuse 'update' in the long run. But I guess for the transition
+&gt; we will need the extra autoupdate one to keep annoyance levels low.
+
+I'm not sure reusing 'update' is going to work: 'update' currently
+controls what "git submodule update" will do: nothing, checkout,
+merge or rebase (and we shouldn't change that because of backwards
+compatibility). We're talking about a new setting telling regular
+git commands to do the submodule work tree update without having to
+manually call "git submodule update". And I believe we'll always
+need 'update' as it is for people who'll want to do a manual "git
+submodule update", especially when we change the default of
+'submodule.auto' to true in 3.0.
+
+And by the way: wouldn't it make more sense to tell the user /what/
+we do automatically? So maybe 'submodule.autoupdate' is a better
+name for the new switch? The fact that it also does clone and init
+under the hood looks more like a technical detail to the user, no?
+And I'd like to avoid users uttering "auto-what?" when they hear
+about this setting ;-) And it would make clear that 'update' is
+what we do and 'autoupdate' makes it happen without having to call
+"git submodule update".
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20140609232725</emailId><senderName>"W. Trevor King"</senderName><senderEmail>wking@tremily.us</senderEmail><timestampReceived>2014-06-09 23:27:25-0400</timestampReceived><subject>Re: [git] Re: [RFC PATCH] clone: add clone.recursesubmodules config option</subject><body>
+
+On Mon, Jun 09, 2014 at 03:17:07PM +0200, Jens Lehmann wrote:
+&gt; And by the way: wouldn't it make more sense to tell the user /what/
+&gt; we do automatically? So maybe 'submodule.autoupdate' is a better
+&gt; name for the new switch?
+
+Or autocheckout?  No need to preserve submodule-specific jargon when
+we have a perfectly acceptable word for this in the core interface ;).
+
+Cheers,
+Trevor
+
+--=20
+This email may be signed or encrypted with GnuPG (http://www.gnupg.org).
+For more information, see http://en.wikipedia.org/wiki/Pretty_Good_Privacy
+
+["signature.asc" (application/pgp-signature)]
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+</body></email><email><emailId>20140806164033</emailId><senderName>Admin office</senderName><senderEmail>webedith@asdertail.com</senderEmail><timestampReceived>2014-08-06 16:40:33-0400</timestampReceived><subject>Your email</subject><body>
+
+Your email address has won Two Million Five Hundred  Thousand United States Dollars,on the Facebook customer-care draw-promotion,to file your claim,reply with your name/address/country/cell No to:(draw@cash4u.com)
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20141126230937</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2014-11-26 23:09:37-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on Freenode.  Their logs are
+available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	https://kernel.googlesource.com/pub/scm/git/git
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few web interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+	https://kernel.googlesource.com/pub/scm/git/git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but recently we
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.2.0 done on Nov 26, 2014. You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a
+feature release are applied to this branch and maintenance releases
+are cut from it.  The maintenance releases used to be named with four
+dotted decimal, named after the feature release they are updates to
+(e.g. "1.8.5.1" was the first maintenance release for "1.8.5" feature
+release).  These days, maintenance releases are named by incrementing
+the last digit of three-dotted decimal name (e.g. "2.2.1" will be the
+first maintenance relaese for "2.2" series).
+
+New features never go to the 'maint' branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches the maintainer happens to have.  There is no guarantee that
+the maintainer has enough bandwidth to pick up any and all topics that
+are remotely promising from the list traffic, so please do not read
+too much into a topic being on (or not on) the "pu" branch.  This
+branch is mainly to remind the maintainer that the topics in them may
+turn out to be interesting when they are polished, nothing more.  The
+topics on this branch aren't usually complete, well tested, or well
+documented and they often need further work.  When a topic that was
+in "pu" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html

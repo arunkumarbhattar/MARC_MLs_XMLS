@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20120308235807</emailId><senderName>Pau Freixes</senderName><senderEmail>pfreixes@gmail.com</senderEmail><timestampReceived>2012-03-08 23:58:07-0400</timestampReceived><subject>A pair doubts at scriptin interface to irssi</subject><body>
+
+Hi to all,
+
+I'm doing one script to run one "new" command again one rest api and
+publish results in a channel, and i have a couple of doubts to
+resolve,
+somebody can help to me ?
+
+First doubt is about level of messages, i don't mean the LEVEL
+argument at print function. whats mean LEVEL ?
+I wish to publish some information at channel with my nickname, is it
+possible with "$witem-&gt;print" function or i need to use a "msg"
+command ?
+
+The last doubt is around "help" command, how can i set help about new
+command ? there are other functions like
+command_set_options or command_parse_options, but i didn't find any
+function to do this action ? may be with a signal ?
+
+Thks a lot.
+--pau
+
+</body></email><email><emailId>20120313140927</emailId><senderName>Marek Kubica</senderName><senderEmail>marek@xivilization.net</senderEmail><timestampReceived>2012-03-13 14:09:27-0400</timestampReceived><subject>Re: irssi proxy/bouncer</subject><body>
+
+On Tue, 13 Mar 2012 02:11:51 -0400
+Weedy &lt;weedy2887@gmail.com&gt; wrote:
+
+&gt; I've been playing with the proxy feature lately since my GPU wails
+&gt; like a banshee and I happen to think sleep is a good idea.
+&gt; Now I know we are in
+&gt; ignore-the-fuck-out-of-it-unless-root-exploit-is-found mode but can we
+&gt; get a couple things merged/talked about?
+&gt; 
+&gt; a) http://bugs.irssi.org/index.php?do=details&amp;task_id=645
+
+I use stunnel on the server for this, works with XChat transparently.
+Not a nice solution though.
+
+Actually, I mostly connect via tmux and SSH and use it directly
+nowadays.
+
+regards,
+Marek
+
+</body></email><email><emailId>20120530205627</emailId><senderName>Thomas Habets</senderName><senderEmail>thomas@habets.se</senderEmail><timestampReceived>2012-05-30 20:56:27-0400</timestampReceived><subject>[PATCH] TPM SSL support</subject><body>
+
+Attached is a patch to add support for the OpenSSL TPM engine.
+In short this means that you can use a TPM chip to "lock" your SSL
+client certificate to a physical machine.
+
+More details on SSL and TPM here:
+http://blog.habets.pp.se/2012/02/TPM-backed-SSL
+
+Patched irssi here: https://github.com/ThomasHabets/irssi
+
+-- 
+typedef struct me_s {
+  char name[]         = { "Thomas Habets" };
+  char email[]       = { "thomas@habets.pp.se" };
+  char kernel[]      = { "Linux" };
+  char *pgpKey[]    = { "http://www.habets.pp.se/pubkey.txt" };
+  char pgp[] = { "A8A3 D1DD 4AE0 8467 7FDE   0945 286A E90A AD48 E854" };
+  char coolcmd[]    = { "echo '. ./_&amp;. ./_'&gt;_;. ./_" };
+} me_t;
+
+["irssi-tpm.patch" (application/octet-stream)]
+
+diff --git a/docs/help/in/connect.in b/docs/help/in/connect.in
+index a00e383..9d63318 100644
+--- a/docs/help/in/connect.in
++++ b/docs/help/in/connect.in
+@@ -3,6 +3,7 @@
+ 
+      -4, -6: specify explicitly whether to use IPv4 or IPv6 address
+      -ssl: use SSL when connecting
++     -ssl_tpm: use TPM chip, and set SRK password.
+      -ssl_cert: The SSL client certificate file (implies -ssl)
+      -ssl_pkey: The SSL client private key (if not included in the certificate file)
+      -ssl_verify: Verify servers SSL certificate
+diff --git a/docs/help/in/server.in b/docs/help/in/server.in
+index 18d837b..3f01246 100644
+--- a/docs/help/in/server.in
++++ b/docs/help/in/server.in
+@@ -3,6 +3,7 @@
+ 
+      -4, -6: specify explicitly whether to use IPv4 or IPv6 address
+      -ssl: use SSL when connecting
++     -ssl_tpm: use TPM chip, and set SRK password.
+      -ssl_cert: The SSL client certificate file (implies -ssl)
+      -ssl_pkey: The SSL client private key (if not included in the certificate file)
+      -ssl_verify: Verify servers SSL certificate
+diff --git a/src/core/chat-commands.c b/src/core/chat-commands.c
+index f5d0e9f..9737624 100644
+--- a/src/core/chat-commands.c
++++ b/src/core/chat-commands.c
+@@ -94,6 +94,8 @@ static SERVER_CONNECT_REC *get_server_connect(const char *data, int \
+*plus_addr,  
+ 	if (g_hash_table_lookup(optlist, "ssl") != NULL)
+ 		conn-&gt;use_ssl = TRUE;
++	if ((tmp = g_hash_table_lookup(optlist, "ssl_tpm")) != NULL)
++		conn-&gt;ssl_tpm = g_strdup(tmp);
+ 	if ((tmp = g_hash_table_lookup(optlist, "ssl_cert")) != NULL)
+ 		conn-&gt;ssl_cert = g_strdup(tmp);
+ 	if ((tmp = g_hash_table_lookup(optlist, "ssl_pkey")) != NULL)
+@@ -107,7 +109,9 @@ static SERVER_CONNECT_REC *get_server_connect(const char *data, \
+int *plus_addr,  if ((conn-&gt;ssl_capath != NULL &amp;&amp; conn-&gt;ssl_capath[0] != '\0')
+ 	||  (conn-&gt;ssl_cafile != NULL &amp;&amp; conn-&gt;ssl_cafile[0] != '\0'))
+ 		conn-&gt;ssl_verify = TRUE;
+-	if ((conn-&gt;ssl_cert != NULL &amp;&amp; conn-&gt;ssl_cert[0] != '\0') || conn-&gt;ssl_verify)
++	if ((conn-&gt;ssl_cert != NULL &amp;&amp; conn-&gt;ssl_cert[0] != '\0')
++	    || conn-&gt;ssl_verify
++	    || (conn-&gt;ssl_tpm != NULL &amp;&amp; conn-&gt;ssl_tpm[0] != '\0'))
+ 		conn-&gt;use_ssl = TRUE;
+ 
+ 	if (g_hash_table_lookup(optlist, "!") != NULL)
+@@ -134,7 +138,8 @@ static SERVER_CONNECT_REC *get_server_connect(const char *data, \
+int *plus_addr,  return conn;
+ }
+ 
+-/* SYNTAX: CONNECT [-4 | -6] [-ssl] [-ssl_cert &lt;cert&gt;] [-ssl_pkey &lt;pkey&gt;]
++/* SYNTAX: CONNECT [-4 | -6] [-ssl] [-ssl_tpm &lt;SRK Pass&gt;]
++                   [-ssl_cert &lt;cert&gt;] [-ssl_pkey &lt;pkey&gt;]
+                    [-ssl_verify] [-ssl_cafile &lt;cafile&gt;] [-ssl_capath &lt;capath&gt;]
+                    [-!] [-noautosendcmd]
+ 		   [-noproxy] [-network &lt;network&gt;] [-host &lt;hostname&gt;]
+@@ -458,7 +463,7 @@ void chat_commands_init(void)
+ 	signal_add("default command server", (SIGNAL_FUNC) sig_default_command_server);
+ 	signal_add("server sendmsg", (SIGNAL_FUNC) sig_server_sendmsg);
+ 
+-	command_set_options("connect", "4 6 !! -network ssl +ssl_cert +ssl_pkey ssl_verify \
++ssl_cafile +ssl_capath +host noproxy -rawlog noautosendcmd"); \
++	command_set_options("connect", "4 6 !! -network ssl +ssl_tpm +ssl_cert +ssl_pkey \
+ssl_verify +ssl_cafile +ssl_capath +host noproxy -rawlog noautosendcmd");  \
+command_set_options("msg", "channel nick");  }
+ 
+diff --git a/src/core/network-openssl.c b/src/core/network-openssl.c
+index eaa51a1..c6b25e1 100644
+--- a/src/core/network-openssl.c
++++ b/src/core/network-openssl.c
+@@ -25,6 +25,7 @@
+ #ifdef HAVE_OPENSSL
+ 
+ #include &lt;openssl/crypto.h&gt;
++#include &lt;openssl/engine.h&gt;
+ #include &lt;openssl/x509.h&gt;
+ #include &lt;openssl/x509v3.h&gt;
+ #include &lt;openssl/pem.h&gt;
+@@ -389,7 +390,113 @@ static gboolean irssi_ssl_init(void)
+ 
+ }
+ 
+-static GIOChannel *irssi_ssl_get_iochannel(GIOChannel *handle, const char *hostname, \
+const char *mycert, const char *mypkey, const char *cafile, const char *capath, \
+gboolean verify) +static char *ssl_tpm_for_ui_callback;
++/**
++ *
++ * Challenge: UI_get0_output_string(uis)
++ */
++static int
++ui_read(UI *ui, UI_STRING *uis)
++{
++	UI_set_result(ui, uis, ssl_tpm_for_ui_callback);
++	return 1;
++}
++
++/**
++ *
++ */
++static int
++ui_write(UI *ui, UI_STRING *uis)
++{
++        return 1;
++}
++
++/**
++ *
++ */
++static UI_METHOD*
++irssi_setup_ui_method(void)
++{
++        UI_METHOD *ui_method;
++        ui_method = UI_create_method((char*)"OpenSSL application user interface");
++        UI_method_set_opener(ui_method, UI_method_get_opener(UI_OpenSSL()));
++        UI_method_set_reader(ui_method, ui_read);
++        UI_method_set_writer(ui_method, ui_write);
++        UI_method_set_closer(ui_method, UI_method_get_closer(UI_OpenSSL()));
++        return ui_method;
++}
++
++static void irssi_print_ssl_error()
++{
++        char buf[1024];
++	int err = ERR_get_error();
++	ERR_error_string(err, buf);
++	g_warning("SSL error: %d: %s", err, buf);
++}
++
++static void irssi_ssl_load_credentials(SSL *ssl,
++				       SSL_CTX *ctx,
++				       const char *ssl_tpm,
++				       const char *mycert,
++				       const char *mypkey)
++{
++	char *scert = NULL, *spkey = NULL;
++	char *file_with_pkey;
++	char *myfile_with_pkey;
++
++	scert = convert_home(mycert);
++	if (mypkey &amp;&amp; *mypkey) {
++		spkey = convert_home(mypkey);
++	}
++	if (! SSL_CTX_use_certificate_file(ctx, scert,
++					   SSL_FILETYPE_PEM)) {
++		g_warning("Loading of client certificate '%s' failed", mycert);
++		goto errout;
++	}
++
++	file_with_pkey = spkey ? spkey : scert;
++	myfile_with_pkey = mypkey ? mypkey : mycert;
++
++	if (ssl_tpm) {
++		ENGINE_load_builtin_engines();
++		ENGINE* engine = ENGINE_by_id("tpm");
++		if (!ENGINE_init(engine)) {
++			g_warning("Engine init failed");
++			goto errout;
++		}
++		UI_METHOD* ui_method = irssi_setup_ui_method();
++		UI* ui = UI_new_method(ui_method);
++		ssl_tpm_for_ui_callback = ssl_tpm;
++		EVP_PKEY* pkey = ENGINE_load_private_key(engine, file_with_pkey, ui_method, \
+ssl_tpm); +		if (! SSL_CTX_use_PrivateKey(ctx, pkey)) {
++			g_warning("Loading of TPM-protected private key '%s' failed", myfile_with_pkey);
++			goto errout;
++		}
++		UI_destroy_method(ui_method);
++	} else {
++		if (! SSL_CTX_use_PrivateKey_file(ctx, file_with_pkey,
++						  SSL_FILETYPE_PEM)) {
++			g_warning("Loading of private key '%s' failed",
++				  myfile_with_pkey);
++			goto errout;
++		}
++	}
++	if (! SSL_CTX_check_private_key(ctx)) {
++		g_warning("Private key does not match the certificate");
++		goto errout;
++	}
++
++ out:
++	g_free(scert);
++	g_free(spkey);
++	return;
++
++ errout:
++	irssi_print_ssl_error();
++	goto out;
++}
++
++static GIOChannel *irssi_ssl_get_iochannel(GIOChannel *handle, const char *hostname, \
+const char *ssl_tpm, const char *mycert, const char *mypkey, const char *cafile, \
+const char *capath, gboolean verify)  {
+ 	GIOSSLChannel *chan;
+ 	GIOChannel *gchan;
+@@ -413,18 +520,7 @@ static GIOChannel *irssi_ssl_get_iochannel(GIOChannel *handle, \
+const char *hostn  SSL_CTX_set_options(ctx, SSL_OP_ALL | SSL_OP_NO_SSLv2);
+ 
+ 	if (mycert &amp;&amp; *mycert) {
+-		char *scert = NULL, *spkey = NULL;
+-		scert = convert_home(mycert);
+-		if (mypkey &amp;&amp; *mypkey)
+-			spkey = convert_home(mypkey);
+-		if (! SSL_CTX_use_certificate_file(ctx, scert, SSL_FILETYPE_PEM))
+-			g_warning("Loading of client certificate '%s' failed", mycert);
+-		else if (! SSL_CTX_use_PrivateKey_file(ctx, spkey ? spkey : scert, \
+                SSL_FILETYPE_PEM))
+-			g_warning("Loading of private key '%s' failed", mypkey ? mypkey : mycert);
+-		else if (! SSL_CTX_check_private_key(ctx))
+-			g_warning("Private key does not match the certificate");
+-		g_free(scert);
+-		g_free(spkey);
++	        irssi_ssl_load_credentials(ssl, ctx, ssl_tpm, mycert, mypkey);
+ 	}
+ 
+ 	if ((cafile &amp;&amp; *cafile) || (capath &amp;&amp; *capath)) {
+@@ -484,14 +580,14 @@ static GIOChannel *irssi_ssl_get_iochannel(GIOChannel *handle, \
+const char *hostn  return gchan;
+ }
+ 
+-GIOChannel *net_connect_ip_ssl(IPADDR *ip, int port, const char* hostname, IPADDR \
+*my_ip, const char *cert, const char *pkey, const char *cafile, const char *capath, \
+gboolean verify) +GIOChannel *net_connect_ip_ssl(IPADDR *ip, int port, const char* \
+hostname, IPADDR *my_ip, const char *ssl_tpm, const char *cert, const char *pkey, \
+const char *cafile, const char *capath, gboolean verify)  {
+ 	GIOChannel *handle, *ssl_handle;
+ 
+ 	handle = net_connect_ip(ip, port, my_ip);
+ 	if (handle == NULL)
+ 		return NULL;
+-	ssl_handle  = irssi_ssl_get_iochannel(handle, hostname, cert, pkey, cafile, capath, \
+verify); +	ssl_handle  = irssi_ssl_get_iochannel(handle, hostname, ssl_tpm, cert, \
+pkey, cafile, capath, verify);  if (ssl_handle == NULL)
+ 		g_io_channel_unref(handle);
+ 	return ssl_handle;
+diff --git a/src/core/network.h b/src/core/network.h
+index 142a179..75d92ea 100644
+--- a/src/core/network.h
++++ b/src/core/network.h
+@@ -49,7 +49,7 @@ int net_ip_compare(IPADDR *ip1, IPADDR *ip2);
+ /* Connect to socket */
+ GIOChannel *net_connect(const char *addr, int port, IPADDR *my_ip);
+ /* Connect to socket with ip address and SSL*/
+-GIOChannel *net_connect_ip_ssl(IPADDR *ip, int port, const char* hostname, IPADDR \
+*my_ip, const char *cert, const char *pkey, const char *cafile, const char *capath, \
+gboolean verify); +GIOChannel *net_connect_ip_ssl(IPADDR *ip, int port, const char* \
+hostname, IPADDR *my_ip, const char *ssl_tpm, const char *cert, const char *pkey, \
+const char *cafile, const char *capath, gboolean verify);  int \
+irssi_ssl_handshake(GIOChannel *handle);  /* Connect to socket with ip address */
+ GIOChannel *net_connect_ip(IPADDR *ip, int port, IPADDR *my_ip);
+diff --git a/src/core/server-connect-rec.h b/src/core/server-connect-rec.h
+index a9588f0..e1d3bbb 100644
+--- a/src/core/server-connect-rec.h
++++ b/src/core/server-connect-rec.h
+@@ -23,6 +23,7 @@ char *nick;
+ char *username;
+ char *realname;
+ 
++char *ssl_tpm;
+ char *ssl_cert;
+ char *ssl_pkey;
+ char *ssl_cafile;
+diff --git a/src/core/server-setup-rec.h b/src/core/server-setup-rec.h
+index b7a0c80..56f8cdc 100644
+--- a/src/core/server-setup-rec.h
++++ b/src/core/server-setup-rec.h
+@@ -8,6 +8,7 @@ char *address;
+ int port;
+ char *password;
+ 
++char *ssl_tpm;
+ char *ssl_cert;
+ char *ssl_pkey;
+ char *ssl_cafile;
+diff --git a/src/core/servers-reconnect.c b/src/core/servers-reconnect.c
+index 15f9f35..c5f9720 100644
+--- a/src/core/servers-reconnect.c
++++ b/src/core/servers-reconnect.c
+@@ -192,6 +192,7 @@ server_connect_copy_skeleton(SERVER_CONNECT_REC *src, int \
+connect_info)  dest-&gt;no_autosendcmd = src-&gt;no_autosendcmd;
+ 
+ 	dest-&gt;use_ssl = src-&gt;use_ssl;
++	dest-&gt;ssl_tpm = g_strdup(src-&gt;ssl_tpm);
+ 	dest-&gt;ssl_cert = g_strdup(src-&gt;ssl_cert);
+ 	dest-&gt;ssl_pkey = g_strdup(src-&gt;ssl_pkey);
+ 	dest-&gt;ssl_verify = src-&gt;ssl_verify;
+diff --git a/src/core/servers-setup.c b/src/core/servers-setup.c
+index 83b90db..52d6ac4 100644
+--- a/src/core/servers-setup.c
++++ b/src/core/servers-setup.c
+@@ -165,6 +165,8 @@ static void server_setup_fill_server(SERVER_CONNECT_REC *conn,
+ 		conn-&gt;port = sserver-&gt;port;
+ 
+ 	conn-&gt;use_ssl = sserver-&gt;use_ssl;
++	if (conn-&gt;ssl_tpm == NULL &amp;&amp; sserver-&gt;ssl_tpm != NULL)
++		conn-&gt;ssl_tpm = g_strdup(sserver-&gt;ssl_tpm);
+ 	if (conn-&gt;ssl_cert == NULL &amp;&amp; sserver-&gt;ssl_cert != NULL &amp;&amp; sserver-&gt;ssl_cert[0] != \
+'\0')  conn-&gt;ssl_cert = g_strdup(sserver-&gt;ssl_cert);
+ 	if (conn-&gt;ssl_pkey == NULL &amp;&amp; sserver-&gt;ssl_pkey != NULL &amp;&amp; sserver-&gt;ssl_pkey[0] != \
+'\0') @@ -394,6 +396,7 @@ static SERVER_SETUP_REC *server_setup_read(CONFIG_NODE \
+*node)  rec-&gt;address = g_strdup(server);
+ 	rec-&gt;password = g_strdup(config_node_get_str(node, "password", NULL));
+ 	rec-&gt;use_ssl = config_node_get_bool(node, "use_ssl", FALSE);
++	rec-&gt;ssl_tpm = g_strdup(config_node_get_str(node, "ssl_tpm", NULL));
+ 	rec-&gt;ssl_cert = g_strdup(config_node_get_str(node, "ssl_cert", NULL));
+ 	rec-&gt;ssl_pkey = g_strdup(config_node_get_str(node, "ssl_pkey", NULL));
+ 	rec-&gt;ssl_verify = config_node_get_bool(node, "ssl_verify", FALSE);
+@@ -433,6 +436,7 @@ static void server_setup_save(SERVER_SETUP_REC *rec)
+ 	iconfig_node_set_int(node, "port", rec-&gt;port);
+ 	iconfig_node_set_str(node, "password", rec-&gt;password);
+ 	iconfig_node_set_bool(node, "use_ssl", rec-&gt;use_ssl);
++	iconfig_node_set_str(node, "ssl_tpm", rec-&gt;ssl_tpm);
+ 	iconfig_node_set_str(node, "ssl_cert", rec-&gt;ssl_cert);
+ 	iconfig_node_set_str(node, "ssl_pkey", rec-&gt;ssl_pkey);
+ 	iconfig_node_set_bool(node, "ssl_verify", rec-&gt;ssl_verify);
+@@ -474,6 +478,7 @@ static void server_setup_destroy(SERVER_SETUP_REC *rec)
+ 	g_free_not_null(rec-&gt;own_ip6);
+ 	g_free_not_null(rec-&gt;chatnet);
+ 	g_free_not_null(rec-&gt;password);
++	g_free_not_null(rec-&gt;ssl_tpm);
+ 	g_free_not_null(rec-&gt;ssl_cert);
+ 	g_free_not_null(rec-&gt;ssl_pkey);
+ 	g_free_not_null(rec-&gt;ssl_cafile);
+diff --git a/src/core/servers.c b/src/core/servers.c
+index d4827b6..e96fa54 100644
+--- a/src/core/servers.c
++++ b/src/core/servers.c
+@@ -224,7 +224,7 @@ static void server_real_connect(SERVER_REC *server, IPADDR *ip,
+ 		port = server-&gt;connrec-&gt;proxy != NULL ?
+ 			server-&gt;connrec-&gt;proxy_port : server-&gt;connrec-&gt;port;
+ 		handle = server-&gt;connrec-&gt;use_ssl ?
+-			net_connect_ip_ssl(ip, port, server-&gt;connrec-&gt;address, own_ip, \
+server-&gt;connrec-&gt;ssl_cert, server-&gt;connrec-&gt;ssl_pkey, +		        \
+net_connect_ip_ssl(ip, port, server-&gt;connrec-&gt;address, own_ip, \
+server-&gt;connrec-&gt;ssl_tpm, server-&gt;connrec-&gt;ssl_cert, server-&gt;connrec-&gt;ssl_pkey,  \
+server-&gt;connrec-&gt;ssl_cafile, server-&gt;connrec-&gt;ssl_capath, \
+server-&gt;connrec-&gt;ssl_verify) :  net_connect_ip(ip, port, own_ip);
+ 	} else {
+@@ -635,6 +635,7 @@ void server_connect_unref(SERVER_CONNECT_REC *conn)
+         g_free_not_null(conn-&gt;username);
+ 	g_free_not_null(conn-&gt;realname);
+ 
++	g_free_not_null(conn-&gt;ssl_tpm);
+ 	g_free_not_null(conn-&gt;ssl_cert);
+ 	g_free_not_null(conn-&gt;ssl_pkey);
+ 	g_free_not_null(conn-&gt;ssl_cafile);
+diff --git a/src/core/session.c b/src/core/session.c
+index b300263..db0e128 100644
+--- a/src/core/session.c
++++ b/src/core/session.c
+@@ -160,6 +160,7 @@ static void session_save_server(SERVER_REC *server, CONFIG_REC \
+*config,  config_node_set_str(config, node, "version", server-&gt;version);
+ 
+ 	config_node_set_bool(config, node, "use_ssl", server-&gt;connrec-&gt;use_ssl);
++	config_node_set_str(config, node, "ssl_tpm", server-&gt;connrec-&gt;ssl_tpm);
+ 	config_node_set_str(config, node, "ssl_cert", server-&gt;connrec-&gt;ssl_cert);
+ 	config_node_set_str(config, node, "ssl_pkey", server-&gt;connrec-&gt;ssl_pkey);
+ 	config_node_set_bool(config, node, "ssl_verify", server-&gt;connrec-&gt;ssl_verify);
+diff --git a/src/fe-common/core/fe-server.c b/src/fe-common/core/fe-server.c
+index e4b32bd..836e271 100644
+--- a/src/fe-common/core/fe-server.c
++++ b/src/fe-common/core/fe-server.c
+@@ -150,6 +150,10 @@ static void cmd_server_add(const char *data)
+ 	if (g_hash_table_lookup(optlist, "ssl"))
+ 		rec-&gt;use_ssl = TRUE;
+ 
++	value = g_hash_table_lookup(optlist, "ssl_tpm");
++	if (value != NULL)
++		rec-&gt;ssl_tpm = g_strdup(value);
++
+ 	value = g_hash_table_lookup(optlist, "ssl_cert");
+ 	if (value != NULL &amp;&amp; *value != '\0')
+ 		rec-&gt;ssl_cert = g_strdup(value);
+@@ -383,7 +387,7 @@ void fe_server_init(void)
+ 	command_bind("server remove", NULL, (SIGNAL_FUNC) cmd_server_remove);
+ 	command_bind_first("server", NULL, (SIGNAL_FUNC) server_command);
+ 	command_bind_first("disconnect", NULL, (SIGNAL_FUNC) server_command);
+-	command_set_options("server add", "4 6 ssl +ssl_cert +ssl_pkey ssl_verify \
++ssl_cafile +ssl_capath auto noauto proxy noproxy -host -port"); \
++	command_set_options("server add", "4 6 ssl +ssl_tpm +ssl_cert +ssl_pkey ssl_verify \
++ssl_cafile +ssl_capath auto noauto proxy noproxy -host -port");  
+ 	signal_add("server looking", (SIGNAL_FUNC) sig_server_looking);
+ 	signal_add("server connecting", (SIGNAL_FUNC) sig_server_connecting);
+diff --git a/src/fe-common/irc/fe-irc-server.c b/src/fe-common/irc/fe-irc-server.c
+index 9bc6876..c4b5341 100644
+--- a/src/fe-common/irc/fe-irc-server.c
++++ b/src/fe-common/irc/fe-irc-server.c
+@@ -50,7 +50,8 @@ const char *get_visible_target(IRC_SERVER_REC *server, const char \
+*target)  
+ 	return target;
+ }
+-/* SYNTAX: SERVER ADD [-4 | -6] [-ssl] [-ssl_cert &lt;cert&gt;] [-ssl_pkey &lt;pkey&gt;]
++/* SYNTAX: SERVER ADD [-4 | -6] [-ssl] [-ssl_tpm &lt;SRK password&gt;]
++                      [-ssl_cert &lt;cert&gt;] [-ssl_pkey &lt;pkey&gt;]
+                       [-ssl_verify] [-ssl_cafile &lt;cafile&gt;] [-ssl_capath &lt;capath&gt;]
+                       [-auto | -noauto] [-network &lt;network&gt;] [-host &lt;hostname&gt;]
+                       [-cmdspeed &lt;ms&gt;] [-cmdmax &lt;count&gt;] [-port &lt;port&gt;]
+@@ -108,6 +109,10 @@ static void cmd_server_list(const char *data)
+ 			g_string_append(str, "noproxy, ");
+ 		if (rec-&gt;use_ssl) {
+ 			g_string_append(str, "ssl, ");
++			if (rec-&gt;ssl_tpm) {
++				g_string_append_printf(str, "ssl_tpm: %s, ",
++						       rec-&gt;ssl_tpm);
++			}
+ 			if (rec-&gt;ssl_cert) {
+ 				g_string_append_printf(str, "ssl_cert: %s, ", rec-&gt;ssl_cert);
+ 				if (rec-&gt;ssl_pkey)
+
+
+
+</body></email><email><emailId>20121209164802</emailId><senderName>Tomáš Nechutný</senderName><senderEmail>nechtom@gmail.com</senderEmail><timestampReceived>2012-12-09 16:48:02-0400</timestampReceived><subject>Re: Highlight when my nick appears anywhere inside message</subject><body>
+
+No it works. I just played with hilight command a bit.
+
+2012/12/9 Tomáš Nechutný &lt;nechtom@gmail.com&gt;:
+&gt; Funny, just after I've sent previous mail I noticed that Irssi with my
+&gt; patch falsely highlited me =). I'll take another look.
+&gt;
+&gt; 2012/12/9 Tomáš Nechutný &lt;nechtom@gmail.com&gt;:
+&gt;&gt; 2012/12/9 Olof Johansson &lt;olof@ethup.se&gt;:
+&gt;&gt;&gt; On 2012-12-09 14:59 +0100, Tomáš Nechutný wrote:
+&gt;&gt;&gt;&gt; some other IRC (xchat &amp; weechat IIRC) clients supports highlighting
+&gt;&gt;&gt;&gt; nicknames in the middle of the message. This is usual scenario in
+&gt;&gt;&gt;&gt; gaming channels
+&gt;&gt;&gt;
+&gt;&gt;&gt; Fwiw, this is easily achieved by adding an explicit hilight for your
+&gt;&gt;&gt; nickname. E.g.:
+&gt;&gt;&gt;
+&gt;&gt;&gt;  /hilight nick4
+&gt;&gt;&gt;
+&gt;&gt;
+&gt;&gt; This isn't kept in sync with current nick per network. And it's
+&gt;&gt; annoying to do that.
+&gt;&gt;
+&gt;&gt; The following is pretty natural
+&gt;&gt;
+&gt;&gt; &lt;nick1&gt; how are you nick2?
+&gt;&gt;
+&gt;&gt; and people using other clients usually expect that it highlights you.
+&gt;
+&gt;
+&gt;
+&gt; --
+&gt; Tomáš Nechutný
+
+
+
+-- 
+Tomáš Nechutný
+
+</body></email><email><emailId>20120809091808</emailId><senderName>Rhialto</senderName><senderEmail>rhialto@falu.nl</senderEmail><timestampReceived>2012-08-09 09:18:08-0400</timestampReceived><subject>Re: Module development</subject><body>
+
+Here is a module I found once. I presume that I compiled it according
+to the given instructions.
+
+/*
+ dcc-send-limiter.c : Limit the transmit speed of DCC sends
+
+ For irssi 0.8+
+
+ compile:
+   export IRSSI=~/cvs/irssi
+   gcc dcc-send-limiter.c -o ~/.irssi/modules/libdcc_send_limiter.so -g -shared \
+-I$IRSSI -I$IRSSI/src -I$IRSSI/src/core -I$IRSSI/src/irc/core -I$IRSSI/src/irc/dcc \
+`glib-config --cflags` -O2 -fPIC
+
+ usage:
+   /LOAD dcc_send_limiter
+
+    Copyright (C) 2001 Timo Sirainen
+
+    Modified 2001/07/04 by Martin Persson
+    	* updated to only keep track of the last 30 sec
+
+    Modified 2001/07/01 by Martin Persson
+    	* added speed send checks
+    	* fixed crash when destroying dcc sends 
+    	  that didn't contain any module data
+    	* fixed crash when initiating dcc send
+
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+#define MODULE_NAME "irc/dcc/limiter"
+#define HAVE_CONFIG_H
+
+#include "common.h"
+#include "signals.h"
+#include "network.h"
+#include "settings.h"
+
+#include "irc.h"
+#include "dcc-send.h"
+
+typedef struct {
+	int timeout_tag;
+
+	unsigned long skip_bytes;
+	unsigned long starttime;
+	unsigned long max_speed;
+} MODULE_SEND_DCC_REC;
+
+static void dcc_send_data(SEND_DCC_REC *dcc);
+
+static void reset_dcc_send(SEND_DCC_REC *dcc)
+{
+	MODULE_SEND_DCC_REC *mdcc;
+
+	if (g_slist_find(dcc_conns, dcc) == NULL) {
+		/* the DCC was closed during the wait */
+		return;
+	}
+
+	mdcc = MODULE_DATA(dcc);
+	g_source_remove(mdcc-&gt;timeout_tag);
+	mdcc-&gt;timeout_tag = -1;
+
+	dcc-&gt;tagwrite = g_input_add(dcc-&gt;handle, G_INPUT_WRITE,
+				    (GInputFunction) dcc_send_data, dcc);
+}
+
+static int sent_too_much(SEND_DCC_REC *dcc, MODULE_SEND_DCC_REC *mdcc)
+{
+	GTimeVal gtv;
+	unsigned long timediff, curtime;
+	unsigned long transfd, speed;
+
+	/* 0 == unlimited speed */
+	if (mdcc-&gt;max_speed == 0) return 0;
+
+	/* get time difference in milliseconds */
+	g_get_current_time(&amp;gtv);
+	curtime = (gtv.tv_sec * 1000) + (gtv.tv_usec / 1000);
+
+	transfd = (dcc-&gt;transfd - mdcc-&gt;skip_bytes);
+	timediff = curtime - mdcc-&gt;starttime + 1;
+	speed = ((transfd * 1000) / timediff);
+
+	/* reset speed counter every 30 seconds */
+	if (timediff &gt;= 30000) {
+		mdcc-&gt;starttime = curtime;
+		mdcc-&gt;skip_bytes = dcc-&gt;transfd;
+	}
+
+	return (speed &gt; (mdcc-&gt;max_speed * 1024));
+}
+
+/* input function: DCC SEND - we're ready to send more data */
+static void dcc_send_data(SEND_DCC_REC *dcc)
+{
+	MODULE_SEND_DCC_REC *mdcc;
+	char buffer[512];
+	int ret, max_speed;
+	GTimeVal gtv;
+
+	mdcc = MODULE_DATA(dcc);
+
+	max_speed = settings_get_int("dcc_send_top_speed");
+	if (max_speed != mdcc-&gt;max_speed) {
+		/* speed setting has changed, calculate speed from current position 
+		   instead of from the start to eliminate speed boosts/slowdowns */
+
+		mdcc-&gt;max_speed = max_speed;
+		mdcc-&gt;skip_bytes = dcc-&gt;transfd;
+
+		g_get_current_time(&amp;gtv);
+		mdcc-&gt;starttime = (gtv.tv_sec * 1000) + (gtv.tv_usec / 1000);
+	}
+
+	if (sent_too_much(dcc, mdcc)) {
+		/* disable calling this function for 1/10th of a second. */
+		g_source_remove(dcc-&gt;tagwrite);
+		dcc-&gt;tagwrite = -1;
+		mdcc-&gt;timeout_tag =
+			g_timeout_add(100, (GSourceFunc) reset_dcc_send, dcc);
+		return;
+	}
+
+	ret = read(dcc-&gt;fhandle, buffer, sizeof(buffer));
+	if (ret &lt;= 0) {
+		/* no need to call this function anymore..
+		   in fact it just eats all the cpu.. */
+		dcc-&gt;waitforend = TRUE;
+		g_source_remove(dcc-&gt;tagwrite);
+		dcc-&gt;tagwrite = -1;
+		return;
+	}
+
+	ret = net_transmit(dcc-&gt;handle, buffer, ret);
+	if (ret &gt; 0) dcc-&gt;transfd += ret;
+	dcc-&gt;gotalldata = FALSE;
+
+	lseek(dcc-&gt;fhandle, dcc-&gt;transfd, SEEK_SET);
+
+	signal_emit("dcc transfer update", 1, dcc);
+}
+
+static void sig_dcc_connected(SEND_DCC_REC *dcc)
+{
+	MODULE_SEND_DCC_REC *mdcc;
+	GTimeVal gtv;
+
+	if (!IS_DCC_SEND(dcc))
+		return;
+
+	mdcc = g_new0(MODULE_SEND_DCC_REC, 1);
+	MODULE_DATA_SET(dcc, mdcc);
+	mdcc-&gt;timeout_tag = -1;
+	mdcc-&gt;skip_bytes = 0;
+	mdcc-&gt;max_speed = settings_get_int("dcc_send_top_speed");
+
+	/* get starttime in milliseconds */
+	g_get_current_time(&amp;gtv);
+	mdcc-&gt;starttime = (gtv.tv_sec * 1000) + (gtv.tv_usec / 1000);
+
+	g_source_remove(dcc-&gt;tagwrite);
+	dcc-&gt;tagwrite = g_input_add(dcc-&gt;handle, G_INPUT_WRITE,
+					(GInputFunction) dcc_send_data, dcc);
+}
+
+static void sig_dcc_destroyed(SEND_DCC_REC *dcc)
+{
+	MODULE_SEND_DCC_REC *mdcc;
+
+	if (!IS_DCC_SEND(dcc))
+		return;
+
+	mdcc = MODULE_DATA(dcc);
+	if (mdcc != NULL) {
+		if (mdcc-&gt;timeout_tag != -1)
+			g_source_remove(mdcc-&gt;timeout_tag);
+
+		g_free(mdcc);
+	}
+}
+
+void dcc_send_limiter_init(void)
+{
+	settings_add_int("dcc", "dcc_send_top_speed", 30);
+
+	signal_add_last("dcc connected", (SIGNAL_FUNC) sig_dcc_connected);
+	signal_add_first("dcc destroyed", (SIGNAL_FUNC) sig_dcc_destroyed);
+
+        module_register("dcc_send_limiter", "core");
+}
+
+void dcc_send_limiter_deinit(void)
+{
+	signal_remove("dcc connected", (SIGNAL_FUNC) sig_dcc_connected);
+	signal_remove("dcc destroyed", (SIGNAL_FUNC) sig_dcc_destroyed);
+}
+
+-Olaf.
+-- 
+___ Olaf 'Rhialto' Seibert  -- There's no point being grown-up if you 
+\X/ rhialto/at/xs4all.nl    -- can't be childish sometimes. -The 4th Doctor
+
+
+</body></email><email><emailId>20120313061151</emailId><senderName>Weedy</senderName><senderEmail>weedy2887@gmail.com</senderEmail><timestampReceived>2012-03-13 06:11:51-0400</timestampReceived><subject>irssi proxy/bouncer</subject><body>
+
+I've been playing with the proxy feature lately since my GPU wails like
+a banshee and I happen to think sleep is a good idea.
+Now I know we are in
+ignore-the-fuck-out-of-it-unless-root-exploit-is-found mode but can we
+get a couple things merged/talked about?
+
+a) http://bugs.irssi.org/index.php?do=details&amp;task_id=645
+
+b) https://github.com/sangh/IrssiProxyBacklogWindowSend
+Only not as fugly as he was forced to do it.
+
+kthx devs
+
+</body></email><email><emailId>20120809005359</emailId><senderName>Troy Heron</senderName><senderEmail>troy.heron@hixxy.org</senderEmail><timestampReceived>2012-08-09 00:53:59-0400</timestampReceived><subject>Module development</subject><body>
+
+Hello,
+
+I'm trying to find documentation and/or examples of irssi modules. The only
+examples I can find seem to be too large and complex. As it stands I'm
+trying to at least get a basic test module to load in irssi without sucess.
+I get the following error every time I try to load it:
+
+10:38 -!- Irssi: test/test isn't Irssi module
+
+The test.c file contains only the following:
+
+#include "common.h"
+#include "printtext.h"
+#include "levels.h"
+#include "modules.h"
+
+#define MODULE_NAME "test"
+
+void test_init()
+{
+  module_register(MODULE_NAME, "core");
+
+  printtext_string(NULL, NULL, MSGLEVEL_CLIENTCRAP, "init");
+
+}
+
+void test_deinit()
+{
+  printtext_string(NULL, NULL, MSGLEVEL_CLIENTCRAP, "test");
+}
+
+And is compiled with the following commands:
+
+gcc -fPIC -Wall -g -DHAVE_CONFIG_H -c test.c
+gcc -fPIC -Wall -g -DHAVE_CONFIG_H -avoid_version -module -shared test.o -o
+libtest.so
+
+The include paths have been removed for clarity.
+
+Thanks,
+Troy
+
+[Attachment #3 (text/html)]
+
+Hello,&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;I'm trying to find documentation and/or examp=
+les of irssi modules. The only examples I can find seem to be too large and=
+ complex. As it stands I'm trying to at least get a basic test module t=
+o load in irssi without sucess. I get the following error every time I try =
+to load it:&lt;/div&gt;
+&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;10:38 -!- Irssi: test/test isn't Irssi module&lt;=
+/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;The test.c file contains only the following:=
+&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;#include "common.h"&lt;/div&gt;&lt;div&gt;
+#include "printtext.h"&lt;/div&gt;&lt;div&gt;#include "levels.h"&lt;/d=
+iv&gt;&lt;div&gt;#include "modules.h"&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;#define MOD=
+ULE_NAME "test"&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;void test_init()&lt;/div&gt;
+&lt;div&gt;{&lt;/div&gt;&lt;div&gt;=A0 module_register(MODULE_NAME, "core");&lt;/div&gt;&lt;=
+div&gt;=A0=A0&lt;/div&gt;&lt;div&gt;=A0 printtext_string(NULL, NULL, MSGLEVEL_CLIENTCRAP, =
+"init");&lt;/div&gt;&lt;div&gt;=A0=A0&lt;/div&gt;&lt;div&gt;}&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;vo=
+id test_deinit()&lt;/div&gt;
+&lt;div&gt;{&lt;/div&gt;&lt;div&gt;=A0 printtext_string(NULL, NULL, MSGLEVEL_CLIENTCRAP, &amp;quo=
+t;test");&lt;/div&gt;&lt;div&gt;}&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;And is compiled with th=
+e following commands:&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;gcc -fPIC -Wall -g -DH=
+AVE_CONFIG_H -c test.c&lt;/div&gt;
+&lt;div&gt;gcc -fPIC -Wall -g -DHAVE_CONFIG_H -avoid_version -module -shared test=
+.o -o libtest.so&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;The include paths have been remov=
+ed for clarity.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Thanks,&lt;/div&gt;&lt;div&gt;Troy&lt;/div&gt;
+
+
+</body></email><email><emailId>20121209135944</emailId><senderName>Tomáš Nechutný</senderName><senderEmail>nechtom@gmail.com</senderEmail><timestampReceived>2012-12-09 13:59:44-0400</timestampReceived><subject>Highlight when my nick appears anywhere inside message</subject><body>
+
+Hello,
+
+some other IRC (xchat &amp; weechat IIRC) clients supports highlighting
+nicknames in the middle of the message. This is usual scenario in
+gaming channels
+
+&lt;nick1&gt; nick2: nick3 nick4 TDM?
+&lt;nick1&gt; nick2: nick3: nick4: TDM?
+&lt;nick1&gt; nick2, nick3 nick4 TDM?
+
+(nick separators depend on TAB behavior of user's client)
+
+Attached patch modifies nick_match_msg() function to support it.
+
+I'm not fluent C programmer and I still don't fully understand how
+this function works (fuzziness) so sorry if I overlooked something. I
+tested it a bit and it seems it works.
+
+-- 
+Tomáš Nechutný
+
+["nick_hl.patch" (application/octet-stream)]
+
+Index: src/core/nicklist.c
+===================================================================
+--- src/core/nicklist.c	(revision 5217)
++++ src/core/nicklist.c	(working copy)
+@@ -30,6 +30,8 @@
+ #define isalnumhigh(a) \
+         (i_isalnum(a) || (unsigned char) (a) &gt;= 128)
+ 
++#define isnicksep(a) (a == ' ' || a == ',' || a == ':')
++
+ static void nick_hash_add(CHANNEL_REC *channel, NICK_REC *nick)
+ {
+ 	NICK_REC *list;
+@@ -559,14 +561,13 @@
+ 
+ 		/* no match. check if this is a message to multiple people
+ 		   (like nick1,nick2: text) */
+-		while (*msg != '\0' &amp;&amp; *msg != ' ' &amp;&amp; *msg != ',') msg++;
++		while (*msg != '\0' &amp;&amp; !isnicksep(*msg)) msg++;
++		while (*msg != '\0' &amp;&amp; isnicksep(*msg)) msg++;
+ 
+-		if (*msg != ',') {
+-                        nick = orignick;
++		if (*msg == '\0') {
++			nick = orignick;
+ 			break;
+ 		}
+-
+-                msg++;
+ 	}
+ 
+ 	if (*nick != '\0')
+
+
+</body></email><email><emailId>20121209160435</emailId><senderName>Olof Johansson</senderName><senderEmail>olof@ethup.se</senderEmail><timestampReceived>2012-12-09 16:04:35-0400</timestampReceived><subject>Re: Highlight when my nick appears anywhere inside message</subject><body>
+
+
+On 2012-12-09 14:59 +0100, Tomáš Nechutný wrote:
+&gt; some other IRC (xchat &amp; weechat IIRC) clients supports highlighting
+&gt; nicknames in the middle of the message. This is usual scenario in
+&gt; gaming channels
+
+Fwiw, this is easily achieved by adding an explicit hilight for your
+nickname. E.g.:
+
+ /hilight nick4
+
+Regards,
+-- 
+ --------------------------------------------------------------- 
+| Olof Johansson                              http://stdlib.se/ |
+|  irc: zibri                           https://github.com/olof |
+ --------------------------------------------------------------- 
+
+["signature.asc" (application/pgp-signature)]
+
+</body></email><email><emailId>20121209163522</emailId><senderName>Tomáš Nechutný</senderName><senderEmail>nechtom@gmail.com</senderEmail><timestampReceived>2012-12-09 16:35:22-0400</timestampReceived><subject>Re: Highlight when my nick appears anywhere inside message</subject><body>
+
+2012/12/9 Olof Johansson &lt;olof@ethup.se&gt;:
+&gt; On 2012-12-09 14:59 +0100, Tom=C3=A1=C5=A1 Nechutn=C3=BD wrote:
+&gt;&gt; some other IRC (xchat &amp; weechat IIRC) clients supports highlighting
+&gt;&gt; nicknames in the middle of the message. This is usual scenario in
+&gt;&gt; gaming channels
+&gt;
+&gt; Fwiw, this is easily achieved by adding an explicit hilight for your
+&gt; nickname. E.g.:
+&gt;
+&gt;  /hilight nick4
+&gt;
+
+This isn't kept in sync with current nick per network. And it's
+annoying to do that.
+
+The following is pretty natural
+
+&lt;nick1&gt; how are you nick2?
+
+and people using other clients usually expect that it highlights you.
+
+</body></email><email><emailId>20121209164550</emailId><senderName>Tomáš Nechutný</senderName><senderEmail>nechtom@gmail.com</senderEmail><timestampReceived>2012-12-09 16:45:50-0400</timestampReceived><subject>Re: Highlight when my nick appears anywhere inside message</subject><body>
+
+Funny, just after I've sent previous mail I noticed that Irssi with my
+patch falsely highlited me =). I'll take another look.
+
+2012/12/9 Tomáš Nechutný &lt;nechtom@gmail.com&gt;:
+&gt; 2012/12/9 Olof Johansson &lt;olof@ethup.se&gt;:
+&gt;&gt; On 2012-12-09 14:59 +0100, Tomáš Nechutný wrote:
+&gt;&gt;&gt; some other IRC (xchat &amp; weechat IIRC) clients supports highlighting
+&gt;&gt;&gt; nicknames in the middle of the message. This is usual scenario in
+&gt;&gt;&gt; gaming channels
+&gt;&gt;
+&gt;&gt; Fwiw, this is easily achieved by adding an explicit hilight for your
+&gt;&gt; nickname. E.g.:
+&gt;&gt;
+&gt;&gt;  /hilight nick4
+&gt;&gt;
+&gt;
+&gt; This isn't kept in sync with current nick per network. And it's
+&gt; annoying to do that.
+&gt;
+&gt; The following is pretty natural
+&gt;
+&gt; &lt;nick1&gt; how are you nick2?
+&gt;
+&gt; and people using other clients usually expect that it highlights you.
+
+
+
+-- 
+Tomáš Nechutný
+
+</body></email></emails>

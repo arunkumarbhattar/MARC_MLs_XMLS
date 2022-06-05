@@ -1,0 +1,3858 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20110401175938</emailId><senderName>Cristiano Sumariva</senderName><senderEmail>sumariva@gmail.com</senderEmail><timestampReceived>2011-04-01 17:59:38-0400</timestampReceived><subject>[PHP-GTK-DEV] Hints on setting windows environment to build php-gtk</subject><body>
+
+
+Hi I trying to fix Gdkscreen-&gt;get_monitor_geometry method to return the
+correct monitor resolution since in multiple monitor/GPU machines the screen
+size is somewhat the sum of all monitor device spaces arranged by the window
+manager.
+
+For this I need first to be able to compile both php and php-gtk so I can
+start looking up for the function definition.
+
+Can you provide me some hints on environment needed.
+I following elizabeth clues at
+http://elizabethmariesmith.com/how-to-compile-php52-and-php-gtk2-on-windows-using-visual-c-express
+.
+
+Up to now I got the free Visual Studio C++ 2008 but got stucked at php
+configure script not been able to find the mc.exe file.
+I now trying to install the Microsoft Plataform SDK ( Windows Server 2003 )
+in hope to find that binary file.
+
+
+</body></email><email><emailId>20110520012300</emailId><senderName>"ciberovantuzo at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-05-20 01:23:00-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #54867 [NEW]: Error on GTK2 installation process</subject><body>
+
+From:             
+Operating system: OpenSUSE
+PHP version:      trunk-SVN-2011-05-20 (SVN)
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:Error on GTK2 installation process
+
+Description:
+------------
+Sources were taken from
+http://svn.php.net/viewvc/gtk/php-gtk/branches/GTK2/ on 20th may 2011.
+
+
+
+Test script:
+---------------
+$ ./configure
+[passes without any troubles]
+
+$ make
+
+Build complete.
+Don't forget to run 'make test'.
+
+$ sudo make install
+Installing shared extensions:    
+/usr/local/lib/php/extensions/no-debug-non-zts-20100525/
+cp: cannot stat `modules/*': No such file or directory
+make: *** [install-modules] Error 1
+
+Expected result:
+----------------
+Module installation
+
+Actual result:
+--------------
+Installation failure
+
+-- 
+Edit bug report at http://bugs.php.net/bug.php?id=54867&amp;edit=1
+-- 
+Try a snapshot (PHP 5.2):            http://bugs.php.net/fix.php?id=54867&amp;r=trysnapshot52
+Try a snapshot (PHP 5.3):            http://bugs.php.net/fix.php?id=54867&amp;r=trysnapshot53
+Try a snapshot (trunk):              http://bugs.php.net/fix.php?id=54867&amp;r=trysnapshottrunk
+Fixed in SVN:                        http://bugs.php.net/fix.php?id=54867&amp;r=fixed
+Fixed in SVN and need be documented: http://bugs.php.net/fix.php?id=54867&amp;r=needdocs
+Fixed in release:                    http://bugs.php.net/fix.php?id=54867&amp;r=alreadyfixed
+Need backtrace:                      http://bugs.php.net/fix.php?id=54867&amp;r=needtrace
+Need Reproduce Script:               http://bugs.php.net/fix.php?id=54867&amp;r=needscript
+Try newer version:                   http://bugs.php.net/fix.php?id=54867&amp;r=oldversion
+Not developer issue:                 http://bugs.php.net/fix.php?id=54867&amp;r=support
+Expected behavior:                   http://bugs.php.net/fix.php?id=54867&amp;r=notwrong
+Not enough info:                     http://bugs.php.net/fix.php?id=54867&amp;r=notenoughinfo
+Submitted twice:                     http://bugs.php.net/fix.php?id=54867&amp;r=submittedtwice
+register_globals:                    http://bugs.php.net/fix.php?id=54867&amp;r=globals
+PHP 4 support discontinued:          http://bugs.php.net/fix.php?id=54867&amp;r=php4
+Daylight Savings:                    http://bugs.php.net/fix.php?id=54867&amp;r=dst
+IIS Stability:                       http://bugs.php.net/fix.php?id=54867&amp;r=isapi
+Install GNU Sed:                     http://bugs.php.net/fix.php?id=54867&amp;r=gnused
+Floating point limitations:          http://bugs.php.net/fix.php?id=54867&amp;r=float
+No Zend Extensions:                  http://bugs.php.net/fix.php?id=54867&amp;r=nozend
+MySQL Configuration Error:           http://bugs.php.net/fix.php?id=54867&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20111215112720</emailId><senderName>"willyscheibel at gmx dot de"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-12-15 11:27:20-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #60530 [NEW]: PHP Execution doesn't terminate when using circular refere</subject><body>
+
+From:             
+Operating system: Ubuntu 10.10
+PHP version:      Irrelevant
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:PHP Execution doesn't terminate when using circular references and mnemonics
+
+Description:
+------------
+Used php-gtk: trunk at 2011-12-11
+
+The provided script could be parametrized with the defines in the first
+lines.
+I provide a version which shows the bug (define('SHOW_BUG', true)), another
+one, which avoids the bug (define('SHOW_BUG', false)) and another one,
+which presents a workaround (define('USE_WORKAROUND', true)).
+
+The bug occurs when one uses menu entries with mnemonics in their names in
+conjunction with a circular reference in classes using php-gtk.
+the bug doesn't occur if either the circular reference is resolved manually
+or if there isn't any menu entry with a mnemonic in its name.
+
+Test script:
+---------------
+a minimal script which reproduces the bug is located at
+http://tasteful-revolution.net/bug.php.txt
+
+Expected result:
+----------------
+When I close the window, the script should terminate normally.
+
+Actual result:
+--------------
+When I close the window, the script doesn't terminate but leaves the gtk
+main loop.
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=60530&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=60530&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=60530&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=60530&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=60530&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=60530&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=60530&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=60530&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=60530&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=60530&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=60530&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=60530&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=60530&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=60530&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=60530&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=60530&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=60530&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=60530&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=60530&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=60530&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=60530&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=60530&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110225211907</emailId><senderName>_MD_ ProductionS</senderName><senderEmail>mdproductions@gmail.com</senderEmail><timestampReceived>2011-02-25 21:19:07-0400</timestampReceived><subject>[PHP-GTK-DEV] I want to help out!</subject><body>
+
+
+Good day PHP team!
+
+I've been a huge fan of PHP since year 2000. I went to school to study web
+programming, then gained 7 years of hands-on PHP development experience, and
+now doing some grad work.
+For my final project (thesis) I want to make something *grand*! I've always
+wanted to see PHP language to be distributed freely with an installer
+(mostly for windows and macs).
+And of course to run it in a window environment without the need for a web
+server.
+To make long story short, I want to help out. For this, I would like to know
+what areas of PHP-GTK still needs development or research.
+
+I am ready to work hard and long, to make PHP the number 1 language! :)
+Let me know how I can help.
+
+Thanks
+
+
+Paul
+
+
+</body></email><email><emailId>20110320213217</emailId><senderName>"Maik Greubel"</senderName><senderEmail>greubel@nkey.de</senderEmail><timestampReceived>2011-03-20 21:32:17-0400</timestampReceived><subject>[PHP-GTK-DEV] [Patch] Compile php-gtk against PHP 5.3.6</subject><body>
+
+Hello folks,
+
+the PHP people decided to change the define for ZEND_BEGIN_ARG_INFO and the 
+*EX-friend to be static. This is the cause, why php-gtk will no longer 
+compile against that version.
+
+Here is the patch to correct the behaviour in the generators and overrides. 
+I decided to write a generic 5.3 patch which includes the patch by Fedora at 
+FamilleCollet dot com:
+
+http://osdir.com/ml/php.gtk+.devel/2008-08/msg00006.html
+
+The main/phpg_gobject.c seems to be not generated. Please correct me, if I'm 
+wrong. Please keep in mind to remove ext/scintilla/gen_scintilla.c before 
+calling "make" to ensure it is re-generated. There are some issues in the 
+sci_generator.php left, some warnings and a vardump/print_r. I don't know, 
+what is expected there.
+
+Cheers
+
+Maik 
+
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110720095448</emailId><senderName></senderName><senderEmail>markskilbeck</senderEmail><timestampReceived>2011-07-20 09:54:48-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #55225 [Opn]: PHP-GTK Segmentation fault on Quit</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+
+ ID:                 55225
+ Updated by:         markskilbeck@php.net
+ Reported by:        falk dot herrmann at bike24 dot net
+ Summary:            PHP-GTK Segmentation fault on Quit
+ Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 2.6.38.6
+ PHP Version:        5.3.7RC3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+What PHP-GTK version are you using? IIRC you need to be using SVN and
+not the 2.0.1 release from the website.
+
+http://svn.php.net/repository/gtk/php-gtk/trunk
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-07-20 05:36:47] falk dot herrmann at bike24 dot net
+
+...
+Core was generated by `php -f hello-world.php'.
+Program terminated with signal 11, Segmentation fault.
+[New process 11395]
+#0  0x08310f1e in clean_module_class (ce=0x961d994, module_number=0xbf8b5e4c)
+    at /usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2087
+2087            if ((*ce)-&gt;type == ZEND_INTERNAL_CLASS &amp;&amp; \
+(*ce)-&gt;module-&gt;module_number == *module_number) { (gdb) bt
+#0  0x08310f1e in clean_module_class (ce=0x961d994, module_number=0xbf8b5e4c)
+    at /usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2087
+#1  0x0831add4 in zend_hash_apply_with_argument (ht=0x9468480, apply_func=0x8310f00 \
+&lt;clean_module_class&gt;,   argument=0xbf8b5e4c) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:698 #2  0x08314bb8 in \
+module_destructor (module=0x94b3648) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2097 #3  0x0831ac58 in \
+zend_hash_apply_deleter (ht=0x87a4300, p=0x96119a8) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:612 #4  0x0831ad5b in \
+zend_hash_reverse_apply (ht=0x87a4300, apply_func=0x8310f60 \
+&lt;module_registry_unload_temp&gt;)  at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:761 #5  0x0830fa9e in \
+zend_post_deactivate_modules () at /usr/src/bApache2/php-5.3.7RC3/Zend/zend.c:937 #6  \
+0x082bf095 in php_request_shutdown (dummy=0x0) at \
+/usr/src/bApache2/php-5.3.7RC3/main/main.c:1644 #7  0x083927b4 in main (argc=3, \
+argv=0xbf8b62f4) at /usr/src/bApache2/php-5.3.7RC3/sapi/cli/php_cli.c:1363
+
+------------------------------------------------------------------------
+[2011-07-19 18:37:44] felipe@php.net
+
+Thank you for this bug report. To properly diagnose the problem, we
+need a backtrace to see what is happening behind the scenes. To
+find out how to generate a backtrace, please read
+http://bugs.php.net/bugs-generating-backtrace.php for *NIX and
+http://bugs.php.net/bugs-generating-backtrace-win32.php for Win32
+
+Once you have generated a backtrace, please submit it to this bug
+report and change the status back to "Open". Thank you for helping
+us make PHP better.
+
+
+
+------------------------------------------------------------------------
+[2011-07-18 05:56:56] falk dot herrmann at bike24 dot net
+
+Description:
+------------
+Every PHP-GTK application returns an segmentation fault on quit. Alt-F4, close via \
+menu, or close button brings the same error. The program itself runs fine. Only the \
+quit command returns segfault after the last line of code.
+
+Return code: 139
+
+
+Test script:
+---------------
+&lt;?php
+
+dl('php_gtk2.so');
+
+$wnd = new GtkWindow();
+$wnd-&gt;set_title('Hello world');
+$wnd-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+ 
+$lblHello = new GtkLabel("Hello world!'");
+$wnd-&gt;add($lblHello);
+ 
+$wnd-&gt;show_all();
+Gtk::main();
+
+
+Expected result:
+----------------
+Return code: 0
+
+
+Actual result:
+--------------
+fh@psyco ~/php-gtk $ php -f hello-world.php
+Segmentation fault
+fh@psyco ~/php-gtk $ echo $?
+139
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20110903161949</emailId><senderName>Paul Horton</senderName><senderEmail>simplyecommerce@googlemail.com</senderEmail><timestampReceived>2011-09-03 16:19:49-0400</timestampReceived><subject>[PHP-GTK-DEV] Diff for conflicting method name (Gtk-2.20)</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+Diff attached which fixed method naming conflict.
+
+Paul
+
+[Attachment #5 (text/html)]
+
+Diff attached which fixed method naming conflict.&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Paul&lt;/div&gt;
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110227084807</emailId><senderName>FGM</senderName><senderEmail>fgm@osinet.fr</senderEmail><timestampReceived>2011-02-27 08:48:07-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] I want to help out!</subject><body>
+
+One thing I noticed, from maintaing php-gtk.eu, is that several users who 
+invested time on PHP-GTK did it by building their own installer.
+
+The net result being that we currently have a profusion (well, maybe I'm 
+exaggerating a bit, but still...) of not-so-much maintained 
+installers/distributions for the various platforms. If you want to work on 
+an installer, which IMO is indeed still the most problematic part of 
+PHP-GTK, it might be nice to work on polishing one of the existing 
+installers instead of creating yet another one.
+
+One thing I would find especially nice would be to have a usable Debian 
+and/or Ubuntu APT package good enough to be adopted by Debian and/or 
+Canonical, instead of yet another custom installer hosted on a private site. 
+PyGtk has one, why not PHP-GTK ?
+
+
+----- Original Message ----- 
+From: "_MD_ ProductionS" &lt;mdproductions@gmail.com&gt;
+To: &lt;php-gtk-dev@lists.php.net&gt;
+Sent: Friday, February 25, 2011 10:19 PM
+Subject: [PHP-GTK-DEV] I want to help out!
+
+
+Good day PHP team!
+
+I've been a huge fan of PHP since year 2000. I went to school to study web
+programming, then gained 7 years of hands-on PHP development experience, and
+now doing some grad work.
+For my final project (thesis) I want to make something *grand*! I've always
+wanted to see PHP language to be distributed freely with an installer
+(mostly for windows and macs).
+And of course to run it in a window environment without the need for a web
+server.
+To make long story short, I want to help out. For this, I would like to know
+what areas of PHP-GTK still needs development or research.
+
+I am ready to work hard and long, to make PHP the number 1 language! :)
+Let me know how I can help.
+
+Thanks
+
+
+Paul 
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20111219165746</emailId><senderName>"willyscheibel at gmx dot de"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-12-19 16:57:46-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #60530 [Opn]: PHP Execution doesn't terminate when using circular references and m</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=60530&amp;edit=1
+
+ ID:                 60530
+ User updated by:    willyscheibel at gmx dot de
+ Reported by:        willyscheibel at gmx dot de
+ Summary:            PHP Execution doesn't terminate when using circular
+                     references and mnemonics
+ Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+-Operating System:   Ubuntu 10.10
++Operating System:   Ubuntu 11.10
+ PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Changed used OS
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-12-15 11:27:19] willyscheibel at gmx dot de
+
+Description:
+------------
+Used php-gtk: trunk at 2011-12-11
+
+The provided script could be parametrized with the defines in the first lines.
+I provide a version which shows the bug (define('SHOW_BUG', true)), another one, \
+which avoids the bug (define('SHOW_BUG', false)) and another one, which presents a \
+workaround (define('USE_WORKAROUND', true)).
+
+The bug occurs when one uses menu entries with mnemonics in their names in \
+conjunction with a circular reference in classes using php-gtk. the bug doesn't occur \
+if either the circular reference is resolved manually or if there isn't any menu \
+entry with a mnemonic in its name.
+
+Test script:
+---------------
+a minimal script which reproduces the bug is located at
+http://tasteful-revolution.net/bug.php.txt
+
+Expected result:
+----------------
+When I close the window, the script should terminate normally.
+
+Actual result:
+--------------
+When I close the window, the script doesn't terminate but leaves the gtk main loop.
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=60530&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20110904085342</emailId><senderName>"cweiske () php ! net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-09-04 08:53:42-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #55579 [NEW]: buildconf fails</subject><body>
+
+From:             cweiske
+Operating system: 
+PHP version:      5.3.8
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:buildconf fails 
+
+Description:
+------------
+Running ./buildconf from a fresh svn checkout fails.
+
+It's a Ubuntu 11.04 system with php 5.3.5
+
+Actual result:
+--------------
+cweiske:~/Dev/php.net/php-gtk&gt; ./buildconf
+Configuring for:
+PHP Api Version:         20090626
+Zend Module Api No:      20090626
+Zend Extension Api No:   220090626
+rebuilding aclocal.m4
+rebuilding configure
+configure.in:150: warning: LTOPTIONS_VERSION is m4_require'd but not
+m4_defun'd
+aclocal.m4:2950: LT_INIT is expanded from...
+aclocal.m4:2985: AC_PROG_LIBTOOL is expanded from...
+configure.in:150: the top level
+configure.in:150: warning: LTSUGAR_VERSION is m4_require'd but not
+m4_defun'd
+configure.in:150: warning: LTVERSION_VERSION is m4_require'd but not
+m4_defun'd
+configure.in:150: warning: LTOBSOLETE_VERSION is m4_require'd but not
+m4_defun'd
+configure:12127: error: possibly undefined macro: m4_ifval
+      If this token and others are legitimate, please use
+m4_pattern_allow.
+      See the Autoconf documentation.
+configure:15154: error: possibly undefined macro: _LT_SET_OPTIONS
+configure:15154: error: possibly undefined macro: LT_INIT
+make[1]: *** [configure] Fehler 1
+make: *** [all] Fehler 2
+
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=55579&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=55579&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=55579&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=55579&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=55579&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=55579&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=55579&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=55579&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=55579&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=55579&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=55579&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=55579&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=55579&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=55579&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=55579&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=55579&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=55579&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=55579&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=55579&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=55579&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=55579&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=55579&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110904085657</emailId><senderName>"cweiske () php ! net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-09-04 08:56:57-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #55580 [NEW]: ./configure fails</subject><body>
+
+From:             cweiske
+Operating system: 
+PHP version:      Irrelevant
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:./configure fails
+
+Description:
+------------
+Running ./configure on latest svn, I get an error.
+
+This is Ubuntu 11.04, php 5.3.5
+
+Actual result:
+--------------
+checking for scintilla support... no
+checking for sourceview support... no
+checking for spell support... no
+creating main/php_gtk_ext.c
+./configure: line 12047: LTOPTIONS_VERSION: command not found
+./configure: line 12048: LTSUGAR_VERSION: command not found
+./configure: line 12049: LTVERSION_VERSION: command not found
+./configure: line 12050: LTOBSOLETE_VERSION: command not found
+checking for a sed that does not truncate output... (cached) /bin/sed
+./configure: line 12125: syntax error near unexpected token
+`lt_decl_varnames,'
+./configure: line 12125: `lt_if_append_uniq(lt_decl_varnames, SED, , ,'
+
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=55580&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=55580&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=55580&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=55580&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=55580&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=55580&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=55580&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=55580&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=55580&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=55580&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=55580&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=55580&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=55580&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=55580&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=55580&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=55580&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=55580&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=55580&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=55580&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=55580&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=55580&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=55580&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110904095406</emailId><senderName>"markskilbeck () php ! net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-09-04 09:54:06-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #55579 [Com]: buildconf fails</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=55579&amp;edit=1
+
+ ID:                 55579
+ Comment by:         markskilbeck@php.net
+ Reported by:        cweiske@php.net
+ Summary:            buildconf fails
+ Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ PHP Version:        5.3.8
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Have you tried applying the patch[1] for the autoconf evil?
+
+[1] http://squirrelshaterobots.com/programming/php-gtk/compiling-php-gtk2-on-ubuntu-10/
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-09-04 08:53:41] cweiske@php.net
+
+Description:
+------------
+Running ./buildconf from a fresh svn checkout fails.
+
+It's a Ubuntu 11.04 system with php 5.3.5
+
+Actual result:
+--------------
+cweiske:~/Dev/php.net/php-gtk&gt; ./buildconf
+Configuring for:
+PHP Api Version:         20090626
+Zend Module Api No:      20090626
+Zend Extension Api No:   220090626
+rebuilding aclocal.m4
+rebuilding configure
+configure.in:150: warning: LTOPTIONS_VERSION is m4_require'd but not m4_defun'd
+aclocal.m4:2950: LT_INIT is expanded from...
+aclocal.m4:2985: AC_PROG_LIBTOOL is expanded from...
+configure.in:150: the top level
+configure.in:150: warning: LTSUGAR_VERSION is m4_require'd but not m4_defun'd
+configure.in:150: warning: LTVERSION_VERSION is m4_require'd but not m4_defun'd
+configure.in:150: warning: LTOBSOLETE_VERSION is m4_require'd but not m4_defun'd
+configure:12127: error: possibly undefined macro: m4_ifval
+      If this token and others are legitimate, please use m4_pattern_allow.
+      See the Autoconf documentation.
+configure:15154: error: possibly undefined macro: _LT_SET_OPTIONS
+configure:15154: error: possibly undefined macro: LT_INIT
+make[1]: *** [configure] Fehler 1
+make: *** [all] Fehler 2
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=55579&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110904160737</emailId><senderName></senderName><senderEmail>cweiske</senderEmail><timestampReceived>2011-09-04 16:07:37-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #55579 [Opn]: buildconf fails</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=55579&amp;edit=1
+
+ ID:                 55579
+ Updated by:         cweiske@php.net
+ Reported by:        cweiske@php.net
+ Summary:            buildconf fails
+ Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ PHP Version:        5.3.8
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+No, I did not try it.
+
+Did it now and it worked! It should probably be applied to src.
+
+This also makes bug #55580 work.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-09-04 09:54:06] markskilbeck@php.net
+
+Have you tried applying the patch[1] for the autoconf evil?
+
+[1] http://squirrelshaterobots.com/programming/php-gtk/compiling-php-gtk2-on-ubuntu-10/
+
+------------------------------------------------------------------------
+[2011-09-04 08:53:41] cweiske@php.net
+
+Description:
+------------
+Running ./buildconf from a fresh svn checkout fails.
+
+It's a Ubuntu 11.04 system with php 5.3.5
+
+Actual result:
+--------------
+cweiske:~/Dev/php.net/php-gtk&gt; ./buildconf
+Configuring for:
+PHP Api Version:         20090626
+Zend Module Api No:      20090626
+Zend Extension Api No:   220090626
+rebuilding aclocal.m4
+rebuilding configure
+configure.in:150: warning: LTOPTIONS_VERSION is m4_require'd but not m4_defun'd
+aclocal.m4:2950: LT_INIT is expanded from...
+aclocal.m4:2985: AC_PROG_LIBTOOL is expanded from...
+configure.in:150: the top level
+configure.in:150: warning: LTSUGAR_VERSION is m4_require'd but not m4_defun'd
+configure.in:150: warning: LTVERSION_VERSION is m4_require'd but not m4_defun'd
+configure.in:150: warning: LTOBSOLETE_VERSION is m4_require'd but not m4_defun'd
+configure:12127: error: possibly undefined macro: m4_ifval
+      If this token and others are legitimate, please use m4_pattern_allow.
+      See the Autoconf documentation.
+configure:15154: error: possibly undefined macro: _LT_SET_OPTIONS
+configure:15154: error: possibly undefined macro: LT_INIT
+make[1]: *** [configure] Fehler 1
+make: *** [all] Fehler 2
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=55579&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110904160908</emailId><senderName></senderName><senderEmail>cweiske</senderEmail><timestampReceived>2011-09-04 16:09:08-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #55580 [Opn-&gt;Bgs]: ./configure fails</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=55580&amp;edit=1
+
+ ID:                 55580
+ Updated by:         cweiske@php.net
+ Reported by:        cweiske@php.net
+ Summary:            ./configure fails
+-Status:             Open
++Status:             Bogus
+ Type:               Bug
+ Package:            PHP-GTK related
+ PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Problem vanished with patch from bug #55579.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-09-04 08:56:57] cweiske@php.net
+
+Description:
+------------
+Running ./configure on latest svn, I get an error.
+
+This is Ubuntu 11.04, php 5.3.5
+
+Actual result:
+--------------
+checking for scintilla support... no
+checking for sourceview support... no
+checking for spell support... no
+creating main/php_gtk_ext.c
+./configure: line 12047: LTOPTIONS_VERSION: command not found
+./configure: line 12048: LTSUGAR_VERSION: command not found
+./configure: line 12049: LTVERSION_VERSION: command not found
+./configure: line 12050: LTOBSOLETE_VERSION: command not found
+checking for a sed that does not truncate output... (cached) /bin/sed
+./configure: line 12125: syntax error near unexpected token `lt_decl_varnames,'
+./configure: line 12125: `lt_if_append_uniq(lt_decl_varnames, SED, , ,'
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=55580&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110904172154</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2011-09-04 17:21:54-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #55579 [Opn-&gt;Wfx]: buildconf fails</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=55579&amp;edit=1
+
+ ID:                 55579
+ Updated by:         auroraeosrose@php.net
+ Reported by:        cweiske@php.net
+ Summary:            buildconf fails
+-Status:             Open
++Status:             Wont fix
+ Type:               Bug
+ Package:            PHP-GTK related
+ PHP Version:        5.3.8
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+This is an issue with something that Ubuntu does to php build files -
+
+If you build PHP from source instead of using Ubuntu's build, and then build php-gtk \
+it works perfectly.  We CAN'T just apply the patch to the source proper because then \
+it breaks the build on every other system and regular source builds.
+
+If you're an automake guru and can find a way to fix the patch to work against \
+Ubuntu's PHP build and not break a "virgin" php-gtk build or a build on other \
+system's I'd love that - but so far no one has been able to figure out how to do \
+that.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-09-04 16:07:37] cweiske@php.net
+
+No, I did not try it.
+
+Did it now and it worked! It should probably be applied to src.
+
+This also makes bug #55580 work.
+
+------------------------------------------------------------------------
+[2011-09-04 09:54:06] markskilbeck@php.net
+
+Have you tried applying the patch[1] for the autoconf evil?
+
+[1] http://squirrelshaterobots.com/programming/php-gtk/compiling-php-gtk2-on-ubuntu-10/
+
+
+------------------------------------------------------------------------
+[2011-09-04 08:53:41] cweiske@php.net
+
+Description:
+------------
+Running ./buildconf from a fresh svn checkout fails.
+
+It's a Ubuntu 11.04 system with php 5.3.5
+
+Actual result:
+--------------
+cweiske:~/Dev/php.net/php-gtk&gt; ./buildconf
+Configuring for:
+PHP Api Version:         20090626
+Zend Module Api No:      20090626
+Zend Extension Api No:   220090626
+rebuilding aclocal.m4
+rebuilding configure
+configure.in:150: warning: LTOPTIONS_VERSION is m4_require'd but not m4_defun'd
+aclocal.m4:2950: LT_INIT is expanded from...
+aclocal.m4:2985: AC_PROG_LIBTOOL is expanded from...
+configure.in:150: the top level
+configure.in:150: warning: LTSUGAR_VERSION is m4_require'd but not m4_defun'd
+configure.in:150: warning: LTVERSION_VERSION is m4_require'd but not m4_defun'd
+configure.in:150: warning: LTOBSOLETE_VERSION is m4_require'd but not m4_defun'd
+configure:12127: error: possibly undefined macro: m4_ifval
+      If this token and others are legitimate, please use m4_pattern_allow.
+      See the Autoconf documentation.
+configure:15154: error: possibly undefined macro: _LT_SET_OPTIONS
+configure:15154: error: possibly undefined macro: LT_INIT
+make[1]: *** [configure] Fehler 1
+make: *** [all] Fehler 2
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=55579&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20110904222907</emailId><senderName>Paul Horton</senderName><senderEmail>simplyecommerce@googlemail.com</senderEmail><timestampReceived>2011-09-04 22:29:07-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] Diff for conflicting method name (Gtk-2.20)</subject><body>
+
+
+Mark,
+
+This is to fix a naming conflict thus avoiding overriding, which doesn't
+occur in GTK.
+
+P
+
+On 3 September 2011 17:44, Mark Skilbeck &lt;m@iammark.us&gt; wrote:
+
+&gt; What is the reasoning for this patch? AFAIK there are no errors/bugs
+&gt; related to this. Also, as the c-name shows, the correct naming for this
+&gt; function would be the currently used name (GtkToolPalette::set_style).
+&gt;
+&gt; Mark.
+&gt;
+&gt; P.S. My apologies for not replying to the mailing list previously.
+&gt;
+&gt; On Sat, Sep 03, 2011 at 05:38:15PM +0100, Paul Horton wrote:
+&gt; &gt; Oops - first time for this.
+&gt; &gt;
+&gt; &gt; Here goes again.
+&gt; &gt;
+&gt; &gt; Paul
+&gt; &gt;
+&gt; &gt; On 3 September 2011 17:35, Mark Skilbeck &lt;m@iammark.us&gt; wrote:
+&gt; &gt;
+&gt; &gt; &gt; I see no attachments.
+&gt; &gt; &gt;
+&gt; &gt; &gt; Be sure to use .txt as the extension for the attachment - AFAIR the
+&gt; &gt; &gt; mailing lists shit themselves when a different extension is used.
+&gt; &gt; &gt;
+&gt; &gt; &gt; Mark.
+&gt; &gt; &gt;
+&gt; &gt; &gt; On Sat, Sep 03, 2011 at 05:19:49PM +0100, Paul Horton wrote:
+&gt; &gt; &gt; &gt; Diff attached which fixed method naming conflict.
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; Paul
+&gt; &gt; &gt;
+&gt; &gt; &gt; &gt; --
+&gt; &gt; &gt; &gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt; &gt; &gt; &gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt; &gt; &gt;
+&gt; &gt; &gt;
+&gt;
+&gt; &gt; Index: ext/gtk+/gtk-2.20.defs
+&gt; &gt; ===================================================================
+&gt; &gt; --- ext/gtk+/gtk-2.20.defs    (revision 316074)
+&gt; &gt; +++ ext/gtk+/gtk-2.20.defs    (working copy)
+&gt; &gt; @@ -88,7 +88,7 @@
+&gt; &gt;    (return-type "none")
+&gt; &gt;  )
+&gt; &gt;
+&gt; &gt; -(define-method set_style
+&gt; &gt; +(define-method set_toolbar_style
+&gt; &gt;    (of-object "GtkToolPalette")
+&gt; &gt;    (c-name "gtk_tool_palette_set_style")
+&gt; &gt;    (return-type "none")
+&gt;
+&gt;
+
+
+</body></email><email><emailId>20110908160244</emailId><senderName>"falk dot herrmann at bike24 dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-09-08 16:02:44-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #55225 [Opn]: PHP-GTK Segmentation fault on Quit</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+
+ ID:                 55225
+ User updated by:    falk dot herrmann at bike24 dot net
+ Reported by:        falk dot herrmann at bike24 dot net
+ Summary:            PHP-GTK Segmentation fault on Quit
+ Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 2.6.38.6
+ PHP Version:        5.3.7RC3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+The same error on a complete different system: PHP 5.3.8 (sources) on an Ubuntu \
+11.04, GTK 2.24.4 libs, PHP-GTK from SVN. Also this is a 64-bit system. The bug \
+report was created on an 32-bit Gentoo System.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-07-20 06:14:41] falk dot herrmann at bike24 dot net
+
+I use the latest version of PHP-GTK from SVN:
+
+psyco php-gtk-svn # svn info
+Path: .
+URL: http://svn.php.net/repository/gtk/php-gtk/trunk
+Repository Root: http://svn.php.net/repository
+Repository UUID: c90b9560-bf6c-de11-be94-00142212c4b1
+Revision: 313467
+Node Kind: directory
+Schedule: normal
+Last Changed Author: markskilbeck
+Last Changed Rev: 307828
+Last Changed Date: 2011-01-28 21:27:32 +0100 (Fri, 28 Jan 2011)
+
+------------------------------------------------------------------------
+[2011-07-20 05:54:48] markskilbeck@php.net
+
+What PHP-GTK version are you using? IIRC you need to be using SVN and
+not the 2.0.1 release from the website.
+
+http://svn.php.net/repository/gtk/php-gtk/trunk
+
+------------------------------------------------------------------------
+[2011-07-20 05:36:47] falk dot herrmann at bike24 dot net
+
+...
+Core was generated by `php -f hello-world.php'.
+Program terminated with signal 11, Segmentation fault.
+[New process 11395]
+#0  0x08310f1e in clean_module_class (ce=0x961d994, module_number=0xbf8b5e4c)
+    at /usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2087
+2087            if ((*ce)-&gt;type == ZEND_INTERNAL_CLASS &amp;&amp; \
+(*ce)-&gt;module-&gt;module_number == *module_number) { (gdb) bt
+#0  0x08310f1e in clean_module_class (ce=0x961d994, module_number=0xbf8b5e4c)
+    at /usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2087
+#1  0x0831add4 in zend_hash_apply_with_argument (ht=0x9468480, apply_func=0x8310f00 \
+&lt;clean_module_class&gt;,   argument=0xbf8b5e4c) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:698 #2  0x08314bb8 in \
+module_destructor (module=0x94b3648) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2097 #3  0x0831ac58 in \
+zend_hash_apply_deleter (ht=0x87a4300, p=0x96119a8) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:612 #4  0x0831ad5b in \
+zend_hash_reverse_apply (ht=0x87a4300, apply_func=0x8310f60 \
+&lt;module_registry_unload_temp&gt;)  at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:761 #5  0x0830fa9e in \
+zend_post_deactivate_modules () at /usr/src/bApache2/php-5.3.7RC3/Zend/zend.c:937 #6  \
+0x082bf095 in php_request_shutdown (dummy=0x0) at \
+/usr/src/bApache2/php-5.3.7RC3/main/main.c:1644 #7  0x083927b4 in main (argc=3, \
+argv=0xbf8b62f4) at /usr/src/bApache2/php-5.3.7RC3/sapi/cli/php_cli.c:1363
+
+------------------------------------------------------------------------
+[2011-07-19 18:37:44] felipe@php.net
+
+Thank you for this bug report. To properly diagnose the problem, we
+need a backtrace to see what is happening behind the scenes. To
+find out how to generate a backtrace, please read
+http://bugs.php.net/bugs-generating-backtrace.php for *NIX and
+http://bugs.php.net/bugs-generating-backtrace-win32.php for Win32
+
+Once you have generated a backtrace, please submit it to this bug
+report and change the status back to "Open". Thank you for helping
+us make PHP better.
+
+
+
+------------------------------------------------------------------------
+[2011-07-18 05:56:56] falk dot herrmann at bike24 dot net
+
+Description:
+------------
+Every PHP-GTK application returns an segmentation fault on quit. Alt-F4, close via \
+menu, or close button brings the same error. The program itself runs fine. Only the \
+quit command returns segfault after the last line of code.
+
+Return code: 139
+
+
+Test script:
+---------------
+&lt;?php
+
+dl('php_gtk2.so');
+
+$wnd = new GtkWindow();
+$wnd-&gt;set_title('Hello world');
+$wnd-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+ 
+$lblHello = new GtkLabel("Hello world!'");
+$wnd-&gt;add($lblHello);
+ 
+$wnd-&gt;show_all();
+Gtk::main();
+
+
+Expected result:
+----------------
+Return code: 0
+
+
+Actual result:
+--------------
+fh@psyco ~/php-gtk $ php -f hello-world.php
+Segmentation fault
+fh@psyco ~/php-gtk $ echo $?
+139
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20110718095657</emailId><senderName>"falk dot herrmann at bike24 dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-07-18 09:56:57-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #55225 [NEW]: PHP-GTK Segmentation fault on Quit</subject><body>
+
+From:             
+Operating system: Linux 2.6.38.6
+PHP version:      5.3.7RC3
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:PHP-GTK Segmentation fault on Quit
+
+Description:
+------------
+Every PHP-GTK application returns an segmentation fault on quit. Alt-F4,
+close via menu, or close button brings the same error. The program itself
+runs fine. Only the quit command returns segfault after the last line of
+code.
+
+Return code: 139
+
+
+Test script:
+---------------
+&lt;?php
+
+dl('php_gtk2.so');
+
+$wnd = new GtkWindow();
+$wnd-&gt;set_title('Hello world');
+$wnd-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+ 
+$lblHello = new GtkLabel("Hello world!'");
+$wnd-&gt;add($lblHello);
+ 
+$wnd-&gt;show_all();
+Gtk::main();
+
+
+Expected result:
+----------------
+Return code: 0
+
+
+Actual result:
+--------------
+fh@psyco ~/php-gtk $ php -f hello-world.php
+Segmentation fault
+fh@psyco ~/php-gtk $ echo $?
+139
+
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+-- 
+Try a snapshot (PHP 5.2):            https://bugs.php.net/fix.php?id=55225&amp;r=trysnapshot52
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=55225&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=55225&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=55225&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=55225&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=55225&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=55225&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=55225&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=55225&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=55225&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=55225&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=55225&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=55225&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=55225&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=55225&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=55225&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=55225&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=55225&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=55225&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=55225&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=55225&amp;r=mysqlcfg
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=55225&amp;r=trysnapshot54
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110719223745</emailId><senderName></senderName><senderEmail>felipe</senderEmail><timestampReceived>2011-07-19 22:37:45-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #55225 [Opn-&gt;Fbk]: PHP-GTK Segmentation fault on Quit</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+
+ ID:                 55225
+ Updated by:         felipe@php.net
+ Reported by:        falk dot herrmann at bike24 dot net
+ Summary:            PHP-GTK Segmentation fault on Quit
+-Status:             Open
++Status:             Feedback
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 2.6.38.6
+ PHP Version:        5.3.7RC3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Thank you for this bug report. To properly diagnose the problem, we
+need a backtrace to see what is happening behind the scenes. To
+find out how to generate a backtrace, please read
+http://bugs.php.net/bugs-generating-backtrace.php for *NIX and
+http://bugs.php.net/bugs-generating-backtrace-win32.php for Win32
+
+Once you have generated a backtrace, please submit it to this bug
+report and change the status back to "Open". Thank you for helping
+us make PHP better.
+
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-07-18 05:56:56] falk dot herrmann at bike24 dot net
+
+Description:
+------------
+Every PHP-GTK application returns an segmentation fault on quit. Alt-F4, close via \
+menu, or close button brings the same error. The program itself runs fine. Only the \
+quit command returns segfault after the last line of code.
+
+Return code: 139
+
+
+Test script:
+---------------
+&lt;?php
+
+dl('php_gtk2.so');
+
+$wnd = new GtkWindow();
+$wnd-&gt;set_title('Hello world');
+$wnd-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+ 
+$lblHello = new GtkLabel("Hello world!'");
+$wnd-&gt;add($lblHello);
+ 
+$wnd-&gt;show_all();
+Gtk::main();
+
+
+Expected result:
+----------------
+Return code: 0
+
+
+Actual result:
+--------------
+fh@psyco ~/php-gtk $ php -f hello-world.php
+Segmentation fault
+fh@psyco ~/php-gtk $ echo $?
+139
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20110720093648</emailId><senderName>"falk dot herrmann at bike24 dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-07-20 09:36:48-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #55225 [Fbk-&gt;Opn]: PHP-GTK Segmentation fault on Quit</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+
+ ID:                 55225
+ User updated by:    falk dot herrmann at bike24 dot net
+ Reported by:        falk dot herrmann at bike24 dot net
+ Summary:            PHP-GTK Segmentation fault on Quit
+-Status:             Feedback
++Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 2.6.38.6
+ PHP Version:        5.3.7RC3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+...
+Core was generated by `php -f hello-world.php'.
+Program terminated with signal 11, Segmentation fault.
+[New process 11395]
+#0  0x08310f1e in clean_module_class (ce=0x961d994, module_number=0xbf8b5e4c)
+    at /usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2087
+2087            if ((*ce)-&gt;type == ZEND_INTERNAL_CLASS &amp;&amp; \
+(*ce)-&gt;module-&gt;module_number == *module_number) { (gdb) bt
+#0  0x08310f1e in clean_module_class (ce=0x961d994, module_number=0xbf8b5e4c)
+    at /usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2087
+#1  0x0831add4 in zend_hash_apply_with_argument (ht=0x9468480, apply_func=0x8310f00 \
+&lt;clean_module_class&gt;,   argument=0xbf8b5e4c) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:698 #2  0x08314bb8 in \
+module_destructor (module=0x94b3648) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2097 #3  0x0831ac58 in \
+zend_hash_apply_deleter (ht=0x87a4300, p=0x96119a8) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:612 #4  0x0831ad5b in \
+zend_hash_reverse_apply (ht=0x87a4300, apply_func=0x8310f60 \
+&lt;module_registry_unload_temp&gt;)  at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:761 #5  0x0830fa9e in \
+zend_post_deactivate_modules () at /usr/src/bApache2/php-5.3.7RC3/Zend/zend.c:937 #6  \
+0x082bf095 in php_request_shutdown (dummy=0x0) at \
+/usr/src/bApache2/php-5.3.7RC3/main/main.c:1644 #7  0x083927b4 in main (argc=3, \
+argv=0xbf8b62f4) at /usr/src/bApache2/php-5.3.7RC3/sapi/cli/php_cli.c:1363
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-07-19 18:37:44] felipe@php.net
+
+Thank you for this bug report. To properly diagnose the problem, we
+need a backtrace to see what is happening behind the scenes. To
+find out how to generate a backtrace, please read
+http://bugs.php.net/bugs-generating-backtrace.php for *NIX and
+http://bugs.php.net/bugs-generating-backtrace-win32.php for Win32
+
+Once you have generated a backtrace, please submit it to this bug
+report and change the status back to "Open". Thank you for helping
+us make PHP better.
+
+
+
+------------------------------------------------------------------------
+[2011-07-18 05:56:56] falk dot herrmann at bike24 dot net
+
+Description:
+------------
+Every PHP-GTK application returns an segmentation fault on quit. Alt-F4, close via \
+menu, or close button brings the same error. The program itself runs fine. Only the \
+quit command returns segfault after the last line of code.
+
+Return code: 139
+
+
+Test script:
+---------------
+&lt;?php
+
+dl('php_gtk2.so');
+
+$wnd = new GtkWindow();
+$wnd-&gt;set_title('Hello world');
+$wnd-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+ 
+$lblHello = new GtkLabel("Hello world!'");
+$wnd-&gt;add($lblHello);
+ 
+$wnd-&gt;show_all();
+Gtk::main();
+
+
+Expected result:
+----------------
+Return code: 0
+
+
+Actual result:
+--------------
+fh@psyco ~/php-gtk $ php -f hello-world.php
+Segmentation fault
+fh@psyco ~/php-gtk $ echo $?
+139
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20110720101441</emailId><senderName>"falk dot herrmann at bike24 dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-07-20 10:14:41-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #55225 [Opn]: PHP-GTK Segmentation fault on Quit</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+
+ ID:                 55225
+ User updated by:    falk dot herrmann at bike24 dot net
+ Reported by:        falk dot herrmann at bike24 dot net
+ Summary:            PHP-GTK Segmentation fault on Quit
+ Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 2.6.38.6
+ PHP Version:        5.3.7RC3
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+I use the latest version of PHP-GTK from SVN:
+
+psyco php-gtk-svn # svn info
+Path: .
+URL: http://svn.php.net/repository/gtk/php-gtk/trunk
+Repository Root: http://svn.php.net/repository
+Repository UUID: c90b9560-bf6c-de11-be94-00142212c4b1
+Revision: 313467
+Node Kind: directory
+Schedule: normal
+Last Changed Author: markskilbeck
+Last Changed Rev: 307828
+Last Changed Date: 2011-01-28 21:27:32 +0100 (Fri, 28 Jan 2011)
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-07-20 05:54:48] markskilbeck@php.net
+
+What PHP-GTK version are you using? IIRC you need to be using SVN and
+not the 2.0.1 release from the website.
+
+http://svn.php.net/repository/gtk/php-gtk/trunk
+
+------------------------------------------------------------------------
+[2011-07-20 05:36:47] falk dot herrmann at bike24 dot net
+
+...
+Core was generated by `php -f hello-world.php'.
+Program terminated with signal 11, Segmentation fault.
+[New process 11395]
+#0  0x08310f1e in clean_module_class (ce=0x961d994, module_number=0xbf8b5e4c)
+    at /usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2087
+2087            if ((*ce)-&gt;type == ZEND_INTERNAL_CLASS &amp;&amp; \
+(*ce)-&gt;module-&gt;module_number == *module_number) { (gdb) bt
+#0  0x08310f1e in clean_module_class (ce=0x961d994, module_number=0xbf8b5e4c)
+    at /usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2087
+#1  0x0831add4 in zend_hash_apply_with_argument (ht=0x9468480, apply_func=0x8310f00 \
+&lt;clean_module_class&gt;,   argument=0xbf8b5e4c) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:698 #2  0x08314bb8 in \
+module_destructor (module=0x94b3648) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2097 #3  0x0831ac58 in \
+zend_hash_apply_deleter (ht=0x87a4300, p=0x96119a8) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:612 #4  0x0831ad5b in \
+zend_hash_reverse_apply (ht=0x87a4300, apply_func=0x8310f60 \
+&lt;module_registry_unload_temp&gt;)  at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:761 #5  0x0830fa9e in \
+zend_post_deactivate_modules () at /usr/src/bApache2/php-5.3.7RC3/Zend/zend.c:937 #6  \
+0x082bf095 in php_request_shutdown (dummy=0x0) at \
+/usr/src/bApache2/php-5.3.7RC3/main/main.c:1644 #7  0x083927b4 in main (argc=3, \
+argv=0xbf8b62f4) at /usr/src/bApache2/php-5.3.7RC3/sapi/cli/php_cli.c:1363
+
+------------------------------------------------------------------------
+[2011-07-19 18:37:44] felipe@php.net
+
+Thank you for this bug report. To properly diagnose the problem, we
+need a backtrace to see what is happening behind the scenes. To
+find out how to generate a backtrace, please read
+http://bugs.php.net/bugs-generating-backtrace.php for *NIX and
+http://bugs.php.net/bugs-generating-backtrace-win32.php for Win32
+
+Once you have generated a backtrace, please submit it to this bug
+report and change the status back to "Open". Thank you for helping
+us make PHP better.
+
+
+
+------------------------------------------------------------------------
+[2011-07-18 05:56:56] falk dot herrmann at bike24 dot net
+
+Description:
+------------
+Every PHP-GTK application returns an segmentation fault on quit. Alt-F4, close via \
+menu, or close button brings the same error. The program itself runs fine. Only the \
+quit command returns segfault after the last line of code.
+
+Return code: 139
+
+
+Test script:
+---------------
+&lt;?php
+
+dl('php_gtk2.so');
+
+$wnd = new GtkWindow();
+$wnd-&gt;set_title('Hello world');
+$wnd-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+ 
+$lblHello = new GtkLabel("Hello world!'");
+$wnd-&gt;add($lblHello);
+ 
+$wnd-&gt;show_all();
+Gtk::main();
+
+
+Expected result:
+----------------
+Return code: 0
+
+
+Actual result:
+--------------
+fh@psyco ~/php-gtk $ php -f hello-world.php
+Segmentation fault
+fh@psyco ~/php-gtk $ echo $?
+139
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20110306152151</emailId><senderName>"ptlis at ptlis dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-03-06 15:21:51-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #54175 [NEW]: GtkCellRendererCombo changed signal missing GtkTreeIter pa</subject><body>
+
+From:             
+Operating system: Linux
+PHP version:      5.3.5
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:GtkCellRendererCombo changed signal missing GtkTreeIter parameter on callback
+
+Description:
+------------
+The changed signal should provide a GtkTreeIter as documented here:
+
+http://library.gnome.org/devel/gtk/stable/GtkCellRendererCombo.html#GtkCellRendererCombo.signal-details
+
+Without this parameter passed to callbacks there is no sane mechanism to
+get data from other columns in the GtkListStore.
+
+
+-- 
+Edit bug report at http://bugs.php.net/bug.php?id=54175&amp;edit=1
+-- 
+Try a snapshot (PHP 5.2):            http://bugs.php.net/fix.php?id=54175&amp;r=trysnapshot52
+Try a snapshot (PHP 5.3):            http://bugs.php.net/fix.php?id=54175&amp;r=trysnapshot53
+Try a snapshot (trunk):              http://bugs.php.net/fix.php?id=54175&amp;r=trysnapshottrunk
+Fixed in SVN:                        http://bugs.php.net/fix.php?id=54175&amp;r=fixed
+Fixed in SVN and need be documented: http://bugs.php.net/fix.php?id=54175&amp;r=needdocs
+Fixed in release:                    http://bugs.php.net/fix.php?id=54175&amp;r=alreadyfixed
+Need backtrace:                      http://bugs.php.net/fix.php?id=54175&amp;r=needtrace
+Need Reproduce Script:               http://bugs.php.net/fix.php?id=54175&amp;r=needscript
+Try newer version:                   http://bugs.php.net/fix.php?id=54175&amp;r=oldversion
+Not developer issue:                 http://bugs.php.net/fix.php?id=54175&amp;r=support
+Expected behavior:                   http://bugs.php.net/fix.php?id=54175&amp;r=notwrong
+Not enough info:                     http://bugs.php.net/fix.php?id=54175&amp;r=notenoughinfo
+Submitted twice:                     http://bugs.php.net/fix.php?id=54175&amp;r=submittedtwice
+register_globals:                    http://bugs.php.net/fix.php?id=54175&amp;r=globals
+PHP 4 support discontinued:          http://bugs.php.net/fix.php?id=54175&amp;r=php4
+Daylight Savings:                    http://bugs.php.net/fix.php?id=54175&amp;r=dst
+IIS Stability:                       http://bugs.php.net/fix.php?id=54175&amp;r=isapi
+Install GNU Sed:                     http://bugs.php.net/fix.php?id=54175&amp;r=gnused
+Floating point limitations:          http://bugs.php.net/fix.php?id=54175&amp;r=float
+No Zend Extensions:                  http://bugs.php.net/fix.php?id=54175&amp;r=nozend
+MySQL Configuration Error:           http://bugs.php.net/fix.php?id=54175&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110306155450</emailId><senderName>"ptlis at ptlis dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-03-06 15:54:50-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #54175 [Opn]: GtkCellRendererCombo changed signal missing GtkTreeIter parameter on</subject><body>
+
+Edit report at http://bugs.php.net/bug.php?id=54175&amp;edit=1
+
+ ID:                 54175
+ User updated by:    ptlis at ptlis dot net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            GtkCellRendererCombo changed signal missing
+                     GtkTreeIter parameter on callback
+ Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux
+ PHP Version:        5.3.5
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Basic test case of what should occur:
+
+&lt;?php
+
+	class test {
+		protected	$str;
+
+		public function __construct($str) {
+			$this-&gt;str	= $str;
+		}
+	}
+
+
+	$window		= new GtkWindow();
+	$window-&gt;set_size_request(400, 400);
+
+
+	// Tree Model
+	$treeModel	= new GtkTreeStore(GObject::TYPE_STRING);
+	$treeModel-&gt;append(null, array('foo'));
+
+	// Tree View
+	$treeView	= new GtkTreeView();
+	$treeView-&gt;set_model($treeModel);
+	$window-&gt;add($treeView);
+
+	// Combo Model
+	$comboModel	= new GtkListStore(GObject::TYPE_STRING,
+GObject::TYPE_PHP_VALUE);
+	$comboModel-&gt;append(array('foo', new test('foo')));
+	$comboModel-&gt;append(array('bar', new test('bar')));
+	$comboModel-&gt;append(array('baz', new test('baz')));
+
+	// Combo renderer
+	$renderer			= new GtkCellRendererCombo();
+	$renderer-&gt;set_property('model', $comboModel);
+	$renderer-&gt;set_property('text-column', 0);
+	$renderer-&gt;set_property('editable', true);
+	$renderer-&gt;set_property('has-entry', false);
+	$column				= new GtkTreeViewColumn('column:', $renderer, 'text', 0);
+	$treeView-&gt;append_column($column);
+
+    $renderer-&gt;connect('edited', 'combo_change');
+
+	function combo_change(GtkCellRendererText $cell, $path,
+$selectionText/*, GtkTreeIter $treeIter*/) {
+/*
+		$class	= $cell-&gt;model-&gt;get_value($treeIter-&gt;iter, 1);
+*/
+		echo 'changed' . "\n";
+	}
+
+	$window-&gt;show_all();
+	Gtk::main();
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-03-06 16:21:50] ptlis at ptlis dot net
+
+Description:
+------------
+The changed signal should provide a GtkTreeIter as documented here:
+
+http://library.gnome.org/devel/gtk/stable/GtkCellRendererCombo.html#GtkCellRendererCombo.signal-details
+
+Without this parameter passed to callbacks there is no sane mechanism to
+get data from other columns in the GtkListStore.
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at http://bugs.php.net/bug.php?id=54175&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110306160557</emailId><senderName></senderName><senderEmail>markskilbeck</senderEmail><timestampReceived>2011-03-06 16:05:57-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #54175 [Opn-&gt;Bgs]: GtkCellRendererCombo changed signal missing GtkTreeIter paramet</subject><body>
+
+Edit report at http://bugs.php.net/bug.php?id=54175&amp;edit=1
+
+ ID:                 54175
+ Updated by:         markskilbeck@php.net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            GtkCellRendererCombo changed signal missing
+                     GtkTreeIter parameter on callback
+-Status:             Open
++Status:             Bogus
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux
+ PHP Version:        5.3.5
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+You're using the 'edited' signal - not the 'changed' signal. For the
+'changed' 
+signal, the GtkTreeIter is the third argument passed to the callback.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-03-06 16:54:50] ptlis at ptlis dot net
+
+Basic test case of what should occur:
+
+&lt;?php
+
+	class test {
+		protected	$str;
+
+		public function __construct($str) {
+			$this-&gt;str	= $str;
+		}
+	}
+
+
+	$window		= new GtkWindow();
+	$window-&gt;set_size_request(400, 400);
+
+
+	// Tree Model
+	$treeModel	= new GtkTreeStore(GObject::TYPE_STRING);
+	$treeModel-&gt;append(null, array('foo'));
+
+	// Tree View
+	$treeView	= new GtkTreeView();
+	$treeView-&gt;set_model($treeModel);
+	$window-&gt;add($treeView);
+
+	// Combo Model
+	$comboModel	= new GtkListStore(GObject::TYPE_STRING,
+GObject::TYPE_PHP_VALUE);
+	$comboModel-&gt;append(array('foo', new test('foo')));
+	$comboModel-&gt;append(array('bar', new test('bar')));
+	$comboModel-&gt;append(array('baz', new test('baz')));
+
+	// Combo renderer
+	$renderer			= new GtkCellRendererCombo();
+	$renderer-&gt;set_property('model', $comboModel);
+	$renderer-&gt;set_property('text-column', 0);
+	$renderer-&gt;set_property('editable', true);
+	$renderer-&gt;set_property('has-entry', false);
+	$column				= new GtkTreeViewColumn('column:', $renderer, 'text', 0);
+	$treeView-&gt;append_column($column);
+
+    $renderer-&gt;connect('edited', 'combo_change');
+
+	function combo_change(GtkCellRendererText $cell, $path,
+$selectionText/*, GtkTreeIter $treeIter*/) {
+/*
+		$class	= $cell-&gt;model-&gt;get_value($treeIter-&gt;iter, 1);
+*/
+		echo 'changed' . "\n";
+	}
+
+	$window-&gt;show_all();
+	Gtk::main();
+
+------------------------------------------------------------------------
+[2011-03-06 16:21:50] ptlis at ptlis dot net
+
+Description:
+------------
+The changed signal should provide a GtkTreeIter as documented here:
+
+http://library.gnome.org/devel/gtk/stable/GtkCellRendererCombo.html#GtkCellRendererCombo.signal-details
+
+Without this parameter passed to callbacks there is no sane mechanism to
+get data from other columns in the GtkListStore.
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at http://bugs.php.net/bug.php?id=54175&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110312122758</emailId><senderName>"ptlis at ptlis dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-03-12 12:27:58-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #54236 [NEW]: GtkNotebook does not always remove pages</subject><body>
+
+From:             
+Operating system: Ubuntu 10.4 32bit
+PHP version:      5.3.5
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:GtkNotebook does not always remove pages
+
+Description:
+------------
+I can't find any documentation regarding how gtk+ handles notebook page
+removal; if the page indexes are meant to be re-ordered on page removal
+this bug is bogus.
+
+Pages are not always removed if you call GtkNotebook::remove_page(), and
+whether they are removed or not seems dependant upon the order in which the
+pages were appended / removed, see the below example. If the line to remove
+the 3rd page is moved from the last page to be removed to the first the
+below test case finishes successfully, in it's current configuration
+however it fails without error.
+
+
+
+Test script:
+---------------
+&lt;?php
+
+
+	function removed(GtkNotebook $notebook, GtkWidget $child, $index) {
+		echo "tab index $index removed\n";
+	}
+
+	$window		= new GtkWindow();
+	$window-&gt;set_size_request(400, 400);
+
+	$notebook	= new GtkNoteBook();
+	
+	$notebook-&gt;connect("page-removed", 'removed');
+
+	$vbox		= new GtkVbox();
+	$vbox-&gt;add(new GtkLabel('tab contents'));
+	$tab1Index	= $notebook-&gt;append_page($vbox, new GtkLabel('Tab1'));
+	
+	$vbox		= new GtkVbox();
+	$vbox-&gt;add(new GtkLabel('tab contents'));
+	$tab2Index	= $notebook-&gt;append_page($vbox, new GtkLabel('Tab2'));
+	
+	$vbox		= new GtkVbox();
+	$vbox-&gt;add(new GtkLabel('tab contents'));
+	$tab3Index	= $notebook-&gt;append_page($vbox, new GtkLabel('Tab3'));
+	
+	$vbox		= new GtkVbox();
+	$vbox-&gt;add(new GtkLabel('tab contents'));
+	$tab4Index	= $notebook-&gt;append_page($vbox, new GtkLabel('Tab4'));
+
+	$window-&gt;add($notebook);
+
+	$notebook-&gt;remove_page($tab2Index);
+	$notebook-&gt;remove_page($tab1Index);
+	$notebook-&gt;remove_page($tab3Index);
+
+
+	$window-&gt;show_all();
+	Gtk::main();
+
+Expected result:
+----------------
+All three pages of the notebook should be removed &amp; the page-removed signal
+should fire three times.
+
+Actual result:
+--------------
+Only the first two pages are removed with two page-removed signals fired,
+the third removal fails silently.
+
+-- 
+Edit bug report at http://bugs.php.net/bug.php?id=54236&amp;edit=1
+-- 
+Try a snapshot (PHP 5.2):            http://bugs.php.net/fix.php?id=54236&amp;r=trysnapshot52
+Try a snapshot (PHP 5.3):            http://bugs.php.net/fix.php?id=54236&amp;r=trysnapshot53
+Try a snapshot (trunk):              http://bugs.php.net/fix.php?id=54236&amp;r=trysnapshottrunk
+Fixed in SVN:                        http://bugs.php.net/fix.php?id=54236&amp;r=fixed
+Fixed in SVN and need be documented: http://bugs.php.net/fix.php?id=54236&amp;r=needdocs
+Fixed in release:                    http://bugs.php.net/fix.php?id=54236&amp;r=alreadyfixed
+Need backtrace:                      http://bugs.php.net/fix.php?id=54236&amp;r=needtrace
+Need Reproduce Script:               http://bugs.php.net/fix.php?id=54236&amp;r=needscript
+Try newer version:                   http://bugs.php.net/fix.php?id=54236&amp;r=oldversion
+Not developer issue:                 http://bugs.php.net/fix.php?id=54236&amp;r=support
+Expected behavior:                   http://bugs.php.net/fix.php?id=54236&amp;r=notwrong
+Not enough info:                     http://bugs.php.net/fix.php?id=54236&amp;r=notenoughinfo
+Submitted twice:                     http://bugs.php.net/fix.php?id=54236&amp;r=submittedtwice
+register_globals:                    http://bugs.php.net/fix.php?id=54236&amp;r=globals
+PHP 4 support discontinued:          http://bugs.php.net/fix.php?id=54236&amp;r=php4
+Daylight Savings:                    http://bugs.php.net/fix.php?id=54236&amp;r=dst
+IIS Stability:                       http://bugs.php.net/fix.php?id=54236&amp;r=isapi
+Install GNU Sed:                     http://bugs.php.net/fix.php?id=54236&amp;r=gnused
+Floating point limitations:          http://bugs.php.net/fix.php?id=54236&amp;r=float
+No Zend Extensions:                  http://bugs.php.net/fix.php?id=54236&amp;r=nozend
+MySQL Configuration Error:           http://bugs.php.net/fix.php?id=54236&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110312140916</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2011-03-12 14:09:16-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #54236 [Opn-&gt;Bgs]: GtkNotebook does not always remove pages</subject><body>
+
+Edit report at http://bugs.php.net/bug.php?id=54236&amp;edit=1
+
+ ID:                 54236
+ Updated by:         auroraeosrose@php.net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            GtkNotebook does not always remove pages
+-Status:             Open
++Status:             Bogus
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 10.4 32bit
+ PHP Version:        5.3.5
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+This is entirely controlled "upstream"
+
+That is the gtk+ libraries decide how this is handled - if you think
+this is a bug in the gtk libraries please head to gtk.org and file a bug
+there
+
+Thanks!
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-03-12 13:27:56] ptlis at ptlis dot net
+
+Description:
+------------
+I can't find any documentation regarding how gtk+ handles notebook page
+removal; if the page indexes are meant to be re-ordered on page removal
+this bug is bogus.
+
+Pages are not always removed if you call GtkNotebook::remove_page(), and
+whether they are removed or not seems dependant upon the order in which
+the pages were appended / removed, see the below example. If the line to
+remove the 3rd page is moved from the last page to be removed to the
+first the below test case finishes successfully, in it's current
+configuration however it fails without error.
+
+
+
+Test script:
+---------------
+&lt;?php
+
+
+	function removed(GtkNotebook $notebook, GtkWidget $child, $index) {
+		echo "tab index $index removed\n";
+	}
+
+	$window		= new GtkWindow();
+	$window-&gt;set_size_request(400, 400);
+
+	$notebook	= new GtkNoteBook();
+	
+	$notebook-&gt;connect("page-removed", 'removed');
+
+	$vbox		= new GtkVbox();
+	$vbox-&gt;add(new GtkLabel('tab contents'));
+	$tab1Index	= $notebook-&gt;append_page($vbox, new GtkLabel('Tab1'));
+	
+	$vbox		= new GtkVbox();
+	$vbox-&gt;add(new GtkLabel('tab contents'));
+	$tab2Index	= $notebook-&gt;append_page($vbox, new GtkLabel('Tab2'));
+	
+	$vbox		= new GtkVbox();
+	$vbox-&gt;add(new GtkLabel('tab contents'));
+	$tab3Index	= $notebook-&gt;append_page($vbox, new GtkLabel('Tab3'));
+	
+	$vbox		= new GtkVbox();
+	$vbox-&gt;add(new GtkLabel('tab contents'));
+	$tab4Index	= $notebook-&gt;append_page($vbox, new GtkLabel('Tab4'));
+
+	$window-&gt;add($notebook);
+
+	$notebook-&gt;remove_page($tab2Index);
+	$notebook-&gt;remove_page($tab1Index);
+	$notebook-&gt;remove_page($tab3Index);
+
+
+	$window-&gt;show_all();
+	Gtk::main();
+
+Expected result:
+----------------
+All three pages of the notebook should be removed &amp; the page-removed
+signal should fire three times.
+
+Actual result:
+--------------
+Only the first two pages are removed with two page-removed signals
+fired, the third removal fails silently.
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at http://bugs.php.net/bug.php?id=54236&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110320223806</emailId><senderName>Elizabeth M Smith</senderName><senderEmail>elizabeth@emsmith.net</senderEmail><timestampReceived>2011-03-20 22:38:06-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] [Patch] Compile php-gtk against PHP 5.3.6</subject><body>
+
+  On 3/20/2011 5:32 PM, Maik Greubel wrote:
+&gt; Hello folks,
+&gt;
+&gt; the PHP people decided to change the define for ZEND_BEGIN_ARG_INFO 
+&gt; and the *EX-friend to be static. This is the cause, why php-gtk will 
+&gt; no longer compile against that version.
+&gt;
+&gt; Here is the patch to correct the behaviour in the generators and 
+&gt; overrides. I decided to write a generic 5.3 patch which includes the 
+&gt; patch by Fedora at FamilleCollet dot com:
+&gt;
+&gt; http://osdir.com/ml/php.gtk+.devel/2008-08/msg00006.html
+&gt;
+&gt; The main/phpg_gobject.c seems to be not generated. Please correct me, 
+&gt; if I'm wrong. Please keep in mind to remove 
+&gt; ext/scintilla/gen_scintilla.c before calling "make" to ensure it is 
+&gt; re-generated. There are some issues in the sci_generator.php left, 
+&gt; some warnings and a vardump/print_r. I don't know, what is expected 
+&gt; there.
+&gt;
+&gt; Cheers
+&gt;
+&gt; Maik
+
+If you look at the source code, this has already been fixed for php-gtk 
+in TRUNK
+
+This will not be fixed for the 2.0.1 release
+
+There are additional 5.3 fixes as well - the 2.0.1 version cannot be 
+used with PHP 5.3, if you want to use php 5.3 with php-gtk compile from SVN
+
+http://svn.php.net/repository/gtk/php-gtk/trunk/
+
+Thanks,
+Elizabeth M Smith
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110321081001</emailId><senderName></senderName><senderEmail>greubel</senderEmail><timestampReceived>2011-03-21 08:10:01-0400</timestampReceived><subject>=?ISO-8859-1?Q?Re: Re: [PHP-GTK-DEV]?=  =?ISO-8859-1?Q? [Patch] Compile php-?=  =?ISO-8859-1?Q?gtk a</subject><body>
+
+Hello Elizabeth
+
+&gt; If you look at the source code, this has already been fixed for
+php-gtk
+&gt; in TRUNK
+
+Thank you for the hint. I searched gtk.php.net for WebSVN or such, but
+did not find it. Is it hidden for public view or does nothing exist?
+Would be nice and transparent to see fixes and changes without checking
+out the complete source code.
+
+&gt; This will not be fixed for the 2.0.1 release
+
+Never mind, I will use then trunk for my project. Or do you have a
+roadmap or something like that? The wiki page isn't accessible (403).
+
+&gt; There are additional 5.3 fixes as well - the 2.0.1 version cannot be
+&gt; used with PHP 5.3, if you want to use php 5.3 with php-gtk compile
+from SVN
+&gt;
+&gt; http://svn.php.net/repository/gtk/php-gtk/trunk/
+
+Can you tell me, whether the changes of gtksourceview-2.0 are allready
+in trunk?
+
+&gt; Thanks,
+&gt; Elizabeth M Smith
+
+Thanks and regards
+
+Maik
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110321114034</emailId><senderName>Elizabeth M Smith</senderName><senderEmail>elizabeth@emsmith.net</senderEmail><timestampReceived>2011-03-21 11:40:34-0400</timestampReceived><subject>Re: [PHP-GTK-DEV]   [Patch] Compile php-  gtk against PHP 5.3.6</subject><body>
+
+  On 3/21/2011 4:10 AM, greubel@nkey.de wrote:
+&gt; Hello Elizabeth
+&gt;
+&gt;&gt; If you look at the source code, this has already been fixed for
+&gt; php-gtk
+&gt;&gt; in TRUNK
+&gt; Thank you for the hint. I searched gtk.php.net for WebSVN or such, but
+&gt; did not find it. Is it hidden for public view or does nothing exist?
+&gt; Would be nice and transparent to see fixes and changes without checking
+&gt; out the complete source code.
+&gt;
+&gt;&gt; This will not be fixed for the 2.0.1 release
+&gt; Never mind, I will use then trunk for my project. Or do you have a
+&gt; roadmap or something like that? The wiki page isn't accessible (403).
+&gt;
+&gt;&gt; There are additional 5.3 fixes as well - the 2.0.1 version cannot be
+&gt;&gt; used with PHP 5.3, if you want to use php 5.3 with php-gtk compile
+&gt; from SVN
+&gt;&gt; http://svn.php.net/repository/gtk/php-gtk/trunk/
+&gt; Can you tell me, whether the changes of gtksourceview-2.0 are allready
+&gt; in trunk?
+&gt;
+&gt;&gt; Thanks,
+&gt;&gt; Elizabeth M Smith
+&gt; Thanks and regards
+&gt;
+&gt; Maik
+&gt;
+For gtksourceview, there really needs to be a new extension 
+(sourceview2?) that has the new API, the code will not be able to 
+support both the 1.8 version of the API and the 2.0 version.
+
+php-gtk uses php svn and tools so svn.php.net (look in gtk) has viewvc, 
+lxr.php.net has searchable source code, I gave you the link to the 
+subversion repository
+
+As far as a roadmap goes - yes we need to do a new release with TRUNK 
+(has 5.3 fixes and support, cairo support, and new gtk release support)  
+have just been short on time and energy.
+
+Thanks,
+Elizabeth M Smith
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110330171210</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2011-03-30 17:12:10-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] [PHP-BUG] Bug #54427 [NEW]: Segfault when emiting</subject><body>
+
+
+Make sure if you are destroying the dialog to re-open =)
+
+- - -
+Bruno Pitteli Gonçalves
+bruno@pitteli.com.br
++55 018 97958674
+
+- - -
+ScornInPC - http://blog.scorninpc.com/
+Browse Happy - http://browsehappy.com/
+
+
+On Wed, Mar 30, 2011 at 1:01 PM, ptlis at ptlis dot net &lt;
+php-bugs@lists.php.net&gt; wrote:
+
+&gt; From:
+&gt; Operating system: Ubuntu 10.4
+&gt; PHP version:      5.3.6
+&gt; Package:          PHP-GTK related
+&gt; Bug Type:         Bug
+&gt; Bug description:Segfault when emiting custom signal with object parameter
+&gt;
+&gt; Description:
+&gt; ------------
+&gt; The first time the OK button on the dialog is clicked the custom signal is
+&gt; emitted correctly, on the second click php segfaults on the call to
+&gt; emit().
+&gt;
+&gt; If no object is provided to emit() the second signal emits without segfault
+&gt; as expected.
+&gt;
+&gt; Test script:
+&gt; ---------------
+&gt; &lt;?php
+&gt;
+&gt; /**     Class implements custom signal 'product-ready'. */
+&gt;        class customDialog extends GtkDialog {
+&gt;            public $__gsignals  = array(
+&gt;                        'product-ready'  =&gt; array(
+&gt;                                        GObject::SIGNAL_RUN_LAST,
+&gt;                                        GObject::TYPE_BOOLEAN,
+&gt;                                        array(
+&gt;                                                GObject::TYPE_PHP_VALUE
+&gt;                                        )
+&gt;                                )
+&gt;                                );
+&gt;
+&gt;                public function __construct($title, GtkWindow $parent) {
+&gt;                        parent::__construct($title, $parent,
+&gt; Gtk::DIALOG_MODAL);
+&gt;
+&gt;                        $product        = new stdClass();
+&gt;
+&gt;                        $okButton       = new GtkButton('OK');
+&gt;                        $this-&gt;action_area-&gt;add($okButton);
+&gt;                        $okButton-&gt;connect_simple('clicked', array($this,
+&gt; 'ok_clicked'),
+&gt; $product);
+&gt;                }
+&gt;
+&gt;                public function ok_clicked(stdClass $product) {
+&gt;                        $this-&gt;emit('product-ready', $product);
+&gt;                }
+&gt;        }
+&gt;        GObject::register_type('customDialog');
+&gt;
+&gt;
+&gt;
+&gt;        $window = new GtkWindow();
+&gt;        $window-&gt;show_all();
+&gt;
+&gt;        $dialog = new customDialog('fire signal dialog', $window);
+&gt;        $dialog-&gt;show_all();
+&gt;
+&gt;        $dialog-&gt;connect('product-ready', 'product_ready');
+&gt;
+&gt;        function product_ready() {
+&gt;                echo 'segfaults on second signal' . "\n";
+&gt;                return true;
+&gt;        }
+&gt;
+&gt;        Gtk::main();
+&gt;
+&gt;
+&gt; --
+&gt; Edit bug report at http://bugs.php.net/bug.php?id=54427&amp;edit=1
+&gt; --
+&gt; Try a snapshot (PHP 5.2):
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=trysnapshot52
+&gt; Try a snapshot (PHP 5.3):
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=trysnapshot53
+&gt; Try a snapshot (trunk):
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=trysnapshottrunk
+&gt; Fixed in SVN:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=fixed
+&gt; Fixed in SVN and need be documented:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=needdocs
+&gt; Fixed in release:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=alreadyfixed
+&gt; Need backtrace:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=needtrace
+&gt; Need Reproduce Script:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=needscript
+&gt; Try newer version:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=oldversion
+&gt; Not developer issue:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=support
+&gt; Expected behavior:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=notwrong
+&gt; Not enough info:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=notenoughinfo
+&gt; Submitted twice:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=submittedtwice
+&gt; register_globals:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=globals
+&gt; PHP 4 support discontinued:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=php4
+&gt; Daylight Savings:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=dst
+&gt; IIS Stability:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=isapi
+&gt; Install GNU Sed:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=gnused
+&gt; Floating point limitations:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=float
+&gt; No Zend Extensions:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=nozend
+&gt; MySQL Configuration Error:
+&gt; http://bugs.php.net/fix.php?id=54427&amp;r=mysqlcfg
+&gt;
+&gt;
+&gt; --
+&gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt;
+&gt;
+
+
+</body></email><email><emailId>20110227133204</emailId><senderName>mark skilbeck</senderName><senderEmail>markskilbeck@googlemail.com</senderEmail><timestampReceived>2011-02-27 13:32:04-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] I want to help out!</subject><body>
+
+Hi, there!
+
+If you want to help, drop by #php-gtk. The canonical PHP-GTK project
+is dated. We're looking to split the project up into smaller, more
+manageable modules (GTK, GDK, GObject, GLib, Pango, Cairo, etc.), but
+there's only a couple of us and time is short! We'd appreciate the
+help.
+
+So drop by and say hi!
+
+Mark.
+
+On Fri, Feb 25, 2011 at 9:19 PM, _MD_ ProductionS
+&lt;mdproductions@gmail.com&gt; wrote:
+&gt; Good day PHP team!
+&gt;
+&gt; I've been a huge fan of PHP since year 2000. I went to school to study web
+&gt; programming, then gained 7 years of hands-on PHP development experience, and
+&gt; now doing some grad work.
+&gt; For my final project (thesis) I want to make something *grand*! I've always
+&gt; wanted to see PHP language to be distributed freely with an installer
+&gt; (mostly for windows and macs).
+&gt; And of course to run it in a window environment without the need for a web
+&gt; server.
+&gt; To make long story short, I want to help out. For this, I would like to know
+&gt; what areas of PHP-GTK still needs development or research.
+&gt;
+&gt; I am ready to work hard and long, to make PHP the number 1 language! :)
+&gt; Let me know how I can help.
+&gt;
+&gt; Thanks
+&gt;
+&gt;
+&gt; Paul
+&gt;
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110330170110</emailId><senderName>"ptlis at ptlis dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-03-30 17:01:10-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #54427 [NEW]: Segfault when emiting custom signal with object parameter</subject><body>
+
+From:             
+Operating system: Ubuntu 10.4
+PHP version:      5.3.6
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:Segfault when emiting custom signal with object parameter
+
+Description:
+------------
+The first time the OK button on the dialog is clicked the custom signal is
+emitted correctly, on the second click php segfaults on the call to
+emit().
+
+If no object is provided to emit() the second signal emits without segfault
+as expected.
+
+Test script:
+---------------
+&lt;?php
+
+/**	Class implements custom signal 'product-ready'. */
+	class customDialog extends GtkDialog {
+	    public $__gsignals	= array(
+            		'product-ready'  =&gt; array(
+	    				GObject::SIGNAL_RUN_LAST,
+	    				GObject::TYPE_BOOLEAN,
+	    				array(
+	    					GObject::TYPE_PHP_VALUE
+	    				)
+	    			)
+				);
+
+		public function __construct($title, GtkWindow $parent) {
+			parent::__construct($title, $parent, Gtk::DIALOG_MODAL);
+
+			$product	= new stdClass();
+
+			$okButton	= new GtkButton('OK');
+			$this-&gt;action_area-&gt;add($okButton);
+			$okButton-&gt;connect_simple('clicked', array($this, 'ok_clicked'),
+$product);
+		}
+
+		public function ok_clicked(stdClass $product) {
+			$this-&gt;emit('product-ready', $product);
+		}
+	}
+	GObject::register_type('customDialog');
+
+
+
+	$window	= new GtkWindow();
+	$window-&gt;show_all();
+
+	$dialog	= new customDialog('fire signal dialog', $window);
+	$dialog-&gt;show_all();
+
+	$dialog-&gt;connect('product-ready', 'product_ready');
+
+	function product_ready() {
+		echo 'segfaults on second signal' . "\n";
+		return true;
+	}
+
+	Gtk::main();
+
+
+-- 
+Edit bug report at http://bugs.php.net/bug.php?id=54427&amp;edit=1
+-- 
+Try a snapshot (PHP 5.2):            http://bugs.php.net/fix.php?id=54427&amp;r=trysnapshot52
+Try a snapshot (PHP 5.3):            http://bugs.php.net/fix.php?id=54427&amp;r=trysnapshot53
+Try a snapshot (trunk):              http://bugs.php.net/fix.php?id=54427&amp;r=trysnapshottrunk
+Fixed in SVN:                        http://bugs.php.net/fix.php?id=54427&amp;r=fixed
+Fixed in SVN and need be documented: http://bugs.php.net/fix.php?id=54427&amp;r=needdocs
+Fixed in release:                    http://bugs.php.net/fix.php?id=54427&amp;r=alreadyfixed
+Need backtrace:                      http://bugs.php.net/fix.php?id=54427&amp;r=needtrace
+Need Reproduce Script:               http://bugs.php.net/fix.php?id=54427&amp;r=needscript
+Try newer version:                   http://bugs.php.net/fix.php?id=54427&amp;r=oldversion
+Not developer issue:                 http://bugs.php.net/fix.php?id=54427&amp;r=support
+Expected behavior:                   http://bugs.php.net/fix.php?id=54427&amp;r=notwrong
+Not enough info:                     http://bugs.php.net/fix.php?id=54427&amp;r=notenoughinfo
+Submitted twice:                     http://bugs.php.net/fix.php?id=54427&amp;r=submittedtwice
+register_globals:                    http://bugs.php.net/fix.php?id=54427&amp;r=globals
+PHP 4 support discontinued:          http://bugs.php.net/fix.php?id=54427&amp;r=php4
+Daylight Savings:                    http://bugs.php.net/fix.php?id=54427&amp;r=dst
+IIS Stability:                       http://bugs.php.net/fix.php?id=54427&amp;r=isapi
+Install GNU Sed:                     http://bugs.php.net/fix.php?id=54427&amp;r=gnused
+Floating point limitations:          http://bugs.php.net/fix.php?id=54427&amp;r=float
+No Zend Extensions:                  http://bugs.php.net/fix.php?id=54427&amp;r=nozend
+MySQL Configuration Error:           http://bugs.php.net/fix.php?id=54427&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110110190334</emailId><senderName>AFFISS</senderName><senderEmail>affiss@gmail.com</senderEmail><timestampReceived>2011-01-10 19:03:34-0400</timestampReceived><subject>[PHP-GTK-DEV] replacing gtk::* with gobject::* in treeview.xml</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+hello,
+
+this is my first contribution to the php-gtk docs , some more are expected
+to follow as i continue reading through them.
+
+please see the attach of the xml file.
+
+regards
+
+affiss
+
+[Attachment #5 (text/html)]
+
+hello,&lt;br&gt;&lt;br&gt;this is my first contribution to the php-gtk docs , some more are \
+expected to follow as i continue reading through them.&lt;br&gt;&lt;br&gt;please see the attach \
+of the xml file.&lt;br&gt;&lt;br&gt;regards&lt;br&gt;&lt;br&gt;affiss&lt;br&gt;
+
+--000e0cd32f6eefac460499829f14--
+
+
+["treeview.xml" (text/xml)]
+
+&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;!-- $Revision: 1.1 $ --&gt;
+&lt;chapter id="tutorials.treeview"&gt;
+ &lt;title&gt;GtkTreeView Tutorial (basic)&lt;/title&gt;
+
+ &lt;sect1 id="tutorials.treeview.intro"&gt;
+  &lt;title&gt;Introduction&lt;/title&gt;
+
+  &lt;para&gt;
+   Thanks to Lars Wirzenius for the 
+   &lt;ulink url="http://liw.iki.fi/liw/texts/gtktreeview-tutorial.html"&gt;original \
+version&lt;/ulink&gt;  of this tutorial written for PyGtk. Changes to the document were \
+only to  reflect the current state of the Gtk+ codebase and to be applicable to \
+PHP-Gtk2.  &lt;/para&gt;
+
+  &lt;para&gt;
+   Version 2.0 of Gtk+ introduces its third generation of tree
+   and list widgets. Version 1.0 had GtkList and GtkTree, version 1.2
+   had &lt;classname&gt;GtkCList&lt;/classname&gt; and &lt;classname&gt;GtkCTree&lt;/classname&gt;,
+   and now version 2.0 has &lt;classname&gt;GtkTreeView&lt;/classname&gt;,
+   which servers both as a list and a tree. With each version, the
+   power and usefulness of the widgets have increased.
+  &lt;/para&gt;
+
+  &lt;para&gt;
+   &lt;classname&gt;GtkTreeView&lt;/classname&gt; uses a Model/View/Controller approach.
+   This means that the code is divided into a data structure representing
+   user's data ("the model"), the widgets that display the data and
+   interact with the user ("the view"), and some logic to tie things
+   nicely together ("the controller"). The model is implemented by
+   &lt;classname&gt;GtkTreeModel&lt;/classname&gt; (actually, classes implementing that \
+interface), the  view by GtkTreeView with some helpers, and the controller by the
+   user code.
+  &lt;/para&gt;
+
+  &lt;simpara&gt;
+   This sounds unnecessarily complicated, but the complexity
+   is local, and this aproach actually simplifies overall program
+   structure. For example, it is often necessary to view the same data
+   (i.e., model) in different ways, or in different windows. Think,
+   for example, of a programmer's editor: the same source code may
+   be viewed in several windows at the same time, and changes in one
+   window should be shown in all the others, as well. Thus, it makes
+   sense to separate the storage of the text from its display, rather
+   than storing the text in each window widget.
+  &lt;/simpara&gt;
+
+  &lt;simpara&gt;
+   The example application in this article lets the user manage
+   a folder tree. The folders are virtual, not real directories in
+   the filesystem, to keep the code simpler. The example is actually
+   derived from Lodju, in which the folders have nothing to do with
+   the filesystem.
+  &lt;/simpara&gt;
+
+  &lt;para&gt;
+   The &lt;ulink url="&amp;url.gnomeAPI;"&gt;official Gtk+ 2.0
+   API reference documentation for GtkTreeView&lt;/ulink&gt;
+   should be read together with this tutorial, even if it is a bit sparse in
+   some details.
+  &lt;/para&gt;
+
+  &lt;para&gt;
+   I thank the people on the
+   &lt;ulink url="&amp;url.gtkIRCchannel;"&gt;Gtk+ developer IRC channel&lt;/ulink&gt; for
+   encouragement and feedback.
+  &lt;/para&gt;
+ &lt;/sect1&gt;
+
+ &lt;sect1 id="tutorials.treeview.model"&gt;
+  &lt;title&gt;The model: GtkTreeModel and GtkTreeStore&lt;/title&gt;
+
+  &lt;para&gt;
+   &lt;classname&gt;GtkTreeModel&lt;/classname&gt; is the interface definition for the model part \
+of  &lt;classname&gt;GtkTreeView&lt;/classname&gt;.  The application programmer could define his \
+own model,  but GtkTreeView provides the two most popular ones: a linear list
+   with &lt;classname&gt;GtkListStore&lt;/classname&gt;, and a hierarchical tree with
+   &lt;classname&gt;GtkTreeStore&lt;/classname&gt;. The
+   GtkTreeView reference manual claims that few application programmers
+   will need to use anything else, and they may well be right. Since I
+   have little experience with &lt;classname&gt;GtkListStore&lt;/classname&gt;, this article will \
+discuss  GtkTreeStore only.
+  &lt;/para&gt;
+
+  &lt;para&gt;
+   The first step in using &lt;classname&gt;GtkTreeView&lt;/classname&gt;, then, is to set up a
+   &lt;classname&gt;GtkTreeStore&lt;/classname&gt; to keep your data. The model contains some \
+number of  rows and each row contains the same number of columns. The cells
+   in each column contain the same type of data. These columns are
+   declared when the model is created, though they can be changed later,
+   if necessary.
+  &lt;/para&gt;
+
+  &lt;example&gt;
+   &lt;title&gt;Model&lt;/title&gt;
+   &lt;programlisting role="php"&gt;&lt;![CDATA[$model = new \
+GtkTreeStore(Gobject::TYPE_PHP_VALUE, Gobject::TYPE_STRING);]]&gt;&lt;/programlisting&gt;  \
+&lt;/example&gt;
+
+  &lt;para&gt;
+   Here we create a &lt;classname&gt;GtkTreeStore&lt;/classname&gt; with two columns. The first
+   column contains a PHP variable (of any type), the second a
+   string. There are several different types available, see the
+   &lt;link linkend="gtkenum"&gt;GTK Enums&lt;/link&gt;.
+   We will be using the first column to hold an array
+   containing all the information about a folder and the second
+   column to display its name.
+  &lt;/para&gt;
+
+  &lt;note&gt;
+   It does not matter in which order you define
+   the columns. The order in which &lt;classname&gt;GtkTreeStore&lt;/classname&gt;
+   knows them does not
+   affect how they are displayed to the user. It is not even necessary
+   to display all columns to the user.
+  &lt;/note&gt;
+
+  &lt;simpara&gt;
+   Nodes can be added to a GtkTreeStore in several ways. My
+   preference is to use the gtk_tree_store_insert_before function,
+   known as the &lt;function class="GtkTreeStore"&gt;insert_before&lt;/function&gt; method in \
+PHP.  &lt;/simpara&gt;
+
+  &lt;example&gt;
+   &lt;title&gt;Create Row&lt;/title&gt;
+   &lt;programlisting role="php"&gt;&lt;![CDATA[$folder = new_folder();
+$iter = $model-&gt;insert_before(null, null);
+$model-&gt;set($iter, 0, $folder);
+$model-&gt;set($iter, 1, $folder['name']);]]&gt;&lt;/programlisting&gt;
+  &lt;/example&gt;
+
+  &lt;simpara&gt;
+   This code first inserts an empty row into the model,
+   then sets the values in both cells for the row.
+  &lt;/simpara&gt;
+
+  &lt;para&gt;
+   A GtkTreeModel lets the programmer refer to rows in various
+   ways.  We see here a &lt;classname&gt;GtkTreeIter&lt;/classname&gt; object,
+   which essentially works as a
+   pointer to the row.  We then use this pointer, plus a column number,
+   to refer to a cell.
+  &lt;/para&gt;
+
+  &lt;para&gt;
+   &lt;classname&gt;GtkTreeIter&lt;/classname&gt; objects are also used as arguments to
+   &lt;function class="GtkTreeStore"&gt;insert_before&lt;/function&gt;, to define the parent
+   of the new node,
+   and the sibling that is to follow the new node. If the parent is \
+&lt;literal&gt;NULL&lt;/literal&gt;,  as in the example above, the new node is added to the top \
+level,  and if sibling is &lt;literal&gt;NULL&lt;/literal&gt;, then the new node becomes
+   the last child of the parent.
+  &lt;/para&gt;
+
+  &lt;simpara&gt;
+   The GtkTreeIter objects may be temporary, and may become
+   invalidated as the tree is modified by adding or removing nodes. It
+   is probably a bad idea to store them.
+  &lt;/simpara&gt;
+
+  &lt;simpara&gt;
+   You can also remove rows (gtk_tree_store_remove a.k.a.
+   $model-&gt;&lt;function class="GtkTreeStore"&gt;remove&lt;/function&gt;).
+   For other operations, please see the API reference documentation.
+  &lt;/simpara&gt;
+
+ &lt;/sect1&gt;
+
+
+ &lt;sect1 id="tutorials.treeview.view"&gt;
+  &lt;title&gt;The view: GtkTreeView, GtkTreeViewColumn, GtkCellRenderer&lt;/title&gt;
+
+  &lt;para&gt;
+   The GtkTreeView widget is the view in the Module/View/Controller
+   approach.  It takes care of displaying the data stored in a model
+   (&lt;classname&gt;GtkTreeStore&lt;/classname&gt; or &lt;classname&gt;GtkListStore&lt;/classname&gt;)
+   to the user. You can have several
+   GtkTreeViews for a single model, and changes to the model will be
+   displayed immediately in all of them.
+  &lt;/para&gt;
+
+  &lt;simpara&gt;
+   To use GtkTreeView, you need to create the widget itself, then create
+   &lt;classname&gt;GtkTreeViewColumn&lt;/classname&gt;s for the columns to display and
+   &lt;classname&gt;GtkCellRenderer&lt;/classname&gt;s
+   to tell the columns how to display a cell in the column.
+  &lt;/simpara&gt;
+
+  &lt;example&gt;
+   &lt;title&gt;TreeView and Renderer&lt;/title&gt;
+   &lt;programlisting role="php"&gt;&lt;![CDATA[$view = new GtkTreeView($model);
+$renderer = new GtkCellRendererText();
+$column = new GtkTreeViewColumn("Folder", $renderer, "text", 1);
+$view-&gt;append_column($column);]]&gt;&lt;/programlisting&gt;
+  &lt;/example&gt;
+
+  &lt;simpara&gt;
+   This code creates a new GtkTreeView and attaches it to a model.
+   Then it creates a text cell renderer and a column and adds those to
+   the view. "Folder" is the name of the column, displayed at the top
+   of the column.
+  &lt;/simpara&gt;
+
+  &lt;para&gt;
+   There are several &lt;classname&gt;GtkCellRenderer&lt;/classname&gt;s in the Gtk+ library, and
+   you could write your own, if those are not enough.
+  &lt;/para&gt;
+
+  &lt;para&gt;
+   The user's selections in a GtkTreeView (per view) are tracked
+   using the &lt;classname&gt;GtkTreeSelection&lt;/classname&gt; object.
+   If your code needs to notice when
+   the user changes the selection, connect to the GtkTreeSelection's
+   &lt;signalname class="GtkTreeSelection"&gt;changed&lt;/signalname&gt; signal.
+   You can also have the selection object call a
+   function for each selected node, or programmatically change the
+   selection. See the API docs for details.
+  &lt;/para&gt;
+
+  &lt;example&gt;
+   &lt;title&gt;Selection Changed Signal&lt;/title&gt;
+   &lt;programlisting role="php"&gt;&lt;![CDATA[$selection = $view-&gt;get_selection();
+$selection-&gt;connect("changed", "display_selected_folder");]]&gt;&lt;/programlisting&gt;
+  &lt;/example&gt;
+
+  &lt;para&gt;
+   This code connects the "changed" signal to a function
+   (&lt;literal&gt;display_selected_folder()&lt;/literal&gt;)
+   that displays the contents of a selected folder.
+  &lt;/para&gt;
+
+  &lt;simpara&gt;
+   You need to tell the GtkTreeView explicitly that the user is
+   allowed to rearrange the folder tree using drag-and-drop. Fortunately,
+   after telling this once, the widget takes care of the rest.
+  &lt;/simpara&gt;
+
+  &lt;example&gt;
+   &lt;title&gt;Drag-and-Drop reordering&lt;/title&gt;
+   &lt;programlisting role="php"&gt;&lt;![CDATA[$view-&gt;set_reorderable(true);]]&gt;&lt;/programlisting&gt;
+  &lt;para&gt;
+    This is all it takes to make the widget drag-and-drop enabled.
+   &lt;/para&gt;
+  &lt;/example&gt;
+
+  &lt;simpara&gt;
+   The same thing can also be done by manually should you choose not to
+   enable drag-and-drop by removing the child node from the tree and inserting it
+   back in as a child of another node.
+  &lt;/simpara&gt;
+
+  &lt;example&gt;
+   &lt;title&gt;Manual reordering&lt;/title&gt;
+   &lt;programlisting role="php"&gt;&lt;![CDATA[$folder = $model-&gt;get_value($old_iter, 0);
+$model-&gt;remove($old_iter);
+$new_iter = $model-&gt;insert_before($new_parent, null);
+$model-&gt;set($new_iter, 0, $folder);
+$model-&gt;set($new_iter, 1, $folder['name']);]]&gt;&lt;/programlisting&gt;
+  &lt;/example&gt;
+
+  &lt;para&gt;
+   This code moves a node from &lt;literal&gt;old_iter&lt;/literal&gt; to be the last child
+   of the &lt;literal&gt;new_parent&lt;/literal&gt; node.
+  &lt;/para&gt;
+
+  &lt;simpara&gt;
+   At the time this tutorial was written/ported there was a bug in PHP-Gtk2 that
+   parameter order for &lt;function class="GtkTreeStore"&gt;insert_before&lt;/function&gt;
+   and &lt;function class="GtkTreeStore"&gt;insert_after&lt;/function&gt; has been switched. The
+   above code will not work (nor the example code below) without switching the
+   order of the parameters. In version &lt;literal&gt;php-gtk-2.0.0 alpha&lt;/literal&gt;,
+   the order is still &lt;literal&gt;(sibling, parent)&lt;/literal&gt; and it should be
+   &lt;literal&gt;(parent, sibling)&lt;/literal&gt;. This has already been changed in CVS.
+  &lt;/simpara&gt;
+
+  &lt;example&gt;
+   &lt;title&gt;Example source code&lt;/title&gt;
+   &lt;programlisting role="php"&gt;
+    &lt;xi:include xmlns:xi="http://www.w3.org/2001/XInclude" 
+     href="&amp;directory.examples;/tutorials/treeview/full.phpw" parse="text"&gt;
+     &lt;xi:fallback&gt;FIXME: MISSING XINCLUDE CONTENT&lt;/xi:fallback&gt;
+    &lt;/xi:include&gt;
+   &lt;/programlisting&gt;
+  &lt;/example&gt;
+
+ &lt;/sect1&gt;
+
+&lt;/chapter&gt;
+
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110110193048</emailId><senderName>mark skilbeck</senderName><senderEmail>markskilbeck@googlemail.com</senderEmail><timestampReceived>2011-01-10 19:30:48-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] replacing gtk::* with gobject::* in treeview.xml</subject><body>
+
+Hi, affiss.
+
+We need the 'patch' file, that displays what changes have been made to
+a file. You can get this by running the command 'svn diff &lt;filepath&gt; &gt;
+patch.txt'. Please attach this file in your next reply.
+
+Mark.
+
+On Mon, Jan 10, 2011 at 7:03 PM, AFFISS &lt;affiss@gmail.com&gt; wrote:
+&gt; hello,
+&gt;
+&gt; this is my first contribution to the php-gtk docs , some more are expected
+&gt; to follow as i continue reading through them.
+&gt;
+&gt; please see the attach of the xml file.
+&gt;
+&gt; regards
+&gt;
+&gt; affiss
+&gt;
+&gt; --
+&gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt;
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110110195542</emailId><senderName>AFFISS</senderName><senderEmail>affiss@gmail.com</senderEmail><timestampReceived>2011-01-10 19:55:42-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] replacing gtk::* with gobject::* in treeview.xml</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+hi again,
+
+please see the attachment ;)
+
+regards
+
+affiss
+
+On Mon, Jan 10, 2011 at 10:30 PM, mark skilbeck &lt;markskilbeck@googlemail.com
+&gt; wrote:
+
+&gt; Hi, affiss.
+&gt;
+&gt; We need the 'patch' file, that displays what changes have been made to
+&gt; a file. You can get this by running the command 'svn diff &lt;filepath&gt; &gt;
+&gt; patch.txt'. Please attach this file in your next reply.
+&gt;
+&gt; Mark.
+&gt;
+&gt; On Mon, Jan 10, 2011 at 7:03 PM, AFFISS &lt;affiss@gmail.com&gt; wrote:
+&gt; &gt; hello,
+&gt; &gt;
+&gt; &gt; this is my first contribution to the php-gtk docs , some more are
+&gt; expected
+&gt; &gt; to follow as i continue reading through them.
+&gt; &gt;
+&gt; &gt; please see the attach of the xml file.
+&gt; &gt;
+&gt; &gt; regards
+&gt; &gt;
+&gt; &gt; affiss
+&gt; &gt;
+&gt; &gt; --
+&gt; &gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt; &gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt; &gt;
+&gt;
+
+[Attachment #5 (text/html)]
+
+hi again,&lt;br&gt;&lt;br&gt;please see the attachment \
+;)&lt;br&gt;&lt;br&gt;regards&lt;br&gt;&lt;br&gt;affiss&lt;br&gt;&lt;br&gt;&lt;div class="gmail_quote"&gt;On Mon, Jan 10, 2011 \
+at 10:30 PM, mark skilbeck &lt;span dir="ltr"&gt;&lt;&lt;a \
+href="mailto:markskilbeck@googlemail.com"&gt;markskilbeck@googlemail.com&lt;/a&gt;&gt;&lt;/span&gt; \
+wrote:&lt;br&gt; &lt;blockquote class="gmail_quote" style="margin: 0pt 0pt 0pt 0.8ex; \
+border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"&gt;Hi, affiss.&lt;br&gt; &lt;br&gt;
+We need the 'patch' file, that displays what changes have been made to&lt;br&gt;
+a file. You can get this by running the command 'svn diff &lt;filepath&gt; \
+&gt;&lt;br&gt; patch.txt'. Please attach this file in your next reply.&lt;br&gt;
+&lt;br&gt;
+Mark.&lt;br&gt;
+&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;div class="h5"&gt;&lt;br&gt;
+On Mon, Jan 10, 2011 at 7:03 PM, AFFISS &lt;&lt;a \
+href="mailto:affiss@gmail.com"&gt;affiss@gmail.com&lt;/a&gt;&gt; wrote:&lt;br&gt; &gt; hello,&lt;br&gt;
+&gt;&lt;br&gt;
+&gt; this is my first contribution to the php-gtk docs , some more are expected&lt;br&gt;
+&gt; to follow as i continue reading through them.&lt;br&gt;
+&gt;&lt;br&gt;
+&gt; please see the attach of the xml file.&lt;br&gt;
+&gt;&lt;br&gt;
+&gt; regards&lt;br&gt;
+&gt;&lt;br&gt;
+&gt; affiss&lt;br&gt;
+&gt;&lt;br&gt;
+&lt;/div&gt;&lt;/div&gt;&gt; --&lt;br&gt;
+&gt; PHP-GTK Development Mailing List (&lt;a href="http://gtk.php.net/" \
+target="_blank"&gt;http://gtk.php.net/&lt;/a&gt;)&lt;br&gt; &gt; To unsubscribe, visit: &lt;a \
+href="http://www.php.net/unsub.php" \
+target="_blank"&gt;http://www.php.net/unsub.php&lt;/a&gt;&lt;br&gt; &gt;&lt;br&gt;
+&lt;/blockquote&gt;&lt;/div&gt;&lt;br&gt;
+
+--00504502c8f262f7760499835aee--
+
+
+["patch.diff.txt" (text/plain)]
+
+Index: manual/en/tutorials/treeview.xml
+===================================================================
+--- manual/en/tutorials/treeview.xml	(revision 307351)
++++ manual/en/tutorials/treeview.xml	(working copy)
+@@ -93,7 +93,7 @@
+ 
+   &lt;example&gt;
+    &lt;title&gt;Model&lt;/title&gt;
+-   &lt;programlisting role="php"&gt;&lt;![CDATA[$model = new \
+GtkTreeStore(Gtk::TYPE_PHP_VALUE, Gtk::TYPE_STRING);]]&gt;&lt;/programlisting&gt; +   \
+&lt;programlisting role="php"&gt;&lt;![CDATA[$model = new \
+GtkTreeStore(Gobject::TYPE_PHP_VALUE, Gobject::TYPE_STRING);]]&gt;&lt;/programlisting&gt;  \
+&lt;/example&gt;  
+   &lt;para&gt;
+@@ -284,4 +284,4 @@
+ 
+  &lt;/sect1&gt;
+ 
+-&lt;/chapter&gt;
+\ No newline at end of file
++&lt;/chapter&gt;
+
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110110200544</emailId><senderName>mark skilbeck</senderName><senderEmail>markskilbeck@googlemail.com</senderEmail><timestampReceived>2011-01-10 20:05:44-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] replacing gtk::* with gobject::* in treeview.xml</subject><body>
+
+Done. Thanks :)
+
+http://svn.php.net/viewvc?view=revision&amp;revision=307352
+
+On Mon, Jan 10, 2011 at 7:55 PM, AFFISS &lt;affiss@gmail.com&gt; wrote:
+&gt; hi again,
+&gt;
+&gt; please see the attachment ;)
+&gt;
+&gt; regards
+&gt;
+&gt; affiss
+&gt;
+&gt; On Mon, Jan 10, 2011 at 10:30 PM, mark skilbeck
+&gt; &lt;markskilbeck@googlemail.com&gt; wrote:
+&gt;&gt;
+&gt;&gt; Hi, affiss.
+&gt;&gt;
+&gt;&gt; We need the 'patch' file, that displays what changes have been made to
+&gt;&gt; a file. You can get this by running the command 'svn diff &lt;filepath&gt; &gt;
+&gt;&gt; patch.txt'. Please attach this file in your next reply.
+&gt;&gt;
+&gt;&gt; Mark.
+&gt;&gt;
+&gt;&gt; On Mon, Jan 10, 2011 at 7:03 PM, AFFISS &lt;affiss@gmail.com&gt; wrote:
+&gt;&gt; &gt; hello,
+&gt;&gt; &gt;
+&gt;&gt; &gt; this is my first contribution to the php-gtk docs , some more are
+&gt;&gt; &gt; expected
+&gt;&gt; &gt; to follow as i continue reading through them.
+&gt;&gt; &gt;
+&gt;&gt; &gt; please see the attach of the xml file.
+&gt;&gt; &gt;
+&gt;&gt; &gt; regards
+&gt;&gt; &gt;
+&gt;&gt; &gt; affiss
+&gt;&gt; &gt;
+&gt;&gt; &gt; --
+&gt;&gt; &gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt;&gt; &gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt;&gt; &gt;
+&gt;
+&gt;
+
+
+
+-- 
+Mark Skilbeck.
+http://blog.mahcuz.com - webmaster
+http://bytes.com - PHP Forum Moderator
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110111124849</emailId><senderName>Mark Skilbeck</senderName><senderEmail>markskilbeck@googlemail.com</senderEmail><timestampReceived>2011-01-11 12:48:49-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] more docs corrections</subject><body>
+
+Hi, affiss. 
+
+Thanks for the patch! I made a slight change ("See" -&gt; "see").
+
+Mark.
+
+On Tue, Jan 11, 2011 at 03:19:48AM +0300, AFFISS wrote:
+&gt; Hello,
+&gt; 
+&gt; this is the second patch today , please see the attachment !
+&gt; 
+&gt; basically some more gtk::* to gobject::* edits and changing the svn command
+&gt; for the php-gtk-doc to something that actually works ;)
+&gt; 
+&gt; check and commit
+&gt; 
+&gt; regards
+&gt; 
+&gt; affiss
+
+&gt; Index: manual/en/tutorials/doccing.xml
+&gt; ===================================================================
+&gt; --- manual/en/tutorials/doccing.xml	(revision 307352)
+&gt; +++ manual/en/tutorials/doccing.xml	(working copy)
+&gt; @@ -106,7 +106,7 @@
+&gt; &lt;para&gt;
+&gt; To get a copy of the docs using the &lt;literal&gt;svn&lt;/literal&gt; command line
+&gt; tool, type:
+&gt; -    &lt;command&gt;cvs -d :pserver:cvsread@cvs.php.net:/repository co -P \
+&gt; php-gtk-doc&lt;/command&gt; +    &lt;command&gt;svn checkout \
+&gt; http://svn.php.net/repository/gtk/php-gtk-doc/trunk php-gtk-doc&lt;/command&gt; &lt;/para&gt;
+&gt; &lt;para&gt;
+&gt; If you already have a copy, you can update it via:
+&gt; Index: manual/en/tutorials/treeview.xml
+&gt; ===================================================================
+&gt; --- manual/en/tutorials/treeview.xml	(revision 307352)
+&gt; +++ manual/en/tutorials/treeview.xml	(working copy)
+&gt; @@ -99,8 +99,7 @@
+&gt; &lt;para&gt;
+&gt; Here we create a &lt;classname&gt;GtkTreeStore&lt;/classname&gt; with two columns. The first
+&gt; column contains a PHP variable (of any type), the second a
+&gt; -   string. There are several different types available, see the
+&gt; -   &lt;link linkend="gtkenum"&gt;GTK Enums&lt;/link&gt;.
+&gt; +   string. There are several different types available, See &lt;link \
+&gt; linkend="gobject.enum.gtype"&gt;GType&lt;/link&gt;. We will be using the first column to \
+&gt; hold an array containing all the information about a folder and the second
+&gt; column to display its name.
+&gt; Index: examples/reference/gtk/gtkliststore/swap.php
+&gt; ===================================================================
+&gt; --- examples/reference/gtk/gtkliststore/swap.php	(revision 307352)
+&gt; +++ examples/reference/gtk/gtkliststore/swap.php	(working copy)
+&gt; @@ -1,5 +1,5 @@
+&gt; &lt;?php
+&gt; -$store = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_LONG);
+&gt; +$store = new GtkListStore(Gobject::TYPE_STRING, Gobject::TYPE_LONG);
+&gt; 
+&gt; //insert the rows at different positions
+&gt; $tokio  = $store-&gt;insert(0, array('Tokio', 34100000));
+&gt; @@ -13,4 +13,4 @@
+&gt; echo $store-&gt;get_value($iter, 0) . "\r\n";
+&gt; }
+&gt; $store-&gt;foreach('echoRow');
+&gt; -?&gt;
+&gt; \ No newline at end of file
+&gt; +?&gt;
+&gt; Index: examples/reference/gtk/gtkliststore/set.php
+&gt; ===================================================================
+&gt; --- examples/reference/gtk/gtkliststore/set.php	(revision 307352)
+&gt; +++ examples/reference/gtk/gtkliststore/set.php	(working copy)
+&gt; @@ -1,6 +1,6 @@
+&gt; &lt;?php
+&gt; //Create new list store with string and number columns
+&gt; -$store = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_LONG);
+&gt; +$store = new GtkListStore(Gobject::TYPE_STRING, Gobject::TYPE_LONG);
+&gt; 
+&gt; //at first, get an iterator for a new row
+&gt; $iterator = $store-&gt;append();
+&gt; @@ -17,4 +17,4 @@
+&gt; 
+&gt; //Even faster: don't even create an iterator variable
+&gt; $store-&gt;set($store-&gt;append(), 0, 'Seoul', 1, 22250000);
+&gt; -?&gt;
+&gt; \ No newline at end of file
+&gt; +?&gt;
+&gt; Index: examples/reference/gtk/gtkliststore/insert.php
+&gt; ===================================================================
+&gt; --- examples/reference/gtk/gtkliststore/insert.php	(revision 307352)
+&gt; +++ examples/reference/gtk/gtkliststore/insert.php	(working copy)
+&gt; @@ -1,6 +1,6 @@
+&gt; &lt;?php
+&gt; //Create new store with two columns
+&gt; -$store = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_LONG);
+&gt; +$store = new GtkListStore(Gobject::TYPE_STRING, Gobject::TYPE_LONG);
+&gt; 
+&gt; //insert the rows at different positions
+&gt; $store-&gt;insert(1, array('Tokio', 34100000));
+&gt; @@ -9,4 +9,4 @@
+&gt; //use the iterator to set the data after insertion
+&gt; $iter = $store-&gt;insert(1);
+&gt; $store-&gt;set($iter, 0, 'Seoul', 1, 22250000);
+&gt; -?&gt;
+&gt; \ No newline at end of file
+&gt; +?&gt;
+&gt; Index: examples/reference/gtk/gtkliststore/constructor.php
+&gt; ===================================================================
+&gt; --- examples/reference/gtk/gtkliststore/constructor.php	(revision 307352)
+&gt; +++ examples/reference/gtk/gtkliststore/constructor.php	(working copy)
+&gt; @@ -6,7 +6,7 @@
+&gt; The "name" is of type "string", and the number
+&gt; of inhabitants is of type long (big integer).
+&gt; */
+&gt; -$store = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_LONG);
+&gt; +$store = new GtkListStore(Gobject::TYPE_STRING, Gobject::TYPE_LONG);
+&gt; 
+&gt; /*
+&gt; * Using the "set" method
+&gt; @@ -46,4 +46,4 @@
+&gt; echo $city . ' has ' . $number . " inhabitants.\r\n";
+&gt; }
+&gt; $store-&gt;foreach('echoRow');
+&gt; -?&gt;
+&gt; \ No newline at end of file
+&gt; +?&gt;
+&gt; Index: examples/reference/gtk/gtkliststore/append.php
+&gt; ===================================================================
+&gt; --- examples/reference/gtk/gtkliststore/append.php	(revision 307352)
+&gt; +++ examples/reference/gtk/gtkliststore/append.php	(working copy)
+&gt; @@ -1,9 +1,9 @@
+&gt; &lt;?php
+&gt; //Create new store with two columns
+&gt; -$store = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_LONG);
+&gt; +$store = new GtkListStore(Gobject::TYPE_STRING, Gobject::TYPE_LONG);
+&gt; 
+&gt; //append one row
+&gt; $store-&gt;append(array('Tokio', 34100000));
+&gt; //append another row
+&gt; $store-&gt;append(array('Mexico city', 22650000));
+&gt; -?&gt;
+&gt; \ No newline at end of file
+&gt; +?&gt;
+&gt; Index: examples/reference/gtk/gtkliststore/move_before.php
+&gt; ===================================================================
+&gt; --- examples/reference/gtk/gtkliststore/move_before.php	(revision 307352)
+&gt; +++ examples/reference/gtk/gtkliststore/move_before.php	(working copy)
+&gt; @@ -1,5 +1,5 @@
+&gt; &lt;?php
+&gt; -$store = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_LONG);
+&gt; +$store = new GtkListStore(Gobject::TYPE_STRING, Gobject::TYPE_LONG);
+&gt; 
+&gt; $tokio  = $store-&gt;insert(0, array('Tokio', 34100000));
+&gt; $mexico = $store-&gt;insert(1, array('Mexico city', 22650000));
+&gt; @@ -13,4 +13,4 @@
+&gt; echo $store-&gt;get_value($iter, 0) . "\r\n";
+&gt; }
+&gt; $store-&gt;foreach('echoRow');
+&gt; -?&gt;
+&gt; \ No newline at end of file
+&gt; +?&gt;
+&gt; Index: examples/reference/gtk/gtktreeview/constructor.phpw
+&gt; ===================================================================
+&gt; --- examples/reference/gtk/gtktreeview/constructor.phpw	(revision 307352)
+&gt; +++ examples/reference/gtk/gtktreeview/constructor.phpw	(working copy)
+&gt; @@ -1,6 +1,6 @@
+&gt; &lt;?php
+&gt; //the model
+&gt; -$store = new GtkListStore(Gtk::TYPE_BOOLEAN, Gtk::TYPE_STRING, Gtk::TYPE_LONG);
+&gt; +$store = new GtkListStore(Gobject::TYPE_BOOLEAN, Gobject::TYPE_STRING, \
+&gt; Gobject::TYPE_LONG); 
+&gt; //add some data to the data store
+&gt; $store-&gt;append(array(true , 'PHP'    , 1994));
+&gt; @@ -58,4 +58,4 @@
+&gt; $wnd-&gt;set_default_size(250, 200);
+&gt; $wnd-&gt;show_all();
+&gt; Gtk::main();
+&gt; -?&gt;
+&gt; \ No newline at end of file
+&gt; +?&gt;
+&gt; Index: examples/reference/gtk/gtktreeview/selection.phpw
+&gt; ===================================================================
+&gt; --- examples/reference/gtk/gtktreeview/selection.phpw	(revision 307352)
+&gt; +++ examples/reference/gtk/gtktreeview/selection.phpw	(working copy)
+&gt; @@ -1,6 +1,6 @@
+&gt; &lt;?php
+&gt; //create a model
+&gt; -$model = new GtkListStore(Gtk::TYPE_STRING);
+&gt; +$model = new GtkListStore(Gobject::TYPE_STRING);
+&gt; //create the view to display the model data
+&gt; $view = new GtkTreeView($model);
+&gt; //now, get the selection object of that view
+&gt; @@ -38,4 +38,4 @@
+&gt; $wnd-&gt;add($view);
+&gt; $wnd-&gt;show_all();
+&gt; Gtk::main();
+&gt; -?&gt;
+&gt; \ No newline at end of file
+&gt; +?&gt;
+&gt; Index: examples/reference/gtk/gtktreeview/editable.phpw
+&gt; ===================================================================
+&gt; --- examples/reference/gtk/gtktreeview/editable.phpw	(revision 307352)
+&gt; +++ examples/reference/gtk/gtktreeview/editable.phpw	(working copy)
+&gt; @@ -17,14 +17,14 @@
+&gt; //Data are stored in there (the model)
+&gt; $store = new GtkListStore(
+&gt; GdkPixbuf::gtype, //icon
+&gt; -    Gtk::TYPE_STRING, //title
+&gt; -    Gtk::TYPE_STRING, //category
+&gt; -    Gtk::TYPE_BOOLEAN,//works?
+&gt; -    Gtk::TYPE_LONG    //development progress (percent)
+&gt; +    Gobject::TYPE_STRING, //title
+&gt; +    Gobject::TYPE_STRING, //category
+&gt; +    Gobject::TYPE_BOOLEAN,//works?
+&gt; +    Gobject::TYPE_LONG    //development progress (percent)
+&gt; );
+&gt; 
+&gt; //List with allowed categories
+&gt; -$categories = new GtkListStore(Gtk::TYPE_STRING);
+&gt; +$categories = new GtkListStore(Gobject::TYPE_STRING);
+&gt; $categories-&gt;append(array('Editors'));
+&gt; $categories-&gt;append(array('Games'));
+&gt; $categories-&gt;append(array('Setup'));
+&gt; @@ -163,4 +163,4 @@
+&gt; $wnd-&gt;connect_simple('destroy', array('Gtk', 'main_quit'));
+&gt; $wnd-&gt;show_all();
+&gt; Gtk::main();
+&gt; -?&gt;
+&gt; \ No newline at end of file
+&gt; +?&gt;
+
+&gt; -- 
+&gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt; To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20110122131012</emailId><senderName>"ptlis at ptlis dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-01-22 13:10:12-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #53813 [NEW]: GdkEvent keyval field not writable</subject><body>
+
+From:             
+Operating system: Linux 32bit
+PHP version:      5.3.5
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:GdkEvent keyval field not writable
+
+Description:
+------------
+If you create a GdkEvent with the GdkEventType Gdk::KEY_PRESS and try to
+assign a value to the keyval field the keyval field does not change.
+
+Test script:
+---------------
+$event = new GdkEvent(Gdk::KEY_PRESS);
+$event-&gt;keyval	= Gdk::KEY_Return;
+var_dump($event);
+
+Expected result:
+----------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(65293)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+Actual result:
+--------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(0)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+-- 
+Edit bug report at http://bugs.php.net/bug.php?id=53813&amp;edit=1
+-- 
+Try a snapshot (PHP 5.2):            http://bugs.php.net/fix.php?id=53813&amp;r=trysnapshot52
+Try a snapshot (PHP 5.3):            http://bugs.php.net/fix.php?id=53813&amp;r=trysnapshot53
+Try a snapshot (trunk):              http://bugs.php.net/fix.php?id=53813&amp;r=trysnapshottrunk
+Fixed in SVN:                        http://bugs.php.net/fix.php?id=53813&amp;r=fixed
+Fixed in SVN and need be documented: http://bugs.php.net/fix.php?id=53813&amp;r=needdocs
+Fixed in release:                    http://bugs.php.net/fix.php?id=53813&amp;r=alreadyfixed
+Need backtrace:                      http://bugs.php.net/fix.php?id=53813&amp;r=needtrace
+Need Reproduce Script:               http://bugs.php.net/fix.php?id=53813&amp;r=needscript
+Try newer version:                   http://bugs.php.net/fix.php?id=53813&amp;r=oldversion
+Not developer issue:                 http://bugs.php.net/fix.php?id=53813&amp;r=support
+Expected behavior:                   http://bugs.php.net/fix.php?id=53813&amp;r=notwrong
+Not enough info:                     http://bugs.php.net/fix.php?id=53813&amp;r=notenoughinfo
+Submitted twice:                     http://bugs.php.net/fix.php?id=53813&amp;r=submittedtwice
+register_globals:                    http://bugs.php.net/fix.php?id=53813&amp;r=globals
+PHP 4 support discontinued:          http://bugs.php.net/fix.php?id=53813&amp;r=php4
+Daylight Savings:                    http://bugs.php.net/fix.php?id=53813&amp;r=dst
+IIS Stability:                       http://bugs.php.net/fix.php?id=53813&amp;r=isapi
+Install GNU Sed:                     http://bugs.php.net/fix.php?id=53813&amp;r=gnused
+Floating point limitations:          http://bugs.php.net/fix.php?id=53813&amp;r=float
+No Zend Extensions:                  http://bugs.php.net/fix.php?id=53813&amp;r=nozend
+MySQL Configuration Error:           http://bugs.php.net/fix.php?id=53813&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110125160834</emailId><senderName>"markskilbeck () php ! net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-01-25 16:08:34-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #53813 [Com]: GdkEvent keyval field not writable</subject><body>
+
+Edit report at http://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+ ID:                 53813
+ Comment by:         markskilbeck@php.net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            GdkEvent keyval field not writable
+ Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 32bit
+ PHP Version:        5.3.5
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+There's no write_property handler for the GdkEvent stuff. It also seems
+to be 
+missing for other objects. I'll work on a patch today for GdkEvent.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-01-22 14:10:11] ptlis at ptlis dot net
+
+Description:
+------------
+If you create a GdkEvent with the GdkEventType Gdk::KEY_PRESS and try to
+assign a value to the keyval field the keyval field does not change.
+
+Test script:
+---------------
+$event = new GdkEvent(Gdk::KEY_PRESS);
+$event-&gt;keyval	= Gdk::KEY_Return;
+var_dump($event);
+
+Expected result:
+----------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(65293)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+Actual result:
+--------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(0)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at http://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110128201214</emailId><senderName></senderName><senderEmail>markskilbeck</senderEmail><timestampReceived>2011-01-28 20:12:14-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #53813 [Opn-&gt;Asn]: GdkEvent keyval field not writable</subject><body>
+
+Edit report at http://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+ ID:                 53813
+ Updated by:         markskilbeck@php.net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            GdkEvent keyval field not writable
+-Status:             Open
++Status:             Assigned
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 32bit
+ PHP Version:        5.3.5
+-Assigned To:        
++Assigned To:        markskilbeck
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-01-25 17:08:34] markskilbeck@php.net
+
+There's no write_property handler for the GdkEvent stuff. It also seems
+to be 
+missing for other objects. I'll work on a patch today for GdkEvent.
+
+------------------------------------------------------------------------
+[2011-01-22 14:10:11] ptlis at ptlis dot net
+
+Description:
+------------
+If you create a GdkEvent with the GdkEventType Gdk::KEY_PRESS and try to
+assign a value to the keyval field the keyval field does not change.
+
+Test script:
+---------------
+$event = new GdkEvent(Gdk::KEY_PRESS);
+$event-&gt;keyval	= Gdk::KEY_Return;
+var_dump($event);
+
+Expected result:
+----------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(65293)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+Actual result:
+--------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(0)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at http://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110128202646</emailId><senderName>"markskilbeck () php ! net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2011-01-28 20:26:46-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #53871 [NEW]: GtkComboBox no 'text_column' error</subject><body>
+
+From:             markskilbeck
+Operating system: Ubuntu
+PHP version:      Irrelevant
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:GtkComboBox no 'text_column' error
+
+Description:
+------------
+Bug originally reported by Ptlis.
+
+When using a GtkComboBox you may encounter an error looking something
+like:
+
+GLib-GObject-WARNING **: IA__g_object_new_valist: object class
+`GtkComboBox' has 
+no property named `text-column'
+
+
+-- 
+Edit bug report at http://bugs.php.net/bug.php?id=53871&amp;edit=1
+-- 
+Try a snapshot (PHP 5.2):            http://bugs.php.net/fix.php?id=53871&amp;r=trysnapshot52
+Try a snapshot (PHP 5.3):            http://bugs.php.net/fix.php?id=53871&amp;r=trysnapshot53
+Try a snapshot (trunk):              http://bugs.php.net/fix.php?id=53871&amp;r=trysnapshottrunk
+Fixed in SVN:                        http://bugs.php.net/fix.php?id=53871&amp;r=fixed
+Fixed in SVN and need be documented: http://bugs.php.net/fix.php?id=53871&amp;r=needdocs
+Fixed in release:                    http://bugs.php.net/fix.php?id=53871&amp;r=alreadyfixed
+Need backtrace:                      http://bugs.php.net/fix.php?id=53871&amp;r=needtrace
+Need Reproduce Script:               http://bugs.php.net/fix.php?id=53871&amp;r=needscript
+Try newer version:                   http://bugs.php.net/fix.php?id=53871&amp;r=oldversion
+Not developer issue:                 http://bugs.php.net/fix.php?id=53871&amp;r=support
+Expected behavior:                   http://bugs.php.net/fix.php?id=53871&amp;r=notwrong
+Not enough info:                     http://bugs.php.net/fix.php?id=53871&amp;r=notenoughinfo
+Submitted twice:                     http://bugs.php.net/fix.php?id=53871&amp;r=submittedtwice
+register_globals:                    http://bugs.php.net/fix.php?id=53871&amp;r=globals
+PHP 4 support discontinued:          http://bugs.php.net/fix.php?id=53871&amp;r=php4
+Daylight Savings:                    http://bugs.php.net/fix.php?id=53871&amp;r=dst
+IIS Stability:                       http://bugs.php.net/fix.php?id=53871&amp;r=isapi
+Install GNU Sed:                     http://bugs.php.net/fix.php?id=53871&amp;r=gnused
+Floating point limitations:          http://bugs.php.net/fix.php?id=53871&amp;r=float
+No Zend Extensions:                  http://bugs.php.net/fix.php?id=53871&amp;r=nozend
+MySQL Configuration Error:           http://bugs.php.net/fix.php?id=53871&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110128202840</emailId><senderName></senderName><senderEmail>markskilbeck</senderEmail><timestampReceived>2011-01-28 20:28:40-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #53871 [Opn-&gt;Csd]: GtkComboBox no 'text_column' error</subject><body>
+
+Edit report at http://bugs.php.net/bug.php?id=53871&amp;edit=1
+
+ ID:                 53871
+ Updated by:         markskilbeck@php.net
+ Reported by:        markskilbeck@php.net
+ Summary:            GtkComboBox no 'text_column' error
+-Status:             Open
++Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu
+ PHP Version:        Irrelevant
+-Assigned To:        
++Assigned To:        markskilbeck
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+This bug has been fixed in SVN.
+
+Snapshots of the sources are packaged every three hours; this change
+will be in the next snapshot. You can grab the snapshot at
+http://snaps.php.net/.
+ 
+Thank you for the report, and for helping us make PHP better.
+
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-01-28 21:27:33] markskilbeck@php.net
+
+Automatic comment from SVN on behalf of markskilbeck
+Revision: http://svn.php.net/viewvc/?view=revision&amp;revision=307828
+Log: Fixes bug #53871 - Typo: gtk_combo_box_new -&gt;
+gtk_combo_box_entry_new
+
+------------------------------------------------------------------------
+[2011-01-28 21:26:46] markskilbeck@php.net
+
+Description:
+------------
+Bug originally reported by Ptlis.
+
+When using a GtkComboBox you may encounter an error looking something
+like:
+
+GLib-GObject-WARNING **: IA__g_object_new_valist: object class
+`GtkComboBox' has 
+no property named `text-column'
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at http://bugs.php.net/bug.php?id=53871&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20110111001948</emailId><senderName>AFFISS</senderName><senderEmail>affiss@gmail.com</senderEmail><timestampReceived>2011-01-11 00:19:48-0400</timestampReceived><subject>[PHP-GTK-DEV] more docs corrections</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+Hello,
+
+this is the second patch today , please see the attachment !
+
+basically some more gtk::* to gobject::* edits and changing the svn command
+for the php-gtk-doc to something that actually works ;)
+
+check and commit
+
+regards
+
+affiss
+
+[Attachment #5 (text/html)]
+
+Hello,&lt;br&gt;&lt;br&gt;this is the second patch today , please see the attachment \
+!&lt;br&gt;&lt;br&gt;basically some more gtk::* to gobject::* edits and changing the svn command \
+for the php-gtk-doc to something that actually works ;)&lt;br&gt;&lt;br&gt;check and commit&lt;br&gt; \
+&lt;br&gt;regards&lt;br&gt;&lt;br&gt;affiss&lt;br&gt;
+
+--0016e64bd3f4d7ddeb0499870aa7--
+
+
+["patch.diff.txt" (text/plain)]
+
+Index: manual/en/tutorials/doccing.xml
+===================================================================
+--- manual/en/tutorials/doccing.xml	(revision 307352)
++++ manual/en/tutorials/doccing.xml	(working copy)
+@@ -106,7 +106,7 @@
+    &lt;para&gt;
+     To get a copy of the docs using the &lt;literal&gt;svn&lt;/literal&gt; command line
+     tool, type:
+-    &lt;command&gt;cvs -d :pserver:cvsread@cvs.php.net:/repository co -P \
+php-gtk-doc&lt;/command&gt; +    &lt;command&gt;svn checkout \
+http://svn.php.net/repository/gtk/php-gtk-doc/trunk php-gtk-doc&lt;/command&gt;  &lt;/para&gt;
+    &lt;para&gt;
+     If you already have a copy, you can update it via:
+Index: manual/en/tutorials/treeview.xml
+===================================================================
+--- manual/en/tutorials/treeview.xml	(revision 307352)
++++ manual/en/tutorials/treeview.xml	(working copy)
+@@ -99,8 +99,7 @@
+   &lt;para&gt;
+    Here we create a &lt;classname&gt;GtkTreeStore&lt;/classname&gt; with two columns. The first
+    column contains a PHP variable (of any type), the second a
+-   string. There are several different types available, see the
+-   &lt;link linkend="gtkenum"&gt;GTK Enums&lt;/link&gt;.
++   string. There are several different types available, See &lt;link \
+linkend="gobject.enum.gtype"&gt;GType&lt;/link&gt;.  We will be using the first column to hold \
+an array  containing all the information about a folder and the second
+    column to display its name.
+Index: examples/reference/gtk/gtkliststore/swap.php
+===================================================================
+--- examples/reference/gtk/gtkliststore/swap.php	(revision 307352)
++++ examples/reference/gtk/gtkliststore/swap.php	(working copy)
+@@ -1,5 +1,5 @@
+ &lt;?php
+-$store = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_LONG);
++$store = new GtkListStore(Gobject::TYPE_STRING, Gobject::TYPE_LONG);
+ 
+ //insert the rows at different positions
+ $tokio  = $store-&gt;insert(0, array('Tokio', 34100000));
+@@ -13,4 +13,4 @@
+     echo $store-&gt;get_value($iter, 0) . "\r\n";
+ }
+ $store-&gt;foreach('echoRow');
+-?&gt;
+\ No newline at end of file
++?&gt;
+Index: examples/reference/gtk/gtkliststore/set.php
+===================================================================
+--- examples/reference/gtk/gtkliststore/set.php	(revision 307352)
++++ examples/reference/gtk/gtkliststore/set.php	(working copy)
+@@ -1,6 +1,6 @@
+ &lt;?php
+ //Create new list store with string and number columns
+-$store = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_LONG);
++$store = new GtkListStore(Gobject::TYPE_STRING, Gobject::TYPE_LONG);
+ 
+ //at first, get an iterator for a new row
+ $iterator = $store-&gt;append();
+@@ -17,4 +17,4 @@
+ 
+ //Even faster: don't even create an iterator variable
+ $store-&gt;set($store-&gt;append(), 0, 'Seoul', 1, 22250000);
+-?&gt;
+\ No newline at end of file
++?&gt;
+Index: examples/reference/gtk/gtkliststore/insert.php
+===================================================================
+--- examples/reference/gtk/gtkliststore/insert.php	(revision 307352)
++++ examples/reference/gtk/gtkliststore/insert.php	(working copy)
+@@ -1,6 +1,6 @@
+ &lt;?php
+ //Create new store with two columns
+-$store = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_LONG);
++$store = new GtkListStore(Gobject::TYPE_STRING, Gobject::TYPE_LONG);
+ 
+ //insert the rows at different positions
+ $store-&gt;insert(1, array('Tokio', 34100000));
+@@ -9,4 +9,4 @@
+ //use the iterator to set the data after insertion
+ $iter = $store-&gt;insert(1);
+ $store-&gt;set($iter, 0, 'Seoul', 1, 22250000);
+-?&gt;
+\ No newline at end of file
++?&gt;
+Index: examples/reference/gtk/gtkliststore/constructor.php
+===================================================================
+--- examples/reference/gtk/gtkliststore/constructor.php	(revision 307352)
++++ examples/reference/gtk/gtkliststore/constructor.php	(working copy)
+@@ -6,7 +6,7 @@
+  The "name" is of type "string", and the number
+  of inhabitants is of type long (big integer).
+ */
+-$store = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_LONG);
++$store = new GtkListStore(Gobject::TYPE_STRING, Gobject::TYPE_LONG);
+ 
+ /*
+ * Using the "set" method
+@@ -46,4 +46,4 @@
+     echo $city . ' has ' . $number . " inhabitants.\r\n";
+ }
+ $store-&gt;foreach('echoRow');
+-?&gt;
+\ No newline at end of file
++?&gt;
+Index: examples/reference/gtk/gtkliststore/append.php
+===================================================================
+--- examples/reference/gtk/gtkliststore/append.php	(revision 307352)
++++ examples/reference/gtk/gtkliststore/append.php	(working copy)
+@@ -1,9 +1,9 @@
+ &lt;?php
+ //Create new store with two columns
+-$store = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_LONG);
++$store = new GtkListStore(Gobject::TYPE_STRING, Gobject::TYPE_LONG);
+ 
+ //append one row
+ $store-&gt;append(array('Tokio', 34100000));
+ //append another row
+ $store-&gt;append(array('Mexico city', 22650000));
+-?&gt;
+\ No newline at end of file
++?&gt;
+Index: examples/reference/gtk/gtkliststore/move_before.php
+===================================================================
+--- examples/reference/gtk/gtkliststore/move_before.php	(revision 307352)
++++ examples/reference/gtk/gtkliststore/move_before.php	(working copy)
+@@ -1,5 +1,5 @@
+ &lt;?php
+-$store = new GtkListStore(Gtk::TYPE_STRING, Gtk::TYPE_LONG);
++$store = new GtkListStore(Gobject::TYPE_STRING, Gobject::TYPE_LONG);
+ 
+ $tokio  = $store-&gt;insert(0, array('Tokio', 34100000));
+ $mexico = $store-&gt;insert(1, array('Mexico city', 22650000));
+@@ -13,4 +13,4 @@
+     echo $store-&gt;get_value($iter, 0) . "\r\n";
+ }
+ $store-&gt;foreach('echoRow');
+-?&gt;
+\ No newline at end of file
++?&gt;
+Index: examples/reference/gtk/gtktreeview/constructor.phpw
+===================================================================
+--- examples/reference/gtk/gtktreeview/constructor.phpw	(revision 307352)
++++ examples/reference/gtk/gtktreeview/constructor.phpw	(working copy)
+@@ -1,6 +1,6 @@
+ &lt;?php
+ //the model
+-$store = new GtkListStore(Gtk::TYPE_BOOLEAN, Gtk::TYPE_STRING, Gtk::TYPE_LONG);
++$store = new GtkListStore(Gobject::TYPE_BOOLEAN, Gobject::TYPE_STRING, \
+Gobject::TYPE_LONG);  
+ //add some data to the data store
+ $store-&gt;append(array(true , 'PHP'    , 1994));
+@@ -58,4 +58,4 @@
+ $wnd-&gt;set_default_size(250, 200);
+ $wnd-&gt;show_all();
+ Gtk::main();
+-?&gt;
+\ No newline at end of file
++?&gt;
+Index: examples/reference/gtk/gtktreeview/selection.phpw
+===================================================================
+--- examples/reference/gtk/gtktreeview/selection.phpw	(revision 307352)
++++ examples/reference/gtk/gtktreeview/selection.phpw	(working copy)
+@@ -1,6 +1,6 @@
+ &lt;?php
+ //create a model
+-$model = new GtkListStore(Gtk::TYPE_STRING);
++$model = new GtkListStore(Gobject::TYPE_STRING);
+ //create the view to display the model data
+ $view = new GtkTreeView($model);
+ //now, get the selection object of that view
+@@ -38,4 +38,4 @@
+ $wnd-&gt;add($view);
+ $wnd-&gt;show_all();
+ Gtk::main();
+-?&gt;
+\ No newline at end of file
++?&gt;
+Index: examples/reference/gtk/gtktreeview/editable.phpw
+===================================================================
+--- examples/reference/gtk/gtktreeview/editable.phpw	(revision 307352)
++++ examples/reference/gtk/gtktreeview/editable.phpw	(working copy)
+@@ -17,14 +17,14 @@
+ //Data are stored in there (the model)
+ $store = new GtkListStore(
+     GdkPixbuf::gtype, //icon
+-    Gtk::TYPE_STRING, //title
+-    Gtk::TYPE_STRING, //category
+-    Gtk::TYPE_BOOLEAN,//works?
+-    Gtk::TYPE_LONG    //development progress (percent)
++    Gobject::TYPE_STRING, //title
++    Gobject::TYPE_STRING, //category
++    Gobject::TYPE_BOOLEAN,//works?
++    Gobject::TYPE_LONG    //development progress (percent)
+ );
+ 
+ //List with allowed categories
+-$categories = new GtkListStore(Gtk::TYPE_STRING);
++$categories = new GtkListStore(Gobject::TYPE_STRING);
+ $categories-&gt;append(array('Editors'));
+ $categories-&gt;append(array('Games'));
+ $categories-&gt;append(array('Setup'));
+@@ -163,4 +163,4 @@
+ $wnd-&gt;connect_simple('destroy', array('Gtk', 'main_quit'));
+ $wnd-&gt;show_all();
+ Gtk::main();
+-?&gt;
+\ No newline at end of file
++?&gt;
+
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email></emails>

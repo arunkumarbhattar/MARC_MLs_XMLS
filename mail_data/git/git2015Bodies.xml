@@ -1,0 +1,2293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20151106173212</emailId><senderName>Cameron Currie</senderName><senderEmail>me@cameroncurrie.net</senderEmail><timestampReceived>2015-11-06 17:32:12-0400</timestampReceived><subject>[PATCH] git-stash: Don't GPG sign when stashing changes</subject><body>
+
+This is helpful for folks with commit.gpgsign = true in their .gitconfig.
+---
+ git-stash.sh | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/git-stash.sh b/git-stash.sh
+index c7c65e2..fcf01b9 100755
+--- a/git-stash.sh
++++ b/git-stash.sh
+@@ -85,7 +85,7 @@ create_stash () {
+ 	# state of the index
+ 	i_tree=$(git write-tree) &amp;&amp;
+ 	i_commit=$(printf 'index on %s\n' "$msg" |
+-		git commit-tree $i_tree -p $b_commit) ||
++		git commit-tree --no-gpg-sign $i_tree -p $b_commit) ||
+ 		die "$(gettext "Cannot save the current index state")"
+ 
+ 	if test -n "$untracked"
+@@ -99,7 +99,7 @@ create_stash () {
+ 				rm -f "$TMPindex" &amp;&amp;
+ 				git update-index -z --add --remove --stdin &amp;&amp;
+ 				u_tree=$(git write-tree) &amp;&amp;
+-				printf 'untracked files on %s\n' "$msg" | git commit-tree $u_tree  &amp;&amp;
++				printf 'untracked files on %s\n' "$msg" | git commit-tree --no-gpg-sign $u_tree  &amp;&amp;
+ 				rm -f "$TMPindex"
+ 		) ) || die "Cannot save the untracked files"
+ 
+@@ -153,7 +153,7 @@ create_stash () {
+ 		stash_msg=$(printf 'On %s: %s' "$branch" "$stash_msg")
+ 	fi
+ 	w_commit=$(printf '%s\n' "$stash_msg" |
+-	git commit-tree $w_tree -p $b_commit -p $i_commit $untracked_commit_option) ||
++	git commit-tree --no-gpg-sign $w_tree -p $b_commit -p $i_commit $untracked_commit_option) ||
+ 	die "$(gettext "Cannot record working tree state")"
+ }
+ 
+
+--
+https://github.com/git/git/pull/186
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150126172409</emailId><senderName>Olaf Hering</senderName><senderEmail>olaf@aepfle.de</senderEmail><timestampReceived>2015-01-26 17:24:09-0400</timestampReceived><subject>implement a stable 'Last updated' in Documentation</subject><body>
+
+
+Several files in Documentation have an unstable 'Last updated' timestamp. The
+reason is that their mtime changes every time, which prevents reproducible
+builds.
+
+341 technical/api-index.txt: technical/api-index-skel.txt \
+342         technical/api-index.sh $(patsubst %,%.txt,$(API_DOCS))
+343         $(QUIET_GEN)cd technical &amp;&amp; '$(SHELL_PATH_SQ)' ./api-index.sh
+
+388 howto-index.txt: howto-index.sh $(wildcard howto/*.txt)
+389         $(QUIET_GEN)$(RM) $@+ $@ &amp;&amp; \
+390         '$(SHELL_PATH_SQ)' ./howto-index.sh $(sort $(wildcard howto/*.txt)) &gt;$@+ &amp;&amp; \
+391         mv $@+ $@
+
+399 $(patsubst %.txt,%.html,$(wildcard howto/*.txt)): %.html : %.txt
+400         $(QUIET_ASCIIDOC)$(RM) $@+ $@ &amp;&amp; \
+401         sed -e '1,/^$$/d' $&lt; | \
+402         $(TXT_TO_HTML) - &gt;$@+ &amp;&amp; \
+403         mv $@+ $@
+
+What file timestamp should be used for them? Likely "../version"?
+The final file, before passing it to asciidoc, should get a fixed timestamp
+with 'touch -r $reference_file $file'.
+
+Olaf
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150127111107</emailId><senderName>Olaf Hering</senderName><senderEmail>olaf@aepfle.de</senderEmail><timestampReceived>2015-01-27 11:11:07-0400</timestampReceived><subject>Re: implement a stable 'Last updated' in Documentation</subject><body>
+
+On Mon, Jan 26, Olaf Hering wrote:
+
+&gt; Several files in Documentation have an unstable 'Last updated' timestamp. The
+&gt; reason is that their mtime changes every time, which prevents reproducible
+&gt; builds.
+&gt; 
+&gt; 341 technical/api-index.txt: technical/api-index-skel.txt \
+&gt; 342         technical/api-index.sh $(patsubst %,%.txt,$(API_DOCS))
+&gt; 343         $(QUIET_GEN)cd technical &amp;&amp; '$(SHELL_PATH_SQ)' ./api-index.sh
+&gt; 
+&gt; 388 howto-index.txt: howto-index.sh $(wildcard howto/*.txt)
+&gt; 389         $(QUIET_GEN)$(RM) $@+ $@ &amp;&amp; \
+&gt; 390         '$(SHELL_PATH_SQ)' ./howto-index.sh $(sort $(wildcard howto/*.txt)) &gt;$@+ &amp;&amp; \
+&gt; 391         mv $@+ $@
+&gt; 
+&gt; 399 $(patsubst %.txt,%.html,$(wildcard howto/*.txt)): %.html : %.txt
+&gt; 400         $(QUIET_ASCIIDOC)$(RM) $@+ $@ &amp;&amp; \
+&gt; 401         sed -e '1,/^$$/d' $&lt; | \
+&gt; 402         $(TXT_TO_HTML) - &gt;$@+ &amp;&amp; \
+&gt; 403         mv $@+ $@
+&gt; 
+&gt; What file timestamp should be used for them? Likely "../version"?
+&gt; The final file, before passing it to asciidoc, should get a fixed timestamp
+&gt; with 'touch -r $reference_file $file'.
+
+I came up with this change. If anything happens to depend on
+howto-index.txt and technical/api-index.txt then this part needs rework.
+
+diff --git a/Documentation/Makefile b/Documentation/Makefile
+index 3e39e28..25ad0bd 100644
+--- a/Documentation/Makefile
++++ b/Documentation/Makefile
+@@ -6,6 +6,7 @@ TECH_DOCS =
+ ARTICLES =
+ SP_ARTICLES =
+ OBSOLETE_HTML =
++TIMESTAMP_FILE = ../version
+ 
+ MAN1_TXT += $(filter-out \
+ 		$(addsuffix .txt, $(ARTICLES) $(SP_ARTICLES)), \
+@@ -341,6 +342,7 @@ user-manual.xml: user-manual.txt user-manual.conf
+ technical/api-index.txt: technical/api-index-skel.txt \
+ 	technical/api-index.sh $(patsubst %,%.txt,$(API_DOCS))
+ 	$(QUIET_GEN)cd technical &amp;&amp; '$(SHELL_PATH_SQ)' ./api-index.sh
++	touch -r '$(TIMESTAMP_FILE)' $@
+ 
+ technical/%.html: ASCIIDOC_EXTRA += -a git-relative-html-prefix=../
+ $(patsubst %,%.html,$(API_DOCS) technical/api-index $(TECH_DOCS)): %.html : %.txt asciidoc.conf
+@@ -388,6 +390,7 @@ $(patsubst %.txt,%.texi,$(MAN_TXT)): %.texi : %.xml
+ howto-index.txt: howto-index.sh $(wildcard howto/*.txt)
+ 	$(QUIET_GEN)$(RM) $@+ $@ &amp;&amp; \
+ 	'$(SHELL_PATH_SQ)' ./howto-index.sh $(sort $(wildcard howto/*.txt)) &gt;$@+ &amp;&amp; \
++	touch -r '$(TIMESTAMP_FILE)' $@+ &amp;&amp; \
+ 	mv $@+ $@
+ 
+ $(patsubst %,%.html,$(ARTICLES)) : %.html : %.txt
+@@ -397,9 +400,12 @@ WEBDOC_DEST = /pub/software/scm/git/docs
+ 
+ howto/%.html: ASCIIDOC_EXTRA += -a git-relative-html-prefix=../
+ $(patsubst %.txt,%.html,$(wildcard howto/*.txt)): %.html : %.txt
+-	$(QUIET_ASCIIDOC)$(RM) $@+ $@ &amp;&amp; \
+-	sed -e '1,/^$$/d' $&lt; | \
+-	$(TXT_TO_HTML) - &gt;$@+ &amp;&amp; \
++	$(QUIET_ASCIIDOC)$(RM) $@++ $@+ $@ &amp;&amp; \
++	sed -e '1,/^$$/d' $&lt; &gt;$@++ &amp;&amp; \
++	touch -r '$(TIMESTAMP_FILE)' $@++ &amp;&amp; \
++	$(TXT_TO_HTML) -o $@+ $@++ &amp;&amp; \
++	$(RM) $@++ &amp;&amp; \
++	touch $@+ &amp;&amp; \
+ 	mv $@+ $@
+ 
+ install-webdoc : html
+
+Olaf
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150127231016</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2015-01-27 23:10:16-0400</timestampReceived><subject>Re: implement a stable 'Last updated' in Documentation</subject><body>
+
+Olaf Hering &lt;olaf@aepfle.de&gt; writes:
+
+&gt; Several files in Documentation have an unstable 'Last updated' timestamp. The
+&gt; reason is that their mtime changes every time, which prevents reproducible
+&gt; builds.
+&gt;
+&gt; 341 technical/api-index.txt: technical/api-index-skel.txt \
+&gt; 342         technical/api-index.sh $(patsubst %,%.txt,$(API_DOCS))
+&gt; 343         $(QUIET_GEN)cd technical &amp;&amp; '$(SHELL_PATH_SQ)' ./api-index.sh
+&gt;
+&gt; 388 howto-index.txt: howto-index.sh $(wildcard howto/*.txt)
+&gt; 389         $(QUIET_GEN)$(RM) $@+ $@ &amp;&amp; \
+&gt; 390         '$(SHELL_PATH_SQ)' ./howto-index.sh $(sort $(wildcard howto/*.txt)) &gt;$@+ &amp;&amp; \
+&gt; 391         mv $@+ $@
+&gt;
+&gt; 399 $(patsubst %.txt,%.html,$(wildcard howto/*.txt)): %.html : %.txt
+&gt; 400         $(QUIET_ASCIIDOC)$(RM) $@+ $@ &amp;&amp; \
+&gt; 401         sed -e '1,/^$$/d' $&lt; | \
+&gt; 402         $(TXT_TO_HTML) - &gt;$@+ &amp;&amp; \
+&gt; 403         mv $@+ $@
+
+All of them seem to have dependencies so it seems to me that two
+builds back to back without actually changing their input would not
+re-build anything.  What am I missing???
+
+&gt; What file timestamp should be used for them? Likely "../version"?
+
+I tend to think the "Last updated" timestamp taken from the
+filesystem timestamp is a bad practice inherited by these tools from
+the days back when nobody used any revision control systems.
+
+If I check out v1.8.5 and build documentation now, it does not
+matter if the generated documentation had the timestamp of the
+checkout of individual files or that of a single file generated
+during the build process, i.e. ../version.  Neither has much
+relevance to the time the actual contents of the documentation was
+prepared or what vintage of the software the documentation is for.
+
+I am fine with branding generated documentation with the version
+number (i.e. "You are reading the documentation for Git version
+2.2.0").  Replacing that statement with "You are reading the
+documentation for a version of Git that was committed on such and
+such time" is also fine.  But using file timestamp would not help
+either.
+
+And that practice of using file timestamp is doubly bad by leading
+misguided people to want to set timestamps of all the files by
+copying commit timestamp.  That is backwards, I would think.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150128080214</emailId><senderName>Olaf Hering</senderName><senderEmail>olaf@aepfle.de</senderEmail><timestampReceived>2015-01-28 08:02:14-0400</timestampReceived><subject>Re: implement a stable 'Last updated' in Documentation</subject><body>
+
+On Tue, Jan 27, Junio C Hamano wrote:
+
+&gt; Olaf Hering &lt;olaf@aepfle.de&gt; writes:
+&gt; 
+&gt; &gt; Several files in Documentation have an unstable 'Last updated' timestamp. The
+&gt; &gt; reason is that their mtime changes every time, which prevents reproducible
+&gt; &gt; builds.
+&gt; &gt;
+&gt; &gt; 341 technical/api-index.txt: technical/api-index-skel.txt \
+&gt; &gt; 342         technical/api-index.sh $(patsubst %,%.txt,$(API_DOCS))
+&gt; &gt; 343         $(QUIET_GEN)cd technical &amp;&amp; '$(SHELL_PATH_SQ)' ./api-index.sh
+&gt; &gt;
+&gt; &gt; 388 howto-index.txt: howto-index.sh $(wildcard howto/*.txt)
+&gt; &gt; 389         $(QUIET_GEN)$(RM) $@+ $@ &amp;&amp; \
+&gt; &gt; 390         '$(SHELL_PATH_SQ)' ./howto-index.sh $(sort $(wildcard howto/*.txt)) &gt;$@+ &amp;&amp; \
+&gt; &gt; 391         mv $@+ $@
+&gt; &gt;
+&gt; &gt; 399 $(patsubst %.txt,%.html,$(wildcard howto/*.txt)): %.html : %.txt
+&gt; &gt; 400         $(QUIET_ASCIIDOC)$(RM) $@+ $@ &amp;&amp; \
+&gt; &gt; 401         sed -e '1,/^$$/d' $&lt; | \
+&gt; &gt; 402         $(TXT_TO_HTML) - &gt;$@+ &amp;&amp; \
+&gt; &gt; 403         mv $@+ $@
+&gt; 
+&gt; All of them seem to have dependencies so it seems to me that two
+&gt; builds back to back without actually changing their input would not
+&gt; re-build anything.  What am I missing???
+
+Per default the files referenced do not exist, so a build from releases
+will generate the files. But I agree, perhaps there should be some
+refactoring to handle dependencies properly.
+In any case, if the 'Last updated' is unavoidable some reference is
+required, see my patch in the other mail.
+
+&gt; &gt; What file timestamp should be used for them? Likely "../version"?
+&gt; 
+&gt; I tend to think the "Last updated" timestamp taken from the
+&gt; filesystem timestamp is a bad practice inherited by these tools from
+&gt; the days back when nobody used any revision control systems.
+
+I'm not sure. The bug is that such 'Last updated' line exists at all in
+the default output. Noone asked for it, noone really needs it. And it
+makes it impossible to get reproducible builds.
+But so far I found no way to avoid the 'Last updated' output. The docs
+and google suggest something like :last-updated-time!:, which did not
+work for me.
+
+Olaf
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150129061842</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2015-01-29 06:18:42-0400</timestampReceived><subject>Re: implement a stable 'Last updated' in Documentation</subject><body>
+
+Olaf Hering &lt;olaf@aepfle.de&gt; writes:
+
+&gt; On Tue, Jan 27, Junio C Hamano wrote:
+&gt;
+&gt;&gt; &gt; What file timestamp should be used for them? Likely "../version"?
+&gt;&gt; 
+&gt;&gt; I tend to think the "Last updated" timestamp taken from the
+&gt;&gt; filesystem timestamp is a bad practice inherited by these tools from
+&gt;&gt; the days back when nobody used any revision control systems.
+&gt;
+&gt; I'm not sure. The bug is that such 'Last updated' line exists at all in
+&gt; the default output. Noone asked for it, noone really needs it. And it
+&gt; makes it impossible to get reproducible builds.
+
+Amen to that ;-)
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150130100536</emailId><senderName>Michael J Gruber</senderName><senderEmail>git@drmicha.warpmail.net</senderEmail><timestampReceived>2015-01-30 10:05:36-0400</timestampReceived><subject>Re: implement a stable 'Last updated' in Documentation</subject><body>
+
+Junio C Hamano schrieb am 29.01.2015 um 07:18:
+&gt; Olaf Hering &lt;olaf@aepfle.de&gt; writes:
+&gt; 
+&gt;&gt; On Tue, Jan 27, Junio C Hamano wrote:
+&gt;&gt;
+&gt;&gt;&gt;&gt; What file timestamp should be used for them? Likely "../version"?
+&gt;&gt;&gt;
+&gt;&gt;&gt; I tend to think the "Last updated" timestamp taken from the
+&gt;&gt;&gt; filesystem timestamp is a bad practice inherited by these tools from
+&gt;&gt;&gt; the days back when nobody used any revision control systems.
+&gt;&gt;
+&gt;&gt; I'm not sure. The bug is that such 'Last updated' line exists at all in
+&gt;&gt; the default output. Noone asked for it, noone really needs it. And it
+&gt;&gt; makes it impossible to get reproducible builds.
+&gt; 
+&gt; Amen to that ;-)
+&gt; 
+
+It's a shame one can't simply replace the [footer-text] template which
+asciidoc insists on.
+
+It turns out asciidoc 8.6.9-3 and later will habe a knob to turn:
+
+https://github.com/asciidoc/asciidoc/pull/9
+
+I'll try and get my hands on it to see whether we can simply use that.
+I'm wondering though which is more useful - the version of the tree the
+doc is processed from, or the version of the last commit changing the
+corresponding doc source file. The first one changes even when the doc
+source is unchanged (but is stable between reruns, of course).
+
+Michael
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150130150758</emailId><senderName>Jeff King</senderName><senderEmail>peff@peff.net</senderEmail><timestampReceived>2015-01-30 15:07:58-0400</timestampReceived><subject>Re: implement a stable 'Last updated' in Documentation</subject><body>
+
+On Fri, Jan 30, 2015 at 11:05:36AM +0100, Michael J Gruber wrote:
+
+&gt; It's a shame one can't simply replace the [footer-text] template which
+&gt; asciidoc insists on.
+&gt; 
+&gt; It turns out asciidoc 8.6.9-3 and later will habe a knob to turn:
+&gt; 
+&gt; https://github.com/asciidoc/asciidoc/pull/9
+&gt; 
+&gt; I'll try and get my hands on it to see whether we can simply use that.
+&gt; I'm wondering though which is more useful - the version of the tree the
+&gt; doc is processed from, or the version of the last commit changing the
+&gt; corresponding doc source file. The first one changes even when the doc
+&gt; source is unchanged (but is stable between reruns, of course).
+
+I have 8.6.9-3 installed (it is part of Debian testing/unstable now),
+and confirmed that:
+
+diff --git a/Documentation/asciidoc.conf b/Documentation/asciidoc.conf
+index 2c16c53..10c777e 100644
+--- a/Documentation/asciidoc.conf
++++ b/Documentation/asciidoc.conf
+@@ -21,6 +21,7 @@ tilde=~
+ apostrophe='
+ backtick=`
+ litdd=--
++footer-style=none
+ 
+ ifdef::backend-docbook[]
+ [linkgit-inlinemacro]
+
+drops the "last-updated" footer.
+
+But note that this only affects the generated HTML. The manpages still
+get the date in their footer. But this isn't an asciidoc-ism at all;
+it's added by docbook when converting the xml to roff. I'm sure there is
+a way to tweak that, too, but looking at docbook gives me nightmares.
+
+-Peff
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150210151747</emailId><senderName>Olaf Hering</senderName><senderEmail>olaf@aepfle.de</senderEmail><timestampReceived>2015-02-10 15:17:47-0400</timestampReceived><subject>Re: implement a stable 'Last updated' in Documentation</subject><body>
+
+On Fri, Jan 30, Jeff King wrote:
+
+&gt; I have 8.6.9-3 installed (it is part of Debian testing/unstable now),
+&gt; and confirmed that:
+&gt; 
+&gt; diff --git a/Documentation/asciidoc.conf b/Documentation/asciidoc.conf
+&gt; index 2c16c53..10c777e 100644
+&gt; --- a/Documentation/asciidoc.conf
+&gt; +++ b/Documentation/asciidoc.conf
+&gt; @@ -21,6 +21,7 @@ tilde=~
+&gt;  apostrophe='
+&gt;  backtick=`
+&gt;  litdd=--
+&gt; +footer-style=none
+&gt;  
+&gt;  ifdef::backend-docbook[]
+&gt;  [linkgit-inlinemacro]
+&gt; 
+&gt; drops the "last-updated" footer.
+
+This does not remove "Last updated" from files like
+using-merge-subtree.html for me, using asciidoc-8.6.8.
+
+Olaf
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150210184318</emailId><senderName>Jeff King</senderName><senderEmail>peff@peff.net</senderEmail><timestampReceived>2015-02-10 18:43:18-0400</timestampReceived><subject>Re: implement a stable 'Last updated' in Documentation</subject><body>
+
+On Tue, Feb 10, 2015 at 04:17:47PM +0100, Olaf Hering wrote:
+
+&gt; On Fri, Jan 30, Jeff King wrote:
+&gt; 
+&gt; &gt; I have 8.6.9-3 installed (it is part of Debian testing/unstable now),
+&gt; &gt; and confirmed that:
+&gt; &gt; 
+&gt; &gt; diff --git a/Documentation/asciidoc.conf b/Documentation/asciidoc.conf
+&gt; &gt; index 2c16c53..10c777e 100644
+&gt; &gt; --- a/Documentation/asciidoc.conf
+&gt; &gt; +++ b/Documentation/asciidoc.conf
+&gt; &gt; @@ -21,6 +21,7 @@ tilde=~
+&gt; &gt;  apostrophe='
+&gt; &gt;  backtick=`
+&gt; &gt;  litdd=--
+&gt; &gt; +footer-style=none
+&gt; &gt;  
+&gt; &gt;  ifdef::backend-docbook[]
+&gt; &gt;  [linkgit-inlinemacro]
+&gt; &gt; 
+&gt; &gt; drops the "last-updated" footer.
+&gt; 
+&gt; This does not remove "Last updated" from files like
+&gt; using-merge-subtree.html for me, using asciidoc-8.6.8.
+
+Yes, the feature is part of 8.6.9-3.
+
+-Peff
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20151106185629</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2015-11-06 18:56:29-0400</timestampReceived><subject>Re: [PATCH] git-stash: Don't GPG sign when stashing changes</subject><body>
+
+Cameron Currie &lt;me@cameroncurrie.net&gt; writes:
+
+&gt; This is helpful for folks with commit.gpgsign = true in their .gitconfig.
+&gt; ---
+&gt;  git-stash.sh | 6 +++---
+&gt;  1 file changed, 3 insertions(+), 3 deletions(-)
+
+I have to wonder if the right fix is to change "git commit-tree" to
+ignore that configuration variable?  After all, the plumbing
+commands are about stability of the interface, not convenience, and
+it feels wrong for them to be affected by end-user configurations.
+
+Patching git-stash.sh does not help other scripts (either in-tree or
+third-party) that use commit-tree; they will also be broken by
+over-eager users who set commit.gpgsign configuration.
+
+&gt;
+&gt; diff --git a/git-stash.sh b/git-stash.sh
+&gt; index c7c65e2..fcf01b9 100755
+&gt; --- a/git-stash.sh
+&gt; +++ b/git-stash.sh
+&gt; @@ -85,7 +85,7 @@ create_stash () {
+&gt;  	# state of the index
+&gt;  	i_tree=$(git write-tree) &amp;&amp;
+&gt;  	i_commit=$(printf 'index on %s\n' "$msg" |
+&gt; -		git commit-tree $i_tree -p $b_commit) ||
+&gt; +		git commit-tree --no-gpg-sign $i_tree -p $b_commit) ||
+&gt;  		die "$(gettext "Cannot save the current index state")"
+&gt;  
+&gt;  	if test -n "$untracked"
+&gt; @@ -99,7 +99,7 @@ create_stash () {
+&gt;  				rm -f "$TMPindex" &amp;&amp;
+&gt;  				git update-index -z --add --remove --stdin &amp;&amp;
+&gt;  				u_tree=$(git write-tree) &amp;&amp;
+&gt; -				printf 'untracked files on %s\n' "$msg" | git commit-tree $u_tree  &amp;&amp;
+&gt; +				printf 'untracked files on %s\n' "$msg" | git commit-tree --no-gpg-sign $u_tree  &amp;&amp;
+&gt;  				rm -f "$TMPindex"
+&gt;  		) ) || die "Cannot save the untracked files"
+&gt;  
+&gt; @@ -153,7 +153,7 @@ create_stash () {
+&gt;  		stash_msg=$(printf 'On %s: %s' "$branch" "$stash_msg")
+&gt;  	fi
+&gt;  	w_commit=$(printf '%s\n' "$stash_msg" |
+&gt; -	git commit-tree $w_tree -p $b_commit -p $i_commit $untracked_commit_option) ||
+&gt; +	git commit-tree --no-gpg-sign $w_tree -p $b_commit -p $i_commit $untracked_commit_option) ||
+&gt;  	die "$(gettext "Cannot record working tree state")"
+&gt;  }
+&gt;  
+&gt;
+&gt; --
+&gt; https://github.com/git/git/pull/186
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150817051427</emailId><senderName></senderName><senderEmail>quattrone@telstra.com</senderEmail><timestampReceived>2015-08-17 05:14:27-0400</timestampReceived><subject>Donation</subject><body>
+
+This is Sandeep largest Mega Millions winner giving you $1,500,000 dollars reply with your full name and location.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150205225357</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2015-02-05 22:53:57-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on Freenode.  Their logs are
+available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	https://kernel.googlesource.com/pub/scm/git/git
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few web interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+	https://kernel.googlesource.com/pub/scm/git/git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but recently we
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.3.0 done on Feb 5th, 2015. You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a
+feature release are applied to this branch and maintenance releases
+are cut from it.  The maintenance releases used to be named with four
+dotted decimal, named after the feature release they are updates to
+(e.g. "1.8.5.1" was the first maintenance release for "1.8.5" feature
+release).  These days, maintenance releases are named by incrementing
+the last digit of three-dotted decimal name (e.g. "2.2.1" will be the
+first maintenance relaese for "2.2" series).
+
+New features never go to the 'maint' branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches the maintainer happens to have.  There is no guarantee that
+the maintainer has enough bandwidth to pick up any and all topics that
+are remotely promising from the list traffic, so please do not read
+too much into a topic being on (or not on) the "pu" branch.  This
+branch is mainly to remind the maintainer that the topics in them may
+turn out to be interesting when they are polished, nothing more.  The
+topics on this branch aren't usually complete, well tested, or well
+documented and they often need further work.  When a topic that was
+in "pu" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150306233304</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2015-03-06 23:33:04-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+[note to regular readers; there are a few updated paragraphs,
+regarding our association with SFC and also our security mailing
+list.]
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on Freenode.  Their logs are
+available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.
+
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	https://kernel.googlesource.com/pub/scm/git/git
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few web interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+	https://kernel.googlesource.com/pub/scm/git/git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but recently we
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.3.0 done on Feb 5th, 2015. You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a
+feature release are applied to this branch and maintenance releases
+are cut from it.  The maintenance releases used to be named with four
+dotted decimal, named after the feature release they are updates to
+(e.g. "1.8.5.1" was the first maintenance release for "1.8.5" feature
+release).  These days, maintenance releases are named by incrementing
+the last digit of three-dotted decimal name (e.g. "2.3.2" is the
+second maintenance relaese for "2.3" series).
+
+New features never go to the 'maint' branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches the maintainer happens to have.  There is no guarantee that
+the maintainer has enough bandwidth to pick up any and all topics that
+are remotely promising from the list traffic, so please do not read
+too much into a topic being on (or not on) the "pu" branch.  This
+branch is mainly to remind the maintainer that the topics in them may
+turn out to be interesting when they are polished, nothing more.  The
+topics on this branch aren't usually complete, well tested, or well
+documented and they often need further work.  When a topic that was
+in "pu" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150323213814</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2015-03-23 21:38:14-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+[jc: I usually do this at the major release, but because we are
+seeing many new folks due to GSoC, and also the newsletter is
+getting closer to reality, so here is a special edition.]
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on Freenode.  Their logs are
+available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+We will soon have a volunteer-run newsletter to serve our community
+(http://thread.gmane.org/gmane.comp.version-control.git/266066).  If
+you want to help its publication, please contact Christian and/or
+Thomas.
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.
+
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	https://kernel.googlesource.com/pub/scm/git/git
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few web interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+	https://kernel.googlesource.com/pub/scm/git/git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but recently we
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.3.0 done on Feb 5th, 2015. You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a
+feature release are applied to this branch and maintenance releases
+are cut from it.  The maintenance releases used to be named with four
+dotted decimal, named after the feature release they are updates to
+(e.g. "1.8.5.1" was the first maintenance release for "1.8.5" feature
+release).  These days, maintenance releases are named by incrementing
+the last digit of three-dotted decimal name (e.g. "2.3.4" is the
+fourth maintenance relaese for "2.3" series).
+
+New features never go to the 'maint' branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches the maintainer happens to have.  There is no guarantee that
+the maintainer has enough bandwidth to pick up any and all topics that
+are remotely promising from the list traffic, so please do not read
+too much into a topic being on (or not on) the "pu" branch.  This
+branch is mainly to remind the maintainer that the topics in them may
+turn out to be interesting when they are polished, nothing more.  The
+topics on this branch aren't usually complete, well tested, or well
+documented and they often need further work.  When a topic that was
+in "pu" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150430195116</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2015-04-30 19:51:16-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on Freenode.  Their logs are
+available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+There is a volunteer-run newsletter to serve our community (visit
+http://git.github.io/ to find "Git Rev News").  If you want to help
+its publication, please contact Christian and/or Thomas.
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.
+
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	https://kernel.googlesource.com/pub/scm/git/git
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few web interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+	https://kernel.googlesource.com/pub/scm/git/git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+Also GitHub shows the manual pages formatted in HTML (with a
+formatting backend different from the one that is used to create the
+above) at:
+
+	http://git-scm.com/docs/git
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but recently we
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.4.0 done on Apr 30th, 2015. You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a
+feature release are applied to this branch and maintenance releases
+are cut from it.  The maintenance releases used to be named with four
+dotted decimal, named after the feature release they are updates to
+(e.g. "1.8.5.1" was the first maintenance release for "1.8.5" feature
+release).  These days, maintenance releases are named by incrementing
+the last digit of three-dotted decimal name (e.g. "2.3.4" is the
+fourth maintenance release for the "2.3" series).
+
+New features never go to the 'maint' branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches the maintainer happens to have.  There is no guarantee that
+the maintainer has enough bandwidth to pick up any and all topics that
+are remotely promising from the list traffic, so please do not read
+too much into a topic being on (or not on) the "pu" branch.  This
+branch is mainly to remind the maintainer that the topics in them may
+turn out to be interesting when they are polished, nothing more.  The
+topics on this branch aren't usually complete, well tested, or well
+documented and they often need further work.  When a topic that was
+in "pu" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150508144626</emailId><senderName>Christian Couder</senderName><senderEmail>christian.couder@gmail.com</senderEmail><timestampReceived>2015-05-08 14:46:26-0400</timestampReceived><subject>Re: A note from the maintainer</subject><body>
+
+Hi Junio,
+
+On Thu, Apr 30, 2015 at 9:51 PM, Junio C Hamano &lt;gitster@pobox.com&gt; wrote:
+
+[...]
+
+&gt; * Other people's trees, trusted lieutenants and credits.
+
+It seems strange to me that the above section title still talks about
+"trusted lieutenants and credits" ...
+
+&gt; Documentation/SubmittingPatches outlines to whom your proposed changes
+&gt; should be sent.  As described in contrib/README, I would delegate fixes
+&gt; and enhancements in contrib/ area to the primary contributors of them.
+&gt;
+&gt; Although the following are included in git.git repository, they have their
+&gt; own authoritative repository and maintainers:
+&gt;
+&gt;  - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+&gt;
+&gt;         git://repo.or.cz/git-gui.git
+&gt;
+&gt;  - gitk-git/ comes from Paul Mackerras's gitk project:
+&gt;
+&gt;         git://ozlabs.org/~paulus/gitk
+&gt;
+&gt;  - po/ comes from the localization coordinator, Jiang Xin:
+&gt;
+&gt;         https://github.com/git-l10n/git-po/
+
+... but it looks like there is only the "Other people's trees" part of
+the message compared to what used to be in this section.
+
+I am still wondering if it has been truncated on purpose or not.
+
+Thanks anyway,
+Christian.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150508162543</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2015-05-08 16:25:43-0400</timestampReceived><subject>Re: A note from the maintainer</subject><body>
+
+Christian Couder &lt;christian.couder@gmail.com&gt; writes:
+
+&gt; I am still wondering if it has been truncated on purpose or not.
+
+The document is already too large and people come and go over time.
+Maintaining that list becomes time sink, absorbing time better spent
+on reviewing and polishing their patches rather than their names in
+that list.  Rather than keeping a stale list forever, at some point
+I decided to trim and start afresh, perhaps mentioning very notable
+contribution from people there if there were any around the time the
+message goes out to the list, which hasn't happened.
+
+And with Git Rev News, I probably do not have to worry about it too
+much, I hope ;-)
+
+
+
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150715214330</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2015-07-15 21:43:30-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on Freenode.  Their logs are
+available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+There is a volunteer-run newsletter to serve our community ("Git Rev
+News" http://git.github.io/rev_news/rev_news.html).
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.
+
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+  git://git.kernel.org/pub/scm/git/git.git/
+  https://kernel.googlesource.com/pub/scm/git/git
+  git://repo.or.cz/alt-git.git/
+  https://github.com/git/git/
+  https://code.google.com/p/git-core/
+  git://git.sourceforge.jp/gitroot/git-core/git.git/
+  git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few web interfaces are found at:
+
+  http://git.kernel.org/cgit/git/git.git
+  https://kernel.googlesource.com/pub/scm/git/git
+  http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+  git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+  git://repo.or.cz/git-{htmldocs,manpages}.git/
+  https://code.google.com/p/git-{htmldocs,manpages}.git/
+  https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+Also GitHub shows the manual pages formatted in HTML (with a
+formatting backend different from the one that is used to create the
+above) at:
+
+  http://git-scm.com/docs/git
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but recently we
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.4.0 done on Apr 30th, 2015. You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a
+feature release are applied to this branch and maintenance releases
+are cut from it.  The maintenance releases used to be named with four
+dotted decimal, named after the feature release they are updates to
+(e.g. "1.8.5.1" was the first maintenance release for "1.8.5" feature
+release).  These days, maintenance releases are named by incrementing
+the last digit of three-dotted decimal name (e.g. "2.3.4" is the
+fourth maintenance release for the "2.3" series).
+
+New features never go to the 'maint' branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".  Please help this process by building, using the
+"next" branch for your daily work, and reporting any new bugs you find to
+the mailing list, before the breakage is merged down to the "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches the maintainer happens to have.  There is no guarantee that
+the maintainer has enough bandwidth to pick up any and all topics that
+are remotely promising from the list traffic, so please do not read
+too much into a topic being on (or not on) the "pu" branch.  This
+branch is mainly to remind the maintainer that the topics in them may
+turn out to be interesting when they are polished, nothing more.  The
+topics on this branch aren't usually complete, well tested, or well
+documented and they often need further work.  When a topic that was
+in "pu" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150828211212</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2015-08-28 21:12:12-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on Freenode.  Their logs are
+available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+There is a volunteer-run newsletter to serve our community ("Git Rev
+News" http://git.github.io/rev_news/rev_news.html).
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.
+
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+  git://git.kernel.org/pub/scm/git/git.git/
+  https://kernel.googlesource.com/pub/scm/git/git
+  git://repo.or.cz/alt-git.git/
+  https://github.com/git/git/
+  git://git.sourceforge.jp/gitroot/git-core/git.git/
+  git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few web interfaces are found at:
+
+  http://git.kernel.org/cgit/git/git.git
+  https://kernel.googlesource.com/pub/scm/git/git
+  http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+  git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+  git://repo.or.cz/git-{htmldocs,manpages}.git/
+  https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+Also GitHub shows the manual pages formatted in HTML (with a
+formatting backend different from the one that is used to create the
+above) at:
+
+  http://git-scm.com/docs/git
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but recently we
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.5.0 done on Jul 27th, 2015. You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a
+feature release are applied to this branch and maintenance releases
+are cut from it.  The maintenance releases used to be named with four
+dotted decimal, named after the feature release they are updates to
+(e.g. "1.8.5.1" was the first maintenance release for "1.8.5" feature
+release).  These days, maintenance releases are named by incrementing
+the last digit of three-dotted decimal name (e.g. "2.5.1" is the
+fourth maintenance release for the "2.5" series).
+
+New features never go to the 'maint' branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".  Please help this process by building, using the
+"next" branch for your daily work, and reporting any new bugs you find to
+the mailing list, before the breakage is merged down to the "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches the maintainer happens to have.  There is no guarantee that
+the maintainer has enough bandwidth to pick up any and all topics that
+are remotely promising from the list traffic, so please do not read
+too much into a topic being on (or not on) the "pu" branch.  This
+branch is mainly to remind the maintainer that the topics in them may
+turn out to be interesting when they are polished, nothing more.  The
+topics on this branch aren't usually complete, well tested, or well
+documented and they often need further work.  When a topic that was
+in "pu" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20150928232036</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2015-09-28 23:20:36-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on Freenode.  Their logs are
+available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+There is a volunteer-run newsletter to serve our community ("Git Rev
+News" http://git.github.io/rev_news/rev_news.html).
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.
+
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+  git://git.kernel.org/pub/scm/git/git.git/
+  https://kernel.googlesource.com/pub/scm/git/git
+  git://repo.or.cz/alt-git.git/
+  https://github.com/git/git/
+  git://git.sourceforge.jp/gitroot/git-core/git.git/
+  git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few web interfaces are found at:
+
+  http://git.kernel.org/cgit/git/git.git
+  https://kernel.googlesource.com/pub/scm/git/git
+  http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+  git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+  git://repo.or.cz/git-{htmldocs,manpages}.git/
+  https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+Also GitHub shows the manual pages formatted in HTML (with a
+formatting backend different from the one that is used to create the
+above) at:
+
+  http://git-scm.com/docs/git
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but recently we
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.6.0 done on Sep 28th, 2015. You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a
+feature release are applied to this branch and maintenance releases
+are cut from it.  The maintenance releases used to be named with four
+dotted decimal, named after the feature release they are updates to
+(e.g. "1.8.5.1" was the first maintenance release for "1.8.5" feature
+release).  These days, maintenance releases are named by incrementing
+the last digit of three-dotted decimal name (e.g. "2.5.1" is the
+fourth maintenance release for the "2.5" series).
+
+New features never go to the 'maint' branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".  Please help this process by building, using the
+"next" branch for your daily work, and reporting any new bugs you find to
+the mailing list, before the breakage is merged down to the "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches the maintainer happens to have.  There is no guarantee that
+the maintainer has enough bandwidth to pick up any and all topics that
+are remotely promising from the list traffic, so please do not read
+too much into a topic being on (or not on) the "pu" branch.  This
+branch is mainly to remind the maintainer that the topics in them may
+turn out to be interesting when they are polished, nothing more.  The
+topics on this branch aren't usually complete, well tested, or well
+documented and they often need further work.  When a topic that was
+in "pu" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20151105231406</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2015-11-05 23:14:06-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise may be a sign that those who can evaluate
+your patch don't have enough mental/time bandwidth to process them
+right at the moment, and it often helps to wait until the list traffic
+becomes calmer before sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP:
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes be found on
+the #git and #git-devel IRC channels on Freenode.  Their logs are
+available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+        http://colabti.org/irclogger/irclogger_log/git-devel
+
+There is a volunteer-run newsletter to serve our community ("Git Rev
+News" http://git.github.io/rev_news/rev_news.html).
+
+Git is a member project of software freedom conservancy, a non-profit
+organization (https://sfconservancy.org/).  To reach a committee of
+liaisons to the conservancy, contact them at &lt;git@sfconservancy.org&gt;.
+
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+If you think you found a security-sensitive issue and want to disclose
+it to us without announcing it to wider public, please contact us at
+our security mailing list &lt;git-security@googlegroups.com&gt;.
+
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+  git://git.kernel.org/pub/scm/git/git.git/
+  https://kernel.googlesource.com/pub/scm/git/git
+  git://repo.or.cz/alt-git.git/
+  https://github.com/git/git/
+  git://git.sourceforge.jp/gitroot/git-core/git.git/
+  git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few web interfaces are found at:
+
+  http://git.kernel.org/cgit/git/git.git
+  https://kernel.googlesource.com/pub/scm/git/git
+  http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+  git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+  git://repo.or.cz/git-{htmldocs,manpages}.git/
+  https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+Also GitHub shows the manual pages formatted in HTML (with a
+formatting backend different from the one that is used to create the
+above) at:
+
+  http://git-scm.com/docs/git
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch.  They used to be
+named with three dotted decimal digits (e.g. "1.8.5"), but recently we
+switched the versioning scheme and "feature releases" are named with
+three-dotted decimal digits that ends with ".0" (e.g. "1.9.0").
+
+The last such release was 2.6.0 done on Sep 28th, 2015. You can expect
+that the tip of the "master" branch is always more stable than any of
+the released versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a
+feature release are applied to this branch and maintenance releases
+are cut from it.  The maintenance releases used to be named with four
+dotted decimal, named after the feature release they are updates to
+(e.g. "1.8.5.1" was the first maintenance release for "1.8.5" feature
+release).  These days, maintenance releases are named by incrementing
+the last digit of three-dotted decimal name (e.g. "2.6.3" is the
+third maintenance release for the "2.6" series).
+
+New features never go to the 'maint' branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".  Please help this process by building &amp; using the
+"next" branch for your daily work, and reporting any new bugs you find to
+the mailing list, before the breakage is merged down to the "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic
+branches the maintainer happens to have seen.  There is no guarantee that
+the maintainer has enough bandwidth to pick up any and all topics that
+are remotely promising from the list traffic, so please do not read
+too much into a topic being on (or not on) the "pu" branch.  This
+branch is mainly to remind the maintainer that the topics in them may
+turn out to be interesting when they are polished, nothing more.  The
+topics on this branch aren't usually complete, well tested, or well
+documented and they often need further work.  When a topic that was
+in "pu" proves to be in a testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged to "next".
+
+
+* Other people's trees.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+When sending proposed updates and fixes to these parts of the system,
+please base your patches on these trees, not git.git (the former two
+even have different directory structures).
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html

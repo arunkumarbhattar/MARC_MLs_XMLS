@@ -1,0 +1,1361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20130617132830</emailId><senderName></senderName><senderEmail>justin.sathyanathan@accenture.com</senderEmail><timestampReceived>2013-06-17 13:28:30-0400</timestampReceived><subject>RE: GIt error</subject><body>
+
+Hi,
+For Below issue , O/S is Windows7.
+
+Regards,
+Justin,
+-------------------------------------------------------------------------------------- \
+-----------------------------------------------------------------------------------------------------------------------------------------
+ Sun Certified Enterprise Architect for Java EE platform | Certified TA | Java \
+                Capability | Accenture- India Delivery Center
+AIM: justinsprabhu| +91-80-40771095 (w)|+91-9611804388 (m)
+https://collaboration.accenture.com/javaportal | https://aal.accenture.com
+
+-----Original Message-----
+From: Sathyanathan, Justin
+Sent: Monday, June 17, 2013 6:51 PM
+To: 'git@vger.kernel.org'
+Subject: RE: GIt error
+
+
+
+Hi,
+
+1.Iam getting error attached when cloning of repository is done:
+
+
+
+2.Also, when file is tried to be added,it gives error below:
+
+$ git add *
+fatal: unable to stat 'src/development_architecture/integration_application_proj
+ect_template/provider_archetype/provider_archetype/src/main/resources/archetype-
+resources/__rootArtifactId__-data/src/main/java/com/accenture/afpj/sample/skelet
+on/visitor/data/VisitorRepositoryJpaImpl.java': Filename too long
+
+Request you to help to resolve same asap as it is affecting the project.
+Regards,
+Justin,
+-------------------------------------------------------------------------------------- \
+-----------------------------------------------------------------------------------------------------------------------------------------
+ Sun Certified Enterprise Architect for Java EE platform | Certified TA | Java \
+                Capability | Accenture- India Delivery Center
+AIM: justinsprabhu| +91-9611804388 (m)
+
+
+This message is for the designated recipient only and may contain privileged, \
+proprietary, or otherwise confidential information. If you have received it in error, \
+please notify the sender immediately and delete the original. Any other use of the \
+e-mail by you is prohibited.
+
+Where allowed by local law, electronic communications with Accenture and its \
+affiliates, including e-mail and instant messaging (including content), may be \
+scanned by our systems for the purposes of information security and assessment of \
+internal compliance with Accenture policy.
+
+______________________________________________________________________________________
+
+
+www.accenture.com
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+
+</body></email><email><emailId>20130617133731</emailId><senderName>Fredrik Gustafsson</senderName><senderEmail>iveqy@iveqy.com</senderEmail><timestampReceived>2013-06-17 13:37:31-0400</timestampReceived><subject>Re: GIt error</subject><body>
+
+On Mon, Jun 17, 2013 at 01:28:30PM +0000, justin.sathyanathan@accenture.com wrote:
+&gt; 1.Iam getting error attached when cloning of repository is done:
+
+What error?
+
+&gt; 2.Also, when file is tried to be added,it gives error below:
+&gt; 
+&gt; $ git add *
+&gt; fatal: unable to stat 'src/development_architecture/integration_application_proj
+&gt; ect_template/provider_archetype/provider_archetype/src/main/resources/archetype-
+&gt; resources/__rootArtifactId__-data/src/main/java/com/accenture/afpj/sample/skelet
+&gt; on/visitor/data/VisitorRepositoryJpaImpl.java': Filename too long
+
+As it said, filename is too long.
+See the FAQ:
+https://github.com/msysgit/msysgit/wiki/Frequently-Asked-Questions
+and the thread:
+http://thread.gmane.org/gmane.comp.version-control.msysgit/14572
+
+&gt; Request you to help to resolve same asap as it is affecting the project.
+If you want reliable and direct help I suggest you hire a git-consult or
+buy support. This list will help you in the best way it can (and mostly
+that's enough) but cannot do things "asap".
+
+-- 
+Med vänliga hälsningar
+Fredrik Gustafsson
+
+tel: 0733-608274
+e-post: iveqy@iveqy.com
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130617134707</emailId><senderName>Konstantin Khomoutov</senderName><senderEmail>kostix+git@007spb.ru</senderEmail><timestampReceived>2013-06-17 13:47:07-0400</timestampReceived><subject>Re: GIt error</subject><body>
+
+On Mon, 17 Jun 2013 13:28:30 +0000
+&lt;justin.sathyanathan@accenture.com&gt; wrote:
+
+&gt; For Below issue , O/S is Windows7.
+[...]
+&gt; 1.Iam getting error attached when cloning of repository is done:
+
+What error?
+
+&gt; 2.Also, when file is tried to be added,it gives error below:
+&gt; 
+&gt; $ git add *
+&gt; fatal: unable to stat
+&gt; 'src/development_architecture/integration_application_proj
+&gt; ect_template/provider_archetype/provider_archetype/src/main/resources/archetype-
+&gt; resources/__rootArtifactId__-data/src/main/java/com/accenture/afpj/sample/skelet
+&gt; on/visitor/data/VisitorRepositoryJpaImpl.java': Filename too long
+[...]
+
+This is a limitation of Git for Windows: the standard Windows API which
+works with unmangled filenames limits their length to 260 characters
+while your particular entry is 262 characters long.
+
+AFAIK, there's no clean/easy way to make use of "extended" Windows API
+which requires mangling filenames by adding the "\\?\" to them.
+
+You could read [1] for more details.
+
+So it seems you have two options for now:
+
+* Restructure the project.
+* Use Git under Cygwin [2] which might not have this limitation
+  (personally, I do not know whether it does).
+
+P.S.
+
+Please next time you ask consider doing two things:
+* If you post your message to several groups, take care to mention this
+  fact in each of them.
+* Do not require anyone to do anything "ASAP" unless this claim is
+  backed by your or your employer's wallet.
+
+1. http://msdn.microsoft.com/en-us/library/aa365247#maxpath
+2. http://cygwin.com/packages/git/
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130617135241</emailId><senderName>Konstantin Khomoutov</senderName><senderEmail>kostix+git@007spb.ru</senderEmail><timestampReceived>2013-06-17 13:52:41-0400</timestampReceived><subject>Re: GIt error</subject><body>
+
+On Mon, 17 Jun 2013 17:47:07 +0400
+Konstantin Khomoutov &lt;kostix+git@007spb.ru&gt; wrote:
+
+&gt; &gt; For Below issue , O/S is Windows7.
+&gt; &gt; 1.Iam getting error attached when cloning of repository is done:
+&gt; 
+&gt; What error?
+
+Okay, the Microsoft Word document with two screenshots has been
+scrubbed by the list software but passed through the git-users list
+where you posted this as well; answering here.
+
+The errors shown there most probably has the same nature: Git failed to
+create a filesystem entry while attempting to check out a revision
+after cloning the project.  So the error is not about cloning, it's
+about checking out actual files to the work tree.
+
+The rest is explained in my first reply.
+
+[...]
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130628115951</emailId><senderName>Stefan_Näwe</senderName><senderEmail>stefan.naewe@atlas-elektronik.com</senderEmail><timestampReceived>2013-06-28 11:59:51-0400</timestampReceived><subject>git clone -b</subject><body>
+
+Hi there!
+
+Is there any reason why 'git clone -b' only takes a branch (from refs/heads/)
+or a tag (from refs/tags/) ?
+
+Background: At $dayjob we're using some kind of 'hidden' refs (in refs/releases/)
+to communicate between the 'branch integrator' (who creates the ref in refs/releases/)
+and the 'build master' who wants to build that ref. 
+
+It would be a little easier if the build master could simply say
+
+  git clone -b refs/releases/the-release-for-today URL
+
+instead of: git clone... ; cd ... ; git fetch... ; git checkout....
+
+Any answer or even a better idea to solve that is appreciated.
+
+Stefan
+-- 
+----------------------------------------------------------------
+/dev/random says: Second star to the right &amp; straight on till morning...
+python -c "print '73746566616e2e6e616577654061746c61732d656c656b74726f6e696b2e636f6d'.decode('hex')"
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130628121557</emailId><senderName>Stefan_Näwe</senderName><senderEmail>stefan.naewe@atlas-elektronik.com</senderEmail><timestampReceived>2013-06-28 12:15:57-0400</timestampReceived><subject>Re: git clone -b</subject><body>
+
+Am 28.06.2013 13:59, schrieb Stefan Näwe:
+&gt; Hi there!
+&gt; 
+&gt; Is there any reason why 'git clone -b' only takes a branch (from refs/heads/)
+&gt; or a tag (from refs/tags/) ?
+&gt; 
+&gt; Background: At $dayjob we're using some kind of 'hidden' refs (in refs/releases/)
+&gt; to communicate between the 'branch integrator' (who creates the ref in refs/releases/)
+&gt; and the 'build master' who wants to build that ref. 
+&gt; 
+&gt; It would be a little easier if the build master could simply say
+&gt; 
+&gt;   git clone -b refs/releases/the-release-for-today URL
+&gt; 
+&gt; instead of: git clone... ; cd ... ; git fetch... ; git checkout....
+&gt; 
+&gt; Any answer or even a better idea to solve that is appreciated.
+&gt; 
+&gt; Stefan
+&gt; 
+
+Oh, and while at it:
+
+This doesn't look/feel right:
+
+  $ git clone -b refs/heads/master git/.git other-git
+  Cloning into 'other-git'...
+  fatal: Remote branch refs/heads/master not found in upstream origin
+  fatal: The remote end hung up unexpectedly
+
+(where git is git's git which definitely has refs/heads/master...)
+
+Stefan
+-- 
+----------------------------------------------------------------
+/dev/random says: In God we trust; all else we walk through.
+python -c "print '73746566616e2e6e616577654061746c61732d656c656b74726f6e696b2e636f6d'.decode('hex')"
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130628121847</emailId><senderName>Fredrik Gustafsson</senderName><senderEmail>iveqy@iveqy.com</senderEmail><timestampReceived>2013-06-28 12:18:47-0400</timestampReceived><subject>Re: git clone -b</subject><body>
+
+On Fri, Jun 28, 2013 at 01:59:51PM +0200, Stefan Näwe wrote:
+&gt; Hi there!
+&gt; 
+&gt; Is there any reason why 'git clone -b' only takes a branch (from refs/heads/)
+&gt; or a tag (from refs/tags/) ?
+&gt; 
+&gt; Background: At $dayjob we're using some kind of 'hidden' refs (in refs/releases/)
+&gt; to communicate between the 'branch integrator' (who creates the ref in refs/releases/)
+&gt; and the 'build master' who wants to build that ref. 
+&gt; 
+&gt; It would be a little easier if the build master could simply say
+&gt; 
+&gt;   git clone -b refs/releases/the-release-for-today URL
+&gt; 
+&gt; instead of: git clone... ; cd ... ; git fetch... ; git checkout....
+&gt; 
+&gt; Any answer or even a better idea to solve that is appreciated.
+&gt; 
+&gt; Stefan
+
+I don't understand what the alternative should be. You can't look in
+/refs/* because there's a lot of other stuff like bisect/remotes etc.
+there.
+
+Of course you could add to also look in /refs/releases/ but as I
+understand you that a special solution for your company. Why should all
+git users have that addition?
+
+Two questions about your setup:
+
+	1. Why do you always clone your repository? To me clone is a one
+	time operation.
+
+	2. Why don't you tag your releases with an ordinary tag?
+
+-- 
+Med vänliga hälsningar
+Fredrik Gustafsson
+
+tel: 0733-608274
+e-post: iveqy@iveqy.com
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130628122734</emailId><senderName>Stefan_Näwe</senderName><senderEmail>stefan.naewe@atlas-elektronik.com</senderEmail><timestampReceived>2013-06-28 12:27:34-0400</timestampReceived><subject>Re: git clone -b</subject><body>
+
+Am 28.06.2013 14:18, schrieb Fredrik Gustafsson:
+&gt; On Fri, Jun 28, 2013 at 01:59:51PM +0200, Stefan Näwe wrote:
+&gt;&gt; Hi there!
+&gt;&gt;
+&gt;&gt; Is there any reason why 'git clone -b' only takes a branch (from refs/heads/)
+&gt;&gt; or a tag (from refs/tags/) ?
+&gt;&gt;
+&gt;&gt; Background: At $dayjob we're using some kind of 'hidden' refs (in refs/releases/)
+&gt;&gt; to communicate between the 'branch integrator' (who creates the ref in refs/releases/)
+&gt;&gt; and the 'build master' who wants to build that ref. 
+&gt;&gt;
+&gt;&gt; It would be a little easier if the build master could simply say
+&gt;&gt;
+&gt;&gt;   git clone -b refs/releases/the-release-for-today URL
+&gt;&gt;
+&gt;&gt; instead of: git clone... ; cd ... ; git fetch... ; git checkout....
+&gt;&gt;
+&gt;&gt; Any answer or even a better idea to solve that is appreciated.
+&gt;&gt;
+&gt;&gt; Stefan
+&gt; 
+&gt; I don't understand what the alternative should be. You can't look in
+&gt; /refs/* because there's a lot of other stuff like bisect/remotes etc.
+&gt; there.
+
+Well, I tell clone exactly what I want. There is no reason try something
+from refs/*.
+ 
+&gt; Of course you could add to also look in /refs/releases/ but as I
+&gt; understand you that a special solution for your company. Why should all
+&gt; git users have that addition?
+
+It wouldn't hurt, IMHO. Maybe it would even make sense to allow any SHA-1
+to be passed to '-b'.
+ 
+&gt; Two questions about your setup:
+&gt; 
+&gt; 	1. Why do you always clone your repository? To me clone is a one
+&gt; 	time operation.
+
+We would use 'git archive' if that would be submodule-aware...
+
+&gt; 	2. Why don't you tag your releases with an ordinary tag?
+
+Because we use that 'refs/release' thing as a hidden ref that other
+developers will not see when they fetch (unless they are told to checkout
+that particular ref).
+
+Think of using this similar to the way github uses refs/pull/*/{head,merge} 
+for their pull request mechanism.
+
+Stefan
+-- 
+----------------------------------------------------------------
+/dev/random says: The Definition of an Upgrade: Take old bugs out, put new ones in.
+python -c "print '73746566616e2e6e616577654061746c61732d656c656b74726f6e696b2e636f6d'.decode('hex')"
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130701070446</emailId><senderName>Stefan_Näwe</senderName><senderEmail>stefan.naewe@atlas-elektronik.com</senderEmail><timestampReceived>2013-07-01 07:04:46-0400</timestampReceived><subject>Re: git clone -b</subject><body>
+
+Am 28.06.2013 13:59, schrieb Stefan Näwe:
+&gt; Hi there!
+&gt; 
+&gt; Is there any reason why 'git clone -b' only takes a branch (from refs/heads/)
+&gt; or a tag (from refs/tags/) ?
+&gt; 
+&gt; Background: At $dayjob we're using some kind of 'hidden' refs (in refs/releases/)
+&gt; to communicate between the 'branch integrator' (who creates the ref in refs/releases/)
+&gt; and the 'build master' who wants to build that ref. 
+&gt; 
+&gt; It would be a little easier if the build master could simply say
+&gt; 
+&gt;   git clone -b refs/releases/the-release-for-today URL
+&gt; 
+&gt; instead of: git clone... ; cd ... ; git fetch... ; git checkout....
+&gt; 
+&gt; Any answer or even a better idea to solve that is appreciated.
+&gt; 
+&gt; Stefan
+&gt; 
+
+Anyone?
+
+Thanks,
+  Stefan
+-- 
+----------------------------------------------------------------
+/dev/random says: Some people like learning Eskimo, but I can't get Inuit.
+python -c "print '73746566616e2e6e616577654061746c61732d656c656b74726f6e696b2e636f6d'.decode('hex')"
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130701164653</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2013-07-01 16:46:53-0400</timestampReceived><subject>Re: git clone -b</subject><body>
+
+Stefan Näwe &lt;stefan.naewe@atlas-elektronik.com&gt; writes:
+
+&gt;&gt; Is there any reason why 'git clone -b' only takes a branch (from refs/heads/)
+&gt;&gt; or a tag (from refs/tags/) ?
+
+Because they are common enough, and doing the same for an arbitrary
+object is just as easy to do something like:
+
+	git clone -n
+        git checkout $an_arbitrary_commit_object_name^0
+
+&gt;&gt; Background: At $dayjob we're using some kind of 'hidden' refs (in refs/releases/)
+&gt;&gt; to communicate between the 'branch integrator' (who creates the ref in refs/releases/)
+&gt;&gt; and the 'build master' who wants to build that ref. 
+
+While I wasn't paying much attention to this, I vaguely recall that
+people pointed out that using a fresh clone every time may not be
+what you want to do in the first place, and I happen to agree with
+them (and that is why I am not very much interested in this topic).
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130701174937</emailId><senderName>Phil Hord</senderName><senderEmail>phil.hord@gmail.com</senderEmail><timestampReceived>2013-07-01 17:49:37-0400</timestampReceived><subject>Re: git clone -b</subject><body>
+
+It would be nice to support more generic specs for the --branch
+switch. But it is complicated because the refs have not been fetched
+yet during the clone, and so normal refs operations -- which expect to
+work on a local repository -- do not work.  So, the ref is looked up
+locally from a list in expected locations after fetching the remote
+refs but before the clone occurs.  The remote refs which are fetched
+is not configurable during clone, and so only 'refs/heads/*' is
+fetched for non-mirrors.
+
+I was able to tweak git-clone to fetch the remote ref when I hacked
+builtin/clone.c to check in 'refs' and also to extend the refspec to
+something more broad ("+refs/*:refs/remotes/origin/*"), but this is
+not a workable solution.  But there probably is a more correct way
+than the hack I tried.
+
+Phil
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130702063522</emailId><senderName>Stefan Näwe</senderName><senderEmail>stefan.naewe@atlas-elektronik.com</senderEmail><timestampReceived>2013-07-02 06:35:22-0400</timestampReceived><subject>Re: git clone -b</subject><body>
+
+Am 01.07.2013 18:46, schrieb Junio C Hamano:
+&gt; Stefan Näwe &lt;stefan.naewe@atlas-elektronik.com&gt; writes:
+&gt; 
+&gt;&gt;&gt; Is there any reason why 'git clone -b' only takes a branch (from refs/heads/)
+&gt;&gt;&gt; or a tag (from refs/tags/) ?
+&gt; 
+&gt; Because they are common enough, and doing the same for an arbitrary
+&gt; object is just as easy to do something like:
+&gt; 
+&gt; 	git clone -n
+&gt;         git checkout $an_arbitrary_commit_object_name^0
+
+OK. I wasn't aware of '-n' for 'git clone'. Thanks.
+
+&gt; 
+&gt;&gt;&gt; Background: At $dayjob we're using some kind of 'hidden' refs (in refs/releases/)
+&gt;&gt;&gt; to communicate between the 'branch integrator' (who creates the ref in refs/releases/)
+&gt;&gt;&gt; and the 'build master' who wants to build that ref. 
+&gt; 
+&gt; While I wasn't paying much attention to this, I vaguely recall that
+&gt; people pointed out that using a fresh clone every time may not be
+&gt; what you want to do in the first place, and I happen to agree with
+&gt; them (and that is why I am not very much interested in this topic).
+ 
+As I said: We'd be using 'git archive --remote...' if that was
+submodule-aware.
+
+Thanks,
+  Stefan
+-- 
+----------------------------------------------------------------
+/dev/random says: Circular Definition: see Definition, Circular.
+python -c "print '73746566616e2e6e616577654061746c61732d656c656b74726f6e696b2e636f6d'.decode('hex')"
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130702182158</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2013-07-02 18:21:58-0400</timestampReceived><subject>Re: git clone -b</subject><body>
+
+Stefan Näwe &lt;stefan.naewe@atlas-elektronik.com&gt; writes:
+
+&gt;&gt; While I wasn't paying much attention to this, I vaguely recall that
+&gt;&gt; people pointed out that using a fresh clone every time may not be
+&gt;&gt; what you want to do in the first place, and I happen to agree with
+&gt;&gt; them (and that is why I am not very much interested in this topic).
+&gt;  
+&gt; As I said: We'd be using 'git archive --remote...' if that was
+&gt; submodule-aware.
+
+That would still have to transfer full material enough to populate
+the working tree for a single revision.  I was wondering why "clone
+once, and then update incrementally with 'fetch &amp;&amp; reset --hard' &amp;&amp;
+clean'" is not used, if the tree is for a build-bot.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130703100119</emailId><senderName>Jeff King</senderName><senderEmail>peff@peff.net</senderEmail><timestampReceived>2013-07-03 10:01:19-0400</timestampReceived><subject>Re: git clone -b</subject><body>
+
+On Mon, Jul 01, 2013 at 01:49:37PM -0400, Phil Hord wrote:
+
+&gt; It would be nice to support more generic specs for the --branch
+&gt; switch. But it is complicated because the refs have not been fetched
+&gt; yet during the clone, and so normal refs operations -- which expect to
+&gt; work on a local repository -- do not work.  So, the ref is looked up
+&gt; locally from a list in expected locations after fetching the remote
+&gt; refs but before the clone occurs.  The remote refs which are fetched
+&gt; is not configurable during clone, and so only 'refs/heads/*' is
+&gt; fetched for non-mirrors.
+
+I think there are two problems:
+
+  1. Our find_remote_branch function implements only half of the regular
+     ref_rev_parse_rules (heads and tags). Fixing that to make "-b
+     refs/heads/master" work is pretty easy. Patch is below.
+
+  2. When we give a ref that is not going to be fetched, we should
+     fetch it explicitly. It looks like --single-branch tries to do
+     this, but only handles tags. I am not sure what a non-single-branch
+     would want to do (since you are effectively overriding the
+     default refspecs).
+
+     So even with the patch, doing "clone -b refs/foo/bar" does not
+     quite work.
+
+diff --git a/builtin/clone.c b/builtin/clone.c
+index 14b1323..5984303 100644
+--- a/builtin/clone.c
++++ b/builtin/clone.c
+@@ -433,24 +433,24 @@ static struct ref *find_remote_branch(const struct ref *refs, const char *branch
+ 	raise(signo);
+ }
+ 
+-static struct ref *find_remote_branch(const struct ref *refs, const char *branch)
++static struct ref *find_remote_branch(const struct ref *refs, const char *name)
+ {
+-	struct ref *ref;
+-	struct strbuf head = STRBUF_INIT;
+-	strbuf_addstr(&amp;head, "refs/heads/");
+-	strbuf_addstr(&amp;head, branch);
+-	ref = find_ref_by_name(refs, head.buf);
+-	strbuf_release(&amp;head);
+-
+-	if (ref)
+-		return ref;
+-
+-	strbuf_addstr(&amp;head, "refs/tags/");
+-	strbuf_addstr(&amp;head, branch);
+-	ref = find_ref_by_name(refs, head.buf);
+-	strbuf_release(&amp;head);
+-
+-	return ref;
++	int len = strlen(name);
++	const char **p;
++
++	for (p = ref_rev_parse_rules; *p; p++) {
++		struct ref *ref;
++
++		ref = find_ref_by_name(refs, mkpath(*p, len, name));
++		if (ref)
++			/*
++			 * optionally check for and complain about ambiguity
++			 * here, like dwim_ref does
++			 */
++			return ref;
++	}
++
++	return NULL;
+ }
+ 
+ static struct ref *wanted_peer_refs(const struct ref *refs,
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130109005319</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2013-01-09 00:53:19-0400</timestampReceived><subject>What's cooking (interim report)</subject><body>
+
+I'll do the next issue of "What's cooking" after tomorrow's
+integration cycle, but here are the highlights.
+
+The following topics that have already graduated to the 'master'
+branch have been merged to the 'maint' branch (see the last "What's
+cooking" for details of individual topics):
+
+    ms/subtree-fixlets
+    ss/nedmalloc-compilation
+    jc/maint-fnmatch-old-style-definition
+    jc/test-portability
+    jc/maint-fbsd-sh-ifs-workaround
+    jc/mkstemp-more-careful-error-reporting
+    jc/test-cvs-no-init-in-existing-dir
+    jc/maint-test-portability
+
+In addition, the following two patches have been directly applied to
+the 'maint' branch:
+
+    t1402: work around shell quoting issue on NetBSD
+    remote-hg: Fix biridectionality -&gt; bidirectionality typos
+
+We will have other bugfix topics merged to 'maint' and hopefully can
+tag v1.8.1.1 sometime next week.
+
+The following topics that have been cooking on 'next' have been
+merged to the 'master' branch:
+
+    kb/maint-bundle-doc
+    as/test-name-alias-uniquely
+    ta/remove-stale-translated-tut
+    tb/test-t9810-no-sed-i
+    tb/test-t9020-no-which
+    jk/maint-fast-import-doc-dedup-done
+    jk/pathspec-literal
+
+Most of these will later be merged to 'maint'.
+
+These topics have been merged to the 'next' branch:
+
+    rs/zip-with-uncompressed-size-in-the-header
+    rs/zip-tests
+    jn/xml-depends-on-asciidoc-conf
+    jc/comment-cygwin-win32api-in-makefile
+    as/api-allocation-doc
+    jk/unify-exit-code-by-receiving-signal
+    rs/leave-base-name-in-name-field-of-tar
+    jl/interrupt-clone-remove-separate-git-dir
+    jc/merge-blobs
+    mo/cvs-server-updates
+    as/dir-c-cleanup
+    jk/config-uname
+
+Also several new topics are parked in 'pu' and I think they are all
+ready for 'next'.
+
+Thanks.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130629170109</emailId><senderName>"Skauge, Stuart"</senderName><senderEmail>sskauge@mea.org</senderEmail><timestampReceived>2013-06-29 17:01:09-0400</timestampReceived><subject>RE:YOUR EMAIL</subject><body>
+
+ I will like to discuss a very important  oil project with you. I wrote to know if this is your valid email.Please, email me for details on: hyuklee5469@gmail.com
+
+Lee.
+
+
+
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20131112200041</emailId><senderName>"Jin Lee"</senderName><senderEmail>jinlee5465@gmail.com</senderEmail><timestampReceived>2013-11-12 20:00:41-0400</timestampReceived><subject>Re:Your Email</subject><body>
+
+I would like to discuss a very important crude oil project withyou,kindly
+revert back to me if this is your valid email address forfurther
+information.
+Regards,
+Lee
+
+
+
+
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130313202639</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2013-03-13 20:26:39-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise is a sign that people involved don't have
+enough mental/time bandwidth to process them right at the moment, and
+it often helps to wait until the list traffic becomes calmer before
+sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP (including the maintainer):
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes also be found
+on the #git IRC channel on Freenode.  Its log is available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	https://kernel.googlesource.com/pub/scm/git/git
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few web interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+	https://kernel.googlesource.com/pub/scm/git/git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch and they
+typically are named with three dotted decimal digits.  The last such
+release was 1.8.2 done on Mar 13, 2013. You can expect that the tip of
+the "master" branch is always more stable than any of the released
+versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a feature
+release are applied to this branch and maintenance releases are cut from
+it.  The maintenance releases are named with four dotted decimal, named
+after the feature release they are updates to; the last such release was
+1.8.1.5.  New features never go to this branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic branches.
+The topics on the branch are not complete, well tested, nor well documented
+and need further work. When a topic that was in "pu" proves to be in a
+testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged.
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+I would like to thank everybody who helped to raise git into the current
+shape.  Especially I would like to thank the git list regulars whose help
+I have relied on and expect to continue relying on heavily:
+
+ - Linus Torvalds, Shawn Pearce, Johannes Schindelin, Nicolas Pitre,
+   René Scharfe, Jeff King, Jonathan Nieder, Johan Herland, Johannes
+   Sixt, Sverre Rabbelier, Michael J Gruber, Nguyễn Thái Ngọc Duy,
+   Ævar Arnfjörð Bjarmason and Thomas Rast for helping with general
+   design and implementation issues and reviews on the mailing list.
+
+ - Shawn and Nicolas Pitre for helping with packfile design and
+   implementation issues.
+
+ - Martin Langhoff, Frank Lichtenheld and Ævar Arnfjörð Bjarmason for
+   cvsserver and cvsimport.
+
+ - Paul Mackerras for gitk.
+
+ - Eric Wong, David D. Kilzer and Sam Vilain for git-svn.
+
+ - Simon Hausmann, Pete Wyckoff and Luke Diamond for git-p4.
+
+ - Jakub Narebski, John Hawley, Petr Baudis, Luben Tuikov, Giuseppe
+   Bilotta for maintaining and enhancing gitweb.
+
+ - Ævar Arnfjörð Bjarmason for kicking off the i18n effort, and Jiang
+   Xin for volunteering to be the l10n coordinator.
+
+ - Jens Lehmann, Heiko Voigt and Lars Hjemli for submodule related
+   Porcelains.
+
+ - J. Bruce Fields, Jonathan Nieder, Michael J Gruber and Thomas Rast for
+   documentation (and countless others for proofreading and fixing).
+
+ - Alexandre Julliard for Emacs integration.
+
+ - David Aguilar and Charles Bailey for taking good care of git-mergetool
+   (and Theodore Ts'o for creating it in the first place) and git-difftool.
+
+ - Johannes Schindelin, Johannes Sixt, Erik Faye-Lund, Pat Thoyts and others
+   for their effort to move things forward on the Windows front.
+
+ - People on non-Linux platforms for keeping their eyes on portability;
+   especially, Randal Schwartz, Theodore Ts'o, Jason Riedy, Thomas Glanzmann,
+   Brandon Casey, Jeff King, Alex Riesen and countless others.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130101002725</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2013-01-01 00:27:25-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise is a sign that people involved don't have
+enough mental/time bandwidth to process them right at the moment, and
+it often helps to wait until the list traffic becomes calmer before
+sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP (including the maintainer):
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes also be found
+on the #git IRC channel on Freenode.  Its log is available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few gitweb interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch and they
+typically are named with three dotted decimal digits.  The last such
+release was 1.8.1 done on Dec 31, 2012 (or Jan 1, 2013, depending on
+where you were when it happened). You can expect that the tip of the
+"master" branch is always more stable than any of the released
+versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a feature
+release are applied to this branch and maintenance releases are cut from
+it.  The maintenance releases are named with four dotted decimal, named
+after the feature release they are updates to; the last such release was
+1.8.0.3.  New features never go to this branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic branches.
+The topics on the branch are not complete, well tested, nor well documented
+and need further work. When a topic that was in "pu" proves to be in a
+testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged.
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+I would like to thank everybody who helped to raise git into the current
+shape.  Especially I would like to thank the git list regulars whose help
+I have relied on and expect to continue relying on heavily:
+
+ - Linus Torvalds, Shawn Pearce, Johannes Schindelin, Nicolas Pitre,
+   René Scharfe, Jeff King, Jonathan Nieder, Johan Herland, Johannes
+   Sixt, Sverre Rabbelier, Michael J Gruber, Nguyễn Thái Ngọc Duy,
+   Ævar Arnfjörð Bjarmason and Thomas Rast for helping with general
+   design and implementation issues and reviews on the mailing list.
+
+ - Shawn and Nicolas Pitre for helping with packfile design and
+   implementation issues.
+
+ - Martin Langhoff, Frank Lichtenheld and Ævar Arnfjörð Bjarmason for
+   cvsserver and cvsimport.
+
+ - Paul Mackerras for gitk.
+
+ - Eric Wong, David D. Kilzer and Sam Vilain for git-svn.
+
+ - Simon Hausmann, Pete Wyckoff and Luke Diamond for git-p4.
+
+ - Jakub Narebski, John Hawley, Petr Baudis, Luben Tuikov, Giuseppe
+   Bilotta for maintaining and enhancing gitweb.
+
+ - Ævar Arnfjörð Bjarmason for kicking off the i18n effort, and Jiang
+   Xin for volunteering to be the l10n coordinator.
+
+ - Jens Lehmann, Heiko Voigt and Lars Hjemli for submodule related
+   Porcelains.
+
+ - J. Bruce Fields, Jonathan Nieder, Michael J Gruber and Thomas Rast for
+   documentation (and countless others for proofreading and fixing).
+
+ - Alexandre Julliard for Emacs integration.
+
+ - David Aguilar and Charles Bailey for taking good care of git-mergetool
+   (and Theodore Ts'o for creating it in the first place) and git-difftool.
+
+ - Johannes Schindelin, Johannes Sixt, Erik Faye-Lund, Pat Thoyts and others
+   for their effort to move things forward on the Windows front.
+
+ - People on non-Linux platforms for keeping their eyes on portability;
+   especially, Randal Schwartz, Theodore Ts'o, Jason Riedy, Thomas Glanzmann,
+   Brandon Casey, Jeff King, Alex Riesen and countless others.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20130128204819</emailId><senderName>Junio C Hamano</senderName><senderEmail>gitster@pobox.com</senderEmail><timestampReceived>2013-01-28 20:48:19-0400</timestampReceived><subject>A note from the maintainer</subject><body>
+
+Welcome to the Git development community.
+
+This message is written by the maintainer and talks about how Git
+project is managed, and how you can work with it.
+
+* Mailing list and the community
+
+The development is primarily done on the Git mailing list. Help
+requests, feature proposals, bug reports and patches should be sent to
+the list address &lt;git@vger.kernel.org&gt;.  You don't have to be
+subscribed to send messages.  The convention on the list is to keep
+everybody involved on Cc:, so it is unnecessary to say "Please Cc: me,
+I am not subscribed".
+
+Before sending patches, please read Documentation/SubmittingPatches
+and Documentation/CodingGuidelines to familiarize yourself with the
+project convention.
+
+If you sent a patch and you did not hear any response from anybody for
+several days, it could be that your patch was totally uninteresting,
+but it also is possible that it was simply lost in the noise.  Please
+do not hesitate to send a reminder message in such a case.  Messages
+getting lost in the noise is a sign that people involved don't have
+enough mental/time bandwidth to process them right at the moment, and
+it often helps to wait until the list traffic becomes calmer before
+sending such a reminder.
+
+The list archive is available at a few public sites:
+
+        http://news.gmane.org/gmane.comp.version-control.git/
+        http://marc.theaimsgroup.com/?l=git
+        http://www.spinics.net/lists/git/
+
+For those who prefer to read it over NNTP (including the maintainer):
+
+        nntp://news.gmane.org/gmane.comp.version-control.git
+
+When you point at a message in a mailing list archive, using
+gmane is often the easiest to follow by readers, like this:
+
+        http://thread.gmane.org/gmane.comp.version-control.git/27/focus=217
+
+as it also allows people who subscribe to the mailing list as gmane
+newsgroup to "jump to" the article.
+
+Some members of the development community can sometimes also be found
+on the #git IRC channel on Freenode.  Its log is available at:
+
+        http://colabti.org/irclogger/irclogger_log/git
+
+* Reporting bugs
+
+When you think git does not behave as you expect, please do not stop
+your bug report with just "git does not work".  "I used git in this
+way, but it did not work" is not much better, neither is "I used git
+in this way, and X happend, which is broken".  It often is that git is
+correct to cause X happen in such a case, and it is your expectation
+that is broken. People would not know what other result Y you expected
+to see instead of X, if you left it unsaid.
+
+Please remember to always state
+
+ - what you wanted to achieve;
+
+ - what you did (the version of git and the command sequence to reproduce
+   the behavior);
+
+ - what you saw happen (X above);
+
+ - what you expected to see (Y above); and
+
+ - how the last two are different.
+
+See http://www.chiark.greenend.org.uk/~sgtatham/bugs.html for further
+hints.
+
+* Repositories, branches and documentation.
+
+My public git.git repositories are at:
+
+        git://git.kernel.org/pub/scm/git/git.git/
+	git://repo.or.cz/alt-git.git/
+	https://github.com/git/git/
+	https://code.google.com/p/git-core/
+	git://git.sourceforge.jp/gitroot/git-core/git.git/
+	git://git-core.git.sourceforge.net/gitroot/git-core/git-core/
+
+A few gitweb interfaces are found at:
+
+        http://git.kernel.org/?p=git/git.git
+        http://repo.or.cz/w/alt-git.git
+
+Preformatted documentation from the tip of the "master" branch can be
+found in:
+
+        git://git.kernel.org/pub/scm/git/git-{htmldocs,manpages}.git/
+        git://repo.or.cz/git-{htmldocs,manpages}.git/
+        https://code.google.com/p/git-{htmldocs,manpages}.git/
+        https://github.com/gitster/git-{htmldocs,manpages}.git/
+
+You can browse the HTML manual pages at:
+
+	http://git-htmldocs.googlecode.com/git/git.html
+
+There are four branches in git.git repository that track the source tree
+of git: "master", "maint", "next", and "pu".
+
+The "master" branch is meant to contain what are very well tested and
+ready to be used in a production setting.  Every now and then, a
+"feature release" is cut from the tip of this branch and they
+typically are named with three dotted decimal digits.  The last such
+release was 1.8.1 done on Dec 31, 2012 (or Jan 1, 2013, depending on
+where you were when it happened). You can expect that the tip of the
+"master" branch is always more stable than any of the released
+versions.
+
+Whenever a feature release is made, "maint" branch is forked off from
+"master" at that point.  Obvious, safe and urgent fixes after a feature
+release are applied to this branch and maintenance releases are cut from
+it.  The maintenance releases are named with four dotted decimal, named
+after the feature release they are updates to; the last such release was
+1.8.1.2.  New features never go to this branch.  This branch is also
+merged into "master" to propagate the fixes forward as needed.
+
+A new development does not usually happen on "master". When you send a
+series of patches, after review on the mailing list, a separate topic
+branch is forked from the tip of "master" and your patches are queued
+there, and kept out of "master" while people test it out. The quality of
+topic branches are judged primarily by the mailing list discussions.
+
+Topic branches that are in good shape are merged to the "next" branch. In
+general, the "next" branch always contains the tip of "master".  It might
+not be quite rock-solid, but is expected to work more or less without major
+breakage. The "next" branch is where new and exciting things take place. A
+topic that is in "next" is expected to be polished to perfection before it
+is merged to "master".
+
+The "pu" (proposed updates) branch bundles all the remaining topic branches.
+The topics on the branch are not complete, well tested, nor well documented
+and need further work. When a topic that was in "pu" proves to be in a
+testable shape, it is merged to "next".
+
+You can run "git log --first-parent master..pu" to see what topics are
+currently in flight.  Sometimes, an idea that looked promising turns out
+to be not so good and the topic can be dropped from "pu" in such a case.
+
+The two branches "master" and "maint" are never rewound, and "next"
+usually will not be either.  After a feature release is made from
+"master", however, "next" will be rebuilt from the tip of "master"
+using the topics that didn't make the cut in the feature release.
+
+Note that being in "next" is not a guarantee to appear in the next
+release, nor even in any future release.  There were cases that topics
+needed reverting a few commits in them before graduating to "master",
+or a topic that already was in "next" was reverted from "next" because
+fatal flaws were found in it after it was merged.
+
+
+* Other people's trees, trusted lieutenants and credits.
+
+Documentation/SubmittingPatches outlines to whom your proposed changes
+should be sent.  As described in contrib/README, I would delegate fixes
+and enhancements in contrib/ area to the primary contributors of them.
+
+Although the following are included in git.git repository, they have their
+own authoritative repository and maintainers:
+
+ - git-gui/ comes from git-gui project, maintained by Pat Thoyts:
+
+        git://repo.or.cz/git-gui.git
+
+ - gitk-git/ comes from Paul Mackerras's gitk project:
+
+        git://ozlabs.org/~paulus/gitk
+
+ - po/ comes from the localization coordinator, Jiang Xin:
+
+	https://github.com/git-l10n/git-po/
+
+I would like to thank everybody who helped to raise git into the current
+shape.  Especially I would like to thank the git list regulars whose help
+I have relied on and expect to continue relying on heavily:
+
+ - Linus Torvalds, Shawn Pearce, Johannes Schindelin, Nicolas Pitre,
+   René Scharfe, Jeff King, Jonathan Nieder, Johan Herland, Johannes
+   Sixt, Sverre Rabbelier, Michael J Gruber, Nguyễn Thái Ngọc Duy,
+   Ævar Arnfjörð Bjarmason and Thomas Rast for helping with general
+   design and implementation issues and reviews on the mailing list.
+
+ - Shawn and Nicolas Pitre for helping with packfile design and
+   implementation issues.
+
+ - Martin Langhoff, Frank Lichtenheld and Ævar Arnfjörð Bjarmason for
+   cvsserver and cvsimport.
+
+ - Paul Mackerras for gitk.
+
+ - Eric Wong, David D. Kilzer and Sam Vilain for git-svn.
+
+ - Simon Hausmann, Pete Wyckoff and Luke Diamond for git-p4.
+
+ - Jakub Narebski, John Hawley, Petr Baudis, Luben Tuikov, Giuseppe
+   Bilotta for maintaining and enhancing gitweb.
+
+ - Ævar Arnfjörð Bjarmason for kicking off the i18n effort, and Jiang
+   Xin for volunteering to be the l10n coordinator.
+
+ - Jens Lehmann, Heiko Voigt and Lars Hjemli for submodule related
+   Porcelains.
+
+ - J. Bruce Fields, Jonathan Nieder, Michael J Gruber and Thomas Rast for
+   documentation (and countless others for proofreading and fixing).
+
+ - Alexandre Julliard for Emacs integration.
+
+ - David Aguilar and Charles Bailey for taking good care of git-mergetool
+   (and Theodore Ts'o for creating it in the first place) and git-difftool.
+
+ - Johannes Schindelin, Johannes Sixt, Erik Faye-Lund, Pat Thoyts and others
+   for their effort to move things forward on the Windows front.
+
+ - People on non-Linux platforms for keeping their eyes on portability;
+   especially, Randal Schwartz, Theodore Ts'o, Jason Riedy, Thomas Glanzmann,
+   Brandon Casey, Jeff King, Alex Riesen and countless others.
+--
+To unsubscribe from this list: send the line "unsubscribe git" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html

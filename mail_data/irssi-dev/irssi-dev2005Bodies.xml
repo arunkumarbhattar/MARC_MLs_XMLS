@@ -1,0 +1,3843 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20050703085626</emailId><senderName>Manoj Kasichainula</senderName><senderEmail>manoj@io.com</senderEmail><timestampReceived>2005-07-03 08:56:26-0400</timestampReceived><subject>Re: irssi-icb patch: misc bugs, version 3</subject><body>
+
+On Tue, Jun 28, 2005 at 03:08:59PM -0700, Matt Dunford wrote:
+&gt;Finally found some time to update my patch of the icb module of irssi.
+
+I've been running with this patch for 4 days without any problems. It 
+seems quite solid, thanks for the work you're doing.
+
+</body></email><email><emailId>20050818020133</emailId><senderName>Ertugrul Soeylemez</senderName><senderEmail>never@drwxr-xr-x.org</senderEmail><timestampReceived>2005-08-18 02:01:33-0400</timestampReceived><subject>irssi not using WATCH</subject><body>
+
+
+Hello folks,
+
+Is there any specific reason why irssi doesn't use the WATCH extension
+many ircds provide? Or am I just doing something wrong?
+
+
+
+-----
+Get my public key via GnuPG with one of:
+gpg --keyserver subkeys.pgp.net --recv-keys DA0672BC
+
+Or via web-based keyserver:
+http://www.keyserver.de/
+
+Key fingerprint:
+572E 2168 A92A 49CD 8D44  8D37 5E77 F9A5 DA06 72BC
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20051205223637</emailId><senderName>Torbjörn Svensson</senderName><senderEmail>azoff@se.linux.org</senderEmail><timestampReceived>2005-12-05 22:36:37-0400</timestampReceived><subject>Info about recode</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hi!
+
+I have been trying to get the new feature recode to work with FiSH, but
+it looks like FiSH is called _after_ recode. When does irssi call the
+recode functions? Is there anyway to be sure that FiSH is called *first*?
+I have seen that FiSH uses signal_add_first() but I don't know about the
+prioritate that it has compared to the built in functions.
+
+Thanks for your time!
+- --
+  .''`. Torbjörn Svensson, azoff (at) se (dot) linux (dot) org
+ : :' : 7EB9 2DC5 61AE DAB5 7099  BAC6 798E E39A DBDB 0CFD
+ `. `'  http://azoff.homeip.net | http://azoff.tty0.org
+   `--  http://se.linux.org
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.2 (GNU/Linux)
+Comment: Using GnuPG with Thunderbird - http://enigmail.mozdev.org
+
+iD8DBQFDlMD0eY7jmtvbDP0RAs25AJ9TxWiAIS8CCvqt/O3cGhsWlkXyrACdEaj4
+CP2oy6eI6Vp17i4HjL+eI2w=
+=pBvG
+-----END PGP SIGNATURE-----
+
+</body></email><email><emailId>20050111225107</emailId><senderName>Jakub Jankowski</senderName><senderEmail>shasta@atn.pl</senderEmail><timestampReceived>2005-01-11 22:51:07-0400</timestampReceived><subject>0.8.10?</subject><body>
+
+Hi.
+
+How about gathering all known bugs into KNOWNBUGS, then packing it up 
+and releasing 0.8.10?
+
+A lot more users will be able to test current code and thus -- we'll get 
+more reports about bugs which should be fixed in 0.8.11.
+
+It's been a really long time since last release, don't make users wait 
+for next one for ages.
+
+Just my $0.02
+
+-- 
+Jakub Jankowski     | http://s.atn.pl/         | Real programmers don't
+Sysadm, programmer  | http://www.slackware.pl/ | comment their code.
+shasta@spam.atn.pl  | http://www.gnugadu.org/  | It was hard to write, it
+as shasta on IRCnet | http://www.irssi.org/    | should be hard to understand.
+
+</body></email><email><emailId>20050221195937</emailId><senderName>Manuel Holtgrewe</senderName><senderEmail>purestorm@ggnore.net</senderEmail><timestampReceived>2005-02-21 19:59:37-0400</timestampReceived><subject>irssi-proxy and SSL?</subject><body>
+
+Hi
+
+As far as I know irssi-proxy does not support SSL. Is this on the TODO 
+list? When can I expect it to work, if so? Or do I err and irssi 
+supports it already.
+
+Regards,
+
+Manuel Holtgrewe
+
+
+</body></email><email><emailId>20050112114750</emailId><senderName>Geert Hauwaerts</senderName><senderEmail>geert@safeweb.be</senderEmail><timestampReceived>2005-01-12 11:47:50-0400</timestampReceived><subject>Re: 0.8.10?</subject><body>
+
+On Tue, 2005-01-11 at 23:51, Jakub Jankowski wrote:
+&gt; Hi.
+&gt; 
+&gt; How about gathering all known bugs into KNOWNBUGS, then packing it up 
+&gt; and releasing 0.8.10?
+
+You can take the release canidates from http://www.irssi.org/files
+
+&gt; A lot more users will be able to test current code and thus -- we'll get 
+&gt; more reports about bugs which should be fixed in 0.8.11.
+
+There's no reason for that, http://bugs.irssi.org is filled with bugs. A
+priority would be to fix those bug before releasing in the first place!
+
+&gt; It's been a really long time since last release, don't make users wait 
+&gt; for next one for ages.
+
+When the new site is ready, everything will be updated, fixed and more
+useful things added; including proper docs and info about release
+canidates.
+
+Regards,
+Geert Hauwaerts.
+-- 
+.---------------------------------------------------------------------------.
+| Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt; |
+| Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate |
+`---------------------------------------------------------------------------'
+
+
+
+</body></email><email><emailId>20050307220217</emailId><senderName>y0m</senderName><senderEmail>y0m@y0m.net</senderEmail><timestampReceived>2005-03-07 22:02:17-0400</timestampReceived><subject>Compilation problem with irssi-0.9.10-rc5 &amp; 0.8.9 on Irix</subject><body>
+
+Hi,
+
+I can't compile irssi-0.9.10-rc5 nor irssi-0.8.9 on my SGI o2.
+
+Here's what make prints out :
+
+------ cut here ------
+Making all in perl
+        cat ../../docs/signals.txt | /usr/freeware/bin/perl ./get-signals.pl &gt;
+perl-signals-list.h
+        ../../file2header.sh ./irssi-core.pl irssi_core_code &gt; irssi-core.pl.h
+        /bin/sh ../../libtool --mode=compile /usr/local/bin/gcc -DHAVE_CONFIG_H
+-I. -I. -I../.. -I../../src     -I../../src/core       
+-I../../src/fe-common/core      -I/usr/freeware/include/glib-2.0
+-I/usr/freeware/lib32/glib-2.0/include        
+-DSCRIPTDIR=\""/usr/local/share/irssi/scripts"\"       
+-DPERL_USE_LIB=\""/usr/local/lib/perl5/5.6.1/irix-n32"\"       
+-DPERL_STATIC_LIBS=0    -D_BSD_TYPES -D_BSD_TIME -woff 1009,1110,1174,1184,1552
+-OPT:Olimit=0:space=ON -I/usr/freeware/include -I/usr/include
+-I/usr/freeware/lib/perl5/5.6.1/irix-n32/CORE    -g -O2 -Wall -c perl-core.c
+mkdir .libs
+ /usr/local/bin/gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src -I../../src/core
+-I../../src/fe-common/core -I/usr/freeware/include/glib-2.0
+-I/usr/freeware/lib32/glib-2.0/include
+-DSCRIPTDIR=\"/usr/local/share/irssi/scripts\"
+-DPERL_USE_LIB=\"/usr/local/lib/perl5/5.6.1/irix-n32\" -DPERL_STATIC_LIBS=0
+-D_BSD_TYPES -D_BSD_TIME -woff 1009,1110,1174,1184,1552 -OPT:Olimit=0:space=ON
+-I/usr/freeware/include -I/usr/include
+-I/usr/freeware/lib/perl5/5.6.1/irix-n32/CORE -g -O2 -Wall -c perl-core.c 
+-DPIC -o .libs/perl-core.o
+gcc: cannot specify -o with -c or -S and multiple compilations
+*** Error code 1 (bu21)
+*** Error code 1 (bu21)
+*** Error code 1 (bu21)
+*** Error code 1 (bu21)
+------ cut here ------
+
+This is gcc-2.95.3 and irssi-0.8.10-rc5. I get the same error with gcc-3.3, and
+with irssi-0.8.9. I had also tried on Irix 6.5.22 (IP22) with the same results.
+
+Is there something I can try to get irssi compiling ?
+
+Thanks,
+-- 
+y0m
+
+</body></email><email><emailId>20050418050110</emailId><senderName>Tim Wojtulewicz</senderName><senderEmail>timwoj@ieee.org</senderEmail><timestampReceived>2005-04-18 05:01:10-0400</timestampReceived><subject>Irssi on OS X 10.4</subject><body>
+
+I've been doing a bit of testing with OS X 10.4 (tiger), and I have  
+some issues with irssi compiling and running.  This is with both  
+0.8.9 and 0.8.10-rc5, so it seems OS-specific, not irssi version- 
+specific.  The compilation issues follow.  This is with a configure  
+line of './configure --enable-ssl --with-proxy --with-perl=yes -- 
+without-file-offset-size'.  Everything goes ok, until it gets to the  
+perl portions.  Then you get this:
+
+
+In file included from module.h:19,
+                  from perl-core.c:22:
+../../src/common.h:66:4: error: #error uoff_t size not set
+In file included from perl-core.c:26:
+../../src/core/misc.h:79: error: parse error before "str_to_uofft"
+../../src/core/misc.h:79: warning: type defaults to 'int' in  
+declaration of 'str_to_uofft'
+../../src/core/misc.h:79: warning: data definition has no type or  
+storage class
+In file included from perl-core.c:31:
+perl-common.h:31:1: warning: "PL_sv_undef" redefined
+In file included from /System/Library/Perl/5.8.6/darwin-thread- 
+multi-2level/CORE/perl.h:3565,
+                  from module.h:6,
+                  from perl-core.c:22:
+/System/Library/Perl/5.8.6/darwin-thread-multi-2level/CORE/embedvar.h: 
+753:1: warning: this is the location of the previous definition
+In file included from perl-core.c:31:
+perl-common.h:32: error: parse error before '-&gt;' token
+perl-core.c:40:1: warning: "PL_perl_destruct_level" redefined
+In file included from /System/Library/Perl/5.8.6/darwin-thread- 
+multi-2level/CORE/XSUB.h:320,
+                  from perl-core.c:35:
+/System/Library/Perl/5.8.6/darwin-thread-multi-2level/CORE/perlapi.h: 
+476:1: warning: this is the location of the previous definition
+
+JOY.  I managed to hack it so it compiles by adding "#define  
+UOFF_T_LONG_LONG 1" to src/common.h (which is what's set in config.h,  
+but not being included for some reason), and adding "#define  
+HAVE_PL_PERL 1" to src/perl/perl-common.h (also in config.h, but  
+still not being included correctly).
+
+Like I said, it compiles now.  But when it runs, it hangs trying to  
+DNS look up the servers.  I've taken out all of my scripts, and  
+disabled loading proxy at startup.  That just got me the same  
+results.  Oh, and when I start it up, it draws the topic bar at the  
+top, and then one of the status bars (I have two at the bottom).  It  
+stays like this until I hit the return key, and which point it  
+actually fills in the status bar, and then hangs looking up the server.
+
+Anyone have any ideas?
+
+Tim
+
+</body></email><email><emailId>20050505212239</emailId><senderName>tabris</senderName><senderEmail>tabris@tabris.net</senderEmail><timestampReceived>2005-05-05 21:22:39-0400</timestampReceived><subject>Found a bug in fe-whois.c in re Unreal3.2</subject><body>
+
+
+	the whois numeric 379 currently uses the event_whois_modes handler, but 
+this doesn't work right. changing it to event_whois_usermode causes the 
+numeric to be processed properly and display.
+
+	it appears that event_whois_usermode is falling through to 
+event_whois_special.
+
+	Any chance of this being fixed in CVS?
+
+-- 
+&lt;krogoth&gt; Kgnghtbrd: I wouldn't kow, I see no need for a spellchecker 
+yet
+&lt;Knghtbrd&gt; you were saying?
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20050605004155</emailId><senderName>Matt Dunford</senderName><senderEmail>zoot@zotikos.com</senderEmail><timestampReceived>2005-06-05 00:41:55-0400</timestampReceived><subject>irssi-icb</subject><body>
+
+Hi All,
+
+Is there any way I could take over maintenance for the ICB plugin?  I
+use it a lot and have a bunch of patches, some of which I submitted,
+but they never got included.  I'd need commit access only to
+irssi-modules/icb.
+
+Sincerely,
+Matt Dunford
+
+</body></email><email><emailId>20051024205337</emailId><senderName>Torbjörn Svensson</senderName><senderEmail>azoff@se.linux.org</senderEmail><timestampReceived>2005-10-24 20:53:37-0400</timestampReceived><subject>Feature to turn of awaylog per network.</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hello devs!
+
+I wan't to request an option to turn of awaylog on a network. I asked in
+#irssi @ freenode but got the respons that it wasn't possible without
+patching the source. Could this be something that could be added?
+
+An example:
+I wan't to be away on network 'foo' but online on network 'bar'. Once I
+set away on all networks and then return, I don't wan't to see awaylog
+from network 'foo', just from 'bar'.
+
+Please excuse me if I sound crazy, just don't wan't awaylog to grow as I
+alway am marked as away on one network. Althiygh I still wan't awaylog
+on other networks.
+
+Regards,
+- --
+  .''`. Torbjörn Svensson, azoff (at) se (dot) linux (dot) org
+ : :' : 7EB9 2DC5 61AE DAB5 7099  BAC6 798E E39A DBDB 0CFD
+ `. `'  http://azoff.homeip.net | http://azoff.tty0.org
+   `--  http://se.linux.org
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.1 (GNU/Linux)
+Comment: Using GnuPG with Thunderbird - http://enigmail.mozdev.org
+
+iD8DBQFDXUnQeY7jmtvbDP0RAg+WAKCyIBCpl8nj63OdWYpfccCzgVBZOQCgoGVz
+Pg7rLFERWuECyQ4Ze/RgnqQ=
+=Hss7
+-----END PGP SIGNATURE-----
+
+</body></email><email><emailId>20051024213355</emailId><senderName>Ertugrul Soeylemez</senderName><senderEmail>never@drwxr-xr-x.org</senderEmail><timestampReceived>2005-10-24 21:33:55-0400</timestampReceived><subject>Re: Feature to turn of awaylog per network.</subject><body>
+
+[Attachment #2 (text/plain)]
+
+Hello Torbjörn,
+
+That's possible.  The /AWAY command supports the "-one" option.  With
+that it sets away only on the network where it's typed.  Call "/help
+away" to see options to that command.  If you don't have the "-one"
+option, then you need to use the SVN version (0.8.10-rc6 or newer) as I
+do.  I don't know if that option is implemented in the official stable
+release (0.8.9), too.
+
+Short: Switch to the network, where you want to be set away.  Type:
+
+/away -one
+
+Regards.
+
+
+
+Torbjörn Svensson &lt;azoff@se.linux.org&gt; (Mon, 24 Oct 2005 22:53:37 +0200):
+&gt; Hello devs!
+&gt; 
+&gt; I wan't to request an option to turn of awaylog on a network. I asked in
+&gt; #irssi @ freenode but got the respons that it wasn't possible without
+&gt; patching the source. Could this be something that could be added?
+&gt; 
+&gt; An example:
+&gt; I wan't to be away on network 'foo' but online on network 'bar'. Once I
+&gt; set away on all networks and then return, I don't wan't to see awaylog
+&gt; from network 'foo', just from 'bar'.
+&gt; 
+&gt; Please excuse me if I sound crazy, just don't wan't awaylog to grow as I
+&gt; alway am marked as away on one network. Althiygh I still wan't awaylog
+&gt; on other networks.
+
+
+-----
+Get my public key via GnuPG with one of:
+gpg --keyserver subkeys.pgp.net --recv-keys CE402012
+gpg --keyserver ldap://keyserver.pgp.com/ --recv-keys CE402012
+
+Or via web-based keyserver:
+http://www.keyserver.de/
+
+Key fingerprint:
+0F12 0912 DFC8 2FC5 E2B8  A23E 6BAC 998E CE40 2012
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20051025085923</emailId><senderName>Torbjörn Svensson</senderName><senderEmail>azoff@se.linux.org</senderEmail><timestampReceived>2005-10-25 08:59:23-0400</timestampReceived><subject>Re: Feature to turn of awaylog per network.</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Ertugrul Soeylemez wrote:
+&gt; Hello Torbjörn,
+
+Hello,
+
+&gt; That's possible.  The /AWAY command supports the "-one" option.  With
+&gt; that it sets away only on the network where it's typed.  Call "/help
+&gt; away" to see options to that command.  If you don't have the "-one"
+&gt; option, then you need to use the SVN version (0.8.10-rc6 or newer) as I
+&gt; do.  I don't know if that option is implemented in the official stable
+&gt; release (0.8.9), too.
+&gt; 
+&gt; Short: Switch to the network, where you want to be set away.  Type:
+&gt; 
+&gt; /away -one
+
+That won't work.
+Example:
+
+[10:50:29] [SeLinux] -!- You have been marked as being away
+[10:50:52] &lt; fubar&gt; Azoff: foo
+[10:51:20] [SeLinux] -!- You are no longer marked as being away
+[10:51:20] -!- Irssi: 1 new messages in awaylog:
+10:50 #selinux: &lt; fubar&gt; Azoff: foo
+
+
+To clear it out some, I _don't_ want that awaylog for that network but I
+still want to be maked as away.
+
+And yes, 0.8.9 has the -one param.
+
+
+Sorry for my english :-/
+
+Regards,
+- --
+  .''`. Torbjörn Svensson, azoff (at) se (dot) linux (dot) org
+ : :' : 7EB9 2DC5 61AE DAB5 7099  BAC6 798E E39A DBDB 0CFD
+ `. `'  http://azoff.homeip.net | http://azoff.tty0.org
+   `--  http://se.linux.org
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.1 (GNU/Linux)
+Comment: Using GnuPG with Thunderbird - http://enigmail.mozdev.org
+
+iD8DBQFDXfPqeY7jmtvbDP0RAo8/AJ4lGElKHmMgY61l7uaZ5sHki4u2NQCfT5O6
+QuWbyDg8AkTfWwz8Lfve8+E=
+=we27
+-----END PGP SIGNATURE-----
+
+</body></email><email><emailId>20051025095519</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2005-10-25 09:55:19-0400</timestampReceived><subject>Re: Feature to turn of awaylog per network.</subject><body>
+
+On 2005-10-25 10:59:23 +0200, Torbjörn Svensson wrote:
+&gt; To clear it out some, I _don't_ want that awaylog for that network but I
+&gt; still want to be maked as away.
+
+not possible.
+
+but patches are welcome.
+
+darix
+
+
+</body></email><email><emailId>20050505220202</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2005-05-05 22:02:02-0400</timestampReceived><subject>Re: Found a bug in fe-whois.c in re Unreal3.2</subject><body>
+
+On 2005-05-05 17:22:39 -0400, tabris wrote:
+&gt; the whois numeric 379 currently uses the event_whois_modes handler,
+&gt; but this doesn't work right. changing it to event_whois_usermode
+&gt; causes the numeric to be processed properly and display.
+
+did you check if other ircds use 379? what do they use it for?
+
+&gt; it appears that event_whois_usermode is falling through to
+&gt; event_whois_special.
+
+hmm that sounds like 379 didnt have any special handling so far.
+
+&gt; Any chance of this being fixed in CVS?
+
+svn (http://svn.irssi.org/)
+
+hope this helps 
+
+darix
+
+
+
+</body></email><email><emailId>20050505222654</emailId><senderName>tabris</senderName><senderEmail>tabris@tabris.net</senderEmail><timestampReceived>2005-05-05 22:26:54-0400</timestampReceived><subject>Re: Found a bug in fe-whois.c in re Unreal3.2</subject><body>
+
+
+On Thursday 05 May 2005 6:02 pm, Marcus Rueckert wrote:
+&gt; On 2005-05-05 17:22:39 -0400, tabris wrote:
+&gt; &gt; the whois numeric 379 currently uses the event_whois_modes handler,
+&gt; &gt; but this doesn't work right. changing it to event_whois_usermode
+&gt; &gt; causes the numeric to be processed properly and display.
+&gt;
+&gt; did you check if other ircds use 379? what do they use it for?
+http://www.alien.net.au/irc/irc2numerics.html
+
+379 RPL_KICKLINKED             aircd
+379 RPL_WHOISMODES             Unreal
+
+&gt;
+&gt; &gt; it appears that event_whois_usermode is falling through to
+&gt; &gt; event_whois_special.
+&gt;
+&gt; hmm that sounds like 379 didnt have any special handling so far.
+In the 20041111 tree I have, it's currently handled by 
+event_whois_modes. However that displays incorrectly. all I see is 
+this:
+-!- Ryo [6ZC4O23@SCnet-2CA04ADE.wakull01.fl.comcast.net]
+-!-  ircname  : BusterScript
+-!-   modes    :
+-!-           : is connecting from &lt;snip&gt; &lt;snip&gt;
+-!-           : is a registered nick
+-!-  channels : @#Area`6 %#pokemoncrater @#Pojodbz
+-!-  server   : wyvern.surrealchat.net [SurrealChat - 
+aphrodite.wcshells.com - Chicago.IL]
+-!-  idle     : 0 days 0 hours 0 mins 32 secs [signon: Thu May  5 
+17:12:42 2005]
+-!-  idlesinc : Thu May  5 18:23:18 2005
+-!- End of WHOIS
+
+the correct thing to see, once I replace event_whois_modes with 
+event_whois_usermode, recompile, and reinstall:
+
+-!- Ryo [6ZC4O23@SCnet-2CA04ADE.wakull01.fl.comcast.net]
+-!-  ircname  : BusterScript
+-!-           : is using modes +irx
+-!-           : is connecting from &lt;snip&gt; &lt;snip&gt;
+-!-           : is a registered nick
+-!-  channels : @#Area`6 %#pokemoncrater @#Pojodbz
+-!-  server   : wyvern.surrealchat.net [SurrealChat - 
+aphrodite.wcshells.com - Chicago.IL]
+-!-  idle     : 0 days 0 hours 0 mins 32 secs [signon: Thu May  5 
+17:12:42 2005]
+-!-  idlesinc : Thu May  5 18:23:18 2005
+-!- End of WHOIS
+
+
+&gt;
+&gt; &gt; Any chance of this being fixed in CVS?
+&gt;
+&gt; svn (http://svn.irssi.org/)
+	Ok, that's what I get for reading the www.irssi.org page and it saying 
+'CVS Changes' and the download page lists 'CVS' as being in use. The 
+site probably should be updated to list SubVersion as being used, not 
+CVS.
+&gt;
+&gt; hope this helps
+&gt;
+&gt; darix
+
+-- 
+You don't have to be nice to people on the way up if you're not planning 
+on coming back down.
+		-- Oliver Warbucks, "Annie"
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20050505230825</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2005-05-05 23:08:25-0400</timestampReceived><subject>Re: Found a bug in fe-whois.c in re Unreal3.2</subject><body>
+
+On 2005-05-05 18:26:54 -0400, tabris wrote:
+&gt; &gt; did you check if other ircds use 379? what do they use it for?
+&gt; http://www.alien.net.au/irc/irc2numerics.html
+&gt; 
+&gt; 379 RPL_KICKLINKED             aircd
+&gt; 379 RPL_WHOISMODES             Unreal
+
+can you check your patch against aircd?
+
+&gt; &gt; &gt; it appears that event_whois_usermode is falling through to
+&gt; &gt; &gt; event_whois_special.
+&gt; &gt;
+&gt; &gt; hmm that sounds like 379 didnt have any special handling so far.
+&gt; In the 20041111 tree I have, it's currently handled by 
+&gt; event_whois_modes. However that displays incorrectly. all I see is 
+&gt;
+
+can you provide a patch against SVN HEAD?
+
+thanks in advance
+
+darix
+
+
+
+</body></email><email><emailId>20050505231740</emailId><senderName>tabris</senderName><senderEmail>tabris@tabris.net</senderEmail><timestampReceived>2005-05-05 23:17:40-0400</timestampReceived><subject>Re: Found a bug in fe-whois.c in re Unreal3.2</subject><body>
+
+
+On Thursday 05 May 2005 7:08 pm, Marcus Rueckert wrote:
+&gt; On 2005-05-05 18:26:54 -0400, tabris wrote:
+&gt; &gt; &gt; did you check if other ircds use 379? what do they use it for?
+&gt; &gt;
+&gt; &gt; http://www.alien.net.au/irc/irc2numerics.html
+&gt; &gt;
+&gt; &gt; 379 RPL_KICKLINKED             aircd
+&gt; &gt; 379 RPL_WHOISMODES             Unreal
+&gt;
+&gt; can you check your patch against aircd?
+	Hmm. don't know any place using it or its variants. I can further 
+investigate the handlers to see how they handle it. I'd guess however 
+that it won't break anything not already broken, as the patch only 
+changes fe-whois.
+&gt;
+&gt; &gt; &gt; &gt; it appears that event_whois_usermode is falling through to
+&gt; &gt; &gt; &gt; event_whois_special.
+&gt; &gt; &gt;
+&gt; &gt; &gt; hmm that sounds like 379 didnt have any special handling so far.
+&gt; &gt;
+&gt; &gt; In the 20041111 tree I have, it's currently handled by
+&gt; &gt; event_whois_modes. However that displays incorrectly. all I see is
+&gt;
+&gt; can you provide a patch against SVN HEAD?
+	That I can do. Will be as soon as I have it done. I'll have the other 
+patch also, for skip_target. Any comments on that post?
+&gt;
+&gt; thanks in advance
+&gt;
+&gt; darix
+
+-- 
+A man may be so much of everything that he is nothing of anything.
+		-- Samuel Johnson
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20050418061403</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2005-04-18 06:14:03-0400</timestampReceived><subject>Re: Irssi on OS X 10.4</subject><body>
+
+On 2005-04-17 22:01:10 -0700, Tim Wojtulewicz wrote:
+&gt; I've been doing a bit of testing with OS X 10.4 (tiger), and I have  
+&gt; some issues with irssi compiling and running.  This is with both  
+&gt; 0.8.9 and 0.8.10-rc5, so it seems OS-specific, not irssi version- 
+&gt; specific.  The compilation issues follow.  This is with a configure  
+&gt; line of './configure --enable-ssl --with-proxy --with-perl=yes -- 
+&gt; without-file-offset-size'.  Everything goes ok, until it gets to the  
+&gt; perl portions.  Then you get this:
+&gt; 
+
+why do you pass "--without-file-offset-size"? i would think this could
+cause trouble. 
+
+darix 
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20050112115530</emailId><senderName>Jakub Jankowski</senderName><senderEmail>shasta@atn.pl</senderEmail><timestampReceived>2005-01-12 11:55:30-0400</timestampReceived><subject>Re: 0.8.10?</subject><body>
+
+On 2005-01-12, Geert Hauwaerts wrote:
+
+&gt; On Tue, 2005-01-11 at 23:51, Jakub Jankowski wrote:
+&gt;&gt; Hi.
+&gt;&gt;
+&gt;&gt; How about gathering all known bugs into KNOWNBUGS, then packing it up
+&gt;&gt; and releasing 0.8.10?
+&gt;
+&gt; You can take the release canidates from http://www.irssi.org/files
+
+*I* know. But many vendors don't like using RC's for their 
+distributions/products.
+
+&gt;&gt; A lot more users will be able to test current code and thus -- we'll get
+&gt;&gt; more reports about bugs which should be fixed in 0.8.11.
+&gt;
+&gt; There's no reason for that, http://bugs.irssi.org is filled with bugs.
+
+You didn't get the point. Releasing 0.8.10 =&gt; more users using new code 
+=&gt; more bugs occur =&gt; more reported bugs =&gt; better 0.8.11 :-)
+
+&gt; A priority would be to fix those bug before releasing in the first place!
+
+Which may take another year... ;^)
+
+&gt;&gt; It's been a really long time since last release, don't make users wait
+&gt;&gt; for next one for ages.
+&gt;
+&gt; When the new site is ready, everything will be updated, fixed and more
+&gt; useful things added; including proper docs and info about release
+&gt; canidates.
+
+Bah, always the same story. ;-P
+
+Cheers.
+
+-- 
+Jakub Jankowski     | http://s.atn.pl/         | Real programmers don't
+Sysadm, programmer  | http://www.slackware.pl/ | comment their code.
+shasta@spam.atn.pl  | http://www.gnugadu.org/  | It was hard to write, it
+as shasta on IRCnet | http://www.irssi.org/    | should be hard to understand.
+
+</body></email><email><emailId>20051228104551</emailId><senderName>Rhialto</senderName><senderEmail>rhialto@falu.nl</senderEmail><timestampReceived>2005-12-28 10:45:51-0400</timestampReceived><subject>Perl support for "split windows" aka "main windows"</subject><body>
+
+Hi there,
+
+I recently switched to irssi and I wanted to change some of its
+behaviour wrt split windows. I discovered they are not supported in the
+Perl interface at all. So I added some.
+
+While doing that, I discovered that there is no consideration for
+cyclical data structures: if they are encountered an infinite Perl data
+structure is constructed and you crash on a stack overflow due to the
+recursion. Similarly, if the same C structure is converted twice you get
+different Perl objects. This is wasteful of time and memory. You can
+also never find identical objects by comparing their references. I have
+started to add some code for handling that but it is #ifdeffed out (I
+need some way to detect when a perl object is destroyed so I can remove
+it from my administration). For now, to break the cycle in the Window
+&lt;-&gt; MainWindow references, I used an access function instead of a data
+member.
+
+Here is a diff.
+
+There seems to be a breach of abstraction because a TextUI::MainWindow
+(which is in fe-text) is accessed from a UI::Window, requiring an
+include from a different subdirectory. But that's where the initial
+parts of MainWindow were, I presume with reason.
+
+Statusbar seemed missing too so I added some stuff for that too.
+
+Index: src/perl/textui/typemap
+===================================================================
+--- src/perl/textui/typemap	(revision 4172)
++++ src/perl/textui/typemap	(working copy)
+@@ -5,6 +5,7 @@
+ Irssi::TextUI::Line		T_PlainObj
+ Irssi::TextUI::LineCache	T_PlainObj
+ Irssi::TextUI::LineInfo		T_PlainObj
++Irssi::TextUI::Statusbar   	T_PlainObj
+ Irssi::TextUI::StatusbarItem   	T_PlainObj
+ 
+ INPUT
+Index: src/perl/textui/TextUI.xs
+===================================================================
+--- src/perl/textui/TextUI.xs	(revision 4172)
++++ src/perl/textui/TextUI.xs	(working copy)
+@@ -8,13 +8,24 @@
+ static void perl_main_window_fill_hash(HV *hv, MAIN_WINDOW_REC *window)
+ {
+ 	hv_store(hv, "active", 6, plain_bless(window-&gt;active, "Irssi::UI::Window"), 0);
++	/* TERM_WINDOW *screen_win; TODO
++	if (window-&gt;screen_win)
++		hv_store(hv, "screen_win", 10, plain_bless(window-&gt;screen_win, "Irssi::UI:TerminalWindow"), 0);
++	*/
+ 
++	hv_store(hv, "sticky_windows", 14, newSViv(window-&gt;sticky_windows), 0);
++	/* GSList *statusbars; via $win-&gt;statusbars() */
+ 	hv_store(hv, "first_line", 10, newSViv(window-&gt;first_line), 0);
+ 	hv_store(hv, "last_line", 9, newSViv(window-&gt;last_line), 0);
+ 	hv_store(hv, "width", 5, newSViv(window-&gt;width), 0);
+ 	hv_store(hv, "height", 6, newSViv(window-&gt;height), 0);
+ 
++	hv_store(hv, "statusbar_lines_top", 19, newSViv(window-&gt;statusbar_lines_top), 0);
++	hv_store(hv, "statusbar_lines_bottom", 22, newSViv(window-&gt;statusbar_lines_bottom), 0);
+ 	hv_store(hv, "statusbar_lines", 15, newSViv(window-&gt;statusbar_lines), 0);
++
++	hv_store(hv, "dirty", 5, newSViv(window-&gt;dirty), 0);
++	hv_store(hv, "size_dirty", 10, newSViv(window-&gt;size_dirty), 0);
+ }
+ 
+ static void perl_text_buffer_fill_hash(HV *hv, TEXT_BUFFER_REC *buffer)
+@@ -66,6 +77,22 @@
+ 	hv_store(hv, "time", 4, newSViv(info-&gt;time), 0);
+ }
+ 
++static void perl_statusbar_fill_hash(HV *hv, STATUSBAR_REC *bar)
++{
++	/* TODO: STATUSBAR_GROUP_REC *group; */
++	/* TODO: STATUSBAR_CONFIG_REC *config; */
++	/* via $bar-&gt;parent_window() 
++	if (bar-&gt;parent_window != NULL)
++		hv_store(hv, "parent_window", 13, plain_bless(bar-&gt;parent_window, "Irssi::TextUI::MainWindow"), 0);
++	*/
++	/* GSList *items; via $bar-&gt;items() */
++
++	hv_store(hv, "color", 5, new_pv(bar-&gt;color), 0);
++	hv_store(hv, "real_ypos", 8, newSViv(bar-&gt;real_ypos), 0);
++	hv_store(hv, "dirty", 5, newSViv(bar-&gt;dirty), 0);
++	hv_store(hv, "dirty_xpos", 10, newSViv(bar-&gt;dirty_xpos), 0);
++}
++
+ static void perl_statusbar_item_fill_hash(HV *hv, SBAR_ITEM_REC *item)
+ {
+ 	hv_store(hv, "min_size", 8, newSViv(item-&gt;min_size), 0);
+@@ -74,6 +101,9 @@
+ 	hv_store(hv, "size", 4, newSViv(item-&gt;size), 0);
+ 	if (item-&gt;bar-&gt;parent_window != NULL)
+ 		hv_store(hv, "window", 6, plain_bless(item-&gt;bar-&gt;parent_window-&gt;active, "Irssi::UI::Window"), 0);
++	/*
++	hv_store(hv, "bar", 3, plain_bless(item-&gt;bar, "Irssi::TextUI::Statusbar"), 0);
++	*/
+ }
+ 
+ static PLAIN_OBJECT_INIT_REC textui_plains[] = {
+@@ -83,6 +113,7 @@
+ 	{ "Irssi::TextUI::Line", (PERL_OBJECT_FUNC) perl_line_fill_hash },
+ 	{ "Irssi::TextUI::LineCache", (PERL_OBJECT_FUNC) perl_line_cache_fill_hash },
+ 	{ "Irssi::TextUI::LineInfo", (PERL_OBJECT_FUNC) perl_line_info_fill_hash },
++	{ "Irssi::TextUI::Statusbar", (PERL_OBJECT_FUNC) perl_statusbar_fill_hash },
+ 	{ "Irssi::TextUI::StatusbarItem", (PERL_OBJECT_FUNC) perl_statusbar_item_fill_hash },
+ 
+ 	{ NULL, NULL }
+@@ -164,3 +195,95 @@
+ 
+ void
+ term_refresh_thaw()
++
++MODULE = Irssi::TextUI::MainWindow  PACKAGE = Irssi
++PROTOTYPES: ENABLE
++
++void
++mainwindows()
++PREINIT:
++	GSList *tmp;
++PPCODE:
++	for (tmp = mainwindows; tmp != NULL; tmp = tmp-&gt;next) {
++		XPUSHs(sv_2mortal(plain_bless(tmp-&gt;data, "Irssi::TextUI::MainWindow")));
++	}
++
++
++Irssi::TextUI::MainWindow
++active_mainwin()
++CODE:
++	RETVAL = active_mainwin;
++OUTPUT:
++	RETVAL
++
++int
++window_refnum_left(refnum, wrap)
++	int refnum
++	int wrap
++
++int
++window_refnum_right(refnum, wrap)
++	int refnum
++	int wrap
++
++#*******************************
++MODULE = Irssi::TextUI::MainWindow  PACKAGE = Irssi::TextUI::MainWindow  PREFIX=mainwindow_
++#*******************************
++
++Irssi::TextUI::MainWindow
++mainwindow_up(mainwin, wrap)
++	Irssi::TextUI::MainWindow mainwin
++	int wrap
++
++Irssi::TextUI::MainWindow
++mainwindow_down(mainwin, wrap)
++	Irssi::TextUI::MainWindow mainwin
++	int wrap
++
++void
++statusbars(mainwin)
++	Irssi::TextUI::MainWindow mainwin;
++PREINIT:
++	GSList *tmp;
++PPCODE:
++	for (tmp = mainwin-&gt;statusbars; tmp != NULL; tmp = tmp-&gt;next) {
++		XPUSHs(sv_2mortal(plain_bless(tmp-&gt;data, "Irssi::TextUI::Statusbar")));
++	}
++
++#*******************************
++MODULE = Irssi::TextUI::Statusbar  PACKAGE = Irssi::TextUI::Statusbar
++#*******************************
++
++void
++items(bar)
++	Irssi::TextUI::Statusbar bar;
++PREINIT:
++	GSList *tmp;
++PPCODE:
++	for (tmp = bar-&gt;items; tmp != NULL; tmp = tmp-&gt;next) {
++		XPUSHs(sv_2mortal(plain_bless(tmp-&gt;data, "Irssi::TextUI::StatusbarItem")));
++	}
++
++Irssi::TextUI::MainWindow
++parent_window(bar)
++	Irssi::TextUI::Statusbar bar;
++CODE:
++	RETVAL = bar-&gt;parent_window;
++OUTPUT:
++	RETVAL
++
++#*******************************
++MODULE = Irssi::TextUI::StatusbarItem  PACKAGE = Irssi::TextUI::StatusbarItem
++#*******************************
++
++Irssi::TextUI::Statusbar
++bar(item)
++	Irssi::TextUI::StatusbarItem item;
++CODE:
++	RETVAL = item-&gt;bar;
++OUTPUT:
++	RETVAL
++
++#*******************************
++MODULE = Irssi::TextUI  PACKAGE = Irssi::TextUI
++#*******************************
+Index: src/perl/textui/module.h
+===================================================================
+--- src/perl/textui/module.h	(revision 4172)
++++ src/perl/textui/module.h	(working copy)
+@@ -7,10 +7,11 @@
+ #include "textbuffer.h"
+ #include "textbuffer-view.h"
+ 
+-typedef MAIN_WINDOW_REC *Irssi__TextUI__MainWindow;
++/* typedef MAIN_WINDOW_REC *Irssi__TextUI__MainWindow; */
+ typedef TEXT_BUFFER_REC *Irssi__TextUI__TextBuffer;
+ typedef TEXT_BUFFER_VIEW_REC *Irssi__TextUI__TextBufferView;
+ typedef LINE_REC *Irssi__TextUI__Line;
+ typedef LINE_CACHE_REC *Irssi__TextUI__LineCache;
+ typedef LINE_INFO_REC *Irssi__TextUI__LineInfo;
++typedef STATUSBAR_REC *Irssi__TextUI__Statusbar;
+ typedef SBAR_ITEM_REC *Irssi__TextUI__StatusbarItem;
+Index: src/perl/perl-common.c
+===================================================================
+--- src/perl/perl-common.c	(revision 4172)
++++ src/perl/perl-common.c	(working copy)
+@@ -54,6 +54,9 @@
+ 
+ static GHashTable *iobject_stashes, *plain_stashes;
+ static GSList *use_protocols;
++#if xyzzy
++static GHashTable *plain_cache;
++#endif
+ 
+ /* returns the package who called us */
+ const char *perl_get_package(void)
+@@ -148,13 +151,27 @@
+         PERL_OBJECT_FUNC fill_func;
+ 	HV *hv;
+ 
+-	fill_func = g_hash_table_lookup(plain_stashes, stash);
++#if xyzzy
++	hv = g_hash_table_lookup(plain_cache, object);
++        if (hv) {
++		/* increase reference count here */
++		SvREFCNT_inc(hv);
++		return hv;
++	} else {
++#endif
++		fill_func = g_hash_table_lookup(plain_stashes, stash);
+ 
+-	hv = newHV();
+-	hv_store(hv, "_irssi", 6, create_sv_ptr(object), 0);
+-	if (fill_func != NULL)
+-		fill_func(hv, object);
+-	return sv_bless(newRV_noinc((SV*)hv), gv_stashpv((char *)stash, 1));
++		hv = newHV();
++#if xyzzy
++		g_hash_table_insert(plain_cache, object, hv);
++#endif
++		hv_store(hv, "_irssi", 6, create_sv_ptr(object), 0);
++		if (fill_func != NULL)
++			fill_func(hv, object);
++		return sv_bless(newRV_noinc((SV*)hv), gv_stashpv((char *)stash, 1));
++#if xyzzy
++	}
++#endif
+ }
+ 
+ int irssi_is_ref_object(SV *o)
+@@ -644,6 +661,22 @@
+ 	return FALSE;
+ }
+ 
++static void free_iobject_cache(void *key, HV *hv)
++{
++	/* decrement refcount on hv */
++	SvREFCNT_dec(hv);
++}
++
++#if xyzzy
++static void free_plain_cache(void *key, HV *hv)
++{
++	if (hv) {
++		/* decrement refcount on hv */
++		SvREFCNT_dec(hv);
++	}
++}
++#endif
++
+ static void perl_unregister_protocol(CHAT_PROTOCOL_REC *rec)
+ {
+ 	GSList *item;
+@@ -678,6 +711,10 @@
+ 					(GCompareFunc) g_direct_equal);
+ 	plain_stashes = g_hash_table_new((GHashFunc) g_str_hash,
+ 					 (GCompareFunc) g_str_equal);
++#if xyzzy
++	plain_cache = g_hash_table_new((GHashFunc) g_direct_hash,
++					 (GCompareFunc) g_direct_equal);
++#endif
+         irssi_add_plains(core_plains);
+ 
+         use_protocols = NULL;
+@@ -697,6 +734,12 @@
+ 	g_hash_table_destroy(plain_stashes);
+         plain_stashes = NULL;
+ 
++#if xyzzy
++        g_hash_table_foreach(plain_cache, (GHFunc) free_plain_cache, NULL);
++	g_hash_table_destroy(plain_cache);
++        plain_cache = NULL;
++#endif
++
+ 	g_slist_foreach(use_protocols, (GFunc) g_free, NULL);
+ 	g_slist_free(use_protocols);
+         use_protocols = NULL;
+Index: src/perl/ui/typemap
+===================================================================
+--- src/perl/ui/typemap	(revision 4172)
++++ src/perl/ui/typemap	(working copy)
+@@ -1,5 +1,6 @@
+ TYPEMAP
+ Irssi::UI::Theme		T_PlainObj
++Irssi::TextUI::MainWindow		T_PlainObj
+ Irssi::UI::Window		T_PlainObj
+ Irssi::UI::Keyinfo		T_PlainObj
+ Irssi::UI::TextDest		T_PlainObj
+Index: src/perl/ui/Window.xs
+===================================================================
+--- src/perl/ui/Window.xs	(revision 4172)
++++ src/perl/ui/Window.xs	(working copy)
+@@ -242,6 +242,14 @@
+ OUTPUT:
+ 	RETVAL
+ 
++Irssi::TextUI::MainWindow
++parent_mainwindow(window)
++	Irssi::UI::Window window
++CODE:
++	RETVAL = WINDOW_MAIN(window);
++OUTPUT:
++	RETVAL
++
+ #*******************************
+ MODULE = Irssi::UI::Window  PACKAGE = Irssi::Windowitem  PREFIX = window_item_
+ #*******************************
+Index: src/perl/ui/UI.xs
+===================================================================
+--- src/perl/ui/UI.xs	(revision 4172)
++++ src/perl/ui/UI.xs	(working copy)
+@@ -1,4 +1,5 @@
+ #include "module.h"
++#include "fe-text/gui-windows.h"
+ 
+ void perl_themes_init(void);
+ void perl_themes_deinit(void);
+@@ -35,6 +36,9 @@
+ 		hv_store(hv, "active", 6, iobject_bless(window-&gt;active), 0);
+ 	if (window-&gt;active_server)
+ 		hv_store(hv, "active_server", 13, iobject_bless(window-&gt;active_server), 0);
++	/*
++	hv_store(hv, "parent", 6, plain_bless(WINDOW_MAIN(window), "Irssi::TextUI::MainWindow"), 0);
++	*/
+ 
+ 	hv_store(hv, "servertag", 9, new_pv(window-&gt;servertag), 0);
+ 	hv_store(hv, "level", 5, newSViv(window-&gt;level), 0);
+Index: src/perl/ui/module.h
+===================================================================
+--- src/perl/ui/module.h	(revision 4172)
++++ src/perl/ui/module.h	(working copy)
+@@ -1,6 +1,7 @@
+ #include "../common/module.h"
+ 
+ #include "fe-windows.h"
++#include "fe-text/gui-windows.h"
+ #include "fe-exec.h"
+ #include "formats.h"
+ #include "printtext.h"
+@@ -8,6 +9,7 @@
+ #include "themes.h"
+ #include "keyboard.h"
+ 
++typedef MAIN_WINDOW_REC *Irssi__TextUI__MainWindow;
+ typedef WINDOW_REC *Irssi__UI__Window;
+ typedef TEXT_DEST_REC *Irssi__UI__TextDest;
+ typedef THEME_REC *Irssi__UI__Theme;
+Index: src/fe-text/mainwindows.c
+===================================================================
+--- src/fe-text/mainwindows.c	(revision 4172)
++++ src/fe-text/mainwindows.c	(working copy)
+@@ -837,26 +837,54 @@
+ 	window_set_active(window);
+ }
+ 
++MAIN_WINDOW_REC *mainwindow_up(MAIN_WINDOW_REC *mainwin, int wrap)
++{
++	MAIN_WINDOW_REC *rec;
++
++	rec = mainwindows_find_upper(mainwin-&gt;first_line);
++	if (rec == NULL &amp;&amp; wrap)
++		rec = mainwindows_find_upper(term_height);
++	return rec;
++}
++
+ /* SYNTAX: WINDOW UP */
+ static void cmd_window_up(void)
+ {
+ 	MAIN_WINDOW_REC *rec;
+ 
++#if 1
++	rec = mainwindow_up(active_mainwin, TRUE);
++#else
+ 	rec = mainwindows_find_upper(active_mainwin-&gt;first_line);
+ 	if (rec == NULL)
+ 		rec = mainwindows_find_upper(term_height);
++#endif
+ 	if (rec != NULL)
+ 		window_set_active(rec-&gt;active);
+ }
+ 
++MAIN_WINDOW_REC *mainwindow_down(MAIN_WINDOW_REC *mainwin, int wrap)
++{
++	MAIN_WINDOW_REC *rec;
++
++	rec = mainwindows_find_lower(mainwin-&gt;last_line);
++	if (rec == NULL &amp;&amp; wrap)
++		rec = mainwindows_find_lower(-1);
++	return rec;
++}
++
+ /* SYNTAX: WINDOW DOWN */
+ static void cmd_window_down(void)
+ {
+ 	MAIN_WINDOW_REC *rec;
+ 
++#if 1
++	rec = mainwindow_down(active_mainwin, TRUE);
++#else
+ 	rec = mainwindows_find_lower(active_mainwin-&gt;last_line);
+ 	if (rec == NULL)
+ 		rec = mainwindows_find_lower(-1);
++#endif
+ 	if (rec != NULL)
+ 		window_set_active(rec-&gt;active);
+ }
+@@ -866,7 +894,7 @@
+ 	 (WINDOW_GUI(window)-&gt;sticky &amp;&amp; \
+ 	  WINDOW_MAIN(window) == (sticky_parent)))
+ 
+-static int window_refnum_left(int refnum, int wrap)
++int window_refnum_left(int refnum, int wrap)
+ {
+         MAIN_WINDOW_REC *find_sticky;
+ 	WINDOW_REC *window;
+@@ -888,7 +916,7 @@
+         return refnum;
+ }
+ 
+-static int window_refnum_right(int refnum, int wrap)
++int window_refnum_right(int refnum, int wrap)
+ {
+         MAIN_WINDOW_REC *find_sticky;
+ 	WINDOW_REC *window;
+Index: src/fe-text/mainwindows.h
+===================================================================
+--- src/fe-text/mainwindows.h	(revision 4172)
++++ src/fe-text/mainwindows.h	(working copy)
+@@ -57,4 +57,9 @@
+ 
+ GSList *mainwindows_get_sorted(int reverse);
+ 
++MAIN_WINDOW_REC *mainwindow_up(MAIN_WINDOW_REC *mainwin, int wrap);
++MAIN_WINDOW_REC *mainwindow_down(MAIN_WINDOW_REC *mainwin, int wrap);
++int window_refnum_left(int refnum, int wrap);
++int window_refnum_right(int refnum, int wrap);
++
+ #endif
+Index: docs/perl.txt
+===================================================================
+--- docs/perl.txt	(revision 4172)
++++ docs/perl.txt	(working copy)
+@@ -149,7 +149,13 @@
+ know where to run the script, or at least later figure out why it
+ didn't work :)
+ 
++ MainWindows
++ -----------
+ 
++Where the user documentation speaks of "split windows", the corresponding
++perl object is called Irssi::TextUI::MainWindow. The MainWindow may contain
++several Windows but only one is active (shown) at any one time.
++
+  Functions that you can use in Irssi's Perl scripts
+  --------------------------------------------------
+ 
+@@ -177,8 +183,10 @@
+ 
+ Window active_win() - return active window
+ Server active_server() - return server in active window
++MainWindow active_mainwindow() - return active mainwindow
+ 
+ windows() - return list of all windows
++mainwindows() - return list of all split windows
+ servers() - return list of all servers
+ reconnects() - return list of all server reconnections
+ channels() - return list of all channels
+@@ -465,6 +473,52 @@
+   Return active item's name, or if none is active, window's name
+ 
+ 
++TextUI::MainWindow-&gt;{}
++  active - the Irssi::UI::Window that is active inside
++  sticky_windows - number of sticky windows
++  first_line, last_line - first/last line used by this window (0..x) (includes
++			    statusbars)
++  width, height - width/height of the window (includes statusbars)
++  statusbar_lines_top
++  statusbar_lines_bottom
++  statusbar_lines - top+bottom
++  dirty - This window needs a redraw
++  size_dirty - We'll need to resize the window, but haven't got around
++               doing it just yet.
++
++
++UI::Window
++MainWindow::parent_mainwindow()
++  To get from a Window to the MainWindow that shows it, use this function.
++  It is not a field because that would create a circular data structure,
++  and the Perl interface can't handle that.
++
++(TextUI::Statusbar)
++MainWindow::statusbars()
++  A list of the TextUI::StatusBar objects in the TextUI::MainWindow
++
++
++TextUI::StatusbarItem-&gt;{}
++  min_size
++  max_size
++  xpos
++  size
++  window
++
++TextUI::Statusbar
++StatusbarItem::bar()
++  Get the statusbar to which the statusbaritem belongs.
++
++(TextUI::StatusbarItem)
++StatusbarItem::items()
++  Get the TextUI::StatusbarItems in the Statusbar.
++
++TextUI::MainWindow
++Statusbar::parent_window()
++  Get the MainWindow that shows the Statusbar.
++
++
++
+  *** Server Connects
+ 
+ Connect-&gt;{}
+
+
+-Olaf.
+-- 
+___ Olaf 'Rhialto' Seibert      -- You author it, and I'll reader it.
+\X/ rhialto/at/xs4all.nl        -- Cetero censeo "authored" delendum esse.
+
+</body></email><email><emailId>20051025090520</emailId><senderName>Wouter Coekaerts</senderName><senderEmail>coekie@irssi.org</senderEmail><timestampReceived>2005-10-25 09:05:20-0400</timestampReceived><subject>Re: irssi not using WATCH</subject><body>
+
+
+On Thursday 18 August 2005 04:01, Ertugrul Soeylemez wrote:
+&gt; Is there any specific reason why irssi doesn't use the WATCH extension
+&gt; many ircds provide? Or am I just doing something wrong?
+
+Because nobody wrote that feature yet :)
+
+Wouter.
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20051026143005</emailId><senderName>Torbjörn Svensson</senderName><senderEmail>azoff@se.linux.org</senderEmail><timestampReceived>2005-10-26 14:30:05-0400</timestampReceived><subject>Re: Feature to turn of awaylog per network.</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Marcus Rueckert wrote:
+&gt; but patches are welcome.
+
+Hello list,
+
+This doesn't realy do it the way I asked about, but it still works for
+me. If you could review it and see if you could add it the the offical
+relase I would be glad.
+
+And just so you all know, I have very litle knolage of C so there may be
+some realy dumb things in it, but it seams to work so.. ;-)
+
+http://dev.azoff.se/irssi-awaylog.patch
+
+Regards,
+- --
+  .''`. Torbjörn Svensson, azoff (at) se (dot) linux (dot) org
+ : :' : 7EB9 2DC5 61AE DAB5 7099  BAC6 798E E39A DBDB 0CFD
+ `. `'  http://azoff.homeip.net | http://azoff.tty0.org
+   `--  http://se.linux.org
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.1 (GNU/Linux)
+Comment: Using GnuPG with Thunderbird - http://enigmail.mozdev.org
+
+iD8DBQFDX5LkeY7jmtvbDP0RAuemAKCYYbudbANSAIZ5cwQvg0vafQyRuQCfX7mW
+hjCoM9Z7FwTaIBs9fedIv/s=
+=RaEz
+-----END PGP SIGNATURE-----
+
+</body></email><email><emailId>20050606221734</emailId><senderName>Matt Dunford</senderName><senderEmail>zoot@zotikos.com</senderEmail><timestampReceived>2005-06-06 22:17:34-0400</timestampReceived><subject>Re: irssi-icb</subject><body>
+
+On Sun, Jun 05, 2005 at 05:24:47PM +0200, Geert Hauwaerts wrote:
+&gt; Matt Dunford wrote:
+&gt; 
+&gt; Matt,
+&gt; 
+&gt; &gt;Is there any way I could take over maintenance for the ICB plugin?  I
+&gt; &gt;use it a lot and have a bunch of patches, some of which I submitted,
+&gt; &gt;but they never got included.  I'd need commit access only to
+&gt; &gt;irssi-modules/icb.
+&gt; 
+&gt; Irssi does not use CVS anymore for development. About half a year ago we 
+&gt; switched to Subversion, you can access the files on 
+&gt; http://svn.irssi.org/repos/modules/trunk/icb/
+&gt; 
+&gt; We cannot give you access without verifying your works first. Feel free to 
+&gt; submit patches to this list of poke me (Geert), coekie, senneth or darix on 
+&gt; IRC.
+&gt; 
+&gt; If the patches are properly done I don't see any reason why you shouldn't 
+&gt; have access.
+
+Hi Geert,
+
+Heh, looks like I've been out of the loop for a while.  I was afraid
+that development on irssi had whithered away when I checked out the
+CVS section on irssi.org.  I'm glad to see it's continuing.
+
+I'll post patches soon.
+
+Sincerely,
+Matt Dunford
+
+</body></email><email><emailId>20050606222903</emailId><senderName>Matt Dunford</senderName><senderEmail>zoot@zotikos.com</senderEmail><timestampReceived>2005-06-06 22:29:03-0400</timestampReceived><subject>irssi-icb patch: ./autogen.sh producing configure script w/ syntax errors</subject><body>
+
+Hi All,
+
+autogen.sh in the svn irssi-icb module produces a configure script w/
+syntax errors (at least on my system, a debian sarge box).  It looks
+like it's due to an old check for glib.  I've updated autogen.sh and
+configure.in based on the files in the main irssi module.  The patches
+are attached.
+
+Two new files are required for the patches to work: glib.m4_ and glib-2.0.m4_
+They are also attached.
+
+Sincerely,
+Matt Dunford
+
+
+Index: configure.in
+===================================================================
+--- configure.in	(revision 3757)
++++ configure.in	(working copy)
+@@ -40,8 +40,108 @@
+   AC_ERROR(Not irssi directory: $IRSSI_INCLUDE)
+ fi
+ 
+-AM_PATH_GLIB(1.2.0,,, gmodule)
++AC_DEFUN(AC_CHECK_GLIBDIR,[
++  AC_MSG_CHECKING([whether GLib is unpacked to irssi dir])
+ 
++  GLIB_DIR=`for d in * $IRSSI_INCLUDE/*; do test -f $d/glib.h &amp;&amp; echo $d; done`
++  if test -n "$GLIB_DIR"; then
++    dnl * glib in irssi directory, use it
++    AC_MSG_RESULT([yes, using it])
++
++    dnl * we have to do this at this point so we know what libs gmodule needs
++    if test ! -f $GLIB_DIR/.libs/libglib.a; then
++      echo
++      echo "configuring GLib ..."
++      echo
++      cd $GLIB_DIR
++      if test ! -f glib-config; then
++        ./configure
++      fi
++      ${MAKE-make}
++      cd ..
++      echo
++    fi
++
++    GLIB_LDEXTRA=`$GLIB_DIR/glib-config --libs gmodule|$sedpath -e 's/-lglib//' -e \
+'s/-lgmodule//' -e 's,-L/usr/local/lib ,,'|$sedpath 's/ \+/ /g'` +    \
+full_glib_dir="`pwd`/$GLIB_DIR" +    GLIB_CFLAGS="-I$full_glib_dir \
+-I$full_glib_dir/gmodule" +    if test -f $full_glib_dir/.libs/libglib.a; then
++      GLIB_LIBS="$full_glib_dir/.libs/libglib.a $GLIB_LDEXTRA"
++      if test -f $full_glib_dir/gmodule/.libs/libgmodule.a; then
++	GLIB_LIBS="$GLIB_LIBS $full_glib_dir/gmodule/.libs/libgmodule.a"
++        AC_DEFINE(HAVE_GMODULE)
++	have_gmodule=yes
++      fi
++    else
++      GLIB_LIBS="$full_glib_dir/libglib.a $GLIB_LDEXTRA"
++      if test -f $full_glib_dir/gmodule/libgmodule.a; then
++	GLIB_LIBS="$GLIB_LIBS $full_glib_dir/gmodule/libgmodule.a"
++        AC_DEFINE(HAVE_GMODULE)
++	have_gmodule=yes
++      fi
++    fi
++    AC_SUBST(GLIB_CFLAGS)
++    AC_SUBST(GLIB_LIBS)
++  else
++    AC_MSG_RESULT([no])
++  fi
++])
++
++AC_CHECK_GLIBDIR
++
++if test -z "$GLIB_DIR"; then
++  if test "x$with_glib1" = "xyes"; then
++    dnl * check only for glib1
++    checks="1 2"
++  else
++    dnl * check glib2 then glib1
++    checks="3 4 1 2"
++  fi
++
++  for try in $checks; do
++    glib_config_args=
++    if test $try = 1 -o $try = 3; then
++      glib_modules=gmodule
++    else
++      echo "*** trying without -lgmodule"
++      glib_modules=
++    fi
++    if test $try = 1 -o $try = 2; then
++      AM_PATH_GLIB(1.2.0,,, $glib_modules)
++    else
++      AM_PATH_GLIB_2_0(2.0.0,,, $glib_modules)
++    fi
++    if test "$GLIB_LIBS"; then
++      if test $glib_modules = gmodule; then
++        AC_DEFINE(HAVE_GMODULE)
++        have_gmodule=yes
++      fi
++      break
++    fi
++  done
++
++  if test -z "$GLIB_LIBS"; then
++    echo
++    echo "*** If you don't have GLIB, you can get it from ftp://ftp.gtk.org"
++    echo "*** If you can't install GLIB anywhere or if you don't want to,"
++    echo "*** you can just unpack it to Irssi's source directory and"
++    echo "*** Irssi will automatically compile and use it."
++    echo
++
++    dnl * I think it's pretty safe to assume GLib 1.2.9 since the next
++    dnl * will be 2.0 (or 1.4?) and it's not sure if irssi compiles
++    dnl * with it (yea, just a few weeks after I put this text for 1.2.8
++    dnl * the 1.2.9 came :) .. and then .10
++    glib_file=glib-1.2.10.tar.gz
++
++    if test -z "$GLIB_LIBS"; then
++      AC_ERROR([GLIB is required to build irssi.])
++    fi
++  fi
++fi
++
++LIBS="$LIBS $GLIB_LIBS"
++
+ # gcc specific options
+ if test "x$ac_cv_prog_gcc" = "xyes"; then
+   CFLAGS="$CFLAGS -Wall"
+
+
+
+--- autogen.sh	2005-06-06 15:20:08.166129752 -0700
++++ my.autogen.sh	2005-06-06 14:23:39.482288000 -0700
+@@ -1,4 +1,122 @@
+-aclocal $ACLOCAL_FLAGS
+-autoheader
++#!/bin/sh
++# Run this to generate all the initial makefiles, etc.
++
++PKG_NAME="irssi-icb"
++
++srcdir=`dirname $0`
++test -z "$srcdir" &amp;&amp; srcdir=.
++
++if test ! -f $srcdir/configure.in; then
++    echo -n "**Error**: Directory \`$srcdir\' does not look like the"
++    echo " top-level $PKG_NAME directory"
++    exit 1
++fi
++
++# get versions
++version_date=`date +%Y%m%d`
++
++echo "Checking auto* tools..."
++
++# *********** a bit modified GNOME's macros/autogen.sh **********
++DIE=0
++
++(autoconf --version) &lt; /dev/null &gt; /dev/null 2&gt;&amp;1 || {
++  echo
++  echo "**Error**: You must have \`autoconf' installed to compile $PKG_NAME."
++  echo "Download the appropriate package for your distribution,"
++  echo "or get the source tarball at ftp://ftp.gnu.org/pub/gnu/"
++  DIE=1
++}
++
++(grep "^AM_PROG_LIBTOOL" $srcdir/configure.in &gt;/dev/null) &amp;&amp; {
++  (libtool --version) &lt; /dev/null &gt; /dev/null 2&gt;&amp;1 || {
++    echo
++    echo "**Error**: You must have \`libtool' installed to compile $PKG_NAME."
++    echo "Get ftp://ftp.gnu.org/pub/gnu/libtool-1.2d.tar.gz"
++    echo "(or a newer version if it is available)"
++    DIE=1
++  }
++}
++
++(automake --version) &lt; /dev/null &gt; /dev/null 2&gt;&amp;1 || {
++  echo
++  echo "**Error**: You must have \`automake' installed to compile $PKG_NAME."
++  echo "Get ftp://ftp.gnu.org/pub/gnu/automake-1.3.tar.gz"
++  echo "(or a newer version if it is available)"
++  DIE=1
++  NO_AUTOMAKE=yes
++}
++
++
++# if no automake, don't bother testing for aclocal
++test -n "$NO_AUTOMAKE" || (aclocal --version) &lt; /dev/null &gt; /dev/null 2&gt;&amp;1 || {
++  echo
++  echo "**Error**: Missing \`aclocal'.  The version of \`automake'"
++  echo "installed doesn't appear recent enough."
++  echo "Get ftp://ftp.gnu.org/pub/gnu/automake-1.3.tar.gz"
++  echo "(or a newer version if it is available)"
++  DIE=1
++}
++
++if test "$DIE" -eq 1; then
++  exit 1
++fi
++
++if test -z "$*"; then
++  echo "**Warning**: I am going to run \`configure' with no arguments."
++  echo "If you wish to pass any to it, please specify them on the"
++  echo "\`$0\' command line."
++  echo
++fi
++
++case $CC in
++xlc )
++  am_opt=--include-deps;;
++esac
++
++rm -f aclocal.m4 glib.m4 glib-2.0.m4
++if grep "^AM_PROG_LIBTOOL" configure.in &gt;/dev/null; then
++  echo "Running libtoolize..."
++  libtoolize --force --copy
++fi
++aclocalinclude="$ACLOCAL_FLAGS -I ."
++echo "Running aclocal $aclocalinclude ..."
++
++# see if we don't have glib.m4 or glib-2.0.m4 there yet
++error=`aclocal $aclocalinclude 2&gt;&amp;1`
++if test "x`echo $error|grep 'AM_PATH_GLIB[^_]'`" != "x"; then
++  cp glib.m4_ glib.m4
++  error=`aclocal $aclocalinclude 2&gt;&amp;1`
++fi
++if test "x`echo $error|grep AM_PATH_GLIB_2_0`" != "x"; then
++  cp glib-2.0.m4_ glib-2.0.m4
++fi
++
++aclocal $aclocalinclude
++
++# aclocal for some reason doesn't complain about glib2, so we still need
++# to check it later again..
++if grep "^AC_DEFUN.AM_PATH_GLIB_2_0" aclocal.m4 &gt;/dev/null; then :;
++else
++  cp glib-2.0.m4_ glib-2.0.m4
++  aclocal $aclocalinclude
++fi
++
++if grep "^AM_CONFIG_HEADER" configure.in &gt;/dev/null; then
++  echo "Running autoheader..."
++  autoheader
++fi
++echo "Running autoconf ..."
+ autoconf
+-automake --add-missing
++echo "Running automake --gnu $am_opt ..."
++automake --add-missing --gnu $am_opt
++
++conf_flags="" #--enable-iso-c
++
++if test x$NOCONFIGURE = x; then
++  echo Running $srcdir/configure $conf_flags "$@" ...
++  $srcdir/configure $conf_flags "$@" \
++  &amp;&amp; echo "Now type \`make\' to compile $PKG_NAME" || exit 1
++else
++  echo "Skipping configure process."
++fi
+
+["glib.m4_" (text/plain)]
+
+# Configure paths for GLIB
+# Owen Taylor     97-11-3
+
+dnl AM_PATH_GLIB([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND [, \
+MODULES]]]]) dnl Test for GLIB, and define GLIB_CFLAGS and GLIB_LIBS, if "gmodule" or \
+ dnl gthread is specified in MODULES, pass to glib-config
+dnl
+AC_DEFUN(AM_PATH_GLIB,
+[dnl 
+dnl Get the cflags and libraries from the glib-config script
+dnl
+AC_ARG_WITH(glib-prefix,[  --with-glib-prefix=PFX   Prefix where GLIB is installed \
+(optional)],  glib_config_prefix="$withval", glib_config_prefix="")
+AC_ARG_WITH(glib-exec-prefix,[  --with-glib-exec-prefix=PFX Exec prefix where GLIB is \
+                installed (optional)],
+            glib_config_exec_prefix="$withval", glib_config_exec_prefix="")
+AC_ARG_ENABLE(glibtest, [  --disable-glibtest       Do not try to compile and run a \
+test GLIB program],  , enable_glibtest=yes)
+
+  if test x$glib_config_exec_prefix != x ; then
+     glib_config_args="$glib_config_args --exec-prefix=$glib_config_exec_prefix"
+     if test x${GLIB_CONFIG+set} != xset ; then
+        GLIB_CONFIG=$glib_config_exec_prefix/bin/glib-config
+     fi
+  fi
+  if test x$glib_config_prefix != x ; then
+     glib_config_args="$glib_config_args --prefix=$glib_config_prefix"
+     if test x${GLIB_CONFIG+set} != xset ; then
+        GLIB_CONFIG=$glib_config_prefix/bin/glib-config
+     fi
+  fi
+
+  for module in . $4
+  do
+      case "$module" in
+         gmodule) 
+             glib_config_args="$glib_config_args gmodule"
+         ;;
+         gthread) 
+             glib_config_args="$glib_config_args gthread"
+         ;;
+      esac
+  done
+
+  AC_PATH_PROG(GLIB_CONFIG, glib-config, no)
+  min_glib_version=ifelse([$1], ,0.99.7,$1)
+  AC_MSG_CHECKING(for GLIB - version &gt;= $min_glib_version)
+  no_glib=""
+  if test "$GLIB_CONFIG" = "no" ; then
+    no_glib=yes
+  else
+    GLIB_CFLAGS=`$GLIB_CONFIG $glib_config_args --cflags`
+    GLIB_LIBS=`$GLIB_CONFIG $glib_config_args --libs`
+    glib_config_major_version=`$GLIB_CONFIG $glib_config_args --version | \
+           sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
+    glib_config_minor_version=`$GLIB_CONFIG $glib_config_args --version | \
+           sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
+    glib_config_micro_version=`$GLIB_CONFIG $glib_config_args --version | \
+           sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
+    if test "x$enable_glibtest" = "xyes" ; then
+      ac_save_CFLAGS="$CFLAGS"
+      ac_save_LIBS="$LIBS"
+      CFLAGS="$CFLAGS $GLIB_CFLAGS"
+      LIBS="$GLIB_LIBS $LIBS"
+dnl
+dnl Now check if the installed GLIB is sufficiently new. (Also sanity
+dnl checks the results of glib-config to some extent
+dnl
+      rm -f conf.glibtest
+      AC_TRY_RUN([
+#include &lt;glib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int 
+main ()
+{
+  int major, minor, micro;
+  char *tmp_version;
+
+  system ("touch conf.glibtest");
+
+  /* HP/UX 9 (%@#!) writes to sscanf strings */
+  tmp_version = g_strdup("$min_glib_version");
+  if (sscanf(tmp_version, "%d.%d.%d", &amp;major, &amp;minor, µ) != 3) {
+     printf("%s, bad version string\n", "$min_glib_version");
+     exit(1);
+   }
+
+  if ((glib_major_version != $glib_config_major_version) ||
+      (glib_minor_version != $glib_config_minor_version) ||
+      (glib_micro_version != $glib_config_micro_version))
+    {
+      printf("\n*** 'glib-config --version' returned %d.%d.%d, but GLIB \
+                (%d.%d.%d)\n", 
+             $glib_config_major_version, $glib_config_minor_version, \
+$glib_config_micro_version,  glib_major_version, glib_minor_version, \
+                glib_micro_version);
+      printf ("*** was found! If glib-config was correct, then it is best\n");
+      printf ("*** to remove the old version of GLIB. You may also be able to fix the \
+                error\n");
+      printf("*** by modifying your LD_LIBRARY_PATH enviroment variable, or by \
+                editing\n");
+      printf("*** /etc/ld.so.conf. Make sure you have run ldconfig if that is\n");
+      printf("*** required on your system.\n");
+      printf("*** If glib-config was wrong, set the environment variable \
+                GLIB_CONFIG\n");
+      printf("*** to point to the correct copy of glib-config, and remove the file \
+config.cache\n");  printf("*** before re-running configure\n");
+    } 
+  else if ((glib_major_version != GLIB_MAJOR_VERSION) ||
+	   (glib_minor_version != GLIB_MINOR_VERSION) ||
+           (glib_micro_version != GLIB_MICRO_VERSION))
+    {
+      printf("*** GLIB header files (version %d.%d.%d) do not match\n",
+	     GLIB_MAJOR_VERSION, GLIB_MINOR_VERSION, GLIB_MICRO_VERSION);
+      printf("*** library (version %d.%d.%d)\n",
+	     glib_major_version, glib_minor_version, glib_micro_version);
+    }
+  else
+    {
+      if ((glib_major_version &gt; major) ||
+        ((glib_major_version == major) &amp;&amp; (glib_minor_version &gt; minor)) ||
+        ((glib_major_version == major) &amp;&amp; (glib_minor_version == minor) &amp;&amp; \
+(glib_micro_version &gt;= micro)))  {
+        return 0;
+       }
+     else
+      {
+        printf("\n*** An old version of GLIB (%d.%d.%d) was found.\n",
+               glib_major_version, glib_minor_version, glib_micro_version);
+        printf("*** You need a version of GLIB newer than %d.%d.%d. The latest \
+version of\n",  major, minor, micro);
+        printf("*** GLIB is always available from ftp://ftp.gtk.org.\n");
+        printf("***\n");
+        printf("*** If you have already installed a sufficiently new version, this \
+                error\n");
+        printf("*** probably means that the wrong copy of the glib-config shell \
+                script is\n");
+        printf("*** being found. The easiest way to fix this is to remove the old \
+                version\n");
+        printf("*** of GLIB, but you can also set the GLIB_CONFIG environment to \
+                point to the\n");
+        printf("*** correct copy of glib-config. (In this case, you will have to\n");
+        printf("*** modify your LD_LIBRARY_PATH enviroment variable, or edit \
+                /etc/ld.so.conf\n");
+        printf("*** so that the correct libraries are found at run-time))\n");
+      }
+    }
+  return 1;
+}
+],, no_glib=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
+       CFLAGS="$ac_save_CFLAGS"
+       LIBS="$ac_save_LIBS"
+     fi
+  fi
+  if test "x$no_glib" = x ; then
+     AC_MSG_RESULT(yes)
+     ifelse([$2], , :, [$2])     
+  else
+     AC_MSG_RESULT(no)
+     if test "$GLIB_CONFIG" = "no" ; then
+       echo "*** The glib-config script installed by GLIB could not be found"
+       echo "*** If GLIB was installed in PREFIX, make sure PREFIX/bin is in"
+       echo "*** your path, or set the GLIB_CONFIG environment variable to the"
+       echo "*** full path to glib-config."
+     else
+       if test -f conf.glibtest ; then
+        :
+       else
+          echo "*** Could not run GLIB test program, checking why..."
+          CFLAGS="$CFLAGS $GLIB_CFLAGS"
+          LIBS="$LIBS $GLIB_LIBS"
+          AC_TRY_LINK([
+#include &lt;glib.h&gt;
+#include &lt;stdio.h&gt;
+],      [ return ((glib_major_version) || (glib_minor_version) || \
+                (glib_micro_version)); ],
+        [ echo "*** The test program compiled, but did not run. This usually means"
+          echo "*** that the run-time linker is not finding GLIB or finding the \
+                wrong"
+          echo "*** version of GLIB. If it is not finding GLIB, you'll need to set \
+                your"
+          echo "*** LD_LIBRARY_PATH environment variable, or edit /etc/ld.so.conf to \
+                point"
+          echo "*** to the installed location  Also, make sure you have run ldconfig \
+if that"  echo "*** is required on your system"
+	  echo "***"
+          echo "*** If you have an old version installed, it is best to remove it, \
+                although"
+          echo "*** you may also be able to get things to work by modifying \
+LD_LIBRARY_PATH"  echo "***"
+          echo "*** If you have a RedHat 5.0 system, you should remove the GTK \
+package that"  echo "*** came with the system with the command"
+          echo "***"
+          echo "***    rpm --erase --nodeps gtk gtk-devel" ],
+        [ echo "*** The test program failed to compile or link. See the file \
+                config.log for the"
+          echo "*** exact error that occured. This usually means GLIB was incorrectly \
+                installed"
+          echo "*** or that you have moved GLIB since it was installed. In the latter \
+                case, you"
+          echo "*** may want to edit the glib-config script: $GLIB_CONFIG" ])
+          CFLAGS="$ac_save_CFLAGS"
+          LIBS="$ac_save_LIBS"
+       fi
+     fi
+     GLIB_CFLAGS=""
+     GLIB_LIBS=""
+     ifelse([$3], , :, [$3])
+  fi
+  AC_SUBST(GLIB_CFLAGS)
+  AC_SUBST(GLIB_LIBS)
+  rm -f conf.glibtest
+])
+
+
+["glib-2.0.m4_" (text/plain)]
+
+# Configure paths for GLIB
+# Owen Taylor     1997-2001
+
+dnl AM_PATH_GLIB_2_0([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND [, \
+MODULES]]]]) dnl Test for GLIB, and define GLIB_CFLAGS and GLIB_LIBS, if gmodule, \
+gobject or  dnl gthread is specified in MODULES, pass to pkg-config
+dnl
+AC_DEFUN(AM_PATH_GLIB_2_0,
+[dnl 
+dnl Get the cflags and libraries from pkg-config
+dnl
+AC_ARG_ENABLE(glibtest, [  --disable-glibtest      do not try to compile and run a \
+test GLIB program],  , enable_glibtest=yes)
+
+  pkg_config_args=glib-2.0
+  for module in . $4
+  do
+      case "$module" in
+         gmodule) 
+             pkg_config_args="$pkg_config_args gmodule-2.0"
+         ;;
+         gobject) 
+             pkg_config_args="$pkg_config_args gobject-2.0"
+         ;;
+         gthread) 
+             pkg_config_args="$pkg_config_args gthread-2.0"
+         ;;
+      esac
+  done
+
+  AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
+
+  no_glib=""
+
+  if test x$PKG_CONFIG != xno ; then
+    if $PKG_CONFIG --atleast-pkgconfig-version 0.7 ; then
+      :
+    else
+      echo *** pkg-config too old; version 0.7 or better required.
+      no_glib=yes
+      PKG_CONFIG=no
+    fi
+  else
+    no_glib=yes
+  fi
+
+  min_glib_version=ifelse([$1], ,2.0.0,$1)
+  AC_MSG_CHECKING(for GLIB - version &gt;= $min_glib_version)
+
+  if test x$PKG_CONFIG != xno ; then
+    ## don't try to run the test against uninstalled libtool libs
+    if $PKG_CONFIG --uninstalled $pkg_config_args; then
+	  echo "Will use uninstalled version of GLib found in PKG_CONFIG_PATH"
+	  enable_glibtest=no
+    fi
+
+    if $PKG_CONFIG --atleast-version $min_glib_version $pkg_config_args; then
+	  :
+    else
+	  no_glib=yes
+    fi
+  fi
+
+  if test x"$no_glib" = x ; then
+    GLIB_GENMARSHAL=`$PKG_CONFIG --variable=glib_genmarshal glib-2.0`
+    GOBJECT_QUERY=`$PKG_CONFIG --variable=gobject_query glib-2.0`
+    GLIB_MKENUMS=`$PKG_CONFIG --variable=glib_mkenums glib-2.0`
+
+    GLIB_CFLAGS=`$PKG_CONFIG --cflags $pkg_config_args`
+    GLIB_LIBS=`$PKG_CONFIG --libs $pkg_config_args`
+    glib_config_major_version=`$PKG_CONFIG --modversion glib-2.0 | \
+           sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
+    glib_config_minor_version=`$PKG_CONFIG --modversion glib-2.0 | \
+           sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
+    glib_config_micro_version=`$PKG_CONFIG --modversion glib-2.0 | \
+           sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
+    if test "x$enable_glibtest" = "xyes" ; then
+      ac_save_CFLAGS="$CFLAGS"
+      ac_save_LIBS="$LIBS"
+      CFLAGS="$CFLAGS $GLIB_CFLAGS"
+      LIBS="$GLIB_LIBS $LIBS"
+dnl
+dnl Now check if the installed GLIB is sufficiently new. (Also sanity
+dnl checks the results of pkg-config to some extent)
+dnl
+      rm -f conf.glibtest
+      AC_TRY_RUN([
+#include &lt;glib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int 
+main ()
+{
+  int major, minor, micro;
+  char *tmp_version;
+
+  system ("touch conf.glibtest");
+
+  /* HP/UX 9 (%@#!) writes to sscanf strings */
+  tmp_version = g_strdup("$min_glib_version");
+  if (sscanf(tmp_version, "%d.%d.%d", &amp;major, &amp;minor, µ) != 3) {
+     printf("%s, bad version string\n", "$min_glib_version");
+     exit(1);
+   }
+
+  if ((glib_major_version != $glib_config_major_version) ||
+      (glib_minor_version != $glib_config_minor_version) ||
+      (glib_micro_version != $glib_config_micro_version))
+    {
+      printf("\n*** 'pkg-config --modversion glib-2.0' returned %d.%d.%d, but GLIB \
+                (%d.%d.%d)\n", 
+             $glib_config_major_version, $glib_config_minor_version, \
+$glib_config_micro_version,  glib_major_version, glib_minor_version, \
+                glib_micro_version);
+      printf ("*** was found! If pkg-config was correct, then it is best\n");
+      printf ("*** to remove the old version of GLib. You may also be able to fix the \
+                error\n");
+      printf("*** by modifying your LD_LIBRARY_PATH enviroment variable, or by \
+                editing\n");
+      printf("*** /etc/ld.so.conf. Make sure you have run ldconfig if that is\n");
+      printf("*** required on your system.\n");
+      printf("*** If pkg-config was wrong, set the environment variable \
+PKG_CONFIG_PATH\n");  printf("*** to point to the correct configuration files\n");
+    } 
+  else if ((glib_major_version != GLIB_MAJOR_VERSION) ||
+	   (glib_minor_version != GLIB_MINOR_VERSION) ||
+           (glib_micro_version != GLIB_MICRO_VERSION))
+    {
+      printf("*** GLIB header files (version %d.%d.%d) do not match\n",
+	     GLIB_MAJOR_VERSION, GLIB_MINOR_VERSION, GLIB_MICRO_VERSION);
+      printf("*** library (version %d.%d.%d)\n",
+	     glib_major_version, glib_minor_version, glib_micro_version);
+    }
+  else
+    {
+      if ((glib_major_version &gt; major) ||
+        ((glib_major_version == major) &amp;&amp; (glib_minor_version &gt; minor)) ||
+        ((glib_major_version == major) &amp;&amp; (glib_minor_version == minor) &amp;&amp; \
+(glib_micro_version &gt;= micro)))  {
+        return 0;
+       }
+     else
+      {
+        printf("\n*** An old version of GLIB (%d.%d.%d) was found.\n",
+               glib_major_version, glib_minor_version, glib_micro_version);
+        printf("*** You need a version of GLIB newer than %d.%d.%d. The latest \
+version of\n",  major, minor, micro);
+        printf("*** GLIB is always available from ftp://ftp.gtk.org.\n");
+        printf("***\n");
+        printf("*** If you have already installed a sufficiently new version, this \
+                error\n");
+        printf("*** probably means that the wrong copy of the pkg-config shell script \
+                is\n");
+        printf("*** being found. The easiest way to fix this is to remove the old \
+                version\n");
+        printf("*** of GLIB, but you can also set the PKG_CONFIG environment to point \
+                to the\n");
+        printf("*** correct copy of pkg-config. (In this case, you will have to\n");
+        printf("*** modify your LD_LIBRARY_PATH enviroment variable, or edit \
+                /etc/ld.so.conf\n");
+        printf("*** so that the correct libraries are found at run-time))\n");
+      }
+    }
+  return 1;
+}
+],, no_glib=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
+       CFLAGS="$ac_save_CFLAGS"
+       LIBS="$ac_save_LIBS"
+     fi
+  fi
+  if test "x$no_glib" = x ; then
+     AC_MSG_RESULT(yes (version \
+$glib_config_major_version.$glib_config_minor_version.$glib_config_micro_version))  \
+ifelse([$2], , :, [$2])       else
+     AC_MSG_RESULT(no)
+     if test "$PKG_CONFIG" = "no" ; then
+       echo "*** A new enough version of pkg-config was not found."
+       echo "*** See http://www.freedesktop.org/software/pkgconfig/"
+     else
+       if test -f conf.glibtest ; then
+        :
+       else
+          echo "*** Could not run GLIB test program, checking why..."
+          CFLAGS="$CFLAGS $GLIB_CFLAGS"
+          LIBS="$LIBS $GLIB_LIBS"
+          AC_TRY_LINK([
+#include &lt;glib.h&gt;
+#include &lt;stdio.h&gt;
+],      [ return ((glib_major_version) || (glib_minor_version) || \
+                (glib_micro_version)); ],
+        [ echo "*** The test program compiled, but did not run. This usually means"
+          echo "*** that the run-time linker is not finding GLIB or finding the \
+                wrong"
+          echo "*** version of GLIB. If it is not finding GLIB, you'll need to set \
+                your"
+          echo "*** LD_LIBRARY_PATH environment variable, or edit /etc/ld.so.conf to \
+                point"
+          echo "*** to the installed location  Also, make sure you have run ldconfig \
+if that"  echo "*** is required on your system"
+	  echo "***"
+          echo "*** If you have an old version installed, it is best to remove it, \
+                although"
+          echo "*** you may also be able to get things to work by modifying \
+                LD_LIBRARY_PATH" ],
+        [ echo "*** The test program failed to compile or link. See the file \
+                config.log for the"
+          echo "*** exact error that occured. This usually means GLIB was incorrectly \
+                installed"
+          echo "*** or that you have moved GLIB since it was installed. In the latter \
+                case, you"
+          echo "*** may want to edit the pkg-config script: $PKG_CONFIG" ])
+          CFLAGS="$ac_save_CFLAGS"
+          LIBS="$ac_save_LIBS"
+       fi
+     fi
+     GLIB_CFLAGS=""
+     GLIB_LIBS=""
+     GLIB_GENMARSHAL=""
+     GOBJECT_QUERY=""
+     GLIB_MKENUMS=""
+     ifelse([$3], , :, [$3])
+  fi
+  AC_SUBST(GLIB_CFLAGS)
+  AC_SUBST(GLIB_LIBS)
+  AC_SUBST(GLIB_GENMARSHAL)
+  AC_SUBST(GOBJECT_QUERY)
+  AC_SUBST(GLIB_MKENUMS)
+  rm -f conf.glibtest
+])
+
+
+
+</body></email><email><emailId>20050606224054</emailId><senderName>Matt Dunford</senderName><senderEmail>zoot@zotikos.com</senderEmail><timestampReceived>2005-06-06 22:40:54-0400</timestampReceived><subject>irssi-icb patch: misc bugs</subject><body>
+
+Hi,
+
+I've fixed two bugs that have been annoying me in the icb plugin:
+1) the name of the person beeping you doesn't appear.
+2) "/nick newnick" changes your nick, but doesn't update the statusbar.
+
+This patch is against the svn irssi-icb module:
+
+Index: src/fe-common/module-formats.c
+===================================================================
+--- src/fe-common/module-formats.c	(revision 3757)
++++ src/fe-common/module-formats.c	(working copy)
+@@ -30,7 +30,7 @@
+ 	{ "status", "[$0] $1", 2, { 0, 0 } },
+ 	{ "important", "[$0!] $1", 2, { 0, 0 } },
+ 	{ "status", "{error [Error]} $0", 1, { 0 } },
+-	{ "beep", "[beep] $1 beeps you", 1, { 0 } },
++	{ "beep", "[beep] $0 beeps you", 1, { 0 } },
+ 
+ 	{ NULL, NULL, 0 }
+ };
+Index: src/fe-common/fe-icb.c
+===================================================================
+--- src/fe-common/fe-icb.c	(revision 3757)
++++ src/fe-common/fe-icb.c	(working copy)
+@@ -24,6 +24,7 @@
+ #include "commands.h"
+ #include "servers-setup.h"
+ #include "levels.h"
++#include "nicklist.h"
+ 
+ #include "icb.h"
+ #include "icb-servers.h"
+@@ -36,12 +37,27 @@
+ static void event_status(ICB_SERVER_REC *server, const char *data)
+ {
+ 	char **args;
++	int len;
++	char *newnick;
+ 
+ 	/* FIXME: status messages should probably divided into their own
+ 	   signals so irssi could track joins, parts, etc. */
+ 	args = icb_split(data, 2);
+ 	printformat(server, server-&gt;group-&gt;name, MSGLEVEL_CRAP,
+ 		    ICBTXT_STATUS, args[0], args[1]);
++
++	len = strlen("Name");
++	if (strncmp(args[0],"Name",len) == 0) {
++
++		newnick = strrchr(args[1], ' ');
++		if (newnick != NULL) {
++			newnick++;  /* skip the space */
++
++			server_change_nick(SERVER(server), newnick);
++			nicklist_rename(SERVER(server), server-&gt;connrec-&gt;nick, newnick);
++		}
++	}
++
+         icb_split_free(args);
+ }
+ 
+
+
+</body></email><email><emailId>20050606234740</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2005-06-06 23:47:40-0400</timestampReceived><subject>Re: irssi-icb patch: updating README</subject><body>
+
+On 2005-06-06 16:01:56 -0700, Matt Dunford wrote:
+&gt; Date: Mon, 6 Jun 2005 16:01:56 -0700
+&gt; From: Matt Dunford &lt;zoot@zotikos.com&gt;
+&gt; Subject: irssi-icb patch: updating README
+&gt; To: irssi-dev@dragoncat.net
+&gt; Mail-Followup-To: Matt Dunford &lt;zoot@zotikos.com&gt;, irssi-dev@dragoncat.net
+&gt; 
+&gt; Hi,
+&gt; 
+&gt; +You'll also need to add to your startup file:
+&gt; +
+&gt; + /LOAD icb
+&gt; +
+
+startup file doesnt need a leading command char
+
+darix
+
+</body></email><email><emailId>20050609045258</emailId><senderName>Jesper Rosenkilde</senderName><senderEmail>gloin@anarki.dk</senderEmail><timestampReceived>2005-06-09 04:52:58-0400</timestampReceived><subject>patch</subject><body>
+
+Hi,
+I've included a patch which allows "hilight" to be ircnet specific.
+Feed-back would be appreciated since this is my first irssi patch :)
+
+Ragards,
+Jesper B. Rosenkilde
+
+["irssi-0.8.10-rc5-hilight-chatnet.patch" (text/x-patch)]
+
+--- irssi-orig/src/fe-common/core/hilight-text.h	2004-10-06 18:25:34.000000000 +0200
++++ irssi/src/fe-common/core/hilight-text.h	2005-06-09 06:03:04.079968320 +0200
+@@ -13,6 +13,7 @@
+ 	char *text;
+ 
+ 	char **channels; /* if non-NULL, check the text only from these channels */
++	char **ircnets; /* if non-NULL, check the text only from these ircnets */
+ 	int level; /* match only messages with this level, 0=default */
+ 	char *color; /* if starts with number, \003 is automatically
+ 	                inserted before it. */
+--- irssi-orig/src/fe-common/core/hilight-text.c	2004-10-06 18:25:34.000000000 +0200
++++ irssi/src/fe-common/core/hilight-text.c	2005-06-09 06:25:02.956468616 +0200
+@@ -57,7 +57,7 @@
+ 
+ static void hilight_add_config(HILIGHT_REC *rec)
+ {
+-	CONFIG_NODE *node;
++	CONFIG_NODE *node, *node_temp;
+ 
+ 	g_return_if_fail(rec != NULL);
+ 
+@@ -76,8 +76,13 @@
+         if (rec-&gt;regexp) iconfig_node_set_bool(node, "regexp", TRUE);
+ 
+ 	if (rec-&gt;channels != NULL &amp;&amp; *rec-&gt;channels != NULL) {
+-		node = config_node_section(node, "channels", NODE_TYPE_LIST);
+-		iconfig_node_add_list(node, rec-&gt;channels);
++		node_temp = config_node_section(node, "channels", NODE_TYPE_LIST);
++		iconfig_node_add_list(node_temp, rec-&gt;channels);
++	}
++	
++	if (rec-&gt;ircnets != NULL &amp;&amp; *rec-&gt;ircnets != NULL) {
++	        node_temp = config_node_section(node, "ircnets", NODE_TYPE_LIST);
++		iconfig_node_add_list(node_temp, rec-&gt;ircnets);
+ 	}
+ }
+ 
+@@ -99,6 +104,7 @@
+ 	if (rec-&gt;regexp_compiled) regfree(&amp;rec-&gt;preg);
+ #endif
+ 	if (rec-&gt;channels != NULL) g_strfreev(rec-&gt;channels);
++	if (rec-&gt;ircnets != NULL) g_strfreev(rec-&gt;ircnets);
+ 	g_free_not_null(rec-&gt;color);
+ 	g_free_not_null(rec-&gt;act_color);
+ 	g_free(rec-&gt;text);
+@@ -147,11 +153,11 @@
+ 	hilight_destroy(rec);
+ }
+ 
+-static HILIGHT_REC *hilight_find(const char *text, char **channels)
++static HILIGHT_REC *hilight_find(const char *text, char **channels, char **ircnets)
+ {
+ 	GSList *tmp;
+-	char **chan;
+-
++	char **chan, **ircn;
++	
+ 	g_return_val_if_fail(text != NULL, NULL);
+ 
+ 	for (tmp = hilights; tmp != NULL; tmp = tmp-&gt;next) {
+@@ -160,26 +166,45 @@
+ 		if (g_strcasecmp(rec-&gt;text, text) != 0)
+ 			continue;
+ 
+-		if ((channels == NULL &amp;&amp; rec-&gt;channels == NULL))
+-			return rec; /* no channels - ok */
+-
+-		if (channels != NULL &amp;&amp; strcmp(*channels, "*") == 0)
+-			return rec; /* ignore channels */
++		if ((channels == NULL &amp;&amp; rec-&gt;channels == NULL) &amp;&amp; (ircnets == NULL &amp;&amp; \
+rec-&gt;channels == NULL)) +			return rec; /* no channels or ircnets - ok */
+ 
+-		if (channels == NULL || rec-&gt;channels == NULL)
+-			continue; /* other doesn't have channels */
++		if ((channels != NULL &amp;&amp; strcmp(*channels, "*") == 0) &amp;&amp; (ircnets != NULL &amp;&amp; \
+strcmp(*ircnets, "*") == 0)) +			return rec; /* ignore channels and ircnets */
+ 
+-		if (strarray_length(channels) != strarray_length(rec-&gt;channels))
+-			continue; /* different amount of channels */
+-
+-		/* check that channels match */
+-		for (chan = channels; *chan != NULL; chan++) {
+-			if (strarray_find(rec-&gt;channels, *chan) == -1)
+-                                break;
++		if (channels) {
++			if  ((rec-&gt;channels != NULL) ||
++			   (strarray_length(channels) == strarray_length(rec-&gt;channels))) {
++				for (chan = channels; *chan != NULL; chan++) {
++					if (strarray_find(rec-&gt;channels, *chan) == -1)
++						break; /* a channel didn't match - break */
++				}
++			}
++		}
++		
++		if (ircnets) {
++			if ((rec-&gt;ircnets != NULL) || 
++			    (strarray_length(ircnets) == strarray_length(rec-&gt;ircnets))) {
++				for (ircn = ircnets; *ircn != NULL; ircn++) {
++					if (strarray_find(rec-&gt;ircnets, *ircn) == -1)
++						break; /* no ircnet match - break */
++				}
++			} else
++				continue;
+ 		}
+ 
+-		if (*chan == NULL)
+-			return rec; /* channels ok */
++		if (channels &amp;&amp; ircnets) {
++			if (*chan == NULL &amp;&amp; *ircn == NULL)
++				return rec; /* channels and ircnets ok */
++		} 
++		else if (channels &amp;&amp; !ircnets) {
++			if (*chan == NULL) 
++				return rec; /* channels ok */
++		}
++		else if (!channels &amp;&amp; ircnets) {
++			if(*ircn == NULL)
++				return rec; /* ircnets ok */
++		}
+ 	}
+ 
+ 	return NULL;
+@@ -227,6 +252,10 @@
+ 	((rec)-&gt;channels == NULL || ((channel) != NULL &amp;&amp; \
+ 		strarray_find((rec)-&gt;channels, (channel)) != -1))
+ 
++#define hilight_match_ircnet(rec, ircnet) \
++        ((rec)-&gt;ircnets == NULL || ((ircnet) != NULL &amp;&amp; \
++                strarray_find((rec)-&gt;ircnets, (ircnet)) != -1))
++
+ HILIGHT_REC *hilight_match(SERVER_REC *server, const char *channel,
+ 			   const char *nick, const char *address,
+ 			   int level, const char *str,
+@@ -235,6 +264,7 @@
+ 	GSList *tmp;
+         CHANNEL_REC *chanrec;
+ 	NICK_REC *nickrec;
++	char *ircnet;
+ 
+ 	g_return_val_if_fail(str != NULL, NULL);
+ 
+@@ -258,11 +288,14 @@
+ 		}
+ 	}
+ 
++	ircnet = server != NULL ? server-&gt;tag : NULL;
++
+ 	for (tmp = hilights; tmp != NULL; tmp = tmp-&gt;next) {
+ 		HILIGHT_REC *rec = tmp-&gt;data;
+ 
+ 		if (!rec-&gt;nickmask &amp;&amp; hilight_match_level(rec, level) &amp;&amp;
+ 		    hilight_match_channel(rec, channel) &amp;&amp;
++		    hilight_match_ircnet(rec, ircnet) &amp;&amp;
+ 		    hilight_match_text(rec, str, match_beg, match_end))
+ 			return rec;
+ 	}
+@@ -413,7 +446,7 @@
+ 
+ static void read_hilight_config(void)
+ {
+-	CONFIG_NODE *node;
++	CONFIG_NODE *node, *node_tmp;
+ 	HILIGHT_REC *rec;
+ 	GSList *tmp;
+ 	char *text, *color;
+@@ -461,8 +494,11 @@
+ 
+ 		hilight_init_rec(rec);
+ 
+-		node = config_node_section(node, "channels", -1);
+-		if (node != NULL) rec-&gt;channels = config_node_get_list(node);
++		node_tmp = config_node_section(node, "channels", -1);
++		if (node_tmp != NULL) rec-&gt;channels = config_node_get_list(node_tmp);
++
++		node_tmp = config_node_section(node, "ircnets", -1);
++		if (node_tmp != NULL) rec-&gt;ircnets = config_node_get_list(node_tmp);
+ 	}
+ 
+         reset_cache();
+@@ -470,7 +506,7 @@
+ 
+ static void hilight_print(int index, HILIGHT_REC *rec)
+ {
+-	char *chans, *levelstr;
++	char *chans, *ircn, *levelstr;
+ 	GString *options;
+ 
+ 	options = g_string_new(NULL);
+@@ -498,14 +534,18 @@
+ 
+ 	chans = rec-&gt;channels == NULL ? NULL :
+ 		g_strjoinv(",", rec-&gt;channels);
++	ircn = rec-&gt;ircnets == NULL ? NULL :
++		g_strjoinv(",", rec-&gt;ircnets);
+ 	levelstr = rec-&gt;level == 0 ? NULL :
+ 		bits2level(rec-&gt;level);
+ 	printformat(NULL, NULL, MSGLEVEL_CLIENTCRAP,
+ 		    TXT_HILIGHT_LINE, index, rec-&gt;text,
++		    ircn != NULL ? ircn : "",
+ 		    chans != NULL ? chans : "",
+ 		    levelstr != NULL ? levelstr : "",
+ 		    options-&gt;str);
+ 	g_free_not_null(chans);
++	g_free_not_null(ircn);
+ 	g_free_not_null(levelstr);
+ 	g_string_free(options, TRUE);
+ }
+@@ -527,13 +567,15 @@
+ 
+ /* SYNTAX: HILIGHT [-nick | -word | -line] [-mask | -full | -regexp]
+                    [-color &lt;color&gt;] [-actcolor &lt;color&gt;] [-level &lt;level&gt;]
+-		   [-channels &lt;channels&gt;] &lt;text&gt; */
++		   [-channels &lt;channels&gt;] [-ircnets &lt;ircnets&gt;] &lt;text&gt; */
+ static void cmd_hilight(const char *data)
+ {
+         GHashTable *optlist;
+ 	HILIGHT_REC *rec;
+-	char *colorarg, *actcolorarg, *levelarg, *priorityarg, *chanarg, *text;
++	char *colorarg, *actcolorarg, *levelarg, *priorityarg, *chanarg, 
++	     *ircnetarg,*text;
+ 	char **channels;
++	char **ircnets;
+ 	void *free_arg;
+ 
+ 	g_return_if_fail(data != NULL);
+@@ -548,6 +590,7 @@
+ 		return;
+ 
+ 	chanarg = g_hash_table_lookup(optlist, "channels");
++	ircnetarg = g_hash_table_lookup(optlist, "ircnets");
+ 	levelarg = g_hash_table_lookup(optlist, "level");
+ 	priorityarg = g_hash_table_lookup(optlist, "priority");
+ 	colorarg = g_hash_table_lookup(optlist, "color");
+@@ -558,7 +601,11 @@
+ 	channels = (chanarg == NULL || *chanarg == '\0') ? NULL :
+ 		g_strsplit(replace_chars(chanarg, ',', ' '), " ", -1);
+ 
+-	rec = hilight_find(text, channels);
++	ircnets = (ircnetarg == NULL || *ircnetarg == '\0') ? NULL :
++		g_strsplit(replace_chars(ircnetarg, ',', ' '), " ", -1);
++
++
++	rec = hilight_find(text, channels, ircnets);
+ 	if (rec == NULL) {
+ 		rec = g_new0(HILIGHT_REC, 1);
+ 
+@@ -568,8 +615,10 @@
+ 
+ 		rec-&gt;text = g_strdup(text);
+ 		rec-&gt;channels = channels;
++		rec-&gt;ircnets = ircnets;
+ 	} else {
+ 		g_strfreev(channels);
++		g_strfreev(ircnets);
+ 	}
+ 
+ 	rec-&gt;level = (levelarg == NULL || *levelarg == '\0') ? 0 :
+@@ -625,7 +674,8 @@
+ 	} else {
+ 		/* with mask */
+ 		char *chans[2] = { "*", NULL };
+-                rec = hilight_find(data, chans);
++		char *ircnets[2] = { "*", NULL };
++                rec = hilight_find(data, chans, ircnets);
+ 	}
+ 
+ 	if (rec == NULL)
+@@ -692,7 +742,7 @@
+ 
+ 	command_bind("hilight", NULL, (SIGNAL_FUNC) cmd_hilight);
+ 	command_bind("dehilight", NULL, (SIGNAL_FUNC) cmd_dehilight);
+-	command_set_options("hilight", "-color -actcolor -level -priority -channels nick \
+word line mask full regexp"); +	command_set_options("hilight", "-color -actcolor \
+-level -priority -channels -ircnets nick word line mask full regexp");  }
+ 
+ void hilight_text_deinit(void)
+
+
+
+</body></email><email><emailId>20050616053233</emailId><senderName>Matt Dunford</senderName><senderEmail>zoot@zotikos.com</senderEmail><timestampReceived>2005-06-16 05:32:33-0400</timestampReceived><subject>Re: irssi-icb patch: misc bugs, version 2</subject><body>
+
+On Mon, Jun 13, 2005 at 05:17:14PM -0700, Manoj Kasichainula wrote:
+&gt; On Thu, Jun 09, 2005 at 04:16:59PM -0700, Matt Dunford wrote:
+&gt; &gt;2) "/nick newnick" changes your nick, but doesn't update the statusbar.
+&gt; 
+&gt; Unfortunately, there's a bug. When anyone else changes their nick, irssi 
+&gt; is fooled into thinking my nick changed too. I haven't attempted to 
+&gt; track this down yet, but I've seen it happen twice today.
+
+Hi Manoj,
+
+Thanks for catching this.  Foolish mistake on my part.  I'll look into
+it probably this weekend.
+
+I'll also add another patch that was sent to me about a week ago.
+
+-- 
+Sincerely,
+Matt Dunford
+
+</body></email><email><emailId>20050628220859</emailId><senderName>Matt Dunford</senderName><senderEmail>zoot@zotikos.com</senderEmail><timestampReceived>2005-06-28 22:08:59-0400</timestampReceived><subject>irssi-icb patch: misc bugs, version 3</subject><body>
+
+Hi,
+
+Finally found some time to update my patch of the icb module of irssi.
+
+Changes include:
+1) bug: the name of the person beeping you doesn't appear.
+2) bug: "/nick newnick" changes your nick, but doesn't update the
+   statusbar.  I've also fixed the bug I introduced into this code.
+3) bug: "/topic newtopic" changes the topic, but doesn't update the statusbar.
+4) added code by Tristan Horn that improves the /w command and adds a
+   bunch of others (nobeep, news, cancel, etc).  I haven't tested some
+   of these so please send me a bug report if you run into anything.
+5) configure script wasn't handling glib correctly.
+6) updated README file.
+
+This patch is against the svn irssi-icb module:
+
+Index: configure.in
+===================================================================
+--- configure.in	(revision 3804)
++++ configure.in	(working copy)
+@@ -40,8 +40,108 @@
+   AC_ERROR(Not irssi directory: $IRSSI_INCLUDE)
+ fi
+ 
+-AM_PATH_GLIB(1.2.0,,, gmodule)
++AC_DEFUN(AC_CHECK_GLIBDIR,[
++  AC_MSG_CHECKING([whether GLib is unpacked to irssi dir])
+ 
++  GLIB_DIR=`for d in * $IRSSI_INCLUDE/*; do test -f $d/glib.h &amp;&amp; echo $d; done`
++  if test -n "$GLIB_DIR"; then
++    dnl * glib in irssi directory, use it
++    AC_MSG_RESULT([yes, using it])
++
++    dnl * we have to do this at this point so we know what libs gmodule needs
++    if test ! -f $GLIB_DIR/.libs/libglib.a; then
++      echo
++      echo "configuring GLib ..."
++      echo
++      cd $GLIB_DIR
++      if test ! -f glib-config; then
++        ./configure
++      fi
++      ${MAKE-make}
++      cd ..
++      echo
++    fi
++
++    GLIB_LDEXTRA=`$GLIB_DIR/glib-config --libs gmodule|$sedpath -e 's/-lglib//' -e \
+'s/-lgmodule//' -e 's,-L/usr/local/lib ,,'|$sedpath 's/ \+/ /g'` +    \
+full_glib_dir="`pwd`/$GLIB_DIR" +    GLIB_CFLAGS="-I$full_glib_dir \
+-I$full_glib_dir/gmodule" +    if test -f $full_glib_dir/.libs/libglib.a; then
++      GLIB_LIBS="$full_glib_dir/.libs/libglib.a $GLIB_LDEXTRA"
++      if test -f $full_glib_dir/gmodule/.libs/libgmodule.a; then
++	GLIB_LIBS="$GLIB_LIBS $full_glib_dir/gmodule/.libs/libgmodule.a"
++        AC_DEFINE(HAVE_GMODULE)
++	have_gmodule=yes
++      fi
++    else
++      GLIB_LIBS="$full_glib_dir/libglib.a $GLIB_LDEXTRA"
++      if test -f $full_glib_dir/gmodule/libgmodule.a; then
++	GLIB_LIBS="$GLIB_LIBS $full_glib_dir/gmodule/libgmodule.a"
++        AC_DEFINE(HAVE_GMODULE)
++	have_gmodule=yes
++      fi
++    fi
++    AC_SUBST(GLIB_CFLAGS)
++    AC_SUBST(GLIB_LIBS)
++  else
++    AC_MSG_RESULT([no])
++  fi
++])
++
++AC_CHECK_GLIBDIR
++
++if test -z "$GLIB_DIR"; then
++  if test "x$with_glib1" = "xyes"; then
++    dnl * check only for glib1
++    checks="1 2"
++  else
++    dnl * check glib2 then glib1
++    checks="3 4 1 2"
++  fi
++
++  for try in $checks; do
++    glib_config_args=
++    if test $try = 1 -o $try = 3; then
++      glib_modules=gmodule
++    else
++      echo "*** trying without -lgmodule"
++      glib_modules=
++    fi
++    if test $try = 1 -o $try = 2; then
++      AM_PATH_GLIB(1.2.0,,, $glib_modules)
++    else
++      AM_PATH_GLIB_2_0(2.0.0,,, $glib_modules)
++    fi
++    if test "$GLIB_LIBS"; then
++      if test $glib_modules = gmodule; then
++        AC_DEFINE(HAVE_GMODULE)
++        have_gmodule=yes
++      fi
++      break
++    fi
++  done
++
++  if test -z "$GLIB_LIBS"; then
++    echo
++    echo "*** If you don't have GLIB, you can get it from ftp://ftp.gtk.org"
++    echo "*** If you can't install GLIB anywhere or if you don't want to,"
++    echo "*** you can just unpack it to Irssi's source directory and"
++    echo "*** Irssi will automatically compile and use it."
++    echo
++
++    dnl * I think it's pretty safe to assume GLib 1.2.9 since the next
++    dnl * will be 2.0 (or 1.4?) and it's not sure if irssi compiles
++    dnl * with it (yea, just a few weeks after I put this text for 1.2.8
++    dnl * the 1.2.9 came :) .. and then .10
++    glib_file=glib-1.2.10.tar.gz
++
++    if test -z "$GLIB_LIBS"; then
++      AC_ERROR([GLIB is required to build irssi.])
++    fi
++  fi
++fi
++
++LIBS="$LIBS $GLIB_LIBS"
++
+ # gcc specific options
+ if test "x$ac_cv_prog_gcc" = "xyes"; then
+   CFLAGS="$CFLAGS -Wall"
+Index: src/fe-common/module-formats.c
+===================================================================
+--- src/fe-common/module-formats.c	(revision 3804)
++++ src/fe-common/module-formats.c	(working copy)
+@@ -30,7 +30,9 @@
+ 	{ "status", "[$0] $1", 2, { 0, 0 } },
+ 	{ "important", "[$0!] $1", 2, { 0, 0 } },
+ 	{ "status", "{error [Error]} $0", 1, { 0 } },
+-	{ "beep", "[beep] $1 beeps you", 1, { 0 } },
++	{ "beep", "[beep] $0 wants to annoy you.", 1, { 0 } },
++	{ "who_header", " Nickname        Idle Sign-On      Account", 0 },
++	{ "who_list", "$0$[13]1 $[-6]2 $[12]3 $4@$5 $6", 7, { 0, 0, 0, 0, 0, 0, 0 } },
+ 
+ 	{ NULL, NULL, 0 }
+ };
+Index: src/fe-common/module-formats.h
+===================================================================
+--- src/fe-common/module-formats.h	(revision 3804)
++++ src/fe-common/module-formats.h	(working copy)
+@@ -8,7 +8,9 @@
+ 	ICBTXT_STATUS,
+ 	ICBTXT_IMPORTANT,
+ 	ICBTXT_ERROR,
+-	ICBTXT_BEEP
++	ICBTXT_BEEP,
++	ICBTXT_WHO_HEADER,
++	ICBTXT_WHO_LIST
+ };
+ 
+ extern FORMAT_REC fecommon_icb_formats[];
+Index: src/fe-common/fe-icb.c
+===================================================================
+--- src/fe-common/fe-icb.c	(revision 3804)
++++ src/fe-common/fe-icb.c	(working copy)
+@@ -24,6 +24,7 @@
+ #include "commands.h"
+ #include "servers-setup.h"
+ #include "levels.h"
++#include "nicklist.h"
+ 
+ #include "icb.h"
+ #include "icb-servers.h"
+@@ -36,15 +37,90 @@
+ static void event_status(ICB_SERVER_REC *server, const char *data)
+ {
+ 	char **args;
++	int len;
++	char *oldnick, *newnick;
++	char *topic, *setby, *p1, *p2;
+ 
+ 	/* FIXME: status messages should probably divided into their own
+ 	   signals so irssi could track joins, parts, etc. */
+ 	args = icb_split(data, 2);
+ 	printformat(server, server-&gt;group-&gt;name, MSGLEVEL_CRAP,
+ 		    ICBTXT_STATUS, args[0], args[1]);
++
++	/* sample nick msg: oldnick changed nickname to newnick */
++	len = strlen("Name");
++	if (strncmp(args[0],"Name",len) == 0) {
++
++		oldnick = g_strdup(args[1]);
++		p2 = strchr(oldnick, ' ');
++		if (p2 != NULL)
++		{
++			*p2 = '\0';
++
++			/* make sure it's me changing the nick */
++			if (strcmp(oldnick, server-&gt;connrec-&gt;nick) == 0)
++			{
++				newnick = strrchr(args[1], ' ');
++				if (newnick != NULL) {
++					newnick++;  /* skip the space */
++
++					server_change_nick(SERVER(server), newnick);
++					nicklist_rename(SERVER(server), server-&gt;connrec-&gt;nick, newnick);
++					g_free(server-&gt;connrec-&gt;nick);
++					server-&gt;connrec-&gt;nick = g_strdup(newnick);
++				}
++			}
++		}
++		g_free(oldnick);
++	}
++
++	/* sample topic msg: nick changed the topic to \"test 1\" */
++	len = strlen("Topic");
++	if (strncmp(args[0],"Topic",len) == 0) {
++		p1 = strchr(args[1], '"');
++		p2 = strrchr(args[1], '"');
++
++		/* make sure there's something between those quotes */
++		if (p1)
++		{
++			p1++;
++			topic = g_strdup(p1);
++			p2 = strrchr(topic, '"');
++			*p2 = '\0';
++
++			setby = g_strdup(args[1]);
++			p2 = strchr(setby, ' ');
++			*p2 = '\0';
++
++			icb_channel_change_topic(server, topic, setby, time(NULL));
++
++			g_free(topic);
++			g_free(setby);
++		}
++	}
++
+         icb_split_free(args);
+ }
+ 
++static void icb_channel_change_topic(ICB_SERVER_REC *server, 
++				 const char *topic, const char *setby,
++				 time_t settime)
++{
++	if (topic != NULL) {
++		g_free_not_null(server-&gt;group-&gt;topic);
++		server-&gt;group-&gt;topic = g_strdup(topic);
++	}
++
++	if (setby != NULL) {
++		g_free_not_null(server-&gt;group-&gt;topic_by);
++		server-&gt;group-&gt;topic_by = g_strdup(setby);
++	}
++	
++	server-&gt;group-&gt;topic_time = settime;
++
++	signal_emit("channel topic changed", 1, server-&gt;group);
++}
++
+ static void event_error(ICB_SERVER_REC *server, const char *data)
+ {
+ 	printformat(server, NULL, MSGLEVEL_CRAP, ICBTXT_ERROR, data);
+@@ -62,7 +138,7 @@
+ 
+ static void event_beep(ICB_SERVER_REC *server, const char *data)
+ {
+-	printformat(server, data, MSGLEVEL_CRAP, ICBTXT_BEEP, data);
++	printformat(server, data, MSGLEVEL_MSGS, ICBTXT_BEEP, data);
+ }
+ 
+ static void event_open(ICB_SERVER_REC *server, const char *data)
+@@ -84,13 +160,51 @@
+         icb_split_free(args);
+ }
+ 
++static char *icb_who_idle(char *line)
++{       
++	int	idle = atoi(line);
++	static	char	lbuf[16];
++        
++	if (idle &gt; 99 * 60)
++		g_snprintf(lbuf, sizeof lbuf, "%5dm", idle / 60);
++	else
++	if (idle &lt; 60)
++		g_snprintf(lbuf, sizeof lbuf, "%d sec", idle);
++	else
++		g_snprintf(lbuf, sizeof lbuf, "%d:%02ds", idle / 60, idle % 60);
++	lbuf[6] = 0;    /* XXX see below */
++	return (lbuf);
++}
++       
++static char *icb_who_signon(char *line)
++{       
++	time_t  their_time = (time_t)atoi(line);
++	char	*s = asctime(localtime(&amp;their_time));
++        
++	s[16] = '\0';   /* XXX */
++	/* Tue Mar  2 05:10:10 1999J */
++	/*     &lt;----------&gt;          */
++	return (s + 4);
++}       
++
+ static void cmdout_default(ICB_SERVER_REC *server, char **args)
+ {
+-	char *data;
+-
+-	data = g_strjoinv(" ", args+1);
+-	printtext(server, server-&gt;group-&gt;name, MSGLEVEL_CRAP, "%s", data);
+-        g_free(data);
++	if (args[0][0] == 'w') {
++		if (args[0][1] == 'h')
++			printformat(server, NULL, MSGLEVEL_CRAP, ICBTXT_WHO_HEADER);
++		else if (args[0][1] == 'l') {
++			char *arg1 = args[1][0] == 'm' ? "*" : " ";
++			printformat(server, NULL, MSGLEVEL_CRAP,
++				ICBTXT_WHO_LIST, arg1, args[2],
++				icb_who_idle(args[3]),
++				icb_who_signon(args[5]),
++				args[6], args[7], args[8]);
++		}
++	} else {
++		char *data = g_strjoinv(" ", args+1);
++		printtext(server, server-&gt;group-&gt;name, MSGLEVEL_CRAP, "%s", data);
++		g_free(data);
++	}
+ }
+ 
+ static void sig_server_add_fill(SERVER_SETUP_REC *rec,
+Index: src/core/icb-commands.c
+===================================================================
+--- src/core/icb-commands.c	(revision 3804)
++++ src/core/icb-commands.c	(working copy)
+@@ -29,9 +29,10 @@
+ 	"whois", "p", "delete", "cp", "rname",
+ 	"phone", "addr", "email", "text", "www",
+ 	"read", "write", "secure", "nosecure", "info", "?",
+-
+ 	"invite", "v", "echoback", "name", "motd", "topic", "status",
+-	"boot", "pass", "drop", "shutdown", "wall",
++	"boot", "pass", "drop", "shutdown", "wall", "away", "noaway",
++	"nobeep", "cancel", "exclude", "news", "notify", "s_help",
++	"shuttime", "whereis", "hush", "talk",
+         NULL
+ };
+ 
+@@ -114,7 +115,6 @@
+ 
+ 	/* adds also some aliases known to IRC users :) */
+ 	command_bind_icb("quote", NULL, (SIGNAL_FUNC) cmd_quote);
+-	command_bind_icb("w", NULL, (SIGNAL_FUNC) cmd_who);
+ 	command_bind_icb("who", NULL, (SIGNAL_FUNC) cmd_who);
+         command_bind_icb("nick", NULL, (SIGNAL_FUNC) cmd_name);
+         command_bind_icb("kick", NULL, (SIGNAL_FUNC) cmd_boot);
+@@ -133,7 +133,6 @@
+ 		command_unbind(*cmd, (SIGNAL_FUNC) cmd_self);
+ 
+ 	command_unbind("quote", (SIGNAL_FUNC) cmd_quote);
+-	command_unbind("w", (SIGNAL_FUNC) cmd_who);
+         command_unbind("who", (SIGNAL_FUNC) cmd_who);
+         command_unbind("nick", (SIGNAL_FUNC) cmd_name);
+         command_unbind("kick", (SIGNAL_FUNC) cmd_boot);
+Index: autogen.sh
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/x-sh
+Index: README
+===================================================================
+--- README	(revision 3804)
++++ README	(working copy)
+@@ -14,6 +14,10 @@
+ 
+  icbnet = { type = "ICB"; };
+ 
++You'll also need to add to your startup file:
++
++ LOAD icb
++
+ and then:
+ 
+  /SERVER ADD -auto -icbnet icbnet default.icb.net
+
+
+</body></email><email><emailId>20050505232913</emailId><senderName>tabris</senderName><senderEmail>tabris@tabris.net</senderEmail><timestampReceived>2005-05-05 23:29:13-0400</timestampReceived><subject>Re: Found a bug in fe-whois.c in re Unreal3.2</subject><body>
+
+[Attachment #2 (multipart/mixed)]
+
+
+On Thursday 05 May 2005 7:08 pm, Marcus Rueckert wrote:
+&gt; On 2005-05-05 18:26:54 -0400, tabris wrote:
+&gt; &gt; &gt; did you check if other ircds use 379? what do they use it for?
+&gt; &gt;
+&gt; &gt; http://www.alien.net.au/irc/irc2numerics.html
+&gt; &gt;
+&gt; &gt; 379 RPL_KICKLINKED             aircd
+&gt; &gt; 379 RPL_WHOISMODES             Unreal
+&gt;
+&gt; can you check your patch against aircd?
+&gt;
+&gt; &gt; &gt; &gt; it appears that event_whois_usermode is falling through to
+&gt; &gt; &gt; &gt; event_whois_special.
+&gt; &gt; &gt;
+&gt; &gt; &gt; hmm that sounds like 379 didnt have any special handling so far.
+&gt; &gt;
+&gt; &gt; In the 20041111 tree I have, it's currently handled by
+&gt; &gt; event_whois_modes. However that displays incorrectly. all I see is
+&gt;
+&gt; can you provide a patch against SVN HEAD?
+	attached. It is tested against Unreal, and it does work same as the 
+20041111 tree I have.
+&gt;
+&gt; thanks in advance
+&gt;
+&gt; darix
+
+-- 
+My reason tells me that land cannot be sold - nothing can be sold but
+such  things as can be carried away.              Black Hawk, (Saulk)
+
+["whois-umode-handling.diff" (text/x-diff)]
+
+Index: src/fe-common/irc/fe-whois.c
+===================================================================
+--- src/fe-common/irc/fe-whois.c	(revision 3728)
++++ src/fe-common/irc/fe-whois.c	(working copy)
+@@ -342,7 +342,7 @@ static struct whois_event_table events[]
+ 	{ 312, event_whois_server },
+ 	{ 326, event_whois_usermode326 },
+ 	{ 327, event_whois_realhost327 },
+-	{ 379, event_whois_modes },
++	{ 379, event_whois_usermode },
+ 	{ 378, event_whois_realhost },
+ 	{ 377, event_whois_usermode },
+ 	{ 317, event_whois_idle },
+@@ -380,7 +380,7 @@ void fe_whois_init(void)
+ 	signal_add("event 330", (SIGNAL_FUNC) event_whois_auth);
+ 	signal_add("event 377", (SIGNAL_FUNC) event_whois_usermode);
+ 	signal_add("event 378", (SIGNAL_FUNC) event_whois_realhost);
+-	signal_add("event 379", (SIGNAL_FUNC) event_whois_modes);
++	signal_add("event 379", (SIGNAL_FUNC) event_whois_usermode);
+ 	signal_add("event 327", (SIGNAL_FUNC) event_whois_realhost327);
+ 	signal_add("event 326", (SIGNAL_FUNC) event_whois_usermode326);
+ 	signal_add("whois away", (SIGNAL_FUNC) event_whois_away);
+@@ -402,7 +402,7 @@ void fe_whois_deinit(void)
+ 	signal_remove("event 330", (SIGNAL_FUNC) event_whois_auth);
+ 	signal_remove("event 377", (SIGNAL_FUNC) event_whois_usermode);
+ 	signal_remove("event 378", (SIGNAL_FUNC) event_whois_realhost);
+-	signal_remove("event 379", (SIGNAL_FUNC) event_whois_modes);
++	signal_remove("event 379", (SIGNAL_FUNC) event_whois_usermode);
+ 	signal_remove("event 327", (SIGNAL_FUNC) event_whois_realhost327);
+ 	signal_remove("event 326", (SIGNAL_FUNC) event_whois_usermode326);
+ 	signal_remove("whois away", (SIGNAL_FUNC) event_whois_away);
+
+[Attachment #6 (application/pgp-signature)]
+
+</body></email><email><emailId>20050509094525</emailId><senderName>"Kai Lehmann"</senderName><senderEmail>kai.lehmann@papendorf-se.de</senderEmail><timestampReceived>2005-05-09 09:45:25-0400</timestampReceived><subject>Bug in Perl script module for DCC get filesize for &gt; 2gb</subject><body>
+
+Any news about that?
+
+Kai
+
+-----Ursprüngliche Nachricht-----
+Von: Kai Lehmann 
+Gesendet: Montag, 25. April 2005 08:48
+An: 'irssi-dev@dragoncat.net'
+Betreff: Bug in Perl script module for DCC get filesize for &gt; 2gb
+
+
+Hi there,
+ 
+I found a bug in the perl script module of Irssi. When you have a dcc get for a file \
+which is larger than 2GB, the /dcc command shows correct file size and ETA, due to \
+the usage of type uoff_t for the filesize in dcc-file-rec.h. This is correct. The \
+type uoff_t is a u_int64_t (unsigned long long). However when accessing the dcc-array \
+in a perl script within irssi by using the function Irssi::Irc::dccs() a dcc entry \
+for a file with size bigger than 2GB contains not the correct file size but a \
+negative value. Cause of the problem is the convertion from uoff_t to the hash value \
+in file src/perl/irc/Irc.xs line 69:  
+hv_store(hv, "size", 4, newSViv(dcc-&gt;size), 0);
+ 
+This takes only the first 32 bits as signed integer which results in negative values \
+for bit 31 set to 1. To solve this problem, you could use newSVuv instead of newSViv: \
+ hv_store(hv, "size", 4, newSVuv(dcc-&gt;size), 0);
+ 
+This however solves the problem only for files smaller than 4GB. The best solution is \
+to store the file size as a string in the hash:  
+char* size_str;
+//...
+size_str = dcc_get_size_str(dcc-&gt;size); 
+hv_store(hv, "size", 4, newSVpv(size_str), 0);
+g_free(size_str);
+ 
+The same is true for the transfd value (line 53 in file Irc.xs):
+ 
+ hv_store(hv, "transfd", 7, newSViv(dcc-&gt;transfd), 0);
+
+should be replaced with:
+ 
+char* transfd_str;
+//...
+transfd_str = dcc_get_size_str(dcc-&gt;transfd); 
+hv_store(hv, "transfd", 4, newSVpv(transfd_str), 0);
+g_free(transfd_str);
+ 
+It would be great if you can integrate this or another appropriate solution into the \
+next release of irssi. Please let me know whether my info was useful.  
+Thank you,
+Kai Lehmann
+
+Kai Lehmann
+Papendorf Software Engineering GmbH
+
+Tel Calw: +49 (0)7051 93698 - 0   
+Fax Calw: +49 (0)7051 93698 - 22  
+Mobile  : +49 (0)174 32 41 945
+
+
+</body></email><email><emailId>20050512193224</emailId><senderName></senderName><senderEmail>samech</senderEmail><timestampReceived>2005-05-12 19:32:24-0400</timestampReceived><subject>irssi fails to compile with '--with-socks'</subject><body>
+
+Hi,
+
+irssi fails to compile with '--with-socks', for a wrong header inclusion order
+in src/core/network.h.
+It has been reported as a gentoo bug,
+
+http://bugs.gentoo.org/show_bug.cgi?id=83522
+
+This is the patch added by Sven Wegener of gentoo for the irssi ebuild.
+
+diff -Nur irssi.orig/src/core/network.h irssi/src/core/network.h
+--- irssi.orig/src/core/network.h       2005-03-01 00:36:21.634296397 +0100
++++ irssi/src/core/network.h    2005-03-01 00:36:37.204104608 +0100
+@@ -1,10 +1,6 @@
+ #ifndef __NETWORK_H
+ #define __NETWORK_H
+
+-#ifdef HAVE_SOCKS_H
+-#include &lt;socks.h&gt;
+-#endif
+-
+ #include &lt;sys/types.h&gt;
+ #ifndef WIN32
+ #  include &lt;sys/socket.h&gt;
+@@ -13,6 +9,10 @@
+ #  include &lt;arpa/inet.h&gt;
+ #endif
+
++#ifdef HAVE_SOCKS_H
++#include &lt;socks.h&gt;
++#endif
++
+ #ifndef AF_INET6
+ #  ifdef PF_INET6
+ #    define AF_INET6 PF_INET6
+
+
+
+
+</body></email><email><emailId>20050519032613</emailId><senderName>tabris</senderName><senderEmail>tabris@tabris.net</senderEmail><timestampReceived>2005-05-19 03:26:13-0400</timestampReceived><subject>Re: skip_target and NOTICE/PRIVMSG target handling</subject><body>
+
+[Attachment #2 (multipart/mixed)]
+
+
+On Wednesday 18 May 2005 11:01 pm, tabris wrote:
+&gt;
+&gt; 	There is a bug I'm running into with this patch on debian boxen...
+&gt; aparrently prefix is getting junk data in it, and I do not know why,
+&gt; then prefixes is NULL (as the char ')' does not exist in the junk
+&gt; string)
+&gt;
+&gt; 	This happens when the client is initially connecting, so
+&gt; server-&gt;isupport isn't initialized yet.
+&gt;
+&gt; 	What am I doing wrong?
+
+	After some fiddling, I got it work, but _only_ if I compile with 
+garbage-collection. Without the garbage-collection it gets through the 
+login and then chews CPU for a while. I got a trace and it was in 
+mallopt().
+
+	Is there something I'm missing?
+
+-- 
+Everybody gets free BORSCHT!
+
+["skip_target-4.diff" (text/x-diff)]
+
+Index: src/fe-common/irc/fe-irc-commands.c
+===================================================================
+--- src/fe-common/irc/fe-irc-commands.c	(revision 3742)
++++ src/fe-common/irc/fe-irc-commands.c	(working copy)
+@@ -41,16 +41,48 @@
+ #include "printtext.h"
+ #include "keyboard.h"
+ 
+-static const char *skip_target(const char *target)
++static const char *skip_target(IRC_SERVER_REC *server, const char *target)
+ {
+-	if (*target == '@') {
+-		/* @#channel, @+#channel - Hybrid6 / Bahamut features */
+-		if (target[1] == '+' &amp;&amp; ischannel(target[2]))
+-			target += 2;
+-		else if (ischannel(target[1]))
+-			target++;
++	int i = 0, j = 0, isprefix = 0;
++	const char *prefix = NULL, *prefixes = NULL;
++
++	prefix = g_hash_table_lookup(server-&gt;isupport, "PREFIX");
++
++	if (prefix) {
++		// PREFIX=(ov)@+
++		prefixes = strchr(prefix, ')');
+ 	}
++	else {
++		prefixes = strdup("@+");
++	};
+ 
++	if (!prefixes) {
++		g_free(prefix);
++		prefixes = strdup("@+");
++	};	
++		
++	for(i = 0; i &lt; strlen(target); i++) {
++		isprefix = 0;
++		for(j = 0; j &lt; strlen(prefixes); j++) {
++			if(target[i] == prefixes[j]) {
++				isprefix = 1;
++				break;
++			}
++		}
++		if (!isprefix)
++			break;
++	};
++
++	if(ischannel(target[i]))
++		target += i;
++
++	if(prefix) {
++		g_free(prefix);
++	}
++	else {
++		g_free(prefixes);
++	};
++	
+ 	return target;
+ }
+ 
+@@ -103,7 +135,7 @@ static void cmd_action(const char *data,
+ 	recoded = recode_out(SERVER(server), text, target);
+ 	irc_send_cmdv(server, "PRIVMSG %s :\001ACTION %s\001", target, recoded);
+ 
+-	target = skip_target(target);
++	target = skip_target(server, target);
+ 	signal_emit("message irc own_action", 3, server, recoded, target);
+ 
+ 	g_free(recoded);
+@@ -158,7 +190,7 @@ static void cmd_ctcp(const char *data, I
+ 		return;
+ 	}
+ 
+-	target = skip_target(target);
++	target = skip_target(server, target);
+ 
+ 	g_strup(ctcpcmd);
+ 	signal_emit("message irc own_ctcp", 4,
+@@ -183,7 +215,7 @@ static void cmd_nctcp(const char *data, 
+ 	if (*target == '\0' || *text == '\0')
+ 		cmd_param_error(CMDERR_NOT_ENOUGH_PARAMS);
+ 
+-	target = skip_target(target);
++	target = skip_target(server, target);
+ 	signal_emit("message irc own_notice", 3, server, text, target);
+ 	cmd_params_free(free_arg);
+ }
+Index: src/fe-common/irc/fe-irc-messages.c
+===================================================================
+--- src/fe-common/irc/fe-irc-messages.c	(revision 3742)
++++ src/fe-common/irc/fe-irc-messages.c	(working copy)
+@@ -37,16 +37,48 @@
+ #include "fe-queries.h"
+ #include "window-items.h"
+ 
+-static const char *skip_target(const char *target)
++static const char *skip_target(IRC_SERVER_REC *server, const char *target)
+ {
+-	if (target != NULL &amp;&amp; *target == '@') {
+-		/* @#channel, @+#channel - Hybrid6 / Bahamut features */
+-		if (target[1] == '+' &amp;&amp; ischannel(target[2]))
+-			target += 2;
+-		else if (ischannel(target[1]))
+-			target++;
++	int i = 0, j = 0, isprefix = 0;
++	const char *prefix = NULL, *prefixes = NULL;
++	
++	prefix = g_hash_table_lookup(server-&gt;isupport, "PREFIX");
++
++	if (prefix) {
++		// PREFIX=(ov)@+
++		prefixes = strchr(prefix, ')');
+ 	}
++	else {
++		prefixes = strdup("@+");
++	};
++
++	if (!prefixes) {
++		g_free(prefix);
++		prefixes = strdup("@+");
++	};
++
++	for(i = 0; i &lt; strlen(target); i++) {
++		isprefix = 0;
++		for(j = 0; j &lt; strlen(prefixes); j++) {
++			if(target[i] == prefixes[j]) {
++				isprefix = 1;
++				break;
++			}
++		}
++		if (!isprefix)
++			break;
++	};
++
++	if(ischannel(target[i]))
++		target += i;
+ 
++	if(prefix) {
++		g_free(prefix);
++	}
++	else {
++		g_free(prefixes);
++	};
++	
+ 	return target;
+ }
+ 
+@@ -57,7 +89,7 @@ static void sig_message_own_public(SERVE
+ 	char *nickmode;
+ 
+ 	oldtarget = target;
+-	target = skip_target(target);
++	target = skip_target(IRC_SERVER(server), target);
+ 	if (IS_IRC_SERVER(server) &amp;&amp; target != oldtarget) {
+ 		/* Hybrid 6 / Bahamut feature, send msg to all
+ 		   ops / ops+voices in channel */
+@@ -179,7 +211,7 @@ static void sig_message_irc_action(IRC_S
+ static void sig_message_own_notice(IRC_SERVER_REC *server, const char *msg,
+ 				   const char *target)
+ {
+-	printformat(server, skip_target(target), MSGLEVEL_NOTICES |
++	printformat(server, skip_target(server, target), MSGLEVEL_NOTICES |
+ 		    MSGLEVEL_NOHILIGHT | MSGLEVEL_NO_ACT,
+ 		    IRCTXT_OWN_NOTICE, target, msg);
+ }
+@@ -191,7 +223,7 @@ static void sig_message_irc_notice(SERVE
+ 	const char *oldtarget;
+ 
+ 	oldtarget = target;
+-	target = skip_target(target);
++	target = skip_target(IRC_SERVER(server), target);
+ 
+ 	if (address == NULL || *address == '\0') {
+ 		/* notice from server */
+
+[Attachment #6 (application/pgp-signature)]
+
+</body></email><email><emailId>20050414193613</emailId><senderName>"heap"</senderName><senderEmail>heap@fbnet.org</senderEmail><timestampReceived>2005-04-14 19:36:13-0400</timestampReceived><subject>numeric handling</subject><body>
+
+hello everyone,
+
+    I was just wondering why irssi doesn't handle certain numerics sent by
+the ircd, is there any specific reason? ...and why did you development
+people used a *standardized* numerics for irssi and why not using the
+ircd's real numerics?
+
+    Thanks in advanced.
+
+    -- heap
+
+</body></email><email><emailId>20050418130741</emailId><senderName>Tim Wojtulewicz</senderName><senderEmail>timwoj@ieee.org</senderEmail><timestampReceived>2005-04-18 13:07:41-0400</timestampReceived><subject>Re: Irssi on OS X 10.4</subject><body>
+
+It was an attempt to fix the uoff_t problem.  It does the same  
+without passing it.
+
+Tim
+
+On Apr 17, 2005, at 11:14 PM, Marcus Rueckert wrote:
+
+&gt; On 2005-04-17 22:01:10 -0700, Tim Wojtulewicz wrote:
+&gt;
+&gt;&gt; I've been doing a bit of testing with OS X 10.4 (tiger), and I have
+&gt;&gt; some issues with irssi compiling and running.  This is with both
+&gt;&gt; 0.8.9 and 0.8.10-rc5, so it seems OS-specific, not irssi version-
+&gt;&gt; specific.  The compilation issues follow.  This is with a configure
+&gt;&gt; line of './configure --enable-ssl --with-proxy --with-perl=yes --
+&gt;&gt; without-file-offset-size'.  Everything goes ok, until it gets to the
+&gt;&gt; perl portions.  Then you get this:
+&gt;&gt;
+&gt;&gt;
+&gt;
+&gt; why do you pass "--without-file-offset-size"? i would think this could
+&gt; cause trouble.
+&gt;
+&gt; darix
+&gt;
+&gt; -- 
+&gt; irssi - the client of the smart and beautiful people
+&gt;
+&gt;               http://www.irssi.de/
+&gt;
+&gt;
+
+
+</body></email><email><emailId>20050425064827</emailId><senderName>"Kai Lehmann"</senderName><senderEmail>kai.lehmann@papendorf-se.de</senderEmail><timestampReceived>2005-04-25 06:48:27-0400</timestampReceived><subject>Bug in Perl script module for DCC get filesize for &gt; 2gb</subject><body>
+
+Hi there,
+ 
+I found a bug in the perl script module of Irssi. When you have a dcc get for a file \
+which is larger than 2GB, the /dcc command shows correct file size and ETA, due to \
+the usage of type uoff_t for the filesize in dcc-file-rec.h. This is correct. The \
+type uoff_t is a u_int64_t (unsigned long long). However when accessing the dcc-array \
+in a perl script within irssi by using the function Irssi::Irc::dccs() a dcc entry \
+for a file with size bigger than 2GB contains not the correct file size but a \
+negative value. Cause of the problem is the convertion from uoff_t to the hash value \
+in file src/perl/irc/Irc.xs line 69:  
+hv_store(hv, "size", 4, newSViv(dcc-&gt;size), 0);
+ 
+This takes only the first 32 bits as signed integer which results in negative values \
+for bit 31 set to 1. To solve this problem, you could use newSVuv instead of newSViv: \
+ hv_store(hv, "size", 4, newSVuv(dcc-&gt;size), 0);
+ 
+This however solves the problem only for files smaller than 4GB. The best solution is \
+to store the file size as a string in the hash:  
+char* size_str;
+//...
+size_str = dcc_get_size_str(dcc-&gt;size); 
+hv_store(hv, "size", 4, newSVpv(size_str), 0);
+g_free(size_str);
+ 
+The same is true for the transfd value (line 53 in file Irc.xs):
+ 
+ hv_store(hv, "transfd", 7, newSViv(dcc-&gt;transfd), 0);
+
+should be replaced with:
+ 
+char* transfd_str;
+//...
+transfd_str = dcc_get_size_str(dcc-&gt;transfd); 
+hv_store(hv, "transfd", 4, newSVpv(transfd_str), 0);
+g_free(transfd_str);
+ 
+It would be great if you can integrate this or another appropriate solution into the \
+next release of irssi. Please let me know whether my info was useful.  
+Thank you,
+Kai Lehmann
+
+Kai Lehmann
+Papendorf Software Engineering GmbH
+
+Tel Calw: +49 (0)7051 93698 - 0   
+Fax Calw: +49 (0)7051 93698 - 22  
+Mobile  : +49 (0)174 32 41 945
+
+
+</body></email><email><emailId>20050312004142</emailId><senderName>y0m</senderName><senderEmail>y0m@y0m.net</senderEmail><timestampReceived>2005-03-12 00:41:42-0400</timestampReceived><subject>Re: Compilation problem with irssi-0.9.10-rc5 &amp; 0.8.9 on Irix</subject><body>
+
+Quoting y0m &lt;y0m@y0m.net&gt;:
+&gt; gcc: cannot specify -o with -c or -S and multiple compilations
+
+Fixed, removing "-woff 1009,1110,1174,1184,1552 -OPT:Olimit=0:space=ON" from
+PERL_CFLAGS in src/perl/Makefile. Those parameters are Irix cc, not gcc,
+according to http://mail.nl.linux.org/xchat-discuss/2001-09/msg00008.html
+
+-- 
+y0m
+
+</body></email><email><emailId>20050221203503</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2005-02-21 20:35:03-0400</timestampReceived><subject>Re: irssi-proxy and SSL?</subject><body>
+
+On 2005-02-21 20:59:37 +0100, Manuel Holtgrewe wrote:
+&gt; As far as I know irssi-proxy does not support SSL. Is this on the TODO 
+&gt; list? When can I expect it to work, if so? Or do I err and irssi 
+&gt; supports it already.
+
+it is for sure on someones todo. when its done!:) 
+you can work around it with stunnel until irssi supports it directly
+
+darix
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20050222103203</emailId><senderName></senderName><senderEmail>bd@bc-bd.org</senderEmail><timestampReceived>2005-02-22 10:32:03-0400</timestampReceived><subject>=?iso-8859-1?Q?Re:_Re:_irssi-proxy_and_SSL??=</subject><body>
+
+
+&gt; it is for sure on someones todo. when its done!:) 
+&gt; you can work around it with stunnel until irssi supports it directly
+
+iirc my patch to bind the proxy only on one ip should be upstream. you
+can bind the proxy to 127.0.0.1 and forward the port via ssh. ssh2
+allows forwarding only connections, eg with an ssh-jail and a correctly
+configured authorized_keys file users can only forward specified ports
+and do not get a real shell.
+
+  bd
+
+</body></email><email><emailId>20050112120252</emailId><senderName>Geert Hauwaerts</senderName><senderEmail>geert@safeweb.be</senderEmail><timestampReceived>2005-01-12 12:02:52-0400</timestampReceived><subject>Re: 0.8.10?</subject><body>
+
+On Wed, 2005-01-12 at 12:55, Jakub Jankowski wrote:
+&gt; *I* know. But many vendors don't like using RC's for their 
+&gt; distributions/products.
+
+There are Gentoo, Fedora, Mandrake and Debian (as far as I know)
+rc-packages. (In Gentoo's case a source ebuild)
+
+&gt; You didn't get the point. Releasing 0.8.10 =&gt; more users using new code 
+&gt; =&gt; more bugs occur =&gt; more reported bugs =&gt; better 0.8.11 :-)
+
+What's the point in having 1000 bugreports when we are worried about the
+current 172 ones?
+
+&gt; Which may take another year... ;^)
+
+I'm hoping to get the new site and everything thats involved ready next
+month. A fresh look, hopefully inspiring more users to develop/fix bugs
+and lots of documentation and howtos for the general users.
+
+Thus also hoping to get a huge speed boost in the development process.
+One of the negative parts of the current site is the lack of
+documentation, especially about the sourcecode, signals etc. When these
+docs are present more users will be able to modify it and send proper
+patches.
+
+Also, new updated scripting documentation would finnaly solve the many
+bugs or really, really, horrible bad coded scripts.
+
+Regards,
+Geert Hauwaerts.
+-- 
+.---------------------------------------------------------------------------.
+| Geert Hauwaerts          http://www.safeweb.be         &lt;geert@safeweb.be&gt; |
+| Certified Unix/Linux Administrator  ||  Cisco Certified Network Associate |
+`---------------------------------------------------------------------------'
+
+
+
+</body></email><email><emailId>20050606230156</emailId><senderName>Matt Dunford</senderName><senderEmail>zoot@zotikos.com</senderEmail><timestampReceived>2005-06-06 23:01:56-0400</timestampReceived><subject>irssi-icb patch: updating README</subject><body>
+
+Hi,
+
+Here's a patch to updated the README for the svn irssi-icb module.
+Autoloading an icb server won't work, unless you load the icb module
+beforehand.
+
+Index: README
+===================================================================
+--- README	(revision 3757)
++++ README	(working copy)
+@@ -14,6 +14,10 @@
+ 
+  icbnet = { type = "ICB"; };
+ 
++You'll also need to add to your startup file:
++
++ /LOAD icb
++
+ and then:
+ 
+  /SERVER ADD -auto -icbnet icbnet default.icb.net
+
+</body></email><email><emailId>20050609231659</emailId><senderName>Matt Dunford</senderName><senderEmail>zoot@zotikos.com</senderEmail><timestampReceived>2005-06-09 23:16:59-0400</timestampReceived><subject>irssi-icb patch: misc bugs, version 2</subject><body>
+
+Hi,
+
+I've fixed three bugs that have been annoying me in the icb plugin:
+1) the name of the person beeping you doesn't appear.
+2) "/nick newnick" changes your nick, but doesn't update the statusbar.
+3) "/topic newtopic" changes the topic, but doesn't update the statusbar.
+
+This patch is against the svn irssi-icb module:
+
+Index: src/fe-common/module-formats.c
+===================================================================
+--- src/fe-common/module-formats.c	(revision 3757)
++++ src/fe-common/module-formats.c	(working copy)
+@@ -30,7 +30,7 @@
+ 	{ "status", "[$0] $1", 2, { 0, 0 } },
+ 	{ "important", "[$0!] $1", 2, { 0, 0 } },
+ 	{ "status", "{error [Error]} $0", 1, { 0 } },
+-	{ "beep", "[beep] $1 beeps you", 1, { 0 } },
++	{ "beep", "[beep] $0 beeps you", 1, { 0 } },
+ 
+ 	{ NULL, NULL, 0 }
+ };
+Index: src/fe-common/fe-icb.c
+===================================================================
+--- src/fe-common/fe-icb.c	(revision 3757)
++++ src/fe-common/fe-icb.c	(working copy)
+@@ -24,6 +24,7 @@
+ #include "commands.h"
+ #include "servers-setup.h"
+ #include "levels.h"
++#include "nicklist.h"
+ 
+ #include "icb.h"
+ #include "icb-servers.h"
+@@ -36,15 +37,75 @@
+ static void event_status(ICB_SERVER_REC *server, const char *data)
+ {
+ 	char **args;
++	int len;
++	char *newnick;
++	char *topic, *setby, *p1, *p2;
+ 
+ 	/* FIXME: status messages should probably divided into their own
+ 	   signals so irssi could track joins, parts, etc. */
+ 	args = icb_split(data, 2);
+ 	printformat(server, server-&gt;group-&gt;name, MSGLEVEL_CRAP,
+ 		    ICBTXT_STATUS, args[0], args[1]);
++
++	len = strlen("Name");
++	if (strncmp(args[0],"Name",len) == 0) {
++
++		newnick = strrchr(args[1], ' ');
++		if (newnick != NULL) {
++			newnick++;  /* skip the space */
++
++			server_change_nick(SERVER(server), newnick);
++			nicklist_rename(SERVER(server), server-&gt;connrec-&gt;nick, newnick);
++		}
++	}
++
++	/* sample topic msg: nick changed the topic to \"test 1\" */
++	len = strlen("Topic");
++	if (strncmp(args[0],"Topic",len) == 0) {
++		p1 = strchr(args[1], '"');
++		p2 = strrchr(args[1], '"');
++
++		/* make sure there's something between those quotes */
++		if (p1)
++		{
++			p1++;
++			topic = g_strdup(p1);
++			p2 = strrchr(topic, '"');
++			*p2 = '\0';
++
++			setby = g_strdup(args[1]);
++			p2 = strchr(setby, ' ');
++			*p2 = '\0';
++
++			icb_channel_change_topic(server, topic, setby, time(NULL));
++
++			g_free(topic);
++			g_free(setby);
++		}
++	}
++
+         icb_split_free(args);
+ }
+ 
++static void icb_channel_change_topic(ICB_SERVER_REC *server, 
++				 const char *topic, const char *setby,
++				 time_t settime)
++{
++	if (topic != NULL) {
++		g_free_not_null(server-&gt;group-&gt;topic);
++		server-&gt;group-&gt;topic = g_strdup(topic);
++	}
++
++	if (setby != NULL) {
++		g_free_not_null(server-&gt;group-&gt;topic_by);
++		server-&gt;group-&gt;topic_by = g_strdup(setby);
++	}
++	
++	server-&gt;group-&gt;topic_time = settime;
++
++	signal_emit("channel topic changed", 1, server-&gt;group);
++}
++
+ static void event_error(ICB_SERVER_REC *server, const char *data)
+ {
+ 	printformat(server, NULL, MSGLEVEL_CRAP, ICBTXT_ERROR, data);
+
+</body></email><email><emailId>20050614001714</emailId><senderName>Manoj Kasichainula</senderName><senderEmail>manoj@io.com</senderEmail><timestampReceived>2005-06-14 00:17:14-0400</timestampReceived><subject>Re: irssi-icb patch: misc bugs, version 2</subject><body>
+
+On Thu, Jun 09, 2005 at 04:16:59PM -0700, Matt Dunford wrote:
+&gt;2) "/nick newnick" changes your nick, but doesn't update the statusbar.
+
+Unfortunately, there's a bug. When anyone else changes their nick, irssi 
+is fooled into thinking my nick changed too. I haven't attempted to 
+track this down yet, but I've seen it happen twice today.
+
+</body></email><email><emailId>20050501031724</emailId><senderName>tabris</senderName><senderEmail>tabris@tabris.net</senderEmail><timestampReceived>2005-05-01 03:17:24-0400</timestampReceived><subject>skip_target and NOTICE/PRIVMSG target handling</subject><body>
+
+
+	I have a tentative patch for skip_target() that handles Unreal's 
+multi-prefix NOTICEs. I'm thinking that it's a bit hackish atm however, 
+so want to know how I can get access to the isupport PREFIXes so that I 
+can support any prefix.
+
+	This is what I have at the moment, and it works for me.
+
+static const char *skip_target(const char *target)
+{
+        while ((target[i] == '~') || (target[i] == '&amp;') || (target[i] == 
+'@') || (target[i] == '%') || (target[i] == '+')) {
+                i++;
+        };
+
+        if(ischannel(target[i])) {
+                target += i;
+        };
+        return target;
+}
+
+	I would appreciate pointers however on making this more universal, as I 
+doubt that it will be accepted as-is.
+
+-- 
+[Crash programs] fail because they are based on the theory that, with 
+nine women pregnant, you can get a baby a month.
+		-- Wernher von Braun
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20050505233047</emailId><senderName>tabris</senderName><senderEmail>tabris@tabris.net</senderEmail><timestampReceived>2005-05-05 23:30:47-0400</timestampReceived><subject>Re: skip_target and NOTICE/PRIVMSG target handling</subject><body>
+
+[Attachment #2 (multipart/mixed)]
+
+
+On Saturday 30 April 2005 11:17 pm, tabris wrote:
+&gt; 	I have a tentative patch for skip_target() that handles Unreal's
+&gt; multi-prefix NOTICEs. I'm thinking that it's a bit hackish atm
+&gt; however, so want to know how I can get access to the isupport
+&gt; PREFIXes so that I can support any prefix.
+	Patch is attached, but there really should be another/better way to do 
+this. However I'd need a way to get the isupport PREFIX array and 
+iterate over it. I may work on this later, track down how it's stored.
+
+&gt; 	I would appreciate pointers however on making this more universal,
+&gt; as I doubt that it will be accepted as-is.
+
+-- 
+Rube Walker: "Hey, Yogi, what time is it?"
+Yogi Berra:  "You mean now?"
+
+["skip_target.diff" (text/x-diff)]
+
+Index: src/fe-common/irc/fe-irc-commands.c
+===================================================================
+--- src/fe-common/irc/fe-irc-commands.c	(revision 3728)
++++ src/fe-common/irc/fe-irc-commands.c	(working copy)
+@@ -43,13 +43,14 @@
+ 
+ static const char *skip_target(const char *target)
+ {
+-	if (*target == '@') {
+-		/* @#channel, @+#channel - Hybrid6 / Bahamut features */
+-		if (target[1] == '+' &amp;&amp; ischannel(target[2]))
+-			target += 2;
+-		else if (ischannel(target[1]))
+-			target++;
+-	}
++	int i = 0;
++	while ((target[i] == '~') || (target[i] == '&amp;') || (target[i] == '@') || (target[i] \
+== '%') || (target[i] == '+')) { +		i++;
++	};
++
++	if(ischannel(target[i])) {
++		target += i;
++	};
+ 
+ 	return target;
+ }
+Index: src/fe-common/irc/fe-irc-messages.c
+===================================================================
+--- src/fe-common/irc/fe-irc-messages.c	(revision 3728)
++++ src/fe-common/irc/fe-irc-messages.c	(working copy)
+@@ -39,13 +39,15 @@
+ 
+ static const char *skip_target(const char *target)
+ {
+-	if (target != NULL &amp;&amp; *target == '@') {
+-		/* @#channel, @+#channel - Hybrid6 / Bahamut features */
+-		if (target[1] == '+' &amp;&amp; ischannel(target[2]))
+-			target += 2;
+-		else if (ischannel(target[1]))
+-			target++;
+-	}
++	int i = 0;
++	while ((target[i] == '~') || (target[i] == '&amp;') ||
++		(target[i] == '@') || (target[i] == '%') || (target[i] == '+')) {
++		i++;
++	};
++
++	if(ischannel(target[i])) {
++		target += i;
++	};
+ 
+ 	return target;
+ }
+
+
+[Attachment #6 (application/pgp-signature)]
+
+</body></email><email><emailId>20050510080232</emailId><senderName>tabris</senderName><senderEmail>tabris@tabris.net</senderEmail><timestampReceived>2005-05-10 08:02:32-0400</timestampReceived><subject>Re: skip_target and NOTICE/PRIVMSG target handling</subject><body>
+
+[Attachment #2 (multipart/mixed)]
+
+
+On Saturday 30 April 2005 11:17 pm, tabris wrote:
+&gt; 	I have a tentative patch for skip_target() that handles Unreal's
+&gt; multi-prefix NOTICEs. I'm thinking that it's a bit hackish atm
+&gt; however, so want to know how I can get access to the isupport
+&gt; PREFIXes so that I can support any prefix.
+&gt;
+	New patch for this, this should be portable.
+
+	It has been compile tested, w/ --enable-gc. No warnings, no errors in 
+the modified files.
+	It has been runtime-tested. However only on dancer-ircd (freenode) and 
+Unreal 3.2.3 w/ PREFIX_AQ enabled.
+
+--
+tabris
+-
+Big book, big bore.
+		-- Callimachus
+
+["skip_target-2.diff" (text/x-diff)]
+
+Index: src/fe-common/irc/fe-irc-messages.c
+===================================================================
+--- src/fe-common/irc/fe-irc-messages.c	(revision 3742)
++++ src/fe-common/irc/fe-irc-messages.c	(working copy)
+@@ -37,16 +37,43 @@
+ #include "fe-queries.h"
+ #include "window-items.h"
+ 
+-static const char *skip_target(const char *target)
++static const char *skip_target(IRC_SERVER_REC *server, const char *target)
+ {
+-	if (target != NULL &amp;&amp; *target == '@') {
+-		/* @#channel, @+#channel - Hybrid6 / Bahamut features */
+-		if (target[1] == '+' &amp;&amp; ischannel(target[2]))
+-			target += 2;
+-		else if (ischannel(target[1]))
+-			target++;
++	int i = 0, j = 0, isprefix = 0;
++	char *prefix = g_hash_table_lookup(server-&gt;isupport, "PREFIX");
++	char *prefixes;
++
++	if (prefix) {
++		// PREFIX=(ov)@+
++		prefixes = strchr(prefix, ')');
+ 	}
++	else {
++		prefixes = strdup("@+");
++	}
++
++	for(i = 0; i &lt; strlen(target); i++) {
++		isprefix = 0;
++		for(j = 0; j &lt; strlen(prefixes); j++) {
++			if(target[i] == prefixes[j]) {
++				isprefix = 1;
++				break;
++			}
++		}
++		if (!isprefix)
++			break;
++	}
++
++	if(ischannel(target[i])) {
++		target += i;
++	};
+ 
++	if (prefix) {
++		g_free(prefix);
++	}
++	else {
++		g_free(prefixes);
++	};
++	
+ 	return target;
+ }
+ 
+@@ -57,7 +84,7 @@ static void sig_message_own_public(SERVE
+ 	char *nickmode;
+ 
+ 	oldtarget = target;
+-	target = skip_target(target);
++	target = skip_target(IRC_SERVER(server), target);
+ 	if (IS_IRC_SERVER(server) &amp;&amp; target != oldtarget) {
+ 		/* Hybrid 6 / Bahamut feature, send msg to all
+ 		   ops / ops+voices in channel */
+@@ -179,7 +206,7 @@ static void sig_message_irc_action(IRC_S
+ static void sig_message_own_notice(IRC_SERVER_REC *server, const char *msg,
+ 				   const char *target)
+ {
+-	printformat(server, skip_target(target), MSGLEVEL_NOTICES |
++	printformat(server, skip_target(server, target), MSGLEVEL_NOTICES |
+ 		    MSGLEVEL_NOHILIGHT | MSGLEVEL_NO_ACT,
+ 		    IRCTXT_OWN_NOTICE, target, msg);
+ }
+@@ -191,7 +218,7 @@ static void sig_message_irc_notice(SERVE
+ 	const char *oldtarget;
+ 
+ 	oldtarget = target;
+-	target = skip_target(target);
++	target = skip_target(IRC_SERVER(server), target);
+ 
+ 	if (address == NULL || *address == '\0') {
+ 		/* notice from server */
+Index: src/fe-common/irc/fe-irc-commands.c
+===================================================================
+--- src/fe-common/irc/fe-irc-commands.c	(revision 3742)
++++ src/fe-common/irc/fe-irc-commands.c	(working copy)
+@@ -41,16 +41,43 @@
+ #include "printtext.h"
+ #include "keyboard.h"
+ 
+-static const char *skip_target(const char *target)
++static const char *skip_target(IRC_SERVER_REC *server, const char *target)
+ {
+-	if (*target == '@') {
+-		/* @#channel, @+#channel - Hybrid6 / Bahamut features */
+-		if (target[1] == '+' &amp;&amp; ischannel(target[2]))
+-			target += 2;
+-		else if (ischannel(target[1]))
+-			target++;
++	int i = 0, j = 0, isprefix = 0;
++	const char *prefix = g_hash_table_lookup(server-&gt;isupport, "PREFIX");
++	const char *prefixes;
++
++	if (prefix) {
++		// PREFIX=(ov)@+
++		prefixes = strchr(prefix, ')');
++	}
++	else {
++		prefixes = strdup("@+");
++	}
++
++	for(i = 0; i &lt; strlen(target); i++) {
++		isprefix = 0;
++		for(j = 0; j &lt; strlen(prefixes); j++) {
++			if(target[i] == prefixes[j]) {
++				isprefix = 1;
++				break;
++			}
++		}
++		if (!isprefix)
++			break;
+ 	}
+ 
++	if(ischannel(target[i])) {
++		target += i;
++	};
++
++	if (prefix) {
++		g_free(prefix);
++	}
++	else {
++		g_free(prefixes);
++	};
++	
+ 	return target;
+ }
+ 
+@@ -103,7 +130,7 @@ static void cmd_action(const char *data,
+ 	recoded = recode_out(SERVER(server), text, target);
+ 	irc_send_cmdv(server, "PRIVMSG %s :\001ACTION %s\001", target, recoded);
+ 
+-	target = skip_target(target);
++	target = skip_target(server, target);
+ 	signal_emit("message irc own_action", 3, server, recoded, target);
+ 
+ 	g_free(recoded);
+@@ -158,7 +185,7 @@ static void cmd_ctcp(const char *data, I
+ 		return;
+ 	}
+ 
+-	target = skip_target(target);
++	target = skip_target(server, target);
+ 
+ 	g_strup(ctcpcmd);
+ 	signal_emit("message irc own_ctcp", 4,
+@@ -183,7 +210,7 @@ static void cmd_nctcp(const char *data, 
+ 	if (*target == '\0' || *text == '\0')
+ 		cmd_param_error(CMDERR_NOT_ENOUGH_PARAMS);
+ 
+-	target = skip_target(target);
++	target = skip_target(server, target);
+ 	signal_emit("message irc own_notice", 3, server, text, target);
+ 	cmd_params_free(free_arg);
+ }
+
+[Attachment #6 (application/pgp-signature)]
+
+</body></email><email><emailId>20050519030112</emailId><senderName>tabris</senderName><senderEmail>tabris@tabris.net</senderEmail><timestampReceived>2005-05-19 03:01:12-0400</timestampReceived><subject>Re: skip_target and NOTICE/PRIVMSG target handling</subject><body>
+
+
+On Tuesday 10 May 2005 4:02 am, tabris wrote:
+&gt; On Saturday 30 April 2005 11:17 pm, tabris wrote:
+&gt; &gt; 	I have a tentative patch for skip_target() that handles Unreal's
+&gt; &gt; multi-prefix NOTICEs. I'm thinking that it's a bit hackish atm
+&gt; &gt; however, so want to know how I can get access to the isupport
+&gt; &gt; PREFIXes so that I can support any prefix.
+&gt;
+&gt; 	New patch for this, this should be portable.
+&gt;
+&gt; 	It has been compile tested, w/ --enable-gc. No warnings, no errors
+&gt; in the modified files.
+&gt; 	It has been runtime-tested. However only on dancer-ircd (freenode)
+&gt; and Unreal 3.2.3 w/ PREFIX_AQ enabled.
+	There is a bug I'm running into with this patch on debian boxen... 
+aparrently prefix is getting junk data in it, and I do not know why, 
+then prefixes is NULL (as the char ')' does not exist in the junk 
+string)
+
+	This happens when the client is initially connecting, so 
+server-&gt;isupport isn't initialized yet.
+
+	What am I doing wrong?
+-- 
+Real Users hate Real Programmers.
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email></emails>

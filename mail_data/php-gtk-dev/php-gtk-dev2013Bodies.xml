@@ -1,0 +1,1210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20130103081931</emailId><senderName>"gianluca dot faieta at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2013-01-03 08:19:31-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #63892 [NEW]: Stock browser demo exception with some locales</subject><body>
+
+From:             gianluca dot faieta at gmail dot com
+Operating system: Windows
+PHP version:      Irrelevant
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:Stock browser demo exception with some locales
+
+Description:
+------------
+The stock icons browser from php-gtk-src demos throws exception when run
+under 
+italian, spanish and french locales (Control Panels &gt; Region and Language).
+It 
+works normally when run under english, german and dutch locales.
+
+The script was tested on Windows Server 2008 SP2, Windows XP SP2 and
+Windows 7 
+with same error. Multiple PHP binaries were tested, with same outcome:
+
+- http://emsmith.net/gtk/php-5.3.15-nts-php-gtk-snapshot.zip
+- http://emsmith.net/gtk/php-5.4.5-nts-php-gtk-snapshot.zip
+- http://emsmith.net/gtk/php-gtk-2012-5.4-snapshot.zip
+
+Old php-gtk package works (http://gtk.php.net/do_download.php?
+download_file=php-gtk-2.0.1-win32-nts.zip)
+
+
+Test script:
+---------------
+https://raw.github.com/php/php-gtk-src/master/demos/stock-browser.php
+
+Actual result:
+--------------
+Warning: Could not convert item label from UTF-8 in
+C:\zdemos\stock-browser.php 
+on line 120
+
+Fatal error: Uncaught exception 'PhpGtkGErrorException' with message
+'Sequenza di 
+byte non valida nell'ingresso per la conversione' in C:\zdemos\stock-
+browser.php:120
+Stack trace:
+#0 C:\zdemos\stock-browser.php(120): Gtk::stock_lookup('gtk-go-down')
+#1 C:\zdemos\stock-browser.php(52): StockItemBrowserDemo-&gt;create_model()
+#2 C:\zdemos\stock-browser.php(253): StockItemBrowserDemo-&gt;__construct()
+#3 {main}
+  thrown in C:\zdemos\stock-browser.php on line 120
+
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=63892&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):   https://bugs.php.net/fix.php?id=63892&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):   https://bugs.php.net/fix.php?id=63892&amp;r=trysnapshot53
+Try a snapshot (trunk):     https://bugs.php.net/fix.php?id=63892&amp;r=trysnapshottrunk
+Fixed in SVN:               https://bugs.php.net/fix.php?id=63892&amp;r=fixed
+Fixed in release:           https://bugs.php.net/fix.php?id=63892&amp;r=alreadyfixed
+Need backtrace:             https://bugs.php.net/fix.php?id=63892&amp;r=needtrace
+Need Reproduce Script:      https://bugs.php.net/fix.php?id=63892&amp;r=needscript
+Try newer version:          https://bugs.php.net/fix.php?id=63892&amp;r=oldversion
+Not developer issue:        https://bugs.php.net/fix.php?id=63892&amp;r=support
+Expected behavior:          https://bugs.php.net/fix.php?id=63892&amp;r=notwrong
+Not enough info:            https://bugs.php.net/fix.php?id=63892&amp;r=notenoughinfo
+Submitted twice:            https://bugs.php.net/fix.php?id=63892&amp;r=submittedtwice
+register_globals:           https://bugs.php.net/fix.php?id=63892&amp;r=globals
+PHP 4 support discontinued: https://bugs.php.net/fix.php?id=63892&amp;r=php4
+Daylight Savings:           https://bugs.php.net/fix.php?id=63892&amp;r=dst
+IIS Stability:              https://bugs.php.net/fix.php?id=63892&amp;r=isapi
+Install GNU Sed:            https://bugs.php.net/fix.php?id=63892&amp;r=gnused
+Floating point limitations: https://bugs.php.net/fix.php?id=63892&amp;r=float
+No Zend Extensions:         https://bugs.php.net/fix.php?id=63892&amp;r=nozend
+MySQL Configuration Error:  https://bugs.php.net/fix.php?id=63892&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20130218003355</emailId><senderName></senderName><senderEmail>php-bugs</senderEmail><timestampReceived>2013-02-18 00:33:55-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #47063 [Fbk-&gt;NoF]: PHP-GTK</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=47063&amp;edit=1
+
+ ID:               47063
+ Updated by:       php-bugs@lists.php.net
+ Reported by:      db4fn1 dot snl at gishpuppy dot com
+ Summary:          PHP-GTK
+-Status:           Feedback
++Status:           No Feedback
+ Type:             Bug
+ Package:          PHP-GTK related
+ Operating System: Ubuntu
+ PHP Version:      5.2.8
+
+ New Comment:
+
+No feedback was provided. The bug is being suspended because
+we assume that you are no longer experiencing the problem.
+If this is not the case and you are able to provide the
+information that was requested earlier, please do so and
+change the status of the bug back to "Open". Thank you.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2010-03-25 04:51:24] kalle@php.net
+
+Can you please submit the code again where its visible to see, the old one seems to \
+have been lost.
+
+Also, can you compile PHP-GTK with debugging symbols and regenerate the BT?
+
+------------------------------------------------------------------------
+[2009-01-15 20:30:24] db4fn1 dot snl at gishpuppy dot com
+
+Using some packages I found on the Internet \
+(http://www.compdigitec.com/labs/2009/01/14/binary-packages-php-cli-528-and-php-gtk-201/), \
+it can be confirmed this bug still exists:
+
+$ php --version
+PHP 5.2.8 (cli) (built: Jan 11 2009 11:58:17) (DEBUG)
+Copyright (c) 1997-2008 The PHP Group
+Zend Engine v2.2.0, Copyright (c) 1998-2008 Zend Technologies
+
+$ php -c phpgtk.ini app.php 
+Segmentation fault (core dumped)
+
+$ gdb php core
+GNU gdb 6.8-debian
+Copyright (C) 2008 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i486-linux-gnu"...
+(no debugging symbols found)
+
+Reading symbols from /lib/tls/i686/cmov/libcrypt.so.1...(no debugging symbols \
+found)...done. Loaded symbols for /lib/tls/i686/cmov/libcrypt.so.1
+Reading symbols from /usr/lib/libz.so.1...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libz.so.1
+Reading symbols from /usr/lib/libexslt.so.0...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libexslt.so.0
+Reading symbols from /usr/lib/libtidy-0.99.so.0...(no debugging symbols \
+found)...done. Loaded symbols for /usr/lib/libtidy-0.99.so.0
+Reading symbols from /lib/tls/i686/cmov/librt.so.1...
+(no debugging symbols found)...done.
+Loaded symbols for /lib/tls/i686/cmov/librt.so.1
+Reading symbols from /usr/lib/libmysqlclient.so.15...(no debugging symbols \
+found)...done. Loaded symbols for /usr/lib/libmysqlclient.so.15
+Reading symbols from /lib/tls/i686/cmov/libpthread.so.0...
+(no debugging symbols found)...done.
+Loaded symbols for /lib/tls/i686/cmov/libpthread.so.0
+Reading symbols from /usr/lib/libmhash.so.2...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libmhash.so.2
+Reading symbols from /lib/tls/i686/cmov/libresolv.so.2...
+(no debugging symbols found)...done.
+Loaded symbols for /lib/tls/i686/cmov/libresolv.so.2
+Reading symbols from /lib/tls/i686/cmov/libdl.so.2...(no debugging symbols \
+found)...done. Loaded symbols for /lib/tls/i686/cmov/libdl.so.2
+Reading symbols from /lib/tls/i686/cmov/libnsl.so.1...
+(no debugging symbols found)...done.
+Loaded symbols for /lib/tls/i686/cmov/libnsl.so.1
+Reading symbols from /usr/lib/i686/cmov/libssl.so.0.9.8...(no debugging symbols \
+found)...done. Loaded symbols for /usr/lib/i686/cmov/libssl.so.0.9.8
+Reading symbols from /usr/lib/i686/cmov/libcrypto.so.0.9.8...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/i686/cmov/libcrypto.so.0.9.8
+Reading symbols from /usr/lib/libcurl.so.4...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libcurl.so.4
+Reading symbols from /usr/lib/libgssapi_krb5.so.2...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libgssapi_krb5.so.2
+Reading symbols from /usr/lib/libidn.so.11...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libidn.so.11
+Reading symbols from /usr/lib/libldap_r-2.4.so.2...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libldap_r-2.4.so.2
+Reading symbols from /usr/lib/libkrb5.so.3...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libkrb5.so.3
+Reading symbols from /usr/lib/libk5crypto.so.3...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libk5crypto.so.3
+Reading symbols from /lib/libcom_err.so.2...(no debugging symbols found)...done.
+Loaded symbols for /lib/libcom_err.so.2
+Reading symbols from /usr/lib/libxslt.so.1...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libxslt.so.1
+Reading symbols from /lib/tls/i686/cmov/libm.so.6...(no debugging symbols \
+found)...done. Loaded symbols for /lib/tls/i686/cmov/libm.so.6
+Reading symbols from /usr/lib/libxml2.so.2...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libxml2.so.2
+Reading symbols from /lib/tls/i686/cmov/libc.so.6...(no debugging symbols \
+found)...done. Loaded symbols for /lib/tls/i686/cmov/libc.so.6
+Reading symbols from /lib/libgcrypt.so.11...
+(no debugging symbols found)...done.
+Loaded symbols for /lib/libgcrypt.so.11
+Reading symbols from /lib/ld-linux.so.2...(no debugging symbols found)...done.
+Loaded symbols for /lib/ld-linux.so.2
+Reading symbols from /usr/lib/libkrb5support.so.0...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libkrb5support.so.0
+Reading symbols from /lib/libkeyutils.so.1...(no debugging symbols found)...done.
+Loaded symbols for /lib/libkeyutils.so.1
+Reading symbols from /usr/lib/liblber-2.4.so.2...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/liblber-2.4.so.2
+Reading symbols from /usr/lib/libsasl2.so.2...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libsasl2.so.2
+Reading symbols from /usr/lib/libgnutls.so.26...
+---Type &lt;return&gt; to continue, or q &lt;return&gt; to quit---
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libgnutls.so.26
+Reading symbols from /usr/lib/libtasn1.so.3...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libtasn1.so.3
+Reading symbols from /lib/libgpg-error.so.0...
+(no debugging symbols found)...done.
+Loaded symbols for /lib/libgpg-error.so.0
+Reading symbols from /usr/lib/php/extensions/debug-non-zts-20060613/php_gtk2.so...(no \
+debugging symbols found)...done. Loaded symbols for \
+/usr/lib/php/extensions/debug-non-zts-20060613/php_gtk2.so Reading symbols from \
+/usr/lib/libgtk-x11-2.0.so.0... (no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libgtk-x11-2.0.so.0
+Reading symbols from /usr/lib/libgdk-x11-2.0.so.0...(no debugging symbols \
+found)...done. Loaded symbols for /usr/lib/libgdk-x11-2.0.so.0
+Reading symbols from /usr/lib/libpangoft2-1.0.so.0...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libpangoft2-1.0.so.0
+Reading symbols from /usr/lib/libgdk_pixbuf-2.0.so.0...(no debugging symbols \
+found)...done. Loaded symbols for /usr/lib/libgdk_pixbuf-2.0.so.0
+Reading symbols from /usr/lib/libpangocairo-1.0.so.0...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libpangocairo-1.0.so.0
+Reading symbols from /usr/lib/libgio-2.0.so.0...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libgio-2.0.so.0
+Reading symbols from /usr/lib/libcairo.so.2...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libcairo.so.2
+Reading symbols from /usr/lib/libfreetype.so.6...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libfreetype.so.6
+Reading symbols from /usr/lib/libfontconfig.so.1...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libfontconfig.so.1
+Reading symbols from /usr/lib/libatk-1.0.so.0...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libatk-1.0.so.0
+Reading symbols from /usr/lib/libpango-1.0.so.0...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libpango-1.0.so.0
+Reading symbols from /usr/lib/libgobject-2.0.so.0...(no debugging symbols \
+found)...done. Loaded symbols for /usr/lib/libgobject-2.0.so.0
+Reading symbols from /usr/lib/libgmodule-2.0.so.0...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libgmodule-2.0.so.0
+Reading symbols from /usr/lib/libgthread-2.0.so.0...(no debugging symbols \
+found)...done. Loaded symbols for /usr/lib/libgthread-2.0.so.0
+Reading symbols from /usr/lib/libglib-2.0.so.0...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libglib-2.0.so.0
+Reading symbols from /usr/lib/libstdc++.so.6...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libstdc++.so.6
+Reading symbols from /lib/libgcc_s.so.1...
+(no debugging symbols found)...done.
+Loaded symbols for /lib/libgcc_s.so.1
+Reading symbols from /usr/lib/libX11.so.6...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libX11.so.6
+Reading symbols from /usr/lib/libXcomposite.so.1...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libXcomposite.so.1
+Reading symbols from /usr/lib/libXdamage.so.1...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libXdamage.so.1
+Reading symbols from /usr/lib/libXfixes.so.3...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libXfixes.so.3
+Reading symbols from /usr/lib/libXext.so.6...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libXext.so.6
+Reading symbols from /usr/lib/libXrender.so.1...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libXrender.so.1
+Reading symbols from /usr/lib/libXinerama.so.1...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libXinerama.so.1
+Reading symbols from /usr/lib/libXi.so.6...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libXi.so.6
+Reading symbols from /usr/lib/libXrandr.so.2...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libXrandr.so.2
+Reading symbols from /usr/lib/libXcursor.so.1...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libXcursor.so.1
+Reading symbols from /lib/libselinux.so.1...(no debugging symbols found)...done.
+Loaded symbols for /lib/libselinux.so.1
+Reading symbols from /usr/lib/libpixman-1.so.0...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libpixman-1.so.0
+Reading symbols from /usr/lib/libpng12.so.0...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libpng12.so.0
+Reading symbols from /usr/lib/libxcb-render-util.so.0...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libxcb-render-util.so.0
+Reading symbols from /usr/lib/libxcb-render.so.0...(no debugging symbols \
+found)...done. Loaded symbols for /usr/lib/libxcb-render.so.0
+Reading symbols from /usr/lib/libxcb.so.1...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libxcb.so.1
+Reading symbols from /usr/lib/libexpat.so.1...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libexpat.so.1
+Reading symbols from /lib/libpcre.so.3...
+(no debugging symbols found)...done.
+Loaded symbols for /lib/libpcre.so.3
+Reading symbols from /usr/lib/libxcb-xlib.so.0...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libxcb-xlib.so.0
+Reading symbols from /usr/lib/libXau.so.6...
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libXau.so.6
+Reading symbols from /usr/lib/libXdmcp.so.6...(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/libXdmcp.so.6
+Reading symbols from /lib/tls/i686/cmov/libnss_files.so.2...
+(no debugging symbols found)...done.
+Loaded symbols for /lib/tls/i686/cmov/libnss_files.so.2
+Reading symbols from /lib/tls/i686/cmov/libnss_compat.so.2...(no debugging symbols \
+found)...done. Loaded symbols for /lib/tls/i686/cmov/libnss_compat.so.2
+Reading symbols from /lib/tls/i686/cmov/libnss_nis.so.2...
+(no debugging symbols found)...done.
+Loaded symbols for /lib/tls/i686/cmov/libnss_nis.so.2
+Reading symbols from /usr/lib/gtk-2.0/2.10.0/engines/libmurrine.so...(no debugging \
+symbols found)...done. Loaded symbols for \
+/usr/lib/gtk-2.0/2.10.0/engines/libmurrine.so Reading symbols from \
+                /usr/lib/gconv/ISO8859-1.so...
+---Type &lt;return&gt; to continue, or q &lt;return&gt; to quit---
+(no debugging symbols found)...done.
+Loaded symbols for /usr/lib/gconv/ISO8859-1.so
+(no debugging symbols found)
+Core was generated by `php -c phpgtk.ini app.php'.
+Program terminated with signal 11, Segmentation fault.
+[New process 18495]
+#0  0xb735b761 in ?? ()
+   from /usr/lib/php/extensions/debug-non-zts-20060613/php_gtk2.so
+(gdb) bt
+#0  0xb735b761 in ?? ()
+   from /usr/lib/php/extensions/debug-non-zts-20060613/php_gtk2.so
+#1  0x083f0a0d in ?? ()
+#2  0x083f162c in ?? ()
+#3  0x083f057c in execute ()
+#4  0x083cbb22 in zend_execute_scripts ()
+#5  0x08378479 in php_execute_script ()
+#6  0x08446a35 in main ()
+(gdb)
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=47063
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=47063&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20130218003402</emailId><senderName></senderName><senderEmail>php-bugs</senderEmail><timestampReceived>2013-02-18 00:34:02-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #50045 [Fbk-&gt;NoF]: Minor documentation fix</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=50045&amp;edit=1
+
+ ID:               50045
+ Updated by:       php-bugs@lists.php.net
+ Reported by:      ptlis at ptlis dot net
+ Summary:          Minor documentation fix
+-Status:           Feedback
++Status:           No Feedback
+ Type:             Bug
+ Package:          PHP-GTK related
+ Operating System: ubuntu 9.04
+ PHP Version:      5.2.11
+
+ New Comment:
+
+No feedback was provided. The bug is being suspended because
+we assume that you are no longer experiencing the problem.
+If this is not the case and you are able to provide the
+information that was requested earlier, please do so and
+change the status of the bug back to "Open". Thank you.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2010-03-17 18:21:37] kalle@php.net
+
+Same as the other report, could you please re-upload the patch?
+
+------------------------------------------------------------------------
+[2009-10-30 22:26:50] ptlis at ptlis dot net
+
+Description:
+------------
+Simple one-line documentation fix; The documentation of the parameters for the \
+GtkMessageDialog constructor has a typo; as such the documentation of the \
+GtkMessageType enum was not linked to.
+
+The patch can be found at http://ptlis.net/temp/gtkmessage.xml.patch
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=50045&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>201302180034020</emailId><senderName></senderName><senderEmail>php-bugs</senderEmail><timestampReceived>2013-02-18 00:34:02-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #50046 [Fbk-&gt;NoF]: Documentation fix for GtkDialog::add_action_widget()</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=50046&amp;edit=1
+
+ ID:               50046
+ Updated by:       php-bugs@lists.php.net
+ Reported by:      ptlis at ptlis dot net
+ Summary:          Documentation fix for GtkDialog::add_action_widget()
+-Status:           Feedback
++Status:           No Feedback
+ Type:             Bug
+ Package:          PHP-GTK related
+ Operating System: ubuntu 9.04
+ PHP Version:      5.2.11
+
+ New Comment:
+
+No feedback was provided. The bug is being suspended because
+we assume that you are no longer experiencing the problem.
+If this is not the case and you are able to provide the
+information that was requested earlier, please do so and
+change the status of the bug back to "Open". Thank you.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2010-03-17 18:20:50] kalle@php.net
+
+Could you please re-upload the patch where its accessable?
+
+------------------------------------------------------------------------
+[2010-03-15 22:49:36] markskilbeck at gmail dot com
+
+Your patch file cannot be found. What method are you referring to?
+
+------------------------------------------------------------------------
+[2009-10-30 23:06:53] ptlis at ptlis dot net
+
+Description:
+------------
+Another simple documentation update; In the parameter description i've added a link \
+to the GtkResponseType enum.
+
+patch: http://ptlis.net/temp/gtkdialog.xml.patch
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=50046&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20130218003534</emailId><senderName></senderName><senderEmail>php-bugs</senderEmail><timestampReceived>2013-02-18 00:35:34-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #60530 [Fbk-&gt;NoF]: PHP Execution doesn't terminate when using circular references</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=60530&amp;edit=1
+
+ ID:               60530
+ Updated by:       php-bugs@lists.php.net
+ Reported by:      willyscheibel at gmx dot de
+ Summary:          PHP Execution doesn't terminate when using circular
+                   references and mnemonics
+-Status:           Feedback
++Status:           No Feedback
+ Type:             Bug
+ Package:          PHP-GTK related
+ Operating System: Ubuntu 11.10
+ PHP Version:      Irrelevant
+
+ New Comment:
+
+No feedback was provided. The bug is being suspended because
+we assume that you are no longer experiencing the problem.
+If this is not the case and you are able to provide the
+information that was requested earlier, please do so and
+change the status of the bug back to "Open". Thank you.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-07-18 17:59:32] auroraeosrose@php.net
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+I can't reproduce this with the current code from 
+
+https://git.php.net/repository/php/gtk-src.git
+
+with PHP 5.3 or 5.4
+
+1. are you using a distribution build of PHP? ubuntu puts patches on PHP source
+2. does this still occur with the newer version of php-gtk code?
+3. what version of the gtk libraries are you using?
+
+------------------------------------------------------------------------
+[2011-12-19 16:57:46] willyscheibel at gmx dot de
+
+Changed used OS
+
+------------------------------------------------------------------------
+[2011-12-15 11:27:19] willyscheibel at gmx dot de
+
+Description:
+------------
+Used php-gtk: trunk at 2011-12-11
+
+The provided script could be parametrized with the defines in the first lines.
+I provide a version which shows the bug (define('SHOW_BUG', true)), another one, \
+which avoids the bug (define('SHOW_BUG', false)) and another one, which presents a \
+workaround (define('USE_WORKAROUND', true)).
+
+The bug occurs when one uses menu entries with mnemonics in their names in \
+conjunction with a circular reference in classes using php-gtk. the bug doesn't occur \
+if either the circular reference is resolved manually or if there isn't any menu \
+entry with a mnemonic in its name.
+
+Test script:
+---------------
+a minimal script which reproduces the bug is located at
+http://tasteful-revolution.net/bug.php.txt
+
+Expected result:
+----------------
+When I close the window, the script should terminate normally.
+
+Actual result:
+--------------
+When I close the window, the script doesn't terminate but leaves the gtk main loop.
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=60530&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20130218003604</emailId><senderName></senderName><senderEmail>php-bugs</senderEmail><timestampReceived>2013-02-18 00:36:04-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63288 [Fbk-&gt;NoF]: PHP Execution doesn't terminate when using circular references</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63288&amp;edit=1
+
+ ID:               63288
+ Updated by:       php-bugs@lists.php.net
+ Reported by:      PRG at aol dot com
+ Summary:          PHP Execution doesn't terminate when using circular
+                   references and mnemonics
+-Status:           Feedback
++Status:           No Feedback
+ Type:             Bug
+ Package:          PHP-GTK related
+ Operating System: Ubuntu 11.10
+ PHP Version:      Irrelevant
+
+ New Comment:
+
+No feedback was provided. The bug is being suspended because
+we assume that you are no longer experiencing the problem.
+If this is not the case and you are able to provide the
+information that was requested earlier, please do so and
+change the status of the bug back to "Open". Thank you.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-10-17 15:43:08] auroraeosrose@php.net
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+
+
+------------------------------------------------------------------------
+[2012-10-16 16:21:23] PRG at aol dot com
+
+Description:
+------------
+PaulRGlittlemandownthere
+
+Test script:
+---------------
+PaulRGlittlemandownthere
+
+Expected result:
+----------------
+PaulRGlittlemandownthere
+
+Actual result:
+--------------
+PaulRGlittlemandownthere
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63288&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20130219140325</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2013-02-19 14:03:25-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63288 [NoF-&gt;Spm]: PHP Execution doesn't terminate when using circular references</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63288&amp;edit=1
+
+ ID:                 63288
+ Updated by:         auroraeosrose@php.net
+ Reported by:        PRG at aol dot com
+ Summary:            PHP Execution doesn't terminate when using circular
+                     references and mnemonics
+-Status:             No Feedback
++Status:             Spam
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 11.10
+ PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2013-02-18 00:36:04] php-bugs at lists dot php dot net
+
+No feedback was provided. The bug is being suspended because
+we assume that you are no longer experiencing the problem.
+If this is not the case and you are able to provide the
+information that was requested earlier, please do so and
+change the status of the bug back to "Open". Thank you.
+
+------------------------------------------------------------------------
+[2012-10-17 15:43:08] auroraeosrose@php.net
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+
+
+------------------------------------------------------------------------
+[2012-10-16 16:21:23] PRG at aol dot com
+
+Description:
+------------
+PaulRGlittlemandownthere
+
+Test script:
+---------------
+PaulRGlittlemandownthere
+
+Expected result:
+----------------
+PaulRGlittlemandownthere
+
+Actual result:
+--------------
+PaulRGlittlemandownthere
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63288&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20130107141954</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2013-01-07 14:19:54-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63892 [Opn-&gt;Fbk]: Stock browser demo exception with some locales</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63892&amp;edit=1
+
+ ID:                 63892
+ Updated by:         auroraeosrose@php.net
+ Reported by:        gianluca dot faieta at gmail dot com
+ Summary:            Stock browser demo exception with some locales
+-Status:             Open
++Status:             Feedback
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Windows
+ PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Thank you for this bug report. To properly diagnose the problem, we
+need a backtrace to see what is happening behind the scenes. To
+find out how to generate a backtrace, please read
+http://bugs.php.net/bugs-generating-backtrace.php for *NIX and
+http://bugs.php.net/bugs-generating-backtrace-win32.php for Win32
+
+Once you have generated a backtrace, please submit it to this bug
+report and change the status back to "Open". Thank you for helping
+us make PHP better.
+
+Do you have the correct ini setting for php-gtk?  This WILL not work unless you \
+change your php-gtk.codepage = UTF-8 in php-cli.ini
+
+What is happening is gtk can't convert the string given by the localization to the \
+codepage you have set in your ini, and then PHP is fatal erroring because the string \
+has invalid bytes
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2013-01-03 08:19:31] gianluca dot faieta at gmail dot com
+
+Description:
+------------
+The stock icons browser from php-gtk-src demos throws exception when run under 
+italian, spanish and french locales (Control Panels &gt; Region and Language). It 
+works normally when run under english, german and dutch locales.
+
+The script was tested on Windows Server 2008 SP2, Windows XP SP2 and Windows 7 
+with same error. Multiple PHP binaries were tested, with same outcome:
+
+- http://emsmith.net/gtk/php-5.3.15-nts-php-gtk-snapshot.zip
+- http://emsmith.net/gtk/php-5.4.5-nts-php-gtk-snapshot.zip
+- http://emsmith.net/gtk/php-gtk-2012-5.4-snapshot.zip
+
+Old php-gtk package works (http://gtk.php.net/do_download.php?
+download_file=php-gtk-2.0.1-win32-nts.zip)
+
+
+Test script:
+---------------
+https://raw.github.com/php/php-gtk-src/master/demos/stock-browser.php
+
+Actual result:
+--------------
+Warning: Could not convert item label from UTF-8 in C:\zdemos\stock-browser.php 
+on line 120
+
+Fatal error: Uncaught exception 'PhpGtkGErrorException' with message 'Sequenza di 
+byte non valida nell'ingresso per la conversione' in C:\zdemos\stock-
+browser.php:120
+Stack trace:
+#0 C:\zdemos\stock-browser.php(120): Gtk::stock_lookup('gtk-go-down')
+#1 C:\zdemos\stock-browser.php(52): StockItemBrowserDemo-&gt;create_model()
+#2 C:\zdemos\stock-browser.php(253): StockItemBrowserDemo-&gt;__construct()
+#3 {main}
+  thrown in C:\zdemos\stock-browser.php on line 120
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63892&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20130110190202</emailId><senderName>"gianluca dot faieta at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2013-01-10 19:02:02-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63892 [Fbk-&gt;Csd]: Stock browser demo exception with some locales</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63892&amp;edit=1
+
+ ID:                 63892
+ User updated by:    gianluca dot faieta at gmail dot com
+ Reported by:        gianluca dot faieta at gmail dot com
+ Summary:            Stock browser demo exception with some locales
+-Status:             Feedback
++Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Windows
+ PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Setting php-gtk.codepage to either UTF-8 or ISO-8859-1 in php.ini fixes the 
+issue.
+
+Thanks for your help.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2013-01-07 14:19:54] auroraeosrose@php.net
+
+Thank you for this bug report. To properly diagnose the problem, we
+need a backtrace to see what is happening behind the scenes. To
+find out how to generate a backtrace, please read
+http://bugs.php.net/bugs-generating-backtrace.php for *NIX and
+http://bugs.php.net/bugs-generating-backtrace-win32.php for Win32
+
+Once you have generated a backtrace, please submit it to this bug
+report and change the status back to "Open". Thank you for helping
+us make PHP better.
+
+Do you have the correct ini setting for php-gtk?  This WILL not work unless you \
+change your php-gtk.codepage = UTF-8 in php-cli.ini
+
+What is happening is gtk can't convert the string given by the localization to the \
+codepage you have set in your ini, and then PHP is fatal erroring because the string \
+has invalid bytes
+
+------------------------------------------------------------------------
+[2013-01-03 08:19:31] gianluca dot faieta at gmail dot com
+
+Description:
+------------
+The stock icons browser from php-gtk-src demos throws exception when run under 
+italian, spanish and french locales (Control Panels &gt; Region and Language). It 
+works normally when run under english, german and dutch locales.
+
+The script was tested on Windows Server 2008 SP2, Windows XP SP2 and Windows 7 
+with same error. Multiple PHP binaries were tested, with same outcome:
+
+- http://emsmith.net/gtk/php-5.3.15-nts-php-gtk-snapshot.zip
+- http://emsmith.net/gtk/php-5.4.5-nts-php-gtk-snapshot.zip
+- http://emsmith.net/gtk/php-gtk-2012-5.4-snapshot.zip
+
+Old php-gtk package works (http://gtk.php.net/do_download.php?
+download_file=php-gtk-2.0.1-win32-nts.zip)
+
+
+Test script:
+---------------
+https://raw.github.com/php/php-gtk-src/master/demos/stock-browser.php
+
+Actual result:
+--------------
+Warning: Could not convert item label from UTF-8 in C:\zdemos\stock-browser.php 
+on line 120
+
+Fatal error: Uncaught exception 'PhpGtkGErrorException' with message 'Sequenza di 
+byte non valida nell'ingresso per la conversione' in C:\zdemos\stock-
+browser.php:120
+Stack trace:
+#0 C:\zdemos\stock-browser.php(120): Gtk::stock_lookup('gtk-go-down')
+#1 C:\zdemos\stock-browser.php(52): StockItemBrowserDemo-&gt;create_model()
+#2 C:\zdemos\stock-browser.php(253): StockItemBrowserDemo-&gt;__construct()
+#3 {main}
+  thrown in C:\zdemos\stock-browser.php on line 120
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63892&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20131207191710</emailId><senderName>"Pablo Dall'Oglio"</senderName><senderEmail>pablo@dalloglio.net</senderEmail><timestampReceived>2013-12-07 19:17:10-0400</timestampReceived><subject>[PHP-GTK-DEV] Subdomain gtk.php.net</subject><body>
+
+
+People,
+
+The subdomain gtk.php.net is out.
+How can we fix that?
+
+Pablo
+
+-- 
+www.dalloglio.net
+www.twitter.com/pablodalloglio
+www.facebook.com/pablodalloglio
+
+
+</body></email><email><emailId>20131120235346</emailId><senderName>"utilmind at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2013-11-20 23:53:46-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #66132 [NEW]: X*5/X where X is floating point number is greater than 5</subject><body>
+
+From:             utilmind at gmail dot com
+Operating system: Any, tested in Win32 and CentOS
+PHP version:      5.4.22
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:X*5/X where X is floating point number is greater than 5
+
+Description:
+------------
+It's probably bug with conversion from floating point number, or bug
+with comparision between types. We know that X*5/5 is 5. Even PHP
+returns 5, however, sometimes, returned value appears to be greater than
+5.
+
+Test script:
+---------------
+$n = (3.89880952381*5/3.89880952381); // result will be exactly 5
+print $n.'!=5 ? '.($n&gt;5); // here it appears that 5 is greater than 5
+
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=66132&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):   https://bugs.php.net/fix.php?id=66132&amp;r=trysnapshot54
+Try a snapshot (PHP 5.5):   https://bugs.php.net/fix.php?id=66132&amp;r=trysnapshot55
+Try a snapshot (trunk):     https://bugs.php.net/fix.php?id=66132&amp;r=trysnapshottrunk
+Fixed in SVN:               https://bugs.php.net/fix.php?id=66132&amp;r=fixed
+Fixed in release:           https://bugs.php.net/fix.php?id=66132&amp;r=alreadyfixed
+Need backtrace:             https://bugs.php.net/fix.php?id=66132&amp;r=needtrace
+Need Reproduce Script:      https://bugs.php.net/fix.php?id=66132&amp;r=needscript
+Try newer version:          https://bugs.php.net/fix.php?id=66132&amp;r=oldversion
+Not developer issue:        https://bugs.php.net/fix.php?id=66132&amp;r=support
+Expected behavior:          https://bugs.php.net/fix.php?id=66132&amp;r=notwrong
+Not enough info:            https://bugs.php.net/fix.php?id=66132&amp;r=notenoughinfo
+Submitted twice:            https://bugs.php.net/fix.php?id=66132&amp;r=submittedtwice
+register_globals:           https://bugs.php.net/fix.php?id=66132&amp;r=globals
+PHP 4 support discontinued: https://bugs.php.net/fix.php?id=66132&amp;r=php4
+Daylight Savings:           https://bugs.php.net/fix.php?id=66132&amp;r=dst
+IIS Stability:              https://bugs.php.net/fix.php?id=66132&amp;r=isapi
+Install GNU Sed:            https://bugs.php.net/fix.php?id=66132&amp;r=gnused
+Floating point limitations: https://bugs.php.net/fix.php?id=66132&amp;r=float
+No Zend Extensions:         https://bugs.php.net/fix.php?id=66132&amp;r=nozend
+MySQL Configuration Error:  https://bugs.php.net/fix.php?id=66132&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20131121144111</emailId><senderName></senderName><senderEmail>bwoebi</senderEmail><timestampReceived>2013-11-21 14:41:11-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #66132 [Opn-&gt;Nab]: X*5/X where X is floating point number is greater than 5</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=66132&amp;edit=1
+
+ ID:                 66132
+ Updated by:         bwoebi@php.net
+ Reported by:        utilmind at gmail dot com
+ Summary:            X*5/X where X is floating point number is greater
+                     than 5
+-Status:             Open
++Status:             Not a bug
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Any, tested in Win32 and CentOS
+ PHP Version:        5.4.22
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Floating point values have a limited precision. Hence a value might 
+not have the same string representation after any processing. That also
+includes writing a floating point value in your script and directly 
+printing it without any mathematical operations.
+
+If you would like to know more about "floats" and what IEEE
+754 is, read this:
+http://www.floating-point-gui.de/
+
+Thank you for your interest in PHP.
+
+php &gt; ini_set("precision", 17);
+php &gt; $n = (3.89880952381*5/3.89880952381); // result will be a very bit greater than \
+5 php &gt; var_dump($n);
+float(5.0000000000000009)
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2013-11-21 00:19:36] scorninpc@php.net
+
+This is an PHP main package bug
+
+Confirmed
+
+Version: PHP 5.5.1-2 (built: Aug  5 2013 14:10:28)
+OS: Linux version 3.10-2-amd64 #1 SMP Debian 3.10.5-1 (2013-08-07)
+
+------------------------------------------------------------------------
+[2013-11-20 23:53:46] utilmind at gmail dot com
+
+Description:
+------------
+It's probably bug with conversion from floating point number, or bug with comparision \
+between types. We know that X*5/5 is 5. Even PHP returns 5, however, sometimes, \
+returned value appears to be greater than 5.
+
+Test script:
+---------------
+$n = (3.89880952381*5/3.89880952381); // result will be exactly 5
+print $n.'!=5 ? '.($n&gt;5); // here it appears that 5 is greater than 5
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=66132&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20131121001936</emailId><senderName>"scorninpc () php ! net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2013-11-21 00:19:36-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #66132 [Com]: X*5/X where X is floating point number is greater than 5</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=66132&amp;edit=1
+
+ ID:                 66132
+ Comment by:         scorninpc@php.net
+ Reported by:        utilmind at gmail dot com
+ Summary:            X*5/X where X is floating point number is greater
+                     than 5
+ Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Any, tested in Win32 and CentOS
+ PHP Version:        5.4.22
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+This is an PHP main package bug
+
+Confirmed
+
+Version: PHP 5.5.1-2 (built: Aug  5 2013 14:10:28)
+OS: Linux version 3.10-2-amd64 #1 SMP Debian 3.10.5-1 (2013-08-07)
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2013-11-20 23:53:46] utilmind at gmail dot com
+
+Description:
+------------
+It's probably bug with conversion from floating point number, or bug with comparision \
+between types. We know that X*5/5 is 5. Even PHP returns 5, however, sometimes, \
+returned value appears to be greater than 5.
+
+Test script:
+---------------
+$n = (3.89880952381*5/3.89880952381); // result will be exactly 5
+print $n.'!=5 ? '.($n&gt;5); // here it appears that 5 is greater than 5
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=66132&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20131121150746</emailId><senderName>"utilmind at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2013-11-21 15:07:46-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #66132 [Com]: X*5/X where X is floating point number is greater than 5</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=66132&amp;edit=1
+
+ ID:                 66132
+ Comment by:         utilmind at gmail dot com
+ Reported by:        utilmind at gmail dot com
+ Summary:            X*5/X where X is floating point number is greater
+                     than 5
+ Status:             Not a bug
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Any, tested in Win32 and CentOS
+ PHP Version:        5.4.22
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+The "ini_set("precision", 17);" explains the origin of the problem, but does not \
+solves it.
+
+The problem is not that floating point operations makes little inaccuracies.
+
+My point is that, if PHP with low precision setting rounds values for visual \
+representation of inaccurate numbers, it should also round them on compare operations \
+like &lt; &gt; and ==. Otherwise, we currently getting a value, which looks exactly like \
+"5", but actually it little bit more than "5".
+
+Currently following type conversion operation fixes the problem:
+$n = (float)(string)(3.89880952381*5/3.89880952381);
+but it's not ideal. The "precision" option of php.ini should also affect on logical \
+comparison operations.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2013-11-21 14:41:11] bwoebi@php.net
+
+Floating point values have a limited precision. Hence a value might 
+not have the same string representation after any processing. That also
+includes writing a floating point value in your script and directly 
+printing it without any mathematical operations.
+
+If you would like to know more about "floats" and what IEEE
+754 is, read this:
+http://www.floating-point-gui.de/
+
+Thank you for your interest in PHP.
+
+php &gt; ini_set("precision", 17);
+php &gt; $n = (3.89880952381*5/3.89880952381); // result will be a very bit greater than \
+5 php &gt; var_dump($n);
+float(5.0000000000000009)
+
+------------------------------------------------------------------------
+[2013-11-21 00:19:36] scorninpc@php.net
+
+This is an PHP main package bug
+
+Confirmed
+
+Version: PHP 5.5.1-2 (built: Aug  5 2013 14:10:28)
+OS: Linux version 3.10-2-amd64 #1 SMP Debian 3.10.5-1 (2013-08-07)
+
+------------------------------------------------------------------------
+[2013-11-20 23:53:46] utilmind at gmail dot com
+
+Description:
+------------
+It's probably bug with conversion from floating point number, or bug with comparision \
+between types. We know that X*5/5 is 5. Even PHP returns 5, however, sometimes, \
+returned value appears to be greater than 5.
+
+Test script:
+---------------
+$n = (3.89880952381*5/3.89880952381); // result will be exactly 5
+print $n.'!=5 ? '.($n&gt;5); // here it appears that 5 is greater than 5
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=66132&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email></emails>

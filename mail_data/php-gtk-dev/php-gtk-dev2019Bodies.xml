@@ -1,0 +1,1161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20190131190434</emailId><senderName>Robert Beran</senderName><senderEmail>robert@beran-solutions.de</senderEmail><timestampReceived>2019-01-31 19:04:34-0400</timestampReceived><subject>[PHP-GTK-DEV] help the last one</subject><body></body></email><email><emailId>20190704120333</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2019-07-04 12:03:33-0400</timestampReceived><subject>[PHP-GTK-DEV] Should Gtk be a namespace?</subject><body>
+
+
+I'm almost completing the implementation of Gtk classes, and by writing
+some Gdk and GtkSourceView features, I came to doubt to use Gtk as a
+namespace.
+
+I think it would be nice to have Gtk and Gdk as namespaces, like.
+
+$win = new \Gtk\Window();
+$win-&gt;show_all();
+\Gtk\main_quit();
+
+The problem are. What the best place to add 3th party code? Like
+SourceView? Inside Gtk namespace? on own namespace?
+
+$sv = new \Gtk\SourceView();
+
+or
+
+$sv = new \GtkSource\View();
+
+Any advice?
+
+- - -
+Bruno Pitteli Gonçalves
+AndOr - https://andor.com.br/
+General - http://www.agenciageneral.com.br/
+
+
+</body></email><email><emailId>20190704164155</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2019-07-04 16:41:55-0400</timestampReceived><subject>[PHP-GTK-DEV] Re: Should Gtk be a namespace?</subject><body>
+
+
+If you can, vote on twitter to get centered to my mind
+
+https://twitter.com/ScornInPC/status/1146740464541995009
+
+Thank you
+
+- - -
+Bruno Pitteli Gonçalves
+AndOr - https://andor.com.br/
+General - http://www.agenciageneral.com.br/
+
+
+On Thu, Jul 4, 2019 at 9:03 AM Bruno P. Gonçalves &lt;scorninpc@gmail.com&gt;
+wrote:
+
+&gt; I'm almost completing the implementation of Gtk classes, and by writing
+&gt; some Gdk and GtkSourceView features, I came to doubt to use Gtk as a
+&gt; namespace.
+&gt;
+&gt; I think it would be nice to have Gtk and Gdk as namespaces, like.
+&gt;
+&gt; $win = new \Gtk\Window();
+&gt; $win-&gt;show_all();
+&gt; \Gtk\main_quit();
+&gt;
+&gt; The problem are. What the best place to add 3th party code? Like
+&gt; SourceView? Inside Gtk namespace? on own namespace?
+&gt;
+&gt; $sv = new \Gtk\SourceView();
+&gt;
+&gt; or
+&gt;
+&gt; $sv = new \GtkSource\View();
+&gt;
+&gt; Any advice?
+&gt;
+&gt; - - -
+&gt; Bruno Pitteli Gonçalves
+&gt; AndOr - https://andor.com.br/
+&gt; General - http://www.agenciageneral.com.br/
+&gt;
+
+
+</body></email><email><emailId>20190705011154</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2019-07-05 01:11:54-0400</timestampReceived><subject>[PHP-GTK-DEV] New 0.6 Beta release</subject><body>
+
+
+Hello all
+
+New beta release out
+
+Just download and run AppImage, without any compile, on Gtk environments,
+or just download gtk libs
+
+https://github.com/scorninpc/php-gtk3/releases/tag/0.6-beta
+
+Thank you
+
+General news
+
+   - Added key property for GdkEvent for GtkEventKey
+
+News
+
+   - Added GdkEventKey
+   - Added GtkSourceView
+   - Added GtkArrowType
+   - Added GtkRecentChooserDialog
+   - Added GtkStyleContext
+   - Added GtkCssProvider
+   - Added GdkWindow
+   - Added GdkVisual
+   - Added GtkWidget::get_style_context
+
+Enums
+
+   - Added GtkSourceBackgroundPatternType
+   - Added GtkSourceDrawSpacesFlags
+   - Added GtkSourceSmartHomeEndType
+   - Added GtkRecentChooserError
+   - Added GtkRecentSortType
+   - Added GdkAnchorHints
+   - Added GdkByteOrder
+   - Added GdkFilterReturn
+   - Added GdkFullscreenMode
+   - Added GdkGravity
+   - Added GdkModifierIntent
+   - Added GdkVisualType
+   - Added GdkWMDecoration
+   - Added GdkWMFunction
+   - Added GdkWindowAttributesType
+   - Added GdkWindowEdge
+   - Added GdkWindowHints
+   - Added GdkWindowWindowClass
+   - Added GdkWindowType
+   - Added GtkCssProviderError
+   - Added GtkCssSectionType
+   - Added GtkAlign
+   - Added GtkBorderStyle
+   - Added GtkJunctionSides
+   - Added GtkRegionFlags
+   - Added GtkSizeRequestMode
+   - Added GtkStyleContextPrintFlags
+   - Added GtkTextDirection
+   - Added GtkWidgetHelpType
+
+
+- - -
+Bruno Pitteli Gon=C3=A7alves
+AndOr - https://andor.com.br/
+General - http://www.agenciageneral.com.br/
+
+
+</body></email><email><emailId>20190712013115</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2019-07-12 01:31:15-0400</timestampReceived><subject>[PHP-GTK-DEV] New release 0.7 Beta</subject><body>
+
+
+New build guys
+
+https://github.com/scorninpc/php-gtk3/releases
+
+For more, follow me https://twitter.com/ScornInPC
+
+Thank you all
+
+General news
+
+   - Deleted c++ classes who represent constants of php. Added this classes
+   of Php::Base, to complie faster and reduce final object size
+   - Fixed warning of comparison error from GtkClipboard
+   - Removed deprecated functions from GtkSourceView, GtkContainer
+   - Change tests to support GTK 3.24
+
+News
+
+   - Added GtkFixed
+   - Added GtkListStore::remove
+   - Added GtkListStore::insert
+   - Added GtkListStore::insert_before
+   - Added GtkListStore::insert_after
+   - Added GtkListStore::prepend
+   - Added GtkListStore::clear
+   - Added GtkListStore::iter_is_valid
+   - Added GtkListStore::swap
+   - Added GtkListStore::move_before
+   - Added GtkListStore::move_after
+
+
+- - -
+Bruno Pitteli Gon=C3=A7alves
+AndOr - https://andor.com.br/
+General - http://www.agenciageneral.com.br/
+
+
+</body></email><email><emailId>20190719003711</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2019-07-19 00:37:11-0400</timestampReceived><subject>[PHP-GTK-DEV] New release 0.8 Beta</subject><body>
+
+
+Hello.  New 0.8 release with news and improvements
+
+Hope you like
+
+https://github.com/scorninpc/php-gtk3/releases
+
+General news
+
+   - Change GObject::connect to work with object class
+
+News
+
+   - Added GtkNotebook_::get_action_widget
+   - Added GtkNotebook_::set_action_widget
+   - Added GtkNotebook_::get_group_name
+   - Added GtkNotebook_::set_group_name
+   - Added GtkNotebook_::set_current_page
+   - Added GtkNotebook_::get_tab_detachable
+   - Added GtkNotebook_::get_tab_reorderable
+   - Added GtkStackSwitcher_::set_orientation
+   - Added GtkStackSwitcher_::get_orientation
+   - Added GtkEntryCompletion
+   - Added GtkEntry::get_completion
+   - Added GtkEntry::set_completion
+   - Added GdkRGBA::red
+   - Added GdkRGBA::green
+   - Added GdkRGBA::blue
+   - Added GdkRGBA::alpha
+   - Added GtkFontButton
+   - Added GtkColorButton
+   - Rewrite all GtkWidget methods with generator
+   - Added GdkEventKey::keycode
+   -
+
+- - -
+Bruno Pitteli Gon=C3=A7alves
+AndOr - https://andor.com.br/
+General - http://www.agenciageneral.com.br/
+
+
+</body></email><email><emailId>20190611153221</emailId><senderName>"josephmambodr at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2019-06-11 15:32:21-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Req #78146 [NEW]: true</subject><body>
+
+From:             josephmambodr at gmail dot com
+Operating system: wordpress.com
+PHP version:      7.3Git-2019-06-11 (Git)
+Package:          PHP-GTK related
+Bug Type:         Feature/Change Request
+Bug description:true
+
+Description:
+------------
+---
+From manual page: https://php.net/filesystem.installation
+---
+
+
+Test script:
+---------------
+"online marketing" https://josephmambodr.org
+
+
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=78146&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):   https://bugs.php.net/fix.php?id=78146&amp;r=trysnapshot54
+Try a snapshot (PHP 5.5):   https://bugs.php.net/fix.php?id=78146&amp;r=trysnapshot55
+Try a snapshot (trunk):     https://bugs.php.net/fix.php?id=78146&amp;r=trysnapshottrunk
+Fixed in SVN:               https://bugs.php.net/fix.php?id=78146&amp;r=fixed
+Fixed in release:           https://bugs.php.net/fix.php?id=78146&amp;r=alreadyfixed
+Need backtrace:             https://bugs.php.net/fix.php?id=78146&amp;r=needtrace
+Need Reproduce Script:      https://bugs.php.net/fix.php?id=78146&amp;r=needscript
+Try newer version:          https://bugs.php.net/fix.php?id=78146&amp;r=oldversion
+Not developer issue:        https://bugs.php.net/fix.php?id=78146&amp;r=support
+Expected behavior:          https://bugs.php.net/fix.php?id=78146&amp;r=notwrong
+Not enough info:            https://bugs.php.net/fix.php?id=78146&amp;r=notenoughinfo
+Submitted twice:            https://bugs.php.net/fix.php?id=78146&amp;r=submittedtwice
+register_globals:           https://bugs.php.net/fix.php?id=78146&amp;r=globals
+PHP 4 support discontinued: https://bugs.php.net/fix.php?id=78146&amp;r=php4
+Daylight Savings:           https://bugs.php.net/fix.php?id=78146&amp;r=dst
+IIS Stability:              https://bugs.php.net/fix.php?id=78146&amp;r=isapi
+Install GNU Sed:            https://bugs.php.net/fix.php?id=78146&amp;r=gnused
+Floating point limitations: https://bugs.php.net/fix.php?id=78146&amp;r=float
+No Zend Extensions:         https://bugs.php.net/fix.php?id=78146&amp;r=nozend
+MySQL Configuration Error:  https://bugs.php.net/fix.php?id=78146&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20190611153523</emailId><senderName></senderName><senderEmail>girgias</senderEmail><timestampReceived>2019-06-11 15:35:23-0400</timestampReceived><subject>[PHP-GTK-DEV] Req #78146 [Opn-&gt;Spm]: true</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=78146&amp;edit=1
+
+ ID:                 78146
+ Updated by:         girgias@php.net
+ Reported by:        josephmambodr at gmail dot com
+ Summary:            true
+-Status:             Open
++Status:             Spam
+ Type:               Feature/Change Request
+ Package:            PHP-GTK related
+ Operating System:   wordpress.com
+ PHP Version:        7.3Git-2019-06-11 (Git)
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2019-06-11 15:32:21] josephmambodr at gmail dot com
+
+Description:
+------------
+---
+From manual page: https://php.net/filesystem.installation
+---
+
+
+Test script:
+---------------
+"online marketing" https://josephmambodr.org
+
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=78146&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20190627010041</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2019-06-27 01:00:41-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] Php 7.3 with Gtk3</subject><body>
+
+
+hahah Sorry. You started talking portuguese
+
+So, i'm php member, but oauth from master not working to give me access
+
+Anyway, it's better wait, no much people apear care, seen from stats of
+downloads and replaies
+
+Lets finish it
+
+Thank you
+
+
+- - -
+Bruno Pitteli Gon=C3=A7alves
+AndOr - https://andor.com.br/
+General - http://www.agenciageneral.com.br/
+
+
+On Tue, Jun 25, 2019 at 11:46 PM Alexandre Pereira B=C3=BChler via php-gtk-=
+dev &lt;
+php-gtk-dev@lists.php.net&gt; wrote:
+
+&gt; Bruno,
+&gt; Good night,
+&gt; Please in English.
+&gt; Your sources should be sent when you feel there is a change, a
+&gt; correction, something relevant to publish.
+&gt; So that more people can contribute.
+&gt; In the development of php with gtk 3 it will be interesting to publish
+&gt; after a certain amount of work.
+&gt; So that the changes are well documented.
+&gt; Thank you
+&gt;
+&gt; Em 25/06/2019 13:58, Bruno P. Gon=C3=A7alves escreveu:
+&gt; &gt; Boa tarde Alexandre
+&gt; &gt;
+&gt; &gt; Me diz uma coisa. Se eu der comite pro rep oficial, toda mudan=C3=A7a q=
+ue eu
+&gt; &gt; fizer, eu vou ter que mandar novamente pra la, e vc vai ter que dar mar=
+ge
+&gt; &gt; n=C3=A9?
+&gt; &gt;
+&gt; &gt; Estou querendo muito que o pessoal se engage mais, seria uma boa para
+&gt; &gt; come=C3=A7ar a documentar e tudo mais, s=C3=B3 que eu to fazendo muita =
+coisa, vai
+&gt; dar
+&gt; &gt; um baita trabalho
+&gt; &gt;
+&gt; &gt; Ou tem forma mais simples, por que foi mal, sou da epoca do cvs
+&gt; &gt;
+&gt; &gt; Abra=C3=A7os,
+&gt; &gt;
+&gt; &gt; - - -
+&gt; &gt; Bruno Pitteli Gon=C3=A7alves
+&gt; &gt; AndOr - https://andor.com.br/
+&gt; &gt; General - http://www.agenciageneral.com.br/
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; On Sun, Jun 16, 2019 at 5:35 PM Alexandre Pereira B=C3=BChler via php-g=
+tk-dev
+&gt; &lt;
+&gt; &gt; php-gtk-dev@lists.php.net&gt; wrote:
+&gt; &gt;
+&gt; &gt;&gt; Tranquilo.
+&gt; &gt;&gt; Obrigado
+&gt; &gt;&gt;
+&gt; &gt;&gt; Em 16/06/2019 14:58, Bruno P. Gon=C3=A7alves escreveu:
+&gt; &gt;&gt;&gt; Oi Alexandre
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; Eu prefiro terminar a implementa=C3=A7=C3=A3o dos widgets por complet=
+o primeiro,
+&gt; &gt;&gt; mas
+&gt; &gt;&gt;&gt; com certeza vamos fazer isso sim.
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; Eu tenho perspectiva de 2 ou 3 meses, nesse ritmo que estou
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; Abra=C3=A7os
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; - - -
+&gt; &gt;&gt;&gt; Bruno Pitteli Gon=C3=A7alves
+&gt; &gt;&gt;&gt; bruno@pitteli.com.br
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; - - -
+&gt; &gt;&gt;&gt; ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+&gt; &gt;&gt;&gt; Browse Happy - http://browsehappy.com/
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; On Sun, Jun 16, 2019 at 12:47 AM Alexandre Pereira B=C3=BChler via
+&gt; &gt;&gt; php-gtk-dev &lt;
+&gt; &gt;&gt;&gt; php-gtk-dev@lists.php.net&gt; wrote:
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; Esqueci de dizer como voc=C3=AA deve fazer.
+&gt; &gt;&gt;&gt;&gt; Fa=C3=A7a um clone o php-gtk pelo github.
+&gt; &gt;&gt;&gt;&gt; Ent=C3=A3o pelo git do php.net eu fa=C3=A7o o merge.
+&gt; &gt;&gt;&gt;&gt; Assim os cr=C3=A9ditos ser=C3=A3o seus.
+&gt; &gt;&gt;&gt;&gt; Me chame em PVT se quiser mais orienta=C3=A7=C3=B5es.
+&gt; &gt;&gt;&gt;&gt; Estou muito feliz de ver o seu esfor=C3=A7o em manter o php-gtk vivo=
+.
+&gt; &gt;&gt;&gt;&gt; Parab=C3=A9ns.
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; Em 16/06/2019 00:43, Alexandre Pereira B=C3=BChler via php-gtk-dev
+&gt; escreveu:
+&gt; &gt;&gt;&gt;&gt;&gt; Bruno,
+&gt; &gt;&gt;&gt;&gt;&gt; Boa noite,
+&gt; &gt;&gt;&gt;&gt;&gt; Se quiser eu upo o  fontes  e os execut=C3=A1veis no http://gtk.php=
+.net/
+&gt; &gt;&gt;&gt;&gt;&gt; com os devidos cr=C3=A9ditos e coloco como em "desenvolvimento".
+&gt; &gt;&gt;&gt;&gt;&gt; Eu tenho total acesso aos reposit=C3=B3rios:
+&gt; &gt;&gt; https://people.php.net/buhlerax
+&gt; &gt;&gt;&gt;&gt;&gt; Obrigado
+&gt; &gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt; Em 15/06/2019 23:07, Bruno P. Gon=C3=A7alves escreveu:
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; hello
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; I'm working a few days on a functional phpgtk ext.
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; https://github.com/scorninpc/php-gtk3
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; You can compile, or you can download appimage with all, on linux
+&gt; &gt;&gt; systems
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; I need alot work, not only to bind, but to review my code, do test=
+s,
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; etc ..
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; I glad if you guys appreciate
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; - - -
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; Bruno Pitteli Gon=C3=A7alves
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; bruno@pitteli.com.br
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; - - -
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; ScornInPC - http://bruno.pitteli.com.br/ &lt;
+&gt; http://blog.scorninpc.com/&gt;
+&gt; &gt;&gt;&gt;&gt;&gt;&gt; Browse Happy - http://browsehappy.com/
+&gt; &gt;&gt;&gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; --
+&gt; &gt;&gt;&gt;&gt; Alexandre Pereira B=C3=BChler
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; Sim=C3=A3o &amp;  B=C3=BChler Ltda (Infobrindes)
+&gt; &gt;&gt;&gt;&gt; http://www.simaoebuhler.com.br
+&gt; &gt;&gt;&gt;&gt; alexandre@simaoebuhler.com.br
+&gt; &gt;&gt;&gt;&gt; Telefone: (41) 3039-5428
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; Infobrindes (Sim=C3=A3o &amp;  B=C3=BChler Ltda)
+&gt; &gt;&gt;&gt;&gt; Brindes e material promocional.
+&gt; &gt;&gt;&gt;&gt; http://www.infobrindes.com.br
+&gt; &gt;&gt;&gt;&gt; karin@infobrindes.com.br
+&gt; &gt;&gt;&gt;&gt; Telefone: (41) 3082-8667
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; --
+&gt; &gt;&gt;&gt;&gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt; &gt;&gt;&gt;&gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt; --
+&gt; &gt;&gt; Alexandre Pereira B=C3=BChler
+&gt; &gt;&gt;
+&gt; &gt;&gt; Sim=C3=A3o &amp;  B=C3=BChler Ltda (Infobrindes)
+&gt; &gt;&gt; http://www.simaoebuhler.com.br
+&gt; &gt;&gt; alexandre@simaoebuhler.com.br
+&gt; &gt;&gt; Telefone: (41) 3039-5428
+&gt; &gt;&gt;
+&gt; &gt;&gt; Infobrindes (Sim=C3=A3o &amp;  B=C3=BChler Ltda)
+&gt; &gt;&gt; Brindes e material promocional.
+&gt; &gt;&gt; http://www.infobrindes.com.br
+&gt; &gt;&gt; karin@infobrindes.com.br
+&gt; &gt;&gt; Telefone: (41) 3082-8667
+&gt; &gt;&gt;
+&gt; &gt;&gt;
+&gt; &gt;&gt; --
+&gt; &gt;&gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt; &gt;&gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt; &gt;&gt;
+&gt; &gt;&gt;
+&gt;
+&gt; --
+&gt; Alexandre Pereira B=C3=BChler
+&gt;
+&gt; Sim=C3=A3o &amp;  B=C3=BChler Ltda (Infobrindes)
+&gt; http://www.simaoebuhler.com.br
+&gt; alexandre@simaoebuhler.com.br
+&gt; Telefone: (41) 3039-5428
+&gt;
+&gt; Infobrindes (Sim=C3=A3o &amp;  B=C3=BChler Ltda)
+&gt; Brindes e material promocional.
+&gt; http://www.infobrindes.com.br
+&gt; karin@infobrindes.com.br
+&gt; Telefone: (41) 3082-8667
+&gt;
+&gt;
+
+
+</body></email><email><emailId>20190616020740</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2019-06-16 02:07:40-0400</timestampReceived><subject>[PHP-GTK-DEV] Php 7.3 with Gtk3</subject><body>
+
+
+hello
+
+I'm working a few days on a functional phpgtk ext.
+
+https://github.com/scorninpc/php-gtk3
+
+You can compile, or you can download appimage with all, on linux systems
+
+I need alot work, not only to bind, but to review my code, do tests, etc ..
+
+I glad if you guys appreciate
+
+- - -
+Bruno Pitteli Gon=C3=A7alves
+bruno@pitteli.com.br
+
+- - -
+ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+Browse Happy - http://browsehappy.com/
+
+
+</body></email><email><emailId>20190616034353</emailId><senderName>"Alexandre Pereira BÃ¼hler via php-gtk-dev"</senderName><senderEmail>php-gtk-dev@lists.php.net</senderEmail><timestampReceived>2019-06-16 03:43:53-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] Php 7.3 with Gtk3</subject><body>
+
+Bruno,
+Boa noite,
+Se quiser eu upo o   fontes   e os executáveis no http://gtk.php.net/ com 
+os devidos créditos e coloco como em "desenvolvimento".
+Eu tenho total acesso aos repositórios: https://people.php.net/buhlerax
+Obrigado
+
+Em 15/06/2019 23:07, Bruno P. Gonçalves escreveu:
+&gt; hello
+&gt;
+&gt; I'm working a few days on a functional phpgtk ext.
+&gt;
+&gt; https://github.com/scorninpc/php-gtk3
+&gt;
+&gt; You can compile, or you can download appimage with all, on linux systems
+&gt;
+&gt; I need alot work, not only to bind, but to review my code, do tests, etc ..
+&gt;
+&gt; I glad if you guys appreciate
+&gt;
+&gt; - - -
+&gt; Bruno Pitteli Gonçalves
+&gt; bruno@pitteli.com.br
+&gt;
+&gt; - - -
+&gt; ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+&gt; Browse Happy - http://browsehappy.com/
+&gt;
+
+-- 
+Alexandre Pereira Bühler
+
+Simão &amp;  Bühler Ltda (Infobrindes)
+http://www.simaoebuhler.com.br
+alexandre@simaoebuhler.com.br
+Telefone: (41) 3039-5428
+
+Infobrindes (Simão &amp;  Bühler Ltda)
+Brindes e material promocional.
+http://www.infobrindes.com.br
+karin@infobrindes.com.br
+Telefone: (41) 3082-8667
+
+
+--
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20190616034655</emailId><senderName>"Alexandre Pereira BÃ¼hler via php-gtk-dev"</senderName><senderEmail>php-gtk-dev@lists.php.net</senderEmail><timestampReceived>2019-06-16 03:46:55-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] Php 7.3 with Gtk3</subject><body>
+
+Esqueci de dizer como você deve fazer.
+Faça um clone o php-gtk pelo github.
+Então pelo git do php.net eu faço o merge.
+Assim os créditos serão seus.
+Me chame em PVT se quiser mais orientações.
+Estou muito feliz de ver o seu esforço em manter o php-gtk vivo.
+Parabéns.
+
+Em 16/06/2019 00:43, Alexandre Pereira Bühler via php-gtk-dev escreveu:
+&gt; Bruno,
+&gt; Boa noite,
+&gt; Se quiser eu upo o   fontes   e os executáveis no http://gtk.php.net/ 
+&gt; com os devidos créditos e coloco como em "desenvolvimento".
+&gt; Eu tenho total acesso aos repositórios: https://people.php.net/buhlerax
+&gt; Obrigado
+&gt;
+&gt; Em 15/06/2019 23:07, Bruno P. Gonçalves escreveu:
+&gt;&gt; hello
+&gt;&gt;
+&gt;&gt; I'm working a few days on a functional phpgtk ext.
+&gt;&gt;
+&gt;&gt; https://github.com/scorninpc/php-gtk3
+&gt;&gt;
+&gt;&gt; You can compile, or you can download appimage with all, on linux systems
+&gt;&gt;
+&gt;&gt; I need alot work, not only to bind, but to review my code, do tests, 
+&gt;&gt; etc ..
+&gt;&gt;
+&gt;&gt; I glad if you guys appreciate
+&gt;&gt;
+&gt;&gt; - - -
+&gt;&gt; Bruno Pitteli Gonçalves
+&gt;&gt; bruno@pitteli.com.br
+&gt;&gt;
+&gt;&gt; - - -
+&gt;&gt; ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+&gt;&gt; Browse Happy - http://browsehappy.com/
+&gt;&gt;
+&gt;
+
+-- 
+Alexandre Pereira Bühler
+
+Simão &amp;  Bühler Ltda (Infobrindes)
+http://www.simaoebuhler.com.br
+alexandre@simaoebuhler.com.br
+Telefone: (41) 3039-5428
+
+Infobrindes (Simão &amp;  Bühler Ltda)
+Brindes e material promocional.
+http://www.infobrindes.com.br
+karin@infobrindes.com.br
+Telefone: (41) 3082-8667
+
+
+--
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20190616175853</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2019-06-16 17:58:53-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] Php 7.3 with Gtk3</subject><body>
+
+
+Oi Alexandre
+
+Eu prefiro terminar a implementa=C3=A7=C3=A3o dos widgets por completo prim=
+eiro, mas
+com certeza vamos fazer isso sim.
+
+Eu tenho perspectiva de 2 ou 3 meses, nesse ritmo que estou
+
+Abra=C3=A7os
+
+- - -
+Bruno Pitteli Gon=C3=A7alves
+bruno@pitteli.com.br
+
+- - -
+ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+Browse Happy - http://browsehappy.com/
+
+
+On Sun, Jun 16, 2019 at 12:47 AM Alexandre Pereira B=C3=BChler via php-gtk-=
+dev &lt;
+php-gtk-dev@lists.php.net&gt; wrote:
+
+&gt; Esqueci de dizer como voc=C3=AA deve fazer.
+&gt; Fa=C3=A7a um clone o php-gtk pelo github.
+&gt; Ent=C3=A3o pelo git do php.net eu fa=C3=A7o o merge.
+&gt; Assim os cr=C3=A9ditos ser=C3=A3o seus.
+&gt; Me chame em PVT se quiser mais orienta=C3=A7=C3=B5es.
+&gt; Estou muito feliz de ver o seu esfor=C3=A7o em manter o php-gtk vivo.
+&gt; Parab=C3=A9ns.
+&gt;
+&gt; Em 16/06/2019 00:43, Alexandre Pereira B=C3=BChler via php-gtk-dev escrev=
+eu:
+&gt; &gt; Bruno,
+&gt; &gt; Boa noite,
+&gt; &gt; Se quiser eu upo o  fontes  e os execut=C3=A1veis no http://gtk.php.net=
+/
+&gt; &gt; com os devidos cr=C3=A9ditos e coloco como em "desenvolvimento".
+&gt; &gt; Eu tenho total acesso aos reposit=C3=B3rios: https://people.php.net/buh=
+lerax
+&gt; &gt; Obrigado
+&gt; &gt;
+&gt; &gt; Em 15/06/2019 23:07, Bruno P. Gon=C3=A7alves escreveu:
+&gt; &gt;&gt; hello
+&gt; &gt;&gt;
+&gt; &gt;&gt; I'm working a few days on a functional phpgtk ext.
+&gt; &gt;&gt;
+&gt; &gt;&gt; https://github.com/scorninpc/php-gtk3
+&gt; &gt;&gt;
+&gt; &gt;&gt; You can compile, or you can download appimage with all, on linux syste=
+ms
+&gt; &gt;&gt;
+&gt; &gt;&gt; I need alot work, not only to bind, but to review my code, do tests,
+&gt; &gt;&gt; etc ..
+&gt; &gt;&gt;
+&gt; &gt;&gt; I glad if you guys appreciate
+&gt; &gt;&gt;
+&gt; &gt;&gt; - - -
+&gt; &gt;&gt; Bruno Pitteli Gon=C3=A7alves
+&gt; &gt;&gt; bruno@pitteli.com.br
+&gt; &gt;&gt;
+&gt; &gt;&gt; - - -
+&gt; &gt;&gt; ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+&gt; &gt;&gt; Browse Happy - http://browsehappy.com/
+&gt; &gt;&gt;
+&gt; &gt;
+&gt;
+&gt; --
+&gt; Alexandre Pereira B=C3=BChler
+&gt;
+&gt; Sim=C3=A3o &amp;  B=C3=BChler Ltda (Infobrindes)
+&gt; http://www.simaoebuhler.com.br
+&gt; alexandre@simaoebuhler.com.br
+&gt; Telefone: (41) 3039-5428
+&gt;
+&gt; Infobrindes (Sim=C3=A3o &amp;  B=C3=BChler Ltda)
+&gt; Brindes e material promocional.
+&gt; http://www.infobrindes.com.br
+&gt; karin@infobrindes.com.br
+&gt; Telefone: (41) 3082-8667
+&gt;
+&gt;
+&gt; --
+&gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt;
+&gt;
+
+
+</body></email><email><emailId>20190616203503</emailId><senderName>"Alexandre Pereira BÃ¼hler via php-gtk-dev"</senderName><senderEmail>php-gtk-dev@lists.php.net</senderEmail><timestampReceived>2019-06-16 20:35:03-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] Php 7.3 with Gtk3</subject><body>
+
+Tranquilo.
+Obrigado
+
+Em 16/06/2019 14:58, Bruno P. Gonçalves escreveu:
+&gt; Oi Alexandre
+&gt;
+&gt; Eu prefiro terminar a implementação dos widgets por completo primeiro, mas
+&gt; com certeza vamos fazer isso sim.
+&gt;
+&gt; Eu tenho perspectiva de 2 ou 3 meses, nesse ritmo que estou
+&gt;
+&gt; Abraços
+&gt;
+&gt; - - -
+&gt; Bruno Pitteli Gonçalves
+&gt; bruno@pitteli.com.br
+&gt;
+&gt; - - -
+&gt; ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+&gt; Browse Happy - http://browsehappy.com/
+&gt;
+&gt;
+&gt; On Sun, Jun 16, 2019 at 12:47 AM Alexandre Pereira Bühler via php-gtk-dev &lt;
+&gt; php-gtk-dev@lists.php.net&gt; wrote:
+&gt;
+&gt;&gt; Esqueci de dizer como você deve fazer.
+&gt;&gt; Faça um clone o php-gtk pelo github.
+&gt;&gt; Então pelo git do php.net eu faço o merge.
+&gt;&gt; Assim os créditos serão seus.
+&gt;&gt; Me chame em PVT se quiser mais orientações.
+&gt;&gt; Estou muito feliz de ver o seu esforço em manter o php-gtk vivo.
+&gt;&gt; Parabéns.
+&gt;&gt;
+&gt;&gt; Em 16/06/2019 00:43, Alexandre Pereira Bühler via php-gtk-dev escreveu:
+&gt;&gt;&gt; Bruno,
+&gt;&gt;&gt; Boa noite,
+&gt;&gt;&gt; Se quiser eu upo o  fontes  e os executáveis no http://gtk.php.net/
+&gt;&gt;&gt; com os devidos créditos e coloco como em "desenvolvimento".
+&gt;&gt;&gt; Eu tenho total acesso aos repositórios: https://people.php.net/buhlerax
+&gt;&gt;&gt; Obrigado
+&gt;&gt;&gt;
+&gt;&gt;&gt; Em 15/06/2019 23:07, Bruno P. Gonçalves escreveu:
+&gt;&gt;&gt;&gt; hello
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; I'm working a few days on a functional phpgtk ext.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; https://github.com/scorninpc/php-gtk3
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; You can compile, or you can download appimage with all, on linux systems
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; I need alot work, not only to bind, but to review my code, do tests,
+&gt;&gt;&gt;&gt; etc ..
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; I glad if you guys appreciate
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; - - -
+&gt;&gt;&gt;&gt; Bruno Pitteli Gonçalves
+&gt;&gt;&gt;&gt; bruno@pitteli.com.br
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; - - -
+&gt;&gt;&gt;&gt; ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+&gt;&gt;&gt;&gt; Browse Happy - http://browsehappy.com/
+&gt;&gt;&gt;&gt;
+&gt;&gt; --
+&gt;&gt; Alexandre Pereira Bühler
+&gt;&gt;
+&gt;&gt; Simão &amp;  Bühler Ltda (Infobrindes)
+&gt;&gt; http://www.simaoebuhler.com.br
+&gt;&gt; alexandre@simaoebuhler.com.br
+&gt;&gt; Telefone: (41) 3039-5428
+&gt;&gt;
+&gt;&gt; Infobrindes (Simão &amp;  Bühler Ltda)
+&gt;&gt; Brindes e material promocional.
+&gt;&gt; http://www.infobrindes.com.br
+&gt;&gt; karin@infobrindes.com.br
+&gt;&gt; Telefone: (41) 3082-8667
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; --
+&gt;&gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt;&gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt;&gt;
+&gt;&gt;
+
+-- 
+Alexandre Pereira Bühler
+
+Simão &amp;  Bühler Ltda (Infobrindes)
+http://www.simaoebuhler.com.br
+alexandre@simaoebuhler.com.br
+Telefone: (41) 3039-5428
+
+Infobrindes (Simão &amp;  Bühler Ltda)
+Brindes e material promocional.
+http://www.infobrindes.com.br
+karin@infobrindes.com.br
+Telefone: (41) 3082-8667
+
+
+--
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20190625165843</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2019-06-25 16:58:43-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] Php 7.3 with Gtk3</subject><body>
+
+
+Boa tarde Alexandre
+
+Me diz uma coisa. Se eu der comite pro rep oficial, toda mudan=C3=A7a que e=
+u
+fizer, eu vou ter que mandar novamente pra la, e vc vai ter que dar marge
+n=C3=A9?
+
+Estou querendo muito que o pessoal se engage mais, seria uma boa para
+come=C3=A7ar a documentar e tudo mais, s=C3=B3 que eu to fazendo muita cois=
+a, vai dar
+um baita trabalho
+
+Ou tem forma mais simples, por que foi mal, sou da epoca do cvs
+
+Abra=C3=A7os,
+
+- - -
+Bruno Pitteli Gon=C3=A7alves
+AndOr - https://andor.com.br/
+General - http://www.agenciageneral.com.br/
+
+
+On Sun, Jun 16, 2019 at 5:35 PM Alexandre Pereira B=C3=BChler via php-gtk-d=
+ev &lt;
+php-gtk-dev@lists.php.net&gt; wrote:
+
+&gt; Tranquilo.
+&gt; Obrigado
+&gt;
+&gt; Em 16/06/2019 14:58, Bruno P. Gon=C3=A7alves escreveu:
+&gt; &gt; Oi Alexandre
+&gt; &gt;
+&gt; &gt; Eu prefiro terminar a implementa=C3=A7=C3=A3o dos widgets por completo =
+primeiro,
+&gt; mas
+&gt; &gt; com certeza vamos fazer isso sim.
+&gt; &gt;
+&gt; &gt; Eu tenho perspectiva de 2 ou 3 meses, nesse ritmo que estou
+&gt; &gt;
+&gt; &gt; Abra=C3=A7os
+&gt; &gt;
+&gt; &gt; - - -
+&gt; &gt; Bruno Pitteli Gon=C3=A7alves
+&gt; &gt; bruno@pitteli.com.br
+&gt; &gt;
+&gt; &gt; - - -
+&gt; &gt; ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+&gt; &gt; Browse Happy - http://browsehappy.com/
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; On Sun, Jun 16, 2019 at 12:47 AM Alexandre Pereira B=C3=BChler via
+&gt; php-gtk-dev &lt;
+&gt; &gt; php-gtk-dev@lists.php.net&gt; wrote:
+&gt; &gt;
+&gt; &gt;&gt; Esqueci de dizer como voc=C3=AA deve fazer.
+&gt; &gt;&gt; Fa=C3=A7a um clone o php-gtk pelo github.
+&gt; &gt;&gt; Ent=C3=A3o pelo git do php.net eu fa=C3=A7o o merge.
+&gt; &gt;&gt; Assim os cr=C3=A9ditos ser=C3=A3o seus.
+&gt; &gt;&gt; Me chame em PVT se quiser mais orienta=C3=A7=C3=B5es.
+&gt; &gt;&gt; Estou muito feliz de ver o seu esfor=C3=A7o em manter o php-gtk vivo.
+&gt; &gt;&gt; Parab=C3=A9ns.
+&gt; &gt;&gt;
+&gt; &gt;&gt; Em 16/06/2019 00:43, Alexandre Pereira B=C3=BChler via php-gtk-dev esc=
+reveu:
+&gt; &gt;&gt;&gt; Bruno,
+&gt; &gt;&gt;&gt; Boa noite,
+&gt; &gt;&gt;&gt; Se quiser eu upo o  fontes  e os execut=C3=A1veis no http://gtk.php.n=
+et/
+&gt; &gt;&gt;&gt; com os devidos cr=C3=A9ditos e coloco como em "desenvolvimento".
+&gt; &gt;&gt;&gt; Eu tenho total acesso aos reposit=C3=B3rios:
+&gt; https://people.php.net/buhlerax
+&gt; &gt;&gt;&gt; Obrigado
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;&gt; Em 15/06/2019 23:07, Bruno P. Gon=C3=A7alves escreveu:
+&gt; &gt;&gt;&gt;&gt; hello
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; I'm working a few days on a functional phpgtk ext.
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; https://github.com/scorninpc/php-gtk3
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; You can compile, or you can download appimage with all, on linux
+&gt; systems
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; I need alot work, not only to bind, but to review my code, do tests,
+&gt; &gt;&gt;&gt;&gt; etc ..
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; I glad if you guys appreciate
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; - - -
+&gt; &gt;&gt;&gt;&gt; Bruno Pitteli Gon=C3=A7alves
+&gt; &gt;&gt;&gt;&gt; bruno@pitteli.com.br
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt;&gt;&gt; - - -
+&gt; &gt;&gt;&gt;&gt; ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/=
+&gt;
+&gt; &gt;&gt;&gt;&gt; Browse Happy - http://browsehappy.com/
+&gt; &gt;&gt;&gt;&gt;
+&gt; &gt;&gt; --
+&gt; &gt;&gt; Alexandre Pereira B=C3=BChler
+&gt; &gt;&gt;
+&gt; &gt;&gt; Sim=C3=A3o &amp;  B=C3=BChler Ltda (Infobrindes)
+&gt; &gt;&gt; http://www.simaoebuhler.com.br
+&gt; &gt;&gt; alexandre@simaoebuhler.com.br
+&gt; &gt;&gt; Telefone: (41) 3039-5428
+&gt; &gt;&gt;
+&gt; &gt;&gt; Infobrindes (Sim=C3=A3o &amp;  B=C3=BChler Ltda)
+&gt; &gt;&gt; Brindes e material promocional.
+&gt; &gt;&gt; http://www.infobrindes.com.br
+&gt; &gt;&gt; karin@infobrindes.com.br
+&gt; &gt;&gt; Telefone: (41) 3082-8667
+&gt; &gt;&gt;
+&gt; &gt;&gt;
+&gt; &gt;&gt; --
+&gt; &gt;&gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt; &gt;&gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt; &gt;&gt;
+&gt; &gt;&gt;
+&gt;
+&gt; --
+&gt; Alexandre Pereira B=C3=BChler
+&gt;
+&gt; Sim=C3=A3o &amp;  B=C3=BChler Ltda (Infobrindes)
+&gt; http://www.simaoebuhler.com.br
+&gt; alexandre@simaoebuhler.com.br
+&gt; Telefone: (41) 3039-5428
+&gt;
+&gt; Infobrindes (Sim=C3=A3o &amp;  B=C3=BChler Ltda)
+&gt; Brindes e material promocional.
+&gt; http://www.infobrindes.com.br
+&gt; karin@infobrindes.com.br
+&gt; Telefone: (41) 3082-8667
+&gt;
+&gt;
+&gt; --
+&gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt;
+&gt;
+
+
+</body></email><email><emailId>20190626024632</emailId><senderName>"Alexandre Pereira BÃ¼hler via php-gtk-dev"</senderName><senderEmail>php-gtk-dev@lists.php.net</senderEmail><timestampReceived>2019-06-26 02:46:32-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] Php 7.3 with Gtk3</subject><body>
+
+
+Bruno,
+Good night,
+Please in English.
+Your sources should be sent when you feel there is a change, a 
+correction, something relevant to publish.
+So that more people can contribute.
+In the development of php with gtk 3 it will be interesting to publish 
+after a certain amount of work.
+So that the changes are well documented.
+Thank you
+
+Em 25/06/2019 13:58, Bruno P. Gonçalves escreveu:
+&gt; Boa tarde Alexandre
+&gt;
+&gt; Me diz uma coisa. Se eu der comite pro rep oficial, toda mudança que eu
+&gt; fizer, eu vou ter que mandar novamente pra la, e vc vai ter que dar marge
+&gt; né?
+&gt;
+&gt; Estou querendo muito que o pessoal se engage mais, seria uma boa para
+&gt; começar a documentar e tudo mais, só que eu to fazendo muita coisa, vai dar
+&gt; um baita trabalho
+&gt;
+&gt; Ou tem forma mais simples, por que foi mal, sou da epoca do cvs
+&gt;
+&gt; Abraços,
+&gt;
+&gt; - - -
+&gt; Bruno Pitteli Gonçalves
+&gt; AndOr - https://andor.com.br/
+&gt; General - http://www.agenciageneral.com.br/
+&gt;
+&gt;
+&gt; On Sun, Jun 16, 2019 at 5:35 PM Alexandre Pereira Bühler via php-gtk-dev &lt;
+&gt; php-gtk-dev@lists.php.net&gt; wrote:
+&gt;
+&gt;&gt; Tranquilo.
+&gt;&gt; Obrigado
+&gt;&gt;
+&gt;&gt; Em 16/06/2019 14:58, Bruno P. Gonçalves escreveu:
+&gt;&gt;&gt; Oi Alexandre
+&gt;&gt;&gt;
+&gt;&gt;&gt; Eu prefiro terminar a implementação dos widgets por completo primeiro,
+&gt;&gt; mas
+&gt;&gt;&gt; com certeza vamos fazer isso sim.
+&gt;&gt;&gt;
+&gt;&gt;&gt; Eu tenho perspectiva de 2 ou 3 meses, nesse ritmo que estou
+&gt;&gt;&gt;
+&gt;&gt;&gt; Abraços
+&gt;&gt;&gt;
+&gt;&gt;&gt; - - -
+&gt;&gt;&gt; Bruno Pitteli Gonçalves
+&gt;&gt;&gt; bruno@pitteli.com.br
+&gt;&gt;&gt;
+&gt;&gt;&gt; - - -
+&gt;&gt;&gt; ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+&gt;&gt;&gt; Browse Happy - http://browsehappy.com/
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; On Sun, Jun 16, 2019 at 12:47 AM Alexandre Pereira Bühler via
+&gt;&gt; php-gtk-dev &lt;
+&gt;&gt;&gt; php-gtk-dev@lists.php.net&gt; wrote:
+&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Esqueci de dizer como você deve fazer.
+&gt;&gt;&gt;&gt; Faça um clone o php-gtk pelo github.
+&gt;&gt;&gt;&gt; Então pelo git do php.net eu faço o merge.
+&gt;&gt;&gt;&gt; Assim os créditos serão seus.
+&gt;&gt;&gt;&gt; Me chame em PVT se quiser mais orientações.
+&gt;&gt;&gt;&gt; Estou muito feliz de ver o seu esforço em manter o php-gtk vivo.
+&gt;&gt;&gt;&gt; Parabéns.
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Em 16/06/2019 00:43, Alexandre Pereira Bühler via php-gtk-dev escreveu:
+&gt;&gt;&gt;&gt;&gt; Bruno,
+&gt;&gt;&gt;&gt;&gt; Boa noite,
+&gt;&gt;&gt;&gt;&gt; Se quiser eu upo o  fontes  e os executáveis no http://gtk.php.net/
+&gt;&gt;&gt;&gt;&gt; com os devidos créditos e coloco como em "desenvolvimento".
+&gt;&gt;&gt;&gt;&gt; Eu tenho total acesso aos repositórios:
+&gt;&gt; https://people.php.net/buhlerax
+&gt;&gt;&gt;&gt;&gt; Obrigado
+&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt; Em 15/06/2019 23:07, Bruno P. Gonçalves escreveu:
+&gt;&gt;&gt;&gt;&gt;&gt; hello
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; I'm working a few days on a functional phpgtk ext.
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; https://github.com/scorninpc/php-gtk3
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; You can compile, or you can download appimage with all, on linux
+&gt;&gt; systems
+&gt;&gt;&gt;&gt;&gt;&gt; I need alot work, not only to bind, but to review my code, do tests,
+&gt;&gt;&gt;&gt;&gt;&gt; etc ..
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; I glad if you guys appreciate
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; - - -
+&gt;&gt;&gt;&gt;&gt;&gt; Bruno Pitteli Gonçalves
+&gt;&gt;&gt;&gt;&gt;&gt; bruno@pitteli.com.br
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; - - -
+&gt;&gt;&gt;&gt;&gt;&gt; ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+&gt;&gt;&gt;&gt;&gt;&gt; Browse Happy - http://browsehappy.com/
+&gt;&gt;&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; --
+&gt;&gt;&gt;&gt; Alexandre Pereira Bühler
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Simão &amp;  Bühler Ltda (Infobrindes)
+&gt;&gt;&gt;&gt; http://www.simaoebuhler.com.br
+&gt;&gt;&gt;&gt; alexandre@simaoebuhler.com.br
+&gt;&gt;&gt;&gt; Telefone: (41) 3039-5428
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; Infobrindes (Simão &amp;  Bühler Ltda)
+&gt;&gt;&gt;&gt; Brindes e material promocional.
+&gt;&gt;&gt;&gt; http://www.infobrindes.com.br
+&gt;&gt;&gt;&gt; karin@infobrindes.com.br
+&gt;&gt;&gt;&gt; Telefone: (41) 3082-8667
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt; --
+&gt;&gt;&gt;&gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt;&gt;&gt;&gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt;&gt;&gt;&gt;
+&gt;&gt;&gt;&gt;
+&gt;&gt; --
+&gt;&gt; Alexandre Pereira Bühler
+&gt;&gt;
+&gt;&gt; Simão &amp;  Bühler Ltda (Infobrindes)
+&gt;&gt; http://www.simaoebuhler.com.br
+&gt;&gt; alexandre@simaoebuhler.com.br
+&gt;&gt; Telefone: (41) 3039-5428
+&gt;&gt;
+&gt;&gt; Infobrindes (Simão &amp;  Bühler Ltda)
+&gt;&gt; Brindes e material promocional.
+&gt;&gt; http://www.infobrindes.com.br
+&gt;&gt; karin@infobrindes.com.br
+&gt;&gt; Telefone: (41) 3082-8667
+&gt;&gt;
+&gt;&gt;
+&gt;&gt; --
+&gt;&gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt;&gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt;&gt;
+&gt;&gt;
+
+-- 
+Alexandre Pereira Bühler
+
+Simão &amp;  Bühler Ltda (Infobrindes)
+http://www.simaoebuhler.com.br
+alexandre@simaoebuhler.com.br
+Telefone: (41) 3039-5428
+
+Infobrindes (Simão &amp;  Bühler Ltda)
+Brindes e material promocional.
+http://www.infobrindes.com.br
+karin@infobrindes.com.br
+Telefone: (41) 3082-8667
+
+
+
+</body></email></emails>

@@ -1,0 +1,2459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20100731204308</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-07-31 20:43:08-0400</timestampReceived><subject>ANNOUNCE: Nettle-2.1</subject><body>
+
+I'm happy to announce a new version of GNU Nettle, a low-level
+cryptographic library.
+
+NEWS for the 2.1 release
+
+	*Important*: this release breaks source and binary
+	compatibility for the digital signature functions, and for the
+	DES and BLOWFISH ciphers which have weak keys.
+
+	Incompatible changes:
+
+	* The functions rsa_md5_sign, rsa_sha1_sign and
+          rsa_sha256_sign, and the corresponding _digest variants, now
+          have a return value which callers should check. The functions
+          return failure if the key is too small for the type of
+          signature.
+
+	* The functions dsa_sign and dsa_verify are renamed to
+          dsa_sha1_sign and dsa_sha1_verify. The _-digest variants are
+          renamed similarly. These functions now have a return value
+          which callers should check, and they return failure if the
+          number q is not of the appropriate size.
+
+	* The return value from des_set_key, des3_set_key and
+	  blowfish_set_key now indicates whether or not the given key
+	  is weak. But in either case, the key setup is done, and
+	  applications that don't care about weak keys can ignore the
+	  return value.
+
+	  The incompatible part of this change is that enum des_error
+	  and enum blowfish_error has been deleted, and so has the
+	  status attribute in struct des_ctx, struct des3_ctx, and
+	  struct blowfish_ctx.
+
+	The shared library names are libnettle.so.4.0 and
+	libhogweed.so.2.0, with sonames libnettle.so.4 and
+	libhogweed.so.2.
+
+	Other changes:
+
+	* Support for the Camellia block cipher, including an
+          assembler implementation for x86_32.
+
+	* New function aes_invert_key, useful for applications that
+	  need both encryption and decryption using the same AES key.
+	  
+	* des_set_key and des3_set_key no longer check the key parity
+	  bits. Parity bits are silently ignored. A new function
+	  des_check_parity is provided, for applications that care
+	  about the DES parity bits.
+
+	* Support for sha224, sha384 and sha512.
+
+	* Support for digital signatures using rsa-sha512 and
+          dsa-sha256. Due to lack of official test vectors and interop
+          testing, this support should be considered somewhat
+          experimental.
+
+	* Key generation for RSA and DSA changed to use Maurer's
+	  algorithm to generate provably prime numbers (as usual, the
+	  mathematical proof does not guaranteee that the
+	  implementation is bug free).
+	  
+	* x86_64 assembler implementation actually included in the
+	  distribution (was accidentally left out in nettle-2.0).
+
+	* Configure script now detects if the compiler uses a 32-bit
+          or 64-bit ABI on x86_64 (prevously did this for sparc only).
+          Also sets the default location for installing libraries
+          (libdir) depending on system type and the ABI used.
+
+	* Added the nettle and gmp libraries as dependencies when
+          linking shared library libhogweed.so. On systems using
+          shared libraries where such dependencies work (in
+          particular, ELF systems), it is sufficient to link
+          applications with -lhogweed. For static linking -lhogweed
+          -lnettle -lgmp is still required.
+
+	* The program pkcs1-conv is extended to also handle dsa keys.
+          Contributed by Magnus Holmgren.
+
+	* Slightly improved sha1 performance on x86.
+
+Available at
+
+  http://www.lysator.liu.se/~nisse/archive/nettle-2.1.tar.gz
+  ftp://ftp.lysator.liu.se/pub/security/lsh/nettle-2.1.tar.gz
+
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+
+</body></email><email><emailId>20100917173840</emailId><senderName>"Hoyt, David"</senderName><senderEmail>hoyt6@llnl.gov</senderEmail><timestampReceived>2010-09-17 17:38:40-0400</timestampReceived><subject>RE: Hogweed and Nettle Dependencies</subject><body>
+
+&gt; Like dkg, I think it makes sense for a shared hogweed library to have a
+&gt; dependency on the shared nettle library (and on a shared gmp library).
+&gt; But I'm not familiar with how such dependencies work with dlls.
+
+Great, that's exactly the path I chose to go down. Thanks!
+
+</body></email><email><emailId>20100917180228</emailId><senderName>"Hoyt, David"</senderName><senderEmail>hoyt6@llnl.gov</senderEmail><timestampReceived>2010-09-17 18:02:28-0400</timestampReceived><subject>RE: LGPL Configuration</subject><body>
+
+&gt; &gt; As a feature request, it'd be useful to have an additional configure
+&gt; &gt; flag "--enable-gpl" like the FFmpeg folks use that allows GPL
+&gt; &gt; algorithms to be built.
+&gt;
+&gt; Would make some sense, except that I'd prefer a different default, and
+&gt; I'm not sure what the name should be. I'd somehow prefer something like
+&gt; enable-lgpl-compatibility to the blunt --disable-gpl.
+
+&gt; To implement it, one would need one autoconf/Makefile conditional (setup
+&gt; in the same way as IF_HOGWEED and IF_SHARED), and one preprocessor
+&gt; conditional to disable use in nettle-benchmark.c and any other places.
+
+That sounds fine. I only suggested that because that's the only other proje=
+ct I've seen that provides an LGPL and GPL option for their build. So it ma=
+de sense to follow suit (playing it safe by default unless you explicitly a=
+nd knowingly ask for GPL code).
+
+&gt; &gt; Right now I have to play around with makefiles to remove GPL-only
+&gt; &gt; algorithms (as per the included manual) such as serpent and blowfish.
+&gt;
+&gt; For blowfish, I think it should be straight-forward to copy the lgpl:ed
+&gt; implementation from libgrypt.
+&gt;
+&gt; For serpent, I'm not aware of any lgpl:ed implementation, and I doubt
+&gt; it's worth the efffort to write one from scratch (or rather, I'd prefer
+&gt; that the guy who wants to use serpent in a proprietary application pays
+&gt; for that development...). Several years ago, I wrote to the serpent
+&gt; folks to ask if they were willing to change the license of their
+&gt; implementation to the lgpl. If I remember correctly, there were no
+&gt; strong objections, but they didn't have the time to track down everyone
+&gt; who was involved in the project and discuss a license change.
+
+For my needs, blowfish and serpent aren't necessary, so simply removing the=
+m is alright. Of course having them there wouldn't hurt, either. :) I'm jus=
+t more concerned about mitigating licensing issues to the maximum extent po=
+ssible.
+
+</body></email><email><emailId>20100322231803</emailId><senderName>Daniel Kahn Gillmor</senderName><senderEmail>dkg@fifthhorseman.net</senderEmail><timestampReceived>2010-03-22 23:18:03-0400</timestampReceived><subject>nettle bindings for higher-level languages</subject><body>
+
+
+I was wondering if there is a catalog somewhere of bindings that exist
+for nettle for higher-level languages.
+
+in particular, i'm interested in perl and python, but i'd be curious to
+know about the status of other languages as well.  Is this documented
+somewhere?  Is there a list of higher-level languages that the nettle
+author(s) would like to see prioritized?
+
+Regards,
+
+	--dkg
+
+
+
+</body></email><email><emailId>20100323093026</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-03-23 09:30:26-0400</timestampReceived><subject>Re: nettle bindings for higher-level languages</subject><body>
+
+Daniel Kahn Gillmor &lt;dkg@fifthhorseman.net&gt; writes:
+
+&gt; I was wondering if there is a catalog somewhere of bindings that exist
+&gt; for nettle for higher-level languages.
+
+Not that I know of. I guess I could try to keep a list on the home page
+(http://www.lysator.liu.se/~nisse/nettle/), but I'd have to rely on
+other users mailing me updates.
+
+&gt; in particular, i'm interested in perl and python, but i'd be curious to
+&gt; know about the status of other languages as well.  Is this documented
+&gt; somewhere?
+
+The ones I'm aware of are
+
+* Pike (since I was involved in the conversion of that crypto code over
+  to use Nettle),
+
+* Postgresql (Ron Peterson,
+  http://www.yellowbank.com/code/PostgreSQL/y_crypto/)
+
+* tcl (Ian Jackson, the chiark-tcl debian package, I think it's
+  also available at ftp.chiark.greenend.org.uk/users/ian/chiark-tcl but I
+  can't access that server right now).
+
+* R6RS Scheme (Marco Maggi, http://marcomaggi.github.com/nausicaa.html)
+
+* I seem to remember somebody starting on a python module, but I don't
+  remember who, and I guess it didn't get far enough to be really
+  useful.
+  
+I may have forgotten some additional language.
+
+&gt; Is there a list of higher-level languages that the nettle
+&gt; author(s) would like to see prioritized?
+
+Not really. But I guess it would be satisfying to have Nettle used with
+popular (and free) languages, like Python, Java, C++, PHP, or whatever
+languages people are using these days.
+
+One final note: The way I see things, as a user of a higher level
+language, I'd prefer to not have merely "bindings to nettle", but to
+have well designed cryptographic functions with an interface appropriate
+to that language. Which can then use Nettle internally.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20100916214746</emailId><senderName>"Hoyt, David"</senderName><senderEmail>hoyt6@llnl.gov</senderEmail><timestampReceived>2010-09-16 21:47:46-0400</timestampReceived><subject>Hogweed and Nettle Dependencies</subject><body>
+
+Should libhogweed have a dependency on libnettle if I'm compiling each as s=
+hared libraries? Or should I be linking against nettle's static library and=
+ thus have duplicate functions in each?
+
+Thanks,
+- David Hoyt
+
+</body></email><email><emailId>20100916195535</emailId><senderName>"Hoyt, David"</senderName><senderEmail>hoyt6@llnl.gov</senderEmail><timestampReceived>2010-09-16 19:55:35-0400</timestampReceived><subject>LGPL Configuration</subject><body>
+
+As a feature request, it'd be useful to have an additional configure flag "=
+--enable-gpl" like the FFmpeg folks use that allows GPL algorithms to be bu=
+ilt. Otherwise, by default, LGPL algorithms/code only is allowed in shared =
+libraries. Right now I have to play around with makefiles to remove GPL-onl=
+y algorithms (as per the included manual) such as serpent and blowfish.
+
+Thanks,
+- David Hoyt
+
+</body></email><email><emailId>20100916224924</emailId><senderName>"Hoyt, David"</senderName><senderEmail>hoyt6@llnl.gov</senderEmail><timestampReceived>2010-09-16 22:49:24-0400</timestampReceived><subject>Patch for configure.ac</subject><body>
+
+I tried to send the following w/ an attachment, but it got bounced. So here it is w/ \
+the attachment inlined:
+
+
+The attached patch for configure.ac allowed for a normal compile w/ mingw-w64 w/ \
+--enabled-shared. It's really only a stopgap since you would need to do something \
+more intelligent when you detect --enable-shared and then dynamically adjust \
+hogweed's link options.
+
+Do you think it would be possible to add libtool and pkg-config support?
+
+Thanks,
+- David Hoyt
+
+
+--- configure.ac	Sun Jul 25 12:30:13 2010
++++ configure.ac	Thu Sep 16 12:48:51 2010
+@@ -233,6 +233,19 @@
+ SHLIBCFLAGS="$CCPIC"
+ 
+ case "$host_os" in
++  mingw32*)
++    LIBNETTLE_FORLINK='libnettle-$(LIBNETTLE_MAJOR)-$(LIBNETTLE_MINOR).dll'
++    LIBNETTLE_SONAME=''
++    LIBNETTLE_FILE='libnettle.dll.a'
++    LIBNETTLE_LINK='$(CC) $(LDFLAGS) -shared -Wl,--out-implib=$(LIBNETTLE_FILE) \
+-Wl,--export-all-symbols -Wl,--enable-auto-import -Wl,--whole-archive' +    \
+LIBNETTLE_LIBS='-Wl,--no-whole-archive $(LIBS)' +
++    LIBHOGWEED_FORLINK='libhogweed-$(LIBHOGWEED_MAJOR)-$(LIBHOGWEED_MINOR).dll'
++    LIBHOGWEED_SONAME=''
++    LIBHOGWEED_FILE='libhogweed.dll.a'
++    LIBHOGWEED_LINK='$(CC) $(LDFLAGS) -shared -Wl,--out-implib=$(LIBHOGWEED_FILE) \
+-Wl,--export-all-symbols -Wl,--enable-auto-import -Wl,--whole-archive' +    \
+LIBHOGWEED_LIBS='-Wl,--no-whole-archive $(LIBS) libnettle.dll.a' +    ;;
+   cygwin*)
+     LIBNETTLE_FORLINK='cygnettle-$(LIBNETTLE_MAJOR)-$(LIBNETTLE_MINOR).dll'
+     LIBNETTLE_SONAME=''
+
+
+</body></email><email><emailId>20100917055943</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-09-17 05:59:43-0400</timestampReceived><subject>Re: Patch for configure.ac</subject><body>
+
+"Hoyt, David" &lt;hoyt6@llnl.gov&gt; writes:
+
+&gt; The attached patch for configure.ac allowed for a normal compile w/
+&gt; mingw-w64 w/ --enabled-shared.
+
+Thanks for looking into this. Patch applied.
+
+&gt; It's really only a stopgap since you would need to do something more
+&gt; intelligent when you detect --enable-shared and then dynamically adjust
+&gt; hogweed's link options.
+
+Can you be a bit more concrete about what you think is needed? What are
+the different cases, and what should the link options be in each case?
+(I've read you earlier mail with some other issues, I hope to reply to
+it reasonably soon).
+
+&gt; Do you think it would be possible to add libtool and pkg-config support?
+
+Libtool: No. I think libtool is a reasonable idea, but I consider the
+current way it's implemented (a shell script of 9000+ lines invoked for
+each file being compiled) as way too awful. I strongly prefer the
+autoconf way, to select suitable compile and link flags during
+*configure*, and just substitute the right things in the Makefile. It
+makes it a *lot* easier to track down problems. Ideally, I'd prefer a
+libtool-ish autofonf macro which defines a set of autoconf
+substitutions, and nothing more.
+
+pkg-config: Possibly, but I'm not so familiar with it. Do you want
+nettle's configure to use pkg-config to pick up gmp, or do you want
+nettle to install pkg-config stuff so others can use it to pick up
+nettle and hogweed?
+
+Regards,
+/Niels
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20100917173750</emailId><senderName>"Hoyt, David"</senderName><senderEmail>hoyt6@llnl.gov</senderEmail><timestampReceived>2010-09-17 17:37:50-0400</timestampReceived><subject>RE: Patch for configure.ac</subject><body>
+
+&gt; &gt; It's really only a stopgap since you would need to do something more
+&gt; &gt; intelligent when you detect --enable-shared and then dynamically adjust
+&gt; &gt; hogweed's link options.
+&gt; 
+&gt; Can you be a bit more concrete about what you think is needed? What are
+&gt; the different cases, and what should the link options be in each case?
+&gt; (I've read you earlier mail with some other issues, I hope to reply to
+&gt; it reasonably soon).
+
+The problem w/ my patch is the use case where the user specified --disable-shared. In \
+that case, it would build the static libs, but my patch looks explicitly to link \
+against the shared lib: libnettle.dll.a. I explicitly used libnettle.dll.a b/c it \
+built both the static lib and the shared lib and I was unsure which one it would \
+choose to link against (shared or static lib). 
+
+&gt; Libtool: No. I think libtool is a reasonable idea, but I consider the
+&gt; current way it's implemented (a shell script of 9000+ lines invoked for
+&gt; each file being compiled) as way too awful. I strongly prefer the
+&gt; autoconf way, to select suitable compile and link flags during
+&gt; *configure*, and just substitute the right things in the Makefile. It
+&gt; makes it a *lot* easier to track down problems. Ideally, I'd prefer a
+&gt; libtool-ish autofonf macro which defines a set of autoconf
+&gt; substitutions, and nothing more.
+
+Have you considered using dolt (dolt.freedesktop.org)?
+
+&gt; pkg-config: Possibly, but I'm not so familiar with it. Do you want
+&gt; nettle's configure to use pkg-config to pick up gmp, or do you want
+&gt; nettle to install pkg-config stuff so others can use it to pick up
+&gt; nettle and hogweed?
+
+I'm more looking at nettle to install pkg-config so others can pick it up.
+
+
+</body></email><email><emailId>20100916184729</emailId><senderName>"Hoyt, David"</senderName><senderEmail>hoyt6@llnl.gov</senderEmail><timestampReceived>2010-09-16 18:47:29-0400</timestampReceived><subject>Configuration and MinGW-w64 Compatibility</subject><body>
+
+Hello,
+
+I'm preparing for future gnutls integration which says in the next stable release, \
+it'll be using nettle by default. I'm working on Windows builds and the 2.1 release \
+has several problems. I'm not entirely familiar with the autotools, so I don't know \
+exactly where the problem lies - but it generates shared library names in the \
+unix/linux style (e.g. libnettle.so.4) instead of Windows-style: libnettle-4.dll. I \
+can simply rename the dll and it'll work, but it's a pain and not in line with most \
+other open source projects.
+
+Also, when I use --enabled-shared --disable-static, my configure options are not \
+respected. That is, it builds a static lib as well as the (incorrectly named) shared \
+library. A .dll.a lib file is not created. When I use typical configure options such \
+as --prefix= --libexecdir= --bindir= --libdir= --includedir=, they're not honored. \
+e.g. I specified a different bindir for the shared libs, yet they still ended up in \
+the --libdir directory.
+
+This may result from the use of an older autotools/libtool setup, but I'm unsure.
+
+I'm building natively using GCC 4.5.1 (x86, 32-bit) from the MinGW-w64 folks on \
+Windows 7 64-bit.
+
+Thanks,
+- David Hoyt
+
+
+</body></email><email><emailId>20100917072832</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-09-17 07:28:32-0400</timestampReceived><subject>Re: Configuration and MinGW-w64 Compatibility</subject><body>
+
+"Hoyt, David" &lt;hoyt6@llnl.gov&gt; writes:
+
+&gt; but it generates shared library names in the unix/linux style (e.g.
+&gt; libnettle.so.4) instead of Windows-style: libnettle-4.dll. I can
+&gt; simply rename the dll and it'll work, but it's a pain and not in line
+&gt; with most other open source projects.
+
+I hope this problem is solved properly by your patch to configure.ac?
+
+&gt; Also, when I use --enabled-shared --disable-static, my configure
+&gt; options are not respected.
+
+Nettle doesn't have any configure flag --disable-static. Maybe it should
+have. I have been thinking that building the static libraries shouldn't
+hurt, but I can see that one might not want to *install* them.
+
+&gt; When I use typical configure options such as --prefix= --libexecdir=
+&gt; --bindir= --libdir= --includedir=, they're not honored. e.g. I
+&gt; specified a different bindir for the shared libs, yet they still ended
+&gt; up in the --libdir directory.
+
+Libraries are supposed to be installed in $libdir (or by default,
+sometimes in $prefix/lib64 or the like depending on ABI). Are there any
+other files that have been installed in a different directory from what
+you expected? If so, please provide the configure command line, the file
+name in question, and the directories where you wanted the file and
+where it actually was installed.
+
+Are windows dll files usually installed in bindir rather than libdir? I
+hesitate to change the default, but if you convince me that it's the
+right way, I'll consider it. A ---sharedlibdir or similar would make
+some sense to me, but I'd prefer to be consistent to what other GNU
+packages do. Anybody else doing this? You could of course set libdir to
+point to the same directory as bindir, but then you'd get the static
+libraries there as well, which I guess is undesirable.
+
+&gt; This may result from the use of an older autotools/libtool setup, but I'm unsure.
+&gt;
+&gt; I'm building natively using GCC 4.5.1 (x86, 32-bit) from the MinGW-w64 folks on Windows 7 64-bit.
+
+Can you run autoconf natively? When I gave it a try a while ago, I
+couldn't build autoconf (under msys) using the windows port of perl (I
+think I used the "strawberry" flavor) due to conflicting file name
+conventions. Then I tried to compile my own perl under msys, but this
+didn't work out of the box because perl' s configure script didn't
+recognize the system.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20100917175520</emailId><senderName>"Hoyt, David"</senderName><senderEmail>hoyt6@llnl.gov</senderEmail><timestampReceived>2010-09-17 17:55:20-0400</timestampReceived><subject>RE: Configuration and MinGW-w64 Compatibility</subject><body>
+
+&gt; &gt; but it generates shared library names in the unix/linux style (e.g.
+&gt; &gt; libnettle.so.4) instead of Windows-style: libnettle-4.dll. I can
+&gt; &gt; simply rename the dll and it'll work, but it's a pain and not in line
+&gt; &gt; with most other open source projects.
+
+&gt; I hope this problem is solved properly by your patch to configure.ac?
+
+Yes, I sent this out before I came up with the patch.
+
+&gt; &gt; Also, when I use --enabled-shared --disable-static, my configure
+&gt; &gt; options are not respected.
+
+&gt; Nettle doesn't have any configure flag --disable-static. Maybe it should
+&gt; have. I have been thinking that building the static libraries shouldn't
+&gt; hurt, but I can see that one might not want to *install* them.
+
+You're right, I didn't see the configure warning at the time. It doesn't hurt, except \
+as you said, I didn't want them installed. I just added an extra line in my script to \
+delete them. Not a big deal...
+
+&gt; &gt; When I use typical configure options such as --prefix= --libexecdir=
+&gt; &gt; --bindir= --libdir= --includedir=, they're not honored. e.g. I
+&gt; &gt; specified a different bindir for the shared libs, yet they still ended
+&gt; &gt; up in the --libdir directory.
+
+&gt; Libraries are supposed to be installed in $libdir (or by default,
+&gt; sometimes in $prefix/lib64 or the like depending on ABI). Are there any
+&gt; other files that have been installed in a different directory from what
+&gt; you expected? If so, please provide the configure command line, the file
+&gt; name in question, and the directories where you wanted the file and
+&gt; where it actually was installed.
+&gt; 
+&gt; Are windows dll files usually installed in bindir rather than libdir? I
+&gt; hesitate to change the default, but if you convince me that it's the
+&gt; right way, I'll consider it. A ---sharedlibdir or similar would make
+&gt; some sense to me, but I'd prefer to be consistent to what other GNU
+&gt; packages do. Anybody else doing this? You could of course set libdir to
+&gt; point to the same directory as bindir, but then you'd get the static
+&gt; libraries there as well, which I guess is undesirable.
+
+I'm unsure what the general solution for Windows is. But executables that are built \
+that rely on the shared libraries cannot run if the dll's aren't either in the system \
+path or in the same directory as the executable. The only honest argument I can make \
+in this regard is that from gnu.org, libdir is meant to designate "The directory for \
+object files and libraries of object code." On posix/unix-ish OSes, gcc can link \
+against the shared library itself and doesn't need object files such as \
+libnettle.dll.a, so the shared library itself is the "library of object code." Under \
+Windows, *.dll.a (e.g. libnettle.dll.a) is a separate "library of object code" from \
+the shared library itself (libnettle-4-0.dll) needed for linking. However, my \
+understanding is that it's a bit fuzzy these days b/c gcc can link directly against \
+the .dll itself now.
+
+In the end, however, it's not a big deal to add a few extra lines to my script to \
+move the files around as needed.
+
+&gt; &gt; This may result from the use of an older autotools/libtool setup, but I'm unsure.
+&gt; &gt; 
+&gt; &gt; I'm building natively using GCC 4.5.1 (x86, 32-bit) from the MinGW-w64 folks on \
+&gt; &gt; Windows 7 64-bit.
+&gt; 
+&gt; Can you run autoconf natively? When I gave it a try a while ago, I
+&gt; couldn't build autoconf (under msys) using the windows port of perl (I
+&gt; think I used the "strawberry" flavor) due to conflicting file name
+&gt; conventions. Then I tried to compile my own perl under msys, but this
+&gt; didn't work out of the box because perl' s configure script didn't
+&gt; recognize the system.
+
+Yeah, I can run it natively. I use activestate perl (for now). When the msys guys \
+come out w/ a newer build of perl, I'll try that out, though. But I haven't ever \
+tried to build autoconf itself w/ msys.
+
+Thanks,
+- David
+
+
+</body></email><email><emailId>20100917183824</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-09-17 18:38:24-0400</timestampReceived><subject>Re: Configuration and MinGW-w64 Compatibility</subject><body>
+
+"Hoyt, David" &lt;hoyt6@llnl.gov&gt; writes:
+
+&gt; I'm unsure what the general solution for Windows is. But executables
+&gt; that are built that rely on the shared libraries cannot run if the
+&gt; dll's aren't either in the system path or in the same directory as the
+&gt; executable.
+
+I guess the solution closest to the gnu conventions would be to install
+the dll (and the dll.a?) in the "system path".
+
+It might make some sense to install it in the same directory as the
+few nettle executables, but that won't solve everything. E.g., with
+regards to gnutls, you'd need the nettle dll located in the same
+directory as the gnutls executable, which nettle doesn't know about; it
+may or may not be the same directory as nettle's $bindir. So you'd
+probably need to copy it around anyway.
+
+A related question is how to run the testsuite using the4 shared
+libraries; do you need to copy the dlls into the subdirectories with
+executables which are run by the testsuite, or is there anything
+analogous to LD_LIBRARY_PATH (which is used for running the testsuite
+with ELF shared libraries).
+
+&gt;&gt; Can you run autoconf natively?
+
+&gt; Yeah, I can run it natively.
+
+Ok, that makes hacking on configure.ac a lot easier.
+
+&gt; I use activestate perl (for now). When the msys guys come out w/ a
+&gt; newer build of perl, I'll try that out, though. But I haven't ever
+&gt; tried to build autoconf itself w/ msys.
+
+When I tried it, autoconf seemed to not be included in the msys
+installation. But I don't remember much of the details.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20100917184923</emailId><senderName>"Hoyt, David"</senderName><senderEmail>hoyt6@llnl.gov</senderEmail><timestampReceived>2010-09-17 18:49:23-0400</timestampReceived><subject>RE: Configuration and MinGW-w64 Compatibility</subject><body>
+
+&gt; &gt; I'm unsure what the general solution for Windows is. But executables
+&gt; &gt; that are built that rely on the shared libraries cannot run if the
+&gt; &gt; dll's aren't either in the system path or in the same directory as the
+&gt; &gt; executable.
+
+&gt; I guess the solution closest to the gnu conventions would be to install
+&gt; the dll (and the dll.a?) in the "system path".
+
+That might be, but I know of no project doing that (you'd run into all sort=
+s of security issues).
+
+&gt; It might make some sense to install it in the same directory as the
+&gt; few nettle executables, but that won't solve everything. E.g., with
+&gt; regards to gnutls, you'd need the nettle dll located in the same
+&gt; directory as the gnutls executable, which nettle doesn't know about; it
+&gt; may or may not be the same directory as nettle's $bindir. So you'd
+&gt; probably need to copy it around anyway.
+
+Perhaps it'd be useful to ping other projects and get their take? It couldn=
+'t know about it, that's right, b/c you'd need to build and install nettle =
+before gnutls. But gnutls could know about nettle and install to the same l=
+ocation (pkg-config really helps here). But really it's the person doing th=
+e build that should have the discretion to place the files where they want.=
+ The --sharedlibdir idea would work for me. By default it could point to --=
+libdir.
+
+&gt; A related question is how to run the testsuite using the4 shared
+&gt; libraries; do you need to copy the dlls into the subdirectories with
+&gt; executables which are run by the testsuite, or is there anything
+&gt; analogous to LD_LIBRARY_PATH (which is used for running the testsuite
+&gt; with ELF shared libraries).
+
+On Windows, you can either copy the dlls into the exe's directory or put th=
+e dll's directory in the front of the "PATH" env var. The easiest thing to =
+do is to copy it (windows doesn't do soft links) and then use relative path=
+s for everything so you don't run into issues with unix-style paths vs. win=
+dows-style paths (/bin/ vs C:\msys\bin\).
+
+&gt; When I tried it, autoconf seemed to not be included in the msys
+&gt; installation. But I don't remember much of the details.
+
+You have to put together your own msys system -- using their old installer =
+didn't provide you with all the tools that you can get directly from the so=
+urceforge page. The msys/mingw folks are working on a solution through thei=
+r "mingw-get" application. I personally use a batch file I wrote to downloa=
+d and setup my environment. I'd be happy to point you to a place where you =
+can download it for your own use.
+
+</body></email><email><emailId>20100917182408</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-09-17 18:24:08-0400</timestampReceived><subject>Re: Patch for configure.ac</subject><body>
+
+"Hoyt, David" &lt;hoyt6@llnl.gov&gt; writes:
+
+&gt; The problem w/ my patch is the use case where the user specified
+&gt; --disable-shared. In that case, it would build the static libs, but my
+&gt; patch looks explicitly to link against the shared lib:
+&gt; libnettle.dll.a. I explicitly used libnettle.dll.a b/c it built both
+&gt; the static lib and the shared lib and I was unsure which one it would
+&gt; choose to link against (shared or static lib).
+
+I'm not sure I follow you. In the case that shared libaries are built
+(--enable-shared), the hogweed dll should be dynamically linked with the
+nettle dll (and linked statically or dynamically to gmp, depending on
+what's available). I don't see any urgent need to make that
+configurable, to make it possible to build a shared hogweed dll linked
+statically with nettle.
+
+And in the case only static libraries are built, the various
+LIBHOGWEED_* variables in the patch are not used, and the static
+libraries libnettle.a and libhogweed.a are not linked to anything,
+they're just archives of object files.
+
+&gt; Have you considered using dolt (dolt.freedesktop.org)?
+
+No, I haven't heard about it before. It looks like a step in the right
+direction. Even though I'd prefer not to have any wrapper script at all,
+just make sure that the Makefile uses the right flags when compiling and
+linking.
+
+&gt; I'm more looking at nettle to install pkg-config so others can pick it up.
+
+Sounds reasonable. I'm not going to give it a high priority, but I'll
+happily take patches, assuming they're not too difficult to understand
+and maintain.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20100917074223</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-09-17 07:42:23-0400</timestampReceived><subject>Re: LGPL Configuration</subject><body>
+
+"Hoyt, David" &lt;hoyt6@llnl.gov&gt; writes:
+
+&gt; As a feature request, it'd be useful to have an additional configure
+&gt; flag "--enable-gpl" like the FFmpeg folks use that allows GPL
+&gt; algorithms to be built.
+
+Would make some sense, except that I'd prefer a different default, and
+I'm not sure what the name should be. I'd somehow prefer something like
+enable-lgpl-compatibility to the blunt --disable-gpl.
+
+To implement it, one would need one autoconf/Makefile conditional (setup
+in the same way as IF_HOGWEED and IF_SHARED), and one preprocessor
+conditional to disable use in nettle-benchmark.c and any other places.
+
+&gt; Right now I have to play around with makefiles to remove GPL-only
+&gt; algorithms (as per the included manual) such as serpent and blowfish.
+
+For blowfish, I think it should be straight-forward to copy the lgpl:ed
+implementation from libgrypt.
+
+For serpent, I'm not aware of any lgpl:ed implementation, and I doubt
+it's worth the efffort to write one from scratch (or rather, I'd prefer
+that the guy who wants to use serpent in a proprietary application pays
+for that development...). Several years ago, I wrote to the serpent
+folks to ask if they were willing to change the license of their
+implementation to the lgpl. If I remember correctly, there were no
+strong objections, but they didn't have the time to track down everyone
+who was involved in the project and discuss a license change.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20100916220227</emailId><senderName>Daniel Kahn Gillmor</senderName><senderEmail>dkg@fifthhorseman.net</senderEmail><timestampReceived>2010-09-16 22:02:27-0400</timestampReceived><subject>Re: Hogweed and Nettle Dependencies</subject><body>
+
+
+On 09/16/2010 05:47 PM, Hoyt, David wrote:
+&gt; Should libhogweed have a dependency on libnettle if I'm compiling each as shared \
+&gt; libraries? Or should I be linking against nettle's static library and thus have \
+&gt; duplicate functions in each?
+
+I'd recommend explicit dependencies.  Duplicate definitions seem
+potentially problematic.
+
+Debian does explicit dependencies, fwiw:
+
+0 dkg@pip:~$ apt-cache show libhogweed1 | grep ^Depend
+Depends: libc6 (&gt;= 2.1.3), libgmp3c2, libnettle3
+0 dkg@pip:~$
+
+hth,
+
+	--dkg
+
+
+
+</body></email><email><emailId>20100917054317</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-09-17 05:43:17-0400</timestampReceived><subject>Re: Hogweed and Nettle Dependencies</subject><body>
+
+"Hoyt, David" &lt;hoyt6@llnl.gov&gt; writes:
+
+&gt; Should libhogweed have a dependency on libnettle if I'm compiling each as shared \
+&gt; libraries? Or should I be linking against nettle's static library and thus have \
+&gt; duplicate functions in each?
+
+Like dkg, I think it makes sense for a shared hogweed library to have a
+dependency on the shared nettle library (and on a shared gmp library).
+But I'm not familiar with how such dependencies work with dlls.
+
+Regards,
+/Niels
+
+&gt; Thanks,
+&gt; - David Hoyt
+&gt; _______________________________________________
+&gt; nettle-bugs mailing list
+&gt; nettle-bugs@lists.lysator.liu.se
+&gt; http://lists.lysator.liu.se/mailman/listinfo/nettle-bugs
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+
+</body></email><email><emailId>20100917183521</emailId><senderName>"Hoyt, David"</senderName><senderEmail>hoyt6@llnl.gov</senderEmail><timestampReceived>2010-09-17 18:35:21-0400</timestampReceived><subject>RE: Patch for configure.ac</subject><body>
+
+&gt; &gt; The problem w/ my patch is the use case where the user specified
+&gt; &gt; --disable-shared. In that case, it would build the static libs, but my
+&gt; &gt; patch looks explicitly to link against the shared lib:
+&gt; &gt; libnettle.dll.a. I explicitly used libnettle.dll.a b/c it built both
+&gt; &gt; the static lib and the shared lib and I was unsure which one it would
+&gt; &gt; choose to link against (shared or static lib).
+
+&gt; I'm not sure I follow you. In the case that shared libaries are built
+&gt; (--enable-shared), the hogweed dll should be dynamically linked with the
+&gt; nettle dll (and linked statically or dynamically to gmp, depending on
+&gt; what's available). I don't see any urgent need to make that
+&gt; configurable, to make it possible to build a shared hogweed dll linked
+&gt; statically with nettle.
+
+That wasn't happening because nettle wasn't being added to the link options=
+ (-lnettle) for hogweed. Part of my patch was so it wouldn't link staticall=
+y against nettle and also b/c it was failing to build because -lnettle wasn=
+'t being added at link time.
+
+&gt; And in the case only static libraries are built, the various
+&gt; LIBHOGWEED_* variables in the patch are not used, and the static
+&gt; libraries libnettle.a and libhogweed.a are not linked to anything,
+&gt; they're just archives of object files.
+
+I didn't know that. Hopefully it's not a problem then.
+
+&gt; &gt; I'm more looking at nettle to install pkg-config so others can pick it =
+up.
+&gt;
+&gt; Sounds reasonable. I'm not going to give it a high priority, but I'll
+&gt; happily take patches, assuming they're not too difficult to understand
+&gt; and maintain.
+
+Sounds reasonable. I don't have time to integrate pkg-config, just thought =
+it might be good to have since a lot of packages are going that route these=
+ days, it seems.
+
+</body></email><email><emailId>20100924091043</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-09-24 09:10:43-0400</timestampReceived><subject>Re: Configuration and MinGW-w64 Compatibility</subject><body>
+
+"Hoyt, David" &lt;hoyt6@llnl.gov&gt; writes:
+
+&gt;&gt; It might make some sense to install it in the same directory as the
+&gt;&gt; few nettle executables, but that won't solve everything. E.g., with
+&gt;&gt; regards to gnutls, you'd need the nettle dll located in the same
+&gt;&gt; directory as the gnutls executable, which nettle doesn't know about; it
+&gt;&gt; may or may not be the same directory as nettle's $bindir. So you'd
+&gt;&gt; probably need to copy it around anyway.
+&gt;
+&gt; Perhaps it'd be useful to ping other projects and get their take?
+
+I've asked on an internal gnu developers' list. I still don't know what
+the right thing is. Appearantly, the libtool default is to install dlls
+in $libdir/../bin, which seems a bit kludgy to me.
+
+&gt; On Windows, you can either copy the dlls into the exe's directory or
+&gt; put the dll's directory in the front of the "PATH" env var.
+
+So for make check, it should be sufficient to add the .lib subdirectory
+(in the build tree) to PATH? Like on ELF, that directory is added to LD_LIBRARY_PATH.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20100323150709</emailId><senderName>Daniel Kahn Gillmor</senderName><senderEmail>dkg@fifthhorseman.net</senderEmail><timestampReceived>2010-03-23 15:07:09-0400</timestampReceived><subject>Re: nettle bindings for higher-level languages</subject><body>
+
+
+On 03/23/2010 05:30 AM, Niels Möller wrote:
+&gt; Daniel Kahn Gillmor &lt;dkg@fifthhorseman.net&gt; writes:
+&gt; 
+&gt;&gt; I was wondering if there is a catalog somewhere of bindings that exist
+&gt;&gt; for nettle for higher-level languages.
+&gt; 
+&gt; Not that I know of. I guess I could try to keep a list on the home page
+&gt; (http://www.lysator.liu.se/~nisse/nettle/), but I'd have to rely on
+&gt; other users mailing me updates.
+
+i think having such a list would be a good idea.  if you mention at the
+top of it "is this list out of date?  send updates to
+nettle-bugs@lists.lysator.liu.se" then it shouldn't be too bad to keep
+up-to-date.
+
+&gt; One final note: The way I see things, as a user of a higher level
+&gt; language, I'd prefer to not have merely "bindings to nettle", but to
+&gt; have well designed cryptographic functions with an interface appropriate
+&gt; to that language. Which can then use Nettle internally.
+
+yes, agreed.  When designing a binding, I'd like to expose things at
+roughly the same conceptual level as nettle, but using calling
+conventions, scoping, memory allocation, etc in ways that are
+comfortable and natural to the higher-level language in question.
+
+This would permit people to build sensibly-designed native higher-level
+crypto functionality on top of the nettle base.
+
+	--dkg
+
+
+
+</body></email><email><emailId>20100324084102</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-03-24 08:41:02-0400</timestampReceived><subject>Re: RSA-SHA512 interface problem</subject><body>
+
+Daniel Kahn Gillmor &lt;dkg@fifthhorseman.net&gt; writes:
+
+&gt;&gt; * Introduce a return value for the signing functions, to let them return
+&gt;&gt;   a success/failure indication.
+
+&gt; This sounds like the best option of the ones above; i really don't like
+&gt; the idea of the library aborting the calling program because of
+&gt; unexpected arguments.
+
+Hmm, I also think that alternative makes the most sense. Question is only how
+to deal with old programs.
+
+&gt; would nettle still need to export RSA_MINIMUM_N_* with this option?
+
+It's not mentioned in the manual, so I don't consider it a part of the
+advertised interface.
+
+&gt;&gt;   If we do this, is the return value from the
+&gt;&gt;   rsa_*_key_prepare functions still useful?
+&gt;
+&gt; I'm not sure about this -- i haven't used nettle widely enough to be
+&gt; able to give good feedback here.
+
+Not sure what to do about these functions. The point of them is to
+compute and check the octet size of the key. Which is somewhat subtle in
+case of a private key; the private key structure includes p and q, but
+not n. And since #n = #p + #q *or* #p + #q - 1 (# denotes bit size), the
+only simple way to find the correct size of n in all cases is to perform
+the bignum multiplication p * q. (Maybe this can be improved too; in
+most cases I'd expect the caller to have n available).
+
+&gt;&gt; No matter how the problem is solved, it will break backwards
+&gt;&gt; compatibility in some way. Suggestions?
+&gt;
+&gt; yuck.  it sounds like an soname bump will be needed.  Do you know if any
+&gt; nettle client uses the #defines that we're talking about?
+
+I think the backwards compatibility issue is more subtle than the
+removal of that #define, and its breaking backwards compatibility on
+both the source and binary level. The problem I see is as follows:
+
+Program reads or generates a private rsa key which is too small for the
+hash functon it's going to be used with. The program calls
+rsa_private_key_prepare, checks return value like it should, and if
+everything is ok, goes on to call one of the signing functions.
+
+With the released version of nettle, this program would detect the
+problem after calling rsa_private_key_prepare. But if the same program,
+with no changes, is recompiled or relinked with a version of nettle with
+the changes we're discussing, it will get no error from
+rsa_private_key_prepare, and the signing will fail. But since the
+program don't expect any return value, that error is silently ignored
+and the program will generate a bogus signature.
+
+I think that when the signing functions fail, they should probably set
+the signature bignum to 0, so one at least won't leak the previous
+contents in the above scenario.
+
+&gt; This exercise is probably a good one to go through (even though it's
+&gt; painful) so that nettle is flexible enough to be able to handle new
+&gt; message digests when they show up (e.g. when the SHA-3 contest reaches a
+&gt; conclusion).
+
+With these changes, I don't exect any further problems there, but there
+may be other interface quirks that could be fixed at the same time.
+
+Since it's inconvenient to have configure checks to test if a function
+has a return value, I may also be a good time to add some NETTLE_VERSION
+constants.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20100326094657</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-03-26 09:46:57-0400</timestampReceived><subject>Re: plans for other SHA-2 digests?</subject><body>
+
+Daniel Kahn Gillmor &lt;dkg@fifthhorseman.net&gt; writes:
+
+&gt; OpenPGP defines sha-224 as part of its suite of message digests, so i
+&gt; think supporting it would be good.  If you're concerned about size of
+&gt; the compiled library,
+
+I don't think the impact on the object size is that big; without
+measuring, I think the compression function (which is partially
+unrolled) is by far the largest piece of sha256 and sha512, and that
+function is reused for sha224 and sha384, respectively.
+
+I think the bloat is more of a concern in the source code and the
+documentation, with a large number small and almost identical functions.
+I'll think about ways to reduce code duplication, in partcular for the
+rsa signing functions, now when we have a such a large number of hash
+functions to support.
+
+(Using sha224 and sha384 for RSA signatures seems quite point-less to
+me; one saves 32 resp 128 bits in the hash digest, which is then padded
+to the RSA size, which should be at least 1024 bits anyway. So one
+truncates the hash without gaining anything in either computation time
+or signature size. Is there anybody who recommends those combinations,
+and if so, why?).
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20100323201617</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-03-23 20:16:17-0400</timestampReceived><subject>RSA-SHA512 interface problem</subject><body>
+
+I just realized that supporting RSA with SHA-512 leads to an interface
+problem.
+
+For RSA keys to work with PKCS#1 signatures, the modulo n has to be
+large enough. Up to now, I have used two defines, RSA_MINIMUM_N_OCTETS
+and RSA_MINIMUM_N_BITS, which are determined so that pkcs#1 works with
+*all* supported hash function.
+
+The rsa_public_key_prepare and rsa_private_key_prepare functions check
+that n is large enough and returns a success/failure value. Then no
+other rsa functions are expected to ever fail due to n being too small.
+
+With sha256, the minimum was 62 octets or 489 bits. But for sha512, the
+minimum is 94 octets or 745 bits. So if I just bump the RSA_MINIMUM_N_*
+accordingly, support for 512 bits RSA keys disappears. (And for
+comparison, with md5, the minimum is 353 bits).
+
+I really hope noone still uses 512 bit RSA for anything important, but I
+nevertheless don't think it's appropriate to just drop support for it.
+Some applications may have modest security requirements where small keys
+are somehow appropriate, and then there are legacy applications and old
+keys. It should still be *possible* to verify signatures made many years
+ago, using 512-bit RSA, even though they can no longer be considered
+very secure.
+
+I haven't figured out yet how I want to handle this, and I see no
+solution without its own problems. Some alternatives:
+
+* Discontinue the RSA_MINIMUM_N_*, or use some reasonable value which
+  isn't large enough for rsa-sha512. Let signature functions abort if
+  they encounter a too small key. Possibly define new hash-specific
+  constants, RSA_&lt;hash&gt;_MINIMUM_N_BITS or so.
+
+* Add some argument to the rsa_*_key_prepare functions to say what the
+  key is to be used for, so that it can check if the key is large
+  enough. I don't quite like this; it's against the spirit of the rest
+  of the Nettle interface.
+
+* Introduce a return value for the signing functions, to let them return
+  a success/failure indication. This is analogous to the rsa_encrypt
+  function, which checks if the key size is large enough for the current
+  message size. If we do this, is the return value from the
+  rsa_*_key_prepare functions still useful?
+
+I think it's less of a problem with public key operations, since
+signature verification and rsa decryption have a return value and for
+too small keys they can easily return fail for all messages. The problem
+is the signing functions.
+
+No matter how the problem is solved, it will break backwards
+compatibility in some way. Suggestions?
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+
+</body></email><email><emailId>20100318053759</emailId><senderName>Daniel Kahn Gillmor</senderName><senderEmail>dkg@fifthhorseman.net</senderEmail><timestampReceived>2010-03-18 05:37:59-0400</timestampReceived><subject>plans for other SHA-2 digests?</subject><body>
+
+Hi Nettle folks--
+
+&gt;From the documentation i could find, it looks like the strongest digest
+libnettle supports is SHA256.  Are there plans to add support for SHA512
+or other members of the SHA-2 family?
+
+(i suppose the same question holds for the primitives in libhogweed that
+include a digest operation, such as RSA signing)
+
+Thanks for offering this tool,
+
+	--dkg
+
+
+PS i tried to send this message earlier, PGP/MIME-signed, but it appears
+to have been bounced from the mailing list with a message of:
+
+  The message's content type was not explicitly allowed
+
+My resend here is unsigned, but it would be nice to be able to send
+signed mails to the list!
+
+</body></email><email><emailId>20100320070530</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-03-20 07:05:30-0400</timestampReceived><subject>Re: plans for other SHA-2 digests?</subject><body>
+
+
+Daniel Kahn Gillmor &lt;dkg@fifthhorseman.net&gt; writes:
+
+&gt; From the documentation i could find, it looks like the strongest digest
+&gt; libnettle supports is SHA256.  Are there plans to add support for SHA512
+&gt; or other members of the SHA-2 family?
+
+I don't have any particular plans, which means that it will be added
+when either I need it for something, or somebody else submits an
+implementation (including test cases).
+
+What are the interesting use cases for SHA-512? I guess it's getting
+more interesting as 64-bit machines are getting more common.
+
+I also haven't been following the NIST hash competition very closely,
+but whatever comes out of that process should be high on the wish list.
+
+&gt; (i suppose the same question holds for the primitives in libhogweed that
+&gt; include a digest operation, such as RSA signing)
+
+Adding support for new hashes there is easy, as soon as people have
+agreed on which object id to use.
+
+&gt; My resend here is unsigned, but it would be nice to be able to send
+&gt; signed mails to the list!
+
+Agree! I'm not sure how to fix it, maybe it's sufficient to add
+"multipart/signed" to mailman's pass_mime_types?
+
+/nisse
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+
+</body></email><email><emailId>20100321224317</emailId><senderName>Daniel Kahn Gillmor</senderName><senderEmail>dkg@fifthhorseman.net</senderEmail><timestampReceived>2010-03-21 22:43:17-0400</timestampReceived><subject>Re: plans for other SHA-2 digests?</subject><body>
+
+On 03/20/2010 03:05 AM, Niels Möller wrote:
+&gt; What are the interesting use cases for SHA-512? I guess it's getting
+&gt; more interesting as 64-bit machines are getting more common.
+
+i've been issuing SHA-512-based OpenPGP certifications lately, partly to
+find out where i run into compatibility problems.
+
+I'm also interested in making some OpenPGP tools, and exploring the
+range of crypto primitive toolkits to use.  nettle seems like an obvious
+choice, but i won't be able to test those certs with it.
+
+so: not a great or urgent reason, but it'd be nice to be able to use
+nettle as a basis for tools that implement higher-level specs.
+
+&gt; I also haven't been following the NIST hash competition very closely,
+&gt; but whatever comes out of that process should be high on the wish list.
+
+yes, agreed.
+
+&gt;&gt; (i suppose the same question holds for the primitives in libhogweed that
+&gt;&gt; include a digest operation, such as RSA signing)
+&gt; 
+&gt; Adding support for new hashes there is easy, as soon as people have
+&gt; agreed on which object id to use.
+
+what do you mean by object id?
+
+&gt;&gt; My resend here is unsigned, but it would be nice to be able to send
+&gt;&gt; signed mails to the list!
+&gt; 
+&gt; Agree! I'm not sure how to fix it, maybe it's sufficient to add
+&gt; "multipart/signed" to mailman's pass_mime_types?
+
+i don't know, but that sounds like a reasonable thing to try.  let me
+know if you want me to test it.
+
+	--dkg
+
+</body></email><email><emailId>20100322084518</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-03-22 08:45:18-0400</timestampReceived><subject>Re: plans for other SHA-2 digests?</subject><body>
+
+
+Daniel Kahn Gillmor &lt;dkg@fifthhorseman.net&gt; writes:
+
+&gt; I'm also interested in making some OpenPGP tools, and exploring the
+&gt; range of crypto primitive toolkits to use.  nettle seems like an obvious
+&gt; choice, but i won't be able to test those certs with it.
+
+You may want to look at the (unfinished) openpgp code in Nettle, when I
+worked on it the first objective was to be able to generate key packets.
+
+&gt; so: not a great or urgent reason, but it'd be nice to be able to use
+&gt; nettle as a basis for tools that implement higher-level specs.
+
+I guess it shouldn't be too difficult to implement SHA512 (and -384) if
+one uses uint64_t and doesn't care too much about performance on 32-bit
+machines.
+
+&gt;&gt; Adding support for new hashes there is easy, as soon as people have
+&gt;&gt; agreed on which object id to use.
+&gt;
+&gt; what do you mean by object id?
+
+RSA signatures using pkcs#1 uses a magic string to identify the used
+hash, and this string is prepended to the hash value, formally to
+construct a DER-encoded ASN.1 DigestInfo (but one doesn't have to care
+about the structure of the magic string). E.g., for sha-1, I have
+(in pkcs1-rsa-sha1.c):
+
+static const uint8_t
+sha1_prefix[] =
+{
+  /* 15 octets prefix, 20 octets hash, total 35 */
+  0x30,       33, /* SEQUENCE */
+    0x30,      9, /* SEQUENCE */
+      0x06,    5, /* OBJECT IDENTIFIER */
+        0x2b, 0x0e, 0x03, 0x02, 0x1a,
+      0x05,    0, /* NULL */
+    0x04,     20  /* OCTET STRING */
+      /* Here comes the raw hash value */
+};
+
+So one has to figure out the corresponding string to use for sha-512 and
+sha-384 (none is specified in fips180-2.pdf, so one has to look in some
+other spec).
+
+&gt;&gt; Agree! I'm not sure how to fix it, maybe it's sufficient to add
+&gt;&gt; "multipart/signed" to mailman's pass_mime_types?
+&gt;
+&gt; i don't know, but that sounds like a reasonable thing to try.  let me
+&gt; know if you want me to test it.
+
+I changed the mailman configuration, but not sure things work. I signed my
+previous message (and I'm signing this one too), and it got throuh to
+the list, but the message/signature pair was corrupted somehow when I
+received it (I use gnupg and the builtin pgp support built in
+emacs-23.1, Gnus-v5.13).
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+
+</body></email><email><emailId>20100322152843</emailId><senderName>Daniel Kahn Gillmor</senderName><senderEmail>dkg@fifthhorseman.net</senderEmail><timestampReceived>2010-03-22 15:28:43-0400</timestampReceived><subject>Re: plans for other SHA-2 digests?</subject><body>
+
+
+On 03/22/2010 04:45 AM, Niels Möller wrote:
+&gt; You may want to look at the (unfinished) openpgp code in Nettle, when I
+&gt; worked on it the first objective was to be able to generate key packets.
+
+sweet, i'll take a look.  fwiw, i think that kind of higher-level work
+belongs in a separate library, so that the crypto primitives are
+available independently.
+
+&gt;&gt; so: not a great or urgent reason, but it'd be nice to be able to use
+&gt;&gt; nettle as a basis for tools that implement higher-level specs.
+&gt; 
+&gt; I guess it shouldn't be too difficult to implement SHA512 (and -384) if
+&gt; one uses uint64_t and doesn't care too much about performance on 32-bit
+&gt; machines.
+
+i do care about performance on 32-bit machines, but i care about having
+the functionality available more ;)  optimization can come later if we want.
+
+&gt; So one has to figure out the corresponding string to use for sha-512 and
+&gt; sha-384 (none is specified in fips180-2.pdf, so one has to look in some
+&gt; other spec).
+
+ah, ok, i didn't realize you were referring to pkcs#1.
+
+The object IDs for the higer-level hashes are specified here:
+
+http://tools.ietf.org/html/rfc3447#page-43
+
+&gt; I changed the mailman configuration, but not sure things work. I signed my
+&gt; previous message (and I'm signing this one too), and it got throuh to
+&gt; the list, but the message/signature pair was corrupted somehow when I
+&gt; received it (I use gnupg and the builtin pgp support built in
+&gt; emacs-23.1, Gnus-v5.13).
+
+I'm signing this one too; i'll have a look into the problem if it gets
+mangled in transit.
+
+	--dkg
+
+
+
+</body></email><email><emailId>20100322212543</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-03-22 21:25:43-0400</timestampReceived><subject>Re: plans for other SHA-2 digests?</subject><body>
+
+Daniel Kahn Gillmor &lt;dkg@fifthhorseman.net&gt; writes:
+
+&gt; sweet, i'll take a look.  fwiw, i think that kind of higher-level work
+&gt; belongs in a separate library, so that the crypto primitives are
+&gt; available independently.
+
+Right, anything large belongs elsewhere, but I think it would be useful
+to at least have tools for converting keys to and from openpgp format.
+
+&gt; i do care about performance on 32-bit machines, but i care about having
+&gt; the functionality available more ;)  optimization can come later if we want.
+
+I just checked in an implementation of SHA 512. Basically copy and paste
+of the SHA 256 code, with larger datatypes and different constants...
+
+A lot of minor things left, like HMAC and RSA using SHA 512, but I might
+add that shortly. And SHA 384, which is almost the same thing (is
+anybody using that?).
+
+And then both the SHA256 code and the SHA512 internals should be
+reorganized slightly with a compression function in a separate file,
+just like for MD5 and SHA1, to aid later assembler hacks.
+
+If you or anybody else have additional test vectors for SHA 512 or
+HMAC-SHA-512 or RSA signatures with SHA 512, I'd like to add them.
+Currently, I have only two test cases, extracted from the FIPS 180-2
+spec.
+
+&gt; The object IDs for the higer-level hashes are specified here:
+&gt;
+&gt; http://tools.ietf.org/html/rfc3447#page-43
+
+Noted, thanks for looking it up for me.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20100322225758</emailId><senderName>Daniel Kahn Gillmor</senderName><senderEmail>dkg@fifthhorseman.net</senderEmail><timestampReceived>2010-03-22 22:57:58-0400</timestampReceived><subject>Re: plans for other SHA-2 digests?</subject><body>
+
+
+On 03/22/2010 05:25 PM, Niels M=C3=B6ller wrote:
+&gt; Right, anything large belongs elsewhere, but I think it would be useful=
+
+&gt; to at least have tools for converting keys to and from openpgp format.
+
+understood.  i'll try to take a look at those tools soon.
+
+&gt; I just checked in an implementation of SHA 512. Basically copy and past=
+e
+&gt; of the SHA 256 code, with larger datatypes and different constants...
+
+great, thanks!
+
+&gt; A lot of minor things left, like HMAC and RSA using SHA 512, but I migh=
+t
+&gt; add that shortly. And SHA 384, which is almost the same thing (is
+&gt; anybody using that?).
+
+i'm not using SHA 384 myself, but it seems worth handling for the sake
+of completeness (most protocol i've seen that supports SHA512 also
+supports SHA384).
+
+&gt; If you or anybody else have additional test vectors for SHA 512 or
+&gt; HMAC-SHA-512 or RSA signatures with SHA 512, I'd like to add them.
+&gt; Currently, I have only two test cases, extracted from the FIPS 180-2
+&gt; spec.
+
+I put a set of test cases in t/08-digest.t of perl's Crypt::GCrypt, if
+you're interested.   They're mostly generated by running other
+implementations, and not by some sort of clever first-principles
+approach, but all the uncommented ones match at least both GCrypt and
+one other implementation.
+
+You can download the tarball here:
+
+http://search.cpan.org/CPAN/authors/id/A/AA/AAR/Crypt-GCrypt-1.24.tar.gz
+
+You're welcome to re-use those test cases for nettle in any way you see
+fit, under whatever license you please.
+
+Thanks for being so responsive here, Niels.
+
+Regards,
+
+	--dkg
+
+
+
+</body></email><email><emailId>20100325133858</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-03-25 13:38:58-0400</timestampReceived><subject>Re: plans for other SHA-2 digests?</subject><body>
+
+Daniel Kahn Gillmor &lt;dkg@fifthhorseman.net&gt; writes:
+
+&gt; i'm not using SHA 384 myself, but it seems worth handling for the sake
+&gt; of completeness (most protocol i've seen that supports SHA512 also
+&gt; supports SHA384).
+
+When looking at the test vectors you provided, I noticed SHA-224
+(specified in the update
+http://csrc.nist.gov/publications/fips/fips186-2/fips186-2-change1.pdf
+and also RFC 3874). Is this also important, are there any protocols or
+application that specify it's use? It's defined in terms of SHA256 in
+the same way as SHA384 is defined in terms of SHA512. To me, the SHA-2
+family seems to have more members than are really useful.
+
+&gt; I put a set of test cases in t/08-digest.t of perl's Crypt::GCrypt, if
+&gt; you're interested.
+
+Thanks, I'll add those that are missing in Nettle's current testsuite.
+Still missing are independent test vectors for RSA signatures.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20100325165736</emailId><senderName>Daniel Kahn Gillmor</senderName><senderEmail>dkg@fifthhorseman.net</senderEmail><timestampReceived>2010-03-25 16:57:36-0400</timestampReceived><subject>Re: plans for other SHA-2 digests?</subject><body>
+
+
+On 03/25/2010 09:38 AM, Niels M=C3=B6ller wrote:
+&gt; When looking at the test vectors you provided, I noticed SHA-224
+&gt; (specified in the update
+&gt; http://csrc.nist.gov/publications/fips/fips186-2/fips186-2-change1.pdf
+&gt; and also RFC 3874). Is this also important, are there any protocols or
+&gt; application that specify it's use? It's defined in terms of SHA256 in
+&gt; the same way as SHA384 is defined in terms of SHA512. To me, the SHA-2
+&gt; family seems to have more members than are really useful.
+
+you're not the only one to have that impression; i think the goal of 224
+and 384 was to provide a standard way to do hash truncation if a
+protocol is trying to save room, but i don't really know.
+
+OpenPGP defines sha-224 as part of its suite of message digests, so i
+think supporting it would be good.  If you're concerned about size of
+the compiled library, maybe a configure flag could disable certain
+versions and avoid packaging their constants and configuration?  i dunno
+if that'd be worth it.
+
+Thanks for looking into this, Niels.
+
+	--dkg
+
+
+
+</body></email><email><emailId>20100323210546</emailId><senderName>Daniel Kahn Gillmor</senderName><senderEmail>dkg@fifthhorseman.net</senderEmail><timestampReceived>2010-03-23 21:05:46-0400</timestampReceived><subject>Re: RSA-SHA512 interface problem</subject><body>
+
+
+On 03/23/2010 04:16 PM, Niels M=C3=B6ller wrote:
+&gt; I just realized that supporting RSA with SHA-512 leads to an interface
+&gt; problem.
+
+ugh, sorry about this.
+
+&gt; * Introduce a return value for the signing functions, to let them retur=
+n
+&gt;   a success/failure indication. This is analogous to the rsa_encrypt
+&gt;   function, which checks if the key size is large enough for the curren=
+t
+&gt;   message size.
+
+This sounds like the best option of the ones above; i really don't like
+the idea of the library aborting the calling program because of
+unexpected arguments.
+
+would nettle still need to export RSA_MINIMUM_N_* with this option?
+
+&gt;   If we do this, is the return value from the
+&gt;   rsa_*_key_prepare functions still useful?
+
+I'm not sure about this -- i haven't used nettle widely enough to be
+able to give good feedback here.
+
+&gt; No matter how the problem is solved, it will break backwards
+&gt; compatibility in some way. Suggestions?
+
+yuck.  it sounds like an soname bump will be needed.  Do you know if any
+nettle client uses the #defines that we're talking about?
+
+This exercise is probably a good one to go through (even though it's
+painful) so that nettle is flexible enough to be able to handle new
+message digests when they show up (e.g. when the SHA-3 contest reaches a
+conclusion).
+
+Regards,
+
+	--dkg
+
+
+
+</body></email><email><emailId>20101012072024</emailId><senderName>Simon Josefsson</senderName><senderEmail>simon@josefsson.org</senderEmail><timestampReceived>2010-10-12 07:20:24-0400</timestampReceived><subject>web page bug</subject><body>
+
+The web page says:
+
+ descend into the src/nettle directory for a standard ./configure &amp;&amp;
+ make there.
+
+I guess it should be:
+
+ descend into the nettle directory for a standard ./configure &amp;&amp;
+ make there.
+
+Thanks,
+Simon
+
+</body></email><email><emailId>20101123211011</emailId><senderName>Simon Josefsson</senderName><senderEmail>simon@josefsson.org</senderEmail><timestampReceived>2010-11-23 21:10:11-0400</timestampReceived><subject>LGPL blowfish</subject><body>
+
+Hi Niels!
+
+I really would like to see an all-LGPL libnettle, and willing to do the
+work.  Here is a first milestone, to port Blowfish from libgcrypt to
+Nettle.  The self-test work, and there are no API changes, and I didn't
+have to do anything strange to the code, so I'm hoping there won't be
+any problems.  Testing on non-x86 would be useful nonetheless.
+
+I didn't look at the original blowfish.c in Nettle except for the first
+few header lines, so I have no idea what kind of improvements could be
+made -- but I don't think that is important compared to the license.
+
+I have not signed papers specifically for Nettle, hence the (C) with my
+name, but I can do FSF papers if it is required.
+
+I'm not posting a patch since the file is completely rewritten -- just
+replace blowfish.c with the file below.  A small patch to the manual:
+
+--- nettle.texinfo.~1.15.~	2010-08-04 23:43:31.000000000 +0200
++++ nettle.texinfo	2010-11-23 16:53:10.455095672 +0100
+@@ -134,8 +134,8 @@
+ 
+ @item BLOWFISH
+ The implementation of the BLOWFISH cipher is written by Werner Koch,
+-copyright owned by the Free Software Foundation. Also hacked by Ray
+-Dassen and @value{AUTHOR}. Released under the GPL.
++copyright owned by the Free Software Foundation. Also hacked by Simon
++Josefsson.
+ 
+ @item CAMELLIA
+ The C implementation is by Nippon Telegraph and Telephone Corporation
+
+/Simon
+
+PS. The mailing list refused attachments with text/x-csrc and text/plain
+types (I tried both), so I'm resending this with the file inline.
+Hopefully finally it will get through...
+
+/* blowfish.c
+ *
+ * The blowfish block cipher.
+ *
+ * For a description of the algorithm, see:
+ *   Bruce Schneier: Applied Cryptography. John Wiley &amp; Sons, 1996.
+ *   ISBN 0-471-11709-9. Pages 336 ff.
+ */
+
+/* nettle, low-level cryptographics library
+ *
+ * Copyright (C) 2010  Simon Josefsson
+ * Copyright (C) 1998, 2001, 2002, 2003 Free Software Foundation, Inc.
+ *  
+ * The nettle library is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or (at your
+ * option) any later version.
+ * 
+ * The nettle library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+ * License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the nettle library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+ * MA 02111-1307, USA.
+ */
+
+/* This file is derived from cipher/blowfish.c in Libgcrypt v1.4.6.
+   The adaption to Nettle was made by Simon Josefsson on 2010-11-23.
+   Changes include removing the selftest, renaming u32/byte types to
+   uint32_t/uint8_t, renaming BLOWFISH_ROUNDS to _BLOWFISH_ROUNDS
+   (from Nettle's blowfish.h), dropping the libgcrypt wrapper
+   functions, fixing #include's, remove support for non-16 rounds
+   (there are no test vectors), adding FOR_BLOCK iterations, and
+   running indent on the code. */
+
+#if HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#include &lt;assert.h&gt;
+
+#include "blowfish.h"
+
+#include "macros.h"
+
+/* precomputed S boxes */
+static const uint32_t ks0[256] = {
+  0xD1310BA6, 0x98DFB5AC, 0x2FFD72DB, 0xD01ADFB7, 0xB8E1AFED, 0x6A267E96,
+  0xBA7C9045, 0xF12C7F99, 0x24A19947, 0xB3916CF7, 0x0801F2E2, 0x858EFC16,
+  0x636920D8, 0x71574E69, 0xA458FEA3, 0xF4933D7E, 0x0D95748F, 0x728EB658,
+  0x718BCD58, 0x82154AEE, 0x7B54A41D, 0xC25A59B5, 0x9C30D539, 0x2AF26013,
+  0xC5D1B023, 0x286085F0, 0xCA417918, 0xB8DB38EF, 0x8E79DCB0, 0x603A180E,
+  0x6C9E0E8B, 0xB01E8A3E, 0xD71577C1, 0xBD314B27, 0x78AF2FDA, 0x55605C60,
+  0xE65525F3, 0xAA55AB94, 0x57489862, 0x63E81440, 0x55CA396A, 0x2AAB10B6,
+  0xB4CC5C34, 0x1141E8CE, 0xA15486AF, 0x7C72E993, 0xB3EE1411, 0x636FBC2A,
+  0x2BA9C55D, 0x741831F6, 0xCE5C3E16, 0x9B87931E, 0xAFD6BA33, 0x6C24CF5C,
+  0x7A325381, 0x28958677, 0x3B8F4898, 0x6B4BB9AF, 0xC4BFE81B, 0x66282193,
+  0x61D809CC, 0xFB21A991, 0x487CAC60, 0x5DEC8032, 0xEF845D5D, 0xE98575B1,
+  0xDC262302, 0xEB651B88, 0x23893E81, 0xD396ACC5, 0x0F6D6FF3, 0x83F44239,
+  0x2E0B4482, 0xA4842004, 0x69C8F04A, 0x9E1F9B5E, 0x21C66842, 0xF6E96C9A,
+  0x670C9C61, 0xABD388F0, 0x6A51A0D2, 0xD8542F68, 0x960FA728, 0xAB5133A3,
+  0x6EEF0B6C, 0x137A3BE4, 0xBA3BF050, 0x7EFB2A98, 0xA1F1651D, 0x39AF0176,
+  0x66CA593E, 0x82430E88, 0x8CEE8619, 0x456F9FB4, 0x7D84A5C3, 0x3B8B5EBE,
+  0xE06F75D8, 0x85C12073, 0x401A449F, 0x56C16AA6, 0x4ED3AA62, 0x363F7706,
+  0x1BFEDF72, 0x429B023D, 0x37D0D724, 0xD00A1248, 0xDB0FEAD3, 0x49F1C09B,
+  0x075372C9, 0x80991B7B, 0x25D479D8, 0xF6E8DEF7, 0xE3FE501A, 0xB6794C3B,
+  0x976CE0BD, 0x04C006BA, 0xC1A94FB6, 0x409F60C4, 0x5E5C9EC2, 0x196A2463,
+  0x68FB6FAF, 0x3E6C53B5, 0x1339B2EB, 0x3B52EC6F, 0x6DFC511F, 0x9B30952C,
+  0xCC814544, 0xAF5EBD09, 0xBEE3D004, 0xDE334AFD, 0x660F2807, 0x192E4BB3,
+  0xC0CBA857, 0x45C8740F, 0xD20B5F39, 0xB9D3FBDB, 0x5579C0BD, 0x1A60320A,
+  0xD6A100C6, 0x402C7279, 0x679F25FE, 0xFB1FA3CC, 0x8EA5E9F8, 0xDB3222F8,
+  0x3C7516DF, 0xFD616B15, 0x2F501EC8, 0xAD0552AB, 0x323DB5FA, 0xFD238760,
+  0x53317B48, 0x3E00DF82, 0x9E5C57BB, 0xCA6F8CA0, 0x1A87562E, 0xDF1769DB,
+  0xD542A8F6, 0x287EFFC3, 0xAC6732C6, 0x8C4F5573, 0x695B27B0, 0xBBCA58C8,
+  0xE1FFA35D, 0xB8F011A0, 0x10FA3D98, 0xFD2183B8, 0x4AFCB56C, 0x2DD1D35B,
+  0x9A53E479, 0xB6F84565, 0xD28E49BC, 0x4BFB9790, 0xE1DDF2DA, 0xA4CB7E33,
+  0x62FB1341, 0xCEE4C6E8, 0xEF20CADA, 0x36774C01, 0xD07E9EFE, 0x2BF11FB4,
+  0x95DBDA4D, 0xAE909198, 0xEAAD8E71, 0x6B93D5A0, 0xD08ED1D0, 0xAFC725E0,
+  0x8E3C5B2F, 0x8E7594B7, 0x8FF6E2FB, 0xF2122B64, 0x8888B812, 0x900DF01C,
+  0x4FAD5EA0, 0x688FC31C, 0xD1CFF191, 0xB3A8C1AD, 0x2F2F2218, 0xBE0E1777,
+  0xEA752DFE, 0x8B021FA1, 0xE5A0CC0F, 0xB56F74E8, 0x18ACF3D6, 0xCE89E299,
+  0xB4A84FE0, 0xFD13E0B7, 0x7CC43B81, 0xD2ADA8D9, 0x165FA266, 0x80957705,
+  0x93CC7314, 0x211A1477, 0xE6AD2065, 0x77B5FA86, 0xC75442F5, 0xFB9D35CF,
+  0xEBCDAF0C, 0x7B3E89A0, 0xD6411BD3, 0xAE1E7E49, 0x00250E2D, 0x2071B35E,
+  0x226800BB, 0x57B8E0AF, 0x2464369B, 0xF009B91E, 0x5563911D, 0x59DFA6AA,
+  0x78C14389, 0xD95A537F, 0x207D5BA2, 0x02E5B9C5, 0x83260376, 0x6295CFA9,
+  0x11C81968, 0x4E734A41, 0xB3472DCA, 0x7B14A94A, 0x1B510052, 0x9A532915,
+  0xD60F573F, 0xBC9BC6E4, 0x2B60A476, 0x81E67400, 0x08BA6FB5, 0x571BE91F,
+  0xF296EC6B, 0x2A0DD915, 0xB6636521, 0xE7B9F9B6, 0xFF34052E, 0xC5855664,
+  0x53B02D5D, 0xA99F8FA1, 0x08BA4799, 0x6E85076A
+};
+
+static const uint32_t ks1[256] = {
+  0x4B7A70E9, 0xB5B32944, 0xDB75092E, 0xC4192623, 0xAD6EA6B0, 0x49A7DF7D,
+  0x9CEE60B8, 0x8FEDB266, 0xECAA8C71, 0x699A17FF, 0x5664526C, 0xC2B19EE1,
+  0x193602A5, 0x75094C29, 0xA0591340, 0xE4183A3E, 0x3F54989A, 0x5B429D65,
+  0x6B8FE4D6, 0x99F73FD6, 0xA1D29C07, 0xEFE830F5, 0x4D2D38E6, 0xF0255DC1,
+  0x4CDD2086, 0x8470EB26, 0x6382E9C6, 0x021ECC5E, 0x09686B3F, 0x3EBAEFC9,
+  0x3C971814, 0x6B6A70A1, 0x687F3584, 0x52A0E286, 0xB79C5305, 0xAA500737,
+  0x3E07841C, 0x7FDEAE5C, 0x8E7D44EC, 0x5716F2B8, 0xB03ADA37, 0xF0500C0D,
+  0xF01C1F04, 0x0200B3FF, 0xAE0CF51A, 0x3CB574B2, 0x25837A58, 0xDC0921BD,
+  0xD19113F9, 0x7CA92FF6, 0x94324773, 0x22F54701, 0x3AE5E581, 0x37C2DADC,
+  0xC8B57634, 0x9AF3DDA7, 0xA9446146, 0x0FD0030E, 0xECC8C73E, 0xA4751E41,
+  0xE238CD99, 0x3BEA0E2F, 0x3280BBA1, 0x183EB331, 0x4E548B38, 0x4F6DB908,
+  0x6F420D03, 0xF60A04BF, 0x2CB81290, 0x24977C79, 0x5679B072, 0xBCAF89AF,
+  0xDE9A771F, 0xD9930810, 0xB38BAE12, 0xDCCF3F2E, 0x5512721F, 0x2E6B7124,
+  0x501ADDE6, 0x9F84CD87, 0x7A584718, 0x7408DA17, 0xBC9F9ABC, 0xE94B7D8C,
+  0xEC7AEC3A, 0xDB851DFA, 0x63094366, 0xC464C3D2, 0xEF1C1847, 0x3215D908,
+  0xDD433B37, 0x24C2BA16, 0x12A14D43, 0x2A65C451, 0x50940002, 0x133AE4DD,
+  0x71DFF89E, 0x10314E55, 0x81AC77D6, 0x5F11199B, 0x043556F1, 0xD7A3C76B,
+  0x3C11183B, 0x5924A509, 0xF28FE6ED, 0x97F1FBFA, 0x9EBABF2C, 0x1E153C6E,
+  0x86E34570, 0xEAE96FB1, 0x860E5E0A, 0x5A3E2AB3, 0x771FE71C, 0x4E3D06FA,
+  0x2965DCB9, 0x99E71D0F, 0x803E89D6, 0x5266C825, 0x2E4CC978, 0x9C10B36A,
+  0xC6150EBA, 0x94E2EA78, 0xA5FC3C53, 0x1E0A2DF4, 0xF2F74EA7, 0x361D2B3D,
+  0x1939260F, 0x19C27960, 0x5223A708, 0xF71312B6, 0xEBADFE6E, 0xEAC31F66,
+  0xE3BC4595, 0xA67BC883, 0xB17F37D1, 0x018CFF28, 0xC332DDEF, 0xBE6C5AA5,
+  0x65582185, 0x68AB9802, 0xEECEA50F, 0xDB2F953B, 0x2AEF7DAD, 0x5B6E2F84,
+  0x1521B628, 0x29076170, 0xECDD4775, 0x619F1510, 0x13CCA830, 0xEB61BD96,
+  0x0334FE1E, 0xAA0363CF, 0xB5735C90, 0x4C70A239, 0xD59E9E0B, 0xCBAADE14,
+  0xEECC86BC, 0x60622CA7, 0x9CAB5CAB, 0xB2F3846E, 0x648B1EAF, 0x19BDF0CA,
+  0xA02369B9, 0x655ABB50, 0x40685A32, 0x3C2AB4B3, 0x319EE9D5, 0xC021B8F7,
+  0x9B540B19, 0x875FA099, 0x95F7997E, 0x623D7DA8, 0xF837889A, 0x97E32D77,
+  0x11ED935F, 0x16681281, 0x0E358829, 0xC7E61FD6, 0x96DEDFA1, 0x7858BA99,
+  0x57F584A5, 0x1B227263, 0x9B83C3FF, 0x1AC24696, 0xCDB30AEB, 0x532E3054,
+  0x8FD948E4, 0x6DBC3128, 0x58EBF2EF, 0x34C6FFEA, 0xFE28ED61, 0xEE7C3C73,
+  0x5D4A14D9, 0xE864B7E3, 0x42105D14, 0x203E13E0, 0x45EEE2B6, 0xA3AAABEA,
+  0xDB6C4F15, 0xFACB4FD0, 0xC742F442, 0xEF6ABBB5, 0x654F3B1D, 0x41CD2105,
+  0xD81E799E, 0x86854DC7, 0xE44B476A, 0x3D816250, 0xCF62A1F2, 0x5B8D2646,
+  0xFC8883A0, 0xC1C7B6A3, 0x7F1524C3, 0x69CB7492, 0x47848A0B, 0x5692B285,
+  0x095BBF00, 0xAD19489D, 0x1462B174, 0x23820E00, 0x58428D2A, 0x0C55F5EA,
+  0x1DADF43E, 0x233F7061, 0x3372F092, 0x8D937E41, 0xD65FECF1, 0x6C223BDB,
+  0x7CDE3759, 0xCBEE7460, 0x4085F2A7, 0xCE77326E, 0xA6078084, 0x19F8509E,
+  0xE8EFD855, 0x61D99735, 0xA969A7AA, 0xC50C06C2, 0x5A04ABFC, 0x800BCADC,
+  0x9E447A2E, 0xC3453484, 0xFDD56705, 0x0E1E9EC9, 0xDB73DBD3, 0x105588CD,
+  0x675FDA79, 0xE3674340, 0xC5C43465, 0x713E38D8, 0x3D28F89E, 0xF16DFF20,
+  0x153E21E7, 0x8FB03D4A, 0xE6E39F2B, 0xDB83ADF7
+};
+
+static const uint32_t ks2[256] = {
+  0xE93D5A68, 0x948140F7, 0xF64C261C, 0x94692934, 0x411520F7, 0x7602D4F7,
+  0xBCF46B2E, 0xD4A20068, 0xD4082471, 0x3320F46A, 0x43B7D4B7, 0x500061AF,
+  0x1E39F62E, 0x97244546, 0x14214F74, 0xBF8B8840, 0x4D95FC1D, 0x96B591AF,
+  0x70F4DDD3, 0x66A02F45, 0xBFBC09EC, 0x03BD9785, 0x7FAC6DD0, 0x31CB8504,
+  0x96EB27B3, 0x55FD3941, 0xDA2547E6, 0xABCA0A9A, 0x28507825, 0x530429F4,
+  0x0A2C86DA, 0xE9B66DFB, 0x68DC1462, 0xD7486900, 0x680EC0A4, 0x27A18DEE,
+  0x4F3FFEA2, 0xE887AD8C, 0xB58CE006, 0x7AF4D6B6, 0xAACE1E7C, 0xD3375FEC,
+  0xCE78A399, 0x406B2A42, 0x20FE9E35, 0xD9F385B9, 0xEE39D7AB, 0x3B124E8B,
+  0x1DC9FAF7, 0x4B6D1856, 0x26A36631, 0xEAE397B2, 0x3A6EFA74, 0xDD5B4332,
+  0x6841E7F7, 0xCA7820FB, 0xFB0AF54E, 0xD8FEB397, 0x454056AC, 0xBA489527,
+  0x55533A3A, 0x20838D87, 0xFE6BA9B7, 0xD096954B, 0x55A867BC, 0xA1159A58,
+  0xCCA92963, 0x99E1DB33, 0xA62A4A56, 0x3F3125F9, 0x5EF47E1C, 0x9029317C,
+  0xFDF8E802, 0x04272F70, 0x80BB155C, 0x05282CE3, 0x95C11548, 0xE4C66D22,
+  0x48C1133F, 0xC70F86DC, 0x07F9C9EE, 0x41041F0F, 0x404779A4, 0x5D886E17,
+  0x325F51EB, 0xD59BC0D1, 0xF2BCC18F, 0x41113564, 0x257B7834, 0x602A9C60,
+  0xDFF8E8A3, 0x1F636C1B, 0x0E12B4C2, 0x02E1329E, 0xAF664FD1, 0xCAD18115,
+  0x6B2395E0, 0x333E92E1, 0x3B240B62, 0xEEBEB922, 0x85B2A20E, 0xE6BA0D99,
+  0xDE720C8C, 0x2DA2F728, 0xD0127845, 0x95B794FD, 0x647D0862, 0xE7CCF5F0,
+  0x5449A36F, 0x877D48FA, 0xC39DFD27, 0xF33E8D1E, 0x0A476341, 0x992EFF74,
+  0x3A6F6EAB, 0xF4F8FD37, 0xA812DC60, 0xA1EBDDF8, 0x991BE14C, 0xDB6E6B0D,
+  0xC67B5510, 0x6D672C37, 0x2765D43B, 0xDCD0E804, 0xF1290DC7, 0xCC00FFA3,
+  0xB5390F92, 0x690FED0B, 0x667B9FFB, 0xCEDB7D9C, 0xA091CF0B, 0xD9155EA3,
+  0xBB132F88, 0x515BAD24, 0x7B9479BF, 0x763BD6EB, 0x37392EB3, 0xCC115979,
+  0x8026E297, 0xF42E312D, 0x6842ADA7, 0xC66A2B3B, 0x12754CCC, 0x782EF11C,
+  0x6A124237, 0xB79251E7, 0x06A1BBE6, 0x4BFB6350, 0x1A6B1018, 0x11CAEDFA,
+  0x3D25BDD8, 0xE2E1C3C9, 0x44421659, 0x0A121386, 0xD90CEC6E, 0xD5ABEA2A,
+  0x64AF674E, 0xDA86A85F, 0xBEBFE988, 0x64E4C3FE, 0x9DBC8057, 0xF0F7C086,
+  0x60787BF8, 0x6003604D, 0xD1FD8346, 0xF6381FB0, 0x7745AE04, 0xD736FCCC,
+  0x83426B33, 0xF01EAB71, 0xB0804187, 0x3C005E5F, 0x77A057BE, 0xBDE8AE24,
+  0x55464299, 0xBF582E61, 0x4E58F48F, 0xF2DDFDA2, 0xF474EF38, 0x8789BDC2,
+  0x5366F9C3, 0xC8B38E74, 0xB475F255, 0x46FCD9B9, 0x7AEB2661, 0x8B1DDF84,
+  0x846A0E79, 0x915F95E2, 0x466E598E, 0x20B45770, 0x8CD55591, 0xC902DE4C,
+  0xB90BACE1, 0xBB8205D0, 0x11A86248, 0x7574A99E, 0xB77F19B6, 0xE0A9DC09,
+  0x662D09A1, 0xC4324633, 0xE85A1F02, 0x09F0BE8C, 0x4A99A025, 0x1D6EFE10,
+  0x1AB93D1D, 0x0BA5A4DF, 0xA186F20F, 0x2868F169, 0xDCB7DA83, 0x573906FE,
+  0xA1E2CE9B, 0x4FCD7F52, 0x50115E01, 0xA70683FA, 0xA002B5C4, 0x0DE6D027,
+  0x9AF88C27, 0x773F8641, 0xC3604C06, 0x61A806B5, 0xF0177A28, 0xC0F586E0,
+  0x006058AA, 0x30DC7D62, 0x11E69ED7, 0x2338EA63, 0x53C2DD94, 0xC2C21634,
+  0xBBCBEE56, 0x90BCB6DE, 0xEBFC7DA1, 0xCE591D76, 0x6F05E409, 0x4B7C0188,
+  0x39720A3D, 0x7C927C24, 0x86E3725F, 0x724D9DB9, 0x1AC15BB4, 0xD39EB8FC,
+  0xED545578, 0x08FCA5B5, 0xD83D7CD3, 0x4DAD0FC4, 0x1E50EF5E, 0xB161E6F8,
+  0xA28514D9, 0x6C51133C, 0x6FD5C7E7, 0x56E14EC4, 0x362ABFCE, 0xDDC6C837,
+  0xD79A3234, 0x92638212, 0x670EFA8E, 0x406000E0
+};
+
+static const uint32_t ks3[256] = {
+  0x3A39CE37, 0xD3FAF5CF, 0xABC27737, 0x5AC52D1B, 0x5CB0679E, 0x4FA33742,
+  0xD3822740, 0x99BC9BBE, 0xD5118E9D, 0xBF0F7315, 0xD62D1C7E, 0xC700C47B,
+  0xB78C1B6B, 0x21A19045, 0xB26EB1BE, 0x6A366EB4, 0x5748AB2F, 0xBC946E79,
+  0xC6A376D2, 0x6549C2C8, 0x530FF8EE, 0x468DDE7D, 0xD5730A1D, 0x4CD04DC6,
+  0x2939BBDB, 0xA9BA4650, 0xAC9526E8, 0xBE5EE304, 0xA1FAD5F0, 0x6A2D519A,
+  0x63EF8CE2, 0x9A86EE22, 0xC089C2B8, 0x43242EF6, 0xA51E03AA, 0x9CF2D0A4,
+  0x83C061BA, 0x9BE96A4D, 0x8FE51550, 0xBA645BD6, 0x2826A2F9, 0xA73A3AE1,
+  0x4BA99586, 0xEF5562E9, 0xC72FEFD3, 0xF752F7DA, 0x3F046F69, 0x77FA0A59,
+  0x80E4A915, 0x87B08601, 0x9B09E6AD, 0x3B3EE593, 0xE990FD5A, 0x9E34D797,
+  0x2CF0B7D9, 0x022B8B51, 0x96D5AC3A, 0x017DA67D, 0xD1CF3ED6, 0x7C7D2D28,
+  0x1F9F25CF, 0xADF2B89B, 0x5AD6B472, 0x5A88F54C, 0xE029AC71, 0xE019A5E6,
+  0x47B0ACFD, 0xED93FA9B, 0xE8D3C48D, 0x283B57CC, 0xF8D56629, 0x79132E28,
+  0x785F0191, 0xED756055, 0xF7960E44, 0xE3D35E8C, 0x15056DD4, 0x88F46DBA,
+  0x03A16125, 0x0564F0BD, 0xC3EB9E15, 0x3C9057A2, 0x97271AEC, 0xA93A072A,
+  0x1B3F6D9B, 0x1E6321F5, 0xF59C66FB, 0x26DCF319, 0x7533D928, 0xB155FDF5,
+  0x03563482, 0x8ABA3CBB, 0x28517711, 0xC20AD9F8, 0xABCC5167, 0xCCAD925F,
+  0x4DE81751, 0x3830DC8E, 0x379D5862, 0x9320F991, 0xEA7A90C2, 0xFB3E7BCE,
+  0x5121CE64, 0x774FBE32, 0xA8B6E37E, 0xC3293D46, 0x48DE5369, 0x6413E680,
+  0xA2AE0810, 0xDD6DB224, 0x69852DFD, 0x09072166, 0xB39A460A, 0x6445C0DD,
+  0x586CDECF, 0x1C20C8AE, 0x5BBEF7DD, 0x1B588D40, 0xCCD2017F, 0x6BB4E3BB,
+  0xDDA26A7E, 0x3A59FF45, 0x3E350A44, 0xBCB4CDD5, 0x72EACEA8, 0xFA6484BB,
+  0x8D6612AE, 0xBF3C6F47, 0xD29BE463, 0x542F5D9E, 0xAEC2771B, 0xF64E6370,
+  0x740E0D8D, 0xE75B1357, 0xF8721671, 0xAF537D5D, 0x4040CB08, 0x4EB4E2CC,
+  0x34D2466A, 0x0115AF84, 0xE1B00428, 0x95983A1D, 0x06B89FB4, 0xCE6EA048,
+  0x6F3F3B82, 0x3520AB82, 0x011A1D4B, 0x277227F8, 0x611560B1, 0xE7933FDC,
+  0xBB3A792B, 0x344525BD, 0xA08839E1, 0x51CE794B, 0x2F32C9B7, 0xA01FBAC9,
+  0xE01CC87E, 0xBCC7D1F6, 0xCF0111C3, 0xA1E8AAC7, 0x1A908749, 0xD44FBD9A,
+  0xD0DADECB, 0xD50ADA38, 0x0339C32A, 0xC6913667, 0x8DF9317C, 0xE0B12B4F,
+  0xF79E59B7, 0x43F5BB3A, 0xF2D519FF, 0x27D9459C, 0xBF97222C, 0x15E6FC2A,
+  0x0F91FC71, 0x9B941525, 0xFAE59361, 0xCEB69CEB, 0xC2A86459, 0x12BAA8D1,
+  0xB6C1075E, 0xE3056A0C, 0x10D25065, 0xCB03A442, 0xE0EC6E0E, 0x1698DB3B,
+  0x4C98A0BE, 0x3278E964, 0x9F1F9532, 0xE0D392DF, 0xD3A0342B, 0x8971F21E,
+  0x1B0A7441, 0x4BA3348C, 0xC5BE7120, 0xC37632D8, 0xDF359F8D, 0x9B992F2E,
+  0xE60B6F47, 0x0FE3F11D, 0xE54CDA54, 0x1EDAD891, 0xCE6279CF, 0xCD3E7E6F,
+  0x1618B166, 0xFD2C1D05, 0x848FD2C5, 0xF6FB2299, 0xF523F357, 0xA6327623,
+  0x93A83531, 0x56CCCD02, 0xACF08162, 0x5A75EBB5, 0x6E163697, 0x88D273CC,
+  0xDE966292, 0x81B949D0, 0x4C50901B, 0x71C65614, 0xE6C6C7BD, 0x327A140A,
+  0x45E1D006, 0xC3F27B9A, 0xC9AA53FD, 0x62A80F00, 0xBB25BFE2, 0x35BDD2F6,
+  0x71126905, 0xB2040222, 0xB6CBCF7C, 0xCD769C2B, 0x53113EC0, 0x1640E3D3,
+  0x38ABBD60, 0x2547ADF0, 0xBA38209C, 0xF746CE76, 0x77AFA1C5, 0x20756060,
+  0x85CBFE4E, 0x8AE88DD8, 0x7AAAF9B0, 0x4CF9AA7E, 0x1948C25C, 0x02FB8A8C,
+  0x01C36AE4, 0xD6EBE1F9, 0x90D4F869, 0xA65CDEA0, 0x3F09252D, 0xC208E69F,
+  0xB74E6132, 0xCE77E25B, 0x578FDFE3, 0x3AC372E6
+};
+
+static const uint32_t ps[_BLOWFISH_ROUNDS + 2] = {
+  0x243F6A88, 0x85A308D3, 0x13198A2E, 0x03707344, 0xA4093822, 0x299F31D0,
+  0x082EFA98, 0xEC4E6C89, 0x452821E6, 0x38D01377, 0xBE5466CF, 0x34E90C6C,
+  0xC0AC29B7, 0xC97C50DD, 0x3F84D5B5, 0xB5470917, 0x9216D5D9, 0x8979FB1B
+};
+
+#ifdef WORDS_BIGENDIAN
+#define F(x) ((( s0[((uint8_t*)&amp;x)[0]] + s1[((uint8_t*)&amp;x)[1]])	 \
+		   ^ s2[((uint8_t*)&amp;x)[2]]) + s3[((uint8_t*)&amp;x)[3]] )
+#else
+#define F(x) ((( s0[((uint8_t*)&amp;x)[3]] + s1[((uint8_t*)&amp;x)[2]])	 \
+		   ^ s2[((uint8_t*)&amp;x)[1]]) + s3[((uint8_t*)&amp;x)[0]] )
+#endif
+#define R(l,r,i)  do { l ^= p[i]; r ^= F(l); } while(0)
+
+static void
+do_encrypt (const struct blowfish_ctx *ctx, uint32_t * ret_xl,
+	    uint32_t * ret_xr)
+{
+  uint32_t xl, xr;
+  const uint32_t *s0, *s1, *s2, *s3, *p;
+
+  xl = *ret_xl;
+  xr = *ret_xr;
+  p = ctx-&gt;p;
+  s0 = ctx-&gt;s[0];
+  s1 = ctx-&gt;s[1];
+  s2 = ctx-&gt;s[2];
+  s3 = ctx-&gt;s[3];
+
+  R (xl, xr, 0);
+  R (xr, xl, 1);
+  R (xl, xr, 2);
+  R (xr, xl, 3);
+  R (xl, xr, 4);
+  R (xr, xl, 5);
+  R (xl, xr, 6);
+  R (xr, xl, 7);
+  R (xl, xr, 8);
+  R (xr, xl, 9);
+  R (xl, xr, 10);
+  R (xr, xl, 11);
+  R (xl, xr, 12);
+  R (xr, xl, 13);
+  R (xl, xr, 14);
+  R (xr, xl, 15);
+
+  xl ^= p[_BLOWFISH_ROUNDS];
+  xr ^= p[_BLOWFISH_ROUNDS + 1];
+
+  *ret_xl = xr;
+  *ret_xr = xl;
+}
+
+static void
+decrypt (const struct blowfish_ctx *ctx, uint32_t * ret_xl, uint32_t * ret_xr)
+{
+  uint32_t xl, xr;
+  const uint32_t *s0, *s1, *s2, *s3, *p;
+
+  xl = *ret_xl;
+  xr = *ret_xr;
+  p = ctx-&gt;p;
+  s0 = ctx-&gt;s[0];
+  s1 = ctx-&gt;s[1];
+  s2 = ctx-&gt;s[2];
+  s3 = ctx-&gt;s[3];
+
+  R (xl, xr, 17);
+  R (xr, xl, 16);
+  R (xl, xr, 15);
+  R (xr, xl, 14);
+  R (xl, xr, 13);
+  R (xr, xl, 12);
+  R (xl, xr, 11);
+  R (xr, xl, 10);
+  R (xl, xr, 9);
+  R (xr, xl, 8);
+  R (xl, xr, 7);
+  R (xr, xl, 6);
+  R (xl, xr, 5);
+  R (xr, xl, 4);
+  R (xl, xr, 3);
+  R (xr, xl, 2);
+
+  xl ^= p[1];
+  xr ^= p[0];
+
+  *ret_xl = xr;
+  *ret_xr = xl;
+}
+
+#undef F
+#undef R
+
+void
+blowfish_encrypt (const struct blowfish_ctx *ctx,
+		  unsigned length, uint8_t * dst, const uint8_t * src)
+{
+  FOR_BLOCKS (length, dst, src, BLOWFISH_BLOCK_SIZE)
+  {
+    uint32_t d1, d2;
+
+    d1 = src[0] &lt;&lt; 24 | src[1] &lt;&lt; 16 | src[2] &lt;&lt; 8 | src[3];
+    d2 = src[4] &lt;&lt; 24 | src[5] &lt;&lt; 16 | src[6] &lt;&lt; 8 | src[7];
+    do_encrypt (ctx, &amp;d1, &amp;d2);
+    dst[0] = (d1 &gt;&gt; 24) &amp; 0xff;
+    dst[1] = (d1 &gt;&gt; 16) &amp; 0xff;
+    dst[2] = (d1 &gt;&gt; 8) &amp; 0xff;
+    dst[3] = d1 &amp; 0xff;
+    dst[4] = (d2 &gt;&gt; 24) &amp; 0xff;
+    dst[5] = (d2 &gt;&gt; 16) &amp; 0xff;
+    dst[6] = (d2 &gt;&gt; 8) &amp; 0xff;
+    dst[7] = d2 &amp; 0xff;
+  }
+}
+
+void
+blowfish_decrypt (const struct blowfish_ctx *ctx,
+		  unsigned length, uint8_t * dst, const uint8_t * src)
+{
+  FOR_BLOCKS (length, dst, src, BLOWFISH_BLOCK_SIZE)
+  {
+    uint32_t d1, d2;
+
+    d1 = src[0] &lt;&lt; 24 | src[1] &lt;&lt; 16 | src[2] &lt;&lt; 8 | src[3];
+    d2 = src[4] &lt;&lt; 24 | src[5] &lt;&lt; 16 | src[6] &lt;&lt; 8 | src[7];
+    decrypt (ctx, &amp;d1, &amp;d2);
+    dst[0] = (d1 &gt;&gt; 24) &amp; 0xff;
+    dst[1] = (d1 &gt;&gt; 16) &amp; 0xff;
+    dst[2] = (d1 &gt;&gt; 8) &amp; 0xff;
+    dst[3] = d1 &amp; 0xff;
+    dst[4] = (d2 &gt;&gt; 24) &amp; 0xff;
+    dst[5] = (d2 &gt;&gt; 16) &amp; 0xff;
+    dst[6] = (d2 &gt;&gt; 8) &amp; 0xff;
+    dst[7] = d2 &amp; 0xff;
+  }
+}
+
+int
+blowfish_set_key (struct blowfish_ctx *ctx,
+		  unsigned length, const uint8_t * key)
+{
+  int i, j;
+  uint32_t data, datal, datar;
+
+  for (i = 0; i &lt; _BLOWFISH_ROUNDS + 2; i++)
+    ctx-&gt;p[i] = ps[i];
+  for (i = 0; i &lt; 256; i++)
+    {
+      ctx-&gt;s[0][i] = ks0[i];
+      ctx-&gt;s[1][i] = ks1[i];
+      ctx-&gt;s[2][i] = ks2[i];
+      ctx-&gt;s[3][i] = ks3[i];
+    }
+
+  for (i = j = 0; i &lt; _BLOWFISH_ROUNDS + 2; i++)
+    {
+#ifdef WORDS_BIGENDIAN
+      ((uint8_t *) &amp; data)[0] = key[j];
+      ((uint8_t *) &amp; data)[1] = key[(j + 1) % length];
+      ((uint8_t *) &amp; data)[2] = key[(j + 2) % length];
+      ((uint8_t *) &amp; data)[3] = key[(j + 3) % length];
+#else
+      ((uint8_t *) &amp; data)[3] = key[j];
+      ((uint8_t *) &amp; data)[2] = key[(j + 1) % length];
+      ((uint8_t *) &amp; data)[1] = key[(j + 2) % length];
+      ((uint8_t *) &amp; data)[0] = key[(j + 3) % length];
+#endif
+      ctx-&gt;p[i] ^= data;
+      j = (j + 4) % length;
+    }
+
+  datal = datar = 0;
+  for (i = 0; i &lt; _BLOWFISH_ROUNDS + 2; i += 2)
+    {
+      do_encrypt (ctx, &amp;datal, &amp;datar);
+      ctx-&gt;p[i] = datal;
+      ctx-&gt;p[i + 1] = datar;
+    }
+  for (i = 0; i &lt; 256; i += 2)
+    {
+      do_encrypt (ctx, &amp;datal, &amp;datar);
+      ctx-&gt;s[0][i] = datal;
+      ctx-&gt;s[0][i + 1] = datar;
+    }
+  for (i = 0; i &lt; 256; i += 2)
+    {
+      do_encrypt (ctx, &amp;datal, &amp;datar);
+      ctx-&gt;s[1][i] = datal;
+      ctx-&gt;s[1][i + 1] = datar;
+    }
+  for (i = 0; i &lt; 256; i += 2)
+    {
+      do_encrypt (ctx, &amp;datal, &amp;datar);
+      ctx-&gt;s[2][i] = datal;
+      ctx-&gt;s[2][i + 1] = datar;
+    }
+  for (i = 0; i &lt; 256; i += 2)
+    {
+      do_encrypt (ctx, &amp;datal, &amp;datar);
+      ctx-&gt;s[3][i] = datal;
+      ctx-&gt;s[3][i + 1] = datar;
+    }
+
+
+  /* Check for weak key.  A weak key is a key in which a value in
+     the P-array (here c) occurs more than once per table.  */
+  for (i = 0; i &lt; 255; i++)
+    {
+      for (j = i + 1; j &lt; 256; j++)
+	{
+	  if ((ctx-&gt;s[0][i] == ctx-&gt;s[0][j])
+	      || (ctx-&gt;s[1][i] == ctx-&gt;s[1][j])
+	      || (ctx-&gt;s[2][i] == ctx-&gt;s[2][j])
+	      || (ctx-&gt;s[3][i] == ctx-&gt;s[3][j]))
+	    return 0;
+	}
+    }
+
+  return 1;
+}
+
+</body></email><email><emailId>20101220223731</emailId><senderName>Daniel Kahn Gillmor</senderName><senderEmail>dkg@fifthhorseman.net</senderEmail><timestampReceived>2010-12-20 22:37:31-0400</timestampReceived><subject>elliptic curve in nettle?</subject><body>
+
+
+Hey Niels and other Nettle folks--
+
+Have you given any thought about adding elliptic curve cryptography to
+nettle as another public-key algorithm?
+
+There are many references for elliptic curve online (i confess i'm not
+up on the implementation details), including:
+
+  http://www.secg.org/?action=docs_secg
+
+and OpenSSL, libecc, sks-ecc, and libcrypto++  have free implementations
+that might be worth perusing for reference or for comparison / test suites:
+
+  http://openssl.org/
+
+  http://libecc.sourceforge.net/
+
+  http://sks.merseine.nu/
+
+  http://www.cryptopp.com/
+
+It would be great to have a GPL-compatible, C implementation of ECC, and
+nettle seems like a good fit.
+
+Any thoughts, plans, or concerns about this?
+
+	--dkg
+
+
+
+</body></email><email><emailId>20101220231511</emailId><senderName>Jeffrey Walton</senderName><senderEmail>noloader@gmail.com</senderEmail><timestampReceived>2010-12-20 23:15:11-0400</timestampReceived><subject>Re: elliptic curve in nettle?</subject><body>
+
+On Mon, Dec 20, 2010 at 5:37 PM, Daniel Kahn Gillmor
+&lt;dkg@fifthhorseman.net&gt; wrote:
+&gt; Hey Niels and other Nettle folks--
+&gt;
+&gt; Have you given any thought about adding elliptic curve cryptography to
+&gt; nettle as another public-key algorithm?
+&gt;
+&gt; There are many references for elliptic curve online (i confess i'm not
+&gt; up on the implementation details), including:
+&gt;
+&gt;  http://www.secg.org/?action=docs_secg
+&gt;
+&gt; and OpenSSL, libecc, sks-ecc, and libcrypto++  have free implementations
+&gt; that might be worth perusing for reference or for comparison / test suites:
+&gt;...
+&gt;  http://www.cryptopp.com/
+&gt; ...
+&gt; Any thoughts, plans, or concerns about this?
+
+All (or nearly all) Crypto++ files are in public domain, without
+licensing restrictions. But its a c++ library.
+
+Jeff
+
+</body></email><email><emailId>20101221092403</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-12-21 09:24:03-0400</timestampReceived><subject>Re: elliptic curve in nettle?</subject><body>
+
+Daniel Kahn Gillmor &lt;dkg@fifthhorseman.net&gt; writes:
+
+&gt; Any thoughts, plans, or concerns about this?
+
+I'd consider adding elliptic curve cryptography, if I get some
+reasonably authoritative information on some variant of ecc which is (1)
+useful, and (2) not patented, or patented with gpl compatible licensing.
+
+I'm not very familiar with ecc, but my understanding is that the entire
+area is more or less a patent swamp, and that technically, ecc
+cryptography mostly makes sense in some embedded devices where small
+keys and signatures are important, or where modexp based cryptography is
+too slow.
+
+As for performance of ecc, I suspect there are two main issues: The
+first is what to believe in regards to what security level you get for
+small ecc key sizes. The second is that I expect it will take quite some
+effort to do sliding window ecc exponentiation which is as well tuned as
+gmp's modexp (but maybe that code can be borrowed from other libraries).
+
+I realize I'm sounding quite a bit negative. I'll be more positive if I
+get some clear answers to the above issues (which spec to implement,
+patents situation, ecc usecases, expected performance); as I said I'm
+not very familiar with ecc details.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20101222001233</emailId><senderName>Daniel Kahn Gillmor</senderName><senderEmail>dkg@fifthhorseman.net</senderEmail><timestampReceived>2010-12-22 00:12:33-0400</timestampReceived><subject>Re: elliptic curve in nettle?</subject><body>
+
+
+On 12/21/2010 04:24 AM, Niels M=C3=B6ller wrote:
+&gt; which spec to implement,
+
+Well, for my purposes, i'd start with the curves slated for use in the
+upcoming OpenPGP ECC extension:
+
+https://tools.ietf.org/html/draft-jivsov-openpgp-ecc-06#section-4
+
+I think this has allows for conformance to the NSA's Suite B
+recommendations, for whatever that's worth.
+
+&gt; patents situation,
+
+Unfortunately, the patent system seems to be such that even if i were a
+patent lawyer (i am not, fortunately), i could make no iron-clad
+guarantees.  The best i can offer is a sort of suggestive inference:
+
+In addition to the list of other free implementations of ECC i started
+this thread with, it looks like NSS ("netscape security services", the
+crypto toolkit supporting firefox and its peers) has been shipping on
+major distros with ECC support not only in source, but enabled for over
+a year now:
+
+ http://bugs.debian.org/490826
+ https://bugs.launchpad.net/ubuntu/+source/nss/+bug/232392
+
+libgcrypt is also about to add ECC support, according to a recent
+conversation on the libgcrypt mailing list.  This should result in gpg
+2.1 having ECC when it releases.
+
+Anyway, this is no guarantee that there aren't patent trolls lurking,
+but there are certainly some tastier/deeper-pocket/higher-profile
+targets who don't seem to have been attacked on account of shipping
+functional ECC implementations.
+
+&gt; ecc usecases,
+
+As you mentioned, embedded devices and devices (like smartphones) with
+metered or severely limited connectivity will all benefit from the
+reduced keysize.  Also, attacks against traditional asymmetric crypto
+are expected to continue apace, and expected power of machinery will
+keep improving; so tools that use RSA and DSA will need to keep
+expanding keysize to keep up.  ECC offers a chance to stay within the
+current overhead size for a while longer still.
+
+&gt; expected performance
+
+sorry, i don't have good figures for this, but i'd be happy to help you
+set up performance comparisons with other free implementations if you're
+interested in that.
+
+	--dkg
+
+
+
+</body></email><email><emailId>20101124102722</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-11-24 10:27:22-0400</timestampReceived><subject>Re: LGPL blowfish</subject><body>
+
+Simon Josefsson &lt;simon@josefsson.org&gt; writes:
+
+&gt; Here is a first milestone, to port Blowfish from libgcrypt to
+&gt; Nettle.  The self-test work, and there are no API changes, and I didn't
+&gt; have to do anything strange to the code, so I'm hoping there won't be
+&gt; any problems.
+
+Thanks! Looks like it should be easy to integrate.
+
+&gt; I didn't look at the original blowfish.c in Nettle except for the first
+&gt; few header lines, so I have no idea what kind of improvements could be
+&gt; made -- but I don't think that is important compared to the license.
+
+I diffed the files, and they are essentially the same (not surprising,
+since the old code in nettle is based on some older version of gnugpg).
+One possibly important difference (which I have introduced),
+
+gnupg/gcrypt:
+
+  #ifdef WORDS_BIGENDIAN
+  #define F(x) ((( s0[((uint8_t*)&amp;x)[0]] + s1[((uint8_t*)&amp;x)[1]])	 \
+  	        ^ s2[((uint8_t*)&amp;x)[2]]) + s3[((uint8_t*)&amp;x)[3]] )
+  #else
+  #define F(x) ((( s0[((uint8_t*)&amp;x)[3]] + s1[((uint8_t*)&amp;x)[2]])	 \
+  	        ^ s2[((uint8_t*)&amp;x)[1]]) + s3[((uint8_t*)&amp;x)[0]] )
+  #endif
+
+nettle:
+
+  #define F(c, x) \
+    ((( (c-&gt;s[0][(x&gt;&gt;24) &amp;0xff] + c-&gt;s[1][(x&gt;&gt;16) &amp; 0xff]) \
+        ^ c-&gt;s[2][(x&gt;&gt;8) &amp; 0xff]) + c-&gt;s[3][x &amp; 0xff]) &amp; 0xffffffff)
+
+The reason is that I want x to live in a register, and that I'm afraid
+that doing the conversion via memory accesses is expensive. And maybe it
+will also prevent gcc from allocating a register for it at all (at least
+with earlier versions of gcc, if you ever took the address of a
+variable, it was totally disqualified for register allocation).
+
+Some benchmarking and/or look at the assembly code is needed to really
+say what's best.
+
+There's one more #ifdef WORDS_BIGENDIAN in the libgcrypt version, in the
+key setup. Since this is usually not performance critical, I'd be
+tempted to remove that.
+
+&gt; I have not signed papers specifically for Nettle, hence the (C) with my
+&gt; name, but I can do FSF papers if it is required.
+
+Currently, there's no policy requiring copyright assignments for Nettle.
+Not sure if that's good or bad, but currently copyright for each file is
+owned by the respective authors (except for code that's copied from
+libgcrypt or glibc or so, which is owned by the FSF). And, e.g., the DES
+implementation by Dana L. How predates Nettle by many years, and I
+haven't even been able to contact the author.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20101126223457</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-11-26 22:34:57-0400</timestampReceived><subject>Re: LGPL blowfish</subject><body>
+
+[ Repost. It seems that sometimes the list server sends out mail with
+  "lists." dropped from the To:-header. I have no clue why that happens.
+  The correct list address is nettle-bugs@lists.lysator.liu.se. /nisse ]
+
+Now I've benchmarked new and old code (on an old 32-bit x86). The
+difference was much larger than I expected (numbers are Mbyte/s):
+
+old nettle code:
+
+       blowfish128 ECB encrypt   52.58
+       blowfish128 ECB decrypt   55.05
+       blowfish128 CBC encrypt   32.18
+       blowfish128 CBC decrypt   52.99
+
+libgcrypt code (from Simon):
+
+       blowfish128 ECB encrypt   20.76
+       blowfish128 ECB decrypt   19.23
+       blowfish128 CBC encrypt   16.58
+       blowfish128 CBC decrypt   19.02
+
+libgcrypt code, but with F macro replaced:
+
+       blowfish128 ECB encrypt   32.29
+       blowfish128 ECB decrypt   34.05
+       blowfish128 CBC encrypt   23.45
+       blowfish128 CBC decrypt   33.29
+
+I think I will have to reapply the hacks I did since the old code was
+copied from gnupg. I suspect another culprit are the extra local
+variables assigned at the top of the most crucial function do_encrypt:
+
+  p = ctx-&gt;p;
+  s0 = ctx-&gt;s[0];
+  s1 = ctx-&gt;s[1];
+  s2 = ctx-&gt;s[2];
+  s3 = ctx-&gt;s[3];
+
+This creates a lot of extra pressure for the register allocator. And
+even *if* all the variables fit in registers, the gain is minimal, since
+the difference between indexing
+
+  s0[x]        /* Assume s0 in a register */
+
+and indexing
+
+  ctx-&gt;s[0][x] /* Assume ctx in a register */
+
+is only a constant offset (s is a two-dimensional array, not an array of
+pointers). The offset should be essentially free for the indexed
+addressing instructions on machines that have one. And even with a pure
+load-store machine, the addition of the offset should be quite cheap,
+and if there are a sufficient number of registers the general loop
+invariant machinery in the compiler might put it in a separate register
+if appropriate.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+
+</body></email><email><emailId>20101207133027</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-12-07 13:30:27-0400</timestampReceived><subject>Re: LGPL blowfish</subject><body>
+
+Simon Josefsson &lt;simon@josefsson.org&gt; writes:
+
+&gt; What about the nettle.texinfo patch below?
+
+Sorry, forgot that. I've just checked in the following:
+
+@item BLOWFISH
+The implementation of the BLOWFISH cipher is written by Werner Koch,
+copyright owned by the Free Software Foundation. Also hacked by Simon
+Josefsson and Niels Möller. Released under the LGPL.
+
+&gt; I'm not sure what changes Ray Dassen did, maybe those were part of the
+&gt; old optimizations? Do they need to be re-licensed?
+
+No, those optimizations were done by me. I tried to look up the origin
+of the old code. Ray Dassen copied blowfish code from GNUPG to LSH, with
+a changelog entry dated Dec 12 1998 (see lsh/ChangeLog.1), the fourth
+oldest ChangeLog entry for lsh.
+
+The optimizations I reapplied were done by me, originally recorded in
+Nettle's ChangeLog 2001-06-17.
+
+&gt; Btw, did you record what kind of performance you got with your
+&gt; optimization applied? I would be surprised if you couldn't get close
+&gt; to the same speed with simple changes.
+
+I'm not sure what you mean. The changes *are* simple. 
+
+2010-11-26  Niels Möller  &lt;nisse@lysator.liu.se&gt;
+
+	    Reapplied optimizations (150% speedup on x86_32) and other fixes,
+	    relicensing them as LGPL.
+	    * blowfish.c (do_encrypt): Renamed, to...
+	    (encrypt): ...new name.
+	    (F): Added context argument. Shift input explicitly, instead of
+	    reading individual bytes via memory.
+	    (R): Added context argument.
+	    (encrypt): Deleted a bunch of local variables. Using the context
+	    pointer for everything should consume less registers.
+	    (decrypt): Likewise.
+	    (initial_ctx): Arrange constants into a struct, to simplify key
+	    setup.
+	    (blowfish_set_key): Some simplification.
+
+&gt; I'll look at serpent next.
+
+Great!
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20101213125136</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-12-13 12:51:36-0400</timestampReceived><subject>Re: LGPL blowfish</subject><body>
+
+Simon Josefsson &lt;simon@josefsson.org&gt; writes:
+
+&gt; I was just curious whether you managed to get to the old code's speed
+&gt; again.
+
+I did, and it now runs at about the same speed as with the old code.
+
+Actually, I don't think this exercise has introduced any interesting
+changes to the source code, it has just clarified that the current code
+is now a copy of the LGPL:ed code in libgcrypt (LGPL:ed) + some changes
+written by you and me. Anybody interested can try to diff the revisions
+before and after these sets of changes.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20101222010654</emailId><senderName>Jeffrey Walton</senderName><senderEmail>noloader@gmail.com</senderEmail><timestampReceived>2010-12-22 01:06:54-0400</timestampReceived><subject>Re: elliptic curve in nettle?</subject><body>
+
+On Tue, Dec 21, 2010 at 7:12 PM, Daniel Kahn Gillmor
+&lt;dkg@fifthhorseman.net&gt; wrote:
+&gt; On 12/21/2010 04:24 AM, Niels M=F6ller wrote:
+&gt;&gt; which spec to implement,
+&gt;
+&gt; Well, for my purposes, i'd start with the curves slated for use in the
+&gt; upcoming OpenPGP ECC extension:
+&gt;
+&gt; https://tools.ietf.org/html/draft-jivsov-openpgp-ecc-06#section-4
+&gt;
+&gt; I think this has allows for conformance to the NSA's Suite B
+&gt; recommendations, for whatever that's worth.
+&gt;
+I think Daniel is on the right track by choosing standardized domain
+parameter support. When using standard parameters, you only have to
+choose your private key and publish the public key. In this case, RFC
+5114 - Additional Diffie-Hellman Groups for Use with IETF Standards
+(et al), would also be of interest.
+
+If you want to offer a full blown EC implementation, you will need to
+implement domain parameter generation. The tricky part of custom
+curves is the pointing counting to ensure the curve meets the
+requisite security level. I don't believe OpenSSL offers domain
+parameter generation, and I know Crypto++ does not offer domain
+parameter generation.
+
+When I need a custom curve due to relaxed security requirements, I use
+Marcel Martin's Elliptic Curve Builder. Martin implemented the point
+counting algorithms to ensure the group order meets requirements. The
+way I use ECB with Crypto++ can be found at
+http://www.cryptopp.com/wiki/Elliptic_Curve_Builder.
+
+If you look at IEEE/IETF/ISO-IEC/NESSIE/NIST/NSA/{Favorite Standards
+Body} support as a base implementation in Nettle, then think of domain
+parameter generation as incremental.
+
+&gt;&gt; patents situation,
+&gt; Unfortunately, the patent system seems to be such that even if i
+&gt; were a patent lawyer (i am not, fortunately), i could make no
+&gt; iron-clad guarantees.
+Offload the responsibility on the users of the library, seek counsel
+from the FSF, or consult with an outside attorney.
+
+I am not aware of Certicom ever bringing suit against users,
+developers or libraries. Most likely, you will not have to worry about
+Certicom since persuing a lawsuit would be a waste of time and money
+for the company. The only technology company that appears to
+voraciously assert its rights against folks like users and developers
+is Apple.
+
+For those interested, Certicom, which holds many EC patents and is
+owned by RIM, lost a few "slam dunk" cases recently. The events caused
+paralysis in RIM's legal department to the point where the sales team
+has not inked a license in over a year. When I inquired about
+licensing over the summer, I was told to go to RSA Data Securities
+even though RSA is probably violating Certicom. The fellow who advised
+me worked for Certicom.
+
+Jeff
+
+</body></email><email><emailId>20101124115031</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-11-24 11:50:31-0400</timestampReceived><subject>Re: DES</subject><body>
+
+Simon Josefsson &lt;simon@josefsson.org&gt; writes:
+
+&gt; I wrote a DES implementation a long time ago, [...] but if there are
+&gt; license concerns with the current one, it could be an alternative.
+
+The code by Dana L. How is licensed as LGPL version 2 (or later). I
+don't think there's license problem (see descore.README in the nettle
+dist). That's one of the nice features with free software: that the code
+comes with a license which let you use and redistribute it, without any
+requirement to first get in contact with the author.
+
+But I expect that if one decided to try to get a copyright assignment
+for the current DES code, that would be a bit difficult.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20101125142537</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-11-25 14:25:37-0400</timestampReceived><subject>Re: RSA/DSA - Save and Load key</subject><body>
+
+[ Repost from an off-list discussion, since this may be of more general
+  interest. /Niels ]
+  
+Jeffrey Walton &lt;noloader@gmail.com&gt; writes:
+
+&gt; I did not see rsa_public_key_save, rsa_public_key_load,
+&gt; rsa_private_key_save, and rsa_private_key_load. How does one save and
+&gt; or load a public or private key?
+
+That depends on which keyformat you want. The most general (and most
+primitive) way is to access the bignums in the public and private key
+structs directly, using functions like mpz_set_str/mpz_get_str or
+mpz_import/mpz_export. Don't forget to call rsa_public_key_prepare and
+rsa_private_key_prepare after setting these fields.
+
+There are some helper functions, rsa_keypair_to_sexp and
+rsa_keypair_from_sexp for conversion to and from spki/sexp format. And
+there's rsa_keypair_from_der for reading keys in pkcs#1 format (but
+appearantly none for the other direction).
+
+These functions are unfortunately all undocumented, which is due in part
+to lazyness, in part to the fact that I'm not sure the interfaces are
+right (although for these particular functions, I see nothing obviously
+wrong, except perhaps the names). There are at least some examples,
+examples/rsa-keygen.c calls rsa_keypair_to_sexp, examples/read_rsa_key.c
+calls rsa_keypair_from_sexp, and tools/pkcs1-conv.c calls
+rsa_keypair_from_der.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+
+</body></email><email><emailId>20101126223834</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-11-26 22:38:34-0400</timestampReceived><subject>Re: LGPL blowfish</subject><body>
+
+nisse@lysator.liu.se (Niels Möller) writes:
+
+&gt; I think I will have to reapply the hacks I did since the old code was
+&gt; copied from gnupg.
+
+Replying to myself again, I've now checked in Simon's version, and some
+optimization hacks and cleanups.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email><email><emailId>20101021204340</emailId><senderName>Niels =?iso-8859-1?Q?M=F6ller?=</senderName><senderEmail>nisse@lysator.liu.se</senderEmail><timestampReceived>2010-10-21 20:43:40-0400</timestampReceived><subject>Re: web page bug</subject><body>
+
+Simon Josefsson &lt;simon@josefsson.org&gt; writes:
+
+&gt; I guess it should be:
+&gt;
+&gt;  descend into the nettle directory for a standard ./configure &amp;&amp;
+&gt;  make there.
+
+You're right. Fixed now. I also added a list of known language bindings,
+as suggested on this list some months ago.
+
+Regards,
+/Niels
+
+-- 
+Niels Möller. PGP-encrypted email is preferred. Keyid C0B98E26.
+Internet email is subject to wholesale government surveillance.
+
+</body></email></emails>

@@ -1,0 +1,916 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20160110094946</emailId><senderName>"marcosptf at yahoo dot com dot br"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2016-01-10 09:49:46-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #71328 [NEW]: wrong link to php-gtk docs</subject><body>
+
+From:             marcosptf at yahoo dot com dot br
+Operating system: irrelevant
+PHP version:      Irrelevant
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:wrong link to php-gtk docs
+
+Description:
+------------
+in php online docs, exist a link to php-gtk docs online, but this link
+is wrong, and the user get a 404 error.
+
+this endpoint need to be update like the images below:
+
+1.place where in php.net the link to php-gtk is wrong
+https://www.flickr.com/photos/72707809@N02/23660587794/in/dateposted-public/
+
+2.if the user click it, will get a 404 error from them
+https://www.flickr.com/photos/72707809@N02/23993207460/in/dateposted-public/
+
+3.the right endpoint to php-gtk online docs
+https://www.flickr.com/photos/72707809@N02/24206283931/in/dateposted-public/
+
+thanks
+:-)
+
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=71328&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):   https://bugs.php.net/fix.php?id=71328&amp;r=trysnapshot54
+Try a snapshot (PHP 5.5):   https://bugs.php.net/fix.php?id=71328&amp;r=trysnapshot55
+Try a snapshot (trunk):     https://bugs.php.net/fix.php?id=71328&amp;r=trysnapshottrunk
+Fixed in SVN:               https://bugs.php.net/fix.php?id=71328&amp;r=fixed
+Fixed in release:           https://bugs.php.net/fix.php?id=71328&amp;r=alreadyfixed
+Need backtrace:             https://bugs.php.net/fix.php?id=71328&amp;r=needtrace
+Need Reproduce Script:      https://bugs.php.net/fix.php?id=71328&amp;r=needscript
+Try newer version:          https://bugs.php.net/fix.php?id=71328&amp;r=oldversion
+Not developer issue:        https://bugs.php.net/fix.php?id=71328&amp;r=support
+Expected behavior:          https://bugs.php.net/fix.php?id=71328&amp;r=notwrong
+Not enough info:            https://bugs.php.net/fix.php?id=71328&amp;r=notenoughinfo
+Submitted twice:            https://bugs.php.net/fix.php?id=71328&amp;r=submittedtwice
+register_globals:           https://bugs.php.net/fix.php?id=71328&amp;r=globals
+PHP 4 support discontinued: https://bugs.php.net/fix.php?id=71328&amp;r=php4
+Daylight Savings:           https://bugs.php.net/fix.php?id=71328&amp;r=dst
+IIS Stability:              https://bugs.php.net/fix.php?id=71328&amp;r=isapi
+Install GNU Sed:            https://bugs.php.net/fix.php?id=71328&amp;r=gnused
+Floating point limitations: https://bugs.php.net/fix.php?id=71328&amp;r=float
+No Zend Extensions:         https://bugs.php.net/fix.php?id=71328&amp;r=nozend
+MySQL Configuration Error:  https://bugs.php.net/fix.php?id=71328&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20160326012409</emailId><senderName></senderName><senderEmail>michael.haszprunar@creativebytes.de</senderEmail><timestampReceived>2016-03-26 01:24:09-0400</timestampReceived><subject>[PHP-GTK-DEV] Fw: new important message</subject><body>
+
+
+Hello!
+
+ 
+
+New message, please read &lt;http://smarteducation.org.in/short.php?c0lq&gt;
+
+ 
+
+michael.haszprunar@creativebytes.de
+
+
+
+</body></email><email><emailId>20160521095104</emailId><senderName></senderName><senderEmail>michael.haszprunar@creativebytes.de</senderEmail><timestampReceived>2016-05-21 09:51:04-0400</timestampReceived><subject>[PHP-GTK-DEV] that's really awesome</subject><body>
+
+
+hi,
+I think this story is really awesome, you're gonna love it, please read it here \
+&lt;http://queslocoru.athomenm.com/aedrs?xu74y&gt;
+
+My best to you, michael.haszprunar@creativebytes.de
+
+
+
+</body></email><email><emailId>20160824094129</emailId><senderName>Wojciech Brozyna</senderName><senderEmail>wojciech.brozyna@gmail.com</senderEmail><timestampReceived>2016-08-24 09:41:29-0400</timestampReceived><subject>[PHP-GTK-DEV] PHP7 support</subject><body>
+
+Hi guys,
+
+Have you tested this on PHP 7 yet?
+
+Regards,
+
+WB
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20161003190458</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2016-10-03 19:04:58-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] Questions about phone apps</subject><body>
+
+
+Hello Franck G, not so poor english =)
+
+So, you cannot do that, yet!
+
+
+
+- - -
+Bruno Pitteli Gonçalves
+bruno@pitteli.com.br
+
+- - -
+ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+Browse Happy - http://browsehappy.com/
+
+On Mon, Oct 3, 2016 at 2:43 PM, Franck Gros-dubois &lt;
+franckgrosdubois@gmail.com&gt; wrote:
+
+&gt; Hi,
+&gt;
+&gt; I am french, so excuse my poor english.
+&gt; I wanted to know if PHP GTK could be used to create phone apps.
+&gt; Thanks for the answer,
+&gt;
+&gt; Best regards
+&gt; Franck G.
+&gt;
+
+
+</body></email><email><emailId>20161003202831</emailId><senderName>Gage Morgan</senderName><senderEmail>gagemorgan@outlook.com</senderEmail><timestampReceived>2016-10-03 20:28:31-0400</timestampReceived><subject>[PHP-GTK-DEV] My Final Take (After two years)</subject><body>
+
+[Attachment #2 (text/plain)]
+
+While I find the idea of PHP-GTK interesting, I don't see it as an actual language \
+but instead PHP with GTK+'s C API bolted on and called using normal PHP syntax. What \
+I would love to see is a form of PHP for GTK that takes normal PHP syntax and puts it \
+into Gtk+ calls in the background, without having to be up-front with those calls or \
+have knowledge of Gtk. I don't know where you're at in the process, but Gtk 4.0 is \
+said to be coming soon. Some of you may tell me a PHP form factor like that's never \
+gonna happen, but boy would that be awesome...
+
+Cheers!
+--MGage Morgan, co-founder and CEO of Christoffen Corporation. Find us online at \
+https://christoffen.com
+
+
+
+</body></email><email><emailId>20161023155606</emailId><senderName></senderName><senderEmail>buhlerax</senderEmail><timestampReceived>2016-10-23 15:56:06-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #52274 [Asn-&gt;Ana]: Patch for building php-gtk with scintilla on Ubuntu</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=52274&amp;edit=1
+
+ ID:                 52274
+ Updated by:         buhlerax@php.net
+ Reported by:        thomas dot sahlin at invented dot se
+ Summary:            Patch for building php-gtk with scintilla on Ubuntu
+-Status:             Assigned
++Status:             Analyzed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 10.04
+ PHP Version:        5.3.2
+ Assigned To:        buhlerax
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2010-07-07 13:05:03] thomas dot sahlin at invented dot se
+
+Description:
+------------
+I've created a patch which makes it possible to build php-gtk with scintilla on \
+Ubuntu/Linux. The patch will break things on other platforms, so someone with better \
+knowledge of configure/make will have to figure out a proper fix.
+
+Description of changes:
+
+ext/scintilla/config.m4
+    Added missing source files for scintilla
+
+ext/scintilla/libscintilla/include/Platform.h
+    Set #define PLAT_GTK 1 - this is not done automatically for some reason.
+
+ext/scintilla/libscintilla/src/ExternalLexer.h
+    Removed EXT_LEXER_DECL definition from typedefs.
+
+ext/scintilla/sci_generator.php
+    Fixed to be compatible with the new LineOutput class. Also removed deprecated \
+functions and warnings.
+
+There is also some dependency problem in the makefile, so one has to manually make \
+gen_scintilla.c:
+
+make ext/scintilla/gen_scintilla.c
+make
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=52274&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20161023155743</emailId><senderName></senderName><senderEmail>buhlerax</senderEmail><timestampReceived>2016-10-23 15:57:43-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #52953 [Asn-&gt;Ana]: The enums for 2.18 and 2.20 overrides are missing from generato</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=52953&amp;edit=1
+
+ ID:                 52953
+ Updated by:         buhlerax@php.net
+ Reported by:        gadgetzkid at gmail dot com
+ Summary:            The enums for 2.18 and 2.20 overrides are missing
+                     from generator.php
+-Status:             Assigned
++Status:             Analyzed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Fedora 13
+ PHP Version:        5.3.3
+ Assigned To:        buhlerax
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2010-10-12 23:08:18] markskilbeck@php.net
+
+We're happy to take patches :)
+
+------------------------------------------------------------------------
+[2010-09-29 17:23:50] gadgetzkid at gmail dot com
+
+Description:
+------------
+The enums for 2.18 and 2.20 overrides are missing from generator.php
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=52953&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20161023155819</emailId><senderName></senderName><senderEmail>buhlerax</senderEmail><timestampReceived>2016-10-23 15:58:19-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #53813 [Asn-&gt;Ana]: GdkEvent keyval field not writable</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+ ID:                 53813
+ Updated by:         buhlerax@php.net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            GdkEvent keyval field not writable
+-Status:             Assigned
++Status:             Analyzed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 32bit
+ PHP Version:        5.3.5
+ Assigned To:        buhlerax
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-01-25 17:08:34] markskilbeck@php.net
+
+There's no write_property handler for the GdkEvent stuff. It also seems to be 
+missing for other objects. I'll work on a patch today for GdkEvent.
+
+------------------------------------------------------------------------
+[2011-01-22 14:10:11] ptlis at ptlis dot net
+
+Description:
+------------
+If you create a GdkEvent with the GdkEventType Gdk::KEY_PRESS and try to assign a \
+value to the keyval field the keyval field does not change.
+
+Test script:
+---------------
+$event = new GdkEvent(Gdk::KEY_PRESS);
+$event-&gt;keyval	= Gdk::KEY_Return;
+var_dump($event);
+
+Expected result:
+----------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(65293)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+Actual result:
+--------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(0)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20161023155858</emailId><senderName></senderName><senderEmail>buhlerax</senderEmail><timestampReceived>2016-10-23 15:58:58-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63420 [Asn-&gt;Ana]: PHP-GTK crashes when loading glade extension</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+ ID:                 63420
+ Updated by:         buhlerax@php.net
+ Reported by:        nikodu01 at live dot fr
+ Summary:            PHP-GTK crashes when loading glade extension
+-Status:             Assigned
++Status:             Analyzed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 11.10
+ PHP Version:        Irrelevant
+ Assigned To:        buhlerax
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+The 2.0.1 version of php-gtk will no longer fixes.
+We will work on version 3 of the php-gtk with gtk 3.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-11-05 14:11:16] auroraeosrose@php.net
+
+So this is actually a bug with the php-gtk glade extension and loading
+
+I'll take a look but it's not a high priority since libglade is deprecated - I would \
+suggest you try migrating any glade code to gtkbuilder on any existing projects
+
+------------------------------------------------------------------------
+[2012-11-03 09:18:05] nikodu01 at live dot fr
+
+1/ I have put cairo.so and php_gtk2.so in the ini file and always crash
+2/ I don't specify to use liglade i just compile php-gtk with this :
+   ./buildconf &amp;&amp;
+   ./configure --prefix=/usr &amp;&amp;
+   make
+3/ Yes i load it before
+
+I made different try and compiling php-gtk with ./configure --prefix=/usr --
+without-libglade
+don't crash anymore
+
+my libglade version is 2.6.4
+
+------------------------------------------------------------------------
+[2012-11-02 14:35:29] auroraeosrose@php.net
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+1. Does this also segfault when you load it via an ini file?
+2. This appears to be having issues when attempting to load the glade php-gtk \
+extension, is that in an ini file?  Or did you compile it statically into php-gtk? 3. \
+the PECL cairo extension IS a required dependency of php-gtk - did you load that \
+before you attempted to load php-gtk?  PHP should be angry if you don't do that \
+instead of segfaulting - but just checking to see what exactly is making this blow up
+
+------------------------------------------------------------------------
+[2012-11-02 12:48:31] nikodu01 at live dot fr
+
+Description:
+------------
+Version : PHP 5.4.8 &amp; PHP-GTK Git
+
+When loading the extension we got a sigsev
+
+Test script:
+---------------
+dl( 'php_gtk2.so' );
+
+Expected result:
+----------------
+Load library 
+
+Actual result:
+--------------
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+6748			int n = zend_hash_num_elements(CG(class_table));
+(gdb) bt
+#0  0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+#1  0x00000000008342cc in do_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, ce_flags=0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2401
+#2  0x00000000008345f0 in zend_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2467
+#3  0x0000000000834494 in zend_register_internal_class_ex 
+(class_entry=0x7fffffffa5d0, parent_ce=0x0, parent_name=0x0, tsrm_ls=0x1b)
+    at /src/build/php-5.4.8/Zend/zend_API.c:2439
+#4  0x00007fffef0d4da8 in phpg_register_class (class_name=0x7fffef1028b7 
+"Glade", class_methods=0x7fffef38e280 &lt;glade_methods&gt;, parent=0x0, ce_flags=0, 
+    prop_info=0x0, create_obj_func=0x0, gtype=0, tsrm_ls=0x1b) at 
+/src/build/php-gtk-121102/main/phpg_support.c:326
+#5  0x00007fffef0d3685 in phpg_glade0_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:513
+#6  0x00007fffef0d36f4 in phpg_glade_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:520
+#7  0x00007fffef0d2050 in php_gtk_xinit_libglade (module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/./ext/libglade/php_libglade.c:33
+#8  0x00007fffef0d3d89 in php_gtk_startup_extension (ext=0x7fffef38e240 
+&lt;libglade_ext_entry&gt;, module_number=27) at /src/build/php-gtk-
+121102/main/php_gtk.c:271
+#9  0x00007fffef0d3e5b in php_gtk_startup_extensions (ext=0x7fffef38eb78 
+&lt;php_gtk_extensions+8&gt;, ext_count=2, module_number=27)
+    at /src/build/php-gtk-121102/main/php_gtk.c:293
+#10 0x00007fffef0e6b84 in php_gtk_startup_all_extensions (module_number=27) at 
+main/php_gtk_ext.c:42
+#11 0x00007fffef0d3b40 in zm_activate_gtk (type=2, module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/main/php_gtk.c:211
+#12 0x000000000069b3f4 in php_load_extension (filename=0x7ffff7e8d550 
+"php_gtk2.so", type=2, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:248
+#13 0x000000000069b46e in php_dl (file=0x7ffff7e8d550 "php_gtk2.so", type=2, 
+return_value=0x7ffff7eb0bd8, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:263
+#14 0x000000000069af40 in zif_dl (ht=1, return_value=0x7ffff7eb0bd8, 
+return_value_ptr=0x0, this_ptr=0x0, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:85
+#15 0x000000000086c289 in execute_internal (execute_data_ptr=0x7ffff7f96d28, 
+return_value_used=0, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_execute.c:1480
+#16 0x00000000005466b6 in atlunix_zend_execute_internal 
+(execute_data_ptr=0x7ffff7f96d28, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/atlunix/main/atlunix.c:404
+#17 0x000000000086ea87 in zend_do_fcall_common_helper_SPEC 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:644
+#18 0x000000000087730a in ZEND_DO_FCALL_SPEC_CONST_HANDLER 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:2235
+#19 0x000000000086ca40 in execute (op_array=0x11d36a0, tsrm_ls=0xfbf090) at 
+/src/build/php-5.4.8/Zend/zend_vm_execute.h:410
+#20 0x000000000082a79c in zend_execute_scripts (type=8, tsrm_ls=0xfbf090, 
+retval=0x0, file_count=3) at /src/build/php-5.4.8/Zend/zend.c:1309
+#21 0x0000000000779e66 in php_execute_script (primary_file=0x7fffffffe430, 
+tsrm_ls=0xfbf090) at /src/build/php-5.4.8/main/main.c:2482
+#22 0x0000000000992a12 in do_cli (argc=2, argv=0x7fffffffe7e8, tsrm_ls=0xfbf090) 
+at /src/build/php-5.4.8/sapi/cli/php_cli.c:988
+#23 0x0000000000993ced in main (argc=2, argv=0x7fffffffe7e8) at /src/build/php-
+5.4.8/sapi/cli/php_cli.c:1364
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20160221183923</emailId><senderName>Alexandre_Pereira_Bühler</senderName><senderEmail>alexandre@simaoebuhler.com.br</senderEmail><timestampReceived>2016-02-21 18:39:23-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] when</subject><body>
+
+Jim,
+Good afternoon,
+We are with few developers. We do not have a deadline to report. But we 
+are working to make the php-gtk3 with php 7.
+thank you
+
+
+Em 27/01/2016 00:50, Jim Page escreveu:
+&gt; Hi, I was wondering when this product will support php 7.0+ versions?
+&gt; Thanks
+&gt; Jim
+&gt;
+
+-- 
+Alexandre Pereira Bühler
+Linux User: 397.546
+
+Simão &amp;  Bühler Ltda (Infobrindes)
+http://www.simaoebuhler.com.br
+alexandre@simaoebuhler.com.br
+Telefone: (41) 3039-5428
+
+Infobrindes (Simão &amp;  Bühler Ltda)
+Brindes e material promocional.
+http://www.infobrindes.com.br
+karin@infobrindes.com.br
+Telefone: (41) 3082-8667
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20160223180701</emailId><senderName>Alexandre_Pereira_BÃ¼hler</senderName><senderEmail>alexandre@simaoebuhler.com.br</senderEmail><timestampReceived>2016-02-23 18:07:01-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] Problem install GTK in ubuntu 14</subject><body>
+
+
+Good afternoon,
+Try this package our friend here in Brazil Bruno: 
+https://github.com/scorninpc/php-gtk3-tests/tree/master/dist or 
+https://github.com/scorninpc/php-gtk3-tests/blob 
+/master/dist/php5-gtk2_2.0.3-1.deb .
+You can also try the Brazilian community: http://www.php-gtk.com.br/linux .
+I could not see your screenshot. This list does not accept attachments.
+
+Em 23/02/2016 04:32, Lim Kee Kee escreveu:
+&gt; Good Afternoon,
+&gt;
+&gt; I had download php gtk and try install into ubuntu 14. However I found 
+&gt; problem when I try to configure. (Refer screen shot in attachment). Is 
+&gt; it got other way install PHP GTK in ubuntu 14?
+&gt;
+&gt; -- 
+&gt; KEE KEE
+&gt;
+&gt;
+&gt; RETAIL,WE KNOW ALL.
+&gt;
+&gt; 	
+&gt; 	
+&gt; *ARMS SOFTWARE INTERNATIONAL SDN BHD *(473008-M)
+&gt; ------------------------------------------------------------------------
+&gt; *ADDRESS. * 	58-2 Jalan Bayu Mutiara 1, Taman Bayu Mutiara,
+&gt; 14000 Bukit Mertajam, Penang Malaysia.
+&gt; *PHONE.* 	_04 - 507 5742_
+&gt; 	
+&gt; *EMAIL.* 	info@arms.my &lt;mailto:info@arms.my&gt;
+&gt; *WEBSITE.* 	www.arms.my &lt;http://www.arms.my/&gt;
+&gt;
+&gt; KASTAM CERTIFIED GST POINT OF SALE  | TUKAR &amp; ATOM APPROVED PARTNER
+&gt;
+&gt; *DISCLAIMER*
+&gt; This electronic message may contain privileged, confidential and 
+&gt; copyright protected information.
+&gt; If you have received this e-mail by mistake, please immediately notify 
+&gt; the sender and delete this e-mail and all its attachments.
+&gt; Please ensure all e-mail attachments are scanned for viruses prior to 
+&gt; opening or using.
+&gt;
+&gt;
+
+-- 
+Alexandre Pereira Bühler
+Linux User: 397.546
+
+Simão &amp;  Bühler Ltda (Infobrindes)
+http://www.simaoebuhler.com.br
+alexandre@simaoebuhler.com.br
+Telefone: (41) 3039-5428
+
+Infobrindes (Simão &amp;  Bühler Ltda)
+Brindes e material promocional.
+http://www.infobrindes.com.br
+karin@infobrindes.com.br
+Telefone: (41) 3082-8667
+
+
+
+</body></email><email><emailId>20160110161612</emailId><senderName></senderName><senderEmail>tpunt</senderEmail><timestampReceived>2016-01-10 16:16:12-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #71328 [Opn]: wrong link to php-gtk docs</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=71328&amp;edit=1
+
+ ID:                 71328
+ Updated by:         tpunt@php.net
+ Reported by:        marcosptf at yahoo dot com dot br
+ Summary:            wrong link to php-gtk docs
+ Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   irrelevant
+ PHP Version:        Irrelevant
+-Assigned To:        
++Assigned To:        tpunt
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+I've opened a PR to fix this here: https://github.com/php/web-php/pull/91
+
+When it gets merged, I'll close this bug.
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2016-01-10 09:49:43] marcosptf at yahoo dot com dot br
+
+Description:
+------------
+in php online docs, exist a link to php-gtk docs online, but this link is wrong, and \
+the user get a 404 error.
+
+this endpoint need to be update like the images below:
+
+1.place where in php.net the link to php-gtk is wrong
+https://www.flickr.com/photos/72707809@N02/23660587794/in/dateposted-public/
+
+2.if the user click it, will get a 404 error from them
+https://www.flickr.com/photos/72707809@N02/23993207460/in/dateposted-public/
+
+3.the right endpoint to php-gtk online docs
+https://www.flickr.com/photos/72707809@N02/24206283931/in/dateposted-public/
+
+thanks
+&gt; -)
+
+
+
+------------------------------------------------------------------------
+
+
+
+--
+Edit this bug report at https://bugs.php.net/bug.php?id=71328&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20160127025004</emailId><senderName>Jim Page</senderName><senderEmail>jp3131@gmail.com</senderEmail><timestampReceived>2016-01-27 02:50:04-0400</timestampReceived><subject>[PHP-GTK-DEV] when</subject><body>
+
+
+Hi, I was wondering when this product will support php 7.0+ versions?
+Thanks
+Jim
+
+
+</body></email><email><emailId>20160223073259</emailId><senderName>Lim Kee Kee</senderName><senderEmail>keekee@arms.my</senderEmail><timestampReceived>2016-02-23 07:32:59-0400</timestampReceived><subject>[PHP-GTK-DEV] Problem install GTK in ubuntu 14</subject><body>
+
+[Attachment #2 (multipart/alternative)]
+
+
+Good Afternoon,
+
+I had download php gtk and try install into ubuntu 14. However I found
+problem when I try to configure. (Refer screen shot in attachment). Is it
+got other way install PHP GTK in ubuntu 14?
+
+-- 
+KEE KEE
+
+
+RETAIL,WE KNOW ALL.
+
+*ARMS SOFTWARE INTERNATIONAL SDN BHD *(473008-M)
+------------------------------
+*ADDRESS. * 58-2 Jalan Bayu Mutiara 1, Taman Bayu Mutiara,
+14000 Bukit Mertajam, Penang Malaysia.
+*PHONE.* *04 - 507 5742*
+*EMAIL.* info@arms.my
+*WEBSITE.* www.arms.my
+
+KASTAM CERTIFIED GST POINT OF SALE  |  TUKAR &amp; ATOM APPROVED PARTNER
+
+*DISCLAIMER*
+This electronic message may contain privileged, confidential and copyright
+protected information.
+If you have received this e-mail by mistake, please immediately notify the
+sender and delete this e-mail and all its attachments.
+Please ensure all e-mail attachments are scanned for viruses prior to
+opening or using.
+
+[Attachment #5 (text/html)]
+
+&lt;div dir="ltr"&gt;Good Afternoon,&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;I had download php gtk and try \
+install into ubuntu 14. However I found problem when I try to configure. (Refer \
+screen shot in attachment). Is it got other way install PHP GTK in ubuntu 14?&lt;br \
+clear="all"&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;-- &lt;br&gt;&lt;div class="gmail_signature"&gt;&lt;div \
+dir="ltr"&gt;&lt;div&gt;&lt;div dir="ltr"&gt;&lt;div dir="ltr"&gt;&lt;div&gt;&lt;span \
+style="color:rgb(68,68,68);font-family:georgia,serif;font-size:large"&gt;KEE \
+KEE&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;table cellpadding="0" cellspacing="0" \
+style="color:rgb(68,68,68);font-family:Times;font-size:medium"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td \
+align="center" style="border-right-width:1px;border-right-style:solid;border-right-color:rgb(239,239,239);padding-right:20px"&gt;&lt;img \
+src="http://www.arms.my/images/email/logo-h.png" width="180" \
+style="margin-bottom:5px"&gt;&lt;div dir="ltr"&gt;&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div \
+dir="ltr"&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div dir="ltr"&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;br&gt;&lt;font size="3" \
+face="arial, helvetica, sans-serif" color="#212f5a" \
+style="margin-bottom:5px"&gt;RETAIL,WE KNOW ALL.&lt;/font&gt;&lt;p&gt;&lt;img \
+src="http://arms.my/images/email/footer-logo.png"&gt;&lt;/p&gt;&lt;/td&gt;&lt;td \
+style="padding:10px"&gt;&lt;/td&gt;&lt;td&gt;&lt;table border="0" cellpadding="0" cellspacing="0" \
+style="font-size:13px"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;font color="#444444"&gt;&lt;b&gt;ARMS \
+SOFTWARE INTERNATIONAL SDN BHD  &lt;/b&gt;&lt;font \
+size="1"&gt;(473008-M)&lt;/font&gt;&lt;br&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;hr \
+style="min-height:1px;border:none;background-color:rgb(239,239,239)"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td \
+valign="top" width="20%"&gt;&lt;font color="#666666"&gt;&lt;font size="1"&gt;&lt;b&gt;ADDRESS.  \
+&lt;/b&gt;&lt;/font&gt;&lt;/font&gt;&lt;/td&gt;&lt;td colspan="2"&gt;&lt;span style="font-size:12px"&gt;58-2 Jalan Bayu \
+Mutiara 1, Taman Bayu Mutiara,&lt;br&gt;14000 Bukit Mertajam, Penang \
+Malaysia.&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td width="80"&gt;&lt;font \
+style="color:rgb(102,102,102)"&gt;&lt;font \
+style="font-size:11px"&gt;&lt;b&gt;PHONE.&lt;/b&gt;&lt;/font&gt;&lt;/font&gt;&lt;/td&gt;&lt;td width="100"&gt;&lt;font \
+color="#1155cc"&gt;&lt;span style="font-size:12px"&gt;&lt;u&gt;&lt;a value="+6045075742" \
+style="color:rgb(17,85,204)"&gt;04 - 507 5742&lt;/a&gt;&lt;/u&gt;&lt;/span&gt;&lt;/font&gt;&lt;br&gt;&lt;/td&gt;&lt;td \
+rowspan="3" align="left" valign="middle"&gt;&lt;img \
+src="http://arms.my/images/email/msc.png" width="43" \
+style="padding-top:5px"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;font style="color:rgb(102,102,102)"&gt;&lt;font \
+style="font-size:11px"&gt;&lt;b&gt;EMAIL.&lt;/b&gt;&lt;/font&gt;&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;a \
+href="mailto:info@arms.my" style="color:rgb(17,85,204)" target="_blank"&gt;&lt;font \
+color="#212f5a" style="font-size:12px"&gt;info@arms.my&lt;/font&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;font \
+style="font-size:11px;color:rgb(102,102,102)"&gt;&lt;b&gt;WEBSITE.&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;a \
+href="http://www.arms.my/" style="color:rgb(17,85,204)" target="_blank"&gt;&lt;font \
+color="#212f5a" style="font-size:12px"&gt;www.arms.my&lt;/font&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td \
+colspan="3"&gt;  &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3" align="left" valign="middle"&gt;&lt;font \
+color="#212f5a" style="font-size:12px"&gt;KASTAM CERTIFIED GST POINT OF SALE   |   \
+&lt;/font&gt;&lt;font color="#212f5a" style="font-size:12px"&gt;TUKAR &amp; ATOM APPROVED \
+PARTNER&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;  &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;div \
+style="color:rgb(68,68,68)"&gt;&lt;b style="font-size:12px"&gt;&lt;font \
+color="#666666"&gt;DISCLAIMER&lt;/font&gt;&lt;/b&gt;  &lt;br&gt;&lt;font color="#666666"&gt;&lt;span \
+style="font-size:11px"&gt;This electronic message may contain privileged, confidential \
+and copyright protected information.  &lt;/span&gt;&lt;br&gt;&lt;span style="font-size:11px"&gt;If you \
+have received this e-mail by mistake, please immediately notify the sender and delete \
+this e-mail and all its attachments.  &lt;/span&gt;&lt;br&gt;&lt;span style="font-size:11px"&gt;Please \
+ensure all e-mail attachments are scanned for viruses prior to opening or \
+using.&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt; &lt;/div&gt;&lt;/div&gt;
+
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20161003174334</emailId><senderName>Franck Gros-dubois</senderName><senderEmail>franckgrosdubois@gmail.com</senderEmail><timestampReceived>2016-10-03 17:43:34-0400</timestampReceived><subject>[PHP-GTK-DEV] Questions about phone apps</subject><body>
+
+
+Hi,
+
+I am french, so excuse my poor english.
+I wanted to know if PHP GTK could be used to create phone apps.
+Thanks for the answer,
+
+Best regards
+Franck G.
+
+
+</body></email><email><emailId>20161117155412</emailId><senderName>Desenvolvedor1 NetForce</senderName><senderEmail>desenvolvedor1@netforce.com.br</senderEmail><timestampReceived>2016-11-17 15:54:12-0400</timestampReceived><subject>[PHP-GTK-DEV] Php-Gtk Distribution</subject><body>
+
+
+Hello,
+
+I have done my first program using Php-Gtk and was amazing, but I was
+wondering, exists a way to distribute my project in a file .exe? I need to
+protect my code and execute in a machine who don't have php-gtk installed,
+so I need to compile and generate a exe of my project, it's possible?
+
+Thanks!
+
+-- 
+Atenciosamente
+
+*Johann Lucas Scherer*
+Desenvolvimento NetForce
++55 47 3037-4953
+desenvolvedor1@netforce.com.br &lt;atendimento@netforce.com.br&gt;
+www.netforce.com.br
+
+
+</body></email><email><emailId>20161226232554</emailId><senderName></senderName><senderEmail>christheberge</senderEmail><timestampReceived>2016-12-26 23:25:54-0400</timestampReceived><subject>[PHP-GTK-DEV] Question on GTK Future</subject><body>
+
+Hi,
+I stumbled upon your project and am very interested in trying it out. My 
+dilemma is I have converted all to 5.6 and noticed latest was for 5.5. 
+Just curious on my end if there are any potentials on bridging forward 
+or any interest on getting picked up? What I have is a heavy implemented 
+MS Office/php setup and this is perfect for what I want to see what I 
+can do. I would hate to downgrade but since I am internal only it is 
+merely (well you know). Before doing so I want to know if I should 
+invest my time. Thanks in advance. Happy holidays.
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20161126070206</emailId><senderName>Ercílio_Barbosa</senderName><senderEmail>ercilio1@gmail.com</senderEmail><timestampReceived>2016-11-26 07:02:06-0400</timestampReceived><subject>[PHP-GTK-DEV] Pergunta sobre o GTk</subject><body>
+
+
+Ol=C3=A1, bom dia.
+Trabalho com PHP faz algum tempo,
+mas nunca tive a necessidade que estou vivenciando agora.
+
+Criar uma aplica=C3=A7=C3=A3o gr=C3=A1fica para Windows.
+
+Gostaria de perguntar como fa=C3=A7o para comunicar com
+os perif=C3=A9ricos do computador, por exemplo,
+acessar diretamente a impressora e mandar imprimir um texto, etc...
+
+Obrigado.
+
+
+</body></email><email><emailId>20161128105314</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2016-11-28 10:53:14-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] Pergunta sobre o GTk</subject><body>
+
+
+Se voce quer o jeito facil, pode criar um arquivo, txt, html, ou at=C3=A9 p=
+df, e
+abrir pra visualizar, assim o usuario imprimi manualmente
+
+Se voc=C3=AA quer o jeito certo, mas mais complexo, pode usar as fun=C3=A7=
+=C3=B5es de
+printer
+
+http://php.net/manual/fa/ref.printer.php
+
+Abra=C3=A7os
+
+- - -
+Bruno Pitteli Gon=C3=A7alves
+bruno@pitteli.com.br
+
+- - -
+ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+Browse Happy - http://browsehappy.com/
+
+2016-11-26 5:02 GMT-02:00 Erc=C3=ADlio Barbosa &lt;ercilio1@gmail.com&gt;:
+
+&gt; Ol=C3=A1, bom dia.
+&gt; Trabalho com PHP faz algum tempo,
+&gt; mas nunca tive a necessidade que estou vivenciando agora.
+&gt;
+&gt; Criar uma aplica=C3=A7=C3=A3o gr=C3=A1fica para Windows.
+&gt;
+&gt; Gostaria de perguntar como fa=C3=A7o para comunicar com
+&gt; os perif=C3=A9ricos do computador, por exemplo,
+&gt; acessar diretamente a impressora e mandar imprimir um texto, etc...
+&gt;
+&gt; Obrigado.
+&gt;
+
+
+</body></email></emails>

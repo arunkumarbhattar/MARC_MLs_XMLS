@@ -1,0 +1,1879 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20010830144125</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-08-30 14:41:25-0400</timestampReceived><subject>Re: topic append??</subject><body>
+
+&gt; anyone interseted in adding /topic -append or -a to append to the end of the
+&gt; topic so u don't have to bother copying and pasting if u don't wanna change
+
+In CVS irssi you could do this:
+
+/BIND meta-t insert_text /TOPIC $topic
+
+Then pressing meta-t would print the topic to input line where you could
+edit it.
+
+In .98.3 you could also do:
+
+/ALIAS addtopic /TOPIC $topic$*
+
+</body></email><email><emailId>20011104112106</emailId><senderName>Hugo Haas</senderName><senderEmail>hugo@larve.net</senderEmail><timestampReceived>2001-11-04 11:21:06-0400</timestampReceived><subject>Re: Client-To-Client Protocol (CTCP) implementation in irssi</subject><body>
+
+* Timo Sirainen &lt;tss@iki.fi&gt; [2001-10-19 14:42+0300]
+&gt; &gt; While I don't think that all of those need to be implemented (and the
+&gt; &gt; specification doesn't even say which ones are mandatory and which ones
+&gt; &gt; are optional), I think that CLIENTINFO is a pretty important one since
+&gt; &gt; it advertizes the client's capabilities.
+&gt; 
+&gt; Did CLIENTINFO just return a list of all known CTCP commands? eg. "PING
+&gt; CLIENTINFO VERSION"?
+
+Yes.
+
+Here is what EPIC returns, for example:
+
+12:18 CTCP CLIENTINFO reply from xy: SED UTC ACTION DCC VERSION CLIENTINFO
+          USERINFO ERRMSG FINGER TIME PING ECHO  :Use CLIENTINFO &lt;COMMAND&gt; to
+          get more specific information
+
+&gt; Hmm.. but should it reply only those commands, or also
+&gt; commands that scripts and modules might have added? Maybe we'd need some
+&gt; ctcp_register() function which would tell CLIENTINFO which ctcp replies are
+&gt; known.
+
+Yes, the ctcp_register() function sounds like a nice way to go.
+
+Thanks,
+
+Hugo
+
+-- 
+Hugo Haas &lt;hugo@larve.net&gt; - http://larve.net/people/hugo/
+I love it when a plan comes together! -- John "Hannibal" Smith
+
+</body></email><email><emailId>20010310161656</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-03-10 16:16:56-0400</timestampReceived><subject>cvs.irssi.org moved</subject><body>
+
+cvs.irssi.org was moved to the same computer as irssi.org and CVSROOT was
+changed to:
+
+:pserver:anonymous@cvs.irssi.org:/home/cvs
+
+Easiest way to change your old CVS repositories to use the new one is to run
+this script at the irssi's root directory:
+
+echo ":pserver:anonymous@cvs.irssi.org:/home/cvs" &gt; CVS/Root
+find . -name 'Root' -exec cp -f CVS/Root {} \;
+
+ian, daws: you'll need to do the above for irssi.org mirror too :)
+
+</body></email><email><emailId>20010506200651</emailId><senderName>Eric</senderName><senderEmail>spirilis@scitus.yi.org</senderEmail><timestampReceived>2001-05-06 20:06:51-0400</timestampReceived><subject>Excellent program</subject><body>
+
+I gotta tell you guys, after trying Irssi recently I'm ecstatic.  It's everything
+BitchX should and could have been, but with an easy-to-use scripting language (Perl :))
+
+I'm currently learning the basics of script writing in Irssi; would anyone mind if I
+contribute some comments on what it looks like from a new user's perspective?
+
+-- 
+Spirilis
+
+GnuPG Public Key available from certserver.pgp.com
+Key ID 92E1516E
+GPG Fingerprint: BA2A E8C0 D4BA 604A 997D  F809 D609 C9AC 92E1 516E
+
+</body></email><email><emailId>20010617163519</emailId><senderName>Per von Zweigbergk</senderName><senderEmail>pvz@linux.se</senderEmail><timestampReceived>2001-06-17 16:35:19-0400</timestampReceived><subject>kirssi/girssi?</subject><body>
+
+I hope there is still some traces of life on this list. :)
+
+I was thinking, maybe it's time to finally fill that "TODO", of a X
+version of irssi. I've also taken a little time of how to pull it off.
+A similar procedure would probably apply for a GTK or GNOME version of
+irssi, if anyone has that particular itch ;)
+
+I thought, maybe I could take the code from the KDE terminal (konsole),
+and the first step of making kirssi, would be a simple konsole which
+would display the text version of irssi.
+
+Then gradually, I could start modifying the UI code. Gradually I could:
+
+- Add a nicklist
+- Nicklist context menu
+- Input line with KDE widgets
+- Status line with KDE widgets
+- Modifications to konsole widget to allow mouse wheel scrollbacks and
+  better copy &amp; paste etc.
+- Menus
+- Clickable tabs for channels
+- File manager drag &amp; drop for DCC sends
+- Ability to detach the IRC client from it's X display and run it text
+  based and vice versa. (Now we're talking. :)
+
+This would all be incremental steps to an existing codebase.
+
+I'm sure this would be a quite trivial task for a seasoned KDE programmer
+to pull off.
+
+However, I'm not, but I'm willing to and intend to sit down and learn
+how to program for KDE (the desktop environment I currently) as soon as
+my exams end in a week or so.
+
+That's why I'm asking here on the list if anyone has any suggestions on
+whether this is the best way to pull off making a KDE version of irssi,
+and if anyone knows of any good resources (either in electronic or in
+dead tree format) on programming with KDE. I'm already a pretty decent
+C programmer, and I also have some experience with C++.
+
+Who knows? Maybe this could make it's way into KDE as the default IRC
+client. Irssi world domination! Or maybe, world liberation. :)
+
+Either way I'd have my itch scratched, an X version of irssi. Great fun.
+:)
+
+--
+Per von Zweigbergk &lt;pvz@linux.se&gt;
+IRC: pv2b (IRCnet, OPN, QuakeNet)
+
+</body></email><email><emailId>20010618214147</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-06-18 21:41:47-0400</timestampReceived><subject>Re: kirssi/girssi?</subject><body>
+
+First of all, I've talked a bit in irc with pv2b already and created #kirssi
+channel in OPN IRC network if anyone's interested joining there.
+
+The very first thing to do would be to figure out how to use irssi's signals
+easily inside C++ without horrible extern "C" { .. } hacks for each signal
+handler. pv2b figured out some way to convert irssi's signals to QT's moc
+signals. I think that would work pretty well :) It'd just need a perl script
+to generate all the known signals from docs/signals.txt file. Sending
+signals would still happen with irssi's signal_emit() function.
+
+&gt; - Modifications to konsole widget to allow mouse wheel scrollbacks and
+&gt;   better copy &amp; paste etc.
+
+I don't think konsole would be good for it. Many people want GUI especially
+for the proportional fonts, konsole can probably do only fixed size? Also
+unicode support would be very good to have (irssi will have utf8 support).
+
+&gt; - Clickable tabs for channels
+
+Some people like the MDI thing too .. and the separate windows. Would be
+nice if users were able to choose whichever they want.
+
+&gt; - Ability to detach the IRC client from it's X display and run it text
+&gt;   based and vice versa. (Now we're talking. :)
+
+irssi-proxy kind of does that, but yes, it would be nice to have some
+separate process which would automatically run when irssi is started and
+contain all the information of server connections. it could by default stay
+alive for 10 mins after the connection to kirssi client was lost for some
+reason before shutting down completely. If the kirssi is started again
+within 10 mins, it could ask if user wants to resume the previous session.
+Of course the same feature would work with the irssi-text and you could
+switch between irssi-text and kirssi. ..but this isn't very high priority at
+the start i think :)
+
+
+</body></email><email><emailId>20010717204950</emailId><senderName>"Nikolai 'pcp' Weibull"</senderName><senderEmail>da.box@home.se</senderEmail><timestampReceived>2001-07-17 20:49:50-0400</timestampReceived><subject>tcl plugin (again)</subject><body>
+
+ok...i've been wokring a bit on the tcl plugin i've been talking
+about...but i was wondering a bit. there's a plugin directory, and all
+the files there seem to be #include &lt;irssi-plugin.h&gt; but i can't seem to
+locate the file. what should i do?
+-- 
+/*
+ * Name:     Nikolai Weibull
+ * Nicks:    pcp, pcppopper
+ * E-Mail:   da.box@home.se, pcp@pcppopper.org
+ * Homepage: http://www.pcppopper.org
+ * System:   Midi ATX, ASUS CUV4X, Celeron 667@950, GeForce2 MX 32,
+ *           256mb PC133, Fujitsu 20.49gb UDMA-66
+ */
+
+</body></email><email><emailId>20010830143750</emailId><senderName>"Sabarese, Kenneth F."</senderName><senderEmail>sabarese@roo.susqu.edu</senderEmail><timestampReceived>2001-08-30 14:37:50-0400</timestampReceived><subject>topic append??</subject><body>
+
+anyone interseted in adding /topic -append or -a to append to the end of the
+topic so u don't have to bother copying and pasting if u don't wanna change
+it....i think it would be easy and helpful....i am not really much of a
+coder but it would be neet to see this feature
+
+if someone can tell me how to do it i would try...
+
+</body></email><email><emailId>20010729193247</emailId><senderName></senderName><senderEmail>javax</senderEmail><timestampReceived>2001-07-29 19:32:47-0400</timestampReceived><subject>irssi 0.7.98.3 core dumping</subject><body>
+
+Hi.
+
+Just thought that I should send this to you.. I got quite surprised when I saw that \
+it had core dumped. Never ever have that happened to me before..
+
+&gt; &gt; &gt; 
+
+$ gdb irssi irssi.core
+GNU gdb 4.16.1
+Copyright 1996 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i386-unknown-openbsd2.6"...
+Core was generated by `irssi'.
+Program terminated with signal 11, Segmentation fault.
+Reading symbols from /usr/libexec/ld.so...done.
+Reading symbols from /usr/lib/libcurses.so.5.1...done.
+Reading symbols from /usr/lib/libc.so.23.1...done.
+#0  gui_window_line_text_free (gui=0x200c00, line=0x2fae98) at gui-printtext.c:140
+140                     if (*text == '\0') {
+(gdb)
+
+(gdb) backtrace
+#0  gui_window_line_text_free (gui=0x200c00, line=0x2fae98) at gui-printtext.c:140
+#1  0x253a in gui_window_line_remove (window=0x200b80, line=0x2fae98, redraw=1) at \
+gui-printtext.c:197 #2  0x26d4 in remove_old_lines (window=0x200b80) at \
+gui-printtext.c:275 #3  0x2aba in sig_gui_print_text (window=0x200b80, \
+fgcolor=0xffffffff, bgcolor=0xffffffff, pflags=0x40, str=0x2aa55 "",  \
+level=0xffffffff) at gui-printtext.c:411 #4  0x67313 in signal_emit_real \
+(rec=0xc9298, arglist=0xdfbfce90) at signals.c:204 #5  0x67499 in signal_emitv_id \
+(signal_id=250, params=6, va=0xdfbfced8 "\200\013 ") at signals.c:245 #6  0x67500 in \
+signal_emit_id (signal_id=250, params=6) at signals.c:273 #7  0x2b42c in \
+format_newline (window=0x200b80) at formats.c:578 #8  0x30fef in sig_print_text \
+(dest=0xdfbfd180,  text=0xa0800 "\0049/-\004?/!\0049/-\004f \0043/ijliao\004f \
+\0048/[\004fijliao@Terry.Dorm11.NCTU.edu.tw\0048/]\004f has quit \0048/[\004fPing \
+timeout: no data for 241 seconds\0048/]\004f") at printtext.c:380 #9  0x67313 in \
+signal_emit_real (rec=0xaf4a0, arglist=0xdfbfcfb0) at signals.c:204 #10 0x67499 in \
+                signal_emitv_id (signal_id=252, params=2, va=0xdfbfcff8 "\200Ñ¿ß") at \
+                signals.c:245
+...
+...
+...
+
+&lt;&lt;&lt;
+
+Is there something more you would like to know?
+
+/Johan Hermansson
+
+(And, oh, yeah.. as the subject reads, it's version 0.7.98.3.)
+
+
+</body></email><email><emailId>20010911232531</emailId><senderName>Hugo Haas</senderName><senderEmail>hugo@larve.net</senderEmail><timestampReceived>2001-09-11 23:25:31-0400</timestampReceived><subject>irssi 0.7.98.4 segmentation fault</subject><body>
+
+I managed to consistently make irssi crash by doing:
+
+  /connect chat.cnn.com
+  /join #CNN_NewsFeed
+
+Thanks.
+
+Regards,
+
+Hugo
+
+-- 
+Hugo Haas &lt;hugo@larve.net&gt; - http://larve.net/people/hugo/
+Kids, your mother's under a lot of pressure, why don't we let her clear
+the table in peace? -- Homer J. Simpson
+
+</body></email><email><emailId>20011004185736</emailId><senderName>David Leadbeater</senderName><senderEmail>dgl@dgl.cx</senderEmail><timestampReceived>2001-10-04 18:57:36-0400</timestampReceived><subject>Problems with ncurses(?)</subject><body>
+
+This a backtrace of what happens sometimes when resizing (seems to
+be bigger to smaller window size, but hard to reproduce).
+Irssi 0.7.98.CVS (2001-10-01 14:05) running under a recent-ish
+debian sid.
+
+(gdb) bt
+#0  0x401189eb in free () from /lib/libc.so.6
+#1  0x40119221 in realloc () from /lib/libc.so.6
+#2  0x40118d84 in realloc () from /lib/libc.so.6
+#3  0x4008c3c9 in _nc_doalloc () from /lib/libncurses.so.5
+#4  0x40086953 in wresize () from /lib/libncurses.so.5
+#5  0x400864a3 in resizeterm () from /lib/libncurses.so.5
+#6  0x0805b0f4 in resize_timeout () at screen.c:100
+#7  0x4005022a in g_main_set_poll_func () from
+/usr/lib/libglib-1.2.so.0
+#8  0x4004f308 in g_get_current_time () from
+/usr/lib/libglib-1.2.so.0
+#9  0x4004f913 in g_get_current_time () from
+/usr/lib/libglib-1.2.so.0
+#10 0x4004faac in g_main_run () from /usr/lib/libglib-1.2.so.0
+#11 0x08060cf5 in main (argc=1, argv=0xbffff98c) at irssi.c:286
+#12 0x400c364f in __libc_start_main () from /lib/libc.so.6
+
+
+The topic of #irssi@ircnet says to use the mailing lists ;)
+
+
+</body></email><email><emailId>20011204213445</emailId><senderName>Danny Rodriguez</senderName><senderEmail>messiah@optonline.net</senderEmail><timestampReceived>2001-12-04 21:34:45-0400</timestampReceived><subject>A fault with IRSSI's queuing of whois queries</subject><body>
+
+Dear List,
+
+    I wrote a script to receive a list of nicks in the current channel of an active \
+window, and then run a /whois query on each one to redirect the whois_channels event \
+to allow the user to search for people in specific types of channels. It seems that \
+when there is a good amount of users in the channel, a lot of IRSSI functions slow to \
+a crawl. Until the queries are done, IRSSI is basically not usable.
+
+-Danny
+
+
+[Attachment #3 (text/html)]
+
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"&gt;
+&lt;HTML&gt;&lt;HEAD&gt;
+&lt;META http-equiv=Content-Type content="text/html; charset=iso-8859-1"&gt;
+&lt;META content="MSHTML 6.00.2600.0" name=GENERATOR&gt;
+&lt;STYLE&gt;&lt;/STYLE&gt;
+&lt;/HEAD&gt;
+&lt;BODY bgColor=#ffffff&gt;
+&lt;DIV&gt;&lt;FONT face=Arial size=2&gt;Dear List,&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=Arial size=2&gt;&lt;/FONT&gt; &lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=Arial size=2&gt;    I wrote a script to receive a 
+list of nicks in the current channel of an active window, and then run a /whois 
+query on each one to redirect the whois_channels event to allow the user to 
+search for people in specific types of channels. It seems that when there is a 
+good amount of users in the channel, a lot of IRSSI functions slow to a crawl. 
+Until the queries are done, IRSSI is basically not usable.&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=Arial size=2&gt;&lt;/FONT&gt; &lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=Arial size=2&gt;-Danny&lt;/FONT&gt;&lt;/DIV&gt;&lt;/BODY&gt;&lt;/HTML&gt;
+
+
+</body></email><email><emailId>20011205180652</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-12-05 18:06:52-0400</timestampReceived><subject>Re: A fault with IRSSI's queuing of whois queries</subject><body>
+
+&gt;     I wrote a script to receive a list of nicks in the current channel of
+&gt;     an active window, and then run a /whois query on each one to redirect
+&gt;     the whois_channels event to allow the user to search for people in
+&gt;     specific types of channels. It seems that when there is a good amount
+&gt;     of users in the channel, a lot of IRSSI functions slow to a crawl.
+&gt;     Until the queries are done, IRSSI is basically not usable.
+
+Yep, irssi sends all the WHOIS queries before anything else (except replying
+to PINGs from server). Looks like there isn't any easy way to do this with
+perl scripts yet, but in C code there's server_idle_*() functions. I guess I
+could make them work in perl scripts as well.
+
+
+</body></email><email><emailId>20011205210958</emailId><senderName>Danny Rodriguez</senderName><senderEmail>messiah@optonline.net</senderEmail><timestampReceived>2001-12-05 21:09:58-0400</timestampReceived><subject>Re: A fault with IRSSI's queuing of whois queries</subject><body>
+
+&gt; &gt;     I wrote a script to receive a list of nicks in the current channel
+of
+&gt; &gt;     an active window, and then run a /whois query on each one to
+redirect
+&gt; &gt;     the whois_channels event to allow the user to search for people in
+&gt; &gt;     specific types of channels. It seems that when there is a good
+amount
+&gt; &gt;     of users in the channel, a lot of IRSSI functions slow to a crawl.
+&gt; &gt;     Until the queries are done, IRSSI is basically not usable.
+&gt;
+&gt; Yep, irssi sends all the WHOIS queries before anything else (except
+replying
+&gt; to PINGs from server). Looks like there isn't any easy way to do this with
+&gt; perl scripts yet, but in C code there's server_idle_*() functions. I guess
+I
+&gt; could make them work in perl scripts as well.
+
+Perhaps add a way to check for the successful completion of an event before
+sending out another.
+
+-Danny
+
+
+
+
+</body></email><email><emailId>20011205211948</emailId><senderName>Danny Rodriguez</senderName><senderEmail>messiah@optonline.net</senderEmail><timestampReceived>2001-12-05 21:19:48-0400</timestampReceived><subject>Re: A fault with IRSSI's queuing of whois queries</subject><body>
+
+Well duh, I didn't even think of that. Thanks :)
+
+-Danny
+
+----- Original Message -----
+From: "Timo Sirainen" &lt;tss@iki.fi&gt;
+To: &lt;irssi-dev@dragoncat.net&gt;
+Sent: Wednesday, December 05, 2001 4:21 PM
+Subject: Re: A fault with IRSSI's queuing of whois queries
+
+
+&gt; &gt; &gt; Yep, irssi sends all the WHOIS queries before anything else (except
+&gt; &gt; replying
+&gt; &gt; &gt; to PINGs from server). Looks like there isn't any easy way to do this
+with
+&gt; &gt; &gt; perl scripts yet, but in C code there's server_idle_*() functions. I
+guess
+&gt; &gt; I
+&gt; &gt; &gt; could make them work in perl scripts as well.
+&gt; &gt;
+&gt; &gt; Perhaps add a way to check for the successful completion of an event
+before
+&gt; &gt; sending out another.
+&gt;
+&gt; Well, you can do that already. You're already using the server
+redirections?
+&gt; Don't send all the whois queries at once but rather send next once the
+&gt; previous is completed ('event 318' =&gt; 'whois send next' or something).
+&gt;
+&gt;
+
+
+
+</body></email><email><emailId>20010620093249</emailId><senderName>Christian Borup</senderName><senderEmail>borup@borup.com</senderEmail><timestampReceived>2001-06-20 09:32:49-0400</timestampReceived><subject>Re: kirssi/girssi?</subject><body>
+
+Hi all
+
+The old (now unmaintained) Gtk+ front end has most of these features 
+allready (even the DND and mousewheel stuff).
+As far as I can tell the only ones missing is the ability to detach the 
+gui (which would be soooo cool).
+Is there any compelling reason not to bring the code up to date?
+
+Timo asked for feature requests for the gui version of irssi long, but I 
+never really came up with any, because irssi is IMHO allready the best 
+gui irc client out there.
+
+But some cool features might be:
+
+    * More flexible setup of popups - seperate popups for channels,
+      nicklists and while hovering over nicks or url's.
+    * Pannel applet for the notify list - with different icons for
+      present, away and not online.
+    * The existing pannel applet should be able to work with the
+      detached process.
+    * Easy gui scripting: attach a piece of perl to simple events like
+      connect and join
+
+./borup
+
+Per von Zweigbergk wrote:
+
+&gt;I hope there is still some traces of life on this list. :)
+&gt;
+&gt;I was thinking, maybe it's time to finally fill that "TODO", of a X
+&gt;version of irssi. I've also taken a little time of how to pull it off.
+&gt;A similar procedure would probably apply for a GTK or GNOME version of
+&gt;irssi, if anyone has that particular itch ;)
+&gt;
+&gt;I thought, maybe I could take the code from the KDE terminal (konsole),
+&gt;and the first step of making kirssi, would be a simple konsole which
+&gt;would display the text version of irssi.
+&gt;
+&gt;Then gradually, I could start modifying the UI code. Gradually I could:
+&gt;
+&gt;- Add a nicklist
+&gt;- Nicklist context menu
+&gt;- Input line with KDE widgets
+&gt;- Status line with KDE widgets
+&gt;- Modifications to konsole widget to allow mouse wheel scrollbacks and
+&gt;  better copy &amp; paste etc.
+&gt;- Menus
+&gt;- Clickable tabs for channels
+&gt;- File manager drag &amp; drop for DCC sends
+&gt;- Ability to detach the IRC client from it's X display and run it text
+&gt;  based and vice versa. (Now we're talking. :)
+&gt;
+&gt;This would all be incremental steps to an existing codebase.
+&gt;
+&gt;I'm sure this would be a quite trivial task for a seasoned KDE programmer
+&gt;to pull off.
+&gt;
+&gt;However, I'm not, but I'm willing to and intend to sit down and learn
+&gt;how to program for KDE (the desktop environment I currently) as soon as
+&gt;my exams end in a week or so.
+&gt;
+&gt;That's why I'm asking here on the list if anyone has any suggestions on
+&gt;whether this is the best way to pull off making a KDE version of irssi,
+&gt;and if anyone knows of any good resources (either in electronic or in
+&gt;dead tree format) on programming with KDE. I'm already a pretty decent
+&gt;C programmer, and I also have some experience with C++.
+&gt;
+&gt;Who knows? Maybe this could make it's way into KDE as the default IRC
+&gt;client. Irssi world domination! Or maybe, world liberation. :)
+&gt;
+&gt;Either way I'd have my itch scratched, an X version of irssi. Great fun.
+&gt;:)
+&gt;
+&gt;--
+&gt;Per von Zweigbergk &lt;pvz@linux.se&gt;
+&gt;IRC: pv2b (IRCnet, OPN, QuakeNet)
+&gt;
+
+
+
+
+</body></email><email><emailId>20010620094302</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-06-20 09:43:02-0400</timestampReceived><subject>Re: kirssi/girssi?</subject><body>
+
+&gt; The old (now unmaintained) Gtk+ front end has most of these features 
+&gt; allready (even the DND and mousewheel stuff).
+&gt; As far as I can tell the only ones missing is the ability to detach the 
+&gt; gui (which would be soooo cool).
+&gt; Is there any compelling reason not to bring the code up to date?
+
+Yes, the code is ugly ;)
+
+&gt;     * Easy gui scripting: attach a piece of perl to simple events like
+&gt;       connect and join
+
+I think this would be possible with GTK/Perl.
+
+</body></email><email><emailId>20010620101354</emailId><senderName>Christian Borup</senderName><senderEmail>borup@borup.com</senderEmail><timestampReceived>2001-06-20 10:13:54-0400</timestampReceived><subject>Re: kirssi/girssi?</subject><body>
+
+Timo Sirainen wrote:
+
+&gt;&gt;The old (now unmaintained) Gtk+ front end has most of these features 
+&gt;&gt;allready (even the DND and mousewheel stuff).
+&gt;&gt;As far as I can tell the only ones missing is the ability to detach the 
+&gt;&gt;gui (which would be soooo cool).
+&gt;&gt;Is there any compelling reason not to bring the code up to date?
+&gt;&gt;
+&gt;
+&gt;Yes, the code is ugly ;)
+&gt;
+Heh, cannot argue with that.
+Still I'd prefer a gnome front, but if everything is done right, most of 
+the code should be shareable.
+
+&gt;&gt;    * Easy gui scripting: attach a piece of perl to simple events like
+&gt;&gt;      connect and join
+&gt;&gt;
+&gt;
+&gt;I think this would be possible with GTK/Perl.
+&gt;
+I agree, I didn't say it would be all that hard.
+
+./borup
+
+
+
+
+</body></email><email><emailId>20010620102208</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-06-20 10:22:08-0400</timestampReceived><subject>Re: kirssi/girssi?</subject><body>
+
+&gt; Still I'd prefer a gnome front, but if everything is done right, most of 
+&gt; the code should be shareable.
+
+Yes, it is already .. The GUI code itself can't really be shared .. except
+maybe if there's some bigger features that have GUI-independent code but
+which requires GUI to be usable.
+
+But if someone's interested in coding the GNOME frontend then go ahead, I'm
+not against having both kirssi and girssi (or I think GNOME fe should be
+called xirssi).
+
+</body></email><email><emailId>20010620112659</emailId><senderName>Christian Borup</senderName><senderEmail>borup@borup.com</senderEmail><timestampReceived>2001-06-20 11:26:59-0400</timestampReceived><subject>Re: kirssi/girssi?</subject><body>
+
+Timo Sirainen wrote:
+
+&gt;&gt;Still I'd prefer a gnome front, but if everything is done right, most of 
+&gt;&gt;the code should be shareable.
+&gt;&gt;
+&gt;
+&gt;Yes, it is already .. The GUI code itself can't really be shared .. except
+&gt;maybe if there's some bigger features that have GUI-independent code but
+&gt;which requires GUI to be usable.
+&gt;
+Indeed.
+
+&gt;But if someone's interested in coding the GNOME frontend then go ahead, I'm
+&gt;not against having both kirssi and girssi (or I think GNOME fe should be
+&gt;called xirssi).
+&gt;
+I really dislike the k/g prefixes so I'm all for xirssi.
+I'd love to create a gnome front, but I'll never get the time. So what 
+I'd love even more is to help somebody else do it.
+
+BTW What does irssi mean, I noticed a Java-thingie called IrssiBot - so 
+I figured it means something.
+
+
+</body></email><email><emailId>20010506201053</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-05-06 20:10:53-0400</timestampReceived><subject>Re: Excellent program</subject><body>
+
+&gt; I'm currently learning the basics of script writing in Irssi; would anyone mind if I
+&gt; contribute some comments on what it looks like from a new user's perspective?
+
+Go ahead, I'd like to hear them.
+
+</body></email><email><emailId>20010506201955</emailId><senderName>Eric</senderName><senderEmail>spirilis@scitus.yi.org</senderEmail><timestampReceived>2001-05-06 20:19:55-0400</timestampReceived><subject>Re: Excellent program</subject><body>
+
+OK
+
+The first confusement I found was discovering what arguments are send to subroutines
+when they're called back.
+Actually, all the signals in signals.txt were fairly self-explanatory, for instance:
+ "print text stripped", WINDOW_REC, SERVER_REC, char *channel, int level, char *text
+
+That's easy to understand; I'd use a
+  my ($window, $server, $channel, $level, $text) = @_;
+at the beginning.  Signals are quite easy to understand.
+
+However, I looked through perl.txt and signals.txt but didn't find any mention of \
+what happens when a function is called back from a
+
+Irssi::command_bind("command", "cmd_handler");
+
+After experimentation I found the arguments were more or less $data, $server, \
+$channel Unless it's in there and I missed it, you might want to make a mention of \
+that.
+
+Also, I was wondering... it might be informative if you throw a copy of the \
+IRC-related RFC documents in there so new Irssi script-writers can craft together \
+server commands easily with a reference right there and ready for them.
+
+Another nitpick with perl.txt is the definition for
+Server::ctcp_send_reply(data)
+  Send CTCP reply. This will be "CTCP flood protected" so if there's too
+  many CTCP requests in buffer, this reply might not get sent.
+
+What exactly should "data" contain?
+
+-- 
+Spirilis
+
+GnuPG Public Key available from certserver.pgp.com
+Key ID 92E1516E
+GPG Fingerprint: BA2A E8C0 D4BA 604A 997D  F809 D609 C9AC 92E1 516E
+
+
+</body></email><email><emailId>20011205212132</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-12-05 21:21:32-0400</timestampReceived><subject>Re: A fault with IRSSI's queuing of whois queries</subject><body>
+
+&gt; &gt; Yep, irssi sends all the WHOIS queries before anything else (except
+&gt; replying
+&gt; &gt; to PINGs from server). Looks like there isn't any easy way to do this with
+&gt; &gt; perl scripts yet, but in C code there's server_idle_*() functions. I guess
+&gt; I
+&gt; &gt; could make them work in perl scripts as well.
+&gt; 
+&gt; Perhaps add a way to check for the successful completion of an event before
+&gt; sending out another.
+
+Well, you can do that already. You're already using the server redirections?
+Don't send all the whois queries at once but rather send next once the
+previous is completed ('event 318' =&gt; 'whois send next' or something).
+
+
+</body></email><email><emailId>20011211010517</emailId><senderName>"TÃ¼rkÃ§emiz"</senderName><senderEmail>ysuleyman@yahoo.com</senderEmail><timestampReceived>2001-12-11 01:05:17-0400</timestampReceived><subject>www.anadili.egitimi.com</subject><body>
+
+Öðretmenler ve öðrenciler için kaynaklar: www.anadili.egitimi.com
+Bu mailden rahatsýz olduysanýz lütfen reply ediniz. 
+Ýyi çalýþmalar...
+
+</body></email><email><emailId>20011224022240</emailId><senderName>Kenny Sabarese</senderName><senderEmail>kfs27@yahoo.com</senderEmail><timestampReceived>2001-12-24 02:22:40-0400</timestampReceived><subject>irssi on mac osx</subject><body>
+
+this was pasted in the IRSSI irc channel on OPN
+
+maybe someone is interested....the irssi that works in
+OSX is currently included in unstable FINK for osx
+
+10:54 &lt; Fingolfin&gt; if anybody is interested, I got
+irssi to build on OS X. The
+                   only change required (besides
+install ncurses, which I have
+                   anyways) was to modify
+src/fe-text/Makefile.am
+10:56 &lt; Fingolfin&gt; the problem was/is that the system
+lib contains its own
+                   version of curses (which lacks some
+features, though), and
+                   one has to ensure -lncurses comes
+before -lm therefore,
+                   since on OS X, -lm just is an alias
+for the system lib. if
+                   ones doesn't do this, then it will
+start using some of the
+                   (wrong) curses functions from the
+system lib instead of from
+                   ncurses
+10:56 &lt; Fingolfin&gt; I think this "fix" could easily be
+added to the standard   
+                   irssi distro
+
+
+
+
+=====
+Kenny Sabarese
+Left Ear Music
+kfs@leftearmusic.com
+AIM: kfs27
+ICQ: 51327390
+irc.openprojects.net #windowmaker
+
+__________________________________________________
+Do You Yahoo!?
+Send your FREE holiday greetings online!
+http://greetings.yahoo.com
+
+</body></email><email><emailId>20011227005145</emailId><senderName>"Serdar Kahya"</senderName><senderEmail>kortanyussk@soccer.com</senderEmail><timestampReceived>2001-12-27 00:51:45-0400</timestampReceived><subject>slm</subject><body>
+
+###########################
+BU MESAJ BIR SPAM DEGILDIR      #
+##########################
+
+
+Degerli ziyaretcimiz,
+ 
+Asagidaki avantajlardan yararlanmak istiyorsaniz lutfen sitemizi en kisa zamanda tekrar 
+ziyaret ediniz.
+ 
+0. IOn (10) Oyun siparis eden ilk iki kisiye  fenerbahce@e-kolay.net , kuzuku@e-kolay.net 
+adresleri hadiye!
+1. Bes (5) Oyun  alana   1 Adet Fifa 2002 Hediye!
+2. On (10) Oyun alana    1 Adet Melekler Þehri 1 Adet Dikey Limit Hediye!
+3. Bes (5) Mp3 alana     1 Adet Pop þarkýlarý Mp3 Hediye!
+4. On (10) Mp3 alana     1 Adet Fifa 2002 Hediye!
+5. Bes (5) Film Alana bir adet yuzuklerin efendisi filmi hediye!
+6. CD-Rw     110 $     =     özel siparis  = 40x okuma 30 x yazma  10x tekrar yazma ..
+
+ 
+
+Not:Avantajlar 1 ay icin gecerlidir. Yeni avantajlari gormek icin sitemizi sýk sýk ziyaret ediniz.
+ 
+
+Saygilar,
+Serdar Kahya
+UYARI: BU BIR SPAM DEGILDIR. Siz veya arkadasiniz bu email adresini 
+http://alisveris.sehri.com adresine kayit yaptirmistir.
+
+</body></email><email><emailId>20011229163510</emailId><senderName>Simo Salminen</senderName><senderEmail>simo.salminen@iki.fi</senderEmail><timestampReceived>2001-12-29 16:35:10-0400</timestampReceived><subject>0.7.98.CVS build fails with libtool error</subject><body>
+
+Trying to build 0.7.98.CVS 2001-12-28. Problem is that when make is almost
+finished I get error:
+libtool: link: '../perl/libperl_core_static.la' is not a valid libtool
+archive.
+
+I viewed that file and it seems to be OK.
+My system is debian potato. What could be wrong? 
+
+-- 
+simo &lt;dot&gt; salminen &lt;at&gt; iki &lt;dot&gt; fi
+
+
+</body></email><email><emailId>20011120172842</emailId><senderName>Pauli_Ojanperä</senderName><senderEmail>pasaojan@cc.jyu.fi</senderEmail><timestampReceived>2001-11-20 17:28:42-0400</timestampReceived><subject>Segmentation fault irssi 0.7.98.CVS (20011119)</subject><body>
+
+Command: 
+/set translation latin_1
+
+Response: 
+Irssi: Error opening translation table file latin_1: No such file or directory
+translation = latin_1
+
+Next time I try to start Irssi, it segfaults.
+
+I found the culprit is the following line added to my settings:
+  "fe-common/core" = { translation = "latin_1"; };
+
+Backtrace:
+#0  0x08082594 in printformat_module_dest (module=0x80ce06e 
+"fe-common/core",
+    dest=0xbffff1b0, formatnum=193, va=0xbffff218) at printtext.c:55
+#1  0x080826a9 in printformat_module_args (module=0x80ce06e 
+"fe-common/core",
+    server=0x0, target=0x0, level=1048576, formatnum=193, va=0xbffff218)
+    at printtext.c:84
+#2  0x080826d5 in printformat_module (module=0x80ce06e "fe-common/core",
+    server=0x0, target=0x0, level=1048576, formatnum=193) at 
+printtext.c:93
+#3  0x0808548c in translation_read (file=0x80ed168 "latin_1")
+    at translation.c:90
+#4  0x080855f6 in read_settings () at translation.c:133
+#5  0x08085648 in translation_init () at translation.c:145
+#6  0x08075963 in fe_common_core_init () at fe-common-core.c:187
+#7  0x08066057 in textui_init () at irssi.c:138
+#8  0x08066408 in main (argc=1, argv=0xbffff774) at irssi.c:307
+#9  0x401cb65f in __libc_start_main () from /lib/libc.so.6
+
+uname -a :
+Linux deadbeef 2.4.14 #2 Tue Nov 20 00:37:07 EET 2001 i586 unknown
+
+/etc/issue :
+Debian GNU testing/unstable
+
+I am not on the list. Hopefully you will receive this.
+
+
+</body></email><email><emailId>20011005160308</emailId><senderName>Sebastian 'yath' Schmidt</senderName><senderEmail>yathen@web.de</senderEmail><timestampReceived>2001-10-05 16:03:08-0400</timestampReceived><subject>Halfop-Patch</subject><body>
+
+[Attachment #2 (multipart/mixed)]
+
+
+Hi
+I wrote a patch for the current CVS-snapshot of irssi, including
+halfop-support. Halfop was built in as far i could see, but not
+displayed in the nicklist and as prefix in the channel.
+The attached should fix this.
+
+-- 
+PGP Public Key at http://yath.eu.org/~yath/public_key.asc
+PGP Key fingerprint = 8D25 C96B 3DE0 C7D0 AE01  6824 BC15 6273 5A13 B048
+
+RTFM: No just an acronym, it's the LAW!
+
+["irssi-halfop.patch" (text/plain)]
+
+diff -Nur old/src/core/nicklist.c new/src/core/nicklist.c
+--- old/src/core/nicklist.c	Fri Oct  5 17:57:41 2001
++++ new/src/core/nicklist.c	Fri Oct  5 17:27:41 2001
+@@ -355,17 +355,39 @@
+ /* nick record comparision for sort functions */
+ int nicklist_compare(NICK_REC *p1, NICK_REC *p2)
+ {
++	int status1, status2;
++	
+ 	if (p1 == NULL) return -1;
+ 	if (p2 == NULL) return 1;
+ 
+-	if (p1-&gt;op &amp;&amp; !p2-&gt;op) return -1;
+-	if (!p1-&gt;op &amp;&amp; p2-&gt;op) return 1;
++	/* we assign each status (op, halfop, voice, normal) a number
++	 * and compare them. this is easier than 100,000 if's and
++	 * returns :-)
++	 * -- yath */
+ 
+-	if (!p1-&gt;op) {
+-		if (p1-&gt;voice &amp;&amp; !p2-&gt;voice) return -1;
+-		if (!p1-&gt;voice &amp;&amp; p2-&gt;voice) return 1;
+-	}
++	if (p1-&gt;op)
++		status1 = 4;
++	else if (p1-&gt;halfop)
++		status1 = 3;
++	else if (p1-&gt;voice)
++		status1 = 2;
++	else
++		status1 = 1;
+ 
++	if (p2-&gt;op)
++		status2 = 4;
++	else if (p2-&gt;halfop)
++		status2 = 3;
++	else if (p2-&gt;voice)
++		status2 = 2;
++	else
++		status2 = 1;
++	
++	if (status1 &lt; status2)
++		return 1;
++	else if (status1 &gt; status2)
++		return -1;
++	
+ 	return g_strcasecmp(p1-&gt;nick, p2-&gt;nick);
+ }
+ 
+diff -Nur old/src/fe-common/core/fe-channels.c new/src/fe-common/core/fe-channels.c
+--- old/src/fe-common/core/fe-channels.c	Fri Oct  5 17:57:42 2001
++++ new/src/fe-common/core/fe-channels.c	Fri Oct  5 17:31:19 2001
+@@ -377,8 +377,15 @@
+ 	for (tmp = nicklist; tmp != NULL; tmp = tmp-&gt;next) {
+ 		NICK_REC *rec = tmp-&gt;data;
+ 
+-		nickmode[0] = rec-&gt;op ? '@' : rec-&gt;voice ? '+' : ' ';
+-
++		if (rec-&gt;op)
++			nickmode[0] = '@';
++		else if (rec-&gt;halfop)
++			nickmode[0] = '%';
++		else if (rec-&gt;voice)
++			nickmode[0] = '+';
++		else
++			nickmode[0] = ' ';
++		
+ 		if (linebuf_size &lt; columns[col]-item_extra+1) {
+ 			linebuf_size = (columns[col]-item_extra+1)*2;
+                         linebuf = g_realloc(linebuf, linebuf_size);
+@@ -419,9 +426,9 @@
+ {
+ 	NICK_REC *nick;
+ 	GSList *tmp, *nicklist, *sorted;
+-	int nicks, normal, voices, ops;
++	int nicks, normal, voices, halfops, ops;
+ 
+-	nicks = normal = voices = ops = 0;
++	nicks = normal = voices = halfops = ops = 0;
+ 	nicklist = nicklist_getnicks(channel);
+ 	sorted = NULL;
+ 
+@@ -435,6 +442,7 @@
+ 			if ((flags &amp; CHANNEL_NICKLIST_FLAG_OPS) == 0)
+                                 continue;
+ 		} else if (nick-&gt;halfop) {
++			halfops++;
+ 			if ((flags &amp; CHANNEL_NICKLIST_FLAG_HALFOPS) == 0)
+ 				continue;
+ 		} else if (nick-&gt;voice) {
+@@ -462,7 +470,7 @@
+ 
+ 	printformat(channel-&gt;server, channel-&gt;name,
+ 		    MSGLEVEL_CRAP, TXT_ENDOFNAMES,
+-		    channel-&gt;name, nicks, ops, voices, normal);
++		    channel-&gt;name, nicks, ops, halfops, voices, normal);
+ }
+ 
+ /* SYNTAX: NAMES [-count | -ops -halfops -voices -normal] [&lt;channels&gt; | **] */
+diff -Nur old/src/fe-common/core/fe-messages.c new/src/fe-common/core/fe-messages.c
+--- old/src/fe-common/core/fe-messages.c	Fri Oct  5 17:57:42 2001
++++ new/src/fe-common/core/fe-messages.c	Fri Oct  5 17:32:53 2001
+@@ -126,7 +126,8 @@
+ 	nickrec = channel == NULL ? NULL :
+ 		nicklist_find(channel, nick);
+ 	return nickrec == NULL ? emptystr :
+-		(nickrec-&gt;op ? "@" : (nickrec-&gt;voice ? "+" : emptystr));
++		(nickrec-&gt;op ? "@" : (nickrec-&gt;halfop ? "%" :
++		(nickrec-&gt;voice ? "+" : emptystr)));
+ }
+ 
+ static char *channel_get_nickmode_rec(NICK_REC *nickrec)
+@@ -139,7 +140,8 @@
+         emptystr = settings_get_bool("show_nickmode_empty") ? " " : "";
+ 
+ 	return nickrec == NULL ? emptystr :
+-		(nickrec-&gt;op ? "@" : (nickrec-&gt;voice ? "+" : emptystr));
++		(nickrec-&gt;op ? "@" : (nickrec-&gt;halfop ? "%" :
++		(nickrec-&gt;voice ? "+" : emptystr)));
+ }
+ 
+ static void sig_message_public(SERVER_REC *server, const char *msg,
+diff -Nur old/src/fe-common/core/module-formats.c \
+                new/src/fe-common/core/module-formats.c
+--- old/src/fe-common/core/module-formats.c	Fri Oct  5 17:57:42 2001
++++ new/src/fe-common/core/module-formats.c	Fri Oct  5 17:33:53 2001
+@@ -101,7 +101,7 @@
+ 	{ "current_channel", "Current channel {channel $0}", 1, { 0 } },
+ 	{ "names", "{names_users Users {names_channel $0}} $1", 2, { 0, 0 } },
+         { "names_nick", "{names_nick $0 $1}", 2, { 0, 0 } },
+-        { "endofnames", "{channel $0}: Total of {hilight $1} nicks {comment {hilight \
+$2} ops, {hilight $3} voices, {hilight $4} normal}", 5, { 0, 1, 1, 1, 1 } }, +        \
+{ "endofnames", "{channel $0}: Total of {hilight $1} nicks {comment {hilight $2} ops, \
+{hilight $3} halfops, {hilight $4} voices, {hilight $5} normal}", 6, { 0, 1, 1, 1, 1, \
+1 } },  { "chanlist_header", "You are on the following channels:", 0 },
+ 	{ "chanlist_line", "{channel $[-10]0} %|+$1 ($2): $3", 4, { 0, 0, 0, 0 } },
+ 	{ "chansetup_not_found", "Channel {channel $0} not found", 2, { 0, 0 } },
+diff -Nur old/src/irc/core/irc-nicklist.c new/src/irc/core/irc-nicklist.c
+--- old/src/irc/core/irc-nicklist.c	Fri Oct  5 17:57:42 2001
++++ new/src/irc/core/irc-nicklist.c	Fri Oct  5 17:36:09 2001
+@@ -31,7 +31,7 @@
+ 
+ /* Add new nick to list */
+ NICK_REC *irc_nicklist_insert(IRC_CHANNEL_REC *channel, const char *nick,
+-			      int op, int voice, int send_massjoin)
++			      int op, int halfop, int voice, int send_massjoin)
+ {
+ 	NICK_REC *rec;
+ 
+@@ -42,6 +42,7 @@
+ 	rec-&gt;nick = g_strdup(nick);
+ 
+ 	if (op) rec-&gt;op = TRUE;
++	if (halfop) rec-&gt;halfop = TRUE;
+ 	if (voice) rec-&gt;voice = TRUE;
+ 	rec-&gt;send_massjoin = send_massjoin;
+ 
+@@ -106,7 +107,8 @@
+ 		if (*names != '\0') *names++ = '\0';
+ 
+ 		irc_nicklist_insert(chanrec, ptr+isnickflag(*ptr),
+-				    *ptr == '@', *ptr == '+', FALSE);
++				    *ptr == '@', *ptr == '%', *ptr == '+',
++				    FALSE);
+ 	}
+ 
+ 	g_free(params);
+@@ -132,7 +134,7 @@
+ 			nicks = g_hash_table_size(chanrec-&gt;nicks);
+ 			ownnick = irc_nicklist_insert(chanrec, server-&gt;nick,
+ 						      nicks == 0, FALSE,
+-						      FALSE);
++						      FALSE, FALSE);
+ 		}
+ 		nicklist_set_own(CHANNEL(chanrec), ownnick);
+                 chanrec-&gt;chanop = chanrec-&gt;ownnick-&gt;op;
+diff -Nur old/src/irc/core/irc-nicklist.h new/src/irc/core/irc-nicklist.h
+--- old/src/irc/core/irc-nicklist.h	Fri Oct  5 17:57:42 2001
++++ new/src/irc/core/irc-nicklist.h	Fri Oct  5 17:36:27 2001
+@@ -6,7 +6,7 @@
+ 
+ /* Add new nick to list */
+ NICK_REC *irc_nicklist_insert(IRC_CHANNEL_REC *channel, const char *nick,
+-			      int op, int voice, int send_massjoin);
++			      int op, int halfop, int voice, int send_massjoin);
+ 
+ /* Remove all "extra" characters from `nick'. Like _nick_ -&gt; nick */
+ char *irc_nick_strip(const char *nick);
+diff -Nur old/src/irc/core/massjoin.c new/src/irc/core/massjoin.c
+--- old/src/irc/core/massjoin.c	Fri Oct  5 17:57:42 2001
++++ new/src/irc/core/massjoin.c	Fri Oct  5 17:37:11 2001
+@@ -58,7 +58,7 @@
+ 	if (chanrec == NULL) return;
+ 
+ 	/* add user to nicklist */
+-	nickrec = irc_nicklist_insert(chanrec, nick, FALSE, FALSE, TRUE);
++	nickrec = irc_nicklist_insert(chanrec, nick, FALSE, FALSE, FALSE, TRUE);
+         nicklist_set_host(CHANNEL(chanrec), nickrec, address);
+ 
+ 	if (chanrec-&gt;massjoins == 0) {
+diff -Nur old/src/perl/irc/IrcChannel.xs new/src/perl/irc/IrcChannel.xs
+--- old/src/perl/irc/IrcChannel.xs	Fri Oct  5 17:57:43 2001
++++ new/src/perl/irc/IrcChannel.xs	Fri Oct  5 17:41:21 2001
+@@ -31,14 +31,15 @@
+ 	}
+ 
+ Irssi::Irc::Nick
+-irc_nick_insert(channel, nick, op, voice, send_massjoin)
++irc_nick_insert(channel, nick, op, halfop, voice, send_massjoin)
+ 	Irssi::Irc::Channel channel
+ 	char *nick
+ 	int op
++	int halfop
+ 	int voice
+ 	int send_massjoin
+ CODE:
+-	RETVAL = irc_nicklist_insert(channel, nick, op, voice, send_massjoin);
++	RETVAL = irc_nicklist_insert(channel, nick, op, halfop, voice, send_massjoin);
+ OUTPUT:
+ 	RETVAL
+ 
+
+
+[Attachment #6 (application/pgp-signature)]
+
+</body></email><email><emailId>20011011193746</emailId><senderName>David Leadbeater</senderName><senderEmail>dgl@dgl.cx</senderEmail><timestampReceived>2001-10-11 19:37:46-0400</timestampReceived><subject>/lastlog -count</subject><body>
+
+Just did a quick patch to make lastlog have a -count option
+(prints the number of lines lastlog would have printed).
+
+I'm not really sure how you make diffs with cvs (i used cvs diff):
+
+Index: src/fe-text/lastlog.c
+===================================================================
+RCS file: /home/cvs/irssi/src/fe-text/lastlog.c,v
+retrieving revision 1.10
+diff -r1.10 lastlog.c
+156a157,163
+&gt;       if(g_hash_table_lookup(optlist, "count") != NULL) {
+&gt;          printformat_window(active_win, MSGLEVEL_CLIENTNOTICE,
+&gt;                        TXT_LASTLOG_COUNT, len);
+&gt;               g_list_free(list);
+&gt;               return;
+&gt;       }
+&gt; 
+208,209c215,216
+&lt; /* SYNTAX: LASTLOG [-] [-file &lt;filename&gt;] [-clear] [-&lt;level&gt; -&lt;level...&gt;]
+&lt;                  [-new | -away] [-regexp | -word] [-case]
+---
+&gt; /* SYNTAX: LASTLOG [-] [-file &lt;filename&gt;] [-clear] [-count] 
+&gt;   [-&lt;level&gt; -&lt;level...&gt;] [-new | -away] [-regexp | -word] [-case]
+259c266
+&lt;       command_set_options("lastlog", "!- force clear -file -window new away wo rd regexp case");
+---
+&gt;       command_set_options("lastlog", "!- force clear count -file
+&gt;       -window new a way word regexp case");
+Index: src/fe-text/module-formats.c
+===================================================================
+RCS file: /home/cvs/irssi/src/fe-text/module-formats.c,v
+retrieving revision 1.11
+diff -r1.11 module-formats.c
+28a29
+&gt;       { "lastlog_count", "{hilight Lastlog}: $0 lines", 1, { 1 }
+&gt;       },
+Index: src/fe-text/module-formats.h
+===================================================================
+RCS file: /home/cvs/irssi/src/fe-text/module-formats.h,v
+retrieving revision 1.10
+diff -r1.10 module-formats.h
+6a7
+&gt;         TXT_LASTLOG_COUNT,
+
+-- 
+Success is a journey, not a destination.
+
+
+</body></email><email><emailId>20011019110946</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-10-19 11:09:46-0400</timestampReceived><subject>Re: proxy module bug reports and patch</subject><body>
+
+&gt; &gt; I have two bug reports from using the proxy module. The patch attached
+&gt; &gt; partially fixes (2) for me.
+
+took a while, but cvs committed now :)
+
+</body></email><email><emailId>20011019112956</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-10-19 11:29:56-0400</timestampReceived><subject>Re: difrent connection to server</subject><body>
+
+&gt; I've got diifrent server.
+&gt; Before normal connecting, i must send to server "AUTHKEY".
+&gt; So how to write some script to do this?
+
+Try something like this:
+
+sub sig_connected {
+  $_[0]-&gt;send_raw("AUTHKEY");
+}
+
+Irssi::signal_add_first("event connected", "sig_connected");
+
+</body></email><email><emailId>20011019114249</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-10-19 11:42:49-0400</timestampReceived><subject>Re: Client-To-Client Protocol (CTCP) implementation in irssi</subject><body>
+
+&gt; While I don't think that all of those need to be implemented (and the
+&gt; specification doesn't even say which ones are mandatory and which ones
+&gt; are optional), I think that CLIENTINFO is a pretty important one since
+&gt; it advertizes the client's capabilities.
+
+Did CLIENTINFO just return a list of all known CTCP commands? eg. "PING
+CLIENTINFO VERSION"? Hmm.. but should it reply only those commands, or also
+commands that scripts and modules might have added? Maybe we'd need some
+ctcp_register() function which would tell CLIENTINFO which ctcp replies are
+known.
+
+</body></email><email><emailId>20011019115034</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-10-19 11:50:34-0400</timestampReceived><subject>Re: Problems with ncurses(?)</subject><body>
+
+&gt; This a backtrace of what happens sometimes when resizing (seems to
+&gt; be bigger to smaller window size, but hard to reproduce).
+&gt; Irssi 0.7.98.CVS (2001-10-01 14:05) running under a recent-ish
+&gt; debian sid.
+
+..does still still happen with 2001-10-16 or later irssis?..
+
+</body></email><email><emailId>20011021102053</emailId><senderName>Jakub Jankowski</senderName><senderEmail>shasta@quasimodo.olsztyn.tpsa.pl</senderEmail><timestampReceived>2001-10-21 10:20:53-0400</timestampReceived><subject>segfault with 20011021 irssi</subject><body>
+
+(fresh cvs, compiled with ./autogen.sh --enable-ipv6 &amp;&amp; make)
+
+shasta@quasimodo:~$ ls ~/.irssi/scripts/autorun/
+chops.pl  country.pl  friends.pl  urlgrab.pl
+shasta@quasimodo:~$ irssi
+[redraws screen]
+Segmentation fault (core dumped)
+shasta@quasimodo:~$ gdb irssi core
+[...]
+Core was generated by `irssi'.
+Program terminated with signal 11, Segmentation fault.
+[...]
+#0  0x808f777 in print_line (dest=0xbffff1f0, text=0x82d0340 "friends.pl \
+20011013/v0.99d") at printtext.c:156 156             tmp = \
+format_get_level_tag(window_get_theme(dest-&gt;window), dest); (gdb) bt
+#0  0x808f777 in print_line (dest=0xbffff1f0, text=0x82d0340 "friends.pl \
+20011013/v0.99d") at printtext.c:156 #1  0x808fc05 in printtext_string (server=0x0, \
+target=0x0, level=262144,  text=0x82217c8 "friends.pl 20011013/v0.99d") at \
+printtext.c:333 #2  0x3322f7 in XS_Irssi_print () from \
+/usr/lib/perl5/site_perl/i386-linux/auto/Irssi/UI/UI.so #3  0x810c2cc in \
+Perl_pp_entersub () #4  0x8106c40 in Perl_runops_standard ()
+#5  0x80ccfda in S_call_body ()
+#6  0x80ccda6 in perl_call_sv ()
+#7  0x80cc9ba in perl_call_pv ()
+#8  0x80c53e2 in perl_script_eval (script=0x8220e50) at perl-core.c:193
+#9  0x80c560a in script_load (name=0x8201840 "friends",
+    path=0x81f6f00 "/home/shasta/.irssi/scripts/autorun/friends.pl", data=0x0) at \
+perl-core.c:242 #10 0x80c564c in perl_script_load_file (path=0x81f6f00 \
+"/home/shasta/.irssi/scripts/autorun/friends.pl")  at perl-core.c:255
+#11 0x80c5a53 in perl_scripts_autorun () at perl-core.c:364
+#12 0x80c5b8d in perl_core_init () at perl-core.c:398
+#13 0x8073487 in textui_finish_init () at irssi.c:139
+#14 0x807377d in main (argc=1, argv=0xbffff634) at irssi.c:280
+#15 0x21a2eb in __libc_start_main (main=0x807372c &lt;main&gt;, argc=1, ubp_av=0xbffff634, \
+init=0x8065cfc &lt;_init&gt;,  fini=0x814c37c &lt;_fini&gt;, rtld_fini=0x11c130 &lt;_dl_fini&gt;, \
+stack_end=0xbffff62c)  at ../sysdeps/generic/libc-start.c:129
+(gdb) stop
+(gdb) quit
+shasta@quasimodo:~$
+
+ Is it any known issue? It doesn't happen when I remove scripts from
+~/.irssi/scritps/autorun and load them manually after irssi
+initialization.
+
+ shasta
+
+-- 
+(0&gt;  Jakub Jankowski  [url]: s.atn.pl   "Beauty is skin deep;
+//\   shasta@IRCnet   [uin]: 70171776    ugly goes right
+V_/_  shasta@irc.pl  [cell]: 502110186   to the bone."
+
+
+</body></email><email><emailId>20010911232913</emailId><senderName>Hugo Haas</senderName><senderEmail>hugo@larve.net</senderEmail><timestampReceived>2001-09-11 23:29:13-0400</timestampReceived><subject>Re: irssi 0.7.98.4 segmentation fault</subject><body>
+
+* Hugo Haas &lt;hugo@larve.net&gt; [2001-09-11 16:25-0700]
+&gt; I managed to consistently make irssi crash by doing:
+&gt; 
+&gt;   /connect chat.cnn.com
+&gt;   /join #CNN_NewsFeed
+
+Oops, I forgot to send some few extra information, the libraries used:
+
+-- System Information
+Debian Release: testing/unstable
+Architecture: i386
+Kernel: Linux home 2.4.8 #22 Sat Aug 11 23:29:37 EDT 2001 i686
+Locale: LANG=C, LC_CTYPE=fr_FR
+
+ii  irssi-text                0.7.98.4-1     text-mode version of the irssi IRC
+ii  libc6                     2.2.4-1        GNU C Library: Shared libraries an
+ii  libglib1.2                1.2.10-1.2     The GLib library of C routines
+ii  libncurses5               5.2.20010318-3 Shared libraries for terminal hand
+ii  libperl5.6                5.6.1-5        Shared Perl library.
+
+-- 
+Hugo Haas &lt;hugo@larve.net&gt; - http://larve.net/people/hugo/
+- Hello, Mr. Thompson! - I think he's talking to _you_. -- Homer J.
+Thompson
+
+</body></email><email><emailId>20010914013039</emailId><senderName>Ganesh Sittampalam</senderName><senderEmail>ganesh@earth.li</senderEmail><timestampReceived>2001-09-14 01:30:39-0400</timestampReceived><subject>Re: proxy module bug reports and patch</subject><body>
+
+On Fri, 14 Sep 2001, Ganesh Sittampalam wrote:
+
+&gt; I have two bug reports from using the proxy module. The patch attached
+&gt; partially fixes (2) for me.
+
+Even more partially than I meant then, it turns out, since I forgot
+actions, which are now fixed in the attached, and things like notices
+which I'm less certain how to handle. Also I realised that the correct
+routing of signals is actually a bit complicated and should incorporate
+the fix to (1), so I'm going to go to bed instead :-) With this patch I
+have something that's reasonably usable for me, so I'm happy, at any rate.
+
+Cheers,
+
+Ganesh
+
+["irssi-proxyfix.patch" (TEXT/PLAIN)]
+
+diff -u irssi-0.7.98.CVS/src/irc/proxy/dump.c irssi-0.7.98.CVS-new/src/irc/proxy/dump.c
+--- irssi-0.7.98.CVS/src/irc/proxy/dump.c	Wed Jul 25 21:10:12 2001
++++ irssi-0.7.98.CVS-new/src/irc/proxy/dump.c	Fri Sep 14 01:29:20 2001
+@@ -88,7 +88,7 @@
+ 	va_end(args);
+ }
+ 
+-/*void proxy_outserver_all(IRC_SERVER_REC *server, const char *data, ...)
++void proxy_outserver_all(IRC_SERVER_REC *server, const char *data, ...)
+ {
+ 	va_list args;
+ 	GSList *tmp;
+@@ -111,7 +111,7 @@
+ 	g_free(str);
+ 
+ 	va_end(args);
+-}*/
++}
+ 
+ void proxy_outserver_all_except(CLIENT_REC *client, const char *data, ...)
+ {
+Only in irssi-0.7.98.CVS-new/src/irc/proxy/: libirc_proxy.a
+diff -u irssi-0.7.98.CVS/src/irc/proxy/listen.c irssi-0.7.98.CVS-new/src/irc/proxy/listen.c
+--- irssi-0.7.98.CVS/src/irc/proxy/listen.c	Tue Jul 10 21:10:14 2001
++++ irssi-0.7.98.CVS-new/src/irc/proxy/listen.c	Fri Sep 14 02:21:01 2001
+@@ -544,6 +544,18 @@
+ 	}
+ }
+ 
++static void sig_message_own_public(SERVER_REC *server, const char *msg,
++                                   const char *target)
++{
++	proxy_outserver_all(IRC_SERVER(server), "PRIVMSG %s :%s", target, msg);
++}
++
++static void sig_action_own_public(SERVER_REC *server, const char *msg,
++                                  const char *target)
++{
++	proxy_outserver_all(IRC_SERVER(server), "PRIVMSG %s :\001ACTION %s\001", target, msg);
++}
++
+ void plugin_proxy_listen_init(void)
+ {
+ 	next_line = g_string_new(NULL);
+@@ -558,6 +570,8 @@
+ 	signal_add("server disconnected", (SIGNAL_FUNC) sig_server_disconnected);
+ 	signal_add("event nick", (SIGNAL_FUNC) event_nick);
+ 	signal_add("setup changed", (SIGNAL_FUNC) read_settings);
++	signal_add("message own_public", (SIGNAL_FUNC) sig_message_own_public);
++	signal_add("message irc own_action", (SIGNAL_FUNC) sig_action_own_public);
+ }
+ 
+ void plugin_proxy_listen_deinit(void)
+@@ -574,4 +588,6 @@
+ 	signal_remove("server disconnected", (SIGNAL_FUNC) sig_server_disconnected);
+ 	signal_remove("event nick", (SIGNAL_FUNC) event_nick);
+ 	signal_remove("setup changed", (SIGNAL_FUNC) read_settings);
++	signal_remove("message own_public", (SIGNAL_FUNC) sig_message_own_public);
++	signal_remove("message irc own_action", (SIGNAL_FUNC) sig_action_own_public);
+ }
+diff -u irssi-0.7.98.CVS/src/irc/proxy/module.h irssi-0.7.98.CVS-new/src/irc/proxy/module.h
+--- irssi-0.7.98.CVS/src/irc/proxy/module.h	Tue Dec  5 01:01:53 2000
++++ irssi-0.7.98.CVS-new/src/irc/proxy/module.h	Fri Sep 14 01:35:29 2001
+@@ -44,5 +44,5 @@
+ void proxy_outdata(CLIENT_REC *client, const char *data, ...);
+ void proxy_outdata_all(IRC_SERVER_REC *server, const char *data, ...);
+ void proxy_outserver(CLIENT_REC *client, const char *data, ...);
+-/*void proxy_outserver_all(const char *data, ...);*/
++void proxy_outserver_all(IRC_SERVER_REC *server, const char *data, ...);
+ void proxy_outserver_all_except(CLIENT_REC *client, const char *data, ...);
+
+
+</body></email><email><emailId>20010914161950</emailId><senderName>Piotr Janik</senderName><senderEmail>pietlek@linux-pl.com</senderEmail><timestampReceived>2001-09-14 16:19:50-0400</timestampReceived><subject>difrent connection to server</subject><body>
+
+I've got diifrent server.
+Before normal connecting, i must send to server "AUTHKEY".
+And then server is sending back  _string_
+--
+Connected to czat-s.onet.pl.
+Escape character is '^]'.
+AUTHKEY
+:czat2-b.onet.pl 006 * :TGj8JOshs57cE7mO
+
+And after this connction is normal.
+
+So how to write some script to do this?
+
+Thx for helping.
+
+-- 
+_____ Piotr 'Pietlek' Janik ____________
+"Szukając człowieka - nie patrz na mnie,
+ Szukając prawdy - znajdziesz mnie"
+----------------------------------------
+&gt; http://www.pietlek.linux-pl.com 
+&gt; pietlek@linux-pl.com
+
+</body></email><email><emailId>20010926210939</emailId><senderName>Jakub Jankowski</senderName><senderEmail>shasta@quasimodo.olsztyn.tpsa.pl</senderEmail><timestampReceived>2001-09-26 21:09:39-0400</timestampReceived><subject>IDEA plugin</subject><body>
+
+Hi.
+
+ IDEA plugin doesn't seem working with CVS irssi. I tried
+irssi-idea-0.1.41 and irssi-0.7.98.CVS (20010924) on linux 2.2.19,
+glibc 2.2.3, perl 5.6.1, glib 1.2.10.
+
+ First of all, it doesn't encrypt anything:
+
+/load idea:
+23:00 -!- Irssi: IDEA-encryption plugin loaded. Messages will be
+          encrypted whenever possible if idea_autocrypt
+          is set, alternatively you can use /idea and /ideam. Modify
+          your keyring with /key in advance.
+23:00 -!- Irssi: Loaded module idea/core
+
+/key add test:
+23:01 -!- Irssi: Added default key "test" for "#test"
+
+/idea foobar:
+23:01 -!- Irssi: IDEA encryption failed! Perhaps no key set for "#test"?
+
+ After unloading IDEA module and privmsg'ing anywhere, irssi
+segfaults and dumps core:
+
+libra@quasimodo:~$ ls -al core
+-rw-------    1 libra    libra     1150976 Sep 26 23:02 core
+libra@quasimodo:~$ gdb irssi core
+GNU gdb 5.0
+Copyright 2000 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i386-slackware-linux"...
+Core was generated by `irssi'.
+Program terminated with signal 11, Segmentation fault.
+Reading symbols from /lib/libnsl.so.1...done.
+Loaded symbols for /lib/libnsl.so.1
+Reading symbols from /usr/lib/libgmodule-1.2.so.0...done.
+Loaded symbols for /usr/lib/libgmodule-1.2.so.0
+Reading symbols from /usr/lib/libglib-1.2.so.0...done.
+Loaded symbols for /usr/lib/libglib-1.2.so.0
+Reading symbols from /lib/libdl.so.2...done.
+Loaded symbols for /lib/libdl.so.2
+Reading symbols from /lib/libncurses.so.5...done.
+Loaded symbols for /lib/libncurses.so.5
+Reading symbols from /lib/libc.so.6...done.
+Loaded symbols for /lib/libc.so.6
+Reading symbols from /lib/ld-linux.so.2...done.
+Loaded symbols for /lib/ld-linux.so.2
+Reading symbols from /lib/libnss_compat.so.2...done.
+Loaded symbols for /lib/libnss_compat.so.2
+#0  0x34ab58 in ?? ()
+(gdb) bt
+#0  0x34ab58 in ?? ()
+#1  0x80ab444 in signal_emit_real (rec=0x80d3968, params=3, va=0xbffff47c) at signals.c:216
+#2  0x80ab526 in signal_emit (signal=0x80b912d "command msg", params=3) at signals.c:253
+#3  0x806c89b in event_text (data=0x812bd50 "laksmda", server=0x8134a68, item=0x8136368)
+    at chat-completion.c:777
+#4  0x80ab444 in signal_emit_real (rec=0x80e9878, params=3, va=0xbffff56c) at signals.c:216
+#5  0x80ab526 in signal_emit (signal=0x80c60d4 "send text", params=3) at signals.c:253
+#6  0x809be78 in event_command (line=0x812bd50 "laksmda", server=0x8134a68, item=0x8136368)
+    at commands.c:851
+#7  0x80ab444 in signal_emit_real (rec=0x80d34b8, params=3, va=0xbffff64c) at signals.c:216
+#8  0x80ab526 in signal_emit (signal=0x80b24b2 "send command", params=3) at signals.c:253
+#9  0x8056f61 in key_send_line () at gui-readline.c:160
+#10 0x80ab444 in signal_emit_real (rec=0x8104668, params=3, va=0xbffff72c) at signals.c:216
+#11 0x80ab526 in signal_emit (signal=0x8136638 "key send_line", params=3)
+    at signals.c:253
+#12 0x807c25f in sig_multi (data=0x8120458 "check_replaces;send_line", gui_data=0x0)
+    at keyboard.c:622
+#13 0x80ab444 in signal_emit_real (rec=0x80e9a30, params=3, va=0xbffff82c) at signals.c:216
+#14 0x80ab526 in signal_emit (signal=0x813a2b8 "key multi", params=3) at signals.c:253
+#15 0x807bfbb in key_emit_signal (keyboard=0x811adc0, key=0x81206a8) at keyboard.c:521
+#16 0x807c10f in key_pressed (keyboard=0x811adc0, key=0xbffff8d8 "^J") at keyboard.c:577
+#17 0x8056ef9 in handle_key (key=10) at gui-readline.c:142
+#18 0x80572e9 in readline () at gui-readline.c:320
+#19 0x80a1043 in irssi_io_invoke (source=0x811aae0, condition=G_IO_IN, data=0x811aaf8)
+    at misc.c:56
+#20 0x150c40 in g_io_unix_dispatch (source_data=0x811ab08, current_time=0xbffffa04,
+    user_data=0x811aaf8) at giounix.c:135
+#21 0x152308 in g_main_dispatch (dispatch_time=0xbffffa04) at gmain.c:656
+#22 0x152913 in g_main_iterate (block=1, dispatch=1) at gmain.c:877
+#23 0x152aac in g_main_run (loop=0x812bcc8) at gmain.c:935
+#24 0x8060d75 in main (argc=1, argv=0xbffffae4) at irssi.c:286
+#25 0x1c62eb in __libc_start_main (main=0x8060d0c &lt;main&gt;, argc=1, ubp_av=0xbffffae4,
+    init=0x8054d10 &lt;_init&gt;, fini=0x80b228c &lt;_fini&gt;, rtld_fini=0x11c130 &lt;_dl_fini&gt;,
+    stack_end=0xbffffadc) at ../sysdeps/generic/libc-start.c:129
+(gdb)
+
+ Is it some known problem which I'm not aware of? Or is it something
+new? If more info is needed, I could provide it.
+
+ shasta
+
+-- 
+(0&gt;  Jakub Jankowski  [url]: s.atn.pl   "Beauty is skin deep;
+//\   shasta@IRCnet   [uin]: 70171776    ugly goes right
+V_/_  shasta@irc.pl  [cell]: 502110186   to the bone."
+
+
+</body></email><email><emailId>20010928152335</emailId><senderName>Hugo Haas</senderName><senderEmail>hugo@larve.net</senderEmail><timestampReceived>2001-09-28 15:23:35-0400</timestampReceived><subject>Client-To-Client Protocol (CTCP) implementation in irssi</subject><body>
+
+The CTCP support in irssi v0.7.98.4 seems incomplete.
+
+Even though there isn't AFAIK any standardized CTCP specification, the
+specification[1] written by Klaus Zeuge, Troy Rollo and Ben Mesander
+defines the following extended data types:
+- SED
+- FINGER
+- SOURCE
+- USERINFO
+- CLIENTINFO
+- ERRMSG
+- TIME
+
+While I don't think that all of those need to be implemented (and the
+specification doesn't even say which ones are mandatory and which ones
+are optional), I think that CLIENTINFO is a pretty important one since
+it advertizes the client's capabilities.
+
+Actually, an Internet Draft[2] dated 2 February 1997 written by
+Michael McLagan makes things more formal, and defines CLIENTINFO as
+required and SED, FINGER, ERRMSG and SOURCE as deprecated.
+
+Therefore, I think that it would be a good thing (tm) to support CTCP
+CLIENTINFO.
+
+Thanks.
+
+Regards,
+
+Hugo
+
+  1. http://www.irchelp.org/irchelp/rfc/ctcpspec.html
+  2. http://www.invlogic.com/irc/ctcp.html
+-- 
+Hugo Haas &lt;hugo@larve.net&gt; - http://larve.net/people/hugo/
+- I know you feel bad about the juice incident, but I'm sure you can
+make up for it somehow. - That's it! Somehow! -- Homer Jay
+
+</body></email><email><emailId>20010717183219</emailId><senderName>Hugo Haas</senderName><senderEmail>hugo@larve.net</senderEmail><timestampReceived>2001-07-17 18:32:19-0400</timestampReceived><subject>/HILIGHT problems</subject><body>
+
+I ran into the following problems which might be a bug (or my
+misunderstanding of how /HILIGHT works) in irssi 0.7.98.3.
+
+1/ I do "/HILIGHT -line foo". Somebody with the nick foo joins a
+channel and sends a CTCP ACTION with something like "/ME is happy".
+"* foo is happy" is highlighted.
+I think that the matching should be done only on "is happy", not one
+"foo is happy". This doesn't happen on normal PRIVMSGs.
+
+2/ I now change my nick to foo. Somebody says "hey foo" and the line
+is showed as highlighted. If somebody says "foo: hey", then
+pubmsgmenick is used: only the nick is highlighted, not the whole
+line.
+
+Regards,
+
+Hugo
+
+-- 
+Hugo Haas &lt;hugo@larve.net&gt; - http://larve.net/people/hugo/
+- I'd really like to give it a try. - I don't know Marge, trying is the
+first step towards failure. -- Homer J. Simpson
+
+</body></email><email><emailId>20010718142323</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-07-18 14:23:23-0400</timestampReceived><subject>Re: tcl plugin (again)</subject><body>
+
+&gt; ok...i've been wokring a bit on the tcl plugin i've been talking
+&gt; about...but i was wondering a bit. there's a plugin directory, and all
+&gt; the files there seem to be #include &lt;irssi-plugin.h&gt; but i can't seem to
+&gt; locate the file. what should i do?
+
+The plugins directory is really out of date, you shouldn't look at anything
+in it..
+
+</body></email><email><emailId>20010729211849</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-07-29 21:18:49-0400</timestampReceived><subject>Re: irssi 0.7.98.3 core dumping</subject><body>
+
+&gt; #0  gui_window_line_text_free (gui=0x200c00, line=0x2fae98) at gui-printtext.c:140
+&gt; 140                     if (*text == '\0') {
+&gt; (gdb)
+
+some kind of text buffer problem .. anyway, that whole thing has been
+rewritten and it should work better :)
+
+btw. 0.7.99 is probably released this week.
+
+</body></email><email><emailId>20010620124856</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-06-20 12:48:56-0400</timestampReceived><subject>Re: kirssi/girssi?</subject><body>
+
+&gt; I'd love to create a gnome front, but I'll never get the time. So what 
+&gt; I'd love even more is to help somebody else do it.
+
+Pretty much the same here :) My summer vacation starts sometimes around end
+of July, maybe I'll get some bigger things done then. :)
+
+&gt; BTW What does irssi mean, I noticed a Java-thingie called IrssiBot - so 
+&gt; I figured it means something.
+
+Well, I'm not very good at explaining anything, maybe someone else can do it
+better but..:
+
+Something like irc -&gt; ircci (this is done with a lot of finnish words, like
+bit -&gt; bitti). And since C is spoken as either K or S, IRC is usually spoken
+as "irkki", but several people call it "irssi".
+
+</body></email><email><emailId>20010621133204</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-06-21 13:32:04-0400</timestampReceived><subject>Re: perl/tcl plugin</subject><body>
+
+&gt; Timo: can you please explain a bit how the perl plugin works? i really
+&gt; don't understand the code in perl-common.c with all the blessing and
+&gt; stuff. i'm trying to write a tcl plugin but don't really know how to
+&gt; start...
+
+The blessing stuff is required only to make it work well with Perl. For
+TCL plugin you'd probably do things in this order:
+
+ - Figure out how to run TCL code from irssi. Just make some /TCLRUN
+command which loads the specified file and runs it in TCL interpreter.
+
+ - Figure out how to call C functions (irssi functions) from TCL.
+
+ - Figure out how to handle the server, channel, etc. structures easily
+with TCL. The blessing stuff in perl is for this, I'm not sure if it's
+possible with TCL easily. With perl you can for example get the nick in
+some server with $server-&gt;{nick}. I've never used TCL but something
+like server[nick] might be possible with it too (does it have hashs?
+structures?). If nothing like this is possible, the alternative would
+be to creates lots and lots of functions like server_get_nick(),
+server_get_tag(), channel_get_name(), channel_get_nicks(), etc. etc. I
+don't think that's as easy. You only need to extract information from C
+structs, not to be able to modify it in TCL.
+
+ - Make the signaling system work in scripts. Most of this code can be
+taken from Perl plugin I think. Mostly you just need to be able to call
+a specified function in TCL code from C.
+
+Once you get all of these to work somehow, write lots and lots of
+wrappers for irssi's C functions so they can be called from TCL (the
+same as *.xs files have in Perl).
+
+</body></email><email><emailId>20010507003629</emailId><senderName>Eric</senderName><senderEmail>spirilis@scitus.yi.org</senderEmail><timestampReceived>2001-05-07 00:36:29-0400</timestampReceived><subject>Irssi, Perl and fork()'ed processes</subject><body>
+
+hey, what's the deal with Irssi and fork()'ed processes? is it safe to install a SIGCHLD handler
+inside a perl script using $SIG{CHLD} = sub { wait }; and fork() inside Perl?
+(I tried it with a little script and after the child process exited, no zombie processes remained
+but irssi started acting a little weird... sometimes text would disappear when I refreshed
+the screen (using CTRL-L) and come back again when I refreshed again.)
+
+I was thinking of experimenting with some heavy-threaded programming... like running a subprocess
+and passing data to it using a pipe that's watched in the main process using input_add()
+
+
+-- 
+Spirilis
+
+GnuPG Public Key available from certserver.pgp.com
+Key ID 92E1516E
+GPG Fingerprint: BA2A E8C0 D4BA 604A 997D  F809 D609 C9AC 92E1 516E
+
+</body></email><email><emailId>20010511122424</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-05-11 12:24:24-0400</timestampReceived><subject>Re: Excellent program</subject><body>
+
+&gt; After experimentation I found the arguments were more or less $data, $server, \
+&gt; $channel Unless it's in there and I missed it, you might want to make a mention of \
+&gt; that.
+
+ok.
+
+&gt; Also, I was wondering... it might be informative if you throw a copy of the \
+&gt; IRC-related RFC documents in there so new Irssi script-writers can craft together \
+&gt; server commands easily with a reference right there and ready for them.
+
+Yes, and some other links too, since RFCs are ircnet-specific.
+
+&gt; Another nitpick with perl.txt is the definition for
+&gt; Server::ctcp_send_reply(data)
+&gt; Send CTCP reply. This will be "CTCP flood protected" so if there's too
+&gt; many CTCP requests in buffer, this reply might not get sent.
+&gt; 
+&gt; What exactly should "data" contain?
+
+The full raw command, like "NOTICE nick :\001VERSION irssi\001".
+
+
+</body></email><email><emailId>20010521204230</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-05-21 20:42:30-0400</timestampReceived><subject>Re: Irssi segfault</subject><body>
+
+&gt; Irssi::signal_add("command away", "print_away_message");
+
+You should use:
+
+Irssi::command_bind("away", "print_away_message");                  
+
+but I'll try to fix this crash anyway :)
+
+</body></email><email><emailId>20010525000240</emailId><senderName>Bjoern Krombholz</senderName><senderEmail>bjkro@gmx.de</senderEmail><timestampReceived>2001-05-25 00:02:40-0400</timestampReceived><subject>Patch: perl command_runsub</subject><body>
+
+Hi,
+had to write subcommand handler for a Perl script for the second time now,
+so decided to add command_runsub to Perl API.
+
+fuchs
+
+["irssi-perlrunsub-2001-05-25.diff" (text/plain)]
+
+Index: docs/perl.txt
+===================================================================
+RCS file: /home/cvs/irssi/docs/perl.txt,v
+retrieving revision 1.10
+diff -u -r1.10 perl.txt
+--- docs/perl.txt	2001/05/11 12:37:40	1.10
++++ docs/perl.txt	2001/05/24 23:52:03
+@@ -307,6 +307,14 @@
+   Bind command `cmd' to call function `func'. `category' is the
+   category where the command is displayed in /HELP.
+ 
++command_runsub(cms, data, server, item)
++  Run subcommands for `cmd'. First word in `data' is parsed as
++  subcommand. `server' is Irssi::Server rec for current
++  Irssi::Windowitem `item'.
++  
++  Call command_runsub in handler function for `cmd' and bind
++  with command_bind("`cmd' `subcmd'", subcmdfunc[, category]);
++
+ command_unbind(cmd, func)
+   Unbind command `cmd' from function 'func.
+ 
+Index: src/perl/perl-signals.c
+===================================================================
+RCS file: /home/cvs/irssi/src/perl/perl-signals.c,v
+retrieving revision 1.6
+diff -u -r1.6 perl-signals.c
+--- src/perl/perl-signals.c	2001/03/07 12:09:38	1.6
++++ src/perl/perl-signals.c	2001/05/24 23:52:06
+@@ -273,6 +273,12 @@
+ 	g_free(signal);
+ }
+ 
++void perl_command_runsub(const char *cmd, const char *data, 
++			 SERVER_REC *server, WI_ITEM_REC *item)
++{
++	command_runsub(cmd, data, server, item);
++}
++
+ void perl_command_unbind(const char *cmd, const char *func)
+ {
+ 	char *signal;
+Index: src/perl/common/Core.xs
+===================================================================
+RCS file: /home/cvs/irssi/src/perl/common/Core.xs,v
+retrieving revision 1.13
+diff -u -r1.13 Core.xs
+--- src/perl/common/Core.xs	2001/01/13 02:23:24	1.13
++++ src/perl/common/Core.xs	2001/05/24 23:52:06
+@@ -326,6 +326,15 @@
+ 	perl_command_bind(cmd, category, func);
+ 
+ void
++command_runsub(cmd, data, server, item)
++	char *cmd
++	char *data
++	Irssi::Server server
++	Irssi::Windowitem item
++CODE:
++	perl_command_runsub(cmd, data, server, item);
++
++void
+ command_unbind(cmd, func)
+ 	char *cmd
+ 	char *func
+
+
+</body></email><email><emailId>20010310165136</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2001-03-10 16:51:36-0400</timestampReceived><subject>cvs.irssi.org</subject><body>
+
+Anonymous CVS seems to be broken, hopefully fixed soon :)
+
+</body></email><email><emailId>20010310210331</emailId><senderName></senderName><senderEmail>dawszy</senderEmail><timestampReceived>2001-03-10 21:03:31-0400</timestampReceived><subject>Re: cvs.irssi.org moved</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+On Sat, 10 Mar 2001, Timo Sirainen wrote:
+...
+&gt; 
+&gt; ian, daws: you'll need to do the above for irssi.org mirror too :)
+&gt; 
+
+Done, my only one truth luv :)
+
+- -- 
+[ Nie wstyd nie wiedzieæ, ale wstyd nie chcieæ swej wiedzy uzupe³niæ...
+  Mo¿na straciæ wszystko, ale nie wolno utraciæ mi³o¶ci.                ]
+
+  PGP -&gt; http://e-lubin.com/people/dawszy/pgp/
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.4 (GNU/Linux)
+Comment: Made with pgp4pine
+
+iEYEARECAAYFAjqqlrYACgkQH/Ud2Hc08wbnOgCeN1xLOZNAbC3vAiSTnu7PXjNq
+6jgAnAlgSkO3AHFgDnRk0HbtlbTj7Id6
+=Rij5
+-----END PGP SIGNATURE-----
+
+
+</body></email><email><emailId>20010914005240</emailId><senderName>Ganesh Sittampalam</senderName><senderEmail>ganesh@earth.li</senderEmail><timestampReceived>2001-09-14 00:52:40-0400</timestampReceived><subject>proxy module bug reports and patch</subject><body>
+
+Hello,
+
+Just started using irssi properly this week and I'm really impressed so
+far, especially with the proxy module which does exactly what I've wanted
+to have for some time.
+
+I have two bug reports from using the proxy module. The patch attached
+partially fixes (2) for me.
+
+(1) When a proxy client does a /me, the main irssi doesn't decode the CTCP
+correctly and displays it as follows, with the As at the beginning and end
+of the line in reverse video. The action gets sent to the server and seen
+by other clients fine.
+
+[01:21] &lt;Heffalump&gt; AACTION tests somethingA
+
+(2) If you say something in the main irssi, the proxy clients don't see
+it. The attached patch fixes the issue for public messages, and I assume
+the same could be done for private messages, though I'm less bothered
+about those because the client I'm using as the proxy client (Xchat) gets
+confused by them and thinks I'm sending myself messages anyway, so I've
+not bothered to try. I guess I should try to get that fixed too :-)
+
+Cheers,
+
+Ganesh
+
+["irssi-proxyfix.patch" (TEXT/PLAIN)]
+
+diff -urN irssi-0.7.98.CVS/src/irc/proxy/dump.c irssi-0.7.98.CVS-new/src/irc/proxy/dump.c
+--- irssi-0.7.98.CVS/src/irc/proxy/dump.c	Wed Jul 25 21:10:12 2001
++++ irssi-0.7.98.CVS-new/src/irc/proxy/dump.c	Fri Sep 14 01:29:20 2001
+@@ -88,7 +88,7 @@
+ 	va_end(args);
+ }
+ 
+-/*void proxy_outserver_all(IRC_SERVER_REC *server, const char *data, ...)
++void proxy_outserver_all(IRC_SERVER_REC *server, const char *data, ...)
+ {
+ 	va_list args;
+ 	GSList *tmp;
+@@ -111,7 +111,7 @@
+ 	g_free(str);
+ 
+ 	va_end(args);
+-}*/
++}
+ 
+ void proxy_outserver_all_except(CLIENT_REC *client, const char *data, ...)
+ {
+diff -urN irssi-0.7.98.CVS/src/irc/proxy/listen.c irssi-0.7.98.CVS-new/src/irc/proxy/listen.c
+--- irssi-0.7.98.CVS/src/irc/proxy/listen.c	Tue Jul 10 21:10:14 2001
++++ irssi-0.7.98.CVS-new/src/irc/proxy/listen.c	Fri Sep 14 01:35:10 2001
+@@ -544,6 +544,12 @@
+ 	}
+ }
+ 
++static void sig_message_own_public(SERVER_REC *server, const char *msg,
++                                   const char *target)
++{
++	proxy_outserver_all(server, "PRIVMSG %s :%s", target, msg);
++}
++
+ void plugin_proxy_listen_init(void)
+ {
+ 	next_line = g_string_new(NULL);
+@@ -558,6 +564,7 @@
+ 	signal_add("server disconnected", (SIGNAL_FUNC) sig_server_disconnected);
+ 	signal_add("event nick", (SIGNAL_FUNC) event_nick);
+ 	signal_add("setup changed", (SIGNAL_FUNC) read_settings);
++	signal_add("message own_public", (SIGNAL_FUNC) sig_message_own_public);
+ }
+ 
+ void plugin_proxy_listen_deinit(void)
+@@ -574,4 +581,5 @@
+ 	signal_remove("server disconnected", (SIGNAL_FUNC) sig_server_disconnected);
+ 	signal_remove("event nick", (SIGNAL_FUNC) event_nick);
+ 	signal_remove("setup changed", (SIGNAL_FUNC) read_settings);
++	signal_remove("message own_public", (SIGNAL_FUNC) sig_message_own_public);
+ }
+diff -urN irssi-0.7.98.CVS/src/irc/proxy/module.h irssi-0.7.98.CVS-new/src/irc/proxy/module.h
+--- irssi-0.7.98.CVS/src/irc/proxy/module.h	Tue Dec  5 01:01:53 2000
++++ irssi-0.7.98.CVS-new/src/irc/proxy/module.h	Fri Sep 14 01:35:29 2001
+@@ -44,5 +44,5 @@
+ void proxy_outdata(CLIENT_REC *client, const char *data, ...);
+ void proxy_outdata_all(IRC_SERVER_REC *server, const char *data, ...);
+ void proxy_outserver(CLIENT_REC *client, const char *data, ...);
+-/*void proxy_outserver_all(const char *data, ...);*/
++void proxy_outserver_all(IRC_SERVER_REC *server, const char *data, ...);
+ void proxy_outserver_all_except(CLIENT_REC *client, const char *data, ...);
+
+
+</body></email><email><emailId>20010620122238</emailId><senderName>pcp</senderName><senderEmail>da.box@home.se</senderEmail><timestampReceived>2001-06-20 12:22:38-0400</timestampReceived><subject>perl/tcl plugin</subject><body>
+
+Timo: can you please explain a bit how the perl plugin works? i really
+don't understand the code in perl-common.c with all the blessing and
+stuff. i'm trying to write a tcl plugin but don't really know how to
+start...
+
+-- 
+/*
+ * Name:        Nikolai Weibull
+ * Nicks:       pcp, pcppopper
+ * System:      Midi ATX, ASUS CUV4X, Celeron 667@950, GeForce2 MX 32,
+ *              256mb PC133, Fujitsu 20.49gb UDMA-66
+ * E-Mail:      da.box@home.se, pcp@pcppopper.org
+ * E-Location:  www.pcppopper.org
+ */
+
+</body></email><email><emailId>20010520052604</emailId><senderName>Eric</senderName><senderEmail>spirilis@scitus.yi.org</senderEmail><timestampReceived>2001-05-20 05:26:04-0400</timestampReceived><subject>Irssi segfault</subject><body>
+
+I've managed to get Irssi to segfault consistently, although I'm not 100% sure
+what's causing it.  Here's the script I'm running:
+
+------cut------
+# Test binding signals for away messages
+
+sub print_away_message {
+        my ($data, $server, $winitem) = @_;
+
+        @chans = $server-&gt;channels();
+
+        for ($i=0; $i &lt;= $#chans; $i++) {
+                $cname = $chans[$i]-&gt;{name};
+                if ($data ne "") {
+                        $server-&gt;command("/ACTION $cname is away; [^B$data^O]");
+                } else {
+                        $server-&gt;command("/ACTION $cname is back.");
+                }
+        }
+}
+ 
+Irssi::signal_add("command away", "print_away_message");
+------cut------
+
+The first time I run the script, it's fine.
+However, if I /run the script a second time, irssi segfaults.
+I tried adding another Irssi::signal_add line to the bottom so it looked like this:
+Irssi::signal_add("command away", "print_away_message");
+Irssi::signal_add("command away", "print_away_message");
+
+but it didn't segfault when I loaded it the first time.  Segfaulted the second time, though.
+
+Also, whenever this script is loaded, and I /quit, Irssi segfaults upon quitting instead of
+gracefully closing connection.  Irssi doesn't do this if I don't load this script.
+
+This is on irssi v0.7.98.3 - running on Linux
+
+-- 
+Spirilis
+
+GnuPG Public Key available from certserver.pgp.com
+Key ID 92E1516E
+GPG Fingerprint: BA2A E8C0 D4BA 604A 997D  F809 D609 C9AC 92E1 516E
+
+</body></email></emails>

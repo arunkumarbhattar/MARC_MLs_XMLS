@@ -1,0 +1,2794 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20080227103819</emailId><senderName>Enrico Scholz</senderName><senderEmail>enrico.scholz@informatik.tu-chemnitz.de</senderEmail><timestampReceived>2008-02-27 10:38:19-0400</timestampReceived><subject>[PATCH 1/5] PROXY: implemented native proxy support</subject><body>
+
+This patch creates a hook into the net_connect*() methods which call a
+method to connect to a proxy.
+
+Previous solution to send certain strings in the normal IRC dialog was
+some kind of hack as most proxies require some kind of negotation.
+
+E.g. HTTP proxies sent a 'HTTP/1.0 200 Connection established' HTTP header
+and clients have to wait for it.  Else, sent bytes of the following IRC
+login will be dropped silently.
+
+With old method, it is also impossible to tunnel SSL IRC connections
+through the proxy as proxy speaks plain text or a special protocol while
+e.g. 'CONNECT ... HTTP/1.0' will be encrypted with key of IRC server.
+
+There are further enhancements possible: the whole net_connect stuff
+should be made asynchronously. Currently, only the hostname is resolved
+in the background (which makes little sense of local proxies usually).
+
+Signed-off-by: Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
+---
+ src/core/Makefile.am          |    3 +
+ src/core/network-openssl.c    |    4 +-
+ src/core/network-proxy-priv.h |  128 +++++++++++++++++++++++++++++++++++++++++
+ src/core/network-proxy.c      |   30 ++++++++++
+ src/core/network-proxy.h      |   81 ++++++++++++++++++++++++++
+ src/core/network.c            |   15 +++++-
+ src/core/network.h            |    6 +-
+ src/core/server-connect-rec.h |    5 +-
+ src/core/servers-reconnect.c  |    7 +--
+ src/core/servers-setup.c      |   15 ++---
+ src/core/servers.c            |   27 +++++----
+ src/irc/core/irc-servers.c    |   36 ++++++------
+ 12 files changed, 305 insertions(+), 52 deletions(-)
+ create mode 100644 src/core/network-proxy-priv.h
+ create mode 100644 src/core/network-proxy.c
+ create mode 100644 src/core/network-proxy.h
+
+diff --git a/src/core/Makefile.am b/src/core/Makefile.am
+index 59ae0a8..f60dedf 100644
+--- a/src/core/Makefile.am
++++ b/src/core/Makefile.am
+@@ -31,6 +31,9 @@ libcore_a_SOURCES = \
+ 	net-sendbuffer.c \
+ 	network.c \
+ 	network-openssl.c \
++	network-proxy.c \
++	network-proxy.h \
++	network-proxy-priv.h \
+ 	nicklist.c \
+ 	nickmatch-cache.c \
+ 	pidwait.c \
+diff --git a/src/core/network-openssl.c b/src/core/network-openssl.c
+index 2ed1618..24d3f76 100644
+--- a/src/core/network-openssl.c
++++ b/src/core/network-openssl.c
+@@ -307,11 +307,11 @@ static GIOChannel *irssi_ssl_get_iochannel(GIOChannel *handle, \
+const char *mycer  return gchan;
+ }
+ 
+-GIOChannel *net_connect_ip_ssl(IPADDR *ip, int port, IPADDR *my_ip, const char \
+*cert, const char *pkey, const char *cafile, const char *capath, gboolean verify) \
++GIOChannel *net_connect_proxy_ssl(struct network_proxy const *proxy, char const \
+*host, int port, IPADDR *ip, IPADDR *my_ip, const char *cert, const char *pkey, const \
+char *cafile, const char *capath, gboolean verify)  {
+ 	GIOChannel *handle, *ssl_handle;
+ 
+-	handle = net_connect_ip(ip, port, my_ip);
++	handle = net_connect_proxy(proxy, host, port, ip, my_ip);
+ 	if (handle == NULL)
+ 		return NULL;
+ 	ssl_handle  = irssi_ssl_get_iochannel(handle, cert, pkey, cafile, capath, verify);
+diff --git a/src/core/network-proxy-priv.h b/src/core/network-proxy-priv.h
+new file mode 100644
+index 0000000..0a8f244
+--- /dev/null
++++ b/src/core/network-proxy-priv.h
+@@ -0,0 +1,128 @@
++/*	--*- c -*--
++ * Copyright (C) 2008 Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; version 2 and/or 3 of the License.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
++ */
++
++#ifndef H_IRSSI_SRC_CORE_PROXY_PRIV_H
++#define H_IRSSI_SRC_CORE_PROXY_PRIV_H
++
++#include "settings.h"
++#include &lt;stdbool.h&gt;
++
++/* stolen from linux kernel */
++#define container_of(ptr, type, member)  __extension__ ({	    \
++	const __typeof__( ((type *)0)-&gt;member ) *__mptr = (ptr);    \
++	(type *)( (char *)__mptr - offsetof(type,member) );})
++
++
++inline static void
++_network_proxy_create(struct network_proxy *dst)
++{
++	dst-&gt;port  = settings_get_int("proxy_port");
++	dst-&gt;host  = g_strdup(settings_get_str("proxy_address"));
++}
++
++inline static void
++_network_proxy_clone(struct network_proxy *dst, struct network_proxy const *src)
++{
++	dst-&gt;host  = g_strdup(src-&gt;host);
++	dst-&gt;port  = src-&gt;port;
++
++	dst-&gt;destroy = src-&gt;destroy;
++	dst-&gt;connect = src-&gt;connect;
++	dst-&gt;clone   = src-&gt;clone;
++}
++
++inline static void
++_network_proxy_destroy(struct network_proxy *proxy)
++{
++	g_free((void *)proxy-&gt;host);
++}
++
++
++
++inline static bool
++_network_proxy_send_all(GIOChannel *ch, void const *buf, ssize_t len)
++{
++	GError				*err = NULL;
++	gsize				written;
++	GIOStatus			status;
++
++	while ((status=g_io_channel_write_chars(ch, buf, len, &amp;written,
++						&amp;err))==G_IO_STATUS_AGAIN)
++		continue;
++
++	if (status==G_IO_STATUS_NORMAL)
++		return true;
++
++	if (err) {
++		g_warning("failed to send proxy request: %s", err-&gt;message);
++		g_error_free(err);
++	}
++
++	return false;
++}
++
++inline static bool
++_network_proxy_recv_all(GIOChannel *ch, void *buf_v, size_t len)
++{
++	GError				*err = NULL;
++	gchar				*buf = buf_v;
++
++	while (len&gt;0) {
++		GIOStatus		status;
++		gsize			l;
++
++		status = g_io_channel_read_chars(ch, buf, len, &amp;l, &amp;err);
++		if (status==G_IO_STATUS_AGAIN)
++			continue;
++		if (status!=G_IO_STATUS_NORMAL)
++			break;
++
++		buf += l;
++		len -= l;
++	}
++
++	if (len==0)
++		return true;
++
++	if (err) {
++		g_warning("failed to send proxy request: %s", err-&gt;message);
++		g_error_free(err);
++	}
++
++	return false;
++}
++
++inline static bool
++_network_proxy_flush(GIOChannel *ch)
++{
++	GError			*err = NULL;
++	GIOStatus		status;
++
++	while ((status=g_io_channel_flush(ch, &amp;err))==G_IO_STATUS_AGAIN)
++		continue;
++
++	if (status==G_IO_STATUS_NORMAL)
++		return true;
++
++	if (err) {
++		g_warning("failed to flush proxy channel: %s", err-&gt;message);
++		g_error_free(err);
++	}
++
++	return false;
++}
++
++#endif	/* H_IRSSI_SRC_CORE_PROXY_PRIV_H */
+diff --git a/src/core/network-proxy.c b/src/core/network-proxy.c
+new file mode 100644
+index 0000000..cedf96b
+--- /dev/null
++++ b/src/core/network-proxy.c
+@@ -0,0 +1,30 @@
++/*	--*- c -*--
++ * Copyright (C) 2008 Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; version 2 and/or 3 of the License.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
++ */
++
++#include "module.h"
++
++#include "network-proxy.h"
++#include &lt;string.h&gt;
++
++struct network_proxy *
++network_proxy_create(char const *type)
++{
++	if (type==NULL)
++		return NULL;
++
++	g_error("unsupported proxy type '%s'", type);
++	return NULL;
++}
+diff --git a/src/core/network-proxy.h b/src/core/network-proxy.h
+new file mode 100644
+index 0000000..cdc3d05
+--- /dev/null
++++ b/src/core/network-proxy.h
+@@ -0,0 +1,81 @@
++/*	--*- c -*--
++ * Copyright (C) 2008 Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; version 2 and/or 3 of the License.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
++ */
++
++#ifndef H_IRSSI_SRC_CORE_PROXY_H
++#define H_IRSSI_SRC_CORE_PROXY_H
++
++#include &lt;glib.h&gt;
++#include &lt;stdint.h&gt;
++
++/* helper structure for the send_string*() functions of the network_proxy
++ * class */
++struct network_proxy_send_string_info
++{
++	char const		*host;	/* hostname of the IRC server */
++	uint16_t		port;	/* portnumber of the IRC server */
++
++	/* function which is used to send string; usually irc_send_cmd_now() */
++	void			(*func)(void *obj, char const *);
++
++	/* object for func */
++	void			*obj;
++};
++
++struct network_proxy {
++	/* destroys the network_proxy structure which must not be used anymore
++	 * after; this memberfunction is mandatory */
++	void			(*destroy)(struct network_proxy *);
++
++	/* connects through the proxy; this memberfunction is mandatory
++	 *
++	 * \arg hint_ip   the asynchronously resolved ip of the proxy; when
++	 *                NULL, method will resolve it itself
++	 * \arg address   the hostname where proxy shall connect to
++	 * \arg port      port address where proxy shall connect to
++	 */
++	GIOChannel *		(*connect)(struct network_proxy const *, IPADDR const *hint_ip,
++					   char const *address, int port);
++
++	/* clones the given network_proxy object; this memberfunction is
++	 * mandatory */
++	struct network_proxy *	(*clone)(struct network_proxy const *);
++
++
++	/* sends a string after connection has been established but before IRC
++	 * authentication begins; this memberfunction is optional
++	 */
++	void			(*send_string)(struct network_proxy const *,
++					       struct network_proxy_send_string_info const *);
++
++	/* sends a string after connection IRC authentication suceeded; this
++	 * memberfunction is optional
++	 */
++	void			(*send_string_after)(struct network_proxy const *,
++						     struct network_proxy_send_string_info const *);
++
++
++	/* hostname of proxy host */
++	char const		*host;
++
++	/* portnumber of proxy */
++	int			port;
++};
++
++/* factory method to create a proxy object based upon value of 'type' */
++struct network_proxy *		network_proxy_create(char const *type);
++
++
++#endif	/* H_IRSSI_SRC_CORE_PROXY_H */
+diff --git a/src/core/network.c b/src/core/network.c
+index f0503f3..197bd74 100644
+--- a/src/core/network.c
++++ b/src/core/network.c
+@@ -20,6 +20,7 @@
+ 
+ #include "module.h"
+ #include "network.h"
++#include "network-proxy.h"
+ 
+ #include &lt;sys/un.h&gt;
+ 
+@@ -160,7 +161,7 @@ GIOChannel *net_connect(const char *addr, int port, IPADDR \
+*my_ip)  }
+ 
+ /* Connect to socket with ip address */
+-GIOChannel *net_connect_ip(IPADDR *ip, int port, IPADDR *my_ip)
++GIOChannel *net_connect_ip(IPADDR const *ip, int port, IPADDR *my_ip)
+ {
+ 	union sockaddr_union so;
+ 	int handle, ret, opt = 1;
+@@ -217,6 +218,18 @@ GIOChannel *net_connect_ip(IPADDR *ip, int port, IPADDR *my_ip)
+ 	return g_io_channel_new(handle);
+ }
+ 
++/* Connect to socket */
++GIOChannel *net_connect_proxy(struct network_proxy const *proxy,
++			      char const *host, int port, IPADDR *ip, IPADDR *my_ip)
++{
++
++	if (proxy)
++		return proxy-&gt;connect(proxy, ip, host, port);
++	else
++		return net_connect_ip(ip, port, my_ip);
++}
++
++
+ /* Connect to named UNIX socket */
+ GIOChannel *net_connect_unix(const char *path)
+ {
+diff --git a/src/core/network.h b/src/core/network.h
+index a3a4eb4..b9fb71a 100644
+--- a/src/core/network.h
++++ b/src/core/network.h
+@@ -39,6 +39,7 @@ struct _IPADDR {
+ 
+ #define IPADDR_IS_V6(ip) ((ip)-&gt;family != AF_INET)
+ 
++struct network_proxy;
+ extern IPADDR ip4_any;
+ 
+ /* returns 1 if IPADDRs are the same */
+@@ -47,10 +48,11 @@ int net_ip_compare(IPADDR *ip1, IPADDR *ip2);
+ /* Connect to socket */
+ GIOChannel *net_connect(const char *addr, int port, IPADDR *my_ip);
+ /* Connect to socket with ip address and SSL*/
+-GIOChannel *net_connect_ip_ssl(IPADDR *ip, int port, IPADDR *my_ip, const char \
+*cert, const char *pkey, const char *cafile, const char *capath, gboolean verify); \
++GIOChannel *net_connect_ip(IPADDR const *ip, int port, IPADDR *my_ip); +GIOChannel \
+*net_connect_proxy_ssl(struct network_proxy const *proxy, char const *host, int port, \
+IPADDR *ip, IPADDR *my_ip, const char *cert, const char *pkey, const char *cafile, \
+const char *capath, gboolean verify);  int irssi_ssl_handshake(GIOChannel *handle);
+ /* Connect to socket with ip address */
+-GIOChannel *net_connect_ip(IPADDR *ip, int port, IPADDR *my_ip);
++GIOChannel *net_connect_proxy(struct network_proxy const *proxy, char const *host, \
+int port, IPADDR *ip, IPADDR *my_ip);  /* Connect to named UNIX socket */
+ GIOChannel *net_connect_unix(const char *path);
+ /* Disconnect socket */
+diff --git a/src/core/server-connect-rec.h b/src/core/server-connect-rec.h
+index cfbe3eb..e95ca2f 100644
+--- a/src/core/server-connect-rec.h
++++ b/src/core/server-connect-rec.h
+@@ -5,10 +5,7 @@ int chat_type; /* chat_protocol_lookup(xx) */
+ 
+ int refcount;
+ 
+-/* if we're connecting via proxy, or just NULLs */
+-char *proxy;
+-int proxy_port;
+-char *proxy_string, *proxy_string_after, *proxy_password;
++struct network_proxy	*proxy;
+ 
+ unsigned short family; /* 0 = don't care, AF_INET or AF_INET6 */
+ char *tag; /* try to keep this tag when connected to server */
+diff --git a/src/core/servers-reconnect.c b/src/core/servers-reconnect.c
+index 87bcf56..f83fd94 100644
+--- a/src/core/servers-reconnect.c
++++ b/src/core/servers-reconnect.c
+@@ -29,6 +29,7 @@
+ #include "servers-reconnect.h"
+ 
+ #include "settings.h"
++#include "network-proxy.h"
+ 
+ GSList *reconnects;
+ static int last_reconnect_tag;
+@@ -157,11 +158,7 @@ server_connect_copy_skeleton(SERVER_CONNECT_REC *src, int \
+connect_info)  server_connect_ref(dest);
+ 	dest-&gt;type = module_get_uniq_id("SERVER CONNECT", 0);
+ 	dest-&gt;reconnection = src-&gt;reconnection;
+-	dest-&gt;proxy = g_strdup(src-&gt;proxy);
+-        dest-&gt;proxy_port = src-&gt;proxy_port;
+-	dest-&gt;proxy_string = g_strdup(src-&gt;proxy_string);
+-	dest-&gt;proxy_string_after = g_strdup(src-&gt;proxy_string_after);
+-	dest-&gt;proxy_password = g_strdup(src-&gt;proxy_password);
++	dest-&gt;proxy = src-&gt;proxy ? src-&gt;proxy-&gt;clone(src-&gt;proxy) : NULL;
+ 
+ 	dest-&gt;tag = g_strdup(src-&gt;tag);
+ 
+diff --git a/src/core/servers-setup.c b/src/core/servers-setup.c
+index 66eb35e..44ddf3c 100644
+--- a/src/core/servers-setup.c
++++ b/src/core/servers-setup.c
+@@ -28,6 +28,7 @@
+ #include "chatnets.h"
+ #include "servers.h"
+ #include "servers-setup.h"
++#include "network-proxy.h"
+ 
+ GSList *setupservers;
+ 
+@@ -126,15 +127,6 @@ static void server_setup_fill(SERVER_CONNECT_REC *conn,
+ 	conn-&gt;username = g_strdup(settings_get_str("user_name"));
+ 	conn-&gt;realname = g_strdup(settings_get_str("real_name"));
+ 
+-	/* proxy settings */
+-	if (settings_get_bool("use_proxy")) {
+-		conn-&gt;proxy = g_strdup(settings_get_str("proxy_address"));
+-		conn-&gt;proxy_port = settings_get_int("proxy_port");
+-		conn-&gt;proxy_string = g_strdup(settings_get_str("proxy_string"));
+-		conn-&gt;proxy_string_after = g_strdup(settings_get_str("proxy_string_after"));
+-		conn-&gt;proxy_password = g_strdup(settings_get_str("proxy_password"));
+-	}
+-
+ 	/* source IP */
+ 	if (source_host_ip4 != NULL) {
+ 		conn-&gt;own_ip4 = g_new(IPADDR, 1);
+@@ -145,6 +137,10 @@ static void server_setup_fill(SERVER_CONNECT_REC *conn,
+ 		memcpy(conn-&gt;own_ip6, source_host_ip6, sizeof(IPADDR));
+ 	}
+ 
++	/* proxy settings */
++	if (settings_get_bool("use_proxy"))
++		conn-&gt;proxy = network_proxy_create(settings_get_str("proxy_type"));
++	
+ 	signal_emit("server setup fill connect", 1, conn);
+ }
+ 
+@@ -558,6 +554,7 @@ void servers_setup_init(void)
+ 	settings_add_str("proxy", "proxy_string", "CONNECT %s %d");
+ 	settings_add_str("proxy", "proxy_string_after", "");
+ 	settings_add_str("proxy", "proxy_password", "");
++	settings_add_str("proxy", "proxy_type", "simple");
+ 
+         setupservers = NULL;
+ 	source_host_ip4 = source_host_ip6 = NULL;
+diff --git a/src/core/servers.c b/src/core/servers.c
+index 2e9d11f..eaeaab6 100644
+--- a/src/core/servers.c
++++ b/src/core/servers.c
+@@ -34,6 +34,7 @@
+ #include "servers-setup.h"
+ #include "channels.h"
+ #include "queries.h"
++#include "network-proxy.h"
+ 
+ GSList *servers, *lookup_servers;
+ 
+@@ -221,12 +222,18 @@ static void server_real_connect(SERVER_REC *server, IPADDR *ip,
+ 		own_ip = ip == NULL ? NULL :
+ 			(IPADDR_IS_V6(ip) ? server-&gt;connrec-&gt;own_ip6 :
+ 			 server-&gt;connrec-&gt;own_ip4);
+-		port = server-&gt;connrec-&gt;proxy != NULL ?
+-			server-&gt;connrec-&gt;proxy_port : server-&gt;connrec-&gt;port;
++		port = server-&gt;connrec-&gt;port;
+ 		handle = server-&gt;connrec-&gt;use_ssl ?
+-			net_connect_ip_ssl(ip, port, own_ip, server-&gt;connrec-&gt;ssl_cert, \
+                server-&gt;connrec-&gt;ssl_pkey,
+-server-&gt;connrec-&gt;ssl_cafile, server-&gt;connrec-&gt;ssl_capath, \
+                server-&gt;connrec-&gt;ssl_verify) :
+-			net_connect_ip(ip, port, own_ip);
++			net_connect_proxy_ssl(server-&gt;connrec-&gt;proxy,
++					      server-&gt;connrec-&gt;address, port,
++					      ip, own_ip,
++					      server-&gt;connrec-&gt;ssl_cert,
++					      server-&gt;connrec-&gt;ssl_pkey,
++					      server-&gt;connrec-&gt;ssl_cafile,
++					      server-&gt;connrec-&gt;ssl_capath, server-&gt;connrec-&gt;ssl_verify) :
++			net_connect_proxy(server-&gt;connrec-&gt;proxy,
++					  server-&gt;connrec-&gt;address, port,
++					  ip, own_ip);
+ 	} else {
+ 		handle = net_connect_unix(unix_socket);
+ 	}
+@@ -423,7 +430,7 @@ int server_start_connect(SERVER_REC *server)
+ 		server-&gt;connect_pipe[1] = g_io_channel_unix_new(fd[1]);
+ 
+ 		connect_address = server-&gt;connrec-&gt;proxy != NULL ?
+-			server-&gt;connrec-&gt;proxy : server-&gt;connrec-&gt;address;
++			server-&gt;connrec-&gt;proxy-&gt;host : server-&gt;connrec-&gt;address;
+ 		server-&gt;connect_pid =
+ 			net_gethostbyname_nonblock(connect_address,
+ 						   server-&gt;connect_pipe[1],
+@@ -619,11 +626,9 @@ void server_connect_unref(SERVER_CONNECT_REC *conn)
+ 	if (conn-&gt;connect_handle != NULL)
+ 		net_disconnect(conn-&gt;connect_handle);
+ 
+-	g_free_not_null(conn-&gt;proxy);
+-	g_free_not_null(conn-&gt;proxy_string);
+-	g_free_not_null(conn-&gt;proxy_string_after);
+-	g_free_not_null(conn-&gt;proxy_password);
+-
++	if (conn-&gt;proxy)
++		conn-&gt;proxy-&gt;destroy(conn-&gt;proxy);
++	
+ 	g_free_not_null(conn-&gt;tag);
+ 	g_free_not_null(conn-&gt;address);
+ 	g_free_not_null(conn-&gt;chatnet);
+diff --git a/src/irc/core/irc-servers.c b/src/irc/core/irc-servers.c
+index bb846a0..589bcce 100644
+--- a/src/irc/core/irc-servers.c
++++ b/src/irc/core/irc-servers.c
+@@ -38,6 +38,7 @@
+ #include "servers-reconnect.h"
+ #include "servers-redirect.h"
+ #include "modes.h"
++#include "network-proxy.h"
+ 
+ #include "settings.h"
+ 
+@@ -98,29 +99,31 @@ static void send_message(SERVER_REC *server, const char *target,
+ 	g_free(str);
+ }
+ 
++static void
++irc_send_cmd_now_wrapper(void *srv, char const *cmd)
++{
++	irc_send_cmd_now(srv, cmd);
++}
++
+ static void server_init(IRC_SERVER_REC *server)
+ {
+ 	IRC_SERVER_CONNECT_REC *conn;
+ 	char *address, *ptr, *username, *cmd;
+ 	GTimeVal now;
++	struct network_proxy_send_string_info const	send_info = {
++		.host	=  server-&gt;connrec-&gt;address,
++		.port	=  server-&gt;connrec-&gt;port,
++		.func	=  irc_send_cmd_now_wrapper,
++		.obj    =  server
++	};
+ 
+ 	g_return_if_fail(server != NULL);
+ 
+ 	conn = server-&gt;connrec;
+ 
+-	if (conn-&gt;proxy != NULL &amp;&amp; conn-&gt;proxy_password != NULL &amp;&amp;
+-	    *conn-&gt;proxy_password != '\0') {
+-		cmd = g_strdup_printf("PASS %s", conn-&gt;proxy_password);
+-		irc_send_cmd_now(server, cmd);
+-		g_free(cmd);
+-	}
+-
+-	if (conn-&gt;proxy != NULL &amp;&amp; conn-&gt;proxy_string != NULL) {
+-		cmd = g_strdup_printf(conn-&gt;proxy_string, conn-&gt;address, conn-&gt;port);
+-		irc_send_cmd_now(server, cmd);
+-		g_free(cmd);
+-	}
+-
++	if (conn-&gt;proxy &amp;&amp; conn-&gt;proxy-&gt;send_string)
++		conn-&gt;proxy-&gt;send_string(conn-&gt;proxy, &amp;send_info);
++	
+ 	if (conn-&gt;password != NULL &amp;&amp; *conn-&gt;password != '\0') {
+                 /* send password */
+ 		cmd = g_strdup_printf("PASS %s", conn-&gt;password);
+@@ -153,11 +156,8 @@ static void server_init(IRC_SERVER_REC *server)
+ 	g_free(cmd);
+ 	g_free(username);
+ 
+-	if (conn-&gt;proxy != NULL &amp;&amp; conn-&gt;proxy_string_after != NULL) {
+-		cmd = g_strdup_printf(conn-&gt;proxy_string_after, conn-&gt;address, conn-&gt;port);
+-		irc_send_cmd_now(server, cmd);
+-		g_free(cmd);
+-	}
++	if (conn-&gt;proxy &amp;&amp; conn-&gt;proxy-&gt;send_string_after)
++		conn-&gt;proxy-&gt;send_string_after(conn-&gt;proxy, &amp;send_info);
+ 
+ 	server-&gt;isupport = g_hash_table_new((GHashFunc) g_istr_hash,
+ 					    (GCompareFunc) g_istr_equal);
+-- 
+1.5.4.1
+
+
+</body></email><email><emailId>20080301133133</emailId><senderName>Enrico Scholz</senderName><senderEmail>enrico.scholz@informatik.tu-chemnitz.de</senderEmail><timestampReceived>2008-03-01 13:31:33-0400</timestampReceived><subject>[PATCH] Fixed invalid read in /HELP</subject><body>
+
+This patch fixes
+
+==23538== Invalid read of size 1
+==23538==    at 0x449731: cmd_help (fe-help.c:259)
+==23538==    by 0x4A44FD: signal_emit_real (signals.c:242)
+==23538==    by 0x4A4770: signal_emit (signals.c:286)
+==23538==    by 0x48D7C8: parse_command (commands.c:899)
+==23538==    by 0x48D948: event_command (commands.c:945)
+==23538==    by 0x4A44FD: signal_emit_real (signals.c:242)
+==23538==    by 0x4A4770: signal_emit (signals.c:286)
+==23538==    by 0x41B0B0: key_send_line (gui-readline.c:548)
+==23538==    by 0x4A44FD: signal_emit_real (signals.c:242)
+==23538==    by 0x4A4770: signal_emit (signals.c:286)
+==23538==    by 0x4588D6: sig_multi (keyboard.c:637)
+==23538==    by 0x4A44FD: signal_emit_real (signals.c:242)
+==23538==  Address 0x9D116F7 is 1 bytes before a block of size 1 alloc'd
+==23538==    at 0x4A059F6: malloc (vg_replace_malloc.c:149)
+==23538==    by 0x34306362AA: g_malloc (in /lib64/libglib-2.0.so.0.1400.6)
+==23538==    by 0x343064D35E: g_strdup (in /lib64/libglib-2.0.so.0.1400.6)
+==23538==    by 0x4496F0: cmd_help (fe-help.c:257)
+==23538==    by 0x4A44FD: signal_emit_real (signals.c:242)
+==23538==    by 0x4A4770: signal_emit (signals.c:286)
+==23538==    by 0x48D7C8: parse_command (commands.c:899)
+==23538==    by 0x48D948: event_command (commands.c:945)
+==23538==    by 0x4A44FD: signal_emit_real (signals.c:242)
+==23538==    by 0x4A4770: signal_emit (signals.c:286)
+==23538==    by 0x41B0B0: key_send_line (gui-readline.c:548)
+==23538==    by 0x4A44FD: signal_emit_real (signals.c:242)
+
+which happens when executing a plain '/HELP'.
+---
+ src/fe-common/core/fe-help.c |    8 ++++++--
+ 1 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/src/fe-common/core/fe-help.c b/src/fe-common/core/fe-help.c
+index 76e4c6d..98dfab9 100644
+--- a/src/fe-common/core/fe-help.c
++++ b/src/fe-common/core/fe-help.c
+@@ -255,8 +255,12 @@ static void cmd_help(const char *data)
+ 	char *cmd, *ptr;
+ 
+ 	cmd = g_strdup(data);
+-	ptr = cmd+strlen(cmd);
+-	while (ptr[-1] == ' ') ptr--; *ptr = '\0';
++	ptr = cmd + strlen(cmd);
++
++	while (ptr&gt;cmd &amp;&amp; ptr[-1] == ' ')
++		--ptr;
++
++	*ptr = '\0';
+ 
+ 	g_strdown(cmd);
+ 	show_help(cmd);
+-- 
+1.5.4.1
+
+
+</body></email><email><emailId>20080712174705</emailId><senderName>Skywing</senderName><senderEmail>skywing@valhallalegends.com</senderEmail><timestampReceived>2008-07-12 17:47:05-0400</timestampReceived><subject>Irssi doesn't seem to handle overlapping keyboard_entry_redirect</subject><body>
+
+Hi,
+
+If there are multiple overlapping calls to keyboard_entry_redirect() made w=
+hile one redirect request is in progress, it seems that memory for all call=
+backs except the most recent one is leaked.
+
+sig_gui_entry_redirect() in fe-text/gui-readline.c will not handle the case=
+ where "redir" is already valid.
+
+Worse, the old callbacks will never get called, which may break the state o=
+f anything depending on the callback being eventually called.  Furthermore =
+there seems to be no mechanism to signal a failure from keyboard_entry_redi=
+rect(), thus the API interface is a bit broken as there's no simple way to =
+handle this right now.
+
+Individual irssi plugins can work around this by keeping track of their out=
+standing calls to keyboard_entry_redirect and making sure that there's neve=
+r &gt;1 overlapping call, but if another irssi plugin, or irssi itself, were t=
+o call keyboard_entry_redirect(), then this breaks down.
+
+I ran into this while rewriting some of the keyboard prompt code for the si=
+lc plugin for irssi.  I am working around this by making sure the silc plug=
+in never calls keyboard_entry_redirect in an overlapped fashion, but we are=
+ still a bit hosed if somebody else calls it while we have an outstanding r=
+equest in flight.
+
+This really needs to be addressed in the irssi core.
+
+(This is based off of irssi 0.8.12.)
+
+- S
+
+[Attachment #3 (text/html)]
+
+&lt;html xmlns:v="urn:schemas-microsoft-com:vml" \
+xmlns:o="urn:schemas-microsoft-com:office:office" \
+xmlns:w="urn:schemas-microsoft-com:office:word" \
+xmlns:x="urn:schemas-microsoft-com:office:excel" \
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint" \
+xmlns:a="urn:schemas-microsoft-com:office:access" \
+xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" \
+xmlns:s="uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882" \
+xmlns:rs="urn:schemas-microsoft-com:rowset" xmlns:z="#RowsetSchema" \
+xmlns:b="urn:schemas-microsoft-com:office:publisher" \
+xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" \
+xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet" \
+xmlns:oa="urn:schemas-microsoft-com:office:activation" \
+xmlns:html="http://www.w3.org/TR/REC-html40" \
+xmlns:q="http://schemas.xmlsoap.org/soap/envelope/" xmlns:D="DAV:" \
+xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml" \
+xmlns:ois="http://schemas.microsoft.com/sharepoint/soap/ois/" \
+xmlns:dir="http://schemas.microsoft.com/sharepoint/soap/directory/" \
+xmlns:ds="http://www.w3.org/2000/09/xmldsig#" \
+xmlns:dsp="http://schemas.microsoft.com/sharepoint/dsp" \
+xmlns:udc="http://schemas.microsoft.com/data/udc" \
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" \
+xmlns:sub="http://schemas.microsoft.com/sharepoint/soap/2002/1/alerts/" \
+xmlns:ec="http://www.w3.org/2001/04/xmlenc#" \
+xmlns:sp="http://schemas.microsoft.com/sharepoint/" \
+xmlns:sps="http://schemas.microsoft.com/sharepoint/soap/" \
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
+xmlns:udcxf="http://schemas.microsoft.com/data/udc/xmlfile" \
+xmlns:wf="http://schemas.microsoft.com/sharepoint/soap/workflow/" \
+xmlns:mver="http://schemas.openxmlformats.org/markup-compatibility/2006" \
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" \
+xmlns:mrels="http://schemas.openxmlformats.org/package/2006/relationships" \
+xmlns:ex12t="http://schemas.microsoft.com/exchange/services/2006/types" \
+xmlns:ex12m="http://schemas.microsoft.com/exchange/services/2006/messages" \
+xmlns:Z="urn:schemas-microsoft-com:" xmlns="http://www.w3.org/TR/REC-html40"&gt;
+
+&lt;head&gt;
+&lt;META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=us-ascii"&gt;
+&lt;meta name=Generator content="Microsoft Word 12 (filtered medium)"&gt;
+&lt;style&gt;
+&lt;!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.Section1
+	{page:Section1;}
+--&gt;
+&lt;/style&gt;
+&lt;!--[if gte mso 9]&gt;&lt;xml&gt;
+ &lt;o:shapedefaults v:ext="edit" spidmax="1026" /&gt;
+&lt;/xml&gt;&lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;xml&gt;
+ &lt;o:shapelayout v:ext="edit"&gt;
+  &lt;o:idmap v:ext="edit" data="1" /&gt;
+ &lt;/o:shapelayout&gt;&lt;/xml&gt;&lt;![endif]--&gt;
+&lt;/head&gt;
+
+&lt;body lang=EN-US link=blue vlink=purple&gt;
+
+&lt;div class=Section1&gt;
+
+&lt;p class=MsoNormal&gt;Hi,&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;If there are multiple overlapping calls to
+keyboard_entry_redirect() made while one redirect request is in progress, it
+seems that memory for all callbacks except the most recent one is \
+leaked.&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;sig_gui_entry_redirect() in fe-text/gui-readline.c will not
+handle the case where “redir” is already valid.&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;Worse, the old callbacks will never get called, which may
+break the state of anything depending on the callback being eventually called. 
+Furthermore there seems to be no mechanism to signal a failure from
+keyboard_entry_redirect(), thus the API interface is a bit broken as there’s
+no simple way to handle this right now.&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;Individual irssi plugins can work around this by keeping
+track of their outstanding calls to keyboard_entry_redirect and making sure
+that there’s never &gt;1 overlapping call, but if another irssi plugin,
+or irssi itself, were to call keyboard_entry_redirect(), then this breaks \
+down.&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;I ran into this while rewriting some of the keyboard prompt
+code for the silc plugin for irssi.  I am working around this by making sure
+the silc plugin never calls keyboard_entry_redirect in an overlapped fashion,
+but we are still a bit hosed if somebody else calls it while we have an
+outstanding request in flight.&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;This really needs to be addressed in the irssi \
+core.&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;(This is based off of irssi 0.8.12.)&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;- S&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+
+
+</body></email><email><emailId>20080326205258</emailId><senderName>Skywing</senderName><senderEmail>skywing@valhallalegends.com</senderEmail><timestampReceived>2008-03-26 20:52:58-0400</timestampReceived><subject>[PATCH] Fix for segfault on send message with silc plugin</subject><body>
+
+This fixes a segfault when using the silc-client-1.1.4 silc client plugin (i.e. loadable silc module for irssi and not replacing irc support with silc).  Specifically, whenever you tried to send a message, we would segfault in skip_target() due to a null dereference.
+
+Patch is against 0.8.12.
+
+-S
+
+--
+
+
+diff -ru irssi_orig/src/fe-common/irc/fe-irc-messages.c irssi-0.8.12/src/fe-common/irc/fe-irc-messages.c
+--- irssi_orig/src/fe-common/irc/fe-irc-messages.c      2007-10-06 04:40:39.000000000 -0500
++++ irssi-0.8.12/src/fe-common/irc/fe-irc-messages.c    2008-03-25 21:32:05.000000000 -0500
+@@ -43,6 +43,9 @@
+        int i = 0;
+        const char *val, *chars;
+
++       if (!server)
++               return target;
++
+        /* Quick check */
+        if (server-&gt;prefix[(int)(unsigned char)*target] == 0)
+                return target;
+
+
+
+
+</body></email><email><emailId>20081117001659</emailId><senderName>Rich Healey</senderName><senderEmail>richo@psych0tik.net</senderEmail><timestampReceived>2008-11-17 00:16:59-0400</timestampReceived><subject>Re: pre_connect_cmd</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Wouter Coekaerts wrote:
+&gt; Hi,
+&gt; 
+&gt; This looks like something that could be done in a script. The executing of the 
+&gt; command doesn't have to be added in irssi itself, you can listen on the 
+&gt; appropriate signal and execute the command there. The "server connecting" 
+&gt; signal looks like a good candidate.
+&gt; 
+&gt; Regards,
+&gt; 
+&gt; Wouter.
+&gt; 
+&gt; 
+Thanks for this, I will continue to make my mods, but won't submit them
+to the list if they're unneccessary (I learned a lot about irssi while
+doing that one).
+
+Could you give me some pointers for what to google to learn how to do
+this with a script? My C isn't great but my perl is appalling.
+
+Thanks for the reply.
+
+Rich
+
+- --
+Richo -                                          - richo@psych0tik.net
+Developer / Systems Admin                       - OpenPGP: 0x8C8147807
+MSN: bitchohealey@hotmail.com                       AIM: richohealey33
+irc.psych0tik.net    -&gt;              #hbh #admin       ((richohealey))
+irc.freenode.org     -&gt;              #hbh #debian      ((PythonNinja))
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.9 (MingW32)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iEYEARECAAYFAkkgt/sACgkQLeTfO4yBSAexpQCgr272tTVQr6hlnh/tvBt+vshG
+j24An1sYVhh4pXAOvbY2VD6XiODgN9wl
+=EO7A
+-----END PGP SIGNATURE-----
+
+</body></email><email><emailId>20080829165159</emailId><senderName>"Lee Lowder"</senderName><senderEmail>lowder4@gmail.com</senderEmail><timestampReceived>2008-08-29 16:51:59-0400</timestampReceived><subject>Re: Dev questions</subject><body>
+
+The Centro runs on Palm OS 5.0 Garnett,which is one of the reasons I chose
+it over the last couple editions of Treo.
+
+I did find an SSH client I can use, but it has a few issues, and is rather
+slow and unresponsive,not sure of it is the client or the connection though.
+
+I guess I will need to either get my Linux box back up, or leave my mactop
+running during the day.
+
+Thanks for the info, I explore some of those options and see what else I
+might want to run local.  Maybe tf, or I may look into getting a better ssh
+client hacked and ported over.
+
+On Fri, Aug 29, 2008 at 11:36 AM, Skywing &lt;Skywing@valhallalegends.com&gt;wrote:
+
+&gt;  My recommendation on using IRC/SILC from a mobile device, which may not
+&gt; be the answer that you were looking for, would be to run irssi from a
+&gt; dedicated location in screen, and connect in with an SSH client from your
+&gt; device.
+&gt;
+&gt;
+&gt;
+&gt; Personally, I find this to be a much better arrangement than running an irc
+&gt; client locally.  Packet processing work is done remotely (and I can leave
+&gt; irssi parked at the status screen when I am not looking at it), which means
+&gt; the data link doesn't wake up on every channel message, which is easier on
+&gt; your battery life.  Plus, you aren't going to be losing your link every time
+&gt; your phone gets restarted, you get on a plane, etc.  (This was particularly
+&gt; important for me, as my carrier deliberately drops data links after 24 hours
+&gt; of continuous connectivity, requiring a reconnect to the PPP link with a new
+&gt; IP address assigned (typically).  Your carrier may not have this issue,
+&gt; however.)
+&gt;
+&gt;
+&gt;
+&gt; If you go this route, you probably will want to turn off the clock in the
+&gt; irssi ncurses UI, as screen updates every minute would be bad on battery if
+&gt; you leave your SSH client habitually open.
+&gt;
+&gt;
+&gt;
+&gt; I don't know of a particularly good SSH client for PalmOS that might be
+&gt; suitable for this, but I hacked up the PocketPC (Windows Mobile) port of
+&gt; PuTTY to be suitable for my uses [auto-reconnect, bug fixes, some other
+&gt; various improvements to reduce various frequently re-occurring headaches].
+&gt; Probably not particularly easy to port to PalmOS (unless your Palm is of the
+&gt; Windows Mobile sort), though.
+&gt;
+&gt;
+&gt;
+&gt; This recommendation is a lil bit off-topic for the dev list at this point,
+&gt; though.  (Although the irssi dev list is pretty much dead as a doornail in
+&gt; recent months, anyway.)
+&gt;
+&gt;
+&gt;
+&gt; - S
+&gt;
+&gt;
+&gt;
+&gt; *From:* irssi-dev-bounce@dragoncat.net [mailto:
+&gt; irssi-dev-bounce@dragoncat.net] *On Behalf Of *Lee Lowder
+&gt; *Sent:* Friday, August 29, 2008 12:25 PM
+&gt; *To:* irssi-dev@dragoncat.net
+&gt; *Subject:* Dev questions
+&gt;
+&gt;
+&gt;
+&gt; I was wondering if anyone had done any work on porting irssi to the Palm
+&gt; platform, and if not, if anyone would be interested.
+&gt;
+&gt;
+&gt;
+&gt; I've recently obtained a Palm Centro phone, and I have a data plan with my
+&gt; carrier and I have the Palm SDK.
+&gt;
+&gt;
+&gt;
+&gt; And since irssi (macirssi on my mactop) is the only IRC client I find to be
+&gt; worth using, I wanted to see if I could get it on my phone.
+&gt;
+&gt;
+&gt;
+&gt; I do have some dev experience, but not much specifically with Palm or with
+&gt; irssi, other than some scripts.
+&gt;
+&gt;
+&gt;
+&gt; Thank you.
+&gt;
+
+[Attachment #3 (text/html)]
+
+&lt;div dir="ltr"&gt;&lt;div&gt;The Centro runs on Palm OS 5.0 Garnett,which is one of the \
+reasons I chose it over the last couple editions of Treo.&lt;/div&gt; &lt;div&gt; &lt;/div&gt;
+&lt;div&gt;I did find an SSH client I can use, but it has a few issues, and is rather slow \
+and unresponsive,not sure of it is the client or the connection though.&lt;/div&gt; \
+&lt;div&gt; &lt;/div&gt; &lt;div&gt;I guess I will need to either get my Linux box back up, or \
+leave my mactop running during the day.&lt;/div&gt; &lt;div&gt; &lt;/div&gt;
+&lt;div&gt;Thanks for the info, I explore some of those options and see what else I might \
+want to run local.  Maybe tf, or I may look into getting a better ssh client \
+hacked and ported over.&lt;br&gt;&lt;br&gt;&lt;/div&gt; &lt;div class="gmail_quote"&gt;On Fri, Aug 29, 2008 \
+at 11:36 AM, Skywing &lt;span dir="ltr"&gt;&lt;&lt;a \
+href="mailto:Skywing@valhallalegends.com"&gt;Skywing@valhallalegends.com&lt;/a&gt;&gt;&lt;/span&gt; \
+wrote:&lt;br&gt; &lt;blockquote class="gmail_quote" style="PADDING-LEFT: 1ex; MARGIN: 0px 0px \
+0px 0.8ex; BORDER-LEFT: #ccc 1px solid"&gt; &lt;div lang="EN-US" vlink="purple" \
+link="blue"&gt; &lt;div&gt;
+&lt;p&gt;&lt;span style="FONT-SIZE: 11pt; COLOR: #1f497d"&gt;My recommendation on using IRC/SILC \
+from a mobile device, which may not be the answer that you were looking for, would be \
+to run irssi from a dedicated location in screen, and connect in with an SSH client \
+from your device.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span style="FONT-SIZE: 11pt; COLOR: #1f497d"&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="FONT-SIZE: 11pt; COLOR: #1f497d"&gt;Personally, I find this to be a much \
+better arrangement than running an irc client locally.  Packet processing work \
+is done remotely (and I can leave irssi parked at the status screen when I am not \
+looking at it), which means the data link doesn't wake up on every channel message, \
+which is easier on your battery life.  Plus, you aren't going to be losing your \
+link every time your phone gets restarted, you get on a plane, etc.  (This was \
+particularly important for me, as my carrier deliberately drops data links after 24 \
+hours of continuous connectivity, requiring a reconnect to the PPP link with a new IP \
+address assigned (typically).  Your carrier may not have this issue, \
+however.)&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span style="FONT-SIZE: 11pt; COLOR: #1f497d"&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="FONT-SIZE: 11pt; COLOR: #1f497d"&gt;If you go this route, you probably \
+will want to turn off the clock in the irssi ncurses UI, as screen updates every \
+minute would be bad on battery if you leave your SSH client habitually \
+open.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span style="FONT-SIZE: 11pt; COLOR: #1f497d"&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="FONT-SIZE: 11pt; COLOR: #1f497d"&gt;I don't know of a particularly good \
+SSH client for PalmOS that might be suitable for this, but I hacked up the PocketPC \
+(Windows Mobile) port of PuTTY to be suitable for my uses [auto-reconnect, bug fixes, \
+some other various improvements to reduce various frequently re-occurring \
+headaches].  Probably not particularly easy to port to PalmOS (unless your Palm \
+is of the Windows Mobile sort), though.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span style="FONT-SIZE: 11pt; COLOR: #1f497d"&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="FONT-SIZE: 11pt; COLOR: #1f497d"&gt;This recommendation is a lil bit \
+off-topic for the dev list at this point, though.  (Although the irssi dev list \
+is pretty much dead as a doornail in recent months, anyway.)&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;span style="FONT-SIZE: 11pt; COLOR: #1f497d"&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="FONT-SIZE: 11pt; COLOR: #1f497d"&gt;- S&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="FONT-SIZE: 11pt; COLOR: #1f497d"&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;div style="BORDER-RIGHT: medium none; PADDING-RIGHT: 0in; BORDER-TOP: #b5c4df 1pt \
+solid; PADDING-LEFT: 0in; PADDING-BOTTOM: 0in; BORDER-LEFT: medium none; PADDING-TOP: \
+3pt; BORDER-BOTTOM: medium none"&gt; &lt;p&gt;&lt;b&gt;&lt;span style="FONT-SIZE: \
+10pt"&gt;From:&lt;/span&gt;&lt;/b&gt;&lt;span style="FONT-SIZE: 10pt"&gt; &lt;a \
+href="mailto:irssi-dev-bounce@dragoncat.net" \
+target="_blank"&gt;irssi-dev-bounce@dragoncat.net&lt;/a&gt; [mailto:&lt;a \
+href="mailto:irssi-dev-bounce@dragoncat.net" \
+target="_blank"&gt;irssi-dev-bounce@dragoncat.net&lt;/a&gt;] &lt;b&gt;On Behalf Of &lt;/b&gt;Lee \
+Lowder&lt;br&gt; &lt;b&gt;Sent:&lt;/b&gt; Friday, August 29, 2008 12:25 PM&lt;br&gt;&lt;b&gt;To:&lt;/b&gt; &lt;a \
+href="mailto:irssi-dev@dragoncat.net" \
+target="_blank"&gt;irssi-dev@dragoncat.net&lt;/a&gt;&lt;br&gt;&lt;b&gt;Subject:&lt;/b&gt; Dev \
+questions&lt;/span&gt;&lt;/p&gt;&lt;/div&gt; &lt;div&gt;
+&lt;div&gt;&lt;/div&gt;
+&lt;div class="Wj3C7c"&gt;
+&lt;p&gt; &lt;/p&gt;
+&lt;div&gt;
+&lt;div&gt;
+&lt;p&gt;I was wondering if anyone had done any work on porting irssi to the Palm platform, \
+and if not, if anyone would be interested.&lt;/p&gt;&lt;/div&gt; &lt;div&gt;
+&lt;p&gt; &lt;/p&gt;&lt;/div&gt;
+&lt;div&gt;
+&lt;p&gt;I've recently obtained a Palm Centro phone, and I have a data plan with my \
+carrier and I have the Palm SDK.&lt;/p&gt;&lt;/div&gt; &lt;div&gt;
+&lt;p&gt; &lt;/p&gt;&lt;/div&gt;
+&lt;div&gt;
+&lt;p&gt;And since irssi (macirssi on my mactop) is the only IRC client I find to be worth \
+using, I wanted to see if I could get it on my phone.&lt;/p&gt;&lt;/div&gt; &lt;div&gt;
+&lt;p&gt; &lt;/p&gt;&lt;/div&gt;
+&lt;div&gt;
+&lt;p&gt;I do have some dev experience, but not much specifically with Palm or with irssi, \
+other than some scripts.&lt;/p&gt;&lt;/div&gt; &lt;div&gt;
+&lt;p&gt; &lt;/p&gt;&lt;/div&gt;
+&lt;div&gt;
+&lt;p&gt;Thank you.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/blockquote&gt;&lt;/div&gt;&lt;br&gt;&lt;/div&gt;
+
+
+
+</body></email><email><emailId>20080227103820</emailId><senderName>Enrico Scholz</senderName><senderEmail>enrico.scholz@informatik.tu-chemnitz.de</senderEmail><timestampReceived>2008-02-27 10:38:20-0400</timestampReceived><subject>[PATCH 2/5] PROXY/SIMPLE: added simple proxy method</subject><body>
+
+This method implements the string + string_after mechanism implemented by
+previous irssi versions.
+
+To use, set
+* proxy_type to 'simple' or keep it empty
+* string + string_after in the known ways
+
+Signed-off-by: Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
+---
+ src/core/network-proxy-simple.c |  121 +++++++++++++++++++++++++++++++++++++++
+ src/core/network-proxy-simple.h |   32 ++++++++++
+ 2 files changed, 153 insertions(+), 0 deletions(-)
+ create mode 100644 src/core/network-proxy-simple.c
+ create mode 100644 src/core/network-proxy-simple.h
+
+diff --git a/src/core/network-proxy-simple.c b/src/core/network-proxy-simple.c
+new file mode 100644
+index 0000000..a7ac1fa
+--- /dev/null
++++ b/src/core/network-proxy-simple.c
+@@ -0,0 +1,121 @@
++/*	--*- c -*--
++ * Copyright (C) 2008 Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; version 2 and/or 3 of the License.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
++ */
++
++#include "module.h"
++#include "network-proxy-simple.h"
++
++#include "network-proxy-priv.h"
++#include "network.h"
++
++static void
++network_proxy_simple_destroy(struct network_proxy *proxy)
++{
++	struct _network_proxy_simple	*self = container_of(proxy, struct _network_proxy_simple, proxy);
++
++	g_free((void *)self-&gt;password);
++	g_free((void *)self-&gt;string_after);
++	g_free((void *)self-&gt;string);
++
++	_network_proxy_destroy(proxy);
++
++	g_free(self);
++}
++
++static struct network_proxy *
++network_proxy_simple_clone(struct network_proxy const *proxy)
++{
++	struct _network_proxy_simple	*self = container_of(proxy, struct _network_proxy_simple, proxy);
++	struct _network_proxy_simple	*res;
++
++	res = g_malloc0(sizeof *res);
++
++	_network_proxy_clone(&amp;res-&gt;proxy, &amp;self-&gt;proxy);
++
++	res-&gt;string       = g_strdup(self-&gt;string);
++	res-&gt;string_after = g_strdup(self-&gt;string_after);
++	res-&gt;password     = g_strdup(self-&gt;password);
++	return &amp;res-&gt;proxy;
++}
++
++static GIOChannel *
++network_proxy_simple_connect(struct network_proxy const *proxy, IPADDR const *hint_ip,
++			     char const *address, int port)
++{
++	struct _network_proxy_simple	*self = container_of(proxy, struct _network_proxy_simple, proxy);
++
++	(void)address;
++	(void)port;
++	if (hint_ip)
++		return net_connect_ip(hint_ip, self-&gt;proxy.port, NULL);
++	else
++		return net_connect(self-&gt;proxy.host, self-&gt;proxy.port, NULL);
++}
++
++static void
++network_proxy_simple_send_string(struct network_proxy const *proxy,
++				 struct network_proxy_send_string_info const *info)
++{
++	struct _network_proxy_simple	*self = container_of(proxy, struct _network_proxy_simple, proxy);
++	char				*cmd;
++
++	if (self-&gt;password &amp;&amp; self-&gt;password[0]) {
++		cmd = g_strdup_printf("PASS %s", self-&gt;password);
++		info-&gt;func(info-&gt;obj, cmd);
++		g_free(cmd);
++	}
++
++	if (self-&gt;string &amp;&amp; self-&gt;string[0]) {
++		cmd = g_strdup_printf(self-&gt;string, info-&gt;host, info-&gt;port);
++		info-&gt;func(info-&gt;obj, cmd);
++		g_free(cmd);
++	}
++}
++
++static void
++network_proxy_simple_send_string_after(struct network_proxy const *proxy,
++				 struct network_proxy_send_string_info const *info)
++{
++	struct _network_proxy_simple	*self = container_of(proxy, struct _network_proxy_simple, proxy);
++	char				*cmd;
++
++	if (self-&gt;string_after &amp;&amp; self-&gt;string_after[0]) {
++		cmd = g_strdup_printf(self-&gt;string_after, info-&gt;host, info-&gt;port);
++		info-&gt;func(info-&gt;obj, cmd);
++		g_free(cmd);
++	}
++}
++
++struct network_proxy *
++_network_proxy_simple_create(void)
++{
++	struct _network_proxy_simple	*res;
++
++	res = g_malloc0(sizeof *res);
++
++	_network_proxy_create(&amp;res-&gt;proxy);
++	res-&gt;string        = g_strdup(settings_get_str("proxy_string"));
++	res-&gt;string_after  = g_strdup(settings_get_str("proxy_string_after"));
++	res-&gt;password      = g_strdup(settings_get_str("proxy_password"));
++
++	res-&gt;proxy.destroy = network_proxy_simple_destroy;
++	res-&gt;proxy.connect = network_proxy_simple_connect;
++	res-&gt;proxy.clone   = network_proxy_simple_clone;
++
++	res-&gt;proxy.send_string       = network_proxy_simple_send_string;
++	res-&gt;proxy.send_string_after = network_proxy_simple_send_string_after;
++
++	return &amp;res-&gt;proxy;
++}
+diff --git a/src/core/network-proxy-simple.h b/src/core/network-proxy-simple.h
+new file mode 100644
+index 0000000..b2132cf
+--- /dev/null
++++ b/src/core/network-proxy-simple.h
+@@ -0,0 +1,32 @@
++/*	--*- c -*--
++ * Copyright (C) 2008 Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; version 2 and/or 3 of the License.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
++ */
++
++#ifndef H_IRSSI_SRC_CORE_PROXY_SIMPLE_H
++#define H_IRSSI_SRC_CORE_PROXY_SIMPLE_H
++
++#include "network-proxy.h"
++
++struct _network_proxy_simple {
++	struct network_proxy	proxy;
++
++	char const		*string_after;
++	char const		*string;
++	char const		*password;
++};
++
++struct network_proxy *		_network_proxy_simple_create(void);
++
++#endif	/* H_IRSSI_SRC_CORE_PROXY_SIMPLE_H */
+-- 
+1.5.4.1
+
+
+</body></email><email><emailId>20080227103821</emailId><senderName>Enrico Scholz</senderName><senderEmail>enrico.scholz@informatik.tu-chemnitz.de</senderEmail><timestampReceived>2008-02-27 10:38:21-0400</timestampReceived><subject>[PATCH 3/5] PROXY/HTTP: added methods for HTTP proxies</subject><body>
+
+This patch adds code for connecting through HTTP proxies. Open issues are:
+
+* support of proxy authentication
+* a possible DOS due to the usage of g_io_channel_read_line_string() which
+  does not allow to specify a maximum length of line.
+
+To use this method:
+* set 'proxy_type' to 'http'
+
+Signed-off-by: Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
+---
+ src/core/network-proxy-http.c |  193 +++++++++++++++++++++++++++++++++++++++++
+ src/core/network-proxy-http.h |   29 ++++++
+ 2 files changed, 222 insertions(+), 0 deletions(-)
+ create mode 100644 src/core/network-proxy-http.c
+ create mode 100644 src/core/network-proxy-http.h
+
+diff --git a/src/core/network-proxy-http.c b/src/core/network-proxy-http.c
+new file mode 100644
+index 0000000..3e79d78
+--- /dev/null
++++ b/src/core/network-proxy-http.c
+@@ -0,0 +1,193 @@
++/*	--*- c -*--
++ * Copyright (C) 2008 Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; version 2 and/or 3 of the License.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
++ */
++
++#include "module.h"
++#include "network-proxy-http.h"
++
++#include &lt;stdlib.h&gt;
++#include &lt;stdint.h&gt;
++#include &lt;stdio.h&gt;
++#include &lt;string.h&gt;
++
++#include "network.h"
++#include "network-proxy-priv.h"
++
++static void
++network_proxy_http_destroy(struct network_proxy *proxy)
++{
++	struct _network_proxy_http	*self = container_of(proxy, struct _network_proxy_http, proxy);
++
++	g_free((void *)self-&gt;password);
++	_network_proxy_destroy(proxy);
++
++	g_free(self);
++}
++
++static struct network_proxy *
++network_proxy_http_clone(struct network_proxy const *proxy)
++{
++	struct _network_proxy_http	*self = container_of(proxy, struct _network_proxy_http, proxy);
++	struct _network_proxy_http	*res;
++
++	res = g_malloc0(sizeof *res);
++
++	_network_proxy_clone(&amp;res-&gt;proxy, &amp;self-&gt;proxy);
++	res-&gt;password = g_strdup(self-&gt;password);
++	return &amp;res-&gt;proxy;
++}
++
++static bool
++send_connect(struct _network_proxy_http *proxy, GIOChannel *ch, char const *address, uint16_t port)
++{
++	char				port_str[6];
++
++	(void)proxy;
++	sprintf(port_str, "%u", port);
++
++	if (!_network_proxy_send_all(ch, "CONNECT ", -1) ||
++	    !_network_proxy_send_all(ch, address,    -1) ||
++	    !_network_proxy_send_all(ch, ":",        -1) ||
++	    !_network_proxy_send_all(ch, port_str,   -1) ||
++	    !_network_proxy_send_all(ch, " HTTP/1.0\r\n\r\n", -1) ||
++	    !_network_proxy_flush(ch))
++		return -1;
++
++	return true;
++}
++
++static int
++read_response(struct _network_proxy_http *proxy, GIOChannel *ch)
++{
++	GIOStatus			status;
++	GString				line = { .str = NULL };
++	gsize				term_pos;
++	GError				*err = NULL;
++	int				state = 0;
++	int				rc = 0;
++	gchar				*resp = NULL;
++
++	(void)proxy;
++	for (;;) {
++		/* TODO: a malicious proxy can DOS us by sending much data
++		 * without a line break */
++		while ((status=g_io_channel_read_line_string(ch, &amp;line, &amp;term_pos,
++							     &amp;err))==G_IO_STATUS_AGAIN)
++		{
++			/* noop */
++		}
++
++		if (status!=G_IO_STATUS_NORMAL) {
++			g_warning("failed to read HTTP response: %s", err-&gt;message);
++			goto err;
++		}
++
++		if (state==0) {
++			if (g_str_has_prefix(line.str, "HTTP/1.0 ")) {
++				resp = g_strndup(line.str+9, line.len-9-2);
++				rc   = g_ascii_strtoull(resp, NULL, 10);
++			} else {
++				g_warning("unexpected HTTP response: '%s'", line.str);
++				goto err;
++			}
++
++			/* state=1 ... read additional response headers
++			 *             (ignored for now) */
++			state=1;
++		}
++
++		if (line.len==2)	/* only the \r\n terminators */
++			break;
++	}
++
++	if (rc!=200)
++		g_warning("unexpected HTTP response code: %s", resp);
++
++	g_free(resp);
++	g_free(line.str);
++	return rc;
++
++err:
++	g_free(resp);
++	g_free(line.str);
++	return -1;
++}
++
++static GIOChannel *
++network_proxy_http_connect(struct network_proxy const *proxy, IPADDR const *hint_ip,
++			   char const *address, int port)
++{
++	struct _network_proxy_http	*self = container_of(proxy, struct _network_proxy_http, proxy);
++	GIOChannel			*ch;
++	GIOFlags			old_flags;
++	GError				*err = NULL;
++	gchar const			*line_term;
++	gint				line_term_sz;
++
++	if (hint_ip)
++		ch = net_connect_ip(hint_ip, self-&gt;proxy.port, NULL);
++	else
++		ch = net_connect(self-&gt;proxy.host, self-&gt;proxy.port, NULL);
++
++	if (!ch)
++		return NULL;
++
++	/* set \r\n line delims */
++	line_term = g_io_channel_get_line_term(ch, &amp;line_term_sz);
++	g_io_channel_set_line_term(ch, "\r\n", 2);
++
++	/* set to non-blocking */
++	old_flags = g_io_channel_get_flags(ch);
++	if (g_io_channel_set_flags(ch, old_flags &amp; ~G_IO_FLAG_NONBLOCK, &amp;err)!=G_IO_STATUS_NORMAL)
++		goto err;
++
++	if (!send_connect(self, ch, address, port) ||
++	    read_response(self, ch)!=200)
++		goto err;
++
++	if (g_io_channel_set_flags(ch, old_flags, &amp;err)!=G_IO_STATUS_NORMAL)
++		goto err;
++
++	g_io_channel_set_line_term(ch, line_term, line_term_sz);
++	return ch;
++err:
++	if (err) {
++		g_warning("something went wrong while preparing HTTP proxy request: %s",
++			  err-&gt;message);
++		g_error_free(err);
++	}
++
++	net_disconnect(ch);
++	return NULL;
++
++}
++
++
++struct network_proxy *
++_network_proxy_http_create(void)
++{
++	struct _network_proxy_http	*res;
++
++	res = g_malloc0(sizeof *res);
++
++	_network_proxy_create(&amp;res-&gt;proxy);
++	res-&gt;password    = g_strdup(settings_get_str("proxy_password"));
++
++	res-&gt;proxy.destroy = network_proxy_http_destroy;
++	res-&gt;proxy.connect = network_proxy_http_connect;
++	res-&gt;proxy.clone   = network_proxy_http_clone;
++
++	return &amp;res-&gt;proxy;
++}
+diff --git a/src/core/network-proxy-http.h b/src/core/network-proxy-http.h
+new file mode 100644
+index 0000000..92405fa
+--- /dev/null
++++ b/src/core/network-proxy-http.h
+@@ -0,0 +1,29 @@
++/*	--*- c -*--
++ * Copyright (C) 2008 Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; version 2 and/or 3 of the License.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
++ */
++
++#ifndef H_IRSSI_SRC_CORE_PROXY_HTTP_H
++#define H_IRSSI_SRC_CORE_PROXY_HTTP_H
++
++#include "network-proxy.h"
++
++struct _network_proxy_http {
++	struct network_proxy	proxy;
++	char const		*password;
++};
++
++struct network_proxy *		_network_proxy_http_create(void);
++
++#endif	/* H_IRSSI_SRC_CORE_PROXY_HTTP_H */
+-- 
+1.5.4.1
+
+
+</body></email><email><emailId>20080227103822</emailId><senderName>Enrico Scholz</senderName><senderEmail>enrico.scholz@informatik.tu-chemnitz.de</senderEmail><timestampReceived>2008-02-27 10:38:22-0400</timestampReceived><subject>[PATCH 4/5] PROXY/SOCKS5: added methods for SOCKS5 proxies</subject><body>
+
+This patch adds code for connecting through SOCKS5 proxies. It was
+primarily written for use with TOR, so there are some open issues:
+
+* it only allows to make proxy requests with full hostnames; ipv4/ipv6 is
+  not supported
+
+* GSSAPI authentication (which is mentioned as mandatory in RFC 1928) is
+  not implemented
+
+* plaintext authentication is untested
+
+To use it
+* set 'proxy_type' to 'socks5'
+
+Signed-off-by: Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
+---
+ src/core/network-proxy-socks5.c |  338 +++++++++++++++++++++++++++++++++++++++
+ src/core/network-proxy-socks5.h |   31 ++++
+ 2 files changed, 369 insertions(+), 0 deletions(-)
+ create mode 100644 src/core/network-proxy-socks5.c
+ create mode 100644 src/core/network-proxy-socks5.h
+
+diff --git a/src/core/network-proxy-socks5.c b/src/core/network-proxy-socks5.c
+new file mode 100644
+index 0000000..64a8f51
+--- /dev/null
++++ b/src/core/network-proxy-socks5.c
+@@ -0,0 +1,338 @@
++/*	--*- c -*--
++ * Copyright (C) 2008 Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; version 2 and/or 3 of the License.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
++ */
++
++#include "module.h"
++#include "network-proxy-socks5.h"
++
++#include &lt;stdlib.h&gt;
++#include &lt;stdint.h&gt;
++
++#include "network.h"
++#include "network-proxy-priv.h"
++
++/* RFC 1928 */
++struct client_greeting
++{
++	uint8_t		ver;
++	uint8_t		nmethods;
++	uint8_t		methods[];
++} __attribute__((__packed__));
++
++struct server_greeting
++{
++	uint8_t		ver;
++	uint8_t		method;
++} __attribute__((__packed__));
++
++struct server_response_plain
++{
++	uint8_t		ver;
++	uint8_t		status;
++} __attribute__((__packed__));
++
++struct client_request
++{
++	uint8_t		ver;
++	uint8_t		cmd;
++	uint8_t		rsv;
++	uint8_t		atyp;
++	uint8_t		dst[];
++} __attribute__((__packed__));
++
++struct server_response
++{
++	uint8_t		ver;
++	uint8_t		rep;
++	uint8_t		res;
++	uint8_t		atyp;
++	uint8_t		bnd[];
++} __attribute__((__packed__));
++
++static void
++network_proxy_socks5_destroy(struct network_proxy *proxy)
++{
++	struct _network_proxy_socks5	*self = container_of(proxy, struct _network_proxy_socks5, proxy);
++
++	g_free((void *)self-&gt;password);
++	g_free((void *)self-&gt;username);
++	_network_proxy_destroy(proxy);
++	g_free(self);
++}
++
++static struct network_proxy *
++network_proxy_socks5_clone(struct network_proxy const *proxy)
++{
++	struct _network_proxy_socks5	*self = container_of(proxy, struct _network_proxy_socks5, proxy);
++	struct _network_proxy_socks5	*res;
++
++	res = g_malloc0(sizeof *res);
++
++	_network_proxy_clone(&amp;res-&gt;proxy, &amp;self-&gt;proxy);
++	res-&gt;username = g_strdup(self-&gt;username);
++	res-&gt;password = g_strdup(self-&gt;password);
++	return &amp;res-&gt;proxy;
++}
++
++static bool
++socks5_connect_unauthorized(GIOChannel *ch)
++{
++	/* nothing to do here */
++	(void)ch;
++	return true;
++}
++
++/* TODO: test this method! */
++static bool
++socks5_connect_plain(struct _network_proxy_socks5 const *proxy, GIOChannel *ch)
++{
++	uint8_t				ver  = 0x01;
++	uint8_t				ulen = strlen(proxy-&gt;username);
++	uint8_t				plen = proxy-&gt;password ? strlen(proxy-&gt;password) : 0;
++	struct server_response_plain	resp;
++
++	if (ulen==0 ||
++	    !_network_proxy_send_all(ch, &amp;ver, sizeof ver) ||
++	    !_network_proxy_send_all(ch, &amp;ulen, sizeof ulen) ||
++	    !_network_proxy_send_all(ch, proxy-&gt;username, ulen) ||
++	    !_network_proxy_send_all(ch, &amp;plen, sizeof plen) ||
++	    (plen&gt;0 &amp;&amp; !_network_proxy_send_all(ch, proxy-&gt;password, plen)) ||
++	    !_network_proxy_flush(ch) ||
++	    !_network_proxy_recv_all(ch, &amp;resp, sizeof resp))
++		return false;
++
++	if (resp.ver!=0x01) {
++		g_warning("unexpected plaintext response version %#04x", resp.ver);
++		return false;
++	}
++
++	if (resp.status!=0x00) {
++		g_warning("socks5 authentication error (%#04x)", resp.status);
++		return false;
++	}
++
++	return true;
++}
++
++static bool
++socks5_connect(struct _network_proxy_socks5 const *proxy, GIOChannel *ch,
++	       char const *address, uint16_t port)
++{
++	bool				rc;
++
++	struct server_greeting		s_greeting;
++	struct server_response		s_response;
++
++
++	/* Phase 1: exchange greeting */
++	{
++		struct client_greeting		c_greeting = {
++			.ver      = 0x05,
++			.nmethods = proxy-&gt;username &amp;&amp; proxy-&gt;username[0] ? 2 : 1
++		};
++		/* HACK: order is important because it depends upon
++		 * c_greeting.nmethods  */
++		char const			methods[] = {
++			0x00,			/* no authentication */
++			0x02			/* username/password */
++		};
++		if (!_network_proxy_send_all(ch, &amp;c_greeting, sizeof c_greeting) ||
++		    !_network_proxy_send_all(ch, methods,     c_greeting.nmethods) ||
++		    !_network_proxy_flush(ch) ||
++		    !_network_proxy_recv_all(ch, &amp;s_greeting, sizeof s_greeting))
++			goto err;
++
++		if (s_greeting.ver!=5) {
++			g_warning("version mismatch during initial socks5 greeting; got version %#04x",
++				  s_greeting.ver);
++			goto err;
++		}
++	}
++
++	/* Phase 2: authentication */
++	{
++		switch (s_greeting.method) {
++		case 0x00: rc = socks5_connect_unauthorized(ch); break;
++		case 0x02: rc = socks5_connect_plain(proxy, ch); break;
++		default:
++			g_warning("unsupported authentication method %#04x", s_greeting.method);
++			rc = false;
++		}
++
++		if (!rc)
++			goto err;
++	}
++
++	/* Phase 3: connection request */
++	{
++		struct client_request		c_request = {
++			.ver	  = 0x05,
++			.cmd	  = 0x01,	/* CONNECT */
++			.atyp     = 0x03,	/* domain name */
++		};
++		uint8_t				address_len = strlen(address);
++		uint16_t			dst_port = htons(port);
++		uint16_t			bnd_port;
++		char				bnd_address[257];
++
++		if (!_network_proxy_send_all(ch, &amp;c_request,   sizeof c_request) ||
++		    !_network_proxy_send_all(ch, &amp;address_len, sizeof address_len) ||
++		    !_network_proxy_send_all(ch, address,      address_len) ||
++		    !_network_proxy_send_all(ch, &amp;dst_port,    sizeof dst_port) ||
++		    !_network_proxy_flush(ch) ||
++		    !_network_proxy_recv_all(ch, &amp;s_response,  sizeof s_response))
++			goto err;
++
++		if (s_response.ver != 0x05) {
++			g_warning("version mismatch in socks5 response; got version %#04x",
++				  s_response.ver);
++			goto err;
++		}
++
++		rc = false;
++		switch (s_response.rep) {
++		case 0x00: rc = true; break;	/* succeeded */
++		case 0x01: g_warning("SOCKS5: general SOCKS server failure"); break;
++		case 0x02: g_warning("SOCKS5: connection not allowed by ruleset"); break;
++		case 0x03: g_warning("SOCKS5: Network unreachable"); break;
++		case 0x04: g_warning("SOCKS5: Host unreachable"); break;
++		case 0x05: g_warning("SOCKS5: Connection refused"); break;
++		case 0x06: g_warning("SOCKS5: TTL expired"); break;
++		case 0x07: g_warning("SOCKS5: Command not supported"); break;
++		case 0x08: g_warning("SOCKS5: Address type not supported"); break;
++		default:   g_warning("SOCKS5: unknown error %#04x", s_response.rep); break;
++		}
++
++		if (!rc)
++			goto err;
++
++		switch(s_response.atyp) {
++		case 0x01: {
++			struct in_addr	ip;
++			if (!_network_proxy_recv_all(ch, &amp;ip,     sizeof ip) ||
++			    !inet_ntop(AF_INET, &amp;ip, bnd_address, sizeof bnd_address))
++				rc = false;
++			break;
++		}
++
++		case 0x04: {
++			struct in6_addr	ip;
++			if (!_network_proxy_recv_all(ch, &amp;ip,      sizeof ip) ||
++			    !inet_ntop(AF_INET6, &amp;ip, bnd_address, sizeof bnd_address))
++				rc = false;
++			break;
++		}
++
++		case 0x03: {
++			uint8_t		tmp;
++			if (!_network_proxy_recv_all(ch, &amp;tmp, sizeof tmp) ||
++			    tmp==0 ||
++			    !_network_proxy_recv_all(ch, &amp;bnd_address, tmp))
++				rc = false;
++			else
++				bnd_address[tmp] = '\0';
++		}
++
++		default:
++			g_warning("SOCKS5: unsupported address family in response: %#04x",
++				  s_response.atyp);
++			rc = false;
++		}
++
++		if (!rc ||
++		    !_network_proxy_recv_all(ch, &amp;bnd_port, sizeof bnd_port))
++			goto err;
++
++		bnd_port = ntohs(bnd_port);
++		g_debug("SOCKS5: bound to %s:%u", bnd_address, bnd_port);
++	}
++
++	return true;
++
++err:
++	g_warning("connecting through socks5 proxy failed");
++	return  false;
++}
++
++
++static GIOChannel *
++network_proxy_socks5_connect(struct network_proxy const *proxy, IPADDR const *hint_ip,
++			     char const *address, int port)
++{
++	struct _network_proxy_socks5	*self = container_of(proxy, struct _network_proxy_socks5, proxy);
++	GIOChannel			*ch;
++
++	GIOFlags			old_flags;
++	gchar const			*old_enc;
++	gboolean			old_buf;
++	GError				*err = NULL;
++
++	if (hint_ip)
++		ch = net_connect_ip(hint_ip, self-&gt;proxy.port, NULL);
++	else
++		ch = net_connect(self-&gt;proxy.host, self-&gt;proxy.port, NULL);
++
++	if (!ch)
++		return NULL;
++
++	old_enc   = g_io_channel_get_encoding(ch);
++	old_flags = g_io_channel_get_flags(ch);
++	old_buf   = g_io_channel_get_buffered(ch);
++
++	if (g_io_channel_set_encoding(ch, NULL, &amp;err)!=G_IO_STATUS_NORMAL ||
++	    g_io_channel_set_flags(ch, old_flags &amp; ~G_IO_FLAG_NONBLOCK, &amp;err)!=G_IO_STATUS_NORMAL)
++		goto err;
++
++	g_io_channel_set_buffered(ch, false);
++
++	if (!socks5_connect(self, ch, address, port))
++		goto err;
++
++	g_io_channel_set_buffered(ch, old_buf);
++
++	if (g_io_channel_set_flags(ch, old_flags, &amp;err) !=G_IO_STATUS_NORMAL ||
++	    g_io_channel_set_encoding(ch, old_enc, &amp;err)!=G_IO_STATUS_NORMAL)
++		goto err;
++
++	return ch;
++
++err:
++	if (err) {
++		g_warning("something went wrong while preparing SOCKS5 proxy request: %s",
++			  err-&gt;message);
++		g_error_free(err);
++	}
++
++	net_disconnect(ch);
++	return NULL;
++}
++
++struct network_proxy *
++_network_proxy_socks5_create(void)
++{
++	struct _network_proxy_socks5	*res;
++
++	res = g_malloc0(sizeof *res);
++
++	_network_proxy_create(&amp;res-&gt;proxy);
++	res-&gt;username    = g_strdup(settings_get_str("proxy_username"));
++	res-&gt;password    = g_strdup(settings_get_str("proxy_password"));
++
++	res-&gt;proxy.destroy = network_proxy_socks5_destroy;
++	res-&gt;proxy.connect = network_proxy_socks5_connect;
++	res-&gt;proxy.clone   = network_proxy_socks5_clone;
++
++	return &amp;res-&gt;proxy;
++}
+diff --git a/src/core/network-proxy-socks5.h b/src/core/network-proxy-socks5.h
+new file mode 100644
+index 0000000..963bad3
+--- /dev/null
++++ b/src/core/network-proxy-socks5.h
+@@ -0,0 +1,31 @@
++/*	--*- c -*--
++ * Copyright (C) 2008 Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; version 2 and/or 3 of the License.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
++ */
++
++#ifndef H_IRSSI_SRC_CORE_PROXY_SOCKS5_H
++#define H_IRSSI_SRC_CORE_PROXY_SOCKS5_H
++
++#include "network-proxy.h"
++
++struct _network_proxy_socks5 {
++	struct network_proxy	proxy;
++
++	char const		*username;
++	char const		*password;
++};
++
++struct network_proxy *		_network_proxy_socks5_create(void);
++
++#endif	/* H_IRSSI_SRC_CORE_PROXY_SOCKS5_H */
+-- 
+1.5.4.1
+
+
+</body></email><email><emailId>20080227103823</emailId><senderName>Enrico Scholz</senderName><senderEmail>enrico.scholz@informatik.tu-chemnitz.de</senderEmail><timestampReceived>2008-02-27 10:38:23-0400</timestampReceived><subject>[PATCH 5/5] PROXY: merge proxy methods into buildsystem</subject><body>
+
+This patch adds the code and rules to build the various proxy methods.
+
+Signed-off-by: Enrico Scholz &lt;enrico.scholz@informatik.tu-chemnitz.de&gt;
+---
+ src/core/Makefile.am     |    6 ++++++
+ src/core/network-proxy.c |   12 ++++++++++++
+ 2 files changed, 18 insertions(+), 0 deletions(-)
+
+diff --git a/src/core/Makefile.am b/src/core/Makefile.am
+index f60dedf..a1f9b20 100644
+--- a/src/core/Makefile.am
++++ b/src/core/Makefile.am
+@@ -33,6 +33,12 @@ libcore_a_SOURCES = \
+ 	network-openssl.c \
+ 	network-proxy.c \
+ 	network-proxy.h \
++	network-proxy-simple.c \
++	network-proxy-simple.h \
++	network-proxy-http.c \
++	network-proxy-http.h \
++	network-proxy-socks5.c \
++	network-proxy-socks5.h \
+ 	network-proxy-priv.h \
+ 	nicklist.c \
+ 	nickmatch-cache.c \
+diff --git a/src/core/network-proxy.c b/src/core/network-proxy.c
+index cedf96b..cb5f941 100644
+--- a/src/core/network-proxy.c
++++ b/src/core/network-proxy.c
+@@ -18,6 +18,9 @@
+ 
+ #include "network-proxy.h"
+ #include &lt;string.h&gt;
++#include "network-proxy-simple.h"
++#include "network-proxy-http.h"
++#include "network-proxy-socks5.h"
+ 
+ struct network_proxy *
+ network_proxy_create(char const *type)
+@@ -25,6 +28,15 @@ network_proxy_create(char const *type)
+ 	if (type==NULL)
+ 		return NULL;
+ 
++	if (strcmp(type, "simple")==0 || type[0]=='\0')
++		return _network_proxy_simple_create();
++
++	if (strcmp(type, "http")==0)
++		return _network_proxy_http_create();
++
++	if (strcmp(type, "socks5")==0)
++		return _network_proxy_socks5_create();
++
+ 	g_error("unsupported proxy type '%s'", type);
+ 	return NULL;
+ }
+-- 
+1.5.4.1
+
+
+</body></email><email><emailId>20080110210318</emailId><senderName>"Jean-Hadrien CHABRAN"</senderName><senderEmail>jh@chabran.fr</senderEmail><timestampReceived>2008-01-10 21:03:18-0400</timestampReceived><subject>Irssi gui</subject><body>
+
+Hi,
+
+I'm currently coding an Irssi gui using QT4, I've spent a bunch of
+days in the previous three months to take the time to learn how irssi
+works, do a first attempt which failed due to an implementation which
+didn't pay attention to thread sync ( how dumb I was :D ), then a
+second one which is pretty successfully usable for now.
+
+I knew from the beginning that theses two implementations would be
+messy and won't have any  wonderful gui design. It was just in order
+to get used to irssi development, and experiment things. But now it's
+time to sit down and think about features I should include, where to
+put external interfaces for plugins, how I should design classes
+according to these choices, and so on.
+
+The gui is built on top on the common-ui layer, like the old abandoned
+Gtk gui, and MacIrssi, meaning perl support is still here with his
+scripts ( sure, the ones requiring UI.pm like nicklist.pl doesn't work
+)
+
+What is currently working in the existing code is not really important
+to list, since I plan do reorganize / rewrite everything, but rapidly
+: chatting like in irssi, including queries, multiple servers ...
+nicklist, completion, colors and themes,
+
+So here come the main points that I would like to discuss about :
+
+1) I've chose to use a QDockWidget to show windows, see here :
+http://8bitpeoples.free.fr/stuff/xirssi.png . It brings some nice
+features : tiled windows ( like you can find in tiled wm like
+ratpoison, meaning all the available space is used ), detachable,
+stackable using tabs. The last two aren't shown on the screenshot.
+
+So it mixes x-chat tabs and Mirc MDI advantages.
+
+2) What part of the applications would be nice to have as plugins ?
+I thought having windows rendering plugins would be nice, for example
+to have a simple dialog to chat with Nickserv instead of /msg'ing it.
+
+3) Autotools, build process
+I'm not an autotools expert, I barely included in the original
+configure.am some glue to compile my QT code which lives in src/fe-qt/
+, but this isn't really clean. So, If you got hints on how doing this
+in a clean way, tell me :)
+
+4) GUI
+For this one, it's a tedious task, users have different tastes, and I
+really want the gui the be configurable as irssi is. This mean I need
+to collect some range of tastes and see how to create classes to allow
+configuration to reflect each of them.  Next, I would like to keep it
+keyboard driven, using the same keybinding irssi has.
+A little note, on the screenshot seen at 1), the box where you enter
+text is present on every windows, I plan to replace that with just one
+one at the bottom.
+
+5) Any ideas ?
+Feel free to suggest any idea.
+
+To conclude, and see what is currently done :
+
+The SVN repository : svn://svn.litchis.fr/jh/xirssi
+The Trac ( almost unused atm ) : https://dev.litchis.fr/jh/
+( remember, the sources are in src/fe-qt, fe-gui is the first attempt )
+
+You might discover bugs using the existing implementation, but do not
+spend time on reporting it / investigating it, a complete rewrite is
+incoming :)
+
+Well I'm waiting for your comments, remarks, ... =)
+
+PS : To assure that I would not stop developing in two month by being
+to lazy, I've locked myself by incorporating this project as a part of
+my studies :)
+
+-- 
+Jean-Hadrien Chabran
+
+</body></email><email><emailId>20080121204833</emailId><senderName>William Pettersson</senderName><senderEmail>enigma@strudel-hound.com</senderEmail><timestampReceived>2008-01-21 20:48:33-0400</timestampReceived><subject>Re: lastlog - add -output option</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+
+
+Wouter Coekaerts wrote:
+&gt; On Jan 21, 2008 10:47 AM, William Pettersson &lt;enigma@strudel-hound.com&gt; wrote:
+&gt;&gt; I like having lastlog results in a seperate "logs" window.
+&gt; 
+&gt; You can already create a window where all messages with level
+&gt; "lastlog" go to. The explanation on
+&gt; http://wouter.coekaerts.be/site/irssi/wclf might help.
+&gt; 
+&gt; Wouter.
+&gt; 
+
+I see.  Yeah I asked in #irssi and this never came up, hence me writing
+the patch.  Either case, maybe someone will eventually come along and
+say "I only occasionally want lastlog output in a different window".
+Ok, seems pretty far out.  If you don't want it in, that's cool, but
+I'll probably keep using it myself.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.7 (GNU/Linux)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iD8DBQFHlQUhNSpXjKoV00kRAg4BAJwOi70T5EZ+1VqgaR7zSVn5DUVbigCfXwrY
+ZjBYWpIEY+O3Ak0oxocsx6k=
+=LBzG
+-----END PGP SIGNATURE-----
+
+</body></email><email><emailId>20080121094720</emailId><senderName>William Pettersson</senderName><senderEmail>enigma@strudel-hound.com</senderEmail><timestampReceived>2008-01-21 09:47:20-0400</timestampReceived><subject>lastlog - add -output option</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+What:
+/lastlog, once this patch is applied, accepts a new parameter, -output
+&lt;refnum|window&gt;.  This lets you set where lastlog should place the
+output (if not the current window).  This output also works with -clear,
+clearing the selected window of any lastlog output.
+
+Why:
+Ok, this was discussed in #irssi on freenode for a bit.  I obviously use
+lastlog strangely, but I like having lastlog results in a seperate
+"logs" window.  This is so I can keep reading the current channel, while
+still checking through a lastlog.  Rather than having to switch to a new
+channel and running lastlog, I wrote this patch.
+
+Patch is attached, or can also be retrieved from
+http://www.strudel-hound.com/irssi-lastlog-output.patch
+
+Signed-off-by: William Pettersson &lt;enigma@strudel-hound.com&gt;
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.7 (GNU/Linux)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iD8DBQFHlGoZNSpXjKoV00kRAp7iAKCE6m9pJ36dxFxMJgaRU42Uhf2WkACZAUdB
+ZZPd+yhrM871zWdAYJr2qqw=
+=oGkj
+-----END PGP SIGNATURE-----
+
+["irssi-lastlog-output.patch" (text/plain)]
+
+--- src/fe-text/lastlog.c.old	2008-01-21 17:52:32.000000000 +1000
++++ src/fe-text/lastlog.c	2008-01-21 18:19:18.000000000 +1000
+@@ -77,7 +77,7 @@
+ static void show_lastlog(const char *searchtext, GHashTable *optlist,
+ 			 int start, int count, FILE *fhandle)
+ {
+-	WINDOW_REC *window;
++	WINDOW_REC *window, *output;
+         LINE_REC *startline;
+ 	GList *list, *tmp;
+ 	GString *line;
+@@ -88,8 +88,22 @@
+ 	if (level == -1) return; /* error in options */
+         if (level == 0) level = MSGLEVEL_ALL;
+ 
++        /* which window to output to */
++        output = active_win;
++        str = g_hash_table_lookup(optlist, "output");
++	if (str != NULL) {
++		output = is_numeric(str, '\0') ?
++			window_find_refnum(atoi(str)) :
++			window_find_item(NULL, str);
++		if (output == NULL) {
++			printformat(NULL, NULL, MSGLEVEL_CLIENTERROR,
++                                    TXT_REFNUM_NOT_FOUND, str);
++			return;
++		}
++        }
++
+ 	if (g_hash_table_lookup(optlist, "clear") != NULL) {
+-		textbuffer_view_remove_lines_by_level(WINDOW_GUI(active_win)-&gt;view, \
+MSGLEVEL_LASTLOG); +		textbuffer_view_remove_lines_by_level(WINDOW_GUI(output)-&gt;view, \
+MSGLEVEL_LASTLOG);  if (*searchtext == '\0')
+                         return;
+ 	}
+@@ -151,7 +165,7 @@
+ 	}
+ 
+ 	if (g_hash_table_lookup(optlist, "count") != NULL) {
+-		printformat_window(active_win, MSGLEVEL_CLIENTNOTICE,
++		printformat_window(output, MSGLEVEL_CLIENTNOTICE,
+ 				   TXT_LASTLOG_COUNT, len);
+ 		g_list_free(list);
+ 		return;
+@@ -159,7 +173,7 @@
+ 
+ 	if (len &gt; MAX_LINES_WITHOUT_FORCE &amp;&amp; fhandle == NULL &amp;&amp;
+ 	    g_hash_table_lookup(optlist, "force") == NULL) {
+-		printformat_window(active_win,
++		printformat_window(output,
+ 				   MSGLEVEL_CLIENTNOTICE|MSGLEVEL_LASTLOG,
+ 				   TXT_LASTLOG_TOO_LONG, len);
+ 		g_list_free(list);
+@@ -167,7 +181,7 @@
+ 	}
+ 
+ 	if (fhandle == NULL &amp;&amp; g_hash_table_lookup(optlist, "-") == NULL)
+-		printformat(NULL, NULL, MSGLEVEL_LASTLOG, TXT_LASTLOG_START);
++		printformat_window(output, MSGLEVEL_LASTLOG, TXT_LASTLOG_START);
+ 
+ 	line = g_string_new(NULL);
+         while (tmp != NULL &amp;&amp; (count &lt; 0 || count &gt; 0)) {
+@@ -179,7 +193,7 @@
+ 			if (fhandle != NULL) {
+ 				fwrite("--\n", 3, 1, fhandle);
+ 			} else {
+-				printformat_window(active_win,
++				printformat_window(output,
+ 						   MSGLEVEL_LASTLOG,
+ 						   TXT_LASTLOG_SEPARATOR);
+ 			}
+@@ -204,7 +218,7 @@
+ 			fwrite(line-&gt;str, line-&gt;len, 1, fhandle);
+ 			fputc('\n', fhandle);
+ 		} else {
+-			printtext_window(active_win, MSGLEVEL_LASTLOG,
++			printtext_window(output, MSGLEVEL_LASTLOG,
+ 					 "%s", line-&gt;str);
+ 		}
+ 
+@@ -214,7 +228,7 @@
+         g_string_free(line, TRUE);
+ 
+ 	if (fhandle == NULL &amp;&amp; g_hash_table_lookup(optlist, "-") == NULL)
+-		printformat(NULL, NULL, MSGLEVEL_LASTLOG, TXT_LASTLOG_END);
++		printformat_window(output, MSGLEVEL_LASTLOG, TXT_LASTLOG_END);
+ 
+ 	textbuffer_view_set_bookmark_bottom(WINDOW_GUI(window)-&gt;view,
+ 					    "lastlog_last_check");
+@@ -224,8 +238,8 @@
+ }
+ 
+ /* SYNTAX: LASTLOG [-] [-file &lt;filename&gt;] [-window &lt;ref#|name&gt;] [-new | -away]
+-		   [-&lt;level&gt; -&lt;level...&gt;] [-clear] [-count] [-case]
+-		   [-regexp | -word] [-before [&lt;#&gt;]] [-after [&lt;#&gt;]]
++		   [-&lt;level&gt; -&lt;level...&gt;] [-clear] [-count] [-output &lt;ref#|name&gt;]
++		   [-regexp | -word] [-before [&lt;#&gt;]] [-after [&lt;#&gt;]] [-case]
+ 		   [-&lt;# before+after&gt;] [&lt;pattern&gt;] [&lt;count&gt; [&lt;start&gt;]] */
+ static void cmd_lastlog(const char *data)
+ {
+@@ -286,7 +300,7 @@
+ {
+ 	command_bind("lastlog", NULL, (SIGNAL_FUNC) cmd_lastlog);
+ 
+-	command_set_options("lastlog", "!- # force clear -file -window new away word regexp \
+case count @a @after @before"); +	command_set_options("lastlog", "!- # force clear \
+-file -window -output new away word regexp case count @a @after @before");  }
+ 
+ void lastlog_deinit(void)
+
+
+
+</body></email><email><emailId>20080121132434</emailId><senderName>"Wouter Coekaerts"</senderName><senderEmail>wouter@coekaerts.be</senderEmail><timestampReceived>2008-01-21 13:24:34-0400</timestampReceived><subject>Re: lastlog - add -output option</subject><body>
+
+On Jan 21, 2008 10:47 AM, William Pettersson &lt;enigma@strudel-hound.com&gt; wrote:
+&gt; I like having lastlog results in a seperate "logs" window.
+
+You can already create a window where all messages with level
+"lastlog" go to. The explanation on
+http://wouter.coekaerts.be/site/irssi/wclf might help.
+
+Wouter.
+
+</body></email><email><emailId>20080121132726</emailId><senderName>"Wouter Coekaerts"</senderName><senderEmail>wouter@coekaerts.be</senderEmail><timestampReceived>2008-01-21 13:27:26-0400</timestampReceived><subject>Re: lastlog - add -output option</subject><body>
+
+Oh, I think I've replied a bit too fast. It doesn't seem to work with
+lastlog. Maybe that should be fixed...
+
+Wouter.
+
+</body></email><email><emailId>20080829162435</emailId><senderName>"Lee Lowder"</senderName><senderEmail>lowder4@gmail.com</senderEmail><timestampReceived>2008-08-29 16:24:35-0400</timestampReceived><subject>Dev questions</subject><body>
+
+I was wondering if anyone had done any work on porting irssi to the Palm
+platform, and if not, if anyone would be interested.
+
+I've recently obtained a Palm Centro phone, and I have a data plan with my
+carrier and I have the Palm SDK.
+
+And since irssi (macirssi on my mactop) is the only IRC client I find to be
+worth using, I wanted to see if I could get it on my phone.
+
+I do have some dev experience, but not much specifically with Palm or with
+irssi, other than some scripts.
+
+Thank you.
+
+[Attachment #3 (text/html)]
+
+&lt;div dir="ltr"&gt;&lt;div&gt;I was wondering if anyone had done any work on porting irssi to \
+the Palm platform, and if not, if anyone would be interested.&lt;/div&gt; &lt;div&gt; &lt;/div&gt;
+&lt;div&gt;I've recently obtained a Palm Centro phone, and I have a data plan with my \
+carrier and I have the Palm SDK.&lt;/div&gt; &lt;div&gt; &lt;/div&gt;
+&lt;div&gt;And since irssi (macirssi on my mactop) is the only IRC client I find to be \
+worth using, I wanted to see if I could get it on my phone.&lt;/div&gt; &lt;div&gt; &lt;/div&gt;
+&lt;div&gt;I do have some dev experience, but not much specifically with Palm or with \
+irssi, other than some scripts.&lt;/div&gt; &lt;div&gt; &lt;/div&gt;
+&lt;div&gt;Thank you.&lt;/div&gt;&lt;/div&gt;
+
+
+
+</body></email><email><emailId>20081114020726</emailId><senderName>Rich Healey</senderName><senderEmail>richo@psych0tik.net</senderEmail><timestampReceived>2008-11-14 02:07:26-0400</timestampReceived><subject>pre_connect_cmd</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hi,
+
+I've attached a diff that I find useful, I'm not sure of your opinions
+of it. There are a few things that still need to be done that I'm not
+sure how to go about as of yet.
+
+a) Setting it up such that a user can add this in the program itself
+with the /network -pre_connect_cmd .
+b) Performing the appropriate incantations on the configure script to
+include this (at the moment it needs -D_PRE_CONNECT_CMD to build in, the
+impression I got from the irc channel was that at best this was a
+possible addon.
+
+At the moment if a network has a "pre_connect_cmd" directive in the
+config file, that command is passed back to the shell, before connecting.
+
+I personally use this to make sure my nick is released on DALnet before
+connecting.
+
+Thanks
+
+
+Rich Healey
+- --
+Richo -                                          - richo@psych0tik.net
+Developer / Systems Admin                       - OpenPGP: 0x8C8147807
+MSN: bitchohealey@hotmail.com                       AIM: richohealey33
+irc.psych0tik.net    -&gt;              #hbh #admin       ((richohealey))
+irc.freenode.org     -&gt;              #hbh #debian      ((PythonNinja))
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.9 (MingW32)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iEYEARECAAYFAkkc3V4ACgkQLeTfO4yBSAeM5ACbB82lbVd3WdNwNDsLgV6XdLJf
+AH4AoNnEoTv9XQVBuLscNXXT+F69KXvR
+=ZNs9
+-----END PGP SIGNATURE-----
+
+["irssi.pre_connect_cmd.diff" (text/plain)]
+
+Index: src/core/chatnet-rec.h
+===================================================================
+--- src/core/chatnet-rec.h	(revision 4906)
++++ src/core/chatnet-rec.h	(working copy)
+@@ -9,4 +9,7 @@
+ 
+ char *own_host; /* address to use when connecting this server */
+ char *autosendcmd; /* command to send after connecting to this ircnet */
++#ifdef _PRE_CONNECT_CMD
++char *pre_connect_cmd; /* shell command to be executed before connection */
++#endif
+ IPADDR *own_ip4, *own_ip6; /* resolved own_address if not NULL */
+Index: src/core/server-connect-rec.h
+===================================================================
+--- src/core/server-connect-rec.h	(revision 4906)
++++ src/core/server-connect-rec.h	(working copy)
+@@ -22,6 +22,7 @@
+ char *nick;
+ char *username;
+ char *realname;
++char *pre_connect_cmd;
+ 
+ char *ssl_cert;
+ char *ssl_pkey;
+Index: src/core/chat-commands.c
+===================================================================
+--- src/core/chat-commands.c	(revision 4906)
++++ src/core/chat-commands.c	(working copy)
+@@ -17,7 +17,6 @@
+     with this program; if not, write to the Free Software Foundation, Inc.,
+     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+-
+ #include "module.h"
+ #include "network.h"
+ #include "signals.h"
+@@ -83,7 +82,6 @@
+                 cmd_params_free(free_arg);
+ 		return NULL;
+ 	}
+-
+ 	if (strchr(addr, '/') != NULL)
+ 		conn-&gt;unix_socket = TRUE;
+ 
+Index: src/core/servers-setup.c
+===================================================================
+--- src/core/servers-setup.c	(revision 4906)
++++ src/core/servers-setup.c	(working copy)
+@@ -17,7 +17,9 @@
+     with this program; if not, write to the Free Software Foundation, Inc.,
+     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+-
++#ifdef _PRE_CONNECT_CMD
++#include &lt;stdlib.h&gt;
++#endif
+ #include "module.h"
+ #include "signals.h"
+ #include "network.h"
+@@ -313,6 +315,10 @@
+ 
+         chatrec = chatnet_find(dest);
+ 	if (chatrec != NULL) {
++        #ifdef _PRE_CONNECT_CMD
++            if (chatrec-&gt;pre_connect_cmd != NULL)
++                system(chatrec-&gt;pre_connect_cmd);
++        #endif
+ 		rec = create_chatnet_conn(chatrec-&gt;name, port, password, nick);
+ 		if (rec != NULL)
+ 			return rec;
+Index: src/irc/core/irc-chatnets.c
+===================================================================
+--- src/irc/core/irc-chatnets.c	(revision 4906)
++++ src/irc/core/irc-chatnets.c	(working copy)
+@@ -17,7 +17,6 @@
+     with this program; if not, write to the Free Software Foundation, Inc.,
+     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+-
+ #include "module.h"
+ #include "signals.h"
+ #include "lib-config/iconfig.h"
+@@ -48,6 +47,10 @@
+ 	rec-&gt;max_msgs = config_node_get_int(node, "max_msgs", 0);
+ 	rec-&gt;max_modes = config_node_get_int(node, "max_modes", 0);
+ 	rec-&gt;max_whois = config_node_get_int(node, "max_whois", 0);
++    #ifdef _PRE_CONNECT_CMD
++    rec-&gt;pre_connect_cmd = config_node_get_str(node, "pre_connect_cmd", NULL);
++    #endif
++
+ }
+ 
+ static void sig_chatnet_saved(IRC_CHATNET_REC *rec, CONFIG_NODE *node)
+@@ -73,6 +76,10 @@
+ 		iconfig_node_set_int(node, "max_modes", rec-&gt;max_modes);
+ 	if (rec-&gt;max_whois &gt; 0)
+ 		iconfig_node_set_int(node, "max_whois", rec-&gt;max_whois);
++    #ifdef _PRE_CONNECT_CMD
++	if (rec-&gt;pre_connect_cmd != NULL)
++                iconfig_node_set_str(node, "pre_connect_cmd", rec-&gt;pre_connect_cmd);
++   #endif
+ }
+ 
+ static void sig_chatnet_destroyed(IRC_CHATNET_REC *rec)
+
+
+</body></email><email><emailId>20081115215130</emailId><senderName>Wouter Coekaerts</senderName><senderEmail>wouter@coekaerts.be</senderEmail><timestampReceived>2008-11-15 21:51:30-0400</timestampReceived><subject>Re: pre_connect_cmd</subject><body>
+
+Hi,
+
+This looks like something that could be done in a script. The executing of the 
+command doesn't have to be added in irssi itself, you can listen on the 
+appropriate signal and execute the command there. The "server connecting" 
+signal looks like a good candidate.
+
+Regards,
+
+Wouter.
+
+
+</body></email><email><emailId>20080829163658</emailId><senderName>Skywing</senderName><senderEmail>skywing@valhallalegends.com</senderEmail><timestampReceived>2008-08-29 16:36:58-0400</timestampReceived><subject>RE: Dev questions</subject><body>
+
+My recommendation on using IRC/SILC from a mobile device, which may not be =
+the answer that you were looking for, would be to run irssi from a dedicate=
+d location in screen, and connect in with an SSH client from your device.
+
+Personally, I find this to be a much better arrangement than running an irc=
+ client locally.  Packet processing work is done remotely (and I can leave =
+irssi parked at the status screen when I am not looking at it), which means=
+ the data link doesn=92t wake up on every channel message, which is easier =
+on your battery life.  Plus, you aren=92t going to be losing your link ever=
+y time your phone gets restarted, you get on a plane, etc.  (This was parti=
+cularly important for me, as my carrier deliberately drops data links after=
+ 24 hours of continuous connectivity, requiring a reconnect to the PPP link=
+ with a new IP address assigned (typically).  Your carrier may not have thi=
+s issue, however.)
+
+If you go this route, you probably will want to turn off the clock in the i=
+rssi ncurses UI, as screen updates every minute would be bad on battery if =
+you leave your SSH client habitually open.
+
+I don=92t know of a particularly good SSH client for PalmOS that might be s=
+uitable for this, but I hacked up the PocketPC (Windows Mobile) port of PuT=
+TY to be suitable for my uses [auto-reconnect, bug fixes, some other variou=
+s improvements to reduce various frequently re-occurring headaches].  Proba=
+bly not particularly easy to port to PalmOS (unless your Palm is of the Win=
+dows Mobile sort), though.
+
+This recommendation is a lil bit off-topic for the dev list at this point, =
+though.  (Although the irssi dev list is pretty much dead as a doornail in =
+recent months, anyway.)
+
+- S
+
+From: irssi-dev-bounce@dragoncat.net [mailto:irssi-dev-bounce@dragoncat.net=
+] On Behalf Of Lee Lowder
+Sent: Friday, August 29, 2008 12:25 PM
+To: irssi-dev@dragoncat.net
+Subject: Dev questions
+
+I was wondering if anyone had done any work on porting irssi to the Palm pl=
+atform, and if not, if anyone would be interested.
+
+I've recently obtained a Palm Centro phone, and I have a data plan with my =
+carrier and I have the Palm SDK.
+
+And since irssi (macirssi on my mactop) is the only IRC client I find to be=
+ worth using, I wanted to see if I could get it on my phone.
+
+I do have some dev experience, but not much specifically with Palm or with =
+irssi, other than some scripts.
+
+Thank you.
+
+[Attachment #3 (text/html)]
+
+&lt;html xmlns:v="urn:schemas-microsoft-com:vml" \
+xmlns:o="urn:schemas-microsoft-com:office:office" \
+xmlns:w="urn:schemas-microsoft-com:office:word" \
+xmlns:x="urn:schemas-microsoft-com:office:excel" \
+xmlns:p="urn:schemas-microsoft-com:office:powerpoint" \
+xmlns:a="urn:schemas-microsoft-com:office:access" \
+xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" \
+xmlns:s="uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882" \
+xmlns:rs="urn:schemas-microsoft-com:rowset" xmlns:z="#RowsetSchema" \
+xmlns:b="urn:schemas-microsoft-com:office:publisher" \
+xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" \
+xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet" \
+xmlns:oa="urn:schemas-microsoft-com:office:activation" \
+xmlns:html="http://www.w3.org/TR/REC-html40" \
+xmlns:q="http://schemas.xmlsoap.org/soap/envelope/" xmlns:D="DAV:" \
+xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml" \
+xmlns:ois="http://schemas.microsoft.com/sharepoint/soap/ois/" \
+xmlns:dir="http://schemas.microsoft.com/sharepoint/soap/directory/" \
+xmlns:ds="http://www.w3.org/2000/09/xmldsig#" \
+xmlns:dsp="http://schemas.microsoft.com/sharepoint/dsp" \
+xmlns:udc="http://schemas.microsoft.com/data/udc" \
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" \
+xmlns:sub="http://schemas.microsoft.com/sharepoint/soap/2002/1/alerts/" \
+xmlns:ec="http://www.w3.org/2001/04/xmlenc#" \
+xmlns:sp="http://schemas.microsoft.com/sharepoint/" \
+xmlns:sps="http://schemas.microsoft.com/sharepoint/soap/" \
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
+xmlns:udcxf="http://schemas.microsoft.com/data/udc/xmlfile" \
+xmlns:wf="http://schemas.microsoft.com/sharepoint/soap/workflow/" \
+xmlns:mver="http://schemas.openxmlformats.org/markup-compatibility/2006" \
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" \
+xmlns:mrels="http://schemas.openxmlformats.org/package/2006/relationships" \
+xmlns:ex12t="http://schemas.microsoft.com/exchange/services/2006/types" \
+xmlns:ex12m="http://schemas.microsoft.com/exchange/services/2006/messages" \
+xmlns:Z="urn:schemas-microsoft-com:" xmlns:st="" \
+xmlns="http://www.w3.org/TR/REC-html40"&gt;
+
+&lt;head&gt;
+&lt;meta http-equiv=Content-Type content="text/html; charset=windows-1252"&gt;
+&lt;meta name=Generator content="Microsoft Word 12 (filtered medium)"&gt;
+&lt;style&gt;
+&lt;!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.Section1
+	{page:Section1;}
+--&gt;
+&lt;/style&gt;
+&lt;!--[if gte mso 9]&gt;&lt;xml&gt;
+ &lt;o:shapedefaults v:ext="edit" spidmax="1026" /&gt;
+&lt;/xml&gt;&lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;xml&gt;
+ &lt;o:shapelayout v:ext="edit"&gt;
+  &lt;o:idmap v:ext="edit" data="1" /&gt;
+ &lt;/o:shapelayout&gt;&lt;/xml&gt;&lt;![endif]--&gt;
+&lt;/head&gt;
+
+&lt;body lang=EN-US link=blue vlink=purple&gt;
+
+&lt;div class=Section1&gt;
+
+&lt;p class=MsoNormal&gt;&lt;span style='font-size:11.0pt;font-family:"Calibri","sans-serif";
+color:#1F497D'&gt;My recommendation on using IRC/SILC from a mobile device, which
+may not be the answer that you were looking for, would be to run irssi from a
+dedicated location in screen, and connect in with an SSH client from your \
+device.&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;span style='font-size:11.0pt;font-family:"Calibri","sans-serif";
+color:#1F497D'&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;span style='font-size:11.0pt;font-family:"Calibri","sans-serif";
+color:#1F497D'&gt;Personally, I find this to be a much better arrangement than
+running an irc client locally.  Packet processing work is done remotely (and I
+can leave irssi parked at the status screen when I am not looking at it), which
+means the data link doesn’t wake up on every channel message, which is easier
+on your battery life.  Plus, you aren’t going to be losing your link every time
+your phone gets restarted, you get on a plane, etc.  (This was particularly
+important for me, as my carrier deliberately drops data links after 24 hours of
+continuous connectivity, requiring a reconnect to the PPP link with a new IP
+address assigned (typically).  Your carrier may not have this issue, \
+however.)&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;span style='font-size:11.0pt;font-family:"Calibri","sans-serif";
+color:#1F497D'&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;span style='font-size:11.0pt;font-family:"Calibri","sans-serif";
+color:#1F497D'&gt;If you go this route, you probably will want to turn off the
+clock in the irssi ncurses UI, as screen updates every minute would be bad on
+battery if you leave your SSH client habitually open.&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;span style='font-size:11.0pt;font-family:"Calibri","sans-serif";
+color:#1F497D'&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;span style='font-size:11.0pt;font-family:"Calibri","sans-serif";
+color:#1F497D'&gt;I don’t know of a particularly good SSH client for PalmOS that
+might be suitable for this, but I hacked up the PocketPC (Windows Mobile) port
+of PuTTY to be suitable for my uses [auto-reconnect, bug fixes, some other
+various improvements to reduce various frequently re-occurring headaches]. 
+Probably not particularly easy to port to PalmOS (unless your Palm is of the Windows
+Mobile sort), though.&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;span style='font-size:11.0pt;font-family:"Calibri","sans-serif";
+color:#1F497D'&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;span style='font-size:11.0pt;font-family:"Calibri","sans-serif";
+color:#1F497D'&gt;This recommendation is a lil bit off-topic for the dev list at this
+point, though.  (Although the irssi dev list is pretty much dead as a doornail in
+recent months, anyway.)&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;span style='font-size:11.0pt;font-family:"Calibri","sans-serif";
+color:#1F497D'&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;span style='font-size:11.0pt;font-family:"Calibri","sans-serif";
+color:#1F497D'&gt;- S&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal&gt;&lt;span style='font-size:11.0pt;font-family:"Calibri","sans-serif";
+color:#1F497D'&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;div style='border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in 0in 0in'&gt;
+
+&lt;p class=MsoNormal&gt;&lt;b&gt;&lt;span \
+style='font-size:10.0pt;font-family:"Tahoma","sans-serif"'&gt;From:&lt;/span&gt;&lt;/b&gt;&lt;span \
+style='font-size:10.0pt;font-family:"Tahoma","sans-serif"'&gt; \
+irssi-dev-bounce@dragoncat.net [mailto:irssi-dev-bounce@dragoncat.net] &lt;b&gt;On Behalf \
+Of &lt;/b&gt;Lee Lowder&lt;br&gt; &lt;b&gt;Sent:&lt;/b&gt; Friday, August 29, 2008 12:25 PM&lt;br&gt;
+&lt;b&gt;To:&lt;/b&gt; irssi-dev@dragoncat.net&lt;br&gt;
+&lt;b&gt;Subject:&lt;/b&gt; Dev questions&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p class=MsoNormal&gt;&lt;o:p&gt; &lt;/o:p&gt;&lt;/p&gt;
+
+&lt;div&gt;
+
+&lt;div&gt;
+
+&lt;p class=MsoNormal&gt;I was wondering if anyone had done any work on porting irssi
+to the Palm platform, and if not, if anyone would be interested.&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div&gt;
+
+&lt;p class=MsoNormal&gt; &lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div&gt;
+
+&lt;p class=MsoNormal&gt;I've recently obtained a Palm Centro phone, and I have a
+data plan with my carrier and I have the Palm SDK.&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div&gt;
+
+&lt;p class=MsoNormal&gt; &lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div&gt;
+
+&lt;p class=MsoNormal&gt;And since irssi (macirssi on my mactop) is the only IRC
+client I find to be worth using, I wanted to see if I could get it on my \
+phone.&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div&gt;
+
+&lt;p class=MsoNormal&gt; &lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div&gt;
+
+&lt;p class=MsoNormal&gt;I do have some dev experience, but not much specifically
+with Palm or with irssi, other than some scripts.&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div&gt;
+
+&lt;p class=MsoNormal&gt; &lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div&gt;
+
+&lt;p class=MsoNormal&gt;Thank you.&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+
+
+</body></email></emails>

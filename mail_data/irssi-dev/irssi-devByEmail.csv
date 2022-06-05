@@ -1,0 +1,470 @@
+emailId,senderName,senderEmail,timestampReceived,subject,url,replyto
+20140530123453,Tom Wesley,tom@tomaw.net,2014-05-30 12:34:53-0400,Irssi 0.8.16 released!,https://marc.info/?l=irssi-dev&m=140145331104237&w=2,NA
+20140610082711,Alexander Færøy,ahf@0x90.dk,2014-06-10 08:27:11-0400,The Future of Irssi,https://marc.info/?l=irssi-dev&m=140238887018321&w=2,http://marc.info/?l=irssi-users&m=140238887018320&w=2
+20140815205529,"""Luis R. Rodriguez""",mcgrof@do-not-panic.com,2014-08-15 20:55:29-0400,[PATCH 0/3] irssi: add ssl client certificate passphrase prompt support,https://marc.info/?l=irssi-dev&m=140813616217250&w=2,NA
+20150728190047,Delan Azabani,delan@azabani.com,2015-07-28 19:00:47-0400,Irssi 0.8.17 installer for Windows,https://marc.info/?l=irssi-dev&m=143811067229295&w=2,NA
+20040201153010,Mathieu Doidy,mdoidy@roulaize.net,2004-02-01 15:30:10-0400,bug with whois on away people,https://marc.info/?l=irssi-dev&m=107565810202707&w=2,NA
+20000109202119,"""Ezgi Bilir""",cancanbilek2@hotmail.com,2000-01-09 20:21:19-0400,Sendemi...???,https://marc.info/?l=irssi-dev&m=102236177207162&w=2,http://marc.info/?l=linux-arm&m=101319952627974&w=2
+20040908213055,Adhamh Findlay,irssi@adhamh.com,2004-09-08 21:30:55-0400,Re: settings_find question/problem,https://marc.info/?l=irssi-dev&m=109467927824492&w=2,http://marc.info/?l=irssi-dev&m=109464608008345&w=2
+20040922165421,Tomá¹_Janou¹ek,tomi@nomi.cz,2004-09-22 16:54:21-0400,Multiple IRC clients PASS command bug (unability to use password with spaces in it),https://marc.info/?l=irssi-dev&m=109587886712058&w=2,NA
+20040714121538,Timo Sirainen,tss@iki.fi,2004-07-14 12:15:38-0400,Re: Os X Frontend development: Why sending SIGTERM?,https://marc.info/?l=irssi-dev&m=108980743301670&w=2,http://marc.info/?l=irssi-dev&m=108842907222087&w=2
+20040719204836,Piotr Krukowiecki,piotr@pingu.ii.uj.edu.pl,2004-07-19 20:48:36-0400,Re: /ignore -log,https://marc.info/?l=irssi-dev&m=109027162904862&w=2,http://marc.info/?l=irssi-dev&m=109018900123667&w=2
+20040603113454,Jakub Jankowski,shasta@atn.pl,2004-06-03 11:34:54-0400,Re: Re: names-command,https://marc.info/?l=irssi-dev&m=108626251710207&w=2,http://marc.info/?l=irssi-dev&m=108626211224800&w=2
+20141110164518,,noname,2014-11-10 16:45:18-0400,SHA256 fingerprints,https://marc.info/?l=irssi-dev&m=141563794332283&w=2,NA
+20030920171137,"""tommy""",tommy.2003@gmx.net,2003-09-20 17:11:37-0400,Coding a plugin/module,https://marc.info/?l=irssi-dev&m=106408060516632&w=2,NA
+20031029183956,Dario Freni,saturnero@gufi.org,2003-10-29 18:39:56-0400,Hiding channel key from statusbar?,https://marc.info/?l=irssi-dev&m=106745277203703&w=2,NA
+20031107064943,"""Stephen Gill""",gillsr@yahoo.com,2003-11-07 06:49:43-0400,irssi logging and commandline options,https://marc.info/?l=irssi-dev&m=106819061523244&w=2,NA
+20031202005956,Robbie Vanbrabant,robbie.vanbrabant@pandora.be,2003-12-02 00:59:56-0400,core dump,https://marc.info/?l=irssi-dev&m=107038116924530&w=2,http://marc.info/?l=oracle-l&m=106823363505757&w=2
+20040104011911,Simon Shine,simon@blueshell.dk,2004-01-04 01:19:11-0400,'Bug' with /completion,https://marc.info/?l=irssi-dev&m=107322149027481&w=2,NA
+20040309194253,Felix SPORTELLI,neo@fsportelli.org,2004-03-09 19:42:53-0400,Compilation for Debian,https://marc.info/?l=irssi-dev&m=107886140129427&w=2,NA
+20040513131545,Johan Grahn,johan.grahn82@home.se,2004-05-13 13:15:45-0400,names-command,https://marc.info/?l=irssi-dev&m=108445417429499&w=2,NA
+20040718184718,Piotr Krukowiecki,piotr@pingu.ii.uj.edu.pl,2004-07-18 18:47:18-0400,/ignore -log,https://marc.info/?l=irssi-dev&m=109017859601262&w=2,NA
+20040718212808,Marcus Rueckert,darix@web.de,2004-07-18 21:28:08-0400,Re: /ignore -log,https://marc.info/?l=irssi-dev&m=109018900123667&w=2,http://marc.info/?l=irssi-dev&m=109017859601262&w=2
+20040514175133,Mathieu Doidy,mdoidy@roulaize.net,2004-05-14 17:51:33-0400,Re: names-command,https://marc.info/?l=irssi-dev&m=108456065224822&w=2,http://marc.info/?l=irssi-dev&m=108445417429499&w=2
+20040514221248,Jakub Jankowski,shasta@atn.pl,2004-05-14 22:12:48-0400,Re: names-command,https://marc.info/?l=irssi-dev&m=108457278823529&w=2,http://marc.info/?l=irssi-dev&m=108456065224822&w=2
+20040603112758,Petr Baudis,pasky@ucw.cz,2004-06-03 11:27:58-0400,Re: Re: names-command,https://marc.info/?l=irssi-dev&m=108626211224800&w=2,http://marc.info/?l=irssi-dev&m=108462092921542&w=2
+20040309194702,Wouter Coekaerts,coekie@irssi.org,2004-03-09 19:47:02-0400,Re: Compilation for Debian,https://marc.info/?l=irssi-dev&m=107886165929834&w=2,http://marc.info/?l=irssi-dev&m=107886140129427&w=2
+20040907053103,Adhamh Findlay,irssi@adhamh.com,2004-09-07 05:31:03-0400,settings_find question/problem,https://marc.info/?l=irssi-dev&m=109453521529005&w=2,NA
+20040908121813,Geert Hauwaerts,geert@safeweb.be,2004-09-08 12:18:13-0400,Re: settings_find question/problem,https://marc.info/?l=irssi-dev&m=109464608008345&w=2,http://marc.info/?l=irssi-dev&m=109453521529005&w=2
+20040309201957,Felix SPORTELLI,neo@fsportelli.org,2004-03-09 20:19:57-0400,Re: Compilation for Debian,https://marc.info/?l=irssi-dev&m=107886361914555&w=2,http://marc.info/?l=irssi-dev&m=107886165929834&w=2
+20040309211932,Torbjörn_Svensson,azoff@se.linux.org,2004-03-09 21:19:32-0400,Re: Compilation for Debian,https://marc.info/?l=irssi-dev&m=107886720308833&w=2,http://marc.info/?l=irssi-dev&m=107886361914555&w=2
+20040309224252,Felix SPORTELLI,neo@fsportelli.org,2004-03-09 22:42:52-0400,Re: Compilation for Debian,https://marc.info/?l=irssi-dev&m=107887219702263&w=2,http://marc.info/?l=irssi-dev&m=107886720308833&w=2
+20040104165936,"""Stephen Gill""",gillsr@qorbit.net,2004-01-04 16:59:36-0400,RE: 'Bug' with /completion,https://marc.info/?l=irssi-dev&m=107332164813415&w=2,http://marc.info/?l=irssi-dev&m=107322149027481&w=2
+20040104224955,Jochen Eisinger,jochen@penguin-breeder.org,2004-01-04 22:49:55-0400,Re: 'Bug' with /completion,https://marc.info/?l=irssi-dev&m=107325661622823&w=2,http://marc.info/?l=irssi-dev&m=107332164813415&w=2
+20040105175444,Marcus Rueckert,darix@web.de,2004-01-05 17:54:44-0400,Re: 'Bug' with /completion,https://marc.info/?l=irssi-dev&m=107332530718370&w=2,http://marc.info/?l=irssi-dev&m=107325661622823&w=2
+20031107110431,Marcus Rueckert,darix@web.de,2003-11-07 11:04:31-0400,Re: irssi logging and commandline options,https://marc.info/?l=irssi-dev&m=106820311202606&w=2,http://marc.info/?l=irssi-users&m=106819062823261&w=2
+20040612025504,Guillaume DE LAZZER,e-jah@ejahworld.net,2004-06-12 02:55:04-0400,GUI in Gtk,https://marc.info/?l=irssi-dev&m=108700882506183&w=2,NA
+20040612102857,Geert Hauwaerts,geert@irssi.org,2004-06-12 10:28:57-0400,Re: GUI in Gtk,https://marc.info/?l=irssi-dev&m=108704973700389&w=2,http://marc.info/?l=irssi-dev&m=108700882506183&w=2
+20040612124600,Marcus Rueckert,darix@web.de,2004-06-12 12:46:00-0400,Re: GUI in Gtk,https://marc.info/?l=irssi-dev&m=108704444927181&w=2,http://marc.info/?l=irssi-dev&m=108704973700389&w=2
+20040614141840,Clemens Schwaighofer,schwaigl@eunet.at,2004-06-14 14:18:40-0400,Re: GUI in Gtk,https://marc.info/?l=irssi-dev&m=108722269702739&w=2,http://marc.info/?l=irssi-dev&m=108704444927181&w=2
+20040614145310,"""Guillaume DE LAZZER""",e-jah@ejahworld.net,2004-06-14 14:53:10-0400,Re: GUI in Gtk,https://marc.info/?l=irssi-dev&m=108722780221344&w=2,http://marc.info/?l=irssi-dev&m=108722269702739&w=2
+20040614180358,Hugo Haas,hugo@larve.net,2004-06-14 18:03:58-0400,Re: GUI in Gtk,https://marc.info/?l=irssi-dev&m=108723894129621&w=2,http://marc.info/?l=irssi-dev&m=108722780221344&w=2
+20040614185331,Geert Hauwaerts,geert@irssi.org,2004-06-14 18:53:31-0400,Re: GUI in Gtk,https://marc.info/?l=irssi-dev&m=108724064813196&w=2,http://marc.info/?l=irssi-dev&m=108723894129621&w=2
+20040615074850,carmen,ix@replic.net,2004-06-15 07:48:50-0400,Re: GUI in Gtk,https://marc.info/?l=irssi-dev&m=108728575128152&w=2,http://marc.info/?l=irssi-dev&m=108724064813196&w=2
+20031107141832,Stephen Gill,gillsr@yahoo.com,2003-11-07 14:18:32-0400,Re: irssi logging and commandline options,https://marc.info/?l=irssi-dev&m=106821474413538&w=2,http://marc.info/?l=irssi-users&m=106820313402627&w=2
+20031107153408,Marcus Rueckert,darix@web.de,2003-11-07 15:34:08-0400,Re: irssi logging and commandline options,https://marc.info/?l=irssi-dev&m=106821928919029&w=2,http://marc.info/?l=irssi-users&m=106821475713545&w=2
+20031029200003,Jochen Eisinger,jochen@penguin-breeder.org,2003-10-29 20:00:03-0400,Re: Hiding channel key from statusbar?,https://marc.info/?l=irssi-dev&m=106745767210113&w=2,http://marc.info/?l=irssi-dev&m=106745277203703&w=2
+20031029201219,Jochen Eisinger,jochen@penguin-breeder.org,2003-10-29 20:12:19-0400,Re: Hiding channel key from statusbar?,https://marc.info/?l=irssi-dev&m=106745840410982&w=2,http://marc.info/?l=irssi-dev&m=106745767210113&w=2
+20031030050534,Marcus Rueckert,darix@web.de,2003-10-30 05:05:34-0400,Re: Hiding channel key from statusbar?,https://marc.info/?l=irssi-dev&m=106749037509275&w=2,http://marc.info/?l=irssi-dev&m=106745840410982&w=2
+20031030083250,Athanasius,irssi@miggy.org,2003-10-30 08:32:50-0400,Re: Hiding channel key from statusbar?,https://marc.info/?l=irssi-dev&m=106750278717946&w=2,http://marc.info/?l=irssi-dev&m=106749037509275&w=2
+20031030091645,Dario Freni,saturnero@gufi.org,2003-10-30 09:16:45-0400,Re: Hiding channel key from statusbar?,https://marc.info/?l=irssi-dev&m=106750542720178&w=2,http://marc.info/?l=irssi-dev&m=106750278717946&w=2
+20031030095505,Jochen Eisinger,jochen@penguin-breeder.org,2003-10-30 09:55:05-0400,Re: Hiding channel key from statusbar?,https://marc.info/?l=irssi-dev&m=106750848423176&w=2,http://marc.info/?l=irssi-dev&m=106750542720178&w=2
+20141110171230,Guillaume Parent,gparent@gparent.org,2014-11-10 17:12:30-0400,Re: SHA256 fingerprints,https://marc.info/?l=irssi-dev&m=141563957001694&w=2,http://marc.info/?l=irssi-dev&m=141563794332283&w=2
+20141110190604,,noname,2014-11-10 19:06:04-0400,Re: SHA256 fingerprints,https://marc.info/?l=irssi-dev&m=141564639006309&w=2,http://marc.info/?l=irssi-dev&m=141563957001694&w=2
+20141110193719,Guillaume Parent,gparent@gparent.org,2014-11-10 19:37:19-0400,Re: SHA256 fingerprints,https://marc.info/?l=irssi-dev&m=141564825407147&w=2,http://marc.info/?l=irssi-dev&m=141564639006309&w=2
+20141111190454,,noname,2014-11-11 19:04:54-0400,Re: SHA256 fingerprints,https://marc.info/?l=irssi-dev&m=141573272309211&w=2,http://marc.info/?l=irssi-dev&m=141564825407147&w=2
+20040613060051,carmen,ix@replic.net,2004-06-13 06:00:51-0400,win32 compile tweaks .,https://marc.info/?l=irssi-dev&m=108710648116939&w=2,NA
+20040615134319,Clemens Schwaighofer,schwaigl@eunet.at,2004-06-15 13:43:19-0400,Re: GUI in Gtk,https://marc.info/?l=irssi-dev&m=108730693229728&w=2,http://marc.info/?l=irssi-dev&m=108728575128152&w=2
+20040628132332,Manuel Holtgrewe,purestorm@ggnore.net,2004-06-28 13:23:32-0400,Os X Frontend development: Why sending SIGTERM?,https://marc.info/?l=irssi-dev&m=108842907222087&w=2,NA
+20040515070747,Mathieu Doidy,mdoidy@roulaize.net,2004-05-15 07:07:47-0400,Re: names-command,https://marc.info/?l=irssi-dev&m=108462092921542&w=2,http://marc.info/?l=irssi-dev&m=108457278823529&w=2
+20040531120557,Geert Hauwaerts,geert@irssi.org,2004-05-31 12:05:57-0400,Re: icb patch,https://marc.info/?l=irssi-dev&m=108601748924256&w=2,http://marc.info/?l=irssi-dev&m=108599650412770&w=2
+20040301170037,Valentin Batz,vb@g-23.org,2004-03-01 17:00:37-0400,bugfix still contained bugs,https://marc.info/?l=irssi-dev&m=107816046230742&w=2,NA
+20040305000143,Christel Dahlskjaer,christel@irssi.org,2004-03-05 00:01:43-0400,Random Irssi Related News!,https://marc.info/?l=irssi-dev&m=107844512131486&w=2,NA
+20040323203332,Timo Sirainen,tss@iki.fi,2004-03-23 20:33:32-0400,Re: Compilation for Debian,https://marc.info/?l=irssi-dev&m=108007406527461&w=2,http://marc.info/?l=irssi-dev&m=107887219702263&w=2
+20040323220915,Timo Sirainen,tss@iki.fi,2004-03-23 22:09:15-0400,Re: [PATCH] Passive DCCs on irssi-0.8.9 (port 0),https://marc.info/?l=irssi-dev&m=108007978019270&w=2,http://marc.info/?l=irssi-dev&m=107895413807351&w=2
+20040325205121,Mike Weisenborn,mw@clearbuilt.com,2004-03-25 20:51:21-0400,Re: implemented a new beep_hide_targets setting,https://marc.info/?l=irssi-dev&m=108024791107631&w=2,http://marc.info/?l=irssi-dev&m=108024671624804&w=2
+20040331110119,Petr Baudis,pasky@ucw.cz,2004-03-31 11:01:19-0400,[PATCH] Proper 432 numeric handling,https://marc.info/?l=irssi-dev&m=108073090612926&w=2,NA
+20040217165439,,ssmeenk,2004-02-17 16:54:39-0400,ID niaqhikbt... thanks,https://marc.info/?l=irssi-dev&m=107703695925573&w=2,NA
+20040227043918,Valentin Batz,vb@g-23.org,2004-02-27 04:39:18-0400,bugfix for proxy-module related to isupport changes,https://marc.info/?l=irssi-dev&m=107785680525624&w=2,NA
+20040106014318,Simon Shine,simon@blueshell.dk,2004-01-06 01:43:18-0400,Re: 'Bug' with /completion,https://marc.info/?l=irssi-dev&m=107335861927196&w=2,http://marc.info/?l=irssi-dev&m=107332530718370&w=2
+20040115204427,Athan,irssi@miggy.org,2004-01-15 20:44:27-0400,Re: Make your IRC talk to you,https://marc.info/?l=irssi-dev&m=107419951124742&w=2,NA
+20040117223057,Jochen Eisinger,jochen@penguin-breeder.org,2004-01-17 22:30:57-0400,Re: IRSSI is er..broken?,https://marc.info/?l=irssi-dev&m=107437868422160&w=2,http://marc.info/?l=irssi-dev&m=107436990514457&w=2
+20040119084317,"""Rafael Kitover""",caelum@debian.org,2004-01-19 08:43:17-0400,very minor suggestion for configure.in,https://marc.info/?l=irssi-dev&m=107450598915456&w=2,NA
+20040119150037,Valentin Batz,vb@g-23.org,2004-01-19 15:00:37-0400,settings bug in irssi,https://marc.info/?l=irssi-dev&m=107452445903432&w=2,NA
+20040119192011,Timo Sirainen,tss@iki.fi,2004-01-19 19:20:11-0400,Re: irssi~bug?,https://marc.info/?l=irssi-dev&m=107454004125439&w=2,http://marc.info/?l=irssi-dev&m=107424134629748&w=2
+20040120222116,Timo Sirainen,tss@iki.fi,2004-01-20 22:21:16-0400,Re: /set -default bug,https://marc.info/?l=irssi-dev&m=107463733211469&w=2,http://marc.info/?l=irssi-dev&m=107463709411115&w=2
+20040127215456,Wouter Coekaerts,coekie@irssi.org,2004-01-27 21:54:56-0400,"PREFIX=@+"" in dancer-ircd confuses irssi",https://marc.info/?l=irssi-dev&m=107524052812483&w=2,NA
+20040127223302,,darix,2004-01-27 22:33:02-0400,Error,https://marc.info/?l=irssi-dev&m=107524302216170&w=2,http://marc.info/?l=vim&m=107524211314900&w=2
+20040128180907,Valentin Batz,vb@g-23.org,2004-01-28 18:09:07-0400,Re: /connect freenode /quit bug,https://marc.info/?l=irssi-dev&m=107531335729873&w=2,http://marc.info/?l=irssi-dev&m=107531269628883&w=2
+20040531093423,Matt Dunford,zoot@zotikos.com,2004-05-31 09:34:23-0400,icb patch,https://marc.info/?l=irssi-dev&m=108599650412770&w=2,NA
+20040310212547,Francesco Fracassi,francesco.f@openssl.it,2004-03-10 21:25:47-0400,[PATCH] Passive DCCs on irssi-0.8.9 (port 0),https://marc.info/?l=irssi-dev&m=107895413807351&w=2,NA
+20040322054052,Mike Weisenborn,mw@clearbuilt.com,2004-03-22 05:40:52-0400,implemented a new beep_hide_targets setting,https://marc.info/?l=irssi-dev&m=107993421829786&w=2,NA
+20040117120913,"""Dean""",dean@aggression.us,2004-01-17 12:09:13-0400,IRSSI is er..broken?,https://marc.info/?l=irssi-dev&m=107434138923364&w=2,NA
+20040117121118,Geert Hauwaerts,geert@safeweb.be,2004-01-17 12:11:18-0400,Re: IRSSI is er..broken?,https://marc.info/?l=irssi-dev&m=107434150423474&w=2,http://marc.info/?l=irssi-dev&m=107434138923364&w=2
+20040117200412,"""Dean""",dean@aggression.us,2004-01-17 20:04:12-0400,RE: IRSSI is er..broken?,https://marc.info/?l=irssi-dev&m=107436990514457&w=2,http://marc.info/?l=irssi-dev&m=107434150423474&w=2
+20040115111418,"""scOrpiOnn""",scorpionn@terra.es,2004-01-15 11:14:18-0400,irssi~bug?,https://marc.info/?l=irssi-dev&m=107416556311598&w=2,NA
+20040115195627,Athan,irssi@miggy.org,2004-01-15 19:56:27-0400,Re: irssi~bug?,https://marc.info/?l=irssi-dev&m=107419661319973&w=2,http://marc.info/?l=irssi-dev&m=107416556311598&w=2
+20040115201808,,"michael@dragoncat.net, ""poole <mdpoole""",2004-01-15 20:18:08-0400,Re: irssi~bug?,https://marc.info/?l=irssi-dev&m=107424134629748&w=2,http://marc.info/?l=irssi-dev&m=107419661319973&w=2
+20040323203422,Timo Sirainen,tss@iki.fi,2004-03-23 20:34:22-0400,Re: implemented a new beep_hide_targets setting,https://marc.info/?l=irssi-dev&m=108007411612485&w=2,http://marc.info/?l=irssi-dev&m=107993421829786&w=2
+20040325191821,Mike Weisenborn,mw@clearbuilt.com,2004-03-25 19:18:21-0400,Re: implemented a new beep_hide_targets setting,https://marc.info/?l=irssi-dev&m=108024236107408&w=2,http://marc.info/?l=irssi-dev&m=108007411612485&w=2
+20040120221520,Valentin Batz,vb@g-23.org,2004-01-20 22:15:20-0400,/set -default bug,https://marc.info/?l=irssi-dev&m=107463693210891&w=2,NA
+20040120221741,Geert Hauwaerts,geert@safeweb.be,2004-01-20 22:17:41-0400,Re: /set -default bug,https://marc.info/?l=irssi-dev&m=107463709411115&w=2,http://marc.info/?l=irssi-dev&m=107463693210891&w=2
+20040325192128,Geert Hauwaerts,geert@safeweb.be,2004-03-25 19:21:28-0400,Re: implemented a new beep_hide_targets setting,https://marc.info/?l=irssi-dev&m=108024251823810&w=2,http://marc.info/?l=irssi-dev&m=108024236107408&w=2
+20040325194448,Mike Weisenborn,mw@clearbuilt.com,2004-03-25 19:44:48-0400,Re: implemented a new beep_hide_targets setting,https://marc.info/?l=irssi-dev&m=108024390901040&w=2,http://marc.info/?l=irssi-dev&m=108024251823810&w=2
+20040325203134,Geert Hauwaerts,geert@safeweb.be,2004-03-25 20:31:34-0400,Re: implemented a new beep_hide_targets setting,https://marc.info/?l=irssi-dev&m=108024671624804&w=2,http://marc.info/?l=irssi-dev&m=108024390901040&w=2
+20040128175801,Valentin Batz,vb@g-23.org,2004-01-28 17:58:01-0400,/connect freenode /quit bug,https://marc.info/?l=irssi-dev&m=107531269628883&w=2,NA
+20040128192142,Valentin Batz,vb@g-23.org,2004-01-28 19:21:42-0400,/set bug again,https://marc.info/?l=irssi-dev&m=107531770910171&w=2,NA
+20031202161035,Joost Vunderink,joost@carnique.nl,2003-12-02 16:10:35-0400,Re: core dump,https://marc.info/?l=irssi-dev&m=107038145024903&w=2,http://marc.info/?l=irssi-dev&m=107038116924530&w=2
+20031204154851,Jean-Yves Lefort,jylefort@brutele.be,2003-12-04 15:48:51-0400,formats+UTF-8 patch,https://marc.info/?l=irssi-dev&m=107055400707181&w=2,NA
+20031217192701,Valentin Batz,vb@g-23.org,2003-12-17 19:27:01-0400,proxy fix,https://marc.info/?l=irssi-dev&m=107168925128807&w=2,NA
+20031107155819,"""Stephen Gill""",gillsr@yahoo.com,2003-11-07 15:58:19-0400,RE: irssi logging and commandline options,https://marc.info/?l=irssi-dev&m=106822073120956&w=2,http://marc.info/?l=irssi-users&m=106821930719094&w=2
+20031121114323,"""Snowy Angelique Maslov aka 'Snowpony'""",snowy@snowy.org,2003-11-21 11:43:23-0400,Patch for Enhancements to BNC/Bouncer proxy code,https://marc.info/?l=irssi-dev&m=106941505218877&w=2,NA
+20031130192110,Joost Vunderink,joost@carnique.nl,2003-11-30 19:21:10-0400,wiki irssi documentation project,https://marc.info/?l=irssi-dev&m=107022013431130&w=2,http://marc.info/?l=irssi-users&m=107022013031136&w=2
+20031005165443,Wang WenRui,wangwr@mail.ustc.edu.cn,2003-10-05 16:54:43-0400,[Patch] fixed Chinese characters input in the text mode,https://marc.info/?l=irssi-dev&m=106537316211679&w=2,NA
+20031030102321,Dario Freni,saturnero@gufi.org,2003-10-30 10:23:21-0400,Re: Hiding channel key from statusbar?,https://marc.info/?l=irssi-dev&m=106750942024120&w=2,http://marc.info/?l=irssi-dev&m=106750848423176&w=2
+20031030232321,,dekket,2003-10-30 23:23:21-0400,"alignment = ""center"";",https://marc.info/?l=irssi-dev&m=106755922919838&w=2,NA
+20030905212809,Nils Hjelte,c01nhe@cs.umu.se,2003-09-05 21:28:09-0400,Announcement of MacIrssi,https://marc.info/?l=irssi-dev&m=106279732610659&w=2,NA
+20030921041305,Marcus Rueckert,darix@web.de,2003-09-21 04:13:05-0400,Re: Coding a plugin/module,https://marc.info/?l=irssi-dev&m=106412877412909&w=2,http://marc.info/?l=irssi-dev&m=106408060516632&w=2
+20030922225701,"""tommy""",tommy.2003@gmx.net,2003-09-22 22:57:01-0400,irssi kills parts of a library,https://marc.info/?l=irssi-dev&m=106427459007142&w=2,NA
+20030925183505,Marcus Rueckert,rueckert@informatik.uni-rostock.de,2003-09-25 18:35:05-0400,Re: Prompting for input,https://marc.info/?l=irssi-dev&m=106451603727000&w=2,http://marc.info/?l=irssi-dev&m=106451298522889&w=2
+20030926005608,Marcus Rueckert,rueckert@informatik.uni-rostock.de,2003-09-26 00:56:08-0400,Re: Theme'ing in irssi.,https://marc.info/?l=irssi-dev&m=106453823818120&w=2,http://marc.info/?l=irssi-dev&m=106453652016943&w=2
+20141110163216,noname,noname@inventati.org,2014-11-10 16:32:16-0400,[PATCH 1/4] Remove unused variable from irssi_ssl_verify,https://marc.info/?l=irssi-dev&m=141563715731434&w=2,NA
+20141110163245,noname,noname@inventati.org,2014-11-10 16:32:45-0400,[PATCH 2/4] Replace MD5 with SHA256,https://marc.info/?l=irssi-dev&m=141563719031466&w=2,NA
+20141110163311,noname,noname@inventati.org,2014-11-10 16:33:11-0400,[PATCH 3/4] Implement ssl_sha256 option,https://marc.info/?l=irssi-dev&m=141563721131481&w=2,NA
+20141110163330,noname,noname@inventati.org,2014-11-10 16:33:30-0400,[PATCH 4/4] Simplify fingerprint calculation,https://marc.info/?l=irssi-dev&m=141563723131500&w=2,NA
+20141114144109,Guillaume Parent,gparent@gparent.org,2014-11-14 14:41:09-0400,Re: SHA256 fingerprints,https://marc.info/?l=irssi-dev&m=141597608500729&w=2,http://marc.info/?l=irssi-dev&m=141573272309211&w=2
+20140815205530,"""Luis R. Rodriguez""",mcgrof@do-not-panic.com,2014-08-15 20:55:30-0400,[PATCH 1/3] irssi: embrace the Developer Certificate of Origin for contributions,https://marc.info/?l=irssi-dev&m=140813616817253&w=2,NA
+20140815205531,"""Luis R. Rodriguez""",mcgrof@do-not-panic.com,2014-08-15 20:55:31-0400,[PATCH 2/3] irssi core: add window console set active support,https://marc.info/?l=irssi-dev&m=140813618817264&w=2,NA
+20140815205532,"""Luis R. Rodriguez""",mcgrof@do-not-panic.com,2014-08-15 20:55:32-0400,[PATCH 3/3] irssi core: enable prompting for client certificate password,https://marc.info/?l=irssi-dev&m=140813618417262&w=2,NA
+20030925180240,Kim Norgaard,jasen@jasen.dk,2003-09-25 18:02:40-0400,Prompting for input,https://marc.info/?l=irssi-dev&m=106451298522889&w=2,NA
+20030926002342,,dekket,2003-09-26 00:23:42-0400,Theme'ing in irssi.,https://marc.info/?l=irssi-dev&m=106453652016943&w=2,NA
+20001028023937,"""Sascha Lüdecke""",sascha@meta-x.de,2000-10-28 02:39:37-0400,Re: /exec and stderr output of subcommands,https://marc.info/?l=irssi-dev&m=102236177207089&w=2,NA
+20010830144125,Timo Sirainen,tss@iki.fi,2001-08-30 14:41:25-0400,Re: topic append??,https://marc.info/?l=irssi-dev&m=102236177207130&w=2,http://marc.info/?l=irssi-dev&m=102236177207129&w=2
+20011104112106,Hugo Haas,hugo@larve.net,2001-11-04 11:21:06-0400,Re: Client-To-Client Protocol (CTCP) implementation in irssi,https://marc.info/?l=irssi-dev&m=102236177207146&w=2,http://marc.info/?l=irssi-dev&m=102236177207143&w=2
+20001115123302,Per von Zweigbergk,pvz@linux.se,2000-11-15 12:33:02-0400,"ircd i18n, suggested protocol extension",https://marc.info/?l=irssi-dev&m=102236177207092&w=2,NA
+20001115123955,Bobby Billingsley,bobby@bofh.dk,2000-11-15 12:39:55-0400,"Re: ircd i18n, suggested protocol extension",https://marc.info/?l=irssi-dev&m=102236177207093&w=2,http://marc.info/?l=irssi-dev&m=102236177207092&w=2
+20010310161656,Timo Sirainen,tss@iki.fi,2001-03-10 16:16:56-0400,cvs.irssi.org moved,https://marc.info/?l=irssi-dev&m=102236177207103&w=2,NA
+20010506200651,Eric,spirilis@scitus.yi.org,2001-05-06 20:06:51-0400,Excellent program,https://marc.info/?l=irssi-dev&m=102236177207106&w=2,NA
+20010617163519,Per von Zweigbergk,pvz@linux.se,2001-06-17 16:35:19-0400,kirssi/girssi?,https://marc.info/?l=irssi-dev&m=102236177207114&w=2,NA
+20010618214147,Timo Sirainen,tss@iki.fi,2001-06-18 21:41:47-0400,Re: kirssi/girssi?,https://marc.info/?l=irssi-dev&m=102236177207115&w=2,http://marc.info/?l=irssi-dev&m=102236177207114&w=2
+20010717204950,"""Nikolai 'pcp' Weibull""",da.box@home.se,2001-07-17 20:49:50-0400,tcl plugin (again),https://marc.info/?l=irssi-dev&m=102236177207125&w=2,NA
+20010830143750,"""Sabarese, Kenneth F.""",sabarese@roo.susqu.edu,2001-08-30 14:37:50-0400,topic append??,https://marc.info/?l=irssi-dev&m=102236177207129&w=2,NA
+20010729193247,,javax,2001-07-29 19:32:47-0400,irssi 0.7.98.3 core dumping,https://marc.info/?l=irssi-dev&m=102236177207127&w=2,NA
+20010911232531,Hugo Haas,hugo@larve.net,2001-09-11 23:25:31-0400,irssi 0.7.98.4 segmentation fault,https://marc.info/?l=irssi-dev&m=102236177207131&w=2,NA
+20011004185736,David Leadbeater,dgl@dgl.cx,2001-10-04 18:57:36-0400,Problems with ncurses(?),https://marc.info/?l=irssi-dev&m=102236177207138&w=2,NA
+20011204213445,Danny Rodriguez,messiah@optonline.net,2001-12-04 21:34:45-0400,A fault with IRSSI's queuing of whois queries,https://marc.info/?l=irssi-dev&m=102236177207148&w=2,NA
+20020131013503,John Bailey,john@anotherdimension.net,2002-01-31 01:35:03-0400,DCC Send Limiter Problem,https://marc.info/?l=irssi-dev&m=102236177207158&w=2,NA
+20020216025928,Tomas Ogren,stric@ing.umu.se,2002-02-16 02:59:28-0400,Bug report wrt /statusbar in cvs snapshot and feature stuff,https://marc.info/?l=irssi-dev&m=102236177207163&w=2,NA
+20020313140243,Alexander Demenshin,aldem-irssi@aldem.net,2002-03-13 14:02:43-0400,/ignore with patterns,https://marc.info/?l=irssi-dev&m=102236177207176&w=2,NA
+20020410161749,Alexander Demenshin,aldem-irssi@aldem.net,2002-04-10 16:17:49-0400,ban lists and channel user modes,https://marc.info/?l=irssi-dev&m=102236177207183&w=2,NA
+20020410185441,Timo Sirainen,tss@iki.fi,2002-04-10 18:54:41-0400,Re: ban lists and channel user modes,https://marc.info/?l=irssi-dev&m=102236177207184&w=2,http://marc.info/?l=irssi-dev&m=102236177207183&w=2
+20020410191740,Alexander Demenshin,aldem-irssi@aldem.net,2002-04-10 19:17:40-0400,Re: ban lists and channel user modes,https://marc.info/?l=irssi-dev&m=102236177207185&w=2,http://marc.info/?l=irssi-dev&m=102236177207184&w=2
+20020216073533,Timo Sirainen,tss@iki.fi,2002-02-16 07:35:33-0400,Re: Bug report wrt /statusbar in cvs snapshot and feature stuff,https://marc.info/?l=irssi-dev&m=102236177207164&w=2,http://marc.info/?l=irssi-dev&m=102236177207163&w=2
+20020216174111,Tomas Ogren,stric@ing.umu.se,2002-02-16 17:41:11-0400,Re: Bug report wrt /statusbar in cvs snapshot and feature stuff,https://marc.info/?l=irssi-dev&m=102236177207165&w=2,http://marc.info/?l=irssi-dev&m=102236177207164&w=2
+20020217095258,Timo Sirainen,tss@iki.fi,2002-02-17 09:52:58-0400,Re: Bug report wrt /statusbar in cvs snapshot and feature stuff,https://marc.info/?l=irssi-dev&m=102236177207166&w=2,http://marc.info/?l=irssi-dev&m=102236177207165&w=2
+20020217173339,Johan Kiviniemi,ion@hassers.spam.invalid,2002-02-17 17:33:39-0400,Re: Bug report wrt /statusbar in cvs snapshot and feature stuff,https://marc.info/?l=irssi-dev&m=102236177207167&w=2,http://marc.info/?l=irssi-dev&m=102236177207166&w=2
+20020131015722,Timo Sirainen,tss@iki.fi,2002-01-31 01:57:22-0400,Re: DCC Send Limiter Problem,https://marc.info/?l=irssi-dev&m=102236177207159&w=2,http://marc.info/?l=irssi-dev&m=102236177207158&w=2
+20020421103409,Jussi Ekholm,ekhowl@goa-head.org,2002-04-21 10:34:09-0400,feature request about tab completion,https://marc.info/?l=irssi-dev&m=102236177207187&w=2,NA
+20020421112620,,darix,2002-04-21 11:26:20-0400,Re: feature request about tab completion,https://marc.info/?l=irssi-dev&m=102236177207188&w=2,http://marc.info/?l=irssi-dev&m=102236177207187&w=2
+20020131133915,John Bailey,john@anotherdimension.net,2002-01-31 13:39:15-0400,Re: DCC Send Limiter Problem,https://marc.info/?l=irssi-dev&m=102236177207160&w=2,http://marc.info/?l=irssi-users&m=102421701915768&w=2
+20011205180652,Timo Sirainen,tss@iki.fi,2001-12-05 18:06:52-0400,Re: A fault with IRSSI's queuing of whois queries,https://marc.info/?l=irssi-dev&m=102236177207149&w=2,http://marc.info/?l=irssi-dev&m=102236177207148&w=2
+20011205210958,Danny Rodriguez,messiah@optonline.net,2001-12-05 21:09:58-0400,Re: A fault with IRSSI's queuing of whois queries,https://marc.info/?l=irssi-dev&m=102236177207150&w=2,http://marc.info/?l=irssi-dev&m=102236177207149&w=2
+20011205211948,Danny Rodriguez,messiah@optonline.net,2001-12-05 21:19:48-0400,Re: A fault with IRSSI's queuing of whois queries,https://marc.info/?l=irssi-dev&m=102236177207152&w=2,http://marc.info/?l=irssi-dev&m=102236177207150&w=2
+20010620093249,Christian Borup,borup@borup.com,2001-06-20 09:32:49-0400,Re: kirssi/girssi?,https://marc.info/?l=irssi-dev&m=102236177207116&w=2,http://marc.info/?l=irssi-dev&m=102236177207115&w=2
+20010620094302,Timo Sirainen,tss@iki.fi,2001-06-20 09:43:02-0400,Re: kirssi/girssi?,https://marc.info/?l=irssi-dev&m=102236177207117&w=2,http://marc.info/?l=irssi-dev&m=102236177207116&w=2
+20010620101354,Christian Borup,borup@borup.com,2001-06-20 10:13:54-0400,Re: kirssi/girssi?,https://marc.info/?l=irssi-dev&m=102236177207118&w=2,http://marc.info/?l=irssi-dev&m=102236177207117&w=2
+20010620102208,Timo Sirainen,tss@iki.fi,2001-06-20 10:22:08-0400,Re: kirssi/girssi?,https://marc.info/?l=irssi-dev&m=102236177207119&w=2,http://marc.info/?l=irssi-dev&m=102236177207118&w=2
+20010620112659,Christian Borup,borup@borup.com,2001-06-20 11:26:59-0400,Re: kirssi/girssi?,https://marc.info/?l=irssi-dev&m=102236177207120&w=2,http://marc.info/?l=irssi-dev&m=102236177207119&w=2
+20010506201053,Timo Sirainen,tss@iki.fi,2001-05-06 20:10:53-0400,Re: Excellent program,https://marc.info/?l=irssi-dev&m=102236177207107&w=2,http://marc.info/?l=irssi-dev&m=102236177207106&w=2
+20010506201955,Eric,spirilis@scitus.yi.org,2001-05-06 20:19:55-0400,Re: Excellent program,https://marc.info/?l=irssi-dev&m=102236177207108&w=2,http://marc.info/?l=irssi-dev&m=102236177207107&w=2
+20001115132921,Per von Zweigbergk,cannon@chello.be,2000-11-15 13:29:21-0400,"Re: ircd i18n, suggested protocol extension",https://marc.info/?l=irssi-dev&m=102236177207094&w=2,http://marc.info/?l=irssi-dev&m=102236177207093&w=2
+20001115133210,Kurt Roeckx,q@ping.be,2000-11-15 13:32:10-0400,"Re: ircd i18n, suggested protocol extension",https://marc.info/?l=irssi-dev&m=102236177207095&w=2,http://marc.info/?l=irssi-dev&m=102236177207094&w=2
+20001115142125,Per von Zweigbergk,cannon@chello.be,2000-11-15 14:21:25-0400,"Re: ircd i18n, suggested protocol extension",https://marc.info/?l=irssi-dev&m=102236177207096&w=2,http://marc.info/?l=irssi-dev&m=102236177207095&w=2
+20001115155217,Kurt Roeckx,q@ping.be,2000-11-15 15:52:17-0400,"Re: ircd i18n, suggested protocol extension",https://marc.info/?l=irssi-dev&m=102236177207097&w=2,http://marc.info/?l=irssi-dev&m=102236177207096&w=2
+20001115194932,Timo Sirainen,tss@iki.fi,2000-11-15 19:49:32-0400,"Re: ircd i18n, suggested protocol extension",https://marc.info/?l=irssi-dev&m=102236177207098&w=2,http://marc.info/?l=irssi-dev&m=102236177207097&w=2
+20001115202347,Kurt Roeckx,q@ping.be,2000-11-15 20:23:47-0400,"Re: ircd i18n, suggested protocol extension",https://marc.info/?l=irssi-dev&m=102236177207099&w=2,http://marc.info/?l=irssi-dev&m=102236177207098&w=2
+20001115210120,Timo Sirainen,tss@iki.fi,2000-11-15 21:01:20-0400,"Re: ircd i18n, suggested protocol extension",https://marc.info/?l=irssi-dev&m=102236177207100&w=2,http://marc.info/?l=irssi-dev&m=102236177207099&w=2
+20020411122610,Timo Sirainen,tss@iki.fi,2002-04-11 12:26:10-0400,Re: ban lists and channel user modes,https://marc.info/?l=irssi-dev&m=102236177207186&w=2,http://marc.info/?l=irssi-dev&m=102236177207185&w=2
+20020421131653,Timo Sirainen,tss@iki.fi,2002-04-21 13:16:53-0400,Re: feature request about tab completion,https://marc.info/?l=irssi-dev&m=102236177207189&w=2,http://marc.info/?l=irssi-dev&m=102236177207188&w=2
+20020429230715,Bjoern Krombholz,bjkro@gmx.de,2002-04-29 23:07:15-0400,Re: window goto nick doesn't work,https://marc.info/?l=irssi-dev&m=102236177207192&w=2,http://marc.info/?l=irssi-dev&m=102236177207191&w=2
+20020430110312,Timo Sirainen,tss@iki.fi,2002-04-30 11:03:12-0400,Re: Adding Ruby as an extension language,https://marc.info/?l=irssi-dev&m=102236177207194&w=2,http://marc.info/?l=irssi-dev&m=102236177207193&w=2
+20020313191212,Timo Sirainen,tss@iki.fi,2002-03-13 19:12:12-0400,Re: /ignore with patterns,https://marc.info/?l=irssi-dev&m=102236177207177&w=2,http://marc.info/?l=irssi-dev&m=102236177207176&w=2
+20020314012509,Alexander Demenshin,aldem-irssi@aldem.net,2002-03-14 01:25:09-0400,botti & tabs,https://marc.info/?l=irssi-dev&m=102236177207178&w=2,NA
+20020314015126,"""Ian Blizzard""",paragon@martyr.ca,2002-03-14 01:51:26-0400,Re: botti &amp; tabs,https://marc.info/?l=irssi-dev&m=102236177207179&w=2,NA
+20020318163858,Sophie,sophie@cats.meow.at,2002-03-18 16:38:58-0400,vi mode irssi,https://marc.info/?l=irssi-dev&m=102236177207180&w=2,NA
+20020326164154,Bjoern Krombholz,bjkro@gmx.de,2002-03-26 16:41:54-0400,Re: 0.8.4 crashes with my old config file,https://marc.info/?l=irssi-dev&m=102236177207182&w=2,http://marc.info/?l=irssi-dev&m=102236177207181&w=2
+20020217173829,Timo Sirainen,tss@iki.fi,2002-02-17 17:38:29-0400,Re: Bug report wrt /statusbar in cvs snapshot and feature stuff,https://marc.info/?l=irssi-dev&m=102236177207168&w=2,http://marc.info/?l=irssi-dev&m=102236177207167&w=2
+20020217215645,Per von Zweigbergk,pvz@linux.se,2002-02-17 21:56:45-0400,PATCH: Eliminating blinking mIRC colours,https://marc.info/?l=irssi-dev&m=102236177207169&w=2,NA
+20020219214938,Inet6,inet6@mail.be,2002-02-19 21:49:38-0400,Crash on startup :(,https://marc.info/?l=irssi-dev&m=102236177207170&w=2,NA
+20020224030811,ckroom,ckroom@yahoo.com,2002-02-24 03:08:11-0400,Re: Segmentation fault,https://marc.info/?l=irssi-dev&m=102236177207173&w=2,http://marc.info/?l=irssi-dev&m=102236177207172&w=2
+20020224132149,Marcus 'darix' Rueckert,darix@linux.taugt.net,2002-02-24 13:21:49-0400,Re: Fwd: Re: reproduce the bug,https://marc.info/?l=irssi-dev&m=102236177207175&w=2,http://marc.info/?l=irssi-dev&m=102236177207174&w=2
+20020124013210,"""kriss rolo""",krissrolo@aol.com,2002-01-24 01:32:10-0400,SOME ITEMS THAT YOU MAY BE INTERESTED IN OR BE ABLE TO ADVISE ME ON,https://marc.info/?l=irssi-dev&m=102236177207157&w=2,http://marc.info/?l=hurd-help&m=103540314809379&w=2
+20020131134220,Jakub Jankowski,shasta@quasimodo.olsztyn.tpsa.pl,2002-01-31 13:42:20-0400,Re: DCC Send Limiter Problem,https://marc.info/?l=irssi-dev&m=102236177207161&w=2,http://marc.info/?l=irssi-dev&m=102236177207160&w=2
+20011205212132,Timo Sirainen,tss@iki.fi,2001-12-05 21:21:32-0400,Re: A fault with IRSSI's queuing of whois queries,https://marc.info/?l=irssi-dev&m=102236177207151&w=2,http://marc.info/?l=irssi-dev&m=102236177207152&w=2
+20011211010517,"""TÃ¼rkÃ§emiz""",ysuleyman@yahoo.com,2001-12-11 01:05:17-0400,www.anadili.egitimi.com,https://marc.info/?l=irssi-dev&m=102236177207153&w=2,NA
+20020426104238,Hugo Haas,hugo@larve.net,2002-04-26 10:42:38-0400,window goto nick doesn't work,https://marc.info/?l=irssi-dev&m=102236177207190&w=2,NA
+20020430092613,Einar Karttunen,ekarttun@cs.helsinki.fi,2002-04-30 09:26:13-0400,Adding Ruby as an extension language,https://marc.info/?l=irssi-dev&m=102236177207193&w=2,NA
+20020428202031,Jussi Ekholm,ekhowl@goa-head.org,2002-04-28 20:20:31-0400,Re: window goto nick doesn't work,https://marc.info/?l=irssi-dev&m=102236177207191&w=2,http://marc.info/?l=irssi-dev&m=102236177207190&w=2
+20020502135701,Jussi Ekholm,ekhowl@goa-head.org,2002-05-02 13:57:01-0400,Re: window goto nick doesn't work,https://marc.info/?l=irssi-dev&m=102236177207196&w=2,http://marc.info/?l=irssi-dev&m=102236177207192&w=2
+20011224022240,Kenny Sabarese,kfs27@yahoo.com,2001-12-24 02:22:40-0400,irssi on mac osx,https://marc.info/?l=irssi-dev&m=102236177207154&w=2,NA
+20020325115253,ckroom,ckroom@telefonica.net,2002-03-25 11:52:53-0400,0.8.4 crashes with my old config file,https://marc.info/?l=irssi-dev&m=102236177207181&w=2,NA
+20011227005145,"""Serdar Kahya""",kortanyussk@soccer.com,2001-12-27 00:51:45-0400,slm,https://marc.info/?l=irssi-dev&m=102236177207155&w=2,http://marc.info/?l=hurd-help&m=103540314809252&w=2
+20011229163510,Simo Salminen,simo.salminen@iki.fi,2001-12-29 16:35:10-0400,0.7.98.CVS build fails with libtool error,https://marc.info/?l=irssi-dev&m=102236177207156&w=2,NA
+20011120172842,Pauli_Ojanperä,pasaojan@cc.jyu.fi,2001-11-20 17:28:42-0400,Segmentation fault irssi 0.7.98.CVS (20011119),https://marc.info/?l=irssi-dev&m=102236177207147&w=2,NA
+20011005160308,Sebastian 'yath' Schmidt,yathen@web.de,2001-10-05 16:03:08-0400,Halfop-Patch,https://marc.info/?l=irssi-dev&m=102236177207139&w=2,NA
+20011011193746,David Leadbeater,dgl@dgl.cx,2001-10-11 19:37:46-0400,/lastlog -count,https://marc.info/?l=irssi-dev&m=102236177207140&w=2,NA
+20011019110946,Timo Sirainen,tss@iki.fi,2001-10-19 11:09:46-0400,Re: proxy module bug reports and patch,https://marc.info/?l=irssi-dev&m=102236177207141&w=2,http://marc.info/?l=irssi-dev&m=102236177207134&w=2
+20011019112956,Timo Sirainen,tss@iki.fi,2001-10-19 11:29:56-0400,Re: difrent connection to server,https://marc.info/?l=irssi-dev&m=102236177207142&w=2,http://marc.info/?l=irssi-dev&m=102236177207135&w=2
+20020224125014,ckroom,ckroom@yahoo.com,2002-02-24 12:50:14-0400,Fwd: Re: reproduce the bug,https://marc.info/?l=irssi-dev&m=102236177207174&w=2,NA
+20011019114249,Timo Sirainen,tss@iki.fi,2001-10-19 11:42:49-0400,Re: Client-To-Client Protocol (CTCP) implementation in irssi,https://marc.info/?l=irssi-dev&m=102236177207143&w=2,http://marc.info/?l=irssi-dev&m=102236177207137&w=2
+20011019115034,Timo Sirainen,tss@iki.fi,2001-10-19 11:50:34-0400,Re: Problems with ncurses(?),https://marc.info/?l=irssi-dev&m=102236177207144&w=2,http://marc.info/?l=irssi-dev&m=102236177207138&w=2
+20011021102053,Jakub Jankowski,shasta@quasimodo.olsztyn.tpsa.pl,2001-10-21 10:20:53-0400,segfault with 20011021 irssi,https://marc.info/?l=irssi-dev&m=102236177207145&w=2,NA
+20010911232913,Hugo Haas,hugo@larve.net,2001-09-11 23:29:13-0400,Re: irssi 0.7.98.4 segmentation fault,https://marc.info/?l=irssi-dev&m=102236177207132&w=2,http://marc.info/?l=irssi-dev&m=102236177207131&w=2
+20010914013039,Ganesh Sittampalam,ganesh@earth.li,2001-09-14 01:30:39-0400,Re: proxy module bug reports and patch,https://marc.info/?l=irssi-dev&m=102236177207134&w=2,http://marc.info/?l=irssi-dev&m=102236177207133&w=2
+20010914161950,Piotr Janik,pietlek@linux-pl.com,2001-09-14 16:19:50-0400,difrent connection to server,https://marc.info/?l=irssi-dev&m=102236177207135&w=2,NA
+20010926210939,Jakub Jankowski,shasta@quasimodo.olsztyn.tpsa.pl,2001-09-26 21:09:39-0400,IDEA plugin,https://marc.info/?l=irssi-dev&m=102236177207136&w=2,NA
+20010928152335,Hugo Haas,hugo@larve.net,2001-09-28 15:23:35-0400,Client-To-Client Protocol (CTCP) implementation in irssi,https://marc.info/?l=irssi-dev&m=102236177207137&w=2,NA
+20010717183219,Hugo Haas,hugo@larve.net,2001-07-17 18:32:19-0400,/HILIGHT problems,https://marc.info/?l=irssi-dev&m=102236177207124&w=2,NA
+20010718142323,Timo Sirainen,tss@iki.fi,2001-07-18 14:23:23-0400,Re: tcl plugin (again),https://marc.info/?l=irssi-dev&m=102236177207126&w=2,http://marc.info/?l=irssi-dev&m=102236177207125&w=2
+20010729211849,Timo Sirainen,tss@iki.fi,2001-07-29 21:18:49-0400,Re: irssi 0.7.98.3 core dumping,https://marc.info/?l=irssi-dev&m=102236177207128&w=2,http://marc.info/?l=irssi-dev&m=102236177207127&w=2
+20010620124856,Timo Sirainen,tss@iki.fi,2001-06-20 12:48:56-0400,Re: kirssi/girssi?,https://marc.info/?l=irssi-dev&m=102236177207122&w=2,http://marc.info/?l=irssi-dev&m=102236177207120&w=2
+20020507191505,ckroom,ckroom@telefonica.net,2002-05-07 19:15:05-0400,segmentation fault,https://marc.info/?l=irssi-dev&m=102236177207197&w=2,http://marc.info/?l=rt-users&m=103137637720473&w=2
+20020507191758,Timo Sirainen,tss@iki.fi,2002-05-07 19:17:58-0400,Re: segmentation fault,https://marc.info/?l=irssi-dev&m=102236177207198&w=2,http://marc.info/?l=irssi-dev&m=102236177207197&w=2
+20010621133204,Timo Sirainen,tss@iki.fi,2001-06-21 13:32:04-0400,Re: perl/tcl plugin,https://marc.info/?l=irssi-dev&m=102236177207123&w=2,http://marc.info/?l=irssi-dev&m=102236177207121&w=2
+20010507003629,Eric,spirilis@scitus.yi.org,2001-05-07 00:36:29-0400,"Irssi, Perl and fork()'ed processes",https://marc.info/?l=irssi-dev&m=102236177207109&w=2,NA
+20010511122424,Timo Sirainen,tss@iki.fi,2001-05-11 12:24:24-0400,Re: Excellent program,https://marc.info/?l=irssi-dev&m=102236177207110&w=2,http://marc.info/?l=irssi-dev&m=102236177207108&w=2
+20010521204230,Timo Sirainen,tss@iki.fi,2001-05-21 20:42:30-0400,Re: Irssi segfault,https://marc.info/?l=irssi-dev&m=102236177207112&w=2,http://marc.info/?l=irssi-dev&m=102236177207111&w=2
+20010525000240,Bjoern Krombholz,bjkro@gmx.de,2001-05-25 00:02:40-0400,Patch: perl command_runsub,https://marc.info/?l=irssi-dev&m=102236177207113&w=2,NA
+20010310165136,Timo Sirainen,tss@iki.fi,2001-03-10 16:51:36-0400,cvs.irssi.org,https://marc.info/?l=irssi-dev&m=102236177207104&w=2,NA
+20010310210331,,dawszy,2001-03-10 21:03:31-0400,Re: cvs.irssi.org moved,https://marc.info/?l=irssi-dev&m=102236177207105&w=2,http://marc.info/?l=irssi-dev&m=102236177207103&w=2
+20010914005240,Ganesh Sittampalam,ganesh@earth.li,2001-09-14 00:52:40-0400,proxy module bug reports and patch,https://marc.info/?l=irssi-dev&m=102236177207133&w=2,NA
+20001114191332,Martin =?ISO8859-1?Q?Norb=E4ck?=,d95mback@dtek.chalmers.se,2000-11-14 19:13:32-0400,short l10n patch,https://marc.info/?l=irssi-dev&m=102236177207090&w=2,NA
+20001115212834,Diane Bruce,db@tfm.com,2000-11-15 21:28:34-0400,"Re: ircd i18n, suggested protocol extension",https://marc.info/?l=irssi-dev&m=102236177207101&w=2,http://marc.info/?l=irssi-dev&m=102236177207100&w=2
+20001115233423,Timo Sirainen,tss@iki.fi,2000-11-15 23:34:23-0400,Re: log closing patch,https://marc.info/?l=irssi-dev&m=102236177207102&w=2,http://marc.info/?l=irssi-dev&m=102236177207091&w=2
+20020224024416,ckroom,ckroom@yahoo.com,2002-02-24 02:44:16-0400,Segmentation fault,https://marc.info/?l=irssi-dev&m=102236177207171&w=2,http://marc.info/?l=rpmorg-list&m=152468531820259&w=2
+20020224030206,Marcus 'darix' Rueckert,darix@linux.taugt.net,2002-02-24 03:02:06-0400,Re: Segmentation fault,https://marc.info/?l=irssi-dev&m=102236177207172&w=2,http://marc.info/?l=irssi-dev&m=102236177207171&w=2
+20010620122238,pcp,da.box@home.se,2001-06-20 12:22:38-0400,perl/tcl plugin,https://marc.info/?l=irssi-dev&m=102236177207121&w=2,NA
+20010520052604,Eric,spirilis@scitus.yi.org,2001-05-20 05:26:04-0400,Irssi segfault,https://marc.info/?l=irssi-dev&m=102236177207111&w=2,NA
+20001114193432,Bjoern Krombholz,bjkro@gmx.de,2000-11-14 19:34:32-0400,log closing patch,https://marc.info/?l=irssi-dev&m=102236177207091&w=2,NA
+20020606221107,Bastian Hoyer,dafire@dafire.de,2002-06-06 22:11:07-0400,proxy module,https://marc.info/?l=irssi-dev&m=102340147321191&w=2,NA
+20020501183007,"""ARTER""",arter@dragoncat.net,2002-05-01 18:30:07-0400,Re: VB ile Programlama / % 50 indirim,https://marc.info/?l=irssi-dev&m=102236177207195&w=2,NA
+20030306074113,"""Ted Goodridge, Jr""",tedgoodridgejr@acm.org,2003-03-06 07:41:13-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104693695729171&w=2,http://marc.info/?l=irssi-dev&m=104606931721973&w=2
+20030604031334,,derek,2003-06-04 03:13:34-0400,misc silc-plugin/scripting questions,https://marc.info/?l=irssi-dev&m=105469669702553&w=2,NA
+20030609142551,Jean-Yves Lefort,jylefort@brutele.be,2003-06-09 14:25:51-0400,new irssi plugins,https://marc.info/?l=irssi-dev&m=105516922611905&w=2,NA
+20030625153815,Wouter Coekaerts,coekie@irssi.org,2003-06-25 15:38:15-0400,Re: irssi-proxy portbinds,https://marc.info/?l=irssi-dev&m=105658541732316&w=2,http://marc.info/?l=irssi-dev&m=105654502018017&w=2
+20030503210731,Piotr Krukowiecki,piotr@pingu.ii.uj.edu.pl,2003-05-03 21:07:31-0400,Bug in 0.8.6 - not changing nick in dcc send,https://marc.info/?l=irssi-dev&m=105199643811639&w=2,NA
+20030509132015,Kevin Sonney,ksonney@redhat.com,2003-05-09 13:20:15-0400,[Patch] ssl support with pkgconfig,https://marc.info/?l=irssi-dev&m=105248645926838&w=2,NA
+20020730175411,"""Nikolai 'pcp' Weibull""",da.box@home.se,2002-07-30 17:54:11-0400,Statusbars,https://marc.info/?l=irssi-dev&m=102805166714718&w=2,NA
+20020731073651,Timo Sirainen,tss@iki.fi,2002-07-31 07:36:51-0400,Re: Statusbars,https://marc.info/?l=irssi-dev&m=102810102224813&w=2,http://marc.info/?l=irssi-dev&m=102805166714718&w=2
+20020825233124,Manoj Kasichainula,manojk+irssi.org@io.com,2002-08-25 23:31:24-0400,Questions for eventual Python module,https://marc.info/?l=irssi-dev&m=103031833214208&w=2,NA
+20020927184939,Michaël_Hompus,michael@hompus.nl,2002-09-27 18:49:39-0400,Nickchange does not update nickname,https://marc.info/?l=irssi-dev&m=103315259108181&w=2,NA
+20021005124527,Thierry Mallard,thierry.mallard@vawis.net,2002-10-05 12:45:27-0400,Irssi 0.8.5 segfault on RedHat 8.0,https://marc.info/?l=irssi-dev&m=103382195205334&w=2,NA
+20021023234240,Sascha =?iso-8859-1?q?L=FCdecke?=,sascha@meta-x.de,2002-10-23 23:42:40-0400,perl scripts with dcc stuff crash with 0.8.5,https://marc.info/?l=irssi-dev&m=103541656523372&w=2,NA
+20021202193542,Jakub Klausa,jacke@bofh.pl,2002-12-02 19:35:42-0400,vi-like style.,https://marc.info/?l=irssi-dev&m=103885775715590&w=2,NA
+20021023235329,Sascha =?iso-8859-1?q?L=FCdecke?=,sascha@meta-x.de,2002-10-23 23:53:29-0400,Re: perl scripts with dcc stuff crash with 0.8.5,https://marc.info/?l=irssi-dev&m=103541720823913&w=2,http://marc.info/?l=irssi-dev&m=103541656523372&w=2
+20030103135658,Athanasius,irssi@miggy.org,2003-01-03 13:56:58-0400,mIRC style /dccserver command,https://marc.info/?l=irssi-dev&m=104160222701793&w=2,NA
+20030213094255,Athanasius,athanasius@miggy.org,2003-02-13 09:42:55-0400,Re: irssi and dccserv,https://marc.info/?l=irssi-dev&m=104513348921741&w=2,NA
+20020826025216,Timo Sirainen,tss@iki.fi,2002-08-26 02:52:16-0400,Re: Questions for eventual Python module,https://marc.info/?l=irssi-dev&m=103033034619908&w=2,http://marc.info/?l=irssi-dev&m=103031833214208&w=2
+20030413115200,Florian Geiges,florian.geiges@t-online.de,2003-04-13 11:52:00-0400,possible problem with chanmode +w,https://marc.info/?l=irssi-dev&m=105023473506712&w=2,NA
+20030526132633,Lucio Maciel,gcc@gcc.com.br,2003-05-26 13:26:33-0400,[PATCH]Halfop,https://marc.info/?l=irssi-dev&m=105396350302912&w=2,NA
+20021203162732,Jussi Ekholm,ekhowl@goa-head.org,2002-12-03 16:27:32-0400,Re: vi-like style.,https://marc.info/?l=irssi-dev&m=103893565706862&w=2,http://marc.info/?l=irssi-dev&m=103885775715590&w=2
+20030624115643,Christian Axelsson,smiler@lanil.mine.nu,2003-06-24 11:56:43-0400,irssi-proxy portbinds,https://marc.info/?l=irssi-dev&m=105645583300583&w=2,NA
+20030625124311,Christian Axelsson,smiler@lanil.mine.nu,2003-06-25 12:43:11-0400,Re: irssi-proxy portbinds,https://marc.info/?l=irssi-dev&m=105654502018017&w=2,http://marc.info/?l=irssi-dev&m=105645583300583&w=2
+20030526155430,"""Adam Wiggles""",techdude@societynet.net,2003-05-26 15:54:30-0400,Re: [PATCH]Halfop,https://marc.info/?l=irssi-dev&m=105396450003961&w=2,http://marc.info/?l=irssi-dev&m=105396350302912&w=2
+20020827042507,Manoj Kasichainula,manojk+irssi.org@io.com,2002-08-27 04:25:07-0400,Re: Questions for eventual Python module,https://marc.info/?l=irssi-dev&m=103042234330196&w=2,http://marc.info/?l=irssi-dev&m=103033034619908&w=2
+20020827085636,Christian Borup,borup@borup.com,2002-08-27 08:56:36-0400,Re: Questions for eventual Python module,https://marc.info/?l=irssi-dev&m=103043860508644&w=2,http://marc.info/?l=irssi-dev&m=103042234330196&w=2
+20020827120924,Timo Sirainen,tss@iki.fi,2002-08-27 12:09:24-0400,Re: Questions for eventual Python module,https://marc.info/?l=irssi-dev&m=103045017318766&w=2,http://marc.info/?l=irssi-dev&m=103043860508644&w=2
+20020827121409,Timo Sirainen,tss@iki.fi,2002-08-27 12:14:09-0400,Re: Questions for eventual Python module,https://marc.info/?l=irssi-dev&m=103045045719088&w=2,http://marc.info/?l=irssi-dev&m=103045017318766&w=2
+20020827121535,Timo Sirainen,tss@iki.fi,2002-08-27 12:15:35-0400,Re: Questions for eventual Python module,https://marc.info/?l=irssi-dev&m=103045054019200&w=2,http://marc.info/?l=irssi-dev&m=103045045719088&w=2
+20020827125127,Christian Borup,borup@borup.com,2002-08-27 12:51:27-0400,Re: Questions for eventual Python module,https://marc.info/?l=irssi-dev&m=103045269521282&w=2,http://marc.info/?l=irssi-dev&m=103045054019200&w=2
+20030509132358,Kevin Sonney,ksonney@redhat.com,2003-05-09 13:23:58-0400,[patch] Using elinks to generate docs,https://marc.info/?l=irssi-dev&m=105248667027072&w=2,NA
+20030526164459,Lucio Maciel,gcc@gcc.com.br,2003-05-26 16:44:59-0400,Re: [PATCH]Halfop,https://marc.info/?l=irssi-dev&m=105397294812185&w=2,http://marc.info/?l=irssi-dev&m=105396450003961&w=2
+20030406010845,Robert Bragg,rbragg@essex.ac.uk,2003-04-06 01:08:45-0400,[PATCH] /hilight code,https://marc.info/?l=irssi-dev&m=104959141231979&w=2,NA
+20030413115859,Florian Geiges,florian.geiges@t-online.de,2003-04-13 11:58:59-0400,Re: possible problem with chanmode +w,https://marc.info/?l=irssi-dev&m=105023515206911&w=2,http://marc.info/?l=irssi-dev&m=105023473506712&w=2
+20030416153237,Marcus Rueckert,darix@web.de,2003-04-16 15:32:37-0400,Re: highlight on dcc?,https://marc.info/?l=irssi-dev&m=105050714715080&w=2,http://marc.info/?l=irssi-dev&m=105050344808674&w=2
+20030419125027,Wouter Coekaerts,wouter@coekaerts.be,2003-04-19 12:50:27-0400,Re: irssi and channel mode +d,https://marc.info/?l=irssi-dev&m=105075663929954&w=2,http://marc.info/?l=irssi-dev&m=105095571822317&w=2
+20030426110139,David Leadbeater,dgl@otherwize.co.uk,2003-04-26 11:01:39-0400,005 support (was Re: irssi and channel mode +d),https://marc.info/?l=irssi-dev&m=105137453710214&w=2,NA
+20030315133623,Joost Vunderink,joost@carnique.nl,2003-03-15 13:36:23-0400,The Irssi Documentation Project,https://marc.info/?l=irssi-dev&m=104773541209978&w=2,http://marc.info/?l=irssi-users&m=104773125607962&w=2
+20030204013104,GrayWolf,graywolf@i-differ.net,2003-02-04 01:31:04-0400,Getting internal Irssi variables in a script,https://marc.info/?l=irssi-dev&m=104432346126178&w=2,NA
+20030213113100,Athan,irssi@miggy.org,2003-02-13 11:31:00-0400,Re: irssi and dccserv,https://marc.info/?l=irssi-dev&m=104513592524302&w=2,http://marc.info/?l=irssi-dev&m=104513348921741&w=2
+20030219205421,David Pashley,david@parguild.co.uk,2003-02-19 20:54:21-0400,Some makefile.am clean ups,https://marc.info/?l=irssi-dev&m=104573574514120&w=2,NA
+20030220075926,Piotr Krukowiecki,piotr@pingu.ii.uj.edu.pl,2003-02-20 07:59:26-0400,Re: dcc-send-limiter.c patch again,https://marc.info/?l=irssi-dev&m=104572769105782&w=2,http://marc.info/?l=irssi-dev&m=104567461409033&w=2
+20030224064626,Manoj Kasichainula,manojk+irssi.org@io.com,2003-02-24 06:46:26-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104606931721973&w=2,http://marc.info/?l=irssi-dev&m=104460114808130&w=2
+20030225173004,"""Geert Hauwaerts""",geert@safeweb.be,2003-02-25 17:30:04-0400,Little patch by David Pashley.,https://marc.info/?l=irssi-dev&m=104619424108288&w=2,NA
+20030227044151,Gleb,gleb@belg88.com,2003-02-27 04:41:51-0400,Mandrake RPMs,https://marc.info/?l=irssi-dev&m=104632454704961&w=2,NA
+20030104232221,Athan,irssi@miggy.org,2003-01-04 23:22:21-0400,Re: mIRC style /dccserver command,https://marc.info/?l=irssi-dev&m=104172255702499&w=2,http://marc.info/?l=irssi-dev&m=104160222701793&w=2
+20030416111435,Joakim =?ISO-8859-1?Q?Kolsj=F6?=,joakim.kolsjo@home.se,2003-04-16 11:14:35-0400,highlight on dcc?,https://marc.info/?l=irssi-dev&m=105049955303392&w=2,NA
+20030416143036,"""Matthias Meyr""",matthiasmeyr@web.de,2003-04-16 14:30:36-0400,Re: highlight on dcc?,https://marc.info/?l=irssi-dev&m=105050344808674&w=2,http://marc.info/?l=irssi-dev&m=105049955303392&w=2
+20030110140320,Piotr Krukowiecki,piotr@pingu.ii.uj.edu.pl,2003-01-10 14:03:20-0400,[PATCH] dcc-send-limiter.c fixes,https://marc.info/?l=irssi-dev&m=104220738612087&w=2,NA
+20030419021209,splidge,splidge@quakenet.org,2003-04-19 02:12:09-0400,irssi and channel mode +d,https://marc.info/?l=irssi-dev&m=105071835113422&w=2,NA
+20030419094715,David Leadbeater,dgl@otherwize.co.uk,2003-04-19 09:47:15-0400,Re: irssi and channel mode +d,https://marc.info/?l=irssi-dev&m=105095571822317&w=2,http://marc.info/?l=irssi-dev&m=105071835113422&w=2
+20030120102113,Timo Sirainen,tss@iki.fi,2003-01-20 10:21:13-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104305808111574&w=2,http://marc.info/?l=irssi-dev&m=104305771211213&w=2
+20030131095035,Wez Furlong,wez@thebrainroom.com,2003-01-31 09:50:35-0400,Re: [PATCH] removal of unused execute() function,https://marc.info/?l=irssi-dev&m=104400625719242&w=2,http://marc.info/?l=irssi-dev&m=104398589503045&w=2
+20021203230111,Timo Sirainen,tss@iki.fi,2002-12-03 23:01:11-0400,Re: vi-like style.,https://marc.info/?l=irssi-dev&m=103895648811287&w=2,http://marc.info/?l=irssi-dev&m=103893565706862&w=2
+20021204150745,Timo Sirainen,tss@iki.fi,2002-12-04 15:07:45-0400,Re: Supporting protocols which aren't TCP based....,https://marc.info/?l=irssi-dev&m=103901447401100&w=2,http://marc.info/?l=irssi-dev&m=103901151130096&w=2
+20030219171431,Piotr Krukowiecki,piotr@pingu.ii.uj.edu.pl,2003-02-19 17:14:31-0400,dcc-send-limiter.c patch again,https://marc.info/?l=irssi-dev&m=104567461409033&w=2,NA
+20030117172701,Timo Sirainen,tss@iki.fi,2003-01-17 17:27:01-0400,Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104282444805993&w=2,NA
+20030117181334,Alexander Demenshin,aldem-irssi@aldem.net,2003-01-17 18:13:34-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104282722510290&w=2,http://marc.info/?l=irssi-dev&m=104282444805993&w=2
+20030117194429,Timo Sirainen,tss@iki.fi,2003-01-17 19:44:29-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104283268318728&w=2,http://marc.info/?l=irssi-dev&m=104282722510290&w=2
+20030117223708,Jakub Jankowski,shasta@atn.pl,2003-01-17 22:37:08-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104284304531974&w=2,http://marc.info/?l=irssi-dev&m=104283268318728&w=2
+20030118005733,"""Nikolai :: lone-star :: Weibull""",lone-star@home.se,2003-01-18 00:57:33-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104285232308010&w=2,http://marc.info/?l=irssi-dev&m=104284304531974&w=2
+20030118014424,Timo Sirainen,tss@iki.fi,2003-01-18 01:44:24-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104285427609353&w=2,http://marc.info/?l=irssi-dev&m=104285232308010&w=2
+20030119162123,,bd,2003-01-19 16:21:23-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104299328327662&w=2,http://marc.info/?l=irssi-dev&m=104285427609353&w=2
+20030119234524,Alexander Demenshin,aldem-irssi@aldem.net,2003-01-19 23:45:24-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104301993418026&w=2,http://marc.info/?l=irssi-dev&m=104299328327662&w=2
+20030119235225,Alexander Demenshin,aldem-irssi@aldem.net,2003-01-19 23:52:25-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104302035218315&w=2,http://marc.info/?l=irssi-dev&m=104301993418026&w=2
+20030119235922,Timo Sirainen,tss@iki.fi,2003-01-19 23:59:22-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104302077318615&w=2,http://marc.info/?l=irssi-dev&m=104302035218315&w=2
+20030120000817,Timo Sirainen,tss@iki.fi,2003-01-20 00:08:17-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104302130519001&w=2,http://marc.info/?l=irssi-dev&m=104302077318615&w=2
+20030131003346,Wez Furlong,wez@thebrainroom.com,2003-01-31 00:33:46-0400,[PATCH] removal of unused execute() function,https://marc.info/?l=irssi-dev&m=104397285225174&w=2,NA
+20030131040442,Timo Sirainen,tss@iki.fi,2003-01-31 04:04:42-0400,Re: [PATCH] removal of unused execute() function,https://marc.info/?l=irssi-dev&m=104398589503045&w=2,http://marc.info/?l=irssi-dev&m=104397285225174&w=2
+20030120001353,Timo Sirainen,tss@iki.fi,2003-01-20 00:13:53-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104302164119220&w=2,http://marc.info/?l=irssi-dev&m=104302130519001&w=2
+20030120001810,Timo Sirainen,tss@iki.fi,2003-01-20 00:18:10-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104302189719428&w=2,http://marc.info/?l=irssi-dev&m=104302164119220&w=2
+20030120091802,,bd,2003-01-20 09:18:02-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104305428208058&w=2,http://marc.info/?l=irssi-dev&m=104302189719428&w=2
+20030120095709,Einar Karttunen,ekarttun@cs.helsinki.fi,2003-01-20 09:57:09-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104305664010072&w=2,http://marc.info/?l=irssi-dev&m=104305428208058&w=2
+20021204055003,,tytso,2002-12-04 05:50:03-0400,Supporting protocols which aren't TCP based....,https://marc.info/?l=irssi-dev&m=103898101306258&w=2,NA
+20021222103147,"""BoBB""",snoogans@qwest.net,2002-12-22 10:31:47-0400,scripting help,https://marc.info/?l=irssi-dev&m=104055310002033&w=2,NA
+20021222104526,Jakub Jankowski,shasta@atn.pl,2002-12-22 10:45:26-0400,Re: scripting help,https://marc.info/?l=irssi-dev&m=104055394302320&w=2,http://marc.info/?l=irssi-dev&m=104055310002033&w=2
+20021204105334,Etan Reisner,deryni@eden.rutgers.edu,2002-12-04 10:53:34-0400,Re: Supporting protocols which aren't TCP based....,https://marc.info/?l=irssi-dev&m=103899922318576&w=2,http://marc.info/?l=irssi-dev&m=103898101306258&w=2
+20021204112830,Marcus Rueckert,darix@web.de,2002-12-04 11:28:30-0400,Re: Supporting protocols which aren't TCP based....,https://marc.info/?l=irssi-dev&m=103900132920316&w=2,http://marc.info/?l=irssi-dev&m=103899922318576&w=2
+20021204113147,Marcus Rueckert,darix@web.de,2002-12-04 11:31:47-0400,Re: Supporting protocols which aren't TCP based....,https://marc.info/?l=irssi-dev&m=103900152120471&w=2,http://marc.info/?l=irssi-dev&m=103900132920316&w=2
+20021204113423,Timo Sirainen,tss@iki.fi,2002-12-04 11:34:23-0400,Re: Supporting protocols which aren't TCP based....,https://marc.info/?l=irssi-dev&m=103900167420624&w=2,http://marc.info/?l=irssi-dev&m=103900152120471&w=2
+20021204125555,Stefan Tomanek,stefan@pico.ruhr.de,2002-12-04 12:55:55-0400,Re: Supporting protocols which aren't TCP based....,https://marc.info/?l=irssi-dev&m=103900658424913&w=2,http://marc.info/?l=irssi-dev&m=103900167420624&w=2
+20021204130944,Marcus Rueckert,darix@web.de,2002-12-04 13:09:44-0400,Re: Supporting protocols which aren't TCP based....,https://marc.info/?l=irssi-dev&m=103900739025613&w=2,http://marc.info/?l=irssi-dev&m=103900658424913&w=2
+20021204141642,"""Theodore Ts'o""",tytso@mit.edu,2002-12-04 14:16:42-0400,Re: Supporting protocols which aren't TCP based....,https://marc.info/?l=irssi-dev&m=103901141829968&w=2,http://marc.info/?l=irssi-dev&m=103900739025613&w=2
+20021204141806,"""Theodore Ts'o""",tytso@mit.edu,2002-12-04 14:18:06-0400,Re: Supporting protocols which aren't TCP based....,https://marc.info/?l=irssi-dev&m=103901151130096&w=2,http://marc.info/?l=irssi-dev&m=103901141829968&w=2
+20030120101504,Timo Sirainen,tss@iki.fi,2003-01-20 10:15:04-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104305771211213&w=2,http://marc.info/?l=irssi-dev&m=104305664010072&w=2
+20030207011052,EML,porponnuk@menta.net,2003-02-07 01:10:52-0400,Re: Irssi redesign / rewrite,https://marc.info/?l=irssi-dev&m=104460114808130&w=2,http://marc.info/?l=irssi-dev&m=104305808111574&w=2
+20021222160751,Marcus Rueckert,darix@irssi.org,2002-12-22 16:07:51-0400,Re: scripting help,https://marc.info/?l=irssi-dev&m=104057570912023&w=2,http://marc.info/?l=irssi-dev&m=104055394302320&w=2
+20021229111730,Marcus Geiger,marcus.geiger@web.de,2002-12-29 11:17:30-0400,Perl core dump on /quit,https://marc.info/?l=irssi-dev&m=104116066425797&w=2,NA
+20021005143734,David Leadbeater,dgl@dgl.cx,2002-10-05 14:37:34-0400,Re: Irssi 0.8.5 segfault on RedHat 8.0,https://marc.info/?l=irssi-dev&m=103382866408817&w=2,http://marc.info/?l=irssi-dev&m=103382195205334&w=2
+20021006100615,Thierry Mallard,thierry.mallard@vawis.net,2002-10-06 10:06:15-0400,Re: Irssi 0.8.5 segfault on RedHat 8.0 : CVS code OK ! :-),https://marc.info/?l=irssi-dev&m=103389882412201&w=2,NA
+20021024004705,Marcus Rueckert,darix@web.de,2002-10-24 00:47:05-0400,Re: perl scripts with dcc stuff crash with 0.8.5,https://marc.info/?l=irssi-dev&m=103542043426009&w=2,http://marc.info/?l=irssi-dev&m=103541720823913&w=2
+20020904060325,Manoj Kasichainula,manojk+irssi.org@io.com,2002-09-04 06:03:25-0400,Re: Questions for eventual Python module,https://marc.info/?l=irssi-dev&m=103112064503935&w=2,http://marc.info/?l=irssi-dev&m=103045386122515&w=2
+20020927203725,Marcus Rueckert,darix@web.de,2002-09-27 20:37:25-0400,Re: Nickchange does not update nickname,https://marc.info/?l=irssi-dev&m=103315905015300&w=2,http://marc.info/?l=irssi-dev&m=103315259108181&w=2
+20020927204436,Sander Smeenk,ssmeenk@freshdot.net,2002-09-27 20:44:36-0400,Thre things...,https://marc.info/?l=irssi-dev&m=103315948515712&w=2,NA
+20020801122506,Tobias Bengtsson,tobbe@tobbe.nu,2002-08-01 12:25:06-0400,Re: Statusbars,https://marc.info/?l=irssi-dev&m=102820472632172&w=2,http://marc.info/?l=irssi-dev&m=102811614005426&w=2
+20020827131052,Timo Sirainen,tss@iki.fi,2002-08-27 13:10:52-0400,Re: Questions for eventual Python module,https://marc.info/?l=irssi-dev&m=103045386122515&w=2,http://marc.info/?l=irssi-dev&m=103045269521282&w=2
+20020731114833,"""Nikolai 'pcp' Weibull""",da.box@home.se,2002-07-31 11:48:33-0400,Re: Statusbars,https://marc.info/?l=irssi-dev&m=102811614005426&w=2,http://marc.info/?l=irssi-dev&m=102810102224813&w=2
+20050703085626,Manoj Kasichainula,manoj@io.com,2005-07-03 08:56:26-0400,"Re: irssi-icb patch: misc bugs, version 3",https://marc.info/?l=irssi-dev&m=112038111513736&w=2,http://marc.info/?l=irssi-dev&m=111999670522708&w=2
+20050818020133,Ertugrul Soeylemez,never@drwxr-xr-x.org,2005-08-18 02:01:33-0400,irssi not using WATCH,https://marc.info/?l=irssi-dev&m=112433061718590&w=2,NA
+20051205223637,Torbjörn Svensson,azoff@se.linux.org,2005-12-05 22:36:37-0400,Info about recode,https://marc.info/?l=irssi-dev&m=113382238224563&w=2,NA
+20061127212306,"""Javier Gonel""",bolibic@gmail.com,2006-11-27 21:23:06-0400,First mail and a question/problem.,https://marc.info/?l=irssi-dev&m=116466262126261&w=2,NA
+20061225175458,Zoot,zoot@gamesurge.net,2006-12-25 17:54:58-0400,Some contributions,https://marc.info/?l=irssi-dev&m=116707096313846&w=2,NA
+20030705152306,Andrew de los Reyes,adlr@umich.edu,2003-07-05 15:23:06-0400,Mac OS X port of Irssi (Cocoa),https://marc.info/?l=irssi-dev&m=105742051012391&w=2,NA
+20030824213834,Wilfried Goesgens,w.goesgens@chaosindustries.de,2003-08-24 21:38:34-0400,Did some work on the irssi-icq-plugin...,https://marc.info/?l=irssi-dev&m=106176113713283&w=2,NA
+20030705163337,Timo Sirainen,tss@iki.fi,2003-07-05 16:33:37-0400,Re: Mac OS X port of Irssi (Cocoa),https://marc.info/?l=irssi-dev&m=105742283313820&w=2,http://marc.info/?l=irssi-dev&m=105742051012391&w=2
+20030705163524,Timo Sirainen,tss@iki.fi,2003-07-05 16:35:24-0400,Re: Mac OS X port of Irssi (Cocoa),https://marc.info/?l=irssi-dev&m=105742293613895&w=2,http://marc.info/?l=irssi-dev&m=105742283313820&w=2
+20041005210316,Johan Svedberg,johan@svedberg.pp.se,2004-10-05 21:03:16-0400,Problems running CVS on Solaris,https://marc.info/?l=irssi-dev&m=109701022504070&w=2,NA
+20041106170127,Heikki Orsila,shd@modeemi.cs.tut.fi,2004-11-06 17:01:27-0400,utf-8 to iso8859-15,https://marc.info/?l=irssi-dev&m=109976051828458&w=2,NA
+20041106195113,Marcus Rueckert,darix@web.de,2004-11-06 19:51:13-0400,Re: utf-8 to iso8859-15,https://marc.info/?l=irssi-dev&m=109977070723345&w=2,http://marc.info/?l=irssi-dev&m=109976051828458&w=2
+20050111225107,Jakub Jankowski,shasta@atn.pl,2005-01-11 22:51:07-0400,0.8.10?,https://marc.info/?l=irssi-dev&m=110548419201191&w=2,NA
+20050221195937,Manuel Holtgrewe,purestorm@ggnore.net,2005-02-21 19:59:37-0400,irssi-proxy and SSL?,https://marc.info/?l=irssi-dev&m=110901642328762&w=2,NA
+20050112114750,Geert Hauwaerts,geert@safeweb.be,2005-01-12 11:47:50-0400,Re: 0.8.10?,https://marc.info/?l=irssi-dev&m=110553089926478&w=2,http://marc.info/?l=irssi-dev&m=110548419201191&w=2
+20050307220217,y0m,y0m@y0m.net,2005-03-07 22:02:17-0400,Compilation problem with irssi-0.9.10-rc5 & 0.8.9 on Irix,https://marc.info/?l=irssi-dev&m=111023307222016&w=2,NA
+20050418050110,Tim Wojtulewicz,timwoj@ieee.org,2005-04-18 05:01:10-0400,Irssi on OS X 10.4,https://marc.info/?l=irssi-dev&m=111380062729362&w=2,NA
+20050505212239,tabris,tabris@tabris.net,2005-05-05 21:22:39-0400,Found a bug in fe-whois.c in re Unreal3.2,https://marc.info/?l=irssi-dev&m=111532832316384&w=2,NA
+20050605004155,Matt Dunford,zoot@zotikos.com,2005-06-05 00:41:55-0400,irssi-icb,https://marc.info/?l=irssi-dev&m=111793225004407&w=2,NA
+20051024205337,Torbjörn Svensson,azoff@se.linux.org,2005-10-24 20:53:37-0400,Feature to turn of awaylog per network.,https://marc.info/?l=irssi-dev&m=113018733324129&w=2,NA
+20060626095037,Igor V !  Liferenko,ivl@krasu.ru,2006-06-26 09:50:37-0400,Suggestion,https://marc.info/?l=irssi-dev&m=115131546829371&w=2,http://marc.info/?l=tomcat-dev&m=114925334702115&w=2
+20060626112458,Marcus Rueckert,darix@web.de,2006-06-26 11:24:58-0400,Re: Suggestion,https://marc.info/?l=irssi-dev&m=115132112718969&w=2,http://marc.info/?l=irssi-dev&m=115131546829371&w=2
+20060626114938,David Pashley,david@davidpashley.com,2006-06-26 11:49:38-0400,Re: Suggestion,https://marc.info/?l=irssi-dev&m=115132261311896&w=2,http://marc.info/?l=irssi-dev&m=115132112718969&w=2
+20060626221024,"""Sergey Al. Safonov""",spoof@spoofa.info,2006-06-26 22:10:24-0400,Re: Suggestion,https://marc.info/?l=irssi-dev&m=115135987305462&w=2,http://marc.info/?l=irssi-dev&m=115132261311896&w=2
+20051024213355,Ertugrul Soeylemez,never@drwxr-xr-x.org,2005-10-24 21:33:55-0400,Re: Feature to turn of awaylog per network.,https://marc.info/?l=irssi-dev&m=113018970720581&w=2,http://marc.info/?l=irssi-dev&m=113018733324129&w=2
+20051025085923,Torbjörn Svensson,azoff@se.linux.org,2005-10-25 08:59:23-0400,Re: Feature to turn of awaylog per network.,https://marc.info/?l=irssi-dev&m=113023085705939&w=2,http://marc.info/?l=irssi-dev&m=113018970720581&w=2
+20051025095519,Marcus Rueckert,darix@web.de,2005-10-25 09:55:19-0400,Re: Feature to turn of awaylog per network.,https://marc.info/?l=irssi-dev&m=113023421317423&w=2,http://marc.info/?l=irssi-dev&m=113023085705939&w=2
+20050505220202,Marcus Rueckert,darix@web.de,2005-05-05 22:02:02-0400,Re: Found a bug in fe-whois.c in re Unreal3.2,https://marc.info/?l=irssi-dev&m=111533061013571&w=2,http://marc.info/?l=irssi-dev&m=111532832316384&w=2
+20050505222654,tabris,tabris@tabris.net,2005-05-05 22:26:54-0400,Re: Found a bug in fe-whois.c in re Unreal3.2,https://marc.info/?l=irssi-dev&m=111533213222128&w=2,http://marc.info/?l=irssi-dev&m=111533061013571&w=2
+20050505230825,Marcus Rueckert,darix@web.de,2005-05-05 23:08:25-0400,Re: Found a bug in fe-whois.c in re Unreal3.2,https://marc.info/?l=irssi-dev&m=111533458716778&w=2,http://marc.info/?l=irssi-dev&m=111533213222128&w=2
+20050505231740,tabris,tabris@tabris.net,2005-05-05 23:17:40-0400,Re: Found a bug in fe-whois.c in re Unreal3.2,https://marc.info/?l=irssi-dev&m=111533512113604&w=2,http://marc.info/?l=irssi-dev&m=111533458716778&w=2
+20050418061403,Marcus Rueckert,darix@web.de,2005-04-18 06:14:03-0400,Re: Irssi on OS X 10.4,https://marc.info/?l=irssi-dev&m=111380491910053&w=2,http://marc.info/?l=irssi-dev&m=111380062729362&w=2
+20050112115530,Jakub Jankowski,shasta@atn.pl,2005-01-12 11:55:30-0400,Re: 0.8.10?,https://marc.info/?l=irssi-dev&m=110553099817370&w=2,http://marc.info/?l=irssi-dev&m=110553089926478&w=2
+20060627051956,Ertugrul Soeylemez,never@drwxr-xr-x.org,2006-06-27 05:19:56-0400,Re: Suggestion,https://marc.info/?l=irssi-dev&m=115138565428382&w=2,http://marc.info/?l=irssi-dev&m=115135987305462&w=2
+20060628131633,,desi,2006-06-28 13:16:33-0400,BOTTI documentation,https://marc.info/?l=irssi-dev&m=115150064616623&w=2,NA
+20051228104551,Rhialto,rhialto@falu.nl,2005-12-28 10:45:51-0400,"Perl support for ""split windows"" aka ""main windows""",https://marc.info/?l=irssi-dev&m=113576830323486&w=2,NA
+20051025090520,Wouter Coekaerts,coekie@irssi.org,2005-10-25 09:05:20-0400,Re: irssi not using WATCH,https://marc.info/?l=irssi-dev&m=113023119018569&w=2,http://marc.info/?l=irssi-dev&m=112433061718590&w=2
+20051026143005,Torbjörn Svensson,azoff@se.linux.org,2005-10-26 14:30:05-0400,Re: Feature to turn of awaylog per network.,https://marc.info/?l=irssi-dev&m=113033714507007&w=2,http://marc.info/?l=irssi-dev&m=113023421317423&w=2
+20050606221734,Matt Dunford,zoot@zotikos.com,2005-06-06 22:17:34-0400,Re: irssi-icb,https://marc.info/?l=irssi-dev&m=111809637029330&w=2,http://marc.info/?l=irssi-dev&m=111793225004407&w=2
+20050606222903,Matt Dunford,zoot@zotikos.com,2005-06-06 22:29:03-0400,irssi-icb patch: ./autogen.sh producing configure script w/ syntax errors,https://marc.info/?l=irssi-dev&m=111809711025420&w=2,NA
+20050606224054,Matt Dunford,zoot@zotikos.com,2005-06-06 22:40:54-0400,irssi-icb patch: misc bugs,https://marc.info/?l=irssi-dev&m=111809771011219&w=2,NA
+20050606234740,Marcus Rueckert,darix@web.de,2005-06-06 23:47:40-0400,Re: irssi-icb patch: updating README,https://marc.info/?l=irssi-dev&m=111810174002782&w=2,http://marc.info/?l=irssi-dev&m=111809897504837&w=2
+20050609045258,Jesper Rosenkilde,gloin@anarki.dk,2005-06-09 04:52:58-0400,patch,https://marc.info/?l=irssi-dev&m=111829293929124&w=2,NA
+20050616053233,Matt Dunford,zoot@zotikos.com,2005-06-16 05:32:33-0400,"Re: irssi-icb patch: misc bugs, version 2",https://marc.info/?l=irssi-dev&m=111890007021877&w=2,http://marc.info/?l=irssi-dev&m=111870839714912&w=2
+20050628220859,Matt Dunford,zoot@zotikos.com,2005-06-28 22:08:59-0400,"irssi-icb patch: misc bugs, version 3",https://marc.info/?l=irssi-dev&m=111999670522708&w=2,NA
+20050505232913,tabris,tabris@tabris.net,2005-05-05 23:29:13-0400,Re: Found a bug in fe-whois.c in re Unreal3.2,https://marc.info/?l=irssi-dev&m=111533593529806&w=2,http://marc.info/?l=irssi-dev&m=111533512113604&w=2
+20050509094525,"""Kai Lehmann""",kai.lehmann@papendorf-se.de,2005-05-09 09:45:25-0400,Bug in Perl script module for DCC get filesize for > 2gb,https://marc.info/?l=irssi-dev&m=111563226431854&w=2,http://marc.info/?l=irssi-dev&m=111441202925933&w=2
+20050512193224,,samech,2005-05-12 19:32:24-0400,irssi fails to compile with '--with-socks',https://marc.info/?l=irssi-dev&m=111592648925509&w=2,NA
+20050519032613,tabris,tabris@tabris.net,2005-05-19 03:26:13-0400,Re: skip_target and NOTICE/PRIVMSG target handling,https://marc.info/?l=irssi-dev&m=111647325521469&w=2,http://marc.info/?l=irssi-dev&m=111647180806165&w=2
+20050414193613,"""heap""",heap@fbnet.org,2005-04-14 19:36:13-0400,numeric handling,https://marc.info/?l=irssi-dev&m=111350737311187&w=2,NA
+20050418130741,Tim Wojtulewicz,timwoj@ieee.org,2005-04-18 13:07:41-0400,Re: Irssi on OS X 10.4,https://marc.info/?l=irssi-dev&m=111382977905053&w=2,http://marc.info/?l=irssi-dev&m=111380491910053&w=2
+20050425064827,"""Kai Lehmann""",kai.lehmann@papendorf-se.de,2005-04-25 06:48:27-0400,Bug in Perl script module for DCC get filesize for > 2gb,https://marc.info/?l=irssi-dev&m=111441202925933&w=2,NA
+20050312004142,y0m,y0m@y0m.net,2005-03-12 00:41:42-0400,Re: Compilation problem with irssi-0.9.10-rc5 & 0.8.9 on Irix,https://marc.info/?l=irssi-dev&m=111058823425408&w=2,http://marc.info/?l=irssi-dev&m=111023307222016&w=2
+20050221203503,Marcus Rueckert,darix@web.de,2005-02-21 20:35:03-0400,Re: irssi-proxy and SSL?,https://marc.info/?l=irssi-dev&m=110901816130406&w=2,http://marc.info/?l=irssi-dev&m=110901642328762&w=2
+20050222103203,,bd@bc-bd.org,2005-02-22 10:32:03-0400,=?iso-8859-1?Q?Re:_Re:_irssi-proxy_and_SSL??=,https://marc.info/?l=irssi-dev&m=110906853922160&w=2,NA
+20050112120252,Geert Hauwaerts,geert@safeweb.be,2005-01-12 12:02:52-0400,Re: 0.8.10?,https://marc.info/?l=irssi-dev&m=110553147508266&w=2,http://marc.info/?l=irssi-dev&m=110553099817370&w=2
+20041106222203,Heikki Orsila,shd@modeemi.cs.tut.fi,2004-11-06 22:22:03-0400,Re: utf-8 to iso8859-15,https://marc.info/?l=irssi-dev&m=109977975313147&w=2,http://marc.info/?l=irssi-dev&m=109977070723345&w=2
+20041003171706,Manoj Kasichainula,manoj@io.com,2004-10-03 17:17:06-0400,[PATCH] Fix for irssi icb breakage in CVS HEAD,https://marc.info/?l=irssi-dev&m=109682390309339&w=2,NA
+20041006220831,Tomas =?iso-8859-1?Q?=D6gren?=,stric@acc.umu.se,2004-10-06 22:08:31-0400,Re: Problems running CVS on Solaris,https://marc.info/?l=irssi-dev&m=109710054731850&w=2,http://marc.info/?l=irssi-dev&m=109701022504070&w=2
+20050606230156,Matt Dunford,zoot@zotikos.com,2005-06-06 23:01:56-0400,irssi-icb patch: updating README,https://marc.info/?l=irssi-dev&m=111809897504837&w=2,NA
+20050609231659,Matt Dunford,zoot@zotikos.com,2005-06-09 23:16:59-0400,"irssi-icb patch: misc bugs, version 2",https://marc.info/?l=irssi-dev&m=111835914911457&w=2,NA
+20050614001714,Manoj Kasichainula,manoj@io.com,2005-06-14 00:17:14-0400,"Re: irssi-icb patch: misc bugs, version 2",https://marc.info/?l=irssi-dev&m=111870839714912&w=2,http://marc.info/?l=irssi-dev&m=111835914911457&w=2
+20041026230454,"""Jonas H.""",rasher@rasher.dk,2004-10-26 23:04:54-0400,"Re: [patch] Option to turn off ""Day changed""",https://marc.info/?l=irssi-dev&m=109883193127306&w=2,http://marc.info/?l=irssi-dev&m=109853895027330&w=2
+20041027125421,Marcus Rueckert,darix@web.de,2004-10-27 12:54:21-0400,Re: new version,https://marc.info/?l=irssi-dev&m=109888169929354&w=2,http://marc.info/?l=irssi-dev&m=109886163728514&w=2
+20050501031724,tabris,tabris@tabris.net,2005-05-01 03:17:24-0400,skip_target and NOTICE/PRIVMSG target handling,https://marc.info/?l=irssi-dev&m=111491761411736&w=2,NA
+20050505233047,tabris,tabris@tabris.net,2005-05-05 23:30:47-0400,Re: skip_target and NOTICE/PRIVMSG target handling,https://marc.info/?l=irssi-dev&m=111533611809151&w=2,http://marc.info/?l=irssi-dev&m=111491761411736&w=2
+20050510080232,tabris,tabris@tabris.net,2005-05-10 08:02:32-0400,Re: skip_target and NOTICE/PRIVMSG target handling,https://marc.info/?l=irssi-dev&m=111571245209332&w=2,http://marc.info/?l=irssi-dev&m=111533611809151&w=2
+20050519030112,tabris,tabris@tabris.net,2005-05-19 03:01:12-0400,Re: skip_target and NOTICE/PRIVMSG target handling,https://marc.info/?l=irssi-dev&m=111647180806165&w=2,http://marc.info/?l=irssi-dev&m=111571245209332&w=2
+20030805233229,neil klopfenstein,neilk@cs.ucsc.edu,2003-08-05 23:32:29-0400,Bug fix for irssi 0.8.6 -- bold attribute not unset after ANSI reset,https://marc.info/?l=irssi-dev&m=106012763517648&w=2,NA
+20030821145554,Elmar Hoffmann,irssi-dev-ml@elho.net,2003-08-21 14:55:54-0400,[Patch] fix theme-indent compile instructions for current irssi,https://marc.info/?l=irssi-dev&m=106147778606581&w=2,NA
+20030824214228,wilfried Goesgens,willi@almado.de,2003-08-24 21:42:28-0400,Re: Did some work on the irssi-icq-plugin...,https://marc.info/?l=irssi-dev&m=106176693317294&w=2,http://marc.info/?l=irssi-dev&m=106176113713283&w=2
+20030826180850,Valentin Batz,vb@g-23.org,2003-08-26 18:08:50-0400,proxy ctcp patch,https://marc.info/?l=irssi-dev&m=106192124328281&w=2,NA
+20030827115014,Valentin Batz,vb@g-23.org,2003-08-27 11:50:14-0400,Re: Typo in special_vars.txt,https://marc.info/?l=irssi-dev&m=106198492723524&w=2,http://marc.info/?l=irssi-dev&m=106192029426909&w=2
+20030706002741,Andrew de los Reyes,adlr@umich.edu,2003-07-06 00:27:41-0400,Re: Mac OS X port of Irssi (Cocoa),https://marc.info/?l=irssi-dev&m=105745168629468&w=2,http://marc.info/?l=irssi-dev&m=105742293613895&w=2
+20030708172150,"""Janne Enberg""",janne_enberg@kolumbus.fi,2003-07-08 17:21:50-0400,Irssi for QNX,https://marc.info/?l=irssi-dev&m=105768494129826&w=2,NA
+20030725002119,tommy-carlos williams,tommy@devgeeks.org,2003-07-25 00:21:19-0400,Irssi compile error under Irix6.5.x - Mipspro7.3,https://marc.info/?l=irssi-dev&m=105909571617516&w=2,NA
+20030731101843,Nikolai Weibull,lone-star@home.se,2003-07-31 10:18:43-0400,color support.,https://marc.info/?l=irssi-dev&m=105965853216439&w=2,NA
+20041023132139,Jonas =?iso-8859-1?Q?H=E4ggqvist?=,rasher@rasher.dk,2004-10-23 13:21:39-0400,"[patch] Option to turn off ""Day changed""",https://marc.info/?l=irssi-dev&m=109853773930957&w=2,NA
+20041023134205,Valentin Batz,vb@g-23.org,2004-10-23 13:42:05-0400,"Re: [patch] Option to turn off ""Day changed""",https://marc.info/?l=irssi-dev&m=109853895027330&w=2,http://marc.info/?l=irssi-dev&m=109853773930957&w=2
+20041027072037,Johan Grahn,johan.grahn82@home.se,2004-10-27 07:20:37-0400,new version,https://marc.info/?l=irssi-dev&m=109886163728514&w=2,NA
+20030826174947,Valentin Batz,vb@g-23.org,2003-08-26 17:49:47-0400,Typo in special_vars.txt,https://marc.info/?l=irssi-dev&m=106192029426909&w=2,NA
+20070330175500,"""John Anderson""",sontek@gmail.com,2007-03-30 17:55:00-0400,Mentoring for non-soc person?,https://marc.info/?l=irssi-dev&m=117527721507797&w=2,NA
+20070402004629,"""Jay L. T. Cornwall""",jay@esuna.co.uk,2007-04-02 00:46:29-0400,RPM builder patch,https://marc.info/?l=irssi-dev&m=117547466524453&w=2,NA
+20070610112208,Paul-Kenji Cahier,pkc@f1-photo.com,2007-06-10 11:22:08-0400,Problem with irssi::windows,https://marc.info/?l=irssi-dev&m=118147461114510&w=2,NA
+20071006102444,Colin =?iso-8859-1?B?qyBlcnJ0dSC7?= Didier,errtu@cybione.org,2007-10-06 10:24:44-0400,fe-text headers,https://marc.info/?l=irssi-dev&m=119166705815208&w=2,NA
+20071205034051,"""Jon Stanley""",jonstanley@gmail.com,2007-12-05 03:40:51-0400,[PATCH] change default behavior of /ping,https://marc.info/?l=irssi-dev&m=119682607602488&w=2,NA
+20080227103819,Enrico Scholz,enrico.scholz@informatik.tu-chemnitz.de,2008-02-27 10:38:19-0400,[PATCH 1/5] PROXY: implemented native proxy support,https://marc.info/?l=irssi-dev&m=120410875930826&w=2,NA
+20080301133133,Enrico Scholz,enrico.scholz@informatik.tu-chemnitz.de,2008-03-01 13:31:33-0400,[PATCH] Fixed invalid read in /HELP,https://marc.info/?l=irssi-dev&m=120437832725486&w=2,NA
+20080712174705,Skywing,skywing@valhallalegends.com,2008-07-12 17:47:05-0400,Irssi doesn't seem to handle overlapping keyboard_entry_redirect,https://marc.info/?l=irssi-dev&m=121588518521561&w=2,http://marc.info/?l=silc-devel&m=121588486021215&w=2
+20080326205258,Skywing,skywing@valhallalegends.com,2008-03-26 20:52:58-0400,[PATCH] Fix for segfault on send message with silc plugin,https://marc.info/?l=irssi-dev&m=120656484418313&w=2,NA
+20090928201449,"""Delaitre, Aurelien""",aurelien.delaitre@nist.gov,2009-09-28 20:14:49-0400,Security check on IRSSI,https://marc.info/?l=irssi-dev&m=125417087225102&w=2,NA
+20100129182224,Marcus Rueckert,darix@web.de,2010-01-29 18:22:24-0400,Re: Server /jump command?,https://marc.info/?l=irssi-dev&m=126478988728978&w=2,http://marc.info/?l=irssi-users&m=126456129715920&w=2
+20100222172246,Marcus Rueckert,darix@web.de,2010-02-22 17:22:46-0400,"Re: irssi fixes, access to repo?",https://marc.info/?l=irssi-dev&m=126685938811377&w=2,http://marc.info/?l=irssi-dev&m=126680894921728&w=2
+20081117001659,Rich Healey,richo@psych0tik.net,2008-11-17 00:16:59-0400,Re: pre_connect_cmd,https://marc.info/?l=irssi-dev&m=122688103529182&w=2,http://marc.info/?l=irssi-dev&m=122683380808884&w=2
+20080829165159,"""Lee Lowder""",lowder4@gmail.com,2008-08-29 16:51:59-0400,Re: Dev questions,https://marc.info/?l=irssi-dev&m=122002873307338&w=2,http://marc.info/?l=irssi-dev&m=122002784405436&w=2
+20080227103820,Enrico Scholz,enrico.scholz@informatik.tu-chemnitz.de,2008-02-27 10:38:20-0400,[PATCH 2/5] PROXY/SIMPLE: added simple proxy method,https://marc.info/?l=irssi-dev&m=120410878230849&w=2,NA
+20080227103821,Enrico Scholz,enrico.scholz@informatik.tu-chemnitz.de,2008-02-27 10:38:21-0400,[PATCH 3/5] PROXY/HTTP: added methods for HTTP proxies,https://marc.info/?l=irssi-dev&m=120410875930825&w=2,NA
+20080227103822,Enrico Scholz,enrico.scholz@informatik.tu-chemnitz.de,2008-02-27 10:38:22-0400,[PATCH 4/5] PROXY/SOCKS5: added methods for SOCKS5 proxies,https://marc.info/?l=irssi-dev&m=120410916131360&w=2,NA
+20070829112534,"""The Unforgiven""",theunforgiven@gmail.com,2007-08-29 11:25:34-0400,Interested in helping,https://marc.info/?l=irssi-dev&m=118838679327499&w=2,NA
+20080227103823,Enrico Scholz,enrico.scholz@informatik.tu-chemnitz.de,2008-02-27 10:38:23-0400,[PATCH 5/5] PROXY: merge proxy methods into buildsystem,https://marc.info/?l=irssi-dev&m=120410878330852&w=2,NA
+20080110210318,"""Jean-Hadrien CHABRAN""",jh@chabran.fr,2008-01-10 21:03:18-0400,Irssi gui,https://marc.info/?l=irssi-dev&m=119999942302048&w=2,NA
+20080121204833,William Pettersson,enigma@strudel-hound.com,2008-01-21 20:48:33-0400,Re: lastlog - add -output option,https://marc.info/?l=irssi-dev&m=120094853311203&w=2,http://marc.info/?l=irssi-dev&m=120092248930118&w=2
+20071105041431,Max Englander,zempftman@yahoo.com,2007-11-05 04:14:31-0400,Module development advice,https://marc.info/?l=irssi-dev&m=119423609805846&w=2,NA
+20080121094720,William Pettersson,enigma@strudel-hound.com,2008-01-21 09:47:20-0400,lastlog - add -output option,https://marc.info/?l=irssi-dev&m=120090952808888&w=2,NA
+20080121132434,"""Wouter Coekaerts""",wouter@coekaerts.be,2008-01-21 13:24:34-0400,Re: lastlog - add -output option,https://marc.info/?l=irssi-dev&m=120092227329638&w=2,http://marc.info/?l=irssi-dev&m=120090952808888&w=2
+20080121132726,"""Wouter Coekaerts""",wouter@coekaerts.be,2008-01-21 13:27:26-0400,Re: lastlog - add -output option,https://marc.info/?l=irssi-dev&m=120092248930118&w=2,http://marc.info/?l=irssi-dev&m=120092227329638&w=2
+20080829162435,"""Lee Lowder""",lowder4@gmail.com,2008-08-29 16:24:35-0400,Dev questions,https://marc.info/?l=irssi-dev&m=122002709004064&w=2,NA
+20081114020726,Rich Healey,richo@psych0tik.net,2008-11-14 02:07:26-0400,pre_connect_cmd,https://marc.info/?l=irssi-dev&m=122662846205574&w=2,NA
+20081115215130,Wouter Coekaerts,wouter@coekaerts.be,2008-11-15 21:51:30-0400,Re: pre_connect_cmd,https://marc.info/?l=irssi-dev&m=122683380808884&w=2,http://marc.info/?l=irssi-dev&m=122662846205574&w=2
+20080829163658,Skywing,skywing@valhallalegends.com,2008-08-29 16:36:58-0400,RE: Dev questions,https://marc.info/?l=irssi-dev&m=122002784405436&w=2,http://marc.info/?l=irssi-dev&m=122002709004064&w=2
+20100127030115,dila,dilabox@gmail.com,2010-01-27 03:01:15-0400,Server /jump command?,https://marc.info/?l=irssi-dev&m=126456129115906&w=2,NA
+20100222031251,fred,fred@fredri.cc,2010-02-22 03:12:51-0400,"irssi fixes, access to repo?",https://marc.info/?l=irssi-dev&m=126680894921728&w=2,NA
+20071110212608,Max Englander,zempftman@yahoo.com,2007-11-10 21:26:08-0400,Re: Module development advice,https://marc.info/?l=irssi-dev&m=119473000428195&w=2,http://marc.info/?l=irssi-dev&m=119423609805846&w=2
+20071206225310,Max Englander,zempftman@yahoo.com,2007-12-06 22:53:10-0400,Irssi's config_parse_data does not behave as expected.,https://marc.info/?l=irssi-dev&m=119698161329386&w=2,NA
+20071110213903,Marcus Rueckert,darix@web.de,2007-11-10 21:39:03-0400,Re: Module development advice,https://marc.info/?l=irssi-dev&m=119473239630458&w=2,http://marc.info/?l=irssi-dev&m=119473000428195&w=2
+20071008165122,"""Damjan Lango""",damjan.lango@gmail.com,2007-10-08 16:51:22-0400,irssi on cygwin: log locked,https://marc.info/?l=irssi-dev&m=119186231310174&w=2,NA
+20070831184122,Wouter Coekaerts,coekie@irssi.org,2007-08-31 18:41:22-0400,Re: Interested in helping,https://marc.info/?l=irssi-dev&m=118858576516874&w=2,http://marc.info/?l=irssi-dev&m=118838679327499&w=2
+20070611052827,Paul-Kenji Cahier,pkc@f1-photo.com,2007-06-11 05:28:27-0400,Another problem with testcase,https://marc.info/?l=irssi-dev&m=118153977724162&w=2,NA
+20070614041829,JARI MATILAINEN,jari.matilainen@btinternet.com,2007-06-14 04:18:29-0400,datatype of $server->{tag} in $server->query_create()?,https://marc.info/?l=irssi-dev&m=118179477029584&w=2,NA
+20100322112240,Alexander =?iso-8859-1?B?RuZy+Hk=?=,ahf@0x90.dk,2010-03-22 11:22:40-0400,Irssi 0.8.15-rc1 Released,https://marc.info/?l=irssi-dev&m=126925744323149&w=2,NA
+20100329075643,Enrico Scholz,enrico.scholz@informatik.tu-chemnitz.de,2010-03-29 07:56:43-0400,"Re: Bug#518235: [PATCH] SOCKS, ""socksify irssi"" vs linking",https://marc.info/?l=irssi-dev&m=126985013830181&w=2,NA
+20100329103134,Christoph Fritz,chf.fritz@googlemail.com,2010-03-29 10:31:34-0400,"Re: [PATCH] SOCKS, ""socksify irssi"" vs linking",https://marc.info/?l=irssi-dev&m=126985843208807&w=2,http://marc.info/?l=irssi-dev&m=126982626511078&w=2
+20100905210117,,xmatou08@stud.fit.vutbr.cz,2010-09-05 21:01:17-0400,FS#723 [PATCH] Channel names recoding,https://marc.info/?l=irssi-dev&m=128372050822859&w=2,NA
+20110113120844,jer mar,jahrome11@gmail.com,2011-01-13 12:08:44-0400,Irssi on Android,https://marc.info/?l=irssi-dev&m=129492053608960&w=2,NA
+20120308235807,Pau Freixes,pfreixes@gmail.com,2012-03-08 23:58:07-0400,A pair doubts at scriptin interface to irssi,https://marc.info/?l=irssi-dev&m=133125114410717&w=2,NA
+20120313140927,Marek Kubica,marek@xivilization.net,2012-03-13 14:09:27-0400,Re: irssi proxy/bouncer,https://marc.info/?l=irssi-dev&m=133164888432621&w=2,http://marc.info/?l=irssi-dev&m=133161917620983&w=2
+20120530205627,Thomas Habets,thomas@habets.se,2012-05-30 20:56:27-0400,[PATCH] TPM SSL support,https://marc.info/?l=irssi-dev&m=133841204512191&w=2,NA
+20130214133907,Moritz Wilhelmy,moritz@wzff.de,2013-02-14 13:39:07-0400,[PATCH] Do not beep if the source of the beep is in activity_hide_targets,https://marc.info/?l=irssi-dev&m=136084916131467&w=2,NA
+20130615070134,Kamil Izdebski,kamil.izdebski@deuxres.net,2013-06-15 07:01:34-0400,FS#305: PEM password bug,https://marc.info/?l=irssi-dev&m=137127973815585&w=2,NA
+20130915194518,Alexander_Færøy,ahf@0x90.dk,2013-09-15 19:45:18-0400,Irssi 0.8.16-rc1 Released,https://marc.info/?l=irssi-dev&m=137927435724223&w=2,NA
+20131210174036,David Hill,dhill@mindcry.org,2013-12-10 17:40:36-0400,irc-commands.diff,https://marc.info/?l=irssi-dev&m=138669725532461&w=2,NA
+20140305002356,Snowy Angelique Maslov,snowy@snowy.org,2014-03-05 00:23:56-0400,Re: Updated Irssi for Windows Installer (0.8.16-rc1,https://marc.info/?l=irssi-dev&m=139397906229752&w=2,http://marc.info/?l=irssi-dev&m=139397788129404&w=2
+20140306135723,Delan Azabani,delan@azabani.com,2014-03-06 13:57:23-0400,Irssi w32installer,https://marc.info/?l=irssi-dev&m=139411426011398&w=2,NA
+20121209164802,Tomáš Nechutný,nechtom@gmail.com,2012-12-09 16:48:02-0400,Re: Highlight when my nick appears anywhere inside message,https://marc.info/?l=irssi-dev&m=135507169420692&w=2,http://marc.info/?l=irssi-dev&m=135507156320661&w=2
+20120809091808,Rhialto,rhialto@falu.nl,2012-08-09 09:18:08-0400,Re: Module development,https://marc.info/?l=irssi-dev&m=134450460921392&w=2,http://marc.info/?l=irssi-dev&m=134447584513677&w=2
+20100329001358,Christoph Fritz,chf.fritz@googlemail.com,2010-03-29 00:13:58-0400,"[PATCH] SOCKS, ""socksify irssi"" vs linking",https://marc.info/?l=irssi-dev&m=126982178807841&w=2,NA
+20100329013038,tabris,tabris@tabris.net,2010-03-29 01:30:38-0400,"Re: [PATCH] SOCKS, ""socksify irssi"" vs linking",https://marc.info/?l=irssi-dev&m=126982626511078&w=2,http://marc.info/?l=irssi-dev&m=126982178807841&w=2
+20120313061151,Weedy,weedy2887@gmail.com,2012-03-13 06:11:51-0400,irssi proxy/bouncer,https://marc.info/?l=irssi-dev&m=133161917620983&w=2,NA
+20120809005359,Troy Heron,troy.heron@hixxy.org,2012-08-09 00:53:59-0400,Module development,https://marc.info/?l=irssi-dev&m=134447584513677&w=2,NA
+20121209135944,Tomáš Nechutný,nechtom@gmail.com,2012-12-09 13:59:44-0400,Highlight when my nick appears anywhere inside message,https://marc.info/?l=irssi-dev&m=135506159817832&w=2,NA
+20121209160435,Olof Johansson,olof@ethup.se,2012-12-09 16:04:35-0400,Re: Highlight when my nick appears anywhere inside message,https://marc.info/?l=irssi-dev&m=135506970620164&w=2,http://marc.info/?l=irssi-dev&m=135506159817832&w=2
+20121209163522,Tomáš Nechutný,nechtom@gmail.com,2012-12-09 16:35:22-0400,Re: Highlight when my nick appears anywhere inside message,https://marc.info/?l=irssi-dev&m=135507093520513&w=2,http://marc.info/?l=irssi-dev&m=135506970620164&w=2
+20121209164550,Tomáš Nechutný,nechtom@gmail.com,2012-12-09 16:45:50-0400,Re: Highlight when my nick appears anywhere inside message,https://marc.info/?l=irssi-dev&m=135507156320661&w=2,http://marc.info/?l=irssi-dev&m=135507093520513&w=2
+20140305000429,"""Josh Dick""",josh@joshdick.net,2014-03-05 00:04:29-0400,Updated Irssi for Windows Installer (0.8.16-rc1,https://marc.info/?l=irssi-dev&m=139397788129404&w=2,NA

@@ -1,0 +1,3989 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20120112143149</emailId><senderName>"mbiama dot ekombitie dot com at live dot fr"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-01-12 14:31:49-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #60729 [NEW]: Linux root dir</subject><body>
+
+From:             
+Operating system: GNU Debugger
+PHP version:      5.3.9
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:Linux root dir
+
+Description:
+------------
+"AddType application/x-httpd-php .php
+AddHandler cgi-script .php
+c:\mingw\bin\gdb.exe program_to_debug.exe
+svn diff &gt; patch_file_name.txt
+
+Test script:
+---------------
+proc-trace-entry
+proc-trace-exit
+proc-untrace-entry
+proc-untrace-exit
+
+Expected result:
+----------------
+AddType application/x-httpd-php .php
+AddHandler cgi-script .php
+
+In the desired &lt;Directory&gt;-block, configure PHP CGI as follows:
+
+Options +ExecCGI
+## Use HKEY_CLASSES_ROOT\.cgi\Shell\ExecCGI\Command
+## to determine CGI script interpreter
+## ("c:\program files\php-5.3.9\php-cgi.exe").
+## User Localhost Windows is being worked on .
+ScriptInterpreterSource Registry-Strict
+New Option Nr=0  OptionText=" Hi!  I'm new here. "
+OptionSample="trunk_cgi_Im_New_0.wav"
+PositionX=44  PositionY=157  
+Subtitle="Hello!  I'm Sites.  I run this bar."
+ReplySample="Sorry_No_Voice_Sample_Yet_0.wav"
+ChangeOption=0 ChangeToValue=0
+ChangeOption=1 ChangeToValue=1
+ChangeOption=2 ChangeToValue=1
+AlwaysExecuteThisOptionPriorToDialogStart="yes"
+
+
+Actual result:
+--------------
+'./configure'
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=60729&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=60729&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=60729&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=60729&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=60729&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=60729&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=60729&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=60729&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=60729&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=60729&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=60729&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=60729&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=60729&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=60729&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=60729&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=60729&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=60729&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=60729&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=60729&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=60729&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=60729&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=60729&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120226031253</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2012-02-26 03:12:53-0400</timestampReceived><subject>[PHP-GTK-DEV] GtkSourceTagStyle with properties read only</subject><body>
+
+
+Hi everyone,
+
+   I cannot change source language tag style, becouse when I try to change
+the style, i get this error:
+
+   scorninpc@josi:/usr/share/gtksourceview-2.0/styles# php
+~/Desktop/php_editor.php
+PHP Notice:  PHP-GTK: ignoring write attempt to the read only property in
+/home/scorninpc/Desktop/source.php on line 31
+
+  30 $sts = new GtkSourceTagStyle();
+  31 $sts-&gt;bold = TRUE;
+
+  This is a bug? or I'm using in a wrong mode?
+
+Bye!
+
+- - -
+Bruno Pitteli Gonçalves
+bruno@pitteli.com.br
++55 (043)9901-7963
+
+- - -
+ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+Browse Happy - http://browsehappy.com/
+
+
+</body></email><email><emailId>20120319161308</emailId><senderName>"bert at bhack dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-03-19 16:13:08-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Req #61438 [NEW]: color_to_hex functionally</subject><body>
+
+From:             
+Operating system: Ubuntu
+PHP version:      Irrelevant
+Package:          PHP-GTK related
+Bug Type:         Feature/Change Request
+Bug description:color_to_hex functionally
+
+Description:
+------------
+There is no easy way to convert the rgb values from a GdkColor object to
+normal 
+hex or rgb. GdkColor uses seperate red, green and blue values ranging from
+0 to 
+65535.
+
+Test script:
+---------------
+print_r($colorbutton-&gt;get_color());
+
+[0] =&gt; GdkColor Object
+        (
+            [red] =&gt; 56815
+            [green] =&gt; 7663
+            [blue] =&gt; 7663
+            [pixel] =&gt; 0
+        )
+
+
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=61438&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=61438&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=61438&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=61438&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=61438&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=61438&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=61438&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=61438&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=61438&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=61438&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=61438&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=61438&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=61438&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=61438&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=61438&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=61438&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=61438&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=61438&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=61438&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=61438&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=61438&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=61438&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120506232848</emailId><senderName>"nicolyon at free dot fr"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-05-06 23:28:48-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #61966 [NEW]: Won't compile</subject><body>
+
+From:             
+Operating system: Linux
+PHP version:      5.4.2
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:Won't compile
+
+Description:
+------------
+The PHP-GTK is no more compatible with the last version of PHP.
+We can't compile it.
+Please upgrate the module PHP-GTK for we can compile it.
+
+Expected result:
+----------------
+Complie PHP-GTK with PHP 5.4
+
+Actual result:
+--------------
+None
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=61966&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=61966&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=61966&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=61966&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=61966&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=61966&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=61966&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=61966&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=61966&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=61966&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=61966&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=61966&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=61966&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=61966&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=61966&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=61966&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=61966&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=61966&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=61966&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=61966&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=61966&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=61966&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120718143922</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-07-18 14:39:22-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #61966 [Opn-&gt;Csd]: Won't compile</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=61966&amp;edit=1
+
+ ID:                 61966
+ Updated by:         auroraeosrose@php.net
+ Reported by:        nicolyon at free dot fr
+ Summary:            Won't compile
+-Status:             Open
++Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux
+ PHP Version:        5.4.2
+-Assigned To:        
++Assigned To:        auroraeosrose
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+This bug has been fixed in SVN.
+
+Snapshots of the sources are packaged every three hours; this change
+will be in the next snapshot. You can grab the snapshot at
+http://snaps.php.net/.
+
+ For Windows:
+
+http://windows.php.net/snapshots/
+ 
+Thank you for the report, and for helping us make PHP better.
+
+The git repository version now compiles and runs against PHP 5.4, please report any \
+functionality bugs you find separately
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-05-06 23:28:48] nicolyon at free dot fr
+
+Description:
+------------
+The PHP-GTK is no more compatible with the last version of PHP.
+We can't compile it.
+Please upgrate the module PHP-GTK for we can compile it.
+
+Expected result:
+----------------
+Complie PHP-GTK with PHP 5.4
+
+Actual result:
+--------------
+None
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=61966&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20120826113954</emailId><senderName>"ptlis at ptlis dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-08-26 11:39:54-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #54427 [Fbk-&gt;Opn]: Segfault when emiting custom signal with object parameter</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=54427&amp;edit=1
+
+ ID:                 54427
+ User updated by:    ptlis at ptlis dot net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            Segfault when emiting custom signal with object
+                     parameter
+-Status:             Feedback
++Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 10.4
+ PHP Version:        5.3.6
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+I can reproduce this on clean installations of Ubuntu 10.04 &amp; 12.04 with the \
+following procedures (slight changes due to package name changes etc)
+
+Ubuntu 10.04: http://pastebin.com/vHuHDc3R
+Ubuntu 12.04: http://pastebin.com/gB0LRAkE
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-07-18 20:04:43] auroraeosrose@php.net
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+I can't reproduce this with the current version in git on 5.3 or 5.4
+
+Can you try a newer compile of php-gtk?  Also what gtk library version are you using, \
+and are you using Ubuntu distro builds of php - if so please try with a stock build \
+of PHP
+
+------------------------------------------------------------------------
+[2011-03-30 19:01:10] ptlis at ptlis dot net
+
+Description:
+------------
+The first time the OK button on the dialog is clicked the custom signal is emitted \
+correctly, on the second click php segfaults on the call to emit().
+
+If no object is provided to emit() the second signal emits without segfault as \
+expected.
+
+Test script:
+---------------
+&lt;?php
+
+/**	Class implements custom signal 'product-ready'. */
+	class customDialog extends GtkDialog {
+	    public $__gsignals	= array(
+            		'product-ready'  =&gt; array(
+	    				GObject::SIGNAL_RUN_LAST,
+	    				GObject::TYPE_BOOLEAN,
+	    				array(
+	    					GObject::TYPE_PHP_VALUE
+	    				)
+	    			)
+				);
+
+		public function __construct($title, GtkWindow $parent) {
+			parent::__construct($title, $parent, Gtk::DIALOG_MODAL);
+
+			$product	= new stdClass();
+
+			$okButton	= new GtkButton('OK');
+			$this-&gt;action_area-&gt;add($okButton);
+			$okButton-&gt;connect_simple('clicked', array($this, 'ok_clicked'), $product);
+		}
+
+		public function ok_clicked(stdClass $product) {
+			$this-&gt;emit('product-ready', $product);
+		}
+	}
+	GObject::register_type('customDialog');
+
+
+
+	$window	= new GtkWindow();
+	$window-&gt;show_all();
+
+	$dialog	= new customDialog('fire signal dialog', $window);
+	$dialog-&gt;show_all();
+
+	$dialog-&gt;connect('product-ready', 'product_ready');
+
+	function product_ready() {
+		echo 'segfaults on second signal' . "\n";
+		return true;
+	}
+
+	Gtk::main();
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=54427&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20120907101749</emailId><senderName>"paulRGuthrie at wowway dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-09-07 10:17:49-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #63030 [NEW]: PaulRGuthriecomputerhacker</subject><body>
+
+From:             paulRGuthrie at wowway dot com
+Operating system: php
+PHP version:      5.3.16
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:PaulRGuthriecomputerhacker
+
+Description:
+------------
+PaulRGuthriecomputerhacker. Has been using php.net for years. He is an
+insecure 
+wimp hidding behind his computer.
+
+Test script:
+---------------
+PaulRGuthriecomputerhacker. Has been using php.net for years. He is an
+insecure wimp hidding behind his computer.
+
+Expected result:
+----------------
+PaulRGuthriecomputerhacker. Has been using php.net for years. He is an
+insecure 
+wimp hidding behind his computer.
+
+Actual result:
+--------------
+PaulRGuthriecomputerhacker. Has been using php.net for years. He is an
+insecure 
+wimp hidding behind his computer.
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=63030&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=63030&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=63030&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=63030&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=63030&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=63030&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=63030&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=63030&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=63030&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=63030&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=63030&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=63030&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=63030&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=63030&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=63030&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=63030&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=63030&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=63030&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=63030&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=63030&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=63030&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=63030&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120609061639</emailId><senderName>"hackerPaulRGuthrie at wowway dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-06-09 06:16:39-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #62274 [NEW]: computer hacker</subject><body>
+
+From:             hackerPaulRGuthrie at wowway dot com
+Operating system: computer hacker
+PHP version:      5.4Git-2012-06-09 (Git)
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:computer hacker
+
+Description:
+------------
+Noisey computer hacker!
+
+Test script:
+---------------
+Noisey computer hacker!
+
+Expected result:
+----------------
+Noisey computer hacker!
+
+Actual result:
+--------------
+Noisey computer hacker!
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=62274&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=62274&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=62274&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=62274&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=62274&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=62274&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=62274&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=62274&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=62274&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=62274&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=62274&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=62274&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=62274&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=62274&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=62274&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=62274&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=62274&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=62274&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=62274&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=62274&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=62274&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=62274&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120907103027</emailId><senderName></senderName><senderEmail>cweiske</senderEmail><timestampReceived>2012-09-07 10:30:27-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63030 [Opn-&gt;Spm]: PaulRGuthriecomputerhacker</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63030&amp;edit=1
+
+ ID:                 63030
+ Updated by:         cweiske@php.net
+ Reported by:        paulRGuthrie at wowway dot com
+ Summary:            PaulRGuthriecomputerhacker
+-Status:             Open
++Status:             Spam
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   php
+ PHP Version:        5.3.16
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-09-07 10:17:49] paulRGuthrie at wowway dot com
+
+Description:
+------------
+PaulRGuthriecomputerhacker. Has been using php.net for years. He is an insecure 
+wimp hidding behind his computer.
+
+Test script:
+---------------
+PaulRGuthriecomputerhacker. Has been using php.net for years. He is an insecure wimp \
+hidding behind his computer.
+
+Expected result:
+----------------
+PaulRGuthriecomputerhacker. Has been using php.net for years. He is an insecure 
+wimp hidding behind his computer.
+
+Actual result:
+--------------
+PaulRGuthriecomputerhacker. Has been using php.net for years. He is an insecure 
+wimp hidding behind his computer.
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63030&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20120920143348</emailId><senderName>"Guthrie at att dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-09-20 14:33:48-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #63122 [NEW]: Paul Professional computer hacker</subject><body>
+
+From:             Guthrie at att dot net
+Operating system: mac
+PHP version:      5.4.7
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:Paul Professional computer hacker
+
+Description:
+------------
+Paul Professional computer hacker
+
+Test script:
+---------------
+Paul Professional computer hacker
+
+Expected result:
+----------------
+Paul Professional computer hacker
+
+Actual result:
+--------------
+Paul Professional computer hacker
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=63122&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=63122&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=63122&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=63122&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=63122&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=63122&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=63122&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=63122&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=63122&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=63122&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=63122&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=63122&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=63122&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=63122&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=63122&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=63122&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=63122&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=63122&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=63122&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=63122&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=63122&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=63122&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120920143856</emailId><senderName></senderName><senderEmail>cweiske</senderEmail><timestampReceived>2012-09-20 14:38:56-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63122 [Opn-&gt;Spm]: Paul Professional computer hacker</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63122&amp;edit=1
+
+ ID:                 63122
+ Updated by:         cweiske@php.net
+ Reported by:        Guthrie at att dot net
+ Summary:            Paul Professional computer hacker
+-Status:             Open
++Status:             Spam
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   mac
+ PHP Version:        5.4.7
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-09-20 14:33:48] Guthrie at att dot net
+
+Description:
+------------
+Paul Professional computer hacker
+
+Test script:
+---------------
+Paul Professional computer hacker
+
+Expected result:
+----------------
+Paul Professional computer hacker
+
+Actual result:
+--------------
+Paul Professional computer hacker
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63122&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120926034422</emailId><senderName>"Exportarrr !"</senderName><senderEmail>ervin@exportmatch.info</senderEmail><timestampReceived>2012-09-26 03:44:22-0400</timestampReceived><subject>[PHP-GTK-DEV] =?windows-1252?Q?=A1Genere_Exportaciones_REALES!_D=E9le_una_mirad?= =?windows-1252?Q?a</subject><body>
+
+
+Para la atención del:
+
+Director General
+
+
+ 
+
+Expande vuestras Exportaciones a Nuevos Mercados 
+
+Pague solamente al estar satisfecho con nuestro desempeño 
+
+Sin anticipos y sin comisiones sobre las ventas
+
+www.exportarrr.com
+
+ 
+
+¡Pruebe nuestros servicios sin riesgo!
+
+ 
+
+ExportMatch es una empresa que desarrolla exportaciones en todo el mundo. 
+
+Fundada en 1992, ExportMatch ha ayudado a cientos de empresas a introducir productos \
+en mercados internacionales por medio de ventas directas a importadores, \
+distribuidores, cadenas de tiendas y usuarios finales en el extranjero. 
+
+ExportMatch trabaja para empresas grandes y pequeñas en todos los sectores de la \
+industria y la tecnología.
+
+Ahora usted también podrá alcanzar nuevas metas de ventas internacionales, todo esto, \
+sin riesgo, a través de nuestro rápido y eficiente sistema. 
+
+Nuestro equipo buscará clientes potenciales para su empresa en el mundo. El personal \
+multilingüe de ExportMatch se pondrá en contacto con los ejecutivos de estas empresas \
+para motivarlos a hacer negocios con ustedes.
+
+Revise la lista de nuestros exportadores activos y obtenga más información acerca de \
+nuestros servicios visitando nuestro sitio Web en: www.exportarrr.com   
+
+ 
+
+De el primer paso:
+
+Llene el formulario de inscripción para empezar a desarrollar nuevas ventas de \
+exportación: http://www.exportarrr.com/es_subscribe.asp
+
+ 
+
+Atentamente,
+
+ 
+
+Oscar Wolff
+
+Director de Operaciones
+
+ 
+
+www.exportarrr.com
+
+Email: info (at) exportarrr com
+
+Skype: ExportMatch 
+
+
+ 
+
+Si desea no recibir correspondencia de nosotros, por favor haga clic \
+export1@exportmatch.biz
+
+
+
+</body></email><email><emailId>20120826114301</emailId><senderName>"ptlis at ptlis dot net"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-08-26 11:43:01-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #54427 [Opn]: Segfault when emiting custom signal with object parameter</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=54427&amp;edit=1
+
+ ID:                 54427
+ User updated by:    ptlis at ptlis dot net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            Segfault when emiting custom signal with object
+                     parameter
+ Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 10.4
+ PHP Version:        5.3.6
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Oh, I forgot the gtk versions, dpkg reports
+
+Ubuntu 10.04: 2.20.1-0ubuntu2.1
+Ubuntu 12.04: 2.24.10-0ubuntu6 &amp; 3.4.2-0ubuntu0.4
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-08-26 11:39:53] ptlis at ptlis dot net
+
+I can reproduce this on clean installations of Ubuntu 10.04 &amp; 12.04 with the \
+following procedures (slight changes due to package name changes etc)
+
+Ubuntu 10.04: http://pastebin.com/vHuHDc3R
+Ubuntu 12.04: http://pastebin.com/gB0LRAkE
+
+------------------------------------------------------------------------
+[2012-07-18 20:04:43] auroraeosrose@php.net
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+I can't reproduce this with the current version in git on 5.3 or 5.4
+
+Can you try a newer compile of php-gtk?  Also what gtk library version are you using, \
+and are you using Ubuntu distro builds of php - if so please try with a stock build \
+of PHP
+
+------------------------------------------------------------------------
+[2011-03-30 19:01:10] ptlis at ptlis dot net
+
+Description:
+------------
+The first time the OK button on the dialog is clicked the custom signal is emitted \
+correctly, on the second click php segfaults on the call to emit().
+
+If no object is provided to emit() the second signal emits without segfault as \
+expected.
+
+Test script:
+---------------
+&lt;?php
+
+/**	Class implements custom signal 'product-ready'. */
+	class customDialog extends GtkDialog {
+	    public $__gsignals	= array(
+            		'product-ready'  =&gt; array(
+	    				GObject::SIGNAL_RUN_LAST,
+	    				GObject::TYPE_BOOLEAN,
+	    				array(
+	    					GObject::TYPE_PHP_VALUE
+	    				)
+	    			)
+				);
+
+		public function __construct($title, GtkWindow $parent) {
+			parent::__construct($title, $parent, Gtk::DIALOG_MODAL);
+
+			$product	= new stdClass();
+
+			$okButton	= new GtkButton('OK');
+			$this-&gt;action_area-&gt;add($okButton);
+			$okButton-&gt;connect_simple('clicked', array($this, 'ok_clicked'), $product);
+		}
+
+		public function ok_clicked(stdClass $product) {
+			$this-&gt;emit('product-ready', $product);
+		}
+	}
+	GObject::register_type('customDialog');
+
+
+
+	$window	= new GtkWindow();
+	$window-&gt;show_all();
+
+	$dialog	= new customDialog('fire signal dialog', $window);
+	$dialog-&gt;show_all();
+
+	$dialog-&gt;connect('product-ready', 'product_ready');
+
+	function product_ready() {
+		echo 'segfaults on second signal' . "\n";
+		return true;
+	}
+
+	Gtk::main();
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=54427&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20120718175932</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-07-18 17:59:32-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #60530 [Opn-&gt;Fbk]: PHP Execution doesn't terminate when using circular references</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=60530&amp;edit=1
+
+ ID:                 60530
+ Updated by:         auroraeosrose@php.net
+ Reported by:        willyscheibel at gmx dot de
+ Summary:            PHP Execution doesn't terminate when using circular
+                     references and mnemonics
+-Status:             Open
++Status:             Feedback
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 11.10
+ PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+I can't reproduce this with the current code from 
+
+https://git.php.net/repository/php/gtk-src.git
+
+with PHP 5.3 or 5.4
+
+1. are you using a distribution build of PHP? ubuntu puts patches on PHP source
+2. does this still occur with the newer version of php-gtk code?
+3. what version of the gtk libraries are you using?
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-12-19 16:57:46] willyscheibel at gmx dot de
+
+Changed used OS
+
+------------------------------------------------------------------------
+[2011-12-15 11:27:19] willyscheibel at gmx dot de
+
+Description:
+------------
+Used php-gtk: trunk at 2011-12-11
+
+The provided script could be parametrized with the defines in the first lines.
+I provide a version which shows the bug (define('SHOW_BUG', true)), another one, \
+which avoids the bug (define('SHOW_BUG', false)) and another one, which presents a \
+workaround (define('USE_WORKAROUND', true)).
+
+The bug occurs when one uses menu entries with mnemonics in their names in \
+conjunction with a circular reference in classes using php-gtk. the bug doesn't occur \
+if either the circular reference is resolved manually or if there isn't any menu \
+entry with a mnemonic in its name.
+
+Test script:
+---------------
+a minimal script which reproduces the bug is located at
+http://tasteful-revolution.net/bug.php.txt
+
+Expected result:
+----------------
+When I close the window, the script should terminate normally.
+
+Actual result:
+--------------
+When I close the window, the script doesn't terminate but leaves the gtk main loop.
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=60530&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20120718200443</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-07-18 20:04:43-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #54427 [Opn-&gt;Fbk]: Segfault when emiting custom signal with object parameter</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=54427&amp;edit=1
+
+ ID:                 54427
+ Updated by:         auroraeosrose@php.net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            Segfault when emiting custom signal with object
+                     parameter
+-Status:             Open
++Status:             Feedback
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 10.4
+ PHP Version:        5.3.6
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+I can't reproduce this with the current version in git on 5.3 or 5.4
+
+Can you try a newer compile of php-gtk?  Also what gtk library version are you using, \
+and are you using Ubuntu distro builds of php - if so please try with a stock build \
+of PHP
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-03-30 19:01:10] ptlis at ptlis dot net
+
+Description:
+------------
+The first time the OK button on the dialog is clicked the custom signal is emitted \
+correctly, on the second click php segfaults on the call to emit().
+
+If no object is provided to emit() the second signal emits without segfault as \
+expected.
+
+Test script:
+---------------
+&lt;?php
+
+/**	Class implements custom signal 'product-ready'. */
+	class customDialog extends GtkDialog {
+	    public $__gsignals	= array(
+            		'product-ready'  =&gt; array(
+	    				GObject::SIGNAL_RUN_LAST,
+	    				GObject::TYPE_BOOLEAN,
+	    				array(
+	    					GObject::TYPE_PHP_VALUE
+	    				)
+	    			)
+				);
+
+		public function __construct($title, GtkWindow $parent) {
+			parent::__construct($title, $parent, Gtk::DIALOG_MODAL);
+
+			$product	= new stdClass();
+
+			$okButton	= new GtkButton('OK');
+			$this-&gt;action_area-&gt;add($okButton);
+			$okButton-&gt;connect_simple('clicked', array($this, 'ok_clicked'), $product);
+		}
+
+		public function ok_clicked(stdClass $product) {
+			$this-&gt;emit('product-ready', $product);
+		}
+	}
+	GObject::register_type('customDialog');
+
+
+
+	$window	= new GtkWindow();
+	$window-&gt;show_all();
+
+	$dialog	= new customDialog('fire signal dialog', $window);
+	$dialog-&gt;show_all();
+
+	$dialog-&gt;connect('product-ready', 'product_ready');
+
+	function product_ready() {
+		echo 'segfaults on second signal' . "\n";
+		return true;
+	}
+
+	Gtk::main();
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=54427&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20120718200916</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-07-18 20:09:16-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #55225 [Opn-&gt;Csd]: PHP-GTK Segmentation fault on Quit</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+
+ ID:                 55225
+ Updated by:         auroraeosrose@php.net
+ Reported by:        falk dot herrmann at bike24 dot net
+ Summary:            PHP-GTK Segmentation fault on Quit
+-Status:             Open
++Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 2.6.38.6
+ PHP Version:        5.3.7RC3
+-Assigned To:        
++Assigned To:        auroraeosrose
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+This bug has been fixed in SVN.
+
+Snapshots of the sources are packaged every three hours; this change
+will be in the next snapshot. You can grab the snapshot at
+http://snaps.php.net/.
+
+ For Windows:
+
+http://windows.php.net/snapshots/
+ 
+Thank you for the report, and for helping us make PHP better.
+
+This was actually an issue with php-gtk and dl (if you load the extension via .ini \
+file you will not see this)
+
+Fix for this commited to git
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-09-08 16:02:44] falk dot herrmann at bike24 dot net
+
+The same error on a complete different system: PHP 5.3.8 (sources) on an Ubuntu \
+11.04, GTK 2.24.4 libs, PHP-GTK from SVN. Also this is a 64-bit system. The bug \
+report was created on an 32-bit Gentoo System.
+
+------------------------------------------------------------------------
+[2011-07-20 06:14:41] falk dot herrmann at bike24 dot net
+
+I use the latest version of PHP-GTK from SVN:
+
+psyco php-gtk-svn # svn info
+Path: .
+URL: http://svn.php.net/repository/gtk/php-gtk/trunk
+Repository Root: http://svn.php.net/repository
+Repository UUID: c90b9560-bf6c-de11-be94-00142212c4b1
+Revision: 313467
+Node Kind: directory
+Schedule: normal
+Last Changed Author: markskilbeck
+Last Changed Rev: 307828
+Last Changed Date: 2011-01-28 21:27:32 +0100 (Fri, 28 Jan 2011)
+
+------------------------------------------------------------------------
+[2011-07-20 05:54:48] markskilbeck@php.net
+
+What PHP-GTK version are you using? IIRC you need to be using SVN and
+not the 2.0.1 release from the website.
+
+http://svn.php.net/repository/gtk/php-gtk/trunk
+
+------------------------------------------------------------------------
+[2011-07-20 05:36:47] falk dot herrmann at bike24 dot net
+
+...
+Core was generated by `php -f hello-world.php'.
+Program terminated with signal 11, Segmentation fault.
+[New process 11395]
+#0  0x08310f1e in clean_module_class (ce=0x961d994, module_number=0xbf8b5e4c)
+    at /usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2087
+2087            if ((*ce)-&gt;type == ZEND_INTERNAL_CLASS &amp;&amp; \
+(*ce)-&gt;module-&gt;module_number == *module_number) { (gdb) bt
+#0  0x08310f1e in clean_module_class (ce=0x961d994, module_number=0xbf8b5e4c)
+    at /usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2087
+#1  0x0831add4 in zend_hash_apply_with_argument (ht=0x9468480, apply_func=0x8310f00 \
+&lt;clean_module_class&gt;,   argument=0xbf8b5e4c) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:698 #2  0x08314bb8 in \
+module_destructor (module=0x94b3648) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_API.c:2097 #3  0x0831ac58 in \
+zend_hash_apply_deleter (ht=0x87a4300, p=0x96119a8) at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:612 #4  0x0831ad5b in \
+zend_hash_reverse_apply (ht=0x87a4300, apply_func=0x8310f60 \
+&lt;module_registry_unload_temp&gt;)  at \
+/usr/src/bApache2/php-5.3.7RC3/Zend/zend_hash.c:761 #5  0x0830fa9e in \
+zend_post_deactivate_modules () at /usr/src/bApache2/php-5.3.7RC3/Zend/zend.c:937 #6  \
+0x082bf095 in php_request_shutdown (dummy=0x0) at \
+/usr/src/bApache2/php-5.3.7RC3/main/main.c:1644 #7  0x083927b4 in main (argc=3, \
+argv=0xbf8b62f4) at /usr/src/bApache2/php-5.3.7RC3/sapi/cli/php_cli.c:1363
+
+------------------------------------------------------------------------
+[2011-07-19 18:37:44] felipe@php.net
+
+Thank you for this bug report. To properly diagnose the problem, we
+need a backtrace to see what is happening behind the scenes. To
+find out how to generate a backtrace, please read
+http://bugs.php.net/bugs-generating-backtrace.php for *NIX and
+http://bugs.php.net/bugs-generating-backtrace-win32.php for Win32
+
+Once you have generated a backtrace, please submit it to this bug
+report and change the status back to "Open". Thank you for helping
+us make PHP better.
+
+
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=55225
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=55225&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20120607003013</emailId><senderName>"suckPaulRGuthrie at wowway dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-06-07 00:30:13-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #62246 [NEW]: hacking idiot</subject><body>
+
+From:             suckPaulRGuthrie at wowway dot com
+Operating system: none
+PHP version:      5.3Git-2012-06-06 (Git)
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:hacking idiot
+
+Description:
+------------
+Paul R Guthrie was a waste of life.
+
+Test script:
+---------------
+Paul R Guthrie was a waste of life.
+
+Expected result:
+----------------
+Paul R Guthrie was a waste of life.
+
+Actual result:
+--------------
+Paul R Guthrie was a waste of life.
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=62246&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=62246&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=62246&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=62246&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=62246&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=62246&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=62246&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=62246&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=62246&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=62246&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=62246&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=62246&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=62246&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=62246&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=62246&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=62246&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=62246&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=62246&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=62246&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=62246&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=62246&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=62246&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120607004613</emailId><senderName>"hackerPaulRGuthrie at wowway dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-06-07 00:46:13-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #62247 [NEW]: Guthrie idiot</subject><body>
+
+From:             hackerPaulRGuthrie at wowway dot com
+Operating system: none
+PHP version:      5.3Git-2012-06-07 (Git)
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:Guthrie idiot
+
+Description:
+------------
+Hidden homo Paul R Guthrie!!!!
+
+Test script:
+---------------
+Hidden homo Paul R Guthrie!!!!
+
+Expected result:
+----------------
+Hidden homo Paul R Guthrie!!!!
+
+Actual result:
+--------------
+Hidden homo Paul R Guthrie!!!!
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=62247&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=62247&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=62247&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=62247&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=62247&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=62247&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=62247&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=62247&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=62247&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=62247&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=62247&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=62247&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=62247&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=62247&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=62247&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=62247&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=62247&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=62247&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=62247&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=62247&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=62247&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=62247&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120607052820</emailId><senderName></senderName><senderEmail>sixd</senderEmail><timestampReceived>2012-06-07 05:28:20-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #62247 [Opn-&gt;Spm]: Guthrie idiot</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=62247&amp;edit=1
+
+ ID:                 62247
+ Updated by:         sixd@php.net
+ Reported by:        hackerPaulRGuthrie at wowway dot com
+ Summary:            Guthrie idiot
+-Status:             Open
++Status:             Spam
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   none
+ PHP Version:        5.3Git-2012-06-07 (Git)
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-06-07 00:46:13] hackerPaulRGuthrie at wowway dot com
+
+Description:
+------------
+Hidden homo Paul R Guthrie!!!!
+
+Test script:
+---------------
+Hidden homo Paul R Guthrie!!!!
+
+Expected result:
+----------------
+Hidden homo Paul R Guthrie!!!!
+
+Actual result:
+--------------
+Hidden homo Paul R Guthrie!!!!
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=62247&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120607052853</emailId><senderName></senderName><senderEmail>sixd</senderEmail><timestampReceived>2012-06-07 05:28:53-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #62246 [Opn-&gt;Spm]: hacking idiot</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=62246&amp;edit=1
+
+ ID:                 62246
+ Updated by:         sixd@php.net
+ Reported by:        suckPaulRGuthrie at wowway dot com
+ Summary:            hacking idiot
+-Status:             Open
++Status:             Spam
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   none
+ PHP Version:        5.3Git-2012-06-06 (Git)
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-06-07 00:30:13] suckPaulRGuthrie at wowway dot com
+
+Description:
+------------
+Paul R Guthrie was a waste of life.
+
+Test script:
+---------------
+Paul R Guthrie was a waste of life.
+
+Expected result:
+----------------
+Paul R Guthrie was a waste of life.
+
+Actual result:
+--------------
+Paul R Guthrie was a waste of life.
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=62246&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120609084414</emailId><senderName></senderName><senderEmail>cataphract</senderEmail><timestampReceived>2012-06-09 08:44:14-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #62274 [Opn-&gt;Spm]: computer hacker</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=62274&amp;edit=1
+
+ ID:                 62274
+ Updated by:         cataphract@php.net
+ Reported by:        hackerPaulRGuthrie at wowway dot com
+ Summary:            computer hacker
+-Status:             Open
++Status:             Spam
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   computer hacker
+ PHP Version:        5.4Git-2012-06-09 (Git)
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-06-09 06:16:39] hackerPaulRGuthrie at wowway dot com
+
+Description:
+------------
+Noisey computer hacker!
+
+Test script:
+---------------
+Noisey computer hacker!
+
+Expected result:
+----------------
+Noisey computer hacker!
+
+Actual result:
+--------------
+Noisey computer hacker!
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=62274&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120610031313</emailId><senderName>"DickheadPaulRGuthrie at wowway dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-06-10 03:13:13-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #62283 [NEW]: HackerPaulRGuthrie</subject><body>
+
+From:             DickheadPaulRGuthrie at wowway dot com
+Operating system: HackerPaulRGuthrie
+PHP version:      5.4Git-2012-06-10 (Git)
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:HackerPaulRGuthrie
+
+Description:
+------------
+3 1/2 years of hacking, erasing and ruinning.
+
+Test script:
+---------------
+3 1/2 years of hacking, erasing and ruinning.
+
+Expected result:
+----------------
+3 1/2 years of hacking, erasing and ruinning.
+
+Actual result:
+--------------
+3 1/2 years of hacking, erasing and ruinning.
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=62283&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=62283&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=62283&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=62283&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=62283&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=62283&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=62283&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=62283&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=62283&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=62283&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=62283&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=62283&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=62283&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=62283&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=62283&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=62283&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=62283&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=62283&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=62283&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=62283&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=62283&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=62283&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120610044224</emailId><senderName></senderName><senderEmail>sixd</senderEmail><timestampReceived>2012-06-10 04:42:24-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #62283 [Opn-&gt;Spm]: HackerPaulRGuthrie</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=62283&amp;edit=1
+
+ ID:                 62283
+ Updated by:         sixd@php.net
+ Reported by:        DickheadPaulRGuthrie at wowway dot com
+ Summary:            HackerPaulRGuthrie
+-Status:             Open
++Status:             Spam
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   HackerPaulRGuthrie
+ PHP Version:        5.4Git-2012-06-10 (Git)
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-06-10 03:13:13] DickheadPaulRGuthrie at wowway dot com
+
+Description:
+------------
+3 1/2 years of hacking, erasing and ruinning.
+
+Test script:
+---------------
+3 1/2 years of hacking, erasing and ruinning.
+
+Expected result:
+----------------
+3 1/2 years of hacking, erasing and ruinning.
+
+Actual result:
+--------------
+3 1/2 years of hacking, erasing and ruinning.
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=62283&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120610213832</emailId><senderName>Bruno_P._Gonçalves</senderName><senderEmail>scorninpc@gmail.com</senderEmail><timestampReceived>2012-06-10 21:38:32-0400</timestampReceived><subject>Re: [PHP-GTK-DEV] [PHP-BUG] Bug #62274 [NEW]: computer hacker</subject><body>
+
+
+I S2 GIT
+
+- - -
+Bruno Pitteli Gonçalves
+bruno@pitteli.com.br
++55 (043)9901-7963
+
+- - -
+ScornInPC - http://bruno.pitteli.com.br/ &lt;http://blog.scorninpc.com/&gt;
+Browse Happy - http://browsehappy.com/
+
+
+On Sat, Jun 9, 2012 at 3:16 AM, hackerPaulRGuthrie at wowway dot com &lt;
+php-bugs@lists.php.net&gt; wrote:
+
+&gt; From:             hackerPaulRGuthrie at wowway dot com
+&gt; Operating system: computer hacker
+&gt; PHP version:      5.4Git-2012-06-09 (Git)
+&gt; Package:          PHP-GTK related
+&gt; Bug Type:         Bug
+&gt; Bug description:computer hacker
+&gt;
+&gt; Description:
+&gt; ------------
+&gt; Noisey computer hacker!
+&gt;
+&gt; Test script:
+&gt; ---------------
+&gt; Noisey computer hacker!
+&gt;
+&gt; Expected result:
+&gt; ----------------
+&gt; Noisey computer hacker!
+&gt;
+&gt; Actual result:
+&gt; --------------
+&gt; Noisey computer hacker!
+&gt;
+&gt; --
+&gt; Edit bug report at https://bugs.php.net/bug.php?id=62274&amp;edit=1
+&gt; --
+&gt; Try a snapshot (PHP 5.4):
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=trysnapshot54
+&gt; Try a snapshot (PHP 5.3):
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=trysnapshot53
+&gt; Try a snapshot (trunk):
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=trysnapshottrunk
+&gt; Fixed in SVN:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=fixed
+&gt; Fixed in SVN and need be documented:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=needdocs
+&gt; Fixed in release:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=alreadyfixed
+&gt; Need backtrace:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=needtrace
+&gt; Need Reproduce Script:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=needscript
+&gt; Try newer version:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=oldversion
+&gt; Not developer issue:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=support
+&gt; Expected behavior:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=notwrong
+&gt; Not enough info:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=notenoughinfo
+&gt; Submitted twice:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=submittedtwice
+&gt; register_globals:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=globals
+&gt; PHP 4 support discontinued:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=php4
+&gt; Daylight Savings:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=dst
+&gt; IIS Stability:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=isapi
+&gt; Install GNU Sed:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=gnused
+&gt; Floating point limitations:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=float
+&gt; No Zend Extensions:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=nozend
+&gt; MySQL Configuration Error:
+&gt; https://bugs.php.net/fix.php?id=62274&amp;r=mysqlcfg
+&gt;
+&gt;
+&gt; --
+&gt; PHP-GTK Development Mailing List (http://gtk.php.net/)
+&gt; To unsubscribe, visit: http://www.php.net/unsub.php
+&gt;
+&gt;
+
+
+</body></email><email><emailId>20120517142637</emailId><senderName></senderName><senderEmail>"=?windows-1252?q?grupo_ioe_-_universidad_de_alcal=e1?=" &lt;info</senderEmail><timestampReceived>2012-05-17 14:26:37-0400</timestampReceived><subject>[PHP-GTK-DEV] =?windows-1252?Q?Diplomado_en_Secretariado_de_Alta_Direcci=F3n?=</subject><body>
+
+
+ 
+ Pulse AQUÍ si no lo  visualiza correctamente. 
+
+ 	
+		 	 	
+		 	 	
+		 	 	
+		 	 	
+		 	 	
+		 	 	
+		 		 		 	 
+ 
+ 
+  www.grupoioe.com    
+ 
+ 
+Si no quiere recibir más publicidad de máster, maestrías o cursos de capacitación \
+pulse aquí y su correo electrónico se dará de baja de esta lista de \
+distribución. Muchas gracias de antemano por su atención prestada. Reciba un cordial \
+saludo.
+
+
+
+</body></email><email><emailId>20120531185843</emailId><senderName></senderName><senderEmail>"=?windows-1252?q?grupo_ioe_-_universidad_de_alcal=e1?=" &lt;info</senderEmail><timestampReceived>2012-05-31 18:58:43-0400</timestampReceived><subject>[PHP-GTK-DEV] =?windows-1252?Q?MBA_Uni=F3n_Europea_-_Mercados_Americanos?=</subject><body>
+
+
+ 
+ Pulse AQUÍ si no lo  visualiza correctamente. 
+
+ 
+ 	 		 	 
+	 		 			 		 	 
+	 		 			 		 	 
+	 		 			 		 	 
+	 		 			 		 	 
+	 		 			 		 	 
+	 		 			 		 	 
+	 		 			 		 	 	 	
+		 		 		 	 
+ 
+ 
+  www.grupoioe.com    
+ 
+ 
+Si no quiere recibir más publicidad de máster, maestrías o cursos de capacitación \
+pulse aquí y su correo electrónico se dará de baja de esta lista de \
+distribución. Muchas gracias de antemano por su atención prestada. Reciba un cordial \
+saludo.
+
+
+
+</body></email><email><emailId>20120321093115</emailId><senderName>"Joop Boonen"</senderName><senderEmail>joop_boonen@web.de</senderEmail><timestampReceived>2012-03-21 09:31:15-0400</timestampReceived><subject>[PHP-GTK-DEV] New php-gtk release version</subject><body>
+
+Hi all,
+
+I wonder when a new/official php-gtk will exist?
+Do you have plans to release on in the future?
+
+Regards,
+
+Joop.
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120329102435</emailId><senderName></senderName><senderEmail>php</senderEmail><timestampReceived>2012-03-29 10:24:35-0400</timestampReceived><subject>[PHP-GTK-DEV] Porting manual gtk to php-gtk</subject><body>
+
+Hi,
+
+I want to know if there is a manual of how to port something in gtk to  
+php-gtk (like for example how to implement a simple gtk_label in  
+php-gtk, I think it will be the simplest example...).
+
+Thanks.
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120330061216</emailId><senderName></senderName><senderEmail>markskilbeck</senderEmail><timestampReceived>2012-03-30 06:12:16-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #53813 [Asn-&gt;Opn]: GdkEvent keyval field not writable</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+ ID:                 53813
+ Updated by:         markskilbeck@php.net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            GdkEvent keyval field not writable
+-Status:             Assigned
++Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Linux 32bit
+ PHP Version:        5.3.5
+-Assigned To:        markskilbeck
++Assigned To:        auroraeosrose
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-01-25 17:08:34] markskilbeck@php.net
+
+There's no write_property handler for the GdkEvent stuff. It also seems to be 
+missing for other objects. I'll work on a patch today for GdkEvent.
+
+------------------------------------------------------------------------
+[2011-01-22 14:10:11] ptlis at ptlis dot net
+
+Description:
+------------
+If you create a GdkEvent with the GdkEventType Gdk::KEY_PRESS and try to assign a \
+value to the keyval field the keyval field does not change.
+
+Test script:
+---------------
+$event = new GdkEvent(Gdk::KEY_PRESS);
+$event-&gt;keyval	= Gdk::KEY_Return;
+var_dump($event);
+
+Expected result:
+----------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(65293)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+Actual result:
+--------------
+object(GdkEvent)#4466 (9) {
+  ["keyval"]=&gt;
+  int(0)
+  ["time"]=&gt;
+  int(0)
+  ["state"]=&gt;
+  int(0)
+  ["string"]=&gt;
+  string(0) ""
+  ["hardware_keycode"]=&gt;
+  int(0)
+  ["group"]=&gt;
+  int(0)
+  ["type"]=&gt;
+  int(8)
+  ["window"]=&gt;
+  NULL
+  ["send_event"]=&gt;
+  bool(false)
+}
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=53813&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20120113074338</emailId><senderName>"medjomeman at hotmail dot fr"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-01-13 07:43:38-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #60739 [NEW]: home.aspx@php.net</subject><body>
+
+From:             
+Operating system: Offilive, php, apache
+PHP version:      trunk-SVN-2012-01-13 (snap)
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:home.aspx@php.net
+
+Description:
+------------
+&lt;TD&gt;&lt;img src="/headerImagesOriginal/Legal/3_IndependenceDay_t29.jpg?
+id=1292777553793"&gt;&lt;/TD&gt;
+
+&lt;div id="IWS_WH_Elem_FooterText" class="MSC_FooterText"&gt;
+
+						&lt;span style="font-weight: normal; 
+font-size: 10pt; color: #ffffff; font-style: normal; font-family: Arial;
+text-
+decoration: "&gt;...&lt;/span&gt;
+
+					&lt;/div&gt;
+
+
+Test script:
+---------------
+&lt;script type="text/javascript" language="JavaScript"
+src="http://angosso-net.sitereports.officelive.com/js/restats_static.js"&gt;
+
+                    &lt;/script&gt;
+
+
+Expected result:
+----------------
+&lt;td id="IWS_WH_Elem_TopNav" class="MS_MasterPrimaryNav"&gt;
+
+				&lt;table cellpadding="0" cellspacing="0" 
+class="MSC_PrimaryNavFrame"&gt;
+
+  &lt;tr&gt;
+
+    &lt;td class="MSC_PrimaryNavLinkFrame-On"&gt;&lt;a href="
+                 
+
+/home.aspx" class="MSC_PrimaryNavLink-On"&gt;Accueil&lt;/a&gt;&lt;/td&gt;
+
+
+Actual result:
+--------------
+&lt;td id="IWS_WH_Elem_TopNav" class="MS_MasterPrimaryNav"&gt;
+
+				&lt;table cellpadding="0" cellspacing="0" 
+class="MSC_PrimaryNavFrame"&gt;
+
+  &lt;tr&gt;
+
+    &lt;td class="MSC_PrimaryNavLinkFrame-On"&gt;&lt;a href="
+                 
+
+/default.aspx" class="MSC_PrimaryNavLink-On"&gt;Accueil&lt;/a&gt;&lt;/td&gt;
+
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=60739&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):            https://bugs.php.net/fix.php?id=60739&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):            https://bugs.php.net/fix.php?id=60739&amp;r=trysnapshot53
+Try a snapshot (trunk):              https://bugs.php.net/fix.php?id=60739&amp;r=trysnapshottrunk
+Fixed in SVN:                        https://bugs.php.net/fix.php?id=60739&amp;r=fixed
+Fixed in SVN and need be documented: https://bugs.php.net/fix.php?id=60739&amp;r=needdocs
+Fixed in release:                    https://bugs.php.net/fix.php?id=60739&amp;r=alreadyfixed
+Need backtrace:                      https://bugs.php.net/fix.php?id=60739&amp;r=needtrace
+Need Reproduce Script:               https://bugs.php.net/fix.php?id=60739&amp;r=needscript
+Try newer version:                   https://bugs.php.net/fix.php?id=60739&amp;r=oldversion
+Not developer issue:                 https://bugs.php.net/fix.php?id=60739&amp;r=support
+Expected behavior:                   https://bugs.php.net/fix.php?id=60739&amp;r=notwrong
+Not enough info:                     https://bugs.php.net/fix.php?id=60739&amp;r=notenoughinfo
+Submitted twice:                     https://bugs.php.net/fix.php?id=60739&amp;r=submittedtwice
+register_globals:                    https://bugs.php.net/fix.php?id=60739&amp;r=globals
+PHP 4 support discontinued:          https://bugs.php.net/fix.php?id=60739&amp;r=php4
+Daylight Savings:                    https://bugs.php.net/fix.php?id=60739&amp;r=dst
+IIS Stability:                       https://bugs.php.net/fix.php?id=60739&amp;r=isapi
+Install GNU Sed:                     https://bugs.php.net/fix.php?id=60739&amp;r=gnused
+Floating point limitations:          https://bugs.php.net/fix.php?id=60739&amp;r=float
+No Zend Extensions:                  https://bugs.php.net/fix.php?id=60739&amp;r=nozend
+MySQL Configuration Error:           https://bugs.php.net/fix.php?id=60739&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20120113175337</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-01-13 17:53:37-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #60739 [Opn-&gt;Spm]: home.aspx@php.net</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=60739&amp;edit=1
+
+ ID:                 60739
+ Updated by:         auroraeosrose@php.net
+ Reported by:        medjomeman at hotmail dot fr
+ Summary:            home.aspx@php.net
+-Status:             Open
++Status:             Spam
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Offilive, php, apache
+ PHP Version:        trunk-SVN-2012-01-13 (snap)
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-01-13 07:43:38] medjomeman at hotmail dot fr
+
+Description:
+------------
+&lt;TD&gt;&lt;img src="/headerImagesOriginal/Legal/3_IndependenceDay_t29.jpg?
+id=1292777553793"&gt;&lt;/TD&gt;
+
+&lt;div id="IWS_WH_Elem_FooterText" class="MSC_FooterText"&gt;
+
+						&lt;span style="font-weight: normal; 
+font-size: 10pt; color: #ffffff; font-style: normal; font-family: Arial; text-
+decoration: "&gt;...&lt;/span&gt;
+
+					&lt;/div&gt;
+
+
+Test script:
+---------------
+&lt;script type="text/javascript" language="JavaScript" \
+src="http://angosso-net.sitereports.officelive.com/js/restats_static.js"&gt;
+
+                    &lt;/script&gt;
+
+
+Expected result:
+----------------
+&lt;td id="IWS_WH_Elem_TopNav" class="MS_MasterPrimaryNav"&gt;
+
+				&lt;table cellpadding="0" cellspacing="0" 
+class="MSC_PrimaryNavFrame"&gt;
+
+  &lt;tr&gt;
+
+    &lt;td class="MSC_PrimaryNavLinkFrame-On"&gt;&lt;a href="
+                  
+/home.aspx" class="MSC_PrimaryNavLink-On"&gt;Accueil&lt;/a&gt;&lt;/td&gt;
+
+
+Actual result:
+--------------
+&lt;td id="IWS_WH_Elem_TopNav" class="MS_MasterPrimaryNav"&gt;
+
+				&lt;table cellpadding="0" cellspacing="0" 
+class="MSC_PrimaryNavFrame"&gt;
+
+  &lt;tr&gt;
+
+    &lt;td class="MSC_PrimaryNavLinkFrame-On"&gt;&lt;a href="
+                  
+/default.aspx" class="MSC_PrimaryNavLink-On"&gt;Accueil&lt;/a&gt;&lt;/td&gt;
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=60739&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20120113175715</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-01-13 17:57:15-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #60729 [Opn-&gt;Spm]: Linux root dir</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=60729&amp;edit=1
+
+ ID:                 60729
+ Updated by:         auroraeosrose@php.net
+ Reported by:        mbiama dot ekombitie dot com at live dot fr
+ Summary:            Linux root dir
+-Status:             Open
++Status:             Spam
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   GNU Debugger
+ PHP Version:        5.3.9
+ Block user comment: N
+ Private report:     N
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-01-12 14:31:49] mbiama dot ekombitie dot com at live dot fr
+
+Description:
+------------
+"AddType application/x-httpd-php .php
+AddHandler cgi-script .php
+c:\mingw\bin\gdb.exe program_to_debug.exe
+svn diff &gt; patch_file_name.txt
+
+Test script:
+---------------
+proc-trace-entry
+proc-trace-exit
+proc-untrace-entry
+proc-untrace-exit
+
+Expected result:
+----------------
+AddType application/x-httpd-php .php
+AddHandler cgi-script .php
+
+In the desired &lt;Directory&gt;-block, configure PHP CGI as follows:
+
+Options +ExecCGI
+## Use HKEY_CLASSES_ROOT\.cgi\Shell\ExecCGI\Command
+## to determine CGI script interpreter
+## ("c:\program files\php-5.3.9\php-cgi.exe").
+## User Localhost Windows is being worked on .
+ScriptInterpreterSource Registry-Strict
+New Option Nr=0  OptionText=" Hi!  I'm new here. "
+OptionSample="trunk_cgi_Im_New_0.wav"
+PositionX=44  PositionY=157  
+Subtitle="Hello!  I'm Sites.  I run this bar."
+ReplySample="Sorry_No_Voice_Sample_Yet_0.wav"
+ChangeOption=0 ChangeToValue=0
+ChangeOption=1 ChangeToValue=1
+ChangeOption=2 ChangeToValue=1
+AlwaysExecuteThisOptionPriorToDialogStart="yes"
+
+
+Actual result:
+--------------
+'./configure'
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=60729&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20121016162123</emailId><senderName>"PRG at aol dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-10-16 16:21:23-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #63288 [NEW]: PaulRGlittlemandownthere</subject><body>
+
+From:             PRG at aol dot com
+Operating system: mac
+PHP version:      5.3Git-2012-10-16 (Git)
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:PaulRGlittlemandownthere
+
+Description:
+------------
+PaulRGlittlemandownthere
+
+Test script:
+---------------
+PaulRGlittlemandownthere
+
+Expected result:
+----------------
+PaulRGlittlemandownthere
+
+Actual result:
+--------------
+PaulRGlittlemandownthere
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=63288&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):   https://bugs.php.net/fix.php?id=63288&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):   https://bugs.php.net/fix.php?id=63288&amp;r=trysnapshot53
+Try a snapshot (trunk):     https://bugs.php.net/fix.php?id=63288&amp;r=trysnapshottrunk
+Fixed in SVN:               https://bugs.php.net/fix.php?id=63288&amp;r=fixed
+Fixed in release:           https://bugs.php.net/fix.php?id=63288&amp;r=alreadyfixed
+Need backtrace:             https://bugs.php.net/fix.php?id=63288&amp;r=needtrace
+Need Reproduce Script:      https://bugs.php.net/fix.php?id=63288&amp;r=needscript
+Try newer version:          https://bugs.php.net/fix.php?id=63288&amp;r=oldversion
+Not developer issue:        https://bugs.php.net/fix.php?id=63288&amp;r=support
+Expected behavior:          https://bugs.php.net/fix.php?id=63288&amp;r=notwrong
+Not enough info:            https://bugs.php.net/fix.php?id=63288&amp;r=notenoughinfo
+Submitted twice:            https://bugs.php.net/fix.php?id=63288&amp;r=submittedtwice
+register_globals:           https://bugs.php.net/fix.php?id=63288&amp;r=globals
+PHP 4 support discontinued: https://bugs.php.net/fix.php?id=63288&amp;r=php4
+Daylight Savings:           https://bugs.php.net/fix.php?id=63288&amp;r=dst
+IIS Stability:              https://bugs.php.net/fix.php?id=63288&amp;r=isapi
+Install GNU Sed:            https://bugs.php.net/fix.php?id=63288&amp;r=gnused
+Floating point limitations: https://bugs.php.net/fix.php?id=63288&amp;r=float
+No Zend Extensions:         https://bugs.php.net/fix.php?id=63288&amp;r=nozend
+MySQL Configuration Error:  https://bugs.php.net/fix.php?id=63288&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20121102124832</emailId><senderName>"nikodu01 at live dot fr"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-11-02 12:48:32-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #63420 [NEW]: SIGSEV on load php_gtk2.so</subject><body>
+
+From:             nikodu01 at live dot fr
+Operating system: Linux / PHP 5.4.8 / PHP-GTK Git
+PHP version:      5.3.18
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:SIGSEV on load php_gtk2.so
+
+Description:
+------------
+Version : PHP 5.4.8 &amp; PHP-GTK Git
+
+When loading the extension we got a sigsev
+
+Test script:
+---------------
+dl( 'php_gtk2.so' );
+
+Expected result:
+----------------
+Load library 
+
+Actual result:
+--------------
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+6748			int n = zend_hash_num_elements(CG(class_table));
+(gdb) bt
+#0  0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+#1  0x00000000008342cc in do_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, ce_flags=0, tsrm_ls=0x1b) at
+/src/build/php-
+5.4.8/Zend/zend_API.c:2401
+#2  0x00000000008345f0 in zend_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2467
+#3  0x0000000000834494 in zend_register_internal_class_ex 
+(class_entry=0x7fffffffa5d0, parent_ce=0x0, parent_name=0x0, tsrm_ls=0x1b)
+    at /src/build/php-5.4.8/Zend/zend_API.c:2439
+#4  0x00007fffef0d4da8 in phpg_register_class (class_name=0x7fffef1028b7 
+"Glade", class_methods=0x7fffef38e280 &lt;glade_methods&gt;, parent=0x0,
+ce_flags=0, 
+    prop_info=0x0, create_obj_func=0x0, gtype=0, tsrm_ls=0x1b) at 
+/src/build/php-gtk-121102/main/phpg_support.c:326
+#5  0x00007fffef0d3685 in phpg_glade0_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:513
+#6  0x00007fffef0d36f4 in phpg_glade_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:520
+#7  0x00007fffef0d2050 in php_gtk_xinit_libglade (module_number=27, 
+tsrm_ls=0xfbf090) at
+/src/build/php-gtk-121102/./ext/libglade/php_libglade.c:33
+#8  0x00007fffef0d3d89 in php_gtk_startup_extension (ext=0x7fffef38e240 
+&lt;libglade_ext_entry&gt;, module_number=27) at /src/build/php-gtk-
+121102/main/php_gtk.c:271
+#9  0x00007fffef0d3e5b in php_gtk_startup_extensions (ext=0x7fffef38eb78 
+&lt;php_gtk_extensions+8&gt;, ext_count=2, module_number=27)
+    at /src/build/php-gtk-121102/main/php_gtk.c:293
+#10 0x00007fffef0e6b84 in php_gtk_startup_all_extensions (module_number=27)
+at 
+main/php_gtk_ext.c:42
+#11 0x00007fffef0d3b40 in zm_activate_gtk (type=2, module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/main/php_gtk.c:211
+#12 0x000000000069b3f4 in php_load_extension (filename=0x7ffff7e8d550 
+"php_gtk2.so", type=2, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:248
+#13 0x000000000069b46e in php_dl (file=0x7ffff7e8d550 "php_gtk2.so",
+type=2, 
+return_value=0x7ffff7eb0bd8, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:263
+#14 0x000000000069af40 in zif_dl (ht=1, return_value=0x7ffff7eb0bd8, 
+return_value_ptr=0x0, this_ptr=0x0, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:85
+#15 0x000000000086c289 in execute_internal
+(execute_data_ptr=0x7ffff7f96d28, 
+return_value_used=0, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_execute.c:1480
+#16 0x00000000005466b6 in atlunix_zend_execute_internal 
+(execute_data_ptr=0x7ffff7f96d28, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/atlunix/main/atlunix.c:404
+#17 0x000000000086ea87 in zend_do_fcall_common_helper_SPEC 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:644
+#18 0x000000000087730a in ZEND_DO_FCALL_SPEC_CONST_HANDLER 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:2235
+#19 0x000000000086ca40 in execute (op_array=0x11d36a0, tsrm_ls=0xfbf090) at
+
+/src/build/php-5.4.8/Zend/zend_vm_execute.h:410
+#20 0x000000000082a79c in zend_execute_scripts (type=8, tsrm_ls=0xfbf090, 
+retval=0x0, file_count=3) at /src/build/php-5.4.8/Zend/zend.c:1309
+#21 0x0000000000779e66 in php_execute_script (primary_file=0x7fffffffe430,
+
+tsrm_ls=0xfbf090) at /src/build/php-5.4.8/main/main.c:2482
+#22 0x0000000000992a12 in do_cli (argc=2, argv=0x7fffffffe7e8,
+tsrm_ls=0xfbf090) 
+at /src/build/php-5.4.8/sapi/cli/php_cli.c:988
+#23 0x0000000000993ced in main (argc=2, argv=0x7fffffffe7e8) at
+/src/build/php-
+5.4.8/sapi/cli/php_cli.c:1364
+
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):   https://bugs.php.net/fix.php?id=63420&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):   https://bugs.php.net/fix.php?id=63420&amp;r=trysnapshot53
+Try a snapshot (trunk):     https://bugs.php.net/fix.php?id=63420&amp;r=trysnapshottrunk
+Fixed in SVN:               https://bugs.php.net/fix.php?id=63420&amp;r=fixed
+Fixed in release:           https://bugs.php.net/fix.php?id=63420&amp;r=alreadyfixed
+Need backtrace:             https://bugs.php.net/fix.php?id=63420&amp;r=needtrace
+Need Reproduce Script:      https://bugs.php.net/fix.php?id=63420&amp;r=needscript
+Try newer version:          https://bugs.php.net/fix.php?id=63420&amp;r=oldversion
+Not developer issue:        https://bugs.php.net/fix.php?id=63420&amp;r=support
+Expected behavior:          https://bugs.php.net/fix.php?id=63420&amp;r=notwrong
+Not enough info:            https://bugs.php.net/fix.php?id=63420&amp;r=notenoughinfo
+Submitted twice:            https://bugs.php.net/fix.php?id=63420&amp;r=submittedtwice
+register_globals:           https://bugs.php.net/fix.php?id=63420&amp;r=globals
+PHP 4 support discontinued: https://bugs.php.net/fix.php?id=63420&amp;r=php4
+Daylight Savings:           https://bugs.php.net/fix.php?id=63420&amp;r=dst
+IIS Stability:              https://bugs.php.net/fix.php?id=63420&amp;r=isapi
+Install GNU Sed:            https://bugs.php.net/fix.php?id=63420&amp;r=gnused
+Floating point limitations: https://bugs.php.net/fix.php?id=63420&amp;r=float
+No Zend Extensions:         https://bugs.php.net/fix.php?id=63420&amp;r=nozend
+MySQL Configuration Error:  https://bugs.php.net/fix.php?id=63420&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20121219152722</emailId><senderName>"marco__mg at libero dot it"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-12-19 15:27:22-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63805 [Com]: Problem during compiling php-gtk with php 5.4</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63805&amp;edit=1
+
+ ID:                 63805
+ Comment by:         marco__mg at libero dot it
+ Reported by:        marco_mg at libero dot it
+ Summary:            Problem during compiling php-gtk with php 5.4
+ Status:             Feedback
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   GNU/Linux (Debian Wheezy)
+ PHP Version:        5.4Git-2012-12-19 (Git)
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+I have downloaded the sources from http://gtk.php.net/download.php (php-gtk 2.0.1).
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-12-19 14:24:01] auroraeosrose@php.net
+
+Thank you for this bug report. To properly diagnose the problem, we
+need a backtrace to see what is happening behind the scenes. To
+find out how to generate a backtrace, please read
+http://bugs.php.net/bugs-generating-backtrace.php for *NIX and
+http://bugs.php.net/bugs-generating-backtrace-win32.php for Win32
+
+Once you have generated a backtrace, please submit it to this bug
+report and change the status back to "Open". Thank you for helping
+us make PHP better.
+
+I cannot reproduce this, master branch of git compiles fine against PHP 5.4
+
+You used the source code from https://github.com/php/php-gtk-src.git correct?  And \
+you checked out the master branch
+
+php-gtk 2.0.1 does NOT work with PHP 5.4 nor will it
+
+The compile error displayed says you're using php-gtk-2.0.1 source
+
+------------------------------------------------------------------------
+[2012-12-19 11:15:09] marco_mg at libero dot it
+
+Description:
+------------
+While compiling php-gtk stops with an error.
+
+Test script:
+---------------
+marco@ACER:~/Scrivania/php-gtk-2.0.1$ make
+/bin/bash /home/marco/Scrivania/php-gtk-2.0.1/libtool --mode=compile cc  \
+-I./ext/gtk+/ -I/home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/ -DPHP_ATOM_INC \
+-I/home/marco/Scrivania/php-gtk-2.0.1/include \
+-I/home/marco/Scrivania/php-gtk-2.0.1/main -I/home/marco/Scrivania/php-gtk-2.0.1 \
+-I/usr/include/php5 -I/usr/include/php5/main -I/usr/include/php5/TSRM \
+-I/usr/include/php5/Zend -I/usr/include/php5/ext -I/usr/include/php5/ext/date/lib \
+-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+-I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include \
+-I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 \
+-I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/pixman-1 \
+-I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/libxml2 \
+-I/usr/include/libglade-2.0 -I/usr/lib/glib-2.0/include -I/usr/lib/gtk-2.0/include  \
+-DHAVE_CONFIG_H  -g -O2   -c \
+                /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c -o \
+                ./ext/gtk+/php_gtk+.lo 
+libtool: compile:  cc -I./ext/gtk+/ -I/home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/ \
+-DPHP_ATOM_INC -I/home/marco/Scrivania/php-gtk-2.0.1/include \
+-I/home/marco/Scrivania/php-gtk-2.0.1/main -I/home/marco/Scrivania/php-gtk-2.0.1 \
+-I/usr/include/php5 -I/usr/include/php5/main -I/usr/include/php5/TSRM \
+-I/usr/include/php5/Zend -I/usr/include/php5/ext -I/usr/include/php5/ext/date/lib \
+-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+-I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include \
+-I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 \
+-I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/pixman-1 \
+-I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/libxml2 \
+-I/usr/include/libglade-2.0 -I/usr/lib/glib-2.0/include -I/usr/lib/gtk-2.0/include \
+-DHAVE_CONFIG_H -g -O2 -c /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c  \
+-fPIC -DPIC -o ./ext/gtk+/.libs/php_gtk+.o In file included from \
+                /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c:23:0:
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:307:75: error: unknown type name \
+'function_entry' In file included from \
+                /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c:23:0:
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:308:79: error: unknown type name \
+                'function_entry'
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:490:75: error: unknown type name \
+                'function_entry'
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:506:77: error: unknown type name \
+                'function_entry'
+make: *** [ext/gtk+/php_gtk+.lo] Error 1
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63805&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20121210180938</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-12-10 18:09:38-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #51471 [Opn-&gt;Nab]: Error in the configure script</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=51471&amp;edit=1
+
+ ID:                 51471
+ Updated by:         auroraeosrose@php.net
+ Reported by:        joop_boonen at web dot de
+ Summary:            Error in the configure script
+-Status:             Open
++Status:             Not a bug
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   (open)SuSE
+ PHP Version:        5
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Thank you for taking the time to report a problem with PHP.
+Unfortunately you are not using a current version of PHP -- 
+the problem might already be fixed. Please download a new
+PHP version from http://www.php.net/downloads.php
+
+If you are able to reproduce the bug with one of the latest
+versions of PHP, please change the PHP version on this bug report
+to the version you tested and change the status back to "Open".
+Again, thank you for your continued support of PHP.
+
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2010-04-08 19:38:51] joop_boonen at web dot de
+
+The build with pecl cairo 0.2.0 still fails.
+
+------------------------------------------------------------------------
+[2010-04-08 15:47:32] joop_boonen at web dot de
+
+I see that a newer cairo version is available (0.2.0). \
+http://pecl.php.net/package/cairo
+
+As i maintain the package I'll build this. And see if it's OK.
+
+------------------------------------------------------------------------
+[2010-04-08 15:39:56] joop_boonen at web dot de
+
+The svn version compiled without a problem for me. The last version that compiled \
+without a problem was: php5-gtk-2.0.1+svn295934
+
+1) I'm building this package for openSuSE 11.0 - 11.2 and Factory. And SLES 10 and \
+11. 2) The version of php is version 5.
+openSuSE 11.0 5.2.5
+openSuSE 11.1 5.2.6
+openSuSE 11.2 5.3.0
+openSuSE Factory 5.3.0
+3) I'm using pecl-cairo 0.1.0
+4) libtool versions
+openSuSE 11.0 1.5.26
+openSuSE 11.1 2.2.6
+openSuSE 11.2 2.2.6
+openSuSE Factory 2.2.26b
+5) automake
+openSuSE 11.0 1.10.1
+openSuSE 11.1 1.10.1
+openSuSE 11.2 1.11
+openSuSE Factory need to check
+6) the last version that build without a problem on openSuSE upto and including 11.2 \
+was svn295934. After that it failed.
+
+------------------------------------------------------------------------
+[2010-04-08 14:59:02] auroraeosrose@php.net
+
+That doesn't even begin to be enough information
+
+1. What OS are you using
+2. What version of PHP are you compiling against
+3. If you're using svn what version of the cairo extension are you building against
+4. what version of libtool is on you machine
+5. how about automake versions
+6. since you're using svn, did you have any problems with buildconf?  What was the \
+output there?
+
+Build issues area REAL pain to pin down and they need LOTS of information, not must a \
+short snippet from your configure output
+
+------------------------------------------------------------------------
+[2010-04-04 17:28:13] joop_boonen at web dot de
+
+This bugs has been found in svn297455
+
+------------------------------------------------------------------------
+
+
+The remainder of the comments for this report are too long. To view
+the rest of the comments, please view the bug report online at
+
+    https://bugs.php.net/bug.php?id=51471
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=51471&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20121210181242</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-12-10 18:12:42-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #54427 [Opn-&gt;Csd]: Segfault when emiting custom signal with object parameter</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=54427&amp;edit=1
+
+ ID:                 54427
+ Updated by:         auroraeosrose@php.net
+ Reported by:        ptlis at ptlis dot net
+ Summary:            Segfault when emiting custom signal with object
+                     parameter
+-Status:             Open
++Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 10.4
+ PHP Version:        5.3.6
+-Assigned To:        
++Assigned To:        auroraeosrose
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+The fix for this bug has been committed.
+
+Snapshots of the sources are packaged every three hours; this change
+will be in the next snapshot. You can grab the snapshot at
+http://snaps.php.net/.
+
+ For Windows:
+
+http://windows.php.net/snapshots/
+ 
+Thank you for the report, and for helping us make PHP better.
+
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-08-26 11:43:01] ptlis at ptlis dot net
+
+Oh, I forgot the gtk versions, dpkg reports
+
+Ubuntu 10.04: 2.20.1-0ubuntu2.1
+Ubuntu 12.04: 2.24.10-0ubuntu6 &amp; 3.4.2-0ubuntu0.4
+
+------------------------------------------------------------------------
+[2012-08-26 11:39:53] ptlis at ptlis dot net
+
+I can reproduce this on clean installations of Ubuntu 10.04 &amp; 12.04 with the \
+following procedures (slight changes due to package name changes etc)
+
+Ubuntu 10.04: http://pastebin.com/vHuHDc3R
+Ubuntu 12.04: http://pastebin.com/gB0LRAkE
+
+------------------------------------------------------------------------
+[2012-07-18 20:04:43] auroraeosrose@php.net
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+I can't reproduce this with the current version in git on 5.3 or 5.4
+
+Can you try a newer compile of php-gtk?  Also what gtk library version are you using, \
+and are you using Ubuntu distro builds of php - if so please try with a stock build \
+of PHP
+
+------------------------------------------------------------------------
+[2011-03-30 19:01:10] ptlis at ptlis dot net
+
+Description:
+------------
+The first time the OK button on the dialog is clicked the custom signal is emitted \
+correctly, on the second click php segfaults on the call to emit().
+
+If no object is provided to emit() the second signal emits without segfault as \
+expected.
+
+Test script:
+---------------
+&lt;?php
+
+/**	Class implements custom signal 'product-ready'. */
+	class customDialog extends GtkDialog {
+	    public $__gsignals	= array(
+            		'product-ready'  =&gt; array(
+	    				GObject::SIGNAL_RUN_LAST,
+	    				GObject::TYPE_BOOLEAN,
+	    				array(
+	    					GObject::TYPE_PHP_VALUE
+	    				)
+	    			)
+				);
+
+		public function __construct($title, GtkWindow $parent) {
+			parent::__construct($title, $parent, Gtk::DIALOG_MODAL);
+
+			$product	= new stdClass();
+
+			$okButton	= new GtkButton('OK');
+			$this-&gt;action_area-&gt;add($okButton);
+			$okButton-&gt;connect_simple('clicked', array($this, 'ok_clicked'), $product);
+		}
+
+		public function ok_clicked(stdClass $product) {
+			$this-&gt;emit('product-ready', $product);
+		}
+	}
+	GObject::register_type('customDialog');
+
+
+
+	$window	= new GtkWindow();
+	$window-&gt;show_all();
+
+	$dialog	= new customDialog('fire signal dialog', $window);
+	$dialog-&gt;show_all();
+
+	$dialog-&gt;connect('product-ready', 'product_ready');
+
+	function product_ready() {
+		echo 'segfaults on second signal' . "\n";
+		return true;
+	}
+
+	Gtk::main();
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=54427&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20121210181617</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-12-10 18:16:17-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #54867 [Opn-&gt;Nab]: Error on GTK2 installation process</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=54867&amp;edit=1
+
+ ID:                 54867
+ Updated by:         auroraeosrose@php.net
+ Reported by:        ciberovantuzo at gmail dot com
+ Summary:            Error on GTK2 installation process
+-Status:             Open
++Status:             Not a bug
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   OpenSUSE
+ PHP Version:        trunk-SVN-2011-05-20 (SVN)
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Thank you for taking the time to report a problem with PHP.
+Unfortunately you are not using a current version of PHP -- 
+the problem might already be fixed. Please download a new
+PHP version from http://www.php.net/downloads.php
+
+If you are able to reproduce the bug with one of the latest
+versions of PHP, please change the PHP version on this bug report
+to the version you tested and change the status back to "Open".
+Again, thank you for your continued support of PHP.
+
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2011-05-20 03:22:53] ciberovantuzo at gmail dot com
+
+Description:
+------------
+Sources were taken from http://svn.php.net/viewvc/gtk/php-gtk/branches/GTK2/ on 20th may 2011.
+
+
+
+Test script:
+---------------
+$ ./configure
+[passes without any troubles]
+
+$ make
+
+Build complete.
+Don't forget to run 'make test'.
+
+$ sudo make install
+Installing shared extensions:     /usr/local/lib/php/extensions/no-debug-non-zts-20100525/
+cp: cannot stat `modules/*': No such file or directory
+make: *** [install-modules] Error 1
+
+Expected result:
+----------------
+Module installation
+
+Actual result:
+--------------
+Installation failure
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=54867&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20121219111509</emailId><senderName>"marco_mg at libero dot it"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-12-19 11:15:09-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #63805 [NEW]: Problem during compiling php-gtk with php 5.4</subject><body>
+
+From:             marco_mg at libero dot it
+Operating system: GNU/Linux (Debian Wheezy)
+PHP version:      5.4Git-2012-12-19 (Git)
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:Problem during compiling php-gtk with php 5.4
+
+Description:
+------------
+While compiling php-gtk stops with an error.
+
+Test script:
+---------------
+marco@ACER:~/Scrivania/php-gtk-2.0.1$ make
+/bin/bash /home/marco/Scrivania/php-gtk-2.0.1/libtool --mode=compile cc 
+-I./ext/gtk+/ -I/home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/
+-DPHP_ATOM_INC -I/home/marco/Scrivania/php-gtk-2.0.1/include
+-I/home/marco/Scrivania/php-gtk-2.0.1/main
+-I/home/marco/Scrivania/php-gtk-2.0.1 -I/usr/include/php5
+-I/usr/include/php5/main -I/usr/include/php5/TSRM -I/usr/include/php5/Zend
+-I/usr/include/php5/ext -I/usr/include/php5/ext/date/lib
+-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+-I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include
+-I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0
+-I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/
+-I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12
+-I/usr/include/libxml2 -I/usr/include/libglade-2.0
+-I/usr/lib/glib-2.0/include -I/usr/lib/gtk-2.0/include  -DHAVE_CONFIG_H  -g
+-O2   -c /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c -o
+./ext/gtk+/php_gtk+.lo 
+libtool: compile:  cc -I./ext/gtk+/
+-I/home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/ -DPHP_ATOM_INC
+-I/home/marco/Scrivania/php-gtk-2.0.1/include
+-I/home/marco/Scrivania/php-gtk-2.0.1/main
+-I/home/marco/Scrivania/php-gtk-2.0.1 -I/usr/include/php5
+-I/usr/include/php5/main -I/usr/include/php5/TSRM -I/usr/include/php5/Zend
+-I/usr/include/php5/ext -I/usr/include/php5/ext/date/lib
+-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+-I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include
+-I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0
+-I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/
+-I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12
+-I/usr/include/libxml2 -I/usr/include/libglade-2.0
+-I/usr/lib/glib-2.0/include -I/usr/lib/gtk-2.0/include -DHAVE_CONFIG_H -g
+-O2 -c /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c  -fPIC
+-DPIC -o ./ext/gtk+/.libs/php_gtk+.o
+In file included from
+/home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c:23:0:
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:307:75: error: unknown
+type name 'function_entry'
+In file included from
+/home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c:23:0:
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:308:79: error: unknown
+type name 'function_entry'
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:490:75: error: unknown
+type name 'function_entry'
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:506:77: error: unknown
+type name 'function_entry'
+make: *** [ext/gtk+/php_gtk+.lo] Error 1
+
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=63805&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):   https://bugs.php.net/fix.php?id=63805&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):   https://bugs.php.net/fix.php?id=63805&amp;r=trysnapshot53
+Try a snapshot (trunk):     https://bugs.php.net/fix.php?id=63805&amp;r=trysnapshottrunk
+Fixed in SVN:               https://bugs.php.net/fix.php?id=63805&amp;r=fixed
+Fixed in release:           https://bugs.php.net/fix.php?id=63805&amp;r=alreadyfixed
+Need backtrace:             https://bugs.php.net/fix.php?id=63805&amp;r=needtrace
+Need Reproduce Script:      https://bugs.php.net/fix.php?id=63805&amp;r=needscript
+Try newer version:          https://bugs.php.net/fix.php?id=63805&amp;r=oldversion
+Not developer issue:        https://bugs.php.net/fix.php?id=63805&amp;r=support
+Expected behavior:          https://bugs.php.net/fix.php?id=63805&amp;r=notwrong
+Not enough info:            https://bugs.php.net/fix.php?id=63805&amp;r=notenoughinfo
+Submitted twice:            https://bugs.php.net/fix.php?id=63805&amp;r=submittedtwice
+register_globals:           https://bugs.php.net/fix.php?id=63805&amp;r=globals
+PHP 4 support discontinued: https://bugs.php.net/fix.php?id=63805&amp;r=php4
+Daylight Savings:           https://bugs.php.net/fix.php?id=63805&amp;r=dst
+IIS Stability:              https://bugs.php.net/fix.php?id=63805&amp;r=isapi
+Install GNU Sed:            https://bugs.php.net/fix.php?id=63805&amp;r=gnused
+Floating point limitations: https://bugs.php.net/fix.php?id=63805&amp;r=float
+No Zend Extensions:         https://bugs.php.net/fix.php?id=63805&amp;r=nozend
+MySQL Configuration Error:  https://bugs.php.net/fix.php?id=63805&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20121219142401</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-12-19 14:24:01-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63805 [Opn-&gt;Fbk]: Problem during compiling php-gtk with php 5.4</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63805&amp;edit=1
+
+ ID:                 63805
+ Updated by:         auroraeosrose@php.net
+ Reported by:        marco_mg at libero dot it
+ Summary:            Problem during compiling php-gtk with php 5.4
+-Status:             Open
++Status:             Feedback
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   GNU/Linux (Debian Wheezy)
+ PHP Version:        5.4Git-2012-12-19 (Git)
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Thank you for this bug report. To properly diagnose the problem, we
+need a backtrace to see what is happening behind the scenes. To
+find out how to generate a backtrace, please read
+http://bugs.php.net/bugs-generating-backtrace.php for *NIX and
+http://bugs.php.net/bugs-generating-backtrace-win32.php for Win32
+
+Once you have generated a backtrace, please submit it to this bug
+report and change the status back to "Open". Thank you for helping
+us make PHP better.
+
+I cannot reproduce this, master branch of git compiles fine against PHP 5.4
+
+You used the source code from https://github.com/php/php-gtk-src.git correct?  And \
+you checked out the master branch
+
+php-gtk 2.0.1 does NOT work with PHP 5.4 nor will it
+
+The compile error displayed says you're using php-gtk-2.0.1 source
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-12-19 11:15:09] marco_mg at libero dot it
+
+Description:
+------------
+While compiling php-gtk stops with an error.
+
+Test script:
+---------------
+marco@ACER:~/Scrivania/php-gtk-2.0.1$ make
+/bin/bash /home/marco/Scrivania/php-gtk-2.0.1/libtool --mode=compile cc  \
+-I./ext/gtk+/ -I/home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/ -DPHP_ATOM_INC \
+-I/home/marco/Scrivania/php-gtk-2.0.1/include \
+-I/home/marco/Scrivania/php-gtk-2.0.1/main -I/home/marco/Scrivania/php-gtk-2.0.1 \
+-I/usr/include/php5 -I/usr/include/php5/main -I/usr/include/php5/TSRM \
+-I/usr/include/php5/Zend -I/usr/include/php5/ext -I/usr/include/php5/ext/date/lib \
+-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+-I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include \
+-I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 \
+-I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/pixman-1 \
+-I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/libxml2 \
+-I/usr/include/libglade-2.0 -I/usr/lib/glib-2.0/include -I/usr/lib/gtk-2.0/include  \
+-DHAVE_CONFIG_H  -g -O2   -c \
+                /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c -o \
+                ./ext/gtk+/php_gtk+.lo 
+libtool: compile:  cc -I./ext/gtk+/ -I/home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/ \
+-DPHP_ATOM_INC -I/home/marco/Scrivania/php-gtk-2.0.1/include \
+-I/home/marco/Scrivania/php-gtk-2.0.1/main -I/home/marco/Scrivania/php-gtk-2.0.1 \
+-I/usr/include/php5 -I/usr/include/php5/main -I/usr/include/php5/TSRM \
+-I/usr/include/php5/Zend -I/usr/include/php5/ext -I/usr/include/php5/ext/date/lib \
+-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+-I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include \
+-I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 \
+-I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/pixman-1 \
+-I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/libxml2 \
+-I/usr/include/libglade-2.0 -I/usr/lib/glib-2.0/include -I/usr/lib/gtk-2.0/include \
+-DHAVE_CONFIG_H -g -O2 -c /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c  \
+-fPIC -DPIC -o ./ext/gtk+/.libs/php_gtk+.o In file included from \
+                /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c:23:0:
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:307:75: error: unknown type name \
+'function_entry' In file included from \
+                /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c:23:0:
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:308:79: error: unknown type name \
+                'function_entry'
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:490:75: error: unknown type name \
+                'function_entry'
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:506:77: error: unknown type name \
+                'function_entry'
+make: *** [ext/gtk+/php_gtk+.lo] Error 1
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63805&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20121219153247</emailId><senderName>"marco__mg at libero dot it"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-12-19 15:32:47-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63805 [Com]: Problem during compiling php-gtk with php 5.4</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63805&amp;edit=1
+
+ ID:                 63805
+ Comment by:         marco__mg at libero dot it
+ Reported by:        marco_mg at libero dot it
+ Summary:            Problem during compiling php-gtk with php 5.4
+ Status:             Feedback
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   GNU/Linux (Debian Wheezy)
+ PHP Version:        5.4Git-2012-12-19 (Git)
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Now I've cloned git repository and it works!
+Thank you very much!
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-12-19 15:27:22] marco__mg at libero dot it
+
+I have downloaded the sources from http://gtk.php.net/download.php (php-gtk 2.0.1).
+
+------------------------------------------------------------------------
+[2012-12-19 14:24:01] auroraeosrose@php.net
+
+Thank you for this bug report. To properly diagnose the problem, we
+need a backtrace to see what is happening behind the scenes. To
+find out how to generate a backtrace, please read
+http://bugs.php.net/bugs-generating-backtrace.php for *NIX and
+http://bugs.php.net/bugs-generating-backtrace-win32.php for Win32
+
+Once you have generated a backtrace, please submit it to this bug
+report and change the status back to "Open". Thank you for helping
+us make PHP better.
+
+I cannot reproduce this, master branch of git compiles fine against PHP 5.4
+
+You used the source code from https://github.com/php/php-gtk-src.git correct?  And \
+you checked out the master branch
+
+php-gtk 2.0.1 does NOT work with PHP 5.4 nor will it
+
+The compile error displayed says you're using php-gtk-2.0.1 source
+
+------------------------------------------------------------------------
+[2012-12-19 11:15:09] marco_mg at libero dot it
+
+Description:
+------------
+While compiling php-gtk stops with an error.
+
+Test script:
+---------------
+marco@ACER:~/Scrivania/php-gtk-2.0.1$ make
+/bin/bash /home/marco/Scrivania/php-gtk-2.0.1/libtool --mode=compile cc  \
+-I./ext/gtk+/ -I/home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/ -DPHP_ATOM_INC \
+-I/home/marco/Scrivania/php-gtk-2.0.1/include \
+-I/home/marco/Scrivania/php-gtk-2.0.1/main -I/home/marco/Scrivania/php-gtk-2.0.1 \
+-I/usr/include/php5 -I/usr/include/php5/main -I/usr/include/php5/TSRM \
+-I/usr/include/php5/Zend -I/usr/include/php5/ext -I/usr/include/php5/ext/date/lib \
+-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+-I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include \
+-I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 \
+-I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/pixman-1 \
+-I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/libxml2 \
+-I/usr/include/libglade-2.0 -I/usr/lib/glib-2.0/include -I/usr/lib/gtk-2.0/include  \
+-DHAVE_CONFIG_H  -g -O2   -c \
+                /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c -o \
+                ./ext/gtk+/php_gtk+.lo 
+libtool: compile:  cc -I./ext/gtk+/ -I/home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/ \
+-DPHP_ATOM_INC -I/home/marco/Scrivania/php-gtk-2.0.1/include \
+-I/home/marco/Scrivania/php-gtk-2.0.1/main -I/home/marco/Scrivania/php-gtk-2.0.1 \
+-I/usr/include/php5 -I/usr/include/php5/main -I/usr/include/php5/TSRM \
+-I/usr/include/php5/Zend -I/usr/include/php5/ext -I/usr/include/php5/ext/date/lib \
+-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+-I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include \
+-I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 \
+-I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/pixman-1 \
+-I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/libxml2 \
+-I/usr/include/libglade-2.0 -I/usr/lib/glib-2.0/include -I/usr/lib/gtk-2.0/include \
+-DHAVE_CONFIG_H -g -O2 -c /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c  \
+-fPIC -DPIC -o ./ext/gtk+/.libs/php_gtk+.o In file included from \
+                /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c:23:0:
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:307:75: error: unknown type name \
+'function_entry' In file included from \
+                /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c:23:0:
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:308:79: error: unknown type name \
+                'function_entry'
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:490:75: error: unknown type name \
+                'function_entry'
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:506:77: error: unknown type name \
+                'function_entry'
+make: *** [ext/gtk+/php_gtk+.lo] Error 1
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63805&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20121219153730</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-12-19 15:37:30-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63805 [Fbk-&gt;Nab]: Problem during compiling php-gtk with php 5.4</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63805&amp;edit=1
+
+ ID:                 63805
+ Updated by:         auroraeosrose@php.net
+ Reported by:        marco_mg at libero dot it
+ Summary:            Problem during compiling php-gtk with php 5.4
+-Status:             Feedback
++Status:             Not a bug
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   GNU/Linux (Debian Wheezy)
+ PHP Version:        5.4Git-2012-12-19 (Git)
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Sorry, but your problem does not imply a bug in PHP itself.  For a
+list of more appropriate places to ask for help using PHP, please
+visit http://www.php.net/support.php as this bug system is not the
+appropriate forum for asking support questions.  Due to the volume
+of reports we can not explain in detail here why your report is not
+a bug.  The support channels will be able to provide an explanation
+for you.
+
+Thank you for your interest in PHP.
+
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-12-19 15:32:47] marco__mg at libero dot it
+
+Now I've cloned git repository and it works!
+Thank you very much!
+
+------------------------------------------------------------------------
+[2012-12-19 15:27:22] marco__mg at libero dot it
+
+I have downloaded the sources from http://gtk.php.net/download.php (php-gtk 2.0.1).
+
+------------------------------------------------------------------------
+[2012-12-19 14:24:01] auroraeosrose@php.net
+
+Thank you for this bug report. To properly diagnose the problem, we
+need a backtrace to see what is happening behind the scenes. To
+find out how to generate a backtrace, please read
+http://bugs.php.net/bugs-generating-backtrace.php for *NIX and
+http://bugs.php.net/bugs-generating-backtrace-win32.php for Win32
+
+Once you have generated a backtrace, please submit it to this bug
+report and change the status back to "Open". Thank you for helping
+us make PHP better.
+
+I cannot reproduce this, master branch of git compiles fine against PHP 5.4
+
+You used the source code from https://github.com/php/php-gtk-src.git correct?  And \
+you checked out the master branch
+
+php-gtk 2.0.1 does NOT work with PHP 5.4 nor will it
+
+The compile error displayed says you're using php-gtk-2.0.1 source
+
+------------------------------------------------------------------------
+[2012-12-19 11:15:09] marco_mg at libero dot it
+
+Description:
+------------
+While compiling php-gtk stops with an error.
+
+Test script:
+---------------
+marco@ACER:~/Scrivania/php-gtk-2.0.1$ make
+/bin/bash /home/marco/Scrivania/php-gtk-2.0.1/libtool --mode=compile cc  \
+-I./ext/gtk+/ -I/home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/ -DPHP_ATOM_INC \
+-I/home/marco/Scrivania/php-gtk-2.0.1/include \
+-I/home/marco/Scrivania/php-gtk-2.0.1/main -I/home/marco/Scrivania/php-gtk-2.0.1 \
+-I/usr/include/php5 -I/usr/include/php5/main -I/usr/include/php5/TSRM \
+-I/usr/include/php5/Zend -I/usr/include/php5/ext -I/usr/include/php5/ext/date/lib \
+-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+-I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include \
+-I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 \
+-I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/pixman-1 \
+-I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/libxml2 \
+-I/usr/include/libglade-2.0 -I/usr/lib/glib-2.0/include -I/usr/lib/gtk-2.0/include  \
+-DHAVE_CONFIG_H  -g -O2   -c \
+                /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c -o \
+                ./ext/gtk+/php_gtk+.lo 
+libtool: compile:  cc -I./ext/gtk+/ -I/home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/ \
+-DPHP_ATOM_INC -I/home/marco/Scrivania/php-gtk-2.0.1/include \
+-I/home/marco/Scrivania/php-gtk-2.0.1/main -I/home/marco/Scrivania/php-gtk-2.0.1 \
+-I/usr/include/php5 -I/usr/include/php5/main -I/usr/include/php5/TSRM \
+-I/usr/include/php5/Zend -I/usr/include/php5/ext -I/usr/include/php5/ext/date/lib \
+-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
+-I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include \
+-I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 \
+-I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/pixman-1 \
+-I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/libxml2 \
+-I/usr/include/libglade-2.0 -I/usr/lib/glib-2.0/include -I/usr/lib/gtk-2.0/include \
+-DHAVE_CONFIG_H -g -O2 -c /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c  \
+-fPIC -DPIC -o ./ext/gtk+/.libs/php_gtk+.o In file included from \
+                /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c:23:0:
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:307:75: error: unknown type name \
+'function_entry' In file included from \
+                /home/marco/Scrivania/php-gtk-2.0.1/./ext/gtk+/php_gtk+.c:23:0:
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:308:79: error: unknown type name \
+                'function_entry'
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:490:75: error: unknown type name \
+                'function_entry'
+/home/marco/Scrivania/php-gtk-2.0.1/main/php_gtk.h:506:77: error: unknown type name \
+                'function_entry'
+make: *** [ext/gtk+/php_gtk+.lo] Error 1
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63805&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20121224093650</emailId><senderName>"gianluca dot faieta at gmail dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-12-24 09:36:50-0400</timestampReceived><subject>[PHP-GTK-DEV] [PHP-BUG] Bug #63844 [NEW]: php-gtk out of memory error</subject><body>
+
+From:             gianluca dot faieta at gmail dot com
+Operating system: Windows
+PHP version:      Irrelevant
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:php-gtk out of memory error
+
+Description:
+------------
+Test script crashes after "eating" over 1GB of RAM.
+php-cli.ini has memory_limit = -1
+The script was run on Windows Server 2008 SP2 and Windows XP SP2 with same
+
+error. Multiple PHP binaries were tested, with same outcome:
+
+- http://emsmith.net/gtk/php-5.3.15-nts-php-gtk-snapshot.zip
+- http://emsmith.net/gtk/php-5.4.5-nts-php-gtk-snapshot.zip
+- http://emsmith.net/gtk/php-gtk-2012-5.4-snapshot.zip
+- php-gtk compiled from latest https://github.com/auroraeosrose/php-gtk-src
+in 
+conjunction with PHP 5.4.10-nts binary package
+
+The problem is not in strpos: simply accessing the data (ex.
+$a=$item['descr']) 
+crashes the script.
+
+Older php-gtk package works (http://gtk.php.net/do_download.php?
+download_file=php-gtk-2.0.1-win32-nts.zip), even with 100k elements.
+
+Reducing the number of elements to 5000 solves the bug, but my real
+application 
+uses 100k elements.
+
+Using connect_simple() on every button (instead of connect_signals())
+solves the 
+bug in the test script but not in the complete application.
+
+Test script:
+---------------
+http://www.faieta.net/wp/wp-content/uploads/2012/12/php_outofmem.phps
+
+
+Expected result:
+----------------
+Press button "Foo" -&gt; "Search OK"
+ then
+Press button "Bar" -&gt; "Bar was clicked"
+ then
+Press button "Foo" -&gt; "Search OK"
+
+
+Actual result:
+--------------
+Press button "Foo" -&gt; "Search OK"
+ then
+Press button "Bar" -&gt; "Bar was clicked"
+ then 
+Press button "Foo" -&gt; Out of memory
+
+
+-- 
+Edit bug report at https://bugs.php.net/bug.php?id=63844&amp;edit=1
+-- 
+Try a snapshot (PHP 5.4):   https://bugs.php.net/fix.php?id=63844&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):   https://bugs.php.net/fix.php?id=63844&amp;r=trysnapshot53
+Try a snapshot (trunk):     https://bugs.php.net/fix.php?id=63844&amp;r=trysnapshottrunk
+Fixed in SVN:               https://bugs.php.net/fix.php?id=63844&amp;r=fixed
+Fixed in release:           https://bugs.php.net/fix.php?id=63844&amp;r=alreadyfixed
+Need backtrace:             https://bugs.php.net/fix.php?id=63844&amp;r=needtrace
+Need Reproduce Script:      https://bugs.php.net/fix.php?id=63844&amp;r=needscript
+Try newer version:          https://bugs.php.net/fix.php?id=63844&amp;r=oldversion
+Not developer issue:        https://bugs.php.net/fix.php?id=63844&amp;r=support
+Expected behavior:          https://bugs.php.net/fix.php?id=63844&amp;r=notwrong
+Not enough info:            https://bugs.php.net/fix.php?id=63844&amp;r=notenoughinfo
+Submitted twice:            https://bugs.php.net/fix.php?id=63844&amp;r=submittedtwice
+register_globals:           https://bugs.php.net/fix.php?id=63844&amp;r=globals
+PHP 4 support discontinued: https://bugs.php.net/fix.php?id=63844&amp;r=php4
+Daylight Savings:           https://bugs.php.net/fix.php?id=63844&amp;r=dst
+IIS Stability:              https://bugs.php.net/fix.php?id=63844&amp;r=isapi
+Install GNU Sed:            https://bugs.php.net/fix.php?id=63844&amp;r=gnused
+Floating point limitations: https://bugs.php.net/fix.php?id=63844&amp;r=float
+No Zend Extensions:         https://bugs.php.net/fix.php?id=63844&amp;r=nozend
+MySQL Configuration Error:  https://bugs.php.net/fix.php?id=63844&amp;r=mysqlcfg
+
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20121102143529</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-11-02 14:35:29-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63420 [Opn-&gt;Fbk]: PHP Execution doesn't terminate when using circular references</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+ ID:                 63420
+ Updated by:         auroraeosrose@php.net
+ Reported by:        nikodu01 at live dot fr
+-Summary:            SIGSEV on load php_gtk2.so
++Summary:            PHP Execution doesn't terminate when using circular
+                     references and mnemonics
+-Status:             Open
++Status:             Feedback
+ Type:               Bug
+ Package:            PHP-GTK related
+-Operating System:   Linux / PHP 5.4.8 / PHP-GTK Git
++Operating System:   Ubuntu 11.10
+-PHP Version:        5.3.18
++PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+1. Does this also segfault when you load it via an ini file?
+2. This appears to be having issues when attempting to load the glade php-gtk \
+extension, is that in an ini file?  Or did you compile it statically into php-gtk? 3. \
+the PECL cairo extension IS a required dependency of php-gtk - did you load that \
+before you attempted to load php-gtk?  PHP should be angry if you don't do that \
+instead of segfaulting - but just checking to see what exactly is making this blow up
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-11-02 12:48:31] nikodu01 at live dot fr
+
+Description:
+------------
+Version : PHP 5.4.8 &amp; PHP-GTK Git
+
+When loading the extension we got a sigsev
+
+Test script:
+---------------
+dl( 'php_gtk2.so' );
+
+Expected result:
+----------------
+Load library 
+
+Actual result:
+--------------
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+6748			int n = zend_hash_num_elements(CG(class_table));
+(gdb) bt
+#0  0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+#1  0x00000000008342cc in do_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, ce_flags=0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2401
+#2  0x00000000008345f0 in zend_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2467
+#3  0x0000000000834494 in zend_register_internal_class_ex 
+(class_entry=0x7fffffffa5d0, parent_ce=0x0, parent_name=0x0, tsrm_ls=0x1b)
+    at /src/build/php-5.4.8/Zend/zend_API.c:2439
+#4  0x00007fffef0d4da8 in phpg_register_class (class_name=0x7fffef1028b7 
+"Glade", class_methods=0x7fffef38e280 &lt;glade_methods&gt;, parent=0x0, ce_flags=0, 
+    prop_info=0x0, create_obj_func=0x0, gtype=0, tsrm_ls=0x1b) at 
+/src/build/php-gtk-121102/main/phpg_support.c:326
+#5  0x00007fffef0d3685 in phpg_glade0_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:513
+#6  0x00007fffef0d36f4 in phpg_glade_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:520
+#7  0x00007fffef0d2050 in php_gtk_xinit_libglade (module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/./ext/libglade/php_libglade.c:33
+#8  0x00007fffef0d3d89 in php_gtk_startup_extension (ext=0x7fffef38e240 
+&lt;libglade_ext_entry&gt;, module_number=27) at /src/build/php-gtk-
+121102/main/php_gtk.c:271
+#9  0x00007fffef0d3e5b in php_gtk_startup_extensions (ext=0x7fffef38eb78 
+&lt;php_gtk_extensions+8&gt;, ext_count=2, module_number=27)
+    at /src/build/php-gtk-121102/main/php_gtk.c:293
+#10 0x00007fffef0e6b84 in php_gtk_startup_all_extensions (module_number=27) at 
+main/php_gtk_ext.c:42
+#11 0x00007fffef0d3b40 in zm_activate_gtk (type=2, module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/main/php_gtk.c:211
+#12 0x000000000069b3f4 in php_load_extension (filename=0x7ffff7e8d550 
+"php_gtk2.so", type=2, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:248
+#13 0x000000000069b46e in php_dl (file=0x7ffff7e8d550 "php_gtk2.so", type=2, 
+return_value=0x7ffff7eb0bd8, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:263
+#14 0x000000000069af40 in zif_dl (ht=1, return_value=0x7ffff7eb0bd8, 
+return_value_ptr=0x0, this_ptr=0x0, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:85
+#15 0x000000000086c289 in execute_internal (execute_data_ptr=0x7ffff7f96d28, 
+return_value_used=0, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_execute.c:1480
+#16 0x00000000005466b6 in atlunix_zend_execute_internal 
+(execute_data_ptr=0x7ffff7f96d28, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/atlunix/main/atlunix.c:404
+#17 0x000000000086ea87 in zend_do_fcall_common_helper_SPEC 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:644
+#18 0x000000000087730a in ZEND_DO_FCALL_SPEC_CONST_HANDLER 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:2235
+#19 0x000000000086ca40 in execute (op_array=0x11d36a0, tsrm_ls=0xfbf090) at 
+/src/build/php-5.4.8/Zend/zend_vm_execute.h:410
+#20 0x000000000082a79c in zend_execute_scripts (type=8, tsrm_ls=0xfbf090, 
+retval=0x0, file_count=3) at /src/build/php-5.4.8/Zend/zend.c:1309
+#21 0x0000000000779e66 in php_execute_script (primary_file=0x7fffffffe430, 
+tsrm_ls=0xfbf090) at /src/build/php-5.4.8/main/main.c:2482
+#22 0x0000000000992a12 in do_cli (argc=2, argv=0x7fffffffe7e8, tsrm_ls=0xfbf090) 
+at /src/build/php-5.4.8/sapi/cli/php_cli.c:988
+#23 0x0000000000993ced in main (argc=2, argv=0x7fffffffe7e8) at /src/build/php-
+5.4.8/sapi/cli/php_cli.c:1364
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20121102184508</emailId><senderName>fgm</senderName><senderEmail>fgm@osinet.fr</senderEmail><timestampReceived>2012-11-02 18:45:08-0400</timestampReceived><subject>[PHP-GTK-DEV] RE : [PHP-GTK-DEV] [PHP-BUG] Bug #63420 [NEW]: SIGSEV on load php_gtk2.so</subject><body>
+
+I thought dl()'ing php-gtk was no longer supported in PHP-GTK2 anyway ?
+________________________________________
+De : nikodu01 at live dot fr [php-bugs@lists.php.net]
+Date d'envoi : vendredi 2 novembre 2012 13:48
+À : php-gtk-dev@lists.php.net
+Objet : [PHP-GTK-DEV] [PHP-BUG] Bug #63420 [NEW]: SIGSEV on load php_gtk2.so
+
+From:             nikodu01 at live dot fr
+Operating system: Linux / PHP 5.4.8 / PHP-GTK Git
+PHP version:      5.3.18
+Package:          PHP-GTK related
+Bug Type:         Bug
+Bug description:SIGSEV on load php_gtk2.so
+
+Description:
+------------
+Version : PHP 5.4.8 &amp; PHP-GTK Git
+
+When loading the extension we got a sigsev
+
+Test script:
+---------------
+dl( 'php_gtk2.so' );
+
+Expected result:
+----------------
+Load library
+
+Actual result:
+--------------
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0,
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+6748                    int n = zend_hash_num_elements(CG(class_table));
+(gdb) bt
+#0  0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0,
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+#1  0x00000000008342cc in do_register_internal_class
+(orig_class_entry=0x7fffffffa5d0, ce_flags=0, tsrm_ls=0x1b) at
+/src/build/php-
+5.4.8/Zend/zend_API.c:2401
+#2  0x00000000008345f0 in zend_register_internal_class
+(orig_class_entry=0x7fffffffa5d0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2467
+#3  0x0000000000834494 in zend_register_internal_class_ex
+(class_entry=0x7fffffffa5d0, parent_ce=0x0, parent_name=0x0, tsrm_ls=0x1b)
+    at /src/build/php-5.4.8/Zend/zend_API.c:2439
+#4  0x00007fffef0d4da8 in phpg_register_class (class_name=0x7fffef1028b7
+"Glade", class_methods=0x7fffef38e280 &lt;glade_methods&gt;, parent=0x0,
+ce_flags=0,
+    prop_info=0x0, create_obj_func=0x0, gtype=0, tsrm_ls=0x1b) at
+/src/build/php-gtk-121102/main/phpg_support.c:326
+#5  0x00007fffef0d3685 in phpg_glade0_register_classes (tsrm_ls=0x1b) at
+ext/libglade/gen_libglade.c:513
+#6  0x00007fffef0d36f4 in phpg_glade_register_classes (tsrm_ls=0x1b) at
+ext/libglade/gen_libglade.c:520
+#7  0x00007fffef0d2050 in php_gtk_xinit_libglade (module_number=27,
+tsrm_ls=0xfbf090) at
+/src/build/php-gtk-121102/./ext/libglade/php_libglade.c:33
+#8  0x00007fffef0d3d89 in php_gtk_startup_extension (ext=0x7fffef38e240
+&lt;libglade_ext_entry&gt;, module_number=27) at /src/build/php-gtk-
+121102/main/php_gtk.c:271
+#9  0x00007fffef0d3e5b in php_gtk_startup_extensions (ext=0x7fffef38eb78
+&lt;php_gtk_extensions+8&gt;, ext_count=2, module_number=27)
+    at /src/build/php-gtk-121102/main/php_gtk.c:293
+#10 0x00007fffef0e6b84 in php_gtk_startup_all_extensions (module_number=27)
+at
+main/php_gtk_ext.c:42
+#11 0x00007fffef0d3b40 in zm_activate_gtk (type=2, module_number=27,
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/main/php_gtk.c:211
+#12 0x000000000069b3f4 in php_load_extension (filename=0x7ffff7e8d550
+"php_gtk2.so", type=2, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:248
+#13 0x000000000069b46e in php_dl (file=0x7ffff7e8d550 "php_gtk2.so",
+type=2,
+return_value=0x7ffff7eb0bd8, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:263
+#14 0x000000000069af40 in zif_dl (ht=1, return_value=0x7ffff7eb0bd8,
+return_value_ptr=0x0, this_ptr=0x0, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:85
+#15 0x000000000086c289 in execute_internal
+(execute_data_ptr=0x7ffff7f96d28,
+return_value_used=0, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_execute.c:1480
+#16 0x00000000005466b6 in atlunix_zend_execute_internal
+(execute_data_ptr=0x7ffff7f96d28, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/atlunix/main/atlunix.c:404
+#17 0x000000000086ea87 in zend_do_fcall_common_helper_SPEC
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:644
+#18 0x000000000087730a in ZEND_DO_FCALL_SPEC_CONST_HANDLER
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:2235
+#19 0x000000000086ca40 in execute (op_array=0x11d36a0, tsrm_ls=0xfbf090) at
+
+/src/build/php-5.4.8/Zend/zend_vm_execute.h:410
+#20 0x000000000082a79c in zend_execute_scripts (type=8, tsrm_ls=0xfbf090,
+retval=0x0, file_count=3) at /src/build/php-5.4.8/Zend/zend.c:1309
+#21 0x0000000000779e66 in php_execute_script (primary_file=0x7fffffffe430,
+
+tsrm_ls=0xfbf090) at /src/build/php-5.4.8/main/main.c:2482
+#22 0x0000000000992a12 in do_cli (argc=2, argv=0x7fffffffe7e8,
+tsrm_ls=0xfbf090)
+at /src/build/php-5.4.8/sapi/cli/php_cli.c:988
+#23 0x0000000000993ced in main (argc=2, argv=0x7fffffffe7e8) at
+/src/build/php-
+5.4.8/sapi/cli/php_cli.c:1364
+
+
+--
+Edit bug report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+--
+Try a snapshot (PHP 5.4):   https://bugs.php.net/fix.php?id=63420&amp;r=trysnapshot54
+Try a snapshot (PHP 5.3):   https://bugs.php.net/fix.php?id=63420&amp;r=trysnapshot53
+Try a snapshot (trunk):     https://bugs.php.net/fix.php?id=63420&amp;r=trysnapshottrunk
+Fixed in SVN:               https://bugs.php.net/fix.php?id=63420&amp;r=fixed
+Fixed in release:           https://bugs.php.net/fix.php?id=63420&amp;r=alreadyfixed
+Need backtrace:             https://bugs.php.net/fix.php?id=63420&amp;r=needtrace
+Need Reproduce Script:      https://bugs.php.net/fix.php?id=63420&amp;r=needscript
+Try newer version:          https://bugs.php.net/fix.php?id=63420&amp;r=oldversion
+Not developer issue:        https://bugs.php.net/fix.php?id=63420&amp;r=support
+Expected behavior:          https://bugs.php.net/fix.php?id=63420&amp;r=notwrong
+Not enough info:            https://bugs.php.net/fix.php?id=63420&amp;r=notenoughinfo
+Submitted twice:            https://bugs.php.net/fix.php?id=63420&amp;r=submittedtwice
+register_globals:           https://bugs.php.net/fix.php?id=63420&amp;r=globals
+PHP 4 support discontinued: https://bugs.php.net/fix.php?id=63420&amp;r=php4
+Daylight Savings:           https://bugs.php.net/fix.php?id=63420&amp;r=dst
+IIS Stability:              https://bugs.php.net/fix.php?id=63420&amp;r=isapi
+Install GNU Sed:            https://bugs.php.net/fix.php?id=63420&amp;r=gnused
+Floating point limitations: https://bugs.php.net/fix.php?id=63420&amp;r=float
+No Zend Extensions:         https://bugs.php.net/fix.php?id=63420&amp;r=nozend
+MySQL Configuration Error:  https://bugs.php.net/fix.php?id=63420&amp;r=mysqlcfg
+
+
+--
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+--
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email><email><emailId>20121103091805</emailId><senderName>"nikodu01 at live dot fr"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2012-11-03 09:18:05-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63420 [Fbk-&gt;Opn]: PHP Execution doesn't terminate when using circular references</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+ ID:                 63420
+ User updated by:    nikodu01 at live dot fr
+ Reported by:        nikodu01 at live dot fr
+ Summary:            PHP Execution doesn't terminate when using circular
+                     references and mnemonics
+-Status:             Feedback
++Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 11.10
+ PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+1/ I have put cairo.so and php_gtk2.so in the ini file and always crash
+2/ I don't specify to use liglade i just compile php-gtk with this :
+   ./buildconf &amp;&amp;
+   ./configure --prefix=/usr &amp;&amp;
+   make
+3/ Yes i load it before
+
+I made different try and compiling php-gtk with ./configure --prefix=/usr --
+without-libglade
+don't crash anymore
+
+my libglade version is 2.6.4
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-11-02 14:35:29] auroraeosrose@php.net
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+1. Does this also segfault when you load it via an ini file?
+2. This appears to be having issues when attempting to load the glade php-gtk \
+extension, is that in an ini file?  Or did you compile it statically into php-gtk? 3. \
+the PECL cairo extension IS a required dependency of php-gtk - did you load that \
+before you attempted to load php-gtk?  PHP should be angry if you don't do that \
+instead of segfaulting - but just checking to see what exactly is making this blow up
+
+------------------------------------------------------------------------
+[2012-11-02 12:48:31] nikodu01 at live dot fr
+
+Description:
+------------
+Version : PHP 5.4.8 &amp; PHP-GTK Git
+
+When loading the extension we got a sigsev
+
+Test script:
+---------------
+dl( 'php_gtk2.so' );
+
+Expected result:
+----------------
+Load library 
+
+Actual result:
+--------------
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+6748			int n = zend_hash_num_elements(CG(class_table));
+(gdb) bt
+#0  0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+#1  0x00000000008342cc in do_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, ce_flags=0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2401
+#2  0x00000000008345f0 in zend_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2467
+#3  0x0000000000834494 in zend_register_internal_class_ex 
+(class_entry=0x7fffffffa5d0, parent_ce=0x0, parent_name=0x0, tsrm_ls=0x1b)
+    at /src/build/php-5.4.8/Zend/zend_API.c:2439
+#4  0x00007fffef0d4da8 in phpg_register_class (class_name=0x7fffef1028b7 
+"Glade", class_methods=0x7fffef38e280 &lt;glade_methods&gt;, parent=0x0, ce_flags=0, 
+    prop_info=0x0, create_obj_func=0x0, gtype=0, tsrm_ls=0x1b) at 
+/src/build/php-gtk-121102/main/phpg_support.c:326
+#5  0x00007fffef0d3685 in phpg_glade0_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:513
+#6  0x00007fffef0d36f4 in phpg_glade_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:520
+#7  0x00007fffef0d2050 in php_gtk_xinit_libglade (module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/./ext/libglade/php_libglade.c:33
+#8  0x00007fffef0d3d89 in php_gtk_startup_extension (ext=0x7fffef38e240 
+&lt;libglade_ext_entry&gt;, module_number=27) at /src/build/php-gtk-
+121102/main/php_gtk.c:271
+#9  0x00007fffef0d3e5b in php_gtk_startup_extensions (ext=0x7fffef38eb78 
+&lt;php_gtk_extensions+8&gt;, ext_count=2, module_number=27)
+    at /src/build/php-gtk-121102/main/php_gtk.c:293
+#10 0x00007fffef0e6b84 in php_gtk_startup_all_extensions (module_number=27) at 
+main/php_gtk_ext.c:42
+#11 0x00007fffef0d3b40 in zm_activate_gtk (type=2, module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/main/php_gtk.c:211
+#12 0x000000000069b3f4 in php_load_extension (filename=0x7ffff7e8d550 
+"php_gtk2.so", type=2, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:248
+#13 0x000000000069b46e in php_dl (file=0x7ffff7e8d550 "php_gtk2.so", type=2, 
+return_value=0x7ffff7eb0bd8, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:263
+#14 0x000000000069af40 in zif_dl (ht=1, return_value=0x7ffff7eb0bd8, 
+return_value_ptr=0x0, this_ptr=0x0, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:85
+#15 0x000000000086c289 in execute_internal (execute_data_ptr=0x7ffff7f96d28, 
+return_value_used=0, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_execute.c:1480
+#16 0x00000000005466b6 in atlunix_zend_execute_internal 
+(execute_data_ptr=0x7ffff7f96d28, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/atlunix/main/atlunix.c:404
+#17 0x000000000086ea87 in zend_do_fcall_common_helper_SPEC 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:644
+#18 0x000000000087730a in ZEND_DO_FCALL_SPEC_CONST_HANDLER 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:2235
+#19 0x000000000086ca40 in execute (op_array=0x11d36a0, tsrm_ls=0xfbf090) at 
+/src/build/php-5.4.8/Zend/zend_vm_execute.h:410
+#20 0x000000000082a79c in zend_execute_scripts (type=8, tsrm_ls=0xfbf090, 
+retval=0x0, file_count=3) at /src/build/php-5.4.8/Zend/zend.c:1309
+#21 0x0000000000779e66 in php_execute_script (primary_file=0x7fffffffe430, 
+tsrm_ls=0xfbf090) at /src/build/php-5.4.8/main/main.c:2482
+#22 0x0000000000992a12 in do_cli (argc=2, argv=0x7fffffffe7e8, tsrm_ls=0xfbf090) 
+at /src/build/php-5.4.8/sapi/cli/php_cli.c:988
+#23 0x0000000000993ced in main (argc=2, argv=0x7fffffffe7e8) at /src/build/php-
+5.4.8/sapi/cli/php_cli.c:1364
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20121105141116</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-11-05 14:11:16-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63420 [Opn]: PHP-GTK crashes when loading glade extension</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+ ID:                 63420
+ Updated by:         auroraeosrose@php.net
+ Reported by:        nikodu01 at live dot fr
+-Summary:            PHP Execution doesn't terminate when using circular
+                     references and mnemonics
++Summary:            PHP-GTK crashes when loading glade extension
+ Status:             Open
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   Ubuntu 11.10
+ PHP Version:        Irrelevant
+-Assigned To:        
++Assigned To:        auroraeosrose
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+So this is actually a bug with the php-gtk glade extension and loading
+
+I'll take a look but it's not a high priority since libglade is deprecated - I would \
+suggest you try migrating any glade code to gtkbuilder on any existing projects
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-11-03 09:18:05] nikodu01 at live dot fr
+
+1/ I have put cairo.so and php_gtk2.so in the ini file and always crash
+2/ I don't specify to use liglade i just compile php-gtk with this :
+   ./buildconf &amp;&amp;
+   ./configure --prefix=/usr &amp;&amp;
+   make
+3/ Yes i load it before
+
+I made different try and compiling php-gtk with ./configure --prefix=/usr --
+without-libglade
+don't crash anymore
+
+my libglade version is 2.6.4
+
+------------------------------------------------------------------------
+[2012-11-02 14:35:29] auroraeosrose@php.net
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+1. Does this also segfault when you load it via an ini file?
+2. This appears to be having issues when attempting to load the glade php-gtk \
+extension, is that in an ini file?  Or did you compile it statically into php-gtk? 3. \
+the PECL cairo extension IS a required dependency of php-gtk - did you load that \
+before you attempted to load php-gtk?  PHP should be angry if you don't do that \
+instead of segfaulting - but just checking to see what exactly is making this blow up
+
+------------------------------------------------------------------------
+[2012-11-02 12:48:31] nikodu01 at live dot fr
+
+Description:
+------------
+Version : PHP 5.4.8 &amp; PHP-GTK Git
+
+When loading the extension we got a sigsev
+
+Test script:
+---------------
+dl( 'php_gtk2.so' );
+
+Expected result:
+----------------
+Load library 
+
+Actual result:
+--------------
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+6748			int n = zend_hash_num_elements(CG(class_table));
+(gdb) bt
+#0  0x000000000080c5dd in zend_initialize_class_data (ce=0x1b0fcc0, 
+nullify_handlers=0 '\000', tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_compile.c:6748
+#1  0x00000000008342cc in do_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, ce_flags=0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2401
+#2  0x00000000008345f0 in zend_register_internal_class 
+(orig_class_entry=0x7fffffffa5d0, tsrm_ls=0x1b) at /src/build/php-
+5.4.8/Zend/zend_API.c:2467
+#3  0x0000000000834494 in zend_register_internal_class_ex 
+(class_entry=0x7fffffffa5d0, parent_ce=0x0, parent_name=0x0, tsrm_ls=0x1b)
+    at /src/build/php-5.4.8/Zend/zend_API.c:2439
+#4  0x00007fffef0d4da8 in phpg_register_class (class_name=0x7fffef1028b7 
+"Glade", class_methods=0x7fffef38e280 &lt;glade_methods&gt;, parent=0x0, ce_flags=0, 
+    prop_info=0x0, create_obj_func=0x0, gtype=0, tsrm_ls=0x1b) at 
+/src/build/php-gtk-121102/main/phpg_support.c:326
+#5  0x00007fffef0d3685 in phpg_glade0_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:513
+#6  0x00007fffef0d36f4 in phpg_glade_register_classes (tsrm_ls=0x1b) at 
+ext/libglade/gen_libglade.c:520
+#7  0x00007fffef0d2050 in php_gtk_xinit_libglade (module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/./ext/libglade/php_libglade.c:33
+#8  0x00007fffef0d3d89 in php_gtk_startup_extension (ext=0x7fffef38e240 
+&lt;libglade_ext_entry&gt;, module_number=27) at /src/build/php-gtk-
+121102/main/php_gtk.c:271
+#9  0x00007fffef0d3e5b in php_gtk_startup_extensions (ext=0x7fffef38eb78 
+&lt;php_gtk_extensions+8&gt;, ext_count=2, module_number=27)
+    at /src/build/php-gtk-121102/main/php_gtk.c:293
+#10 0x00007fffef0e6b84 in php_gtk_startup_all_extensions (module_number=27) at 
+main/php_gtk_ext.c:42
+#11 0x00007fffef0d3b40 in zm_activate_gtk (type=2, module_number=27, 
+tsrm_ls=0xfbf090) at /src/build/php-gtk-121102/main/php_gtk.c:211
+#12 0x000000000069b3f4 in php_load_extension (filename=0x7ffff7e8d550 
+"php_gtk2.so", type=2, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:248
+#13 0x000000000069b46e in php_dl (file=0x7ffff7e8d550 "php_gtk2.so", type=2, 
+return_value=0x7ffff7eb0bd8, start_now=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:263
+#14 0x000000000069af40 in zif_dl (ht=1, return_value=0x7ffff7eb0bd8, 
+return_value_ptr=0x0, this_ptr=0x0, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/standard/dl.c:85
+#15 0x000000000086c289 in execute_internal (execute_data_ptr=0x7ffff7f96d28, 
+return_value_used=0, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_execute.c:1480
+#16 0x00000000005466b6 in atlunix_zend_execute_internal 
+(execute_data_ptr=0x7ffff7f96d28, return_value_used=0, tsrm_ls=0xfbf090)
+    at /src/build/php-5.4.8/ext/atlunix/main/atlunix.c:404
+#17 0x000000000086ea87 in zend_do_fcall_common_helper_SPEC 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:644
+#18 0x000000000087730a in ZEND_DO_FCALL_SPEC_CONST_HANDLER 
+(execute_data=0x7ffff7f96d28, tsrm_ls=0xfbf090) at /src/build/php-
+5.4.8/Zend/zend_vm_execute.h:2235
+#19 0x000000000086ca40 in execute (op_array=0x11d36a0, tsrm_ls=0xfbf090) at 
+/src/build/php-5.4.8/Zend/zend_vm_execute.h:410
+#20 0x000000000082a79c in zend_execute_scripts (type=8, tsrm_ls=0xfbf090, 
+retval=0x0, file_count=3) at /src/build/php-5.4.8/Zend/zend.c:1309
+#21 0x0000000000779e66 in php_execute_script (primary_file=0x7fffffffe430, 
+tsrm_ls=0xfbf090) at /src/build/php-5.4.8/main/main.c:2482
+#22 0x0000000000992a12 in do_cli (argc=2, argv=0x7fffffffe7e8, tsrm_ls=0xfbf090) 
+at /src/build/php-5.4.8/sapi/cli/php_cli.c:988
+#23 0x0000000000993ced in main (argc=2, argv=0x7fffffffe7e8) at /src/build/php-
+5.4.8/sapi/cli/php_cli.c:1364
+
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63420&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+
+</body></email><email><emailId>20121017154308</emailId><senderName></senderName><senderEmail>auroraeosrose</senderEmail><timestampReceived>2012-10-17 15:43:08-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #63288 [Opn-&gt;Fbk]: PHP Execution doesn't terminate when using circular references</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=63288&amp;edit=1
+
+ ID:                 63288
+ Updated by:         auroraeosrose@php.net
+ Reported by:        PRG at aol dot com
+-Summary:            PaulRGlittlemandownthere
++Summary:            PHP Execution doesn't terminate when using circular
+                     references and mnemonics
+-Status:             Open
++Status:             Feedback
+ Type:               Bug
+ Package:            PHP-GTK related
+-Operating System:   mac
++Operating System:   Ubuntu 11.10
+-PHP Version:        5.3Git-2012-10-16 (Git)
++PHP Version:        Irrelevant
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+Not enough information was provided for us to be able
+to handle this bug. Please re-read the instructions at
+http://bugs.php.net/how-to-report.php
+
+If you can provide more information, feel free to add it
+to this bug and change the status back to "Open".
+
+Thank you for your interest in PHP.
+
+
+
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2012-10-16 16:21:23] PRG at aol dot com
+
+Description:
+------------
+PaulRGlittlemandownthere
+
+Test script:
+---------------
+PaulRGlittlemandownthere
+
+Expected result:
+----------------
+PaulRGlittlemandownthere
+
+Actual result:
+--------------
+PaulRGlittlemandownthere
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=63288&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email></emails>

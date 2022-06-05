@@ -1,0 +1,3127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20101210000747</emailId><senderName>Fog_Watch</senderName><senderEmail>db5@exemail.com.au</senderEmail><timestampReceived>2010-12-10 00:07:47-0400</timestampReceived><subject>Re: Loop-AES on LVM2 logical volumes</subject><body>
+
+On Thu, 9 Dec 2010 21:48:49 +1100
+Fog_Watch &lt;db5@exemail.com.au&gt; wrote:
+
+&gt; Yes, step 17 of Example 5 says, "you need to check that your root
+&gt; partition has /dev/console".  Well it does:
+&gt; # ls -la /dev/console
+&gt; crw------- 1 root root 5, 1 Dec  9 16:26 /dev/console
+Red face.
+
+Step 14, which is before 17:
+14) Reboot your computer from rescue floppy/CD-ROM or other partition,
+so that the partition you are about to encrypt is *not* mounted.
+
+Then step 17.
+
+Then, of course, /dev/console is found.  No problem.
+
+Regards
+
+Fog_Watch.
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20101020141452</emailId><senderName>Lars Reimann</senderName><senderEmail>mail@lars-reimann.de</senderEmail><timestampReceived>2010-10-20 14:14:52-0400</timestampReceived><subject>Re: Huge Problem with cryptoloop and AES: Lost Password</subject><body>
+
+Hi,
+
+I just wanted to shortly ask, if there have any tools emerged since my
+initial post, which could help me on the recovery on my lost password
+for losetup:
+
+losetup -e AES256 -C 500 /dev/loop0 /dev/md2
+
+The proposed way was to use brute force and try to compute passwords and
+check if they result in (03 ... 00) (ext2 zero sectors).
+
+Any hints / refs to snippets would be helpful!
+
+I am currently on AMD64.
+
+greetings,
+l.r.
+
+On 18.11.2006 13:52, Jari Ruusu wrote:
+&gt; Lars Reimann wrote:
+&gt;&gt; I stored my 20 character passwords on my palm device only (i know by now
+&gt;&gt; that this was stupid!). However, that one chrashed and apparently all data
+&gt;&gt; was lost, including passwords. However, i may remember certain details of
+&gt;&gt; the password, for example which characters I used not, and how the
+&gt;&gt; password ends.
+&gt; This won't help you now, but one way to handle lost/forgotten passphrases is
+&gt; to use gpg encrypted key files where all key files are encrypted using both
+&gt; employer's "recovery" public key and user's public key. Employer's
+&gt; "recovery" public key can be distributed to everyone, and copies of private
+&gt; keys physically locked in a safe. That way employer can recover user's data
+&gt; even if user drops dead.
+&gt;
+&gt;&gt; Also, i would like to automate to try different passwords. Is there a
+&gt;&gt; program available which does such (brute force) things with the
+&gt;&gt; cryptoloop? however I may have to write it on my own if nothing is
+&gt;&gt; available. I heard it may be possible to extract some sectors of ext2/3
+&gt;&gt; partitions which are always "zero". Then the decryption can be verified by
+&gt;&gt; using such sectors. Has anyone an idea which SECTORS this are on ext2/3
+&gt;&gt; partitions and how to extract them?
+&gt; First 16 bytes of fourth 512 byte sector are always zero on unencrypted ext2
+&gt; and ext3 file systems.
+&gt;
+&gt; This command shows you your ciphertext (in hex):
+&gt;
+&gt;     dd if=/dev/md2 bs=16 skip=96 count=1 2&gt;/dev/null | od -An -tx1 -
+&gt;
+&gt; And when you find a key that decrypts to (in hex):
+&gt;
+&gt;     03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+&gt;
+&gt; Then you have found your key. That 03 number is the XOR of zero file system
+&gt; data and sector number IV of fourth 512 byte sector.
+&gt;
+&gt; If you used loop-AES version of losetup, as your losetup syntax seems to
+&gt; imply, then you need to:
+&gt;
+&gt; 1) Compute hash #1 of your passphrase using SHA512, store first 256 bits as
+&gt;    'bulk_key'. Zero/CR/LF byte at the end of string NOT included in hash.
+&gt;
+&gt; 2) Compute hash #2 of your passphrase using SHA512, but bit 0 of first
+&gt;    passphrase byte inverted.
+&gt;
+&gt; 3) Encrypt first 128 bits of bulk_key, using first 256 bits of hash #2 as
+&gt;    AES256 key.
+&gt;
+&gt; 4) Encrypt second 128 bits of bulk_key, using first 256 bits of hash #2 as
+&gt;    AES256 key.
+&gt;
+&gt; 5) Exchange bytes bulk_key[8...15] with bulk_key[16...23]
+&gt;
+&gt; 6) Repeat steps 3...5 for total of 500000 times.
+&gt;
+&gt; 7) Decrypt your file system ciphertext using AES256 and bulk_key
+&gt;
+&gt; 8) Compare to known plaintext (03 00 .... 00 00). If it matches, then you
+&gt;    found your passphrase.
+&gt;
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20101024061757</emailId><senderName>markus reichelt</senderName><senderEmail>ml@mareichelt.com</senderEmail><timestampReceived>2010-10-24 06:17:57-0400</timestampReceived><subject>Re: Huge Problem with cryptoloop and AES: Lost Password</subject><body>
+
+* Lars Reimann &lt;mail@lars-reimann.de&gt; wrote:
+
+&gt; Any hints / refs to snippets would be helpful!
+
+...
+
+This is so annoying, the mailinglist ate a post once again.
+At least the archive has it:
+http://mail.nl.linux.org/linux-crypto/2010-10/msg00003.html
+
+Also, there's the usenet group gmane.linux.cryptography, check
+http://dir.gmane.org/gmane.linux.cryptography
+
+-- 
+left blank, right bald
+loop-AES FAQ: http://mareichelt.de/pub/texts.loop-aes.php#faq
+[Attachment #3 (application/pgp-signature)]
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20101215000354</emailId><senderName>Rik van Riel</senderName><senderEmail>riel@nl.linux.org</senderEmail><timestampReceived>2010-12-15 00:03:54-0400</timestampReceived><subject>ADMIN: end of nl.linux.org, lists will move</subject><body>
+
+The university IT department which has graciously hosted
+nl.linux.org for the last several years is about to stop
+existing.
+
+I will be moving many of the nl.linux.org services to
+my own systems and will preserve the four mailing lists
+that still see occasional traffic.
+
+Those mailing lists will be hosted on the kernelnewbies.org
+mailman instance starting this Friday. The only thing you
+may need to change are your mail filters.
+
+-- 
+All rights reversed.
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100501075353</emailId><senderName>markus reichelt</senderName><senderEmail>ml@mareichelt.com</senderEmail><timestampReceived>2010-05-01 07:53:53-0400</timestampReceived><subject>Re: passware 9.x</subject><body>
+
+* Anders Andersson &lt;pipatron@gmail.com&gt; wrote:
+
+&gt; Just brainstorming here, but I heard some ideas about locking the
+&gt; CPU cache and storing the keys in cache so it never really touches
+&gt; the RAM. I don't know if this is possible with the current
+&gt; operating systems, and it would of course be unportable to the
+&gt; extreme.
+
+http://frozencache.blogspot.com/
+
+I don't know of any POC.
+
+--=20
+left blank, right bald
+loop-AES FAQ: http://mareichelt.de/pub/texts.loop-aes.php#faq
+[Attachment #3 (application/pgp-signature)]
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20100109155141</emailId><senderName>Jules Bellster</senderName><senderEmail>julesbellster@yahoo.com</senderEmail><timestampReceived>2010-01-09 15:51:41-0400</timestampReceived><subject>need simple loop-aes advice</subject><body>
+
+Hello,
+
+I have been using loopaes on my old laptop for several years without any
+problem. I boot from a USB stick to mount an encrypted root partition. 
+
+Earlier this week I upgraded to a different laptop -- same manufacturer and
+same "generation", the main noticeable difference being that it supports USB 2. I \
+                simply installed the hard drive into the new machine and on my
+*unencrypted* system everything works.
+
+However I can no longer mount the root partition when the hard drive is in
+the new machine. I boot from the USB stick, and everything seems normal until a \
+point: [...]
+Delaying /dev/sda mount for 15 seconds...
+sci 0:0:0:0: Direct-Access SanDisk Cruzer Micro 
+sd 0:0:0:0: [sda] 250879 512-byt hardware sectors (128MB)
+sd 0:0:0:0: [sda] Write Protect is off
+sd 0:0:0:0: [sda]
+ Assuming drive cache: write through
+sd 0:0:0:0: [sda] 250879 512-byt hardware sectors (128MB)
+sd 0:0:0:0: [sda] Write Protect is off
+sd 0:0:0:0: [sda] Assuming drive cache: write through
+sda:...delay complete, continuing
+&lt;6&gt;usb 1-4: reset high speed USB device using ehci_hcd and address 2
+usb 1-4: reset high speed USB device using ehci_hcd and address 2
+
+At this point, the passphrase prompt does not show up but if I type
+characters they are echoed on the screen. Pressing Ctr-Alt-Del reboots the
+system.
+
+At first I thought I didn't have usb 2 support built into my kernel on the
+usb disk, but I was mistaken (I do). I also experimented (after having put the hard \
+drive back into my old laptop) with rebuilding the initrd image on the flash drive to \
+add longer delays (both the "general" [can't remember the exact name] delay as well \
+as the MOUNT_DELAY) and that didn't solve things. 
+
+Any advice on how to fix
+ this would be great. I can still perfectly access
+my system, as long as I move the hard drive into the old laptop. Do I have to \
+completely rebuild the usb key on the new system?
+
+thanks in advance
+
+jules
+
+
+
+      
+
+
+[Attachment #3 (text/html)]
+
+&lt;table cellspacing="0" cellpadding="0" border="0" &gt;&lt;tr&gt;&lt;td valign="top" style="font: \
+inherit;"&gt;&lt;div id="yiv1487504208"&gt;Hello,&lt;br&gt;&lt;br&gt;I have been using loopaes on my old \
+laptop for several years without any&lt;br&gt;problem. I boot from a USB stick to mount an \
+encrypted root partition. &lt;br&gt;&lt;br&gt;Earlier this week I upgraded to a different laptop \
+-- same manufacturer and&lt;br&gt;same "generation", the main noticeable difference being \
+that it supports USB 2. I simply installed the hard drive into the new machine and on \
+my&lt;br&gt;*unencrypted* system everything works.&lt;br&gt;&lt;br&gt;However I can no longer mount the \
+root partition when the hard drive is in&lt;br&gt;the new machine. I boot from the USB \
+stick, and everything seems normal until a point:&lt;br&gt;[...]&lt;br&gt;Delaying /dev/sda mount \
+for 15 seconds...&lt;br&gt;sci 0:0:0:0: Direct-Access SanDisk Cruzer Micro &lt;br&gt;sd 0:0:0:0: \
+[sda] 250879 512-byt hardware sectors (128MB)&lt;br&gt;sd 0:0:0:0: [sda] Write Protect is \
+off&lt;br&gt;sd 0:0:0:0: [sda]  Assuming drive cache: write through&lt;br&gt;sd 0:0:0:0: [sda] \
+250879 512-byt hardware sectors (128MB)&lt;br&gt;sd 0:0:0:0: [sda] Write Protect is \
+off&lt;br&gt;sd 0:0:0:0: [sda] Assuming drive cache: write through&lt;br&gt;sda:...delay \
+complete, continuing&lt;br&gt;&lt;6&gt;usb 1-4: reset high speed USB device using ehci_hcd \
+and address 2&lt;br&gt;usb 1-4: reset high speed USB device using ehci_hcd and address \
+2&lt;br&gt;&lt;br&gt;At this point, the passphrase prompt does not show up but if I \
+type&lt;br&gt;characters they are echoed on the screen. Pressing Ctr-Alt-Del reboots \
+the&lt;br&gt;system.&lt;br&gt;&lt;br&gt;At first I thought I didn't have usb 2 support built into my \
+kernel on the&lt;br&gt;usb disk, but I was mistaken (I do). I also experimented (after \
+having put the hard drive back into my old laptop) with rebuilding the initrd image \
+on the flash drive to add longer delays (both the "general" [can't remember the exact \
+name] delay as well as the MOUNT_DELAY) and that didn't solve things. &lt;br&gt;&lt;br&gt;Any \
+advice on how to fix  this would be great. I can still perfectly access&lt;br&gt;my system, \
+as long as I move the hard drive into the old laptop. Do I have to completely rebuild \
+the usb key on the new system?&lt;br&gt;&lt;br&gt;thanks in \
+advance&lt;br&gt;&lt;br&gt;jules&lt;br&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br&gt;
+
+      
+
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20100425200515</emailId><senderName></senderName><senderEmail>peter_22</senderEmail><timestampReceived>2010-04-25 20:05:15-0400</timestampReceived><subject>passware 9.x</subject><body>
+
+Hello everyone!
+
+Recently I found reports about a software called Passware which can read keys of \
+popular security software like BitLocker, Truecrypt, PGP and GPG. Site \
+http://blogs.pcmag.com/securitywatch/2009/12/new_passware_can_crack_pgp_and.php says: \
+[...] Passware 9.5 can also recover passwords for PGP archives, virtual disks, and \
+keyring files (both PGP and GnuPG), and instantly reset Administrator passwords for \
+Windows 7 with a bootable CD or flash drive. [...]
+Retrieving clear text keys from memory dumps isn't new, so my interest is to know if \
+a strategy is in place to make an end to this. How about a patch for GPG not to store \
+its keys in RAM Chips any more?
+
+Kind regards
+Peter
+
+
+-- 
+GRATIS für alle GMX-Mitglieder: Die maxdome Movie-FLAT!
+Jetzt freischalten unter http://portal.gmx.net/de/go/maxdome01
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20100611123703</emailId><senderName>Jari Ruusu</senderName><senderEmail>jariruusu@users.sourceforge.net</senderEmail><timestampReceived>2010-06-11 12:37:03-0400</timestampReceived><subject>Announce loop-AES-v3.4a file/swap crypto package</subject><body>
+
+loop-AES changes since previous release:
+- Added faster (single thread) parallelized version Intel AES CBC encrypt,
+  both 32 bit and 64 bit versions.
+- glue.c transfer functions re-write, better optimizations.
+- Added faster (single thread) parallelized version of MD5 for 64 bit amd64.
+- Requests sent to backing device have BIO_RW_NOIDLE bit set if loop driver
+  believes that there won't be more requests anytime soon.
+
+
+bzip2 compressed tarball is here:
+
+    http://loop-aes.sourceforge.net/loop-AES/loop-AES-v3.4a.tar.bz2
+    md5sum fb85d97ea55a54e54c3b4104fe13ad64
+
+    http://loop-aes.sourceforge.net/loop-AES/loop-AES-v3.4a.tar.bz2.sign
+
+-- 
+Jari Ruusu  1024R/3A220F51 5B 4B F9 BB D3 3F 52 E9  DB 1D EB E3 24 0E A9 DD
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100705182340</emailId><senderName>netguru</senderName><senderEmail>netguru@home.nl</senderEmail><timestampReceived>2010-07-05 18:23:40-0400</timestampReceived><subject>Util-linux 2.18 loop-aes patch ?</subject><body>
+
+Any chance this one can be done ? 2.17.2 fails on 2.18...
+
+Regards...
+
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100801204436</emailId><senderName></senderName><senderEmail>peter_22</senderEmail><timestampReceived>2010-08-01 20:44:36-0400</timestampReceived><subject>Character support in initial ramdisk</subject><body>
+
+Hello!
+
+Kubuntu Lucid Lynx brought me to a point where the keyboard layout of the updated \
+initial ramdisk lacks support for layouts other than us-style. In earlier versions \
+the usb-creator that comes with Ubuntu prepared a usb stick ready to accept German \
+characters in combination with re-compiled kernel images and initial ramdisks \
+modified by initramfs-tools. This time with Lucid Lynx neither kernel parameters nor \
+loading nls_* modules shows a way out. Is there someone who crossed the same issue \
+and found a solution yet? Is it a matter of kernel options or do my ramdisks lack \
+some modules?
+
+Kind regards
+Peter
+-- 
+GMX DSL: Internet-, Telefon- und Handy-Flat ab 19,99 EUR/mtl.  
+Bis zu 150 EUR Startguthaben inklusive! http://portal.gmx.net/de/go/dsl
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20100923092142</emailId><senderName>Felix Blanke</senderName><senderEmail>felixblanke@gmail.com</senderEmail><timestampReceived>2010-09-23 09:21:42-0400</timestampReceived><subject>loop-aes doesn't compile with 2.6.36</subject><body>
+
+Hi,
+
+I didn't find any bugtracker for loop-aes that's why I'm posting here.
+
+loop-aes-3.4a doesn't compile with 2.6.36-r5 (didn't tried other 2.6.36 versions).
+
+Build log is attached which comes from the command:
+
+    make LINUX_SOURCE=/usr/src/linux-2.6.36-rc5
+
+
+Thanks for your help!
+
+
+
+Regards,
+Felix
+
+["build.log" (text/plain)]
+
+rm -r -f *.ko tmp-d-kbuild 
+mkdir tmp-d-kbuild
+echo 'obj-m:=' &gt;&gt;tmp-d-kbuild/Makefile
+cd tmp-d-kbuild &amp;&amp; ln -s ../loop.c-2.6.patched patched-loop.c &amp;&amp; ln -s ../glue.c \
+../aes.h ../md5.h . echo 'obj-m += loop.o' &gt;&gt;tmp-d-kbuild/Makefile
+cd tmp-d-kbuild &amp;&amp; ln -s ../aes-amd64.S ../md5-amd64.S ../md5-2x-amd64.S .
+echo 'loop-y:=patched-loop.o glue.o aes-amd64.o md5-amd64.o md5-2x-amd64.o' \
+&gt;&gt;tmp-d-kbuild/Makefile echo 'EXTRA_CFLAGS:=      -DAMD64_ASM' \
+&gt; &gt; &gt;&gt;tmp-d-kbuild/Makefile
+cd /usr/src/linux-2.6.36-rc5 &amp;&amp; make SUBDIRS=/root/tmp/loop-AES-v3.4a/tmp-d-kbuild \
+modules  make[1]: Entering directory `/usr/src/linux-2.6.36-rc5'
+  CC [M]  /root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.o
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c: In function \
+                ‘loop_get_buffer':
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c:588: error: ‘BIO_RW_BARRIER' \
+                undeclared (first use in this function)
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c:588: error: (Each undeclared \
+                identifier is reported only once
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c:588: error: for each function it \
+                appears in.)
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c:588: error: ‘BIO_RW_AHEAD' \
+                undeclared (first use in this function)
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c:590: error: ‘BIO_RW_NOIDLE' \
+                undeclared (first use in this function)
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c:624: error: ‘BIO_RW_SYNCIO' \
+                undeclared (first use in this function)
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c: In function \
+                ‘loop_make_request_real':
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c:941: error: ‘BIO_RW_BARRIER' \
+                undeclared (first use in this function)
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c: In function ‘loop_thread':
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c:1217: error: ‘BIO_RW_NOIDLE' \
+                undeclared (first use in this function)
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c: In function ‘loop_set_fd':
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c:1510: error: too many arguments \
+                to function ‘blk_queue_ordered'
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c:1529: error: too many arguments \
+                to function ‘blk_queue_ordered'
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c: In function ‘loop_clr_fd':
+/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.c:1650: error: too many arguments \
+to function ‘blk_queue_ordered' make[2]: *** \
+[/root/tmp/loop-AES-v3.4a/tmp-d-kbuild/patched-loop.o] Error 1 make[1]: *** \
+[_module_/root/tmp/loop-AES-v3.4a/tmp-d-kbuild] Error 2 make[1]: Leaving directory \
+                `/usr/src/linux-2.6.36-rc5'
+make: *** [all] Error 2
+
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20100808163631</emailId><senderName>markus reichelt</senderName><senderEmail>ml@mareichelt.com</senderEmail><timestampReceived>2010-08-08 16:36:31-0400</timestampReceived><subject>Re: Character support in initial ramdisk</subject><body>
+
+* Peter_22@gmx.de wrote:
+
+&gt; Is there someone who crossed the same issue and found a solution yet?
+
+Well?
+
+
+--=20
+left blank, right bald
+loop-AES FAQ: http://mareichelt.de/pub/texts.loop-aes.php#faq
+[Attachment #3 (application/pgp-signature)]
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20100501002456</emailId><senderName>Anders Andersson</senderName><senderEmail>pipatron@gmail.com</senderEmail><timestampReceived>2010-05-01 00:24:56-0400</timestampReceived><subject>Re: passware 9.x</subject><body>
+
+&gt;&gt; Retrieving clear text keys from memory dumps isn't new, so my
+&gt;&gt; interest is to know if a strategy is in place to make an end to
+&gt;&gt; this. How about a patch for GPG not to store its keys in RAM Chips
+&gt;&gt; any more?
+&gt;
+&gt; As far as I know this isn't even planned for the far future. It's an
+&gt; issue of system architecture. A hypervisor per app would solve the
+&gt; problem but the overhead would be insane.
+
+Just brainstorming here, but I heard some ideas about locking the CPU
+cache and storing the keys in cache so it never really touches the
+RAM. I don't know if this is possible with the current operating
+systems, and it would of course be unportable to the extreme.
+
+It might make it slightly more difficult to extract the information I
+suppose. The physical deep-freeze method would still work.
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100117110325</emailId><senderName>Herbert Xu</senderName><senderEmail>herbert@gondor.apana.org.au</senderEmail><timestampReceived>2010-01-17 11:03:25-0400</timestampReceived><subject>Re: [PATCH 4/4] crypto: lmk2/lmk3 cipher block modes</subject><body>
+
+On Mon, Dec 28, 2009 at 06:59:15PM +0000, Max Vozeler wrote:
+&gt; This is a compatible implementation of the block chaining
+&gt; modes used by the Loop-AES block device encryption system
+&gt; (http://loop-aes.sf.net/).
+&gt; 
+&gt; It implements two modes: lmk2 and lmk3. They correspond to
+&gt; the modes used in Loop-AES v2.x and Loop-AES v3.x and are
+&gt; intended to be full compatible.
+&gt; 
+&gt; Both modes operate on full 512 byte sectors. They use CBC
+&gt; with an IV derived from the sector number, the data and (for
+&gt; lmk3 only) an extra 128-bit IV seed.
+&gt; 
+&gt; Signed-off-by: Max Vozeler &lt;max@hinterhof.net&gt;
+&gt; Cc: Jari Ruusu &lt;jariruusu@users.sourceforge.net&gt;
+
+So this is just CBC with a modified IV? If so it should not be
+implemented as another mode.  Doing it as a mode means that you
+will not benefit from any hardware implementations of CBC.
+
+You should instead implement it as an IV generator.  Currently
+they're done in dm-crypt.  But we could move them into crypto
+at some point if there are multiple users in the kernel.
+
+Cheers,
+-- 
+Visit Openswan at http://www.openswan.org/
+Email: Herbert Xu ~{PmV&gt;HI~} &lt;herbert@gondor.apana.org.au&gt;
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20100118165234</emailId><senderName>Max Vozeler</senderName><senderEmail>max@hinterhof.net</senderEmail><timestampReceived>2010-01-18 16:52:34-0400</timestampReceived><subject>Re: [PATCH 4/4] crypto: lmk2/lmk3 cipher block modes</subject><body>
+
+Hello Herbert,
+
+On Sun, Jan 17, 2010 at 10:03:25PM +1100, Herbert Xu wrote:
+&gt; On Mon, Dec 28, 2009 at 06:59:15PM +0000, Max Vozeler wrote:
+&gt; &gt; Both modes operate on full 512 byte sectors. They use CBC
+&gt; &gt; with an IV derived from the sector number, the data and (for
+&gt; &gt; lmk3 only) an extra 128-bit IV seed.
+&gt; 
+&gt; So this is just CBC with a modified IV? 
+
+Is is almost CBC, but not exactly.
+
+The difference is that the IV is derived from the cleartext and
+so is not known before decrypt.
+
+So decrypt could be described using CBC as, I think:
+
+ 1) CBC decrypt with null IV
+ 2) Derive IV based on cleartext of blocks 1..31
+ 3) XOR block 0 with IV
+
+&gt; If so it should not be implemented as another mode. Doing it as
+&gt; a mode means that you will not benefit from any hardware
+&gt; implementations of CBC.
+
+If there is some way to implement it cleanly without making it
+another mode I would prefer doing that.
+
+&gt; You should instead implement it as an IV generator.  Currently
+&gt; they're done in dm-crypt. 
+
+I'd agree that dm-crypt would be the more suitable place.
+
+But I'm not sure how to implement it given the difference
+described above. It might look something like this:
+
+ - Add IV generators "lmk2", "lmk3"
+
+ - Treat them as "cbc" with null IV internally, then after 
+   decrypt derive IV and xor block 0 with it.
+
+The second part is why I built this as a mode originally. It
+seemed like it was not belonging in dm-crypt.
+
+	Max
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20100119080038</emailId><senderName>Herbert Xu</senderName><senderEmail>herbert@gondor.apana.org.au</senderEmail><timestampReceived>2010-01-19 08:00:38-0400</timestampReceived><subject>Re: [PATCH 4/4] crypto: lmk2/lmk3 cipher block modes</subject><body>
+
+On Mon, Jan 18, 2010 at 05:52:34PM +0100, Max Vozeler wrote:
+&gt;
+&gt; The difference is that the IV is derived from the cleartext and
+&gt; so is not known before decrypt.
+&gt; 
+&gt; So decrypt could be described using CBC as, I think:
+&gt; 
+&gt;  1) CBC decrypt with null IV
+&gt;  2) Derive IV based on cleartext of blocks 1..31
+&gt;  3) XOR block 0 with IV
+
+Yep, this sounds like the way it should be implemented.
+ 
+&gt; But I'm not sure how to implement it given the difference
+&gt; described above. It might look something like this:
+&gt; 
+&gt;  - Add IV generators "lmk2", "lmk3"
+&gt; 
+&gt;  - Treat them as "cbc" with null IV internally, then after 
+&gt;    decrypt derive IV and xor block 0 with it.
+&gt; 
+&gt; The second part is why I built this as a mode originally. It
+&gt; seemed like it was not belonging in dm-crypt.
+
+OK, I see what you mean.
+
+Let's keep lmk2/lmk3 as separate modes, but implement it as a
+wrapper around cbc.  That is, instead of allocating the cipher,
+you'd allocate "cbc(cipher)" (as an ablkcipher) and use it to
+perform the actual encryption/decryption.
+
+Cheers,
+-- 
+Visit Openswan at http://www.openswan.org/
+Email: Herbert Xu ~{PmV&gt;HI~} &lt;herbert@gondor.apana.org.au&gt;
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20100201103227</emailId><senderName>Max Vozeler</senderName><senderEmail>max@hinterhof.net</senderEmail><timestampReceived>2010-02-01 10:32:27-0400</timestampReceived><subject>Re: [PATCH 4/4] crypto: lmk2/lmk3 cipher block modes</subject><body>
+
+Hi Herbert,
+
+On Tue, Jan 19, 2010 at 09:00:38PM +1300, Herbert Xu wrote:
+&gt; Let's keep lmk2/lmk3 as separate modes, but implement it as a
+&gt; wrapper around cbc.  That is, instead of allocating the cipher,
+&gt; you'd allocate "cbc(cipher)" (as an ablkcipher) and use it to
+&gt; perform the actual encryption/decryption.
+
+I started looking at this today.
+
+I'm wondering if I'm heading in the right direction since
+this is stretching my understanding of the API:
+
+Would it look something like ccm, in that
+
+ alloc does
+  - crypto_grab_skcipher(spawn, "cbc(aes)"
+  - crypto_skcipher_spawn_alg()
+
+ then my alg.cra_init does
+  - crypto_spawn_skcipher ? 
+
+Any advice appreciated. In the meantime I'll read the code
+to get a better understanding of how this fits together.
+
+	Max
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20100201104452</emailId><senderName>Herbert Xu</senderName><senderEmail>herbert@gondor.apana.org.au</senderEmail><timestampReceived>2010-02-01 10:44:52-0400</timestampReceived><subject>Re: [PATCH 4/4] crypto: lmk2/lmk3 cipher block modes</subject><body>
+
+On Mon, Feb 01, 2010 at 11:32:27AM +0100, Max Vozeler wrote:
+&gt; 
+&gt; I'm wondering if I'm heading in the right direction since
+&gt; this is stretching my understanding of the API:
+&gt; 
+&gt; Would it look something like ccm, in that
+
+Not quite.
+
+&gt;  alloc does
+&gt;   - crypto_grab_skcipher(spawn, "cbc(aes)"
+&gt;   - crypto_skcipher_spawn_alg()
+&gt; 
+&gt;  then my alg.cra_init does
+&gt;   - crypto_spawn_skcipher ? 
+
+The skcipher interface is synchronous only.  It's OK for CCM and
+GCM as we don't currently have an async CTR implementation.
+
+For CBC however you really need the ablkcipher interface so that
+all hardware implementations are available, notably the Intel AES
+implementation is only available through the async interface.
+
+The authenc/chainiv/seqiv drivers should serve as an example as
+to how the ablkcipher interface can be used.
+
+The other place where it differs from ccm is that ccm is an
+AEAD algorithm, thus presenting itself through the crypto_aead
+interface.  You will on the other hand present an ablkcipher
+interface.
+
+Cheers,
+-- 
+Visit Openswan at http://www.openswan.org/
+Email: Herbert Xu ~{PmV&gt;HI~} &lt;herbert@gondor.apana.org.au&gt;
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20101006200643</emailId><senderName>markus reichelt</senderName><senderEmail>ml@mareichelt.com</senderEmail><timestampReceived>2010-10-06 20:06:43-0400</timestampReceived><subject>September 2010 Review</subject><body>
+
+Well, I'm going to give it some more months. Let's see where this
+goes. (Needless to say, feel free to chime in, anything linux crypto
+related is welcome. Just go for it.)
+
+ - loop-AES-v3.4b file/swap crypto package was released on 2010-09-23:
+   http://www.spinics.net/lists/crypto/msg04992.html
+
+   quoting its release log:
+    - Worked around block layer interface breakage on linux-2.6.36-rc
+      kernels.
+    - Added workaround for device open/close reference count race.
+      This race caused random loop-AES "make tests" failures with
+      "ioctl: LOOP_CLR_FD: Device or resource busy" error message.
+      The workaround is in util-linux patch (new mount/umount/losetup/
+      swapon binaries). Thanks to Julien Moutinho for reporting/testing
+      this problem. 
+
+ - Version 0.4.2 of loop-AES FAQ was released on 2010-10-06:
+   #43 added, #17 adapted, #33 adapted to loop-AES-v3.4b, new patches added
+   - FAQ 43: make tests fails: Device busy
+     - solution given via release of loop-AES-v3.4b
+   - FAQ 33: Why does loop-AES still ask for a password instead of a
+     passphrase?
+     - new patches for loop-AES-v3.4b
+   - FAQ 17: Which distros include loop-AES?
+     - Gentoo [version unclear - contributed info, thanks]
+
+
+Better late than never - Vidalia - August 2010 catch-up:
+
+ - Vidalia 0.2.10 released on Aug 26 2010
+   https://trac.vidalia-project.net/milestone/Vidalia%200.2.10
+   quoting its release log:
+
+   - Drop remote GeoIP lookups. Instead, the default behavior now is to
+     use the country-level GeoIP database that ships with Tor to map an
+     IP address to a country code, and then map the country code to latitude
+     and longitude with a separate database built into Vidalia. 
+   - Add a -DUSE_GEOIP build option to enable building with MaxMind's
+     GeoIP C library for using a local city-level or country-level
+     database instead of Tor's database.
+     See README.geoip for details on use. 
+   - Only update a stream's displayed target address in the network map if
+     no hostname was given in the stream's NEW status event. Fix suggested
+     by Robert Hogan. (Ticket #608) 
+   - Update the menubar icon at the same time as the dock icon on OS X.
+     Previously, we had a blank icon in the menubar. (Ticket #610) 
+   - Updated several translations.
+
+   prebuilt packages for Slackware 13.1 are available at
+   http://mareichelt.de/pub/mine/slackware/builds/vidalia/pkg/13.1/
+
+   Please note that the Slackware buildscript will make good use of
+   the newly introduced -DUSE_GEOIP option via the upcoming release.
+
+Aug 2010 Review @ http://www.spinics.net/lists/crypto/msg04989.html
+
+-- 
+left blank, right bald
+loop-AES FAQ: http://mareichelt.de/pub/texts.loop-aes.php#faq
+[Attachment #3 (application/pgp-signature)]
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20101007193407</emailId><senderName>netguru</senderName><senderEmail>netguru@home.nl</senderEmail><timestampReceived>2010-10-07 19:34:07-0400</timestampReceived><subject>SSE2 optimizations for Serpent in XTS mode.</subject><body>
+
+Hello everyone,
+
+Recently i was looking at libbotan's changelog, and i found that using
+SSE2 parallell processing for serpent was quite a speed improvement.
+
+Same  in  the neat little DiskCryptor program, wich uses the same kind
+of optimization for serpent in XTS mode.
+
+There  is  no  point in using SSE2 in CBC and other modes wich require
+sequential  processing, but in XTS's (and a few other modes) case this
+really makes a big difference.
+
+Is  there anyone capable and or willing to implement this in the linux
+kernel  ?  Maybe  in  the  form of a patch or a module ? Dont have the
+sources  from  the  diskcryptor implementation, but libbotan does sure
+have one as well.
+
+Regards...
+
+
+
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100904154845</emailId><senderName>markus reichelt</senderName><senderEmail>ml@mareichelt.com</senderEmail><timestampReceived>2010-09-04 15:48:45-0400</timestampReceived><subject>August 2010 Review</subject><body>
+
+Ok, to hopefully bring a bit of life to this list again, here's what
+happened in August 2010:
+
+ - Botan 1.8.10 (stable) was released on 2010-08-31:
+   http://botan.randombit.net/download.html
+
+   quoting its release log:
+   - Switch default PKCS #8 encryption algorithm from 3DES to AES-256
+   - Increase default hash iterations from 2048 to 10000 in PBES1 and
+     PBES2
+   - Use small tables in the first round of AES
+   - Add PBKDF typedef and get_pbkdf for better compatability with 1.9
+   - Add version of S2K::derive_key taking salt and iteration count
+   - Enable the /proc-walking entropy source on NetBSD
+   - Fix the doxygen makefile target
+
+   prebuilt packages for Slackware 13.1 are available at
+   http://mareichelt.de/pub/mine/slackware/builds/Botan/pkg/13.1/
+
+ - Version 0.4.1 of loop-AES FAQ was released on 2010-08-14:
+   (link in footer), #42 added:
+   Temporary system freezes while writing to crypto partitions. What about it?
+
+
+-- 
+left blank, right bald
+loop-AES FAQ: http://mareichelt.de/pub/texts.loop-aes.php#faq
+[Attachment #3 (application/pgp-signature)]
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20100923144343</emailId><senderName>Jari Ruusu</senderName><senderEmail>jariruusu@users.sourceforge.net</senderEmail><timestampReceived>2010-09-23 14:43:43-0400</timestampReceived><subject>Announce loop-AES-v3.4b file/swap crypto package</subject><body>
+
+loop-AES changes since previous release:
+- Worked around block layer interface breakage on linux-2.6.36-rc kernels.
+- Added workaround for device open/close reference count race. This race
+  caused random loop-AES "make tests" failures with "ioctl: LOOP_CLR_FD:
+  Device or resource busy" error message. The workaround is in util-linux
+  patch (new mount/umount/losetup/swapon binaries). Thanks to Julien
+  Moutinho for reporting/testing this problem.
+
+
+bzip2 compressed tarball is here:
+
+    http://loop-aes.sourceforge.net/loop-AES/loop-AES-v3.4b.tar.bz2
+    md5sum 5552e8a2572c5fa416a28493f9e0ec8f
+
+    http://loop-aes.sourceforge.net/loop-AES/loop-AES-v3.4b.tar.bz2.sign
+
+Workaround for device open/close reference count race, for older util-linux
+versions:
+
+    http://loop-aes.sourceforge.net/updates/util-linux-sync_fix-20100920.diff.bz2
+    http://loop-aes.sourceforge.net/updates/util-linux-sync_fix-20100920.diff.bz2.sign
+
+-- 
+Jari Ruusu  1024R/3A220F51 5B 4B F9 BB D3 3F 52 E9  DB 1D EB E3 24 0E A9 DD
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100923144553</emailId><senderName>Jari Ruusu</senderName><senderEmail>jariruusu@users.sourceforge.net</senderEmail><timestampReceived>2010-09-23 14:45:53-0400</timestampReceived><subject>Re: loop-aes doesn't compile with 2.6.36</subject><body>
+
+Felix Blanke wrote:
+&gt; loop-aes-3.4a doesn't compile with 2.6.36-r5 (didn't tried other 2.6.36 versions).
+
+I uploaded new loop-AES-v3.4b to sourceforge.
+
+-- 
+Jari Ruusu  1024R/3A220F51 5B 4B F9 BB D3 3F 52 E9  DB 1D EB E3 24 0E A9 DD
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100809192915</emailId><senderName></senderName><senderEmail>peter_22</senderEmail><timestampReceived>2010-08-09 19:29:15-0400</timestampReceived><subject>Re: Character support in initial ramdisk</subject><body>
+
+&gt; &gt; Is there someone who crossed the same issue and found a solution yet?
+&gt; 
+&gt; Well?
+
+Not well. As sometimes before only US keyboard layout is available at boot time. \
+There should be some script in the tools to build an initial ramdisk with same \
+national character support as on the running system. Kubuntu 9.x had exact keys at \
+boot time and in X. Such minor issues occur with every release. By now it seems to be \
+an option to simply choose one's map here: http://ascii-table.com/keyboards.php and \
+set up a passphrase compatible with US map. Users should consider this before \
+actually encryption their root partition.
+
+Kind regards,
+Peter
+-- 
+Neu: GMX De-Mail - Einfach wie E-Mail, sicher wie ein Brief!  
+Jetzt De-Mail-Adresse reservieren: http://portal.gmx.net/de/go/demail
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20100706114803</emailId><senderName>Jari Ruusu</senderName><senderEmail>jariruusu@users.sourceforge.net</senderEmail><timestampReceived>2010-07-06 11:48:03-0400</timestampReceived><subject>Re: Util-linux 2.18 loop-aes patch ?</subject><body>
+
+netguru wrote: 
+&gt; Any chance this one can be done ? 2.17.2 fails on 2.18...
+
+http://loop-aes.sourceforge.net/updates/util-linux-ng-2.18-20100706.diff.bz2
+http://loop-aes.sourceforge.net/updates/util-linux-ng-2.18-20100706.diff.bz2.sign
+
+-- 
+Jari Ruusu  1024R/3A220F51 5B 4B F9 BB D3 3F 52 E9  DB 1D EB E3 24 0E A9 DD
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100622121707</emailId><senderName>markus reichelt</senderName><senderEmail>ml@mareichelt.com</senderEmail><timestampReceived>2010-06-22 12:17:07-0400</timestampReceived><subject>Re: Announce loop-AES-v3.4a file/swap crypto package</subject><body>
+
+Hi,
+
+also, Jari released aespipe version 2.4b (I somehow didn't get an
+announce mail so I just quote from aespipe's official ChangeLog):
+
+aespipe-v2.4b     June 3 2010
+ - Added DESTDIR make variable for "make install DESTDIR=/tmp/root", and
+   support for separate build directory (mkdir xx; cd xx; ../configure).
+   Patch from Alon Bar-Lev.
+ - Added faster (single thread) parallelized version of MD5 for amd64.
+ - Added support for VIA padlock hardware AES.
+ - Added support for Intel hardware AES.
+ - Added x86/amd64/padlock/intelaes auto-detections to ./configure
+   script, and these options to override its guesses:
+ --disable-asm
+ --enable-asm=x86 --enable-asm=amd64 --enable-padlock
+ --disable-padlock
+ --enable-intelaes --disable-intelaes
+
+So far I only tested it on x86_64 and there's indeed both a
+speed-bump and less overall CPU load (CPU load spikes are a bit
+higher than with aespipe-v2.3e but I guess that's to be expected).
+
+Last but not least: This month it has been 3 years since the loop-AES
+FAQ collection went public. It has been updated to reflect the most
+recent loop-AES version, new patches have been added.
+
+I hope it's interesting for Slackware users to know that by now
+aespipe and dietlibc made it to slackbuilds.org. Pre-compiled and
+signed packages are available for Slackware 13.1 in my public
+Slackware builds repository.
+
+Enjoy.
+-- 
+left blank, right bald
+loop-AES FAQ: http://mareichelt.de/pub/texts.loop-aes.php#faq
+[Attachment #3 (application/pgp-signature)]
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20100629210715</emailId><senderName>markus reichelt</senderName><senderEmail>ml@mareichelt.com</senderEmail><timestampReceived>2010-06-29 21:07:15-0400</timestampReceived><subject>Botan (C++ crypto library)</subject><body>
+
+Hi,
+
+good news for Slackware users among us interested in Botan[1], there
+is now an approved BuildScript on slackbuilds.org:
+http://slackbuilds.org/result/?search=Botan
+
+I offer pre-compiled and signed[2] packages at my public SlackBuilds
+repository:
+http://mareichelt.de/pub/mine/slackware/builds/Botan/pkg/13.1/
+
+The reason I got to know about Botan was this message to the
+cryptography mailinglist I found while zapping thru that list:
+http://www.mail-archive.com/cryptography@metzdowd.com/msg10874.html
+The linked article of interest is:
+http://www.randombit.net/bitbashing/programming/serpent_in_simd.html
+
+Jari, maybe you find that article inspiring too :)
+
+
+[1] http://botan.randombit.net/
+[2] http://mareichelt.de/pub/mine/slackware/slackbuilds.asc
+
+-- 
+left blank, right bald
+loop-AES FAQ: http://mareichelt.de/pub/texts.loop-aes.php#faq
+[Attachment #3 (application/pgp-signature)]
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20100430185349</emailId><senderName>markus reichelt</senderName><senderEmail>ml@mareichelt.com</senderEmail><timestampReceived>2010-04-30 18:53:49-0400</timestampReceived><subject>Re: passware 9.x</subject><body>
+
+* Peter_22@gmx.de wrote:
+
+&gt; Retrieving clear text keys from memory dumps isn't new, so my
+&gt; interest is to know if a strategy is in place to make an end to
+&gt; this. How about a patch for GPG not to store its keys in RAM Chips
+&gt; any more?
+
+As far as I know this isn't even planned for the far future. It's an
+issue of system architecture. A hypervisor per app would solve the
+problem but the overhead would be insane.
+
+Btw, grml was released yesterday, loop-AES is back on board.
+
+--=20
+left blank, right bald
+loop-AES FAQ: http://mareichelt.de/pub/texts.loop-aes.php#faq
+[Attachment #3 (application/pgp-signature)]
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20100110125314</emailId><senderName>Jari Ruusu</senderName><senderEmail>jariruusu@users.sourceforge.net</senderEmail><timestampReceived>2010-01-10 12:53:14-0400</timestampReceived><subject>Re: need simple loop-aes advice</subject><body>
+
+Jules Bellster wrote:
+&gt; I simply installed the hard drive into the new machine and on my
+&gt; *unencrypted* system everything works.
+
+Does "everything works" mean "SanDisk Cruzer Micro USB-thing mounts and
+works normally on new computer"?
+
+Is this unencrypted system using same kernel + kernel config as the setup
+that fails?
+
+&gt; Delaying /dev/sda mount for 15 seconds...
+&gt; sci 0:0:0:0: Direct-Access SanDisk Cruzer Micro
+&gt; sd 0:0:0:0: [sda] 250879 512-byt hardware sectors (128MB)
+&gt; sd 0:0:0:0: [sda] Write Protect is off
+&gt; sd 0:0:0:0: [sda] Assuming drive cache: write through
+&gt; sd 0:0:0:0: [sda] 250879 512-byt hardware sectors (128MB)
+&gt; sd 0:0:0:0: [sda] Write Protect is off
+&gt; sd 0:0:0:0: [sda] Assuming drive cache: write through
+&gt; sda:...delay complete, continuing
+
+To me that looks like it is stuck detecting partition table, which isn't
+present because you are mounting partition-table-less /dev/sda device.
+
+&gt; &lt;6&gt;usb 1-4: reset high speed USB device using ehci_hcd and address 2
+&gt; usb 1-4: reset high speed USB device using ehci_hcd and address 2
+
+My guess here is that device didn't respond in time -&gt; timeout -&gt; reset.
+
+&gt; At this point, the passphrase prompt does not show up but if I type
+&gt; characters they are echoed on the screen. Pressing Ctr-Alt-Del reboots the
+&gt; system.
+
+My guess here is that code from initrd.gz is running mount() system call to
+mount a file system from your USB-thing. And that mount() system call is
+also stuck waiting for something, most likely in same place as the stuck
+partition table detect code.
+
+&gt; At first I thought I didn't have usb 2 support built into my kernel on the
+&gt; usb disk, but I was mistaken (I do).
+
+Does it work if you only include USB 2 driver in your kernel, with USB 1.1
+drivers removed?
+
+&gt; Any advice on how to fix this would be great.
+
+Are there any power-saving/sleep-mode settings in the BIOS of that new
+computer that power down devices at "wrong" time?
+
+Posting loop-AES version, build-initrd.sh config, kernel version,
+(compressed) kernel config, and bootloader config may help.
+ 
+-- 
+Jari Ruusu  1024R/3A220F51 5B 4B F9 BB D3 3F 52 E9  DB 1D EB E3 24 0E A9 DD
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100117105552</emailId><senderName>Herbert Xu</senderName><senderEmail>herbert@gondor.apana.org.au</senderEmail><timestampReceived>2010-01-17 10:55:52-0400</timestampReceived><subject>Re: [PATCH 3/4] crypto: md5 - Add export support</subject><body>
+
+On Wed, Jan 13, 2010 at 06:37:06PM +0100, Max Vozeler wrote:
+&gt;
+&gt; This patch adds export/import support to md5. The exported type is
+&gt; defined by struct md5_state.
+&gt; 
+&gt; This is modeled after the equivalent change to sha1_generic.
+
+Applied to cryptodev.
+-- 
+Visit Openswan at http://www.openswan.org/
+Email: Herbert Xu ~{PmV&gt;HI~} &lt;herbert@gondor.apana.org.au&gt;
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>201001171103250</emailId><senderName>Herbert Xu</senderName><senderEmail>herbert@gondor.apana.org.au</senderEmail><timestampReceived>2010-01-17 11:03:25-0400</timestampReceived><subject>Re: [PATCH 4/4] crypto: lmk2/lmk3 cipher block modes</subject><body>
+
+On Mon, Dec 28, 2009 at 06:59:15PM +0000, Max Vozeler wrote:
+&gt; This is a compatible implementation of the block chaining
+&gt; modes used by the Loop-AES block device encryption system
+&gt; (http://loop-aes.sf.net/).
+&gt; 
+&gt; It implements two modes: lmk2 and lmk3. They correspond to
+&gt; the modes used in Loop-AES v2.x and Loop-AES v3.x and are
+&gt; intended to be full compatible.
+&gt; 
+&gt; Both modes operate on full 512 byte sectors. They use CBC
+&gt; with an IV derived from the sector number, the data and (for
+&gt; lmk3 only) an extra 128-bit IV seed.
+&gt; 
+&gt; Signed-off-by: Max Vozeler &lt;max@hinterhof.net&gt;
+&gt; Cc: Jari Ruusu &lt;jariruusu@users.sourceforge.net&gt;
+
+So this is just CBC with a modified IV? If so it should not be
+implemented as another mode.  Doing it as a mode means that you
+will not benefit from any hardware implementations of CBC.
+
+You should instead implement it as an IV generator.  Currently
+they're done in dm-crypt.  But we could move them into crypto
+at some point if there are multiple users in the kernel.
+
+Cheers,
+-- 
+Visit Openswan at http://www.openswan.org/
+Email: Herbert Xu ~{PmV&gt;HI~} &lt;herbert@gondor.apana.org.au&gt;
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100118195122</emailId><senderName>Richard Zidlicky</senderName><senderEmail>rz@linux-m68k.org</senderEmail><timestampReceived>2010-01-18 19:51:22-0400</timestampReceived><subject>Re: [PATCH 1/4] dm-crypt: clarify cipher vs. cipher mode</subject><body>
+
+Hi,
+
+&gt; &gt; ivseed = key_table[64] is nowhere declared. 
+&gt; 
+&gt; This is an implementation detail of Loop-AES, so I don't consider it 
+&gt; belonging to the description of the modes here. 
+
+difficult to draw the line, but as it is something supplied as "external 
+parameter" to the dm-crypt layer I think it is certainly worth mentioning 
+where it comes from.
+
+&gt; &gt; &gt; +  The input IV supplied to lmk2 or lmk3 is expected to be the
+&gt; &gt; &gt; +  sector number in 64-bit little endian as supplied by the
+&gt; &gt; &gt; +  plain64 dm-crypt IV generator. It gets truncated to 56 bits
+&gt; &gt; &gt; +  with the most significant byte set to 0x80:
+&gt; &gt; 
+&gt; &gt; I believe preceding paragraoh can be completely omitted, is not easier to 
+&gt; &gt; understand than the pseudocode.
+&gt; 
+&gt; OK. I'll drop the last sentence, the first one describing where the
+&gt; IV is expected to come from seems relevant.
+
+actually the first sentence does not make any sense to me as it is now.
+ 
+&gt; &gt; &gt; +Mode multi-key-v2 (lmk2-plain64-multi:64):
+&gt; &gt; &gt; +
+&gt; &gt; &gt; +  key = keys[sectornum % 64]
+&gt; &gt; &gt; +
+&gt; &gt; &gt; +  encrypt:
+&gt; &gt; &gt; +    IV = MD5(plaintext[16..511] ||
+&gt; &gt; &gt; +             le64(truncated-sector-number) ||
+&gt; &gt; &gt; +             le32(format-magic))
+&gt; &gt; 
+&gt; &gt; no need to repeat the IV description here, could use the v2/v3IV in the pseudocode
+&gt; &gt; bellow. 
+&gt; 
+&gt; I think repeating it makes it clearer which parts happen at 
+&gt; which time, so I'd leave this as is.
+
+at the very least I would use v2IV etc like in the earlier description. But I think
+the duplication can be avoided.
+
+Richard
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>201001190800380</emailId><senderName>Herbert Xu</senderName><senderEmail>herbert@gondor.apana.org.au</senderEmail><timestampReceived>2010-01-19 08:00:38-0400</timestampReceived><subject>Re: [PATCH 4/4] crypto: lmk2/lmk3 cipher block modes</subject><body>
+
+On Mon, Jan 18, 2010 at 05:52:34PM +0100, Max Vozeler wrote:
+&gt;
+&gt; The difference is that the IV is derived from the cleartext and
+&gt; so is not known before decrypt.
+&gt; 
+&gt; So decrypt could be described using CBC as, I think:
+&gt; 
+&gt;  1) CBC decrypt with null IV
+&gt;  2) Derive IV based on cleartext of blocks 1..31
+&gt;  3) XOR block 0 with IV
+
+Yep, this sounds like the way it should be implemented.
+ 
+&gt; But I'm not sure how to implement it given the difference
+&gt; described above. It might look something like this:
+&gt; 
+&gt;  - Add IV generators "lmk2", "lmk3"
+&gt; 
+&gt;  - Treat them as "cbc" with null IV internally, then after 
+&gt;    decrypt derive IV and xor block 0 with it.
+&gt; 
+&gt; The second part is why I built this as a mode originally. It
+&gt; seemed like it was not belonging in dm-crypt.
+
+OK, I see what you mean.
+
+Let's keep lmk2/lmk3 as separate modes, but implement it as a
+wrapper around cbc.  That is, instead of allocating the cipher,
+you'd allocate "cbc(cipher)" (as an ablkcipher) and use it to
+perform the actual encryption/decryption.
+
+Cheers,
+-- 
+Visit Openswan at http://www.openswan.org/
+Email: Herbert Xu ~{PmV&gt;HI~} &lt;herbert@gondor.apana.org.au&gt;
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100120145950</emailId><senderName>Jari Ruusu</senderName><senderEmail>jariruusu@users.sourceforge.net</senderEmail><timestampReceived>2010-01-20 14:59:50-0400</timestampReceived><subject>Re: Util linux 2.17, loop-aes patch</subject><body>
+
+netguru wrote:
+&gt; i   was   wondering   wether   there  will  be  a  working  patch  for
+&gt; util-linux-2.17  anytime soon. I have ported it over to 2.17, and will
+&gt; happily  supply the patch for those interested. I cannot guarantee its
+&gt; a  100  % Ok though. I feel more comfortable with the official patches
+&gt; from maintainers :-)
+
+http://loop-aes.sourceforge.net/updates/util-linux-ng-2.17-20100120.diff.bz2
+http://loop-aes.sourceforge.net/updates/util-linux-ng-2.17-20100120.diff.bz2.sign
+
+-- 
+Jari Ruusu  1024R/3A220F51 5B 4B F9 BB D3 3F 52 E9  DB 1D EB E3 24 0E A9 DD
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100113095239</emailId><senderName>Herbert Xu</senderName><senderEmail>herbert@gondor.apana.org.au</senderEmail><timestampReceived>2010-01-13 09:52:39-0400</timestampReceived><subject>Re: [PATCH 3/4] crypto: md5 - Add export support</subject><body>
+
+On Mon, Dec 28, 2009 at 06:59:14PM +0000, Max Vozeler wrote:
+&gt; This patch adds export support to md5.  The exported type is
+&gt; defined by struct md5_state.
+&gt; 
+&gt; This is modeled after the equivalent change to sha1_generic,
+&gt; except only export is added for now.
+&gt; 
+&gt; Signed-off-by: Max Vozeler &lt;max@hinterhof.net&gt;
+&gt; Cc: Jari Ruusu &lt;jariruusu@users.sourceforge.net&gt;
+
+Please add an import function as the shash API requires import
+to be present if export is present.
+
+Thanks,
+-- 
+Visit Openswan at http://www.openswan.org/
+Email: Herbert Xu ~{PmV&gt;HI~} &lt;herbert@gondor.apana.org.au&gt;
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>201001130952390</emailId><senderName>Herbert Xu</senderName><senderEmail>herbert@gondor.apana.org.au</senderEmail><timestampReceived>2010-01-13 09:52:39-0400</timestampReceived><subject>Re: [PATCH 3/4] crypto: md5 - Add export support</subject><body>
+
+On Mon, Dec 28, 2009 at 06:59:14PM +0000, Max Vozeler wrote:
+&gt; This patch adds export support to md5.  The exported type is
+&gt; defined by struct md5_state.
+&gt; 
+&gt; This is modeled after the equivalent change to sha1_generic,
+&gt; except only export is added for now.
+&gt; 
+&gt; Signed-off-by: Max Vozeler &lt;max@hinterhof.net&gt;
+&gt; Cc: Jari Ruusu &lt;jariruusu@users.sourceforge.net&gt;
+
+Please add an import function as the shash API requires import
+to be present if export is present.
+
+Thanks,
+-- 
+Visit Openswan at http://www.openswan.org/
+Email: Herbert Xu ~{PmV&gt;HI~} &lt;herbert@gondor.apana.org.au&gt;
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100119191108</emailId><senderName>netguru</senderName><senderEmail>netguru@home.nl</senderEmail><timestampReceived>2010-01-19 19:11:08-0400</timestampReceived><subject>Util linux 2.17, loop-aes patch</subject><body>
+
+Hello people,
+
+i   was   wondering   wether   there  will  be  a  working  patch  for
+util-linux-2.17  anytime soon. I have ported it over to 2.17, and will
+happily  supply the patch for those interested. I cannot guarantee its
+a  100  % Ok though. I feel more comfortable with the official patches
+from maintainers :-)
+
+Regards...
+
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>201001191911080</emailId><senderName>netguru</senderName><senderEmail>netguru@home.nl</senderEmail><timestampReceived>2010-01-19 19:11:08-0400</timestampReceived><subject>Util linux 2.17, loop-aes patch</subject><body>
+
+Hello people,
+
+i   was   wondering   wether   there  will  be  a  working  patch  for
+util-linux-2.17  anytime soon. I have ported it over to 2.17, and will
+happily  supply the patch for those interested. I cannot guarantee its
+a  100  % Ok though. I feel more comfortable with the official patches
+from maintainers :-)
+
+Regards...
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>201001201459500</emailId><senderName>Jari Ruusu</senderName><senderEmail>jariruusu@users.sourceforge.net</senderEmail><timestampReceived>2010-01-20 14:59:50-0400</timestampReceived><subject>Re: Util linux 2.17, loop-aes patch</subject><body>
+
+netguru wrote:
+&gt; i   was   wondering   wether   there  will  be  a  working  patch  for
+&gt; util-linux-2.17  anytime soon. I have ported it over to 2.17, and will
+&gt; happily  supply the patch for those interested. I cannot guarantee its
+&gt; a  100  % Ok though. I feel more comfortable with the official patches
+&gt; from maintainers :-)
+
+http://loop-aes.sourceforge.net/updates/util-linux-ng-2.17-20100120.diff.bz2
+http://loop-aes.sourceforge.net/updates/util-linux-ng-2.17-20100120.diff.bz2.sign
+
+-- 
+Jari Ruusu  1024R/3A220F51 5B 4B F9 BB D3 3F 52 E9  DB 1D EB E3 24 0E A9 DD
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20100104152542</emailId><senderName>Max Vozeler</senderName><senderEmail>max@hinterhof.net</senderEmail><timestampReceived>2010-01-04 15:25:42-0400</timestampReceived><subject>Re: [PATCH 1/4] dm-crypt: clarify cipher vs. cipher mode</subject><body>
+
+On Tue, Dec 29, 2009 at 02:46:39AM +0100, Max Vozeler wrote:
+&gt; On Mon, Dec 28, 2009 at 08:37:43PM +0100, Milan Broz wrote:
+&gt; &gt; But anyway, I see that the reason for this is to introduce multikey feature
+&gt; &gt; (compatible with loop-AES mode). That's interesting idea.
+&gt; &gt; 
+&gt; &gt; But please can you add more explanation into documentation about this mode?
+&gt; 
+&gt; Sure, let me see what I can do.
+&gt; 
+&gt; The most detailed description I know of is [1]. Besides the
+&gt; description in the Loop-AES documentation there are also some 
+&gt; notes I took while doing the reimplementation.
+&gt; 
+&gt; I'll see if I can put all these bits together into a document
+&gt; to have one mode and format specification.
+
+This adds a short document detailing the two multi-key modes. I 
+think it covers all important points.
+
+Review much appreciated. Thanks,
+
+	Max
+
+-- 
+diff --git a/Documentation/crypto/lmk.txt b/Documentation/crypto/lmk.txt
+new file mode 100644
+index 0000000..cb7d9da
+--- /dev/null
++++ b/Documentation/crypto/lmk.txt
+@@ -0,0 +1,72 @@
++Loop-AES compatible cipher block chaining modes
++-----------------------------------------------
++
++There are three modes supported by loop-AES at the time of this
++writing:
++
++  Loop-AES v1.x    single-key      cbc-plain
++  Loop-AES v2.x    multi-key-v2    lmk2-plain64-multi:64
++  Loop-AES v3.x    multi-key-v3    lmk3-plain64-multi:64
++
++This text describes the multi-key-v2 and multi-key-v3 modes and
++their implementation in the Linux kernel.
++
++These modes have two main characteristics compared to regular CBC
++with sector IV. The first is implemented in dm-crypt, the second
++is implemented in the lmk2 and lmk3 blkciphers.
++
++1) Use of 64 independent keys which are alternatingly applied to
++different sectors.
++
++  key = keys[sectornum % 64]
++
++2) IV derivation from an MD5 digest of the sector number, parts
++of the plaintext data and a mode specific format constant. The
++multi-key-v3 mode additionally uses a 128-bit IV seed.
++
++  v2IV = MD5(plaintext[16..511] ||
++  	     truncated-sector-number ||
++	     format-magic)
++
++  v3IV = MD5(ivseed ||
++	     plaintext[16..511] ||
++  	     truncated-sector-number ||
++	     format-magic)
++
++The sector number is obtained from the plain64 dm-crypt IV
++generator. It is converted to 64-bit little endian and then
++truncated to 56 bits:
++
++  truncated-sector-number =
++     (sectornum &amp; 0x00ffffffffffffff) | 0x8000000000000000
++
++The format-magic for both modes is fixed at the value 4024
++encoded as 32-bit little endian.
++
++Encryption:
++
++  IV = IVFUNC(optional-ivseed,
++  	   plaintext[16..511],
++  	   truncated-sector-number,
++	   format-magic)
++
++  ciphertext[0..511] = CBC-ENCRYPT(key, IV, plaintext[0..511])
++
++Decryption:
++
++  IV1 = ciphertext[0..15]
++
++  plaintext[16..511] = CBC-DECRYPT(key, IV1, ciphertext[16..511])
++
++  IV2 = IVFUNC(optional-ivseed,
++  	   plaintext[16..511],
++  	   truncated-sector-number,
++	   format-magic)
++
++  plaintext[0..15] = DECRYPT(key, IV2, ciphertext[0..15])
++
++References:
++
++  Mode description by the author of Loop-AES, Jari Ruusu:
++  http://mail.nl.linux.org/linux-crypto/2006-01/msg00006.html
++
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>201001041525420</emailId><senderName>Max Vozeler</senderName><senderEmail>max@hinterhof.net</senderEmail><timestampReceived>2010-01-04 15:25:42-0400</timestampReceived><subject>Re: [PATCH 1/4] dm-crypt: clarify cipher vs. cipher mode</subject><body>
+
+On Tue, Dec 29, 2009 at 02:46:39AM +0100, Max Vozeler wrote:
+&gt; On Mon, Dec 28, 2009 at 08:37:43PM +0100, Milan Broz wrote:
+&gt; &gt; But anyway, I see that the reason for this is to introduce multikey feature
+&gt; &gt; (compatible with loop-AES mode). That's interesting idea.
+&gt; &gt; 
+&gt; &gt; But please can you add more explanation into documentation about this mode?
+&gt; 
+&gt; Sure, let me see what I can do.
+&gt; 
+&gt; The most detailed description I know of is [1]. Besides the
+&gt; description in the Loop-AES documentation there are also some 
+&gt; notes I took while doing the reimplementation.
+&gt; 
+&gt; I'll see if I can put all these bits together into a document
+&gt; to have one mode and format specification.
+
+This adds a short document detailing the two multi-key modes. I 
+think it covers all important points.
+
+Review much appreciated. Thanks,
+
+	Max
+
+-- 
+diff --git a/Documentation/crypto/lmk.txt b/Documentation/crypto/lmk.txt
+new file mode 100644
+index 0000000..cb7d9da
+--- /dev/null
++++ b/Documentation/crypto/lmk.txt
+@@ -0,0 +1,72 @@
++Loop-AES compatible cipher block chaining modes
++-----------------------------------------------
++
++There are three modes supported by loop-AES at the time of this
++writing:
++
++  Loop-AES v1.x    single-key      cbc-plain
++  Loop-AES v2.x    multi-key-v2    lmk2-plain64-multi:64
++  Loop-AES v3.x    multi-key-v3    lmk3-plain64-multi:64
++
++This text describes the multi-key-v2 and multi-key-v3 modes and
++their implementation in the Linux kernel.
++
++These modes have two main characteristics compared to regular CBC
++with sector IV. The first is implemented in dm-crypt, the second
++is implemented in the lmk2 and lmk3 blkciphers.
++
++1) Use of 64 independent keys which are alternatingly applied to
++different sectors.
++
++  key = keys[sectornum % 64]
++
++2) IV derivation from an MD5 digest of the sector number, parts
++of the plaintext data and a mode specific format constant. The
++multi-key-v3 mode additionally uses a 128-bit IV seed.
++
++  v2IV = MD5(plaintext[16..511] ||
++  	     truncated-sector-number ||
++	     format-magic)
++
++  v3IV = MD5(ivseed ||
++	     plaintext[16..511] ||
++  	     truncated-sector-number ||
++	     format-magic)
++
++The sector number is obtained from the plain64 dm-crypt IV
++generator. It is converted to 64-bit little endian and then
++truncated to 56 bits:
++
++  truncated-sector-number =
++     (sectornum &amp; 0x00ffffffffffffff) | 0x8000000000000000
++
++The format-magic for both modes is fixed at the value 4024
++encoded as 32-bit little endian.
++
++Encryption:
++
++  IV = IVFUNC(optional-ivseed,
++  	   plaintext[16..511],
++  	   truncated-sector-number,
++	   format-magic)
++
++  ciphertext[0..511] = CBC-ENCRYPT(key, IV, plaintext[0..511])
++
++Decryption:
++
++  IV1 = ciphertext[0..15]
++
++  plaintext[16..511] = CBC-DECRYPT(key, IV1, ciphertext[16..511])
++
++  IV2 = IVFUNC(optional-ivseed,
++  	   plaintext[16..511],
++  	   truncated-sector-number,
++	   format-magic)
++
++  plaintext[0..15] = DECRYPT(key, IV2, ciphertext[0..15])
++
++References:
++
++  Mode description by the author of Loop-AES, Jari Ruusu:
++  http://mail.nl.linux.org/linux-crypto/2006-01/msg00006.html
++
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100111212839</emailId><senderName>Richard Zidlicky</senderName><senderEmail>rz@linux-m68k.org</senderEmail><timestampReceived>2010-01-11 21:28:39-0400</timestampReceived><subject>Re: [PATCH 1/4] dm-crypt: clarify cipher vs. cipher mode</subject><body>
+
+On Mon, Jan 04, 2010 at 04:25:42PM +0100, Max Vozeler wrote:
+
+
+&gt; +
+&gt; +These modes have two main characteristics compared to regular CBC
+&gt; +with sector IV. The first is implemented in dm-crypt, the second
+&gt; +is implemented in the lmk2 and lmk3 blkciphers.
+
+the formulation is not very clear. Possibly better wording -
+
++ There are two main differences distinguishing the lmk2 and lmk3 modes 
++ from the blok cipher implemented in dm-crypt:
+
+
+&gt; +1) Use of 64 independent keys which are alternatingly applied to
+&gt; +different sectors.
+&gt; +
+&gt; +  key = keys[sectornum % 64]
+
+not really "alternating" when there is more than 2, my try
+"different sectors are encrypted with 64 independent keys selected by the
+following rule"
++  key = keys[sectornum % 64]
+
+&gt; +2) IV derivation from an MD5 digest of the sector number, parts
+&gt; +of the plaintext data and a mode specific format constant. The
+&gt; +multi-key-v3 mode additionally uses a 128-bit IV seed.
+
+slightly rephrased:
+
++2) IVs are derived from an MD5 digest of the sector number, parts
++of the plaintext data and a mode specific format constant. The
++multi-key-v3 mode additionally uses a 128-bit IV seed.
+
+&gt; +  v2IV = MD5(plaintext[16..511] ||
+&gt; +  	     truncated-sector-number ||
+&gt; +	     format-magic)
+&gt; +
+&gt; +  v3IV = MD5(ivseed ||
+&gt; +	     plaintext[16..511] ||
+&gt; +  	     truncated-sector-number ||
+&gt; +	     format-magic)
+
+that seems different than what is described here -
+ http://mail.nl.linux.org/linux-crypto/2006-01/msg00006.html
+
+so is it compatible after all? Or where is format-magic' equivalent
+hidden in Jari's description?
+
+&gt; +The format-magic for both modes is fixed at the value 4024
+&gt; +encoded as 32-bit little endian.
+
+I am not familiar with this detail and the description does not make it
+completely clear, it appears to refer to some magic value of the on disk 
+representation?
+
+&gt; +Encryption:
+&gt; +
+&gt; +  IV = IVFUNC(optional-ivseed,
+&gt; +  	   plaintext[16..511],
+&gt; +  	   truncated-sector-number,
+&gt; +	   format-magic)
+
+optional first argument in formalism makes it hard to relate to above decriptions.
+So maybe introduce IVFUNC where you describe them above, including ivseed which is
+simply unused in one variant.
+
+&gt; +  ciphertext[0..511] = CBC-ENCRYPT(key, IV, plaintext[0..511])
+
+I know that key=key_table[sector_number &amp; 63] is mentioned further above but
+might be "too far back" for many readers as it is one of the things that are 
+special about this encryption modes.
+
+Richard
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>201001112128390</emailId><senderName>Richard Zidlicky</senderName><senderEmail>rz@linux-m68k.org</senderEmail><timestampReceived>2010-01-11 21:28:39-0400</timestampReceived><subject>Re: [PATCH 1/4] dm-crypt: clarify cipher vs. cipher mode</subject><body>
+
+On Mon, Jan 04, 2010 at 04:25:42PM +0100, Max Vozeler wrote:
+
+
+&gt; +
+&gt; +These modes have two main characteristics compared to regular CBC
+&gt; +with sector IV. The first is implemented in dm-crypt, the second
+&gt; +is implemented in the lmk2 and lmk3 blkciphers.
+
+the formulation is not very clear. Possibly better wording -
+
++ There are two main differences distinguishing the lmk2 and lmk3 modes 
++ from the blok cipher implemented in dm-crypt:
+
+
+&gt; +1) Use of 64 independent keys which are alternatingly applied to
+&gt; +different sectors.
+&gt; +
+&gt; +  key = keys[sectornum % 64]
+
+not really "alternating" when there is more than 2, my try
+"different sectors are encrypted with 64 independent keys selected by the
+following rule"
++  key = keys[sectornum % 64]
+
+&gt; +2) IV derivation from an MD5 digest of the sector number, parts
+&gt; +of the plaintext data and a mode specific format constant. The
+&gt; +multi-key-v3 mode additionally uses a 128-bit IV seed.
+
+slightly rephrased:
+
++2) IVs are derived from an MD5 digest of the sector number, parts
++of the plaintext data and a mode specific format constant. The
++multi-key-v3 mode additionally uses a 128-bit IV seed.
+
+&gt; +  v2IV = MD5(plaintext[16..511] ||
+&gt; +  	     truncated-sector-number ||
+&gt; +	     format-magic)
+&gt; +
+&gt; +  v3IV = MD5(ivseed ||
+&gt; +	     plaintext[16..511] ||
+&gt; +  	     truncated-sector-number ||
+&gt; +	     format-magic)
+
+that seems different than what is described here -
+ http://mail.nl.linux.org/linux-crypto/2006-01/msg00006.html
+
+so is it compatible after all? Or where is format-magic' equivalent
+hidden in Jari's description?
+
+&gt; +The format-magic for both modes is fixed at the value 4024
+&gt; +encoded as 32-bit little endian.
+
+I am not familiar with this detail and the description does not make it
+completely clear, it appears to refer to some magic value of the on disk 
+representation?
+
+&gt; +Encryption:
+&gt; +
+&gt; +  IV = IVFUNC(optional-ivseed,
+&gt; +  	   plaintext[16..511],
+&gt; +  	   truncated-sector-number,
+&gt; +	   format-magic)
+
+optional first argument in formalism makes it hard to relate to above decriptions.
+So maybe introduce IVFUNC where you describe them above, including ivseed which is
+simply unused in one variant.
+
+&gt; +  ciphertext[0..511] = CBC-ENCRYPT(key, IV, plaintext[0..511])
+
+I know that key=key_table[sector_number &amp; 63] is mentioned further above but
+might be "too far back" for many readers as it is one of the things that are 
+special about this encryption modes.
+
+Richard
+
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100113172715</emailId><senderName>Max Vozeler</senderName><senderEmail>max@hinterhof.net</senderEmail><timestampReceived>2010-01-13 17:27:15-0400</timestampReceived><subject>Re: [PATCH 1/4] dm-crypt: clarify cipher vs. cipher mode</subject><body>
+
+Hi Richard,
+
+On Mon, Jan 11, 2010 at 10:28:39PM +0100, Richard Zidlicky wrote:
+&gt; On Mon, Jan 04, 2010 at 04:25:42PM +0100, Max Vozeler wrote:
+&gt; &gt; +
+&gt; &gt; +These modes have two main characteristics compared to regular CBC
+&gt; &gt; +with sector IV. The first is implemented in dm-crypt, the second
+&gt; &gt; +is implemented in the lmk2 and lmk3 blkciphers.
+&gt; 
+&gt; the formulation is not very clear. Possibly better wording -
+&gt; 
+&gt; + There are two main differences distinguishing the lmk2 and lmk3 modes 
+&gt; + from the blok cipher implemented in dm-crypt:
+
+I reworked this part in the new version below.
+
+&gt; &gt; +1) Use of 64 independent keys which are alternatingly applied to
+&gt; &gt; +different sectors.
+&gt; &gt; +
+&gt; &gt; +  key = keys[sectornum % 64]
+&gt; 
+&gt; not really "alternating" when there is more than 2, my try
+&gt; "different sectors are encrypted with 64 independent keys selected by the
+&gt; following rule"
+&gt; +  key = keys[sectornum % 64]
+
+Good point, thanks.
+
+&gt; &gt; +2) IV derivation from an MD5 digest of the sector number, parts
+&gt; &gt; +of the plaintext data and a mode specific format constant. The
+&gt; &gt; +multi-key-v3 mode additionally uses a 128-bit IV seed.
+&gt; 
+&gt; slightly rephrased:
+&gt; 
+&gt; +2) IVs are derived from an MD5 digest of the sector number, parts
+&gt; +of the plaintext data and a mode specific format constant. The
+&gt; +multi-key-v3 mode additionally uses a 128-bit IV seed.
+
+Agreed. I included your rephrasing.
+
+&gt; &gt; +  v2IV = MD5(plaintext[16..511] ||
+&gt; &gt; +  	     truncated-sector-number ||
+&gt; &gt; +	     format-magic)
+&gt; &gt; +
+&gt; &gt; +  v3IV = MD5(ivseed ||
+&gt; &gt; +	     plaintext[16..511] ||
+&gt; &gt; +  	     truncated-sector-number ||
+&gt; &gt; +	     format-magic)
+&gt; 
+&gt; that seems different than what is described here -
+&gt;  http://mail.nl.linux.org/linux-crypto/2006-01/msg00006.html
+&gt; 
+&gt; so is it compatible after all? Or where is format-magic' equivalent
+&gt; hidden in Jari's description?
+
+The format-magic is not mentioned in Jari's description, but
+is indeed used by Loop-AES.
+
+Compare loop-AES-v3.2h/glue.c:402:
+
+  /* 4024 bits == 31 * 128 bit plaintext blocks + 56 bits of sector number */
+  /* For version 3 on-disk format this really should be 4536 bits, but can't be */
+  /* changed without breaking compatibility. V3 uses MD5-with-wrong-length IV */
+  buf[14] = 4024;
+  buf[15] = 0;
+
+&gt; &gt; +The format-magic for both modes is fixed at the value 4024
+&gt; &gt; +encoded as 32-bit little endian.
+&gt; 
+&gt; I am not familiar with this detail and the description does not make it
+&gt; completely clear, it appears to refer to some magic value of the on disk 
+&gt; representation?
+
+The magic is only used as an additional input to the MD5 digest 
+as part of the IV derivation.
+
+Changed the description to hopefully clarify this.
+
+&gt; &gt; +Encryption:
+&gt; &gt; +
+&gt; &gt; +  IV = IVFUNC(optional-ivseed,
+&gt; &gt; +  	   plaintext[16..511],
+&gt; &gt; +  	   truncated-sector-number,
+&gt; &gt; +	   format-magic)
+&gt; 
+&gt; optional first argument in formalism makes it hard to relate to above decriptions.
+&gt; So maybe introduce IVFUNC where you describe them above, including ivseed which is
+&gt; simply unused in one variant.
+&gt;
+&gt; &gt; +  ciphertext[0..511] = CBC-ENCRYPT(key, IV, plaintext[0..511])
+&gt; 
+&gt; I know that key=key_table[sector_number &amp; 63] is mentioned further above but
+&gt; might be "too far back" for many readers as it is one of the things that are 
+&gt; special about this encryption modes.
+
+Agreed on both points. Could you have a look and see if you
+find it clearer now in the new version?
+
+Thanks a lot for your comments,
+
+	Max
+
+["lmk_doc_v2.patch" (text/x-diff)]
+
+diff --git a/Documentation/crypto/lmk.txt b/Documentation/crypto/lmk.txt
+new file mode 100644
+index 0000000..91ca7f7
+--- /dev/null
++++ b/Documentation/crypto/lmk.txt
+@@ -0,0 +1,102 @@
++Loop-AES compatible cipher block chaining modes
++-----------------------------------------------
++
++The following table shows the Loop-AES name of the mode, the
++Loop-AES version first supporting it, and the equivalent cipher
++specification string for dm-crypt:
++
++  single-key     Loop-AES v1.x   cbc-plain
++  multi-key-v2   Loop-AES v2.x   lmk2-plain64-multi:64
++  multi-key-v3   Loop-AES v3.x   lmk3-plain64-multi:64
++
++This text describes the multi-key-v2 and multi-key-v3 modes and
++their implementation in the Linux kernel.
++
++The multi-key modes describe a combination of CBC using a 
++specific IV derivation function with the use of multiple
++independent encryption keys.
++
++The IV derivation and block chaining are implemented as
++blkciphers named "lmk2" and "lmk3". The support for multiple
++encryption keys is implemented in dm-crypt.
++
++Multiple keys:
++
++  Each sector is encrypted/decrypted with one of 64 independent
++  keys selected by the following rule:
++
++  key = keys[sectornum % 64]
++
++IV derivation:
++
++  IVs are derived from an MD5 digest of the sector number, parts
++  of the plaintext data and a mode specific format constant. The
++  multi-key-v3 mode additionally uses a 128-bit IV seed.
++
++  v2IV = MD5(plaintext[16..511] ||
++             le64(truncated-sector-number) ||
++             le32(format-magic))
++
++  v3IV = MD5(ivseed ||
++             plaintext[16..511] ||
++             le64(truncated-sector-number) ||
++             le32(format-magic))
++
++  The format-magic is a constant value (4024).
++
++  The input IV supplied to lmk2 or lmk3 is expected to be the
++  sector number in 64-bit little endian as supplied by the
++  plain64 dm-crypt IV generator. It gets truncated to 56 bits
++  with the most significant byte set to 0x80:
++
++  truncated-sector-number =
++    (sectornum &amp; 0x00ffffffffffffff) | 0x8000000000000000
++
++Mode multi-key-v2 (lmk2-plain64-multi:64):
++
++  key = keys[sectornum % 64]
++
++  encrypt:
++    IV = MD5(plaintext[16..511] ||
++             le64(truncated-sector-number) ||
++             le32(format-magic))
++
++    ciphertext[0..511] = CBC-ENCRYPT(key, IV, plaintext[0..511])
++
++  decrypt:
++    IV1 = ciphertext[0..15]
++    plaintext[16..511] = CBC-DECRYPT(key, IV1, ciphertext[16..511])
++
++    IV2 = MD5(plaintext[16..511] ||
++              le64(truncated-sector-number) ||
++              le32(format-magic))
++
++    plaintext[0..15] = DECRYPT(key, IV2, ciphertext[0..15])
++
++Mode multi-key-v3 (lmk3-plain64-multi:64):
++
++  key = keys[sectornum % 64]
++
++  encrypt:
++    IV = MD5(ivseed,
++             plaintext[16..511],
++             le64(truncated-sector-number),
++             le32(format-magic))
++
++    ciphertext[0..511] = CBC-ENCRYPT(key, IV, plaintext[0..511])
++
++  decrypt:
++    IV1 = ciphertext[0..15]
++    plaintext[16..511] = CBC-DECRYPT(key, IV1, ciphertext[16..511])
++
++    IV2 = MD5(ivseed,
++              plaintext[16..511],
++              le64(truncated-sector-number),
++              le32(format-magic))
++
++    plaintext[0..15] = DECRYPT(key, IV2, ciphertext[0..15])
++
++References:
++
++Mode description by the author of Loop-AES, Jari Ruusu:
++http://mail.nl.linux.org/linux-crypto/2006-01/msg00006.html
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+</body></email><email><emailId>201001131727150</emailId><senderName>Max Vozeler</senderName><senderEmail>max@hinterhof.net</senderEmail><timestampReceived>2010-01-13 17:27:15-0400</timestampReceived><subject>Re: [PATCH 1/4] dm-crypt: clarify cipher vs. cipher mode</subject><body>
+
+Hi Richard,
+
+On Mon, Jan 11, 2010 at 10:28:39PM +0100, Richard Zidlicky wrote:
+&gt; On Mon, Jan 04, 2010 at 04:25:42PM +0100, Max Vozeler wrote:
+&gt; &gt; +
+&gt; &gt; +These modes have two main characteristics compared to regular CBC
+&gt; &gt; +with sector IV. The first is implemented in dm-crypt, the second
+&gt; &gt; +is implemented in the lmk2 and lmk3 blkciphers.
+&gt; 
+&gt; the formulation is not very clear. Possibly better wording -
+&gt; 
+&gt; + There are two main differences distinguishing the lmk2 and lmk3 modes 
+&gt; + from the blok cipher implemented in dm-crypt:
+
+I reworked this part in the new version below.
+
+&gt; &gt; +1) Use of 64 independent keys which are alternatingly applied to
+&gt; &gt; +different sectors.
+&gt; &gt; +
+&gt; &gt; +  key = keys[sectornum % 64]
+&gt; 
+&gt; not really "alternating" when there is more than 2, my try
+&gt; "different sectors are encrypted with 64 independent keys selected by the
+&gt; following rule"
+&gt; +  key = keys[sectornum % 64]
+
+Good point, thanks.
+
+&gt; &gt; +2) IV derivation from an MD5 digest of the sector number, parts
+&gt; &gt; +of the plaintext data and a mode specific format constant. The
+&gt; &gt; +multi-key-v3 mode additionally uses a 128-bit IV seed.
+&gt; 
+&gt; slightly rephrased:
+&gt; 
+&gt; +2) IVs are derived from an MD5 digest of the sector number, parts
+&gt; +of the plaintext data and a mode specific format constant. The
+&gt; +multi-key-v3 mode additionally uses a 128-bit IV seed.
+
+Agreed. I included your rephrasing.
+
+&gt; &gt; +  v2IV = MD5(plaintext[16..511] ||
+&gt; &gt; +  	     truncated-sector-number ||
+&gt; &gt; +	     format-magic)
+&gt; &gt; +
+&gt; &gt; +  v3IV = MD5(ivseed ||
+&gt; &gt; +	     plaintext[16..511] ||
+&gt; &gt; +  	     truncated-sector-number ||
+&gt; &gt; +	     format-magic)
+&gt; 
+&gt; that seems different than what is described here -
+&gt;  http://mail.nl.linux.org/linux-crypto/2006-01/msg00006.html
+&gt; 
+&gt; so is it compatible after all? Or where is format-magic' equivalent
+&gt; hidden in Jari's description?
+
+The format-magic is not mentioned in Jari's description, but
+is indeed used by Loop-AES.
+
+Compare loop-AES-v3.2h/glue.c:402:
+
+  /* 4024 bits == 31 * 128 bit plaintext blocks + 56 bits of sector number */
+  /* For version 3 on-disk format this really should be 4536 bits, but can't be */
+  /* changed without breaking compatibility. V3 uses MD5-with-wrong-length IV */
+  buf[14] = 4024;
+  buf[15] = 0;
+
+&gt; &gt; +The format-magic for both modes is fixed at the value 4024
+&gt; &gt; +encoded as 32-bit little endian.
+&gt; 
+&gt; I am not familiar with this detail and the description does not make it
+&gt; completely clear, it appears to refer to some magic value of the on disk 
+&gt; representation?
+
+The magic is only used as an additional input to the MD5 digest 
+as part of the IV derivation.
+
+Changed the description to hopefully clarify this.
+
+&gt; &gt; +Encryption:
+&gt; &gt; +
+&gt; &gt; +  IV = IVFUNC(optional-ivseed,
+&gt; &gt; +  	   plaintext[16..511],
+&gt; &gt; +  	   truncated-sector-number,
+&gt; &gt; +	   format-magic)
+&gt; 
+&gt; optional first argument in formalism makes it hard to relate to above decriptions.
+&gt; So maybe introduce IVFUNC where you describe them above, including ivseed which is
+&gt; simply unused in one variant.
+&gt;
+&gt; &gt; +  ciphertext[0..511] = CBC-ENCRYPT(key, IV, plaintext[0..511])
+&gt; 
+&gt; I know that key=key_table[sector_number &amp; 63] is mentioned further above but
+&gt; might be "too far back" for many readers as it is one of the things that are 
+&gt; special about this encryption modes.
+
+Agreed on both points. Could you have a look and see if you
+find it clearer now in the new version?
+
+Thanks a lot for your comments,
+
+	Max
+
+["lmk_doc_v2.patch" (text/x-diff)]
+
+diff --git a/Documentation/crypto/lmk.txt b/Documentation/crypto/lmk.txt
+new file mode 100644
+index 0000000..91ca7f7
+--- /dev/null
++++ b/Documentation/crypto/lmk.txt
+@@ -0,0 +1,102 @@
++Loop-AES compatible cipher block chaining modes
++-----------------------------------------------
++
++The following table shows the Loop-AES name of the mode, the
++Loop-AES version first supporting it, and the equivalent cipher
++specification string for dm-crypt:
++
++  single-key     Loop-AES v1.x   cbc-plain
++  multi-key-v2   Loop-AES v2.x   lmk2-plain64-multi:64
++  multi-key-v3   Loop-AES v3.x   lmk3-plain64-multi:64
++
++This text describes the multi-key-v2 and multi-key-v3 modes and
++their implementation in the Linux kernel.
++
++The multi-key modes describe a combination of CBC using a 
++specific IV derivation function with the use of multiple
++independent encryption keys.
++
++The IV derivation and block chaining are implemented as
++blkciphers named "lmk2" and "lmk3". The support for multiple
++encryption keys is implemented in dm-crypt.
++
++Multiple keys:
++
++  Each sector is encrypted/decrypted with one of 64 independent
++  keys selected by the following rule:
++
++  key = keys[sectornum % 64]
++
++IV derivation:
++
++  IVs are derived from an MD5 digest of the sector number, parts
++  of the plaintext data and a mode specific format constant. The
++  multi-key-v3 mode additionally uses a 128-bit IV seed.
++
++  v2IV = MD5(plaintext[16..511] ||
++             le64(truncated-sector-number) ||
++             le32(format-magic))
++
++  v3IV = MD5(ivseed ||
++             plaintext[16..511] ||
++             le64(truncated-sector-number) ||
++             le32(format-magic))
++
++  The format-magic is a constant value (4024).
++
++  The input IV supplied to lmk2 or lmk3 is expected to be the
++  sector number in 64-bit little endian as supplied by the
++  plain64 dm-crypt IV generator. It gets truncated to 56 bits
++  with the most significant byte set to 0x80:
++
++  truncated-sector-number =
++    (sectornum &amp; 0x00ffffffffffffff) | 0x8000000000000000
++
++Mode multi-key-v2 (lmk2-plain64-multi:64):
++
++  key = keys[sectornum % 64]
++
++  encrypt:
++    IV = MD5(plaintext[16..511] ||
++             le64(truncated-sector-number) ||
++             le32(format-magic))
++
++    ciphertext[0..511] = CBC-ENCRYPT(key, IV, plaintext[0..511])
++
++  decrypt:
++    IV1 = ciphertext[0..15]
++    plaintext[16..511] = CBC-DECRYPT(key, IV1, ciphertext[16..511])
++
++    IV2 = MD5(plaintext[16..511] ||
++              le64(truncated-sector-number) ||
++              le32(format-magic))
++
++    plaintext[0..15] = DECRYPT(key, IV2, ciphertext[0..15])
++
++Mode multi-key-v3 (lmk3-plain64-multi:64):
++
++  key = keys[sectornum % 64]
++
++  encrypt:
++    IV = MD5(ivseed,
++             plaintext[16..511],
++             le64(truncated-sector-number),
++             le32(format-magic))
++
++    ciphertext[0..511] = CBC-ENCRYPT(key, IV, plaintext[0..511])
++
++  decrypt:
++    IV1 = ciphertext[0..15]
++    plaintext[16..511] = CBC-DECRYPT(key, IV1, ciphertext[16..511])
++
++    IV2 = MD5(ivseed,
++              plaintext[16..511],
++              le64(truncated-sector-number),
++              le32(format-magic))
++
++    plaintext[0..15] = DECRYPT(key, IV2, ciphertext[0..15])
++
++References:
++
++Mode description by the author of Loop-AES, Jari Ruusu:
++http://mail.nl.linux.org/linux-crypto/2006-01/msg00006.html
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>20100117220234</emailId><senderName>Richard Zidlicky</senderName><senderEmail>rz@linux-m68k.org</senderEmail><timestampReceived>2010-01-17 22:02:34-0400</timestampReceived><subject>Re: [PATCH 1/4] dm-crypt: clarify cipher vs. cipher mode</subject><body>
+
+Hi,
+
+&gt; The format-magic is not mentioned in Jari's description, but
+&gt; is indeed used by Loop-AES.
+&gt; 
+&gt; Compare loop-AES-v3.2h/glue.c:402:
+&gt; 
+&gt;   /* 4024 bits == 31 * 128 bit plaintext blocks + 56 bits of sector number */
+&gt;   /* For version 3 on-disk format this really should be 4536 bits, but can't be */
+&gt;   /* changed without breaking compatibility. V3 uses MD5-with-wrong-length IV */
+&gt;   buf[14] = 4024;
+&gt;   buf[15] = 0;
+&gt; 
+&gt; &gt; &gt; +The format-magic for both modes is fixed at the value 4024
+&gt; &gt; &gt; +encoded as 32-bit little endian.
+&gt; &gt; 
+&gt; &gt; I am not familiar with this detail and the description does not make it
+&gt; &gt; completely clear, it appears to refer to some magic value of the on disk 
+&gt; &gt; representation?
+&gt; 
+&gt; The magic is only used as an additional input to the MD5 digest 
+&gt; as part of the IV derivation.
+
+&gt; diff --git a/Documentation/crypto/lmk.txt b/Documentation/crypto/lmk.txt
+&gt; new file mode 100644
+&gt; index 0000000..91ca7f7
+&gt; --- /dev/null
+&gt; +++ b/Documentation/crypto/lmk.txt
+&gt; @@ -0,0 +1,102 @@
+&gt; +Loop-AES compatible cipher block chaining modes
+&gt; +-----------------------------------------------
+&gt; +
+&gt; +The following table shows the Loop-AES name of the mode, the
+&gt; +Loop-AES version first supporting it, and the equivalent cipher
+&gt; +specification string for dm-crypt:
+&gt; +
+&gt; +  single-key     Loop-AES v1.x   cbc-plain
+&gt; +  multi-key-v2   Loop-AES v2.x   lmk2-plain64-multi:64
+&gt; +  multi-key-v3   Loop-AES v3.x   lmk3-plain64-multi:64
+&gt; +
+&gt; +This text describes the multi-key-v2 and multi-key-v3 modes and
+&gt; +their implementation in the Linux kernel.
+
+pointer to alternative implementation with loop-AES?
+
+&gt; +The multi-key modes describe a combination of CBC using a 
+&gt; +specific IV derivation function with the use of multiple
+&gt; +independent encryption keys.
+&gt; +
+&gt; +The IV derivation and block chaining are implemented as
+&gt; +blkciphers named "lmk2" and "lmk3". The support for multiple
+&gt; +encryption keys is implemented in dm-crypt.
+&gt; +
+&gt; +Multiple keys:
+&gt; +
+&gt; +  Each sector is encrypted/decrypted with one of 64 independent
+&gt; +  keys selected by the following rule:
+&gt; +
+&gt; +  key = keys[sectornum % 64]
+&gt; +
+&gt; +IV derivation:
+&gt; +
+&gt; +  IVs are derived from an MD5 digest of the sector number, parts
+&gt; +  of the plaintext data and a mode specific format constant. The
+&gt; +  multi-key-v3 mode additionally uses a 128-bit IV seed.
+&gt; +
+&gt; +  v2IV = MD5(plaintext[16..511] ||
+&gt; +             le64(truncated-sector-number) ||
+&gt; +             le32(format-magic))
+&gt; +
+&gt; +  v3IV = MD5(ivseed ||
+&gt; +             plaintext[16..511] ||
+&gt; +             le64(truncated-sector-number) ||
+&gt; +             le32(format-magic))
+
+ivseed = key_table[64] is nowhere declared. Also "||" should be explained,
+it is probably conatenation like in Jari's description? Hard to think of
+a really intuitive notation.."o" or "&lt;&lt;" might be intuitive for many but
+does not look too good in this case, especially in ASCII.
+
+&gt; +  The input IV supplied to lmk2 or lmk3 is expected to be the
+&gt; +  sector number in 64-bit little endian as supplied by the
+&gt; +  plain64 dm-crypt IV generator. It gets truncated to 56 bits
+&gt; +  with the most significant byte set to 0x80:
+
+I believe preceding paragraoh can be completely omitted, is not easier to 
+understand than the pseudocode.
+
+&gt; +  truncated-sector-number =
+&gt; +    (sectornum &amp; 0x00ffffffffffffff) | 0x8000000000000000
+
+would be better above the IV derivation descriptions.
+
+&gt; +Mode multi-key-v2 (lmk2-plain64-multi:64):
+&gt; +
+&gt; +  key = keys[sectornum % 64]
+&gt; +
+&gt; +  encrypt:
+&gt; +    IV = MD5(plaintext[16..511] ||
+&gt; +             le64(truncated-sector-number) ||
+&gt; +             le32(format-magic))
+
+no need to repeat the IV description here, could use the v2/v3IV in the pseudocode
+bellow. For the decryption IVs it would be then better to use some more distinct 
+names because eg IV2 is fairly close to v2IV.
+
+Btw did you send the other parts of the patch to the list? I did only ever receive the
+description part so feel free to email me the other parts.
+
+Richard
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>201001172202340</emailId><senderName>Richard Zidlicky</senderName><senderEmail>rz@linux-m68k.org</senderEmail><timestampReceived>2010-01-17 22:02:34-0400</timestampReceived><subject>Re: [PATCH 1/4] dm-crypt: clarify cipher vs. cipher mode</subject><body>
+
+Hi,
+
+&gt; The format-magic is not mentioned in Jari's description, but
+&gt; is indeed used by Loop-AES.
+&gt; 
+&gt; Compare loop-AES-v3.2h/glue.c:402:
+&gt; 
+&gt;   /* 4024 bits == 31 * 128 bit plaintext blocks + 56 bits of sector number */
+&gt;   /* For version 3 on-disk format this really should be 4536 bits, but can't be */
+&gt;   /* changed without breaking compatibility. V3 uses MD5-with-wrong-length IV */
+&gt;   buf[14] = 4024;
+&gt;   buf[15] = 0;
+&gt; 
+&gt; &gt; &gt; +The format-magic for both modes is fixed at the value 4024
+&gt; &gt; &gt; +encoded as 32-bit little endian.
+&gt; &gt; 
+&gt; &gt; I am not familiar with this detail and the description does not make it
+&gt; &gt; completely clear, it appears to refer to some magic value of the on disk 
+&gt; &gt; representation?
+&gt; 
+&gt; The magic is only used as an additional input to the MD5 digest 
+&gt; as part of the IV derivation.
+
+&gt; diff --git a/Documentation/crypto/lmk.txt b/Documentation/crypto/lmk.txt
+&gt; new file mode 100644
+&gt; index 0000000..91ca7f7
+&gt; --- /dev/null
+&gt; +++ b/Documentation/crypto/lmk.txt
+&gt; @@ -0,0 +1,102 @@
+&gt; +Loop-AES compatible cipher block chaining modes
+&gt; +-----------------------------------------------
+&gt; +
+&gt; +The following table shows the Loop-AES name of the mode, the
+&gt; +Loop-AES version first supporting it, and the equivalent cipher
+&gt; +specification string for dm-crypt:
+&gt; +
+&gt; +  single-key     Loop-AES v1.x   cbc-plain
+&gt; +  multi-key-v2   Loop-AES v2.x   lmk2-plain64-multi:64
+&gt; +  multi-key-v3   Loop-AES v3.x   lmk3-plain64-multi:64
+&gt; +
+&gt; +This text describes the multi-key-v2 and multi-key-v3 modes and
+&gt; +their implementation in the Linux kernel.
+
+pointer to alternative implementation with loop-AES?
+
+&gt; +The multi-key modes describe a combination of CBC using a 
+&gt; +specific IV derivation function with the use of multiple
+&gt; +independent encryption keys.
+&gt; +
+&gt; +The IV derivation and block chaining are implemented as
+&gt; +blkciphers named "lmk2" and "lmk3". The support for multiple
+&gt; +encryption keys is implemented in dm-crypt.
+&gt; +
+&gt; +Multiple keys:
+&gt; +
+&gt; +  Each sector is encrypted/decrypted with one of 64 independent
+&gt; +  keys selected by the following rule:
+&gt; +
+&gt; +  key = keys[sectornum % 64]
+&gt; +
+&gt; +IV derivation:
+&gt; +
+&gt; +  IVs are derived from an MD5 digest of the sector number, parts
+&gt; +  of the plaintext data and a mode specific format constant. The
+&gt; +  multi-key-v3 mode additionally uses a 128-bit IV seed.
+&gt; +
+&gt; +  v2IV = MD5(plaintext[16..511] ||
+&gt; +             le64(truncated-sector-number) ||
+&gt; +             le32(format-magic))
+&gt; +
+&gt; +  v3IV = MD5(ivseed ||
+&gt; +             plaintext[16..511] ||
+&gt; +             le64(truncated-sector-number) ||
+&gt; +             le32(format-magic))
+
+ivseed = key_table[64] is nowhere declared. Also "||" should be explained,
+it is probably conatenation like in Jari's description? Hard to think of
+a really intuitive notation.."o" or "&lt;&lt;" might be intuitive for many but
+does not look too good in this case, especially in ASCII.
+
+&gt; +  The input IV supplied to lmk2 or lmk3 is expected to be the
+&gt; +  sector number in 64-bit little endian as supplied by the
+&gt; +  plain64 dm-crypt IV generator. It gets truncated to 56 bits
+&gt; +  with the most significant byte set to 0x80:
+
+I believe preceding paragraoh can be completely omitted, is not easier to 
+understand than the pseudocode.
+
+&gt; +  truncated-sector-number =
+&gt; +    (sectornum &amp; 0x00ffffffffffffff) | 0x8000000000000000
+
+would be better above the IV derivation descriptions.
+
+&gt; +Mode multi-key-v2 (lmk2-plain64-multi:64):
+&gt; +
+&gt; +  key = keys[sectornum % 64]
+&gt; +
+&gt; +  encrypt:
+&gt; +    IV = MD5(plaintext[16..511] ||
+&gt; +             le64(truncated-sector-number) ||
+&gt; +             le32(format-magic))
+
+no need to repeat the IV description here, could use the v2/v3IV in the pseudocode
+bellow. For the decryption IVs it would be then better to use some more distinct 
+names because eg IV2 is fairly close to v2IV.
+
+Btw did you send the other parts of the patch to the list? I did only ever receive the
+description part so feel free to email me the other parts.
+
+Richard
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20100118170858</emailId><senderName>Max Vozeler</senderName><senderEmail>max@hinterhof.net</senderEmail><timestampReceived>2010-01-18 17:08:58-0400</timestampReceived><subject>Re: [PATCH 1/4] dm-crypt: clarify cipher vs. cipher mode</subject><body>
+
+Hello Richard,
+
+On Sun, Jan 17, 2010 at 11:02:34PM +0100, Richard Zidlicky wrote:
+&gt; &gt; diff --git a/Documentation/crypto/lmk.txt b/Documentation/crypto/lmk.txt
+&gt; &gt; new file mode 100644
+&gt; &gt; index 0000000..91ca7f7
+&gt; &gt; --- /dev/null
+&gt; &gt; +++ b/Documentation/crypto/lmk.txt
+&gt; &gt; @@ -0,0 +1,102 @@
+&gt; &gt; +Loop-AES compatible cipher block chaining modes
+&gt; &gt; +-----------------------------------------------
+&gt; &gt; +
+&gt; &gt; +The following table shows the Loop-AES name of the mode, the
+&gt; &gt; +Loop-AES version first supporting it, and the equivalent cipher
+&gt; &gt; +specification string for dm-crypt:
+&gt; &gt; +
+&gt; &gt; +  single-key     Loop-AES v1.x   cbc-plain
+&gt; &gt; +  multi-key-v2   Loop-AES v2.x   lmk2-plain64-multi:64
+&gt; &gt; +  multi-key-v3   Loop-AES v3.x   lmk3-plain64-multi:64
+&gt; &gt; +
+&gt; &gt; +This text describes the multi-key-v2 and multi-key-v3 modes and
+&gt; &gt; +their implementation in the Linux kernel.
+&gt; 
+&gt; pointer to alternative implementation with loop-AES?
+
+OK, I will point to Loop-AES itself.
+
+&gt; &gt; +The multi-key modes describe a combination of CBC using a 
+&gt; &gt; +specific IV derivation function with the use of multiple
+&gt; &gt; +independent encryption keys.
+&gt; &gt; +
+&gt; &gt; +The IV derivation and block chaining are implemented as
+&gt; &gt; +blkciphers named "lmk2" and "lmk3". The support for multiple
+&gt; &gt; +encryption keys is implemented in dm-crypt.
+&gt; &gt; +
+&gt; &gt; +Multiple keys:
+&gt; &gt; +
+&gt; &gt; +  Each sector is encrypted/decrypted with one of 64 independent
+&gt; &gt; +  keys selected by the following rule:
+&gt; &gt; +
+&gt; &gt; +  key = keys[sectornum % 64]
+&gt; &gt; +
+&gt; &gt; +IV derivation:
+&gt; &gt; +
+&gt; &gt; +  IVs are derived from an MD5 digest of the sector number, parts
+&gt; &gt; +  of the plaintext data and a mode specific format constant. The
+&gt; &gt; +  multi-key-v3 mode additionally uses a 128-bit IV seed.
+&gt; &gt; +
+&gt; &gt; +  v2IV = MD5(plaintext[16..511] ||
+&gt; &gt; +             le64(truncated-sector-number) ||
+&gt; &gt; +             le32(format-magic))
+&gt; &gt; +
+&gt; &gt; +  v3IV = MD5(ivseed ||
+&gt; &gt; +             plaintext[16..511] ||
+&gt; &gt; +             le64(truncated-sector-number) ||
+&gt; &gt; +             le32(format-magic))
+&gt; 
+&gt; ivseed = key_table[64] is nowhere declared. 
+
+This is an implementation detail of Loop-AES, so I don't consider it 
+belonging to the description of the modes here. Loop-AES v3 keyfiles
+contain 65 keys of which the last key is used as IV seed.
+
+&gt; Also "||" should be explained, it is probably conatenation like in
+&gt; Jari's description? Hard to think of a really intuitive notation.."o"
+&gt; or "&lt;&lt;" might be intuitive for many but does not look too good in this
+&gt; case, especially in ASCII.
+
+OK, I agree this needs pointing out. The "||" for concatenation is
+what I'm familiar with, I don't think I would understand "o" or "&lt;&lt;"
+as well. I will explain what it does.
+
+&gt; &gt; +  The input IV supplied to lmk2 or lmk3 is expected to be the
+&gt; &gt; +  sector number in 64-bit little endian as supplied by the
+&gt; &gt; +  plain64 dm-crypt IV generator. It gets truncated to 56 bits
+&gt; &gt; +  with the most significant byte set to 0x80:
+&gt; 
+&gt; I believe preceding paragraoh can be completely omitted, is not easier to 
+&gt; understand than the pseudocode.
+
+OK. I'll drop the last sentence, the first one describing where the
+IV is expected to come from seems relevant.
+
+&gt; &gt; +  truncated-sector-number =
+&gt; &gt; +    (sectornum &amp; 0x00ffffffffffffff) | 0x8000000000000000
+&gt; 
+&gt; would be better above the IV derivation descriptions.
+
+Noted.
+
+&gt; &gt; +Mode multi-key-v2 (lmk2-plain64-multi:64):
+&gt; &gt; +
+&gt; &gt; +  key = keys[sectornum % 64]
+&gt; &gt; +
+&gt; &gt; +  encrypt:
+&gt; &gt; +    IV = MD5(plaintext[16..511] ||
+&gt; &gt; +             le64(truncated-sector-number) ||
+&gt; &gt; +             le32(format-magic))
+&gt; 
+&gt; no need to repeat the IV description here, could use the v2/v3IV in the pseudocode
+&gt; bellow. 
+
+I think repeating it makes it clearer which parts happen at 
+which time, so I'd leave this as is.
+
+&gt; For the decryption IVs it would be then better to use some more distinct 
+&gt; names because eg IV2 is fairly close to v2IV.
+
+Good point, thanks. Will change.
+
+&gt; Btw did you send the other parts of the patch to the list? I did only
+&gt; ever receive the description part so feel free to email me the other
+&gt; parts.
+
+I did send them all to linux-crypto@vger. I'm not sure why you 
+didn't receive them. I'll send you the missing parts and CC you
+on the next submission.
+
+Thanks again for your comments,
+
+	Max
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>201001181708580</emailId><senderName>Max Vozeler</senderName><senderEmail>max@hinterhof.net</senderEmail><timestampReceived>2010-01-18 17:08:58-0400</timestampReceived><subject>Re: [PATCH 1/4] dm-crypt: clarify cipher vs. cipher mode</subject><body>
+
+Hello Richard,
+
+On Sun, Jan 17, 2010 at 11:02:34PM +0100, Richard Zidlicky wrote:
+&gt; &gt; diff --git a/Documentation/crypto/lmk.txt b/Documentation/crypto/lmk.txt
+&gt; &gt; new file mode 100644
+&gt; &gt; index 0000000..91ca7f7
+&gt; &gt; --- /dev/null
+&gt; &gt; +++ b/Documentation/crypto/lmk.txt
+&gt; &gt; @@ -0,0 +1,102 @@
+&gt; &gt; +Loop-AES compatible cipher block chaining modes
+&gt; &gt; +-----------------------------------------------
+&gt; &gt; +
+&gt; &gt; +The following table shows the Loop-AES name of the mode, the
+&gt; &gt; +Loop-AES version first supporting it, and the equivalent cipher
+&gt; &gt; +specification string for dm-crypt:
+&gt; &gt; +
+&gt; &gt; +  single-key     Loop-AES v1.x   cbc-plain
+&gt; &gt; +  multi-key-v2   Loop-AES v2.x   lmk2-plain64-multi:64
+&gt; &gt; +  multi-key-v3   Loop-AES v3.x   lmk3-plain64-multi:64
+&gt; &gt; +
+&gt; &gt; +This text describes the multi-key-v2 and multi-key-v3 modes and
+&gt; &gt; +their implementation in the Linux kernel.
+&gt; 
+&gt; pointer to alternative implementation with loop-AES?
+
+OK, I will point to Loop-AES itself.
+
+&gt; &gt; +The multi-key modes describe a combination of CBC using a 
+&gt; &gt; +specific IV derivation function with the use of multiple
+&gt; &gt; +independent encryption keys.
+&gt; &gt; +
+&gt; &gt; +The IV derivation and block chaining are implemented as
+&gt; &gt; +blkciphers named "lmk2" and "lmk3". The support for multiple
+&gt; &gt; +encryption keys is implemented in dm-crypt.
+&gt; &gt; +
+&gt; &gt; +Multiple keys:
+&gt; &gt; +
+&gt; &gt; +  Each sector is encrypted/decrypted with one of 64 independent
+&gt; &gt; +  keys selected by the following rule:
+&gt; &gt; +
+&gt; &gt; +  key = keys[sectornum % 64]
+&gt; &gt; +
+&gt; &gt; +IV derivation:
+&gt; &gt; +
+&gt; &gt; +  IVs are derived from an MD5 digest of the sector number, parts
+&gt; &gt; +  of the plaintext data and a mode specific format constant. The
+&gt; &gt; +  multi-key-v3 mode additionally uses a 128-bit IV seed.
+&gt; &gt; +
+&gt; &gt; +  v2IV = MD5(plaintext[16..511] ||
+&gt; &gt; +             le64(truncated-sector-number) ||
+&gt; &gt; +             le32(format-magic))
+&gt; &gt; +
+&gt; &gt; +  v3IV = MD5(ivseed ||
+&gt; &gt; +             plaintext[16..511] ||
+&gt; &gt; +             le64(truncated-sector-number) ||
+&gt; &gt; +             le32(format-magic))
+&gt; 
+&gt; ivseed = key_table[64] is nowhere declared. 
+
+This is an implementation detail of Loop-AES, so I don't consider it 
+belonging to the description of the modes here. Loop-AES v3 keyfiles
+contain 65 keys of which the last key is used as IV seed.
+
+&gt; Also "||" should be explained, it is probably conatenation like in
+&gt; Jari's description? Hard to think of a really intuitive notation.."o"
+&gt; or "&lt;&lt;" might be intuitive for many but does not look too good in this
+&gt; case, especially in ASCII.
+
+OK, I agree this needs pointing out. The "||" for concatenation is
+what I'm familiar with, I don't think I would understand "o" or "&lt;&lt;"
+as well. I will explain what it does.
+
+&gt; &gt; +  The input IV supplied to lmk2 or lmk3 is expected to be the
+&gt; &gt; +  sector number in 64-bit little endian as supplied by the
+&gt; &gt; +  plain64 dm-crypt IV generator. It gets truncated to 56 bits
+&gt; &gt; +  with the most significant byte set to 0x80:
+&gt; 
+&gt; I believe preceding paragraoh can be completely omitted, is not easier to 
+&gt; understand than the pseudocode.
+
+OK. I'll drop the last sentence, the first one describing where the
+IV is expected to come from seems relevant.
+
+&gt; &gt; +  truncated-sector-number =
+&gt; &gt; +    (sectornum &amp; 0x00ffffffffffffff) | 0x8000000000000000
+&gt; 
+&gt; would be better above the IV derivation descriptions.
+
+Noted.
+
+&gt; &gt; +Mode multi-key-v2 (lmk2-plain64-multi:64):
+&gt; &gt; +
+&gt; &gt; +  key = keys[sectornum % 64]
+&gt; &gt; +
+&gt; &gt; +  encrypt:
+&gt; &gt; +    IV = MD5(plaintext[16..511] ||
+&gt; &gt; +             le64(truncated-sector-number) ||
+&gt; &gt; +             le32(format-magic))
+&gt; 
+&gt; no need to repeat the IV description here, could use the v2/v3IV in the pseudocode
+&gt; bellow. 
+
+I think repeating it makes it clearer which parts happen at 
+which time, so I'd leave this as is.
+
+&gt; For the decryption IVs it would be then better to use some more distinct 
+&gt; names because eg IV2 is fairly close to v2IV.
+
+Good point, thanks. Will change.
+
+&gt; Btw did you send the other parts of the patch to the list? I did only
+&gt; ever receive the description part so feel free to email me the other
+&gt; parts.
+
+I did send them all to linux-crypto@vger. I'm not sure why you 
+didn't receive them. I'll send you the missing parts and CC you
+on the next submission.
+
+Thanks again for your comments,
+
+	Max
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>201001181951220</emailId><senderName>Richard Zidlicky</senderName><senderEmail>rz@linux-m68k.org</senderEmail><timestampReceived>2010-01-18 19:51:22-0400</timestampReceived><subject>Re: [PATCH 1/4] dm-crypt: clarify cipher vs. cipher mode</subject><body>
+
+Hi,
+
+&gt; &gt; ivseed = key_table[64] is nowhere declared. 
+&gt; 
+&gt; This is an implementation detail of Loop-AES, so I don't consider it 
+&gt; belonging to the description of the modes here. 
+
+difficult to draw the line, but as it is something supplied as "external 
+parameter" to the dm-crypt layer I think it is certainly worth mentioning 
+where it comes from.
+
+&gt; &gt; &gt; +  The input IV supplied to lmk2 or lmk3 is expected to be the
+&gt; &gt; &gt; +  sector number in 64-bit little endian as supplied by the
+&gt; &gt; &gt; +  plain64 dm-crypt IV generator. It gets truncated to 56 bits
+&gt; &gt; &gt; +  with the most significant byte set to 0x80:
+&gt; &gt; 
+&gt; &gt; I believe preceding paragraoh can be completely omitted, is not easier to 
+&gt; &gt; understand than the pseudocode.
+&gt; 
+&gt; OK. I'll drop the last sentence, the first one describing where the
+&gt; IV is expected to come from seems relevant.
+
+actually the first sentence does not make any sense to me as it is now.
+ 
+&gt; &gt; &gt; +Mode multi-key-v2 (lmk2-plain64-multi:64):
+&gt; &gt; &gt; +
+&gt; &gt; &gt; +  key = keys[sectornum % 64]
+&gt; &gt; &gt; +
+&gt; &gt; &gt; +  encrypt:
+&gt; &gt; &gt; +    IV = MD5(plaintext[16..511] ||
+&gt; &gt; &gt; +             le64(truncated-sector-number) ||
+&gt; &gt; &gt; +             le32(format-magic))
+&gt; &gt; 
+&gt; &gt; no need to repeat the IV description here, could use the v2/v3IV in the pseudocode
+&gt; &gt; bellow. 
+&gt; 
+&gt; I think repeating it makes it clearer which parts happen at 
+&gt; which time, so I'd leave this as is.
+
+at the very least I would use v2IV etc like in the earlier description. But I think
+the duplication can be avoided.
+
+Richard
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20100113173706</emailId><senderName>Max Vozeler</senderName><senderEmail>max@hinterhof.net</senderEmail><timestampReceived>2010-01-13 17:37:06-0400</timestampReceived><subject>Re: [PATCH 3/4] crypto: md5 - Add export support</subject><body>
+
+On Wed, Jan 13, 2010 at 08:52:39PM +1100, Herbert Xu wrote:
+&gt; On Mon, Dec 28, 2009 at 06:59:14PM +0000, Max Vozeler wrote:
+&gt; &gt; This patch adds export support to md5.  The exported type is
+&gt; &gt; defined by struct md5_state.
+&gt; &gt; 
+&gt; &gt; This is modeled after the equivalent change to sha1_generic,
+&gt; &gt; except only export is added for now.
+&gt; &gt; 
+&gt; &gt; Signed-off-by: Max Vozeler &lt;max@hinterhof.net&gt;
+&gt; &gt; Cc: Jari Ruusu &lt;jariruusu@users.sourceforge.net&gt;
+&gt; 
+&gt; Please add an import function as the shash API requires import
+&gt; to be present if export is present.
+
+Thanks for pointing this out, I was not aware of the
+requirement. Changed to add import as well as export.
+
+	Max
+
+["0002-crypto-md5-Add-export-import-support.patch" (text/x-diff)]
+
+This patch adds export/import support to md5. The exported type is
+defined by struct md5_state.
+
+This is modeled after the equivalent change to sha1_generic.
+
+Signed-off-by: Max Vozeler &lt;max@hinterhof.net&gt;
+---
+ crypto/md5.c         |   40 ++++++++++++++++++++++++----------------
+ include/crypto/md5.h |   17 +++++++++++++++++
+ 2 files changed, 41 insertions(+), 16 deletions(-)
+ create mode 100644 include/crypto/md5.h
+
+v2: Also add import as required by shash API.
+
+diff --git a/crypto/md5.c b/crypto/md5.c
+index 83eb529..9fda213 100644
+--- a/crypto/md5.c
++++ b/crypto/md5.c
+@@ -16,17 +16,13 @@
+  *
+  */
+ #include &lt;crypto/internal/hash.h&gt;
++#include &lt;crypto/md5.h&gt;
+ #include &lt;linux/init.h&gt;
+ #include &lt;linux/module.h&gt;
+ #include &lt;linux/string.h&gt;
+ #include &lt;linux/types.h&gt;
+ #include &lt;asm/byteorder.h&gt;
+ 
+-#define MD5_DIGEST_SIZE		16
+-#define MD5_HMAC_BLOCK_SIZE	64
+-#define MD5_BLOCK_WORDS		16
+-#define MD5_HASH_WORDS		4
+-
+ #define F1(x, y, z)	(z ^ (x &amp; (y ^ z)))
+ #define F2(x, y, z)	F1(z, x, y)
+ #define F3(x, y, z)	(x ^ y ^ z)
+@@ -35,12 +31,6 @@
+ #define MD5STEP(f, w, x, y, z, in, s) \
+ 	(w += f(x, y, z) + in, w = (w&lt;&lt;s | w&gt;&gt;(32-s)) + x)
+ 
+-struct md5_ctx {
+-	u32 hash[MD5_HASH_WORDS];
+-	u32 block[MD5_BLOCK_WORDS];
+-	u64 byte_count;
+-};
+-
+ static void md5_transform(u32 *hash, u32 const *in)
+ {
+ 	u32 a, b, c, d;
+@@ -141,7 +131,7 @@ static inline void cpu_to_le32_array(u32 *buf, unsigned int words)
+ 	}
+ }
+ 
+-static inline void md5_transform_helper(struct md5_ctx *ctx)
++static inline void md5_transform_helper(struct md5_state *ctx)
+ {
+ 	le32_to_cpu_array(ctx-&gt;block, sizeof(ctx-&gt;block) / sizeof(u32));
+ 	md5_transform(ctx-&gt;hash, ctx-&gt;block);
+@@ -149,7 +139,7 @@ static inline void md5_transform_helper(struct md5_ctx *ctx)
+ 
+ static int md5_init(struct shash_desc *desc)
+ {
+-	struct md5_ctx *mctx = shash_desc_ctx(desc);
++	struct md5_state *mctx = shash_desc_ctx(desc);
+ 
+ 	mctx-&gt;hash[0] = 0x67452301;
+ 	mctx-&gt;hash[1] = 0xefcdab89;
+@@ -162,7 +152,7 @@ static int md5_init(struct shash_desc *desc)
+ 
+ static int md5_update(struct shash_desc *desc, const u8 *data, unsigned int len)
+ {
+-	struct md5_ctx *mctx = shash_desc_ctx(desc);
++	struct md5_state *mctx = shash_desc_ctx(desc);
+ 	const u32 avail = sizeof(mctx-&gt;block) - (mctx-&gt;byte_count &amp; 0x3f);
+ 
+ 	mctx-&gt;byte_count += len;
+@@ -194,7 +184,7 @@ static int md5_update(struct shash_desc *desc, const u8 *data, unsigned int len)
+ 
+ static int md5_final(struct shash_desc *desc, u8 *out)
+ {
+-	struct md5_ctx *mctx = shash_desc_ctx(desc);
++	struct md5_state *mctx = shash_desc_ctx(desc);
+ 	const unsigned int offset = mctx-&gt;byte_count &amp; 0x3f;
+ 	char *p = (char *)mctx-&gt;block + offset;
+ 	int padding = 56 - (offset + 1);
+@@ -220,12 +210,30 @@ static int md5_final(struct shash_desc *desc, u8 *out)
+ 	return 0;
+ }
+ 
++static int md5_export(struct shash_desc *desc, void *out)
++{
++	struct md5_state *ctx = shash_desc_ctx(desc);
++
++	memcpy(out, ctx, sizeof(*ctx));
++	return 0;
++}
++
++static int md5_import(struct shash_desc *desc, const void *in)
++{
++	struct md5_state *ctx = shash_desc_ctx(desc);
++
++	memcpy(ctx, in, sizeof(*ctx));
++	return 0;
++}
++
+ static struct shash_alg alg = {
+ 	.digestsize	=	MD5_DIGEST_SIZE,
+ 	.init		=	md5_init,
+ 	.update		=	md5_update,
+ 	.final		=	md5_final,
+-	.descsize	=	sizeof(struct md5_ctx),
++	.export		=	md5_export,
++	.import		=	md5_import,
++	.descsize	=	sizeof(struct md5_state),
+ 	.base		=	{
+ 		.cra_name	=	"md5",
+ 		.cra_flags	=	CRYPTO_ALG_TYPE_SHASH,
+diff --git a/include/crypto/md5.h b/include/crypto/md5.h
+new file mode 100644
+index 0000000..65f299b
+--- /dev/null
++++ b/include/crypto/md5.h
+@@ -0,0 +1,17 @@
++#ifndef _CRYPTO_MD5_H
++#define _CRYPTO_MD5_H
++
++#include &lt;linux/types.h&gt;
++
++#define MD5_DIGEST_SIZE		16
++#define MD5_HMAC_BLOCK_SIZE	64
++#define MD5_BLOCK_WORDS		16
++#define MD5_HASH_WORDS		4
++
++struct md5_state {
++	u32 hash[MD5_HASH_WORDS];
++	u32 block[MD5_BLOCK_WORDS];
++	u64 byte_count;
++};
++
++#endif
+-- 
+1.6.5.4
+
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+
+</body></email><email><emailId>201001131737060</emailId><senderName>Max Vozeler</senderName><senderEmail>max@hinterhof.net</senderEmail><timestampReceived>2010-01-13 17:37:06-0400</timestampReceived><subject>Re: [PATCH 3/4] crypto: md5 - Add export support</subject><body>
+
+On Wed, Jan 13, 2010 at 08:52:39PM +1100, Herbert Xu wrote:
+&gt; On Mon, Dec 28, 2009 at 06:59:14PM +0000, Max Vozeler wrote:
+&gt; &gt; This patch adds export support to md5.  The exported type is
+&gt; &gt; defined by struct md5_state.
+&gt; &gt; 
+&gt; &gt; This is modeled after the equivalent change to sha1_generic,
+&gt; &gt; except only export is added for now.
+&gt; &gt; 
+&gt; &gt; Signed-off-by: Max Vozeler &lt;max@hinterhof.net&gt;
+&gt; &gt; Cc: Jari Ruusu &lt;jariruusu@users.sourceforge.net&gt;
+&gt; 
+&gt; Please add an import function as the shash API requires import
+&gt; to be present if export is present.
+
+Thanks for pointing this out, I was not aware of the
+requirement. Changed to add import as well as export.
+
+	Max
+
+["0002-crypto-md5-Add-export-import-support.patch" (text/x-diff)]
+
+This patch adds export/import support to md5. The exported type is
+defined by struct md5_state.
+
+This is modeled after the equivalent change to sha1_generic.
+
+Signed-off-by: Max Vozeler &lt;max@hinterhof.net&gt;
+---
+ crypto/md5.c         |   40 ++++++++++++++++++++++++----------------
+ include/crypto/md5.h |   17 +++++++++++++++++
+ 2 files changed, 41 insertions(+), 16 deletions(-)
+ create mode 100644 include/crypto/md5.h
+
+v2: Also add import as required by shash API.
+
+diff --git a/crypto/md5.c b/crypto/md5.c
+index 83eb529..9fda213 100644
+--- a/crypto/md5.c
++++ b/crypto/md5.c
+@@ -16,17 +16,13 @@
+  *
+  */
+ #include &lt;crypto/internal/hash.h&gt;
++#include &lt;crypto/md5.h&gt;
+ #include &lt;linux/init.h&gt;
+ #include &lt;linux/module.h&gt;
+ #include &lt;linux/string.h&gt;
+ #include &lt;linux/types.h&gt;
+ #include &lt;asm/byteorder.h&gt;
+ 
+-#define MD5_DIGEST_SIZE		16
+-#define MD5_HMAC_BLOCK_SIZE	64
+-#define MD5_BLOCK_WORDS		16
+-#define MD5_HASH_WORDS		4
+-
+ #define F1(x, y, z)	(z ^ (x &amp; (y ^ z)))
+ #define F2(x, y, z)	F1(z, x, y)
+ #define F3(x, y, z)	(x ^ y ^ z)
+@@ -35,12 +31,6 @@
+ #define MD5STEP(f, w, x, y, z, in, s) \
+ 	(w += f(x, y, z) + in, w = (w&lt;&lt;s | w&gt;&gt;(32-s)) + x)
+ 
+-struct md5_ctx {
+-	u32 hash[MD5_HASH_WORDS];
+-	u32 block[MD5_BLOCK_WORDS];
+-	u64 byte_count;
+-};
+-
+ static void md5_transform(u32 *hash, u32 const *in)
+ {
+ 	u32 a, b, c, d;
+@@ -141,7 +131,7 @@ static inline void cpu_to_le32_array(u32 *buf, unsigned int words)
+ 	}
+ }
+ 
+-static inline void md5_transform_helper(struct md5_ctx *ctx)
++static inline void md5_transform_helper(struct md5_state *ctx)
+ {
+ 	le32_to_cpu_array(ctx-&gt;block, sizeof(ctx-&gt;block) / sizeof(u32));
+ 	md5_transform(ctx-&gt;hash, ctx-&gt;block);
+@@ -149,7 +139,7 @@ static inline void md5_transform_helper(struct md5_ctx *ctx)
+ 
+ static int md5_init(struct shash_desc *desc)
+ {
+-	struct md5_ctx *mctx = shash_desc_ctx(desc);
++	struct md5_state *mctx = shash_desc_ctx(desc);
+ 
+ 	mctx-&gt;hash[0] = 0x67452301;
+ 	mctx-&gt;hash[1] = 0xefcdab89;
+@@ -162,7 +152,7 @@ static int md5_init(struct shash_desc *desc)
+ 
+ static int md5_update(struct shash_desc *desc, const u8 *data, unsigned int len)
+ {
+-	struct md5_ctx *mctx = shash_desc_ctx(desc);
++	struct md5_state *mctx = shash_desc_ctx(desc);
+ 	const u32 avail = sizeof(mctx-&gt;block) - (mctx-&gt;byte_count &amp; 0x3f);
+ 
+ 	mctx-&gt;byte_count += len;
+@@ -194,7 +184,7 @@ static int md5_update(struct shash_desc *desc, const u8 *data, unsigned int len)
+ 
+ static int md5_final(struct shash_desc *desc, u8 *out)
+ {
+-	struct md5_ctx *mctx = shash_desc_ctx(desc);
++	struct md5_state *mctx = shash_desc_ctx(desc);
+ 	const unsigned int offset = mctx-&gt;byte_count &amp; 0x3f;
+ 	char *p = (char *)mctx-&gt;block + offset;
+ 	int padding = 56 - (offset + 1);
+@@ -220,12 +210,30 @@ static int md5_final(struct shash_desc *desc, u8 *out)
+ 	return 0;
+ }
+ 
++static int md5_export(struct shash_desc *desc, void *out)
++{
++	struct md5_state *ctx = shash_desc_ctx(desc);
++
++	memcpy(out, ctx, sizeof(*ctx));
++	return 0;
++}
++
++static int md5_import(struct shash_desc *desc, const void *in)
++{
++	struct md5_state *ctx = shash_desc_ctx(desc);
++
++	memcpy(ctx, in, sizeof(*ctx));
++	return 0;
++}
++
+ static struct shash_alg alg = {
+ 	.digestsize	=	MD5_DIGEST_SIZE,
+ 	.init		=	md5_init,
+ 	.update		=	md5_update,
+ 	.final		=	md5_final,
+-	.descsize	=	sizeof(struct md5_ctx),
++	.export		=	md5_export,
++	.import		=	md5_import,
++	.descsize	=	sizeof(struct md5_state),
+ 	.base		=	{
+ 		.cra_name	=	"md5",
+ 		.cra_flags	=	CRYPTO_ALG_TYPE_SHASH,
+diff --git a/include/crypto/md5.h b/include/crypto/md5.h
+new file mode 100644
+index 0000000..65f299b
+--- /dev/null
++++ b/include/crypto/md5.h
+@@ -0,0 +1,17 @@
++#ifndef _CRYPTO_MD5_H
++#define _CRYPTO_MD5_H
++
++#include &lt;linux/types.h&gt;
++
++#define MD5_DIGEST_SIZE		16
++#define MD5_HMAC_BLOCK_SIZE	64
++#define MD5_BLOCK_WORDS		16
++#define MD5_HASH_WORDS		4
++
++struct md5_state {
++	u32 hash[MD5_HASH_WORDS];
++	u32 block[MD5_BLOCK_WORDS];
++	u64 byte_count;
++};
++
++#endif
+-- 
+1.6.5.4
+
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+
+</body></email><email><emailId>201001171055520</emailId><senderName>Herbert Xu</senderName><senderEmail>herbert@gondor.apana.org.au</senderEmail><timestampReceived>2010-01-17 10:55:52-0400</timestampReceived><subject>Re: [PATCH 3/4] crypto: md5 - Add export support</subject><body>
+
+On Wed, Jan 13, 2010 at 06:37:06PM +0100, Max Vozeler wrote:
+&gt;
+&gt; This patch adds export/import support to md5. The exported type is
+&gt; defined by struct md5_state.
+&gt; 
+&gt; This is modeled after the equivalent change to sha1_generic.
+
+Applied to cryptodev.
+-- 
+Visit Openswan at http://www.openswan.org/
+Email: Herbert Xu ~{PmV&gt;HI~} &lt;herbert@gondor.apana.org.au&gt;
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+--
+To unsubscribe from this list: send the line "unsubscribe linux-crypto" in
+the body of a message to majordomo@vger.kernel.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
+</body></email><email><emailId>20101105162037</emailId><senderName>Jari Ruusu</senderName><senderEmail>jariruusu@users.sourceforge.net</senderEmail><timestampReceived>2010-11-05 16:20:37-0400</timestampReceived><subject>Re: loop-aes and 2.6.37</subject><body>
+
+Felix Blanke wrote:
+&gt; is there a working version of loop-aes for the new 2.6.37 kernel? :)
+
+I am working on it. Not ready yet.
+
+-- 
+Jari Ruusu  1024R/3A220F51 5B 4B F9 BB D3 3F 52 E9  DB 1D EB E3 24 0E A9 DD
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20101110194048</emailId><senderName>Jari Ruusu</senderName><senderEmail>jariruusu@users.sourceforge.net</senderEmail><timestampReceived>2010-11-10 19:40:48-0400</timestampReceived><subject>Announce loop-AES-v3.5a file/swap crypto package</subject><body>
+
+loop-AES changes since previous release:
+- Fixed device open/close reference count race, again. The fix in previous
+  version was not complete enough. Thanks to John Fitzgerald for
+  reporting/testing this problem.
+- Worked around block layer interface breakage on linux-2.6.37-rc kernels
+  (FLUSH/FUA changes).
+- Cleaned up lots of #ifdef spaghetti code for 2.6.37 and later kernels.
+- Added "lo_threads" option for 2.6.37 and later kernels. This can be used
+  to configure the number of helper threads for device backed loops.
+
+
+bzip2 compressed tarball is here:
+
+    http://loop-aes.sourceforge.net/loop-AES/loop-AES-v3.5a.tar.bz2
+    md5sum 9477960fb543938cec4f63a0eb365b12
+
+    http://loop-aes.sourceforge.net/loop-AES/loop-AES-v3.5a.tar.bz2.sign
+
+-- 
+Jari Ruusu  1024R/3A220F51 5B 4B F9 BB D3 3F 52 E9  DB 1D EB E3 24 0E A9 DD
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20101111092018</emailId><senderName>Jari Ruusu</senderName><senderEmail>jariruusu@users.sourceforge.net</senderEmail><timestampReceived>2010-11-11 09:20:18-0400</timestampReceived><subject>Announce loop-AES-v3.5b file/swap crypto package</subject><body>
+
+loop-AES changes since previous release:
+- Fixed a race that could temporarily occour between two (or more) loop
+  helper threads for same loop device. Two threads could interact with each
+  other an not go to sleep when they should. This race wasted CPU cycles,
+  but had no other ill effects.
+
+
+bzip2 compressed tarball is here:
+
+    http://loop-aes.sourceforge.net/loop-AES/loop-AES-v3.5b.tar.bz2
+    md5sum f5efb1dea4cd7cd5b7ae7522ff8e7959
+
+    http://loop-aes.sourceforge.net/loop-AES/loop-AES-v3.5b.tar.bz2.sign
+
+-- 
+Jari Ruusu  1024R/3A220F51 5B 4B F9 BB D3 3F 52 E9  DB 1D EB E3 24 0E A9 DD
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email><email><emailId>20101104214853</emailId><senderName>Felix Blanke</senderName><senderEmail>felixblanke@gmail.com</senderEmail><timestampReceived>2010-11-04 21:48:53-0400</timestampReceived><subject>loop-aes and 2.6.37</subject><body>
+
+Hi,
+
+is there a working version of loop-aes for the new 2.6.37 kernel? :)
+
+
+Regards,
+Felix
+
+-
+Linux-crypto:  cryptography in and on the Linux system
+Archive:       http://mail.nl.linux.org/linux-crypto/
+
+</body></email></emails>

@@ -1,0 +1,3396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20020131013503</emailId><senderName>John Bailey</senderName><senderEmail>john@anotherdimension.net</senderEmail><timestampReceived>2002-01-31 01:35:03-0400</timestampReceived><subject>DCC Send Limiter Problem</subject><body>
+
+Hi Folks,
+
+I'm having trouble compiling the 'dcc-send-limiter.c' code against the CVS
+snapshot I've got (20020130).  I just get a whole raft of compilation
+errors - I presume these are due to it being a work in progress?
+
+I can compile it fine against version 0.7.98.4, but I have a problem with
+actually using it.  I've set the limit to 10 (I'm presuming this is
+kbytes/s?).  I do a dcc send, and as soon as the remote party accepts,
+irssi segfaults (reproducably - every time):
+
+GLib-CRITICAL **: file ghash.c: line 152 (g_hash_table_insert): assertion
+`hash_table != NULL' failed.
+GLib-CRITICAL **: file gmain.c: line 500 (g_source_remove): assertion `tag
+&gt; 0' failed.
+Segmentation fault.
+
+#0  0x40043dd9 in g_io_add_watch_full () from /usr/lib/libglib-1.2.so.0
+#1  0x0809defa in g_input_add_full ()
+#2  0x0809df20 in g_input_add ()
+#3  0x4001a046 in sig_dcc_connected ()
+   from libdcc_send_limiter.so
+#4  0x080a79c7 in signal_remove ()
+#5  0x080a7aeb in signal_remove ()
+#6  0x080a7b32 in signal_emit ()
+#7  0x08093393 in dcc_get_deinit ()
+#8  0x0809de93 in masks_match ()
+#9  0x40043eb0 in g_io_add_watch () from /usr/lib/libglib-1.2.so.0
+#10 0x40045578 in g_get_current_time () from /usr/lib/libglib-1.2.so.0
+#11 0x40045b83 in g_get_current_time () from /usr/lib/libglib-1.2.so.0
+#12 0x40045d1c in g_main_run () from /usr/lib/libglib-1.2.so.0
+#13 0x0805eac6 in main ()
+#14 0x400b76cf in __libc_start_main () from /lib/libc.so.6
+
+I'm running Debian unstable, by the way.  DCC's are fine if the module's
+not loaded.  Have I missed anything?
+
+Any one got any thoughts?
+
+Cheers,
+
+John
+==============================
+Compilation error log follows:
+
+In file included from
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc.h:12,
+                 from
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-send.h:4,
+                 from /tmp/dcc-send-limiter.c:46:
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-rec.h:5: parse error
+before `IRC_SERVER_REC'
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-rec.h:5: warning: no
+semicolon at end of struct or union
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-rec.h:23: parse error
+before `:'
+In file included from
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-send.h:4,
+                 from /tmp/dcc-send-limiter.c:46:
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc.h:13: parse error before
+`}'
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc.h:13: warning: data
+definition has no type or storage class
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc.h:36: parse error before
+`*'
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc.h:38: parse error before
+`*'
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc.h:41: parse error before
+`*'
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc.h:41: warning: data
+definition has no type or storage class
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc.h:42: parse error before
+`*'
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc.h:42: warning: data
+definition has no type or storage class
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc.h:56: parse error before
+`*'
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc.h:58: parse error before
+`*'
+In file included from
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-file-rec.h:1,
+                 from
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-send.h:13,
+                 from /tmp/dcc-send-limiter.c:46:
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-rec.h:5: parse error
+before `IRC_SERVER_REC'
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-rec.h:5: warning: no
+semicolon at end of struct or union
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-rec.h:23: parse error
+before `:'
+In file included from /tmp/dcc-send-limiter.c:46:
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-send.h:15: parse error
+before `:'
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-send.h:18: parse error
+before `:'
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-send.h:19: parse error
+before `:'
+/tmp/irssi-text-0.7.98.20020130/src/irc/dcc/dcc-send.h:20: warning: data
+definition has no type or storage class
+/tmp/dcc-send-limiter.c:56: parse error before `*'
+/tmp/dcc-send-limiter.c:58: parse error before `*'
+/tmp/dcc-send-limiter.c: In function `reset_dcc_send':
+/tmp/dcc-send-limiter.c:62: `dcc' undeclared (first use in this function)
+/tmp/dcc-send-limiter.c:62: (Each undeclared identifier is reported only
+once
+/tmp/dcc-send-limiter.c:62: for each function it appears in.)
+/tmp/dcc-send-limiter.c: At top level:
+/tmp/dcc-send-limiter.c:77: parse error before `*'
+/tmp/dcc-send-limiter.c: In function `sent_too_much':
+/tmp/dcc-send-limiter.c:84: `mdcc' undeclared (first use in this function)
+/tmp/dcc-send-limiter.c:90: `dcc' undeclared (first use in this function)
+/tmp/dcc-send-limiter.c: At top level:
+/tmp/dcc-send-limiter.c:104: parse error before `*'
+/tmp/dcc-send-limiter.c: In function `dcc_send_data':
+/tmp/dcc-send-limiter.c:111: `dcc' undeclared (first use in this function)
+/tmp/dcc-send-limiter.c: At top level:
+/tmp/dcc-send-limiter.c:153: parse error before `*'
+/tmp/dcc-send-limiter.c: In function `sig_dcc_connected':
+/tmp/dcc-send-limiter.c:158: parse error before `)'
+/tmp/dcc-send-limiter.c:158: parse error before `)'
+/tmp/dcc-send-limiter.c:158: parse error before `)'
+/tmp/dcc-send-limiter.c:162: `dcc' undeclared (first use in this function)
+/tmp/dcc-send-limiter.c: At top level:
+/tmp/dcc-send-limiter.c:176: parse error before `*'
+/tmp/dcc-send-limiter.c: In function `sig_dcc_destroyed':
+/tmp/dcc-send-limiter.c:180: parse error before `)'
+/tmp/dcc-send-limiter.c:180: parse error before `)'
+/tmp/dcc-send-limiter.c:180: parse error before `)'
+/tmp/dcc-send-limiter.c:183: `dcc' undeclared (first use in this function)
+
+
+
+
+</body></email><email><emailId>20020216025928</emailId><senderName>Tomas Ogren</senderName><senderEmail>stric@ing.umu.se</senderEmail><timestampReceived>2002-02-16 02:59:28-0400</timestampReceived><subject>Bug report wrt /statusbar in cvs snapshot and feature stuff</subject><body>
+
+Hello.
+
+Just tried out todays cvs snapshot (irssi-20020215.tar.gz) and started
+messing with the statusbar changes..
+
+I noticed that if you do: /statusbar prompt disable
+irssi will start hogging the cpu after you hit a few keys..
+
+The /statusbar command is pretty useless in its own form if you don't
+have a /statusbar list  or so... If you have to bring up a text editor
+to check what the statusbars are named, you might as well edit stuff
+there..
+
+And while trying to get my theme (isozapp, unreleased to the public
+right now) ported over from bx I bumped into some things where I had to
+modify the config file to get all things in there.. Is there no way to
+add items from inside the theme? (Or is that too evil?)
+
+http://tomas.ogren.pp.se/tmp/isozapp.png
+Right now I'm doing that status bar by having a low-priority item which
+contains a whole bunch of '-----'.. could there be a better way in the
+future? (like a padding char/item ?)
+
+/Tomas
+-- 
+Tomas Ögren, stric@ing.umu.se, http://www.ing.umu.se/~stric/
+|- Student at Computing Science, University of Umeå
+`- Sysadmin at {cs,ing,acc}.umu.se
+
+</body></email><email><emailId>20020313140243</emailId><senderName>Alexander Demenshin</senderName><senderEmail>aldem-irssi@aldem.net</senderEmail><timestampReceived>2002-03-13 14:02:43-0400</timestampReceived><subject>/ignore with patterns</subject><body>
+
+Hi there,
+
+	Just short suggestion - currently it is impossible
+	use more than one /ignore for cases like:
+	
+	/ignore -pattern "blah blah" * ALL
+	/ignore -pattern "b00m b00m" * ALL
+	
+	Second one will replace first one, but (IMHO) different
+	patterns should be recognized as different ignores.
+	
+Regards,
+/Al
+
+</body></email><email><emailId>20020410161749</emailId><senderName>Alexander Demenshin</senderName><senderEmail>aldem-irssi@aldem.net</senderEmail><timestampReceived>2002-04-10 16:17:49-0400</timestampReceived><subject>ban lists and channel user modes</subject><body>
+
+Hi there,
+
+	Sometimes, extremely rarely though, I notice that ban list shown by
+	/bans doesn't show _actual_ bans, sometimes it keeps old ones.
+	
+	And additionally - I saw it few times - I see people on the channel
+	as not opped while others see them opped. Not sure though, this
+	could be a server-side bug...
+	
+	Both problems are extremely rare so I see no way to reproduce them,
+	unfortunately. When I rejoin the channel, lists and modes are
+	synchronized as expected.
+
+	Is there any way to "resync" ban &amp; modes list while on the channel,
+	BTW?
+
+Regards,
+/Al
+
+
+</body></email><email><emailId>20020410185441</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-04-10 18:54:41-0400</timestampReceived><subject>Re: ban lists and channel user modes</subject><body>
+
+&gt; 	Sometimes, extremely rarely though, I notice that ban list shown by
+&gt; 	/bans doesn't show _actual_ bans, sometimes it keeps old ones.
+
+Might be a server bug, or maybe it's just telling about the bans in some
+weird ways (eg. OPN's +q vs +b % mode which irssi doesn't support properly).
+
+&gt; 	And additionally - I saw it few times - I see people on the channel
+&gt; 	as not opped while others see them opped. Not sure though, this
+&gt; 	could be a server-side bug...
+
+It is, it's called channel desync. Happens mostly with laggy servers.
+
+&gt; 	Is there any way to "resync" ban &amp; modes list while on the channel,
+&gt; 	BTW?
+
+Not currently, but 0.9 will have /ban -sync
+
+
+</body></email><email><emailId>20020410191740</emailId><senderName>Alexander Demenshin</senderName><senderEmail>aldem-irssi@aldem.net</senderEmail><timestampReceived>2002-04-10 19:17:40-0400</timestampReceived><subject>Re: ban lists and channel user modes</subject><body>
+
+On Wed, Apr 10, 2002 at 09:54:41PM +0300, Timo Sirainen wrote:
+
+&gt; Might be a server bug, or maybe it's just telling about the bans in some
+&gt; weird ways (eg. OPN's +q vs +b % mode which irssi doesn't support properly).
+
+  I am quite sure this is not the case - no special modes used (this happens
+  on PTLink powered network). But anyway, impossible to reproduce intentionally.
+
+&gt; It is, it's called channel desync. Happens mostly with laggy servers.
+&gt; 
+&gt; &gt; 	Is there any way to "resync" ban &amp; modes list while on the channel,
+&gt; &gt; 	BTW?
+&gt; 
+&gt; Not currently, but 0.9 will have /ban -sync
+
+  Well, so what about resyncing of modes/ban lists on every /names, /mode or /ban
+  commands, instead of special flags? Anyway data are transferred, so why not
+  update internal structures as well? Just an idea :)
+  
+Regards,
+/Al
+
+</body></email><email><emailId>20020216073533</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-02-16 07:35:33-0400</timestampReceived><subject>Re: Bug report wrt /statusbar in cvs snapshot and feature stuff</subject><body>
+
+&gt; I noticed that if you do: /statusbar prompt disable
+&gt; irssi will start hogging the cpu after you hit a few keys..
+
+Well, input line is part of it so it's not very good idea to remove it :)
+That CPU eating is because irssi tries to wait for the input line to come
+back before reading any data from terminal, and that function is called all
+the time. Could be fixed with some kludgeing but I don't think it's really
+worth it.
+
+&gt; The /statusbar command is pretty useless in its own form if you don't
+&gt; have a /statusbar list  or so... If you have to bring up a text editor
+&gt; to check what the statusbars are named, you might as well edit stuff
+&gt; there..
+
+well, first i wasn't going to do this but oh well :) /statusbar prints now a
+list of all bars, and /statusbar &lt;name&gt; prints bar info.
+
+&gt; And while trying to get my theme (isozapp, unreleased to the public
+&gt; right now) ported over from bx I bumped into some things where I had to
+&gt; modify the config file to get all things in there.. Is there no way to
+&gt; add items from inside the theme? (Or is that too evil?)
+
+Sort of evil i guess :) You should be able to change the look of statusbar
+items from theme, but anything else belongs to config file.
+
+&gt; http://tomas.ogren.pp.se/tmp/isozapp.png
+&gt; Right now I'm doing that status bar by having a low-priority item which
+&gt; contains a whole bunch of '-----'.. could there be a better way in the
+&gt; future? (like a padding char/item ?)
+
+hmm. padding char. maybe. i'll put in todo :)
+
+
+</body></email><email><emailId>20020216174111</emailId><senderName>Tomas Ogren</senderName><senderEmail>stric@ing.umu.se</senderEmail><timestampReceived>2002-02-16 17:41:11-0400</timestampReceived><subject>Re: Bug report wrt /statusbar in cvs snapshot and feature stuff</subject><body>
+
+On 16 February, 2002 - Timo Sirainen sent me these 1,4K bytes:
+
+&gt; &gt; I noticed that if you do: /statusbar prompt disable
+&gt; &gt; irssi will start hogging the cpu after you hit a few keys..
+&gt; 
+&gt; Well, input line is part of it so it's not very good idea to remove it :)
+&gt; That CPU eating is because irssi tries to wait for the input line to come
+&gt; back before reading any data from terminal, and that function is called all
+&gt; the time. Could be fixed with some kludgeing but I don't think it's really
+&gt; worth it.
+
+Well, it's an easy, reproducable way to hang irssi... I suppose more
+people will do it and report it as a bug (since it is ;)
+
+&gt; &gt; The /statusbar command is pretty useless in its own form if you don't
+&gt; &gt; have a /statusbar list  or so... If you have to bring up a text editor
+&gt; &gt; to check what the statusbars are named, you might as well edit stuff
+&gt; &gt; there..
+&gt; 
+&gt; well, first i wasn't going to do this but oh well :) /statusbar prints now a
+&gt; list of all bars, and /statusbar &lt;name&gt; prints bar info.
+
+Maybe list disabled ones too, but with "disabled" noted.. ? Otherwise
+you'd have to dig into the config file again..
+
+&gt; &gt; And while trying to get my theme (isozapp, unreleased to the public
+&gt; &gt; right now) ported over from bx I bumped into some things where I had to
+&gt; &gt; modify the config file to get all things in there.. Is there no way to
+&gt; &gt; add items from inside the theme? (Or is that too evil?)
+&gt; 
+&gt; Sort of evil i guess :) You should be able to change the look of statusbar
+&gt; items from theme, but anything else belongs to config file.
+
+Mm.. but my problem is that the default statusbar define contains too
+few items to accomplish what I want.. (need the --- padding and
+something that will definately end up on the far right side).
+
+&gt; &gt; http://tomas.ogren.pp.se/tmp/isozapp.png
+&gt; &gt; Right now I'm doing that status bar by having a low-priority item which
+&gt; &gt; contains a whole bunch of '-----'.. could there be a better way in the
+&gt; &gt; future? (like a padding char/item ?)
+&gt; 
+&gt; hmm. padding char. maybe. i'll put in todo :)
+
+Maybe add an item that ends up to the far right (could be blank by
+default).. Explanation:
+Right now the -- more -- thing ends up to the far right even if you want
+it or not.. It would be nice to be able to put something in the theme
+that will be at the end no matter what.. (like my [=] thingies at the
+ends)
+
+
+Another thing that I noticed now is that the config file supplied with
+irssi could be nice if it had been run through irssi once (load + save)
+so it's in the same format as the user config file will be.. so it's
+easier to diff and see what you have changed (to hand out to friends)..
+
+.. and maybe add a GIMPnet server define? (the net where Gimp, Gnome etc
+lives).. Would be same config stuff as EFNet but irc.gnome.org as
+server..
+
+/Tomas
+-- 
+Tomas Ögren, stric@ing.umu.se, http://www.ing.umu.se/~stric/
+|- Student at Computing Science, University of Umeå
+`- Sysadmin at {cs,ing,acc}.umu.se
+
+</body></email><email><emailId>20020217095258</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-02-17 09:52:58-0400</timestampReceived><subject>Re: Bug report wrt /statusbar in cvs snapshot and feature stuff</subject><body>
+
+&gt; Well, it's an easy, reproducable way to hang irssi... I suppose more
+&gt; people will do it and report it as a bug (since it is ;)
+
+not that important I'd say, and it doesn't crash ;)
+
+&gt; Maybe list disabled ones too, but with "disabled" noted.. ? Otherwise
+&gt; you'd have to dig into the config file again..
+
+I'll leave this after 0.8.0 as well, since it's not too simple to do. First
+I was going to make the /STATUSBAR only do a few simple things so most
+people wouldn't need to touch the config file directly.
+
+&gt; Maybe add an item that ends up to the far right (could be blank by
+&gt; default).. Explanation:
+
+there is. "barend", it's even after the --more--.
+
+&gt; Another thing that I noticed now is that the config file supplied with
+&gt; irssi could be nice if it had been run through irssi once (load + save)
+&gt; so it's in the same format as the user config file will be.. so it's
+&gt; easier to diff and see what you have changed (to hand out to friends)..
+
+done.
+
+&gt; .. and maybe add a GIMPnet server define? (the net where Gimp, Gnome etc
+&gt; lives).. Would be same config stuff as EFNet but irc.gnome.org as
+&gt; server..
+
+done.
+
+
+</body></email><email><emailId>20020217173339</emailId><senderName>Johan Kiviniemi</senderName><senderEmail>ion@hassers.spam.invalid</senderEmail><timestampReceived>2002-02-17 17:33:39-0400</timestampReceived><subject>Re: Bug report wrt /statusbar in cvs snapshot and feature stuff</subject><body>
+
+On Sun, Feb 17, 2002 at 11:52:58 +0200, Timo Sirainen wrote:
+&gt; &gt; Well, it's an easy, reproducable way to hang irssi... I suppose more
+&gt; &gt; people will do it and report it as a bug (since it is ;)
+
+&gt; not that important I'd say, and it doesn't crash ;)
+
+How about not letting the user do /statusbar prompt disable?
+
+-- 
+Johan Kiviniemi  ion at hassers.org  http://ion.amigafin.org/
+
+</body></email><email><emailId>20020131015722</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-01-31 01:57:22-0400</timestampReceived><subject>Re: DCC Send Limiter Problem</subject><body>
+
+&gt; GLib-CRITICAL **: file ghash.c: line 152 (g_hash_table_insert): assertion
+&gt; `hash_table != NULL' failed.
+&gt; GLib-CRITICAL **: file gmain.c: line 500 (g_source_remove): assertion `tag
+&gt; &gt; 0' failed.
+
+OK, right, so it didn't actually work with 0.7.98 like I remembered :) Oh
+well, updated the version in irssi.org so that it works at least with
+current CVS irssi.
+
+
+</body></email><email><emailId>20020421103409</emailId><senderName>Jussi Ekholm</senderName><senderEmail>ekhowl@goa-head.org</senderEmail><timestampReceived>2002-04-21 10:34:09-0400</timestampReceived><subject>feature request about tab completion</subject><body>
+
+
+I was wondering, if it would be possible for Timo to add some
+sort of /set, with which one could specify if you want tab
+completion to strip special characters (e.g. ^, _, -, and so on)
+when completing the nick with a hit of tab. 
+
+Or if this is out of the question, would someone be so kind and
+guide me to the correct direction with a Perl script? ;-) I can
+somewhat code Perl in order to create system scripts, but scripting
+Irssi is so far out of my knowledge...
+
+-- 
+Jussi Ekholm &lt;ekhowl@goa-head.org&gt; | GNU/Linux user number 269376
+http://erppimaa.cjb.net/~ekhowl/   | ICQ UIN:		   156057281 
+ekh on IRCnet			   | GnuPG Public Key ID:  1410081E
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20020421112620</emailId><senderName></senderName><senderEmail>darix</senderEmail><timestampReceived>2002-04-21 11:26:20-0400</timestampReceived><subject>Re: feature request about tab completion</subject><body>
+
+hi,
+
+hmm i would say perl script.
+maybe bc-bd could combine washnick.pl and niq.pl.
+so it would be an option for it. :)
+or someone writes a standalone script.
+
+cras: would it be possible to have e.g. niq.pl completion and if it is
+finished the nick would be cleaned from the special chars? some chaining
+of completion scripts?
+
+darix
+
+-- 
+"damit wollte ich nur sagen
+ manch einer mag dich anders als du bist
+ aber bleib so weil zweimal gibs dich nicht"
+die oberste direktive (feat. Fanstar) - Mir reicht's nich' (http://direktive.net)
+
+</body></email><email><emailId>20020131133915</emailId><senderName>John Bailey</senderName><senderEmail>john@anotherdimension.net</senderEmail><timestampReceived>2002-01-31 13:39:15-0400</timestampReceived><subject>Re: DCC Send Limiter Problem</subject><body>
+
+&gt; OK, right, so it didn't actually work with 0.7.98 like I remembered :) Oh
+&gt; well, updated the version in irssi.org so that it works at least with
+&gt; current CVS irssi.
+
+That's great - I've givven it a quick go and it seems to be working
+fine.  While I'm posting, I seem to be having trouble now with the /RUN
+command.  I'm using 0.7.98.20020131 and I'm getting:
+
+Irssi: Unknown command: run
+
+when I attempt to /run a script.  The perl module's definatly loaded.  I
+can get around it by placing my scripts in autorun, so it's not a huge
+problem.
+
+Cheers,
+
+John
+
+
+</body></email><email><emailId>20020411122610</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-04-11 12:26:10-0400</timestampReceived><subject>Re: ban lists and channel user modes</subject><body>
+
+&gt;   I am quite sure this is not the case - no special modes used (this happens
+&gt;   on PTLink powered network). But anyway, impossible to reproduce intentionally.
+
+Guess it's some server bug/feature then :)
+
+&gt;   Well, so what about resyncing of modes/ban lists on every /names, /mode or /ban
+&gt;   commands, instead of special flags? Anyway data are transferred, so why not
+&gt;   update internal structures as well? Just an idea :)
+
+Currently /names doesn't transfer any data, and /ban neither - they just
+print the stuff from memory.
+
+For 0.9, I did think first that "/mode #chan b" could have resynced the
+list, but the code got so messy (like handling /mode bb correctly) that I
+thought it's better to put it as /ban -sync option :)
+
+
+</body></email><email><emailId>20020421131653</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-04-21 13:16:53-0400</timestampReceived><subject>Re: feature request about tab completion</subject><body>
+
+&gt; cras: would it be possible to have e.g. niq.pl completion and if it is
+&gt; finished the nick would be cleaned from the special chars? some chaining
+&gt; of completion scripts?
+
+yeah, I think I'll need to add some kind of support for that in 0.9.
+
+
+</body></email><email><emailId>20020429230715</emailId><senderName>Bjoern Krombholz</senderName><senderEmail>bjkro@gmx.de</senderEmail><timestampReceived>2002-04-29 23:07:15-0400</timestampReceived><subject>Re: window goto nick doesn't work</subject><body>
+
+On Fri, Apr 26, 2002 at 06:42:38AM -0400, Hugo Haas wrote:
+&gt;   /WINDOW GOTO #CHANNEL|NICK|=NICK 
+&gt;      - moves you to the window with the channel, query or 
+&gt;        dcc chat.
+&gt; 
+&gt; In my experience, only numbers are accepted. For example, if I have
+&gt; the following window:
+
+TAB completion might be broken in some commands, so irssi doesn't like
+'/window goto nick ' f.e. - remove the space char at the end of the
+command and everything should work fine.
+
+
+/fuchs
+
+</body></email><email><emailId>20020430110312</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-04-30 11:03:12-0400</timestampReceived><subject>Re: Adding Ruby as an extension language</subject><body>
+
+&gt; How hard would it be to add Ruby as an extension language
+&gt; like perl to irssi?
+
+Probably not very, as the core irssi doesn't know anything about perl
+either. Most problematic thing would be the signal handlers, as from C side
+you only get 0-6 pointers which you'd need to convert to something that ruby
+understands. I don't know anything about ruby really, but I'd guess there's
+some kind of objects in it? Perl uses docs/signals.txt anyway to figure out
+what parameters signals get.
+
+&gt; Is there any documentation how to do 
+&gt; this except the perl documentation and the source?
+
+Not really. I could help some though :) Anyway, if you understand how
+irssi's signaling works and can get that to work with ruby then it's pretty
+much done, as you'd only need to add some wrappers to functions.
+
+
+</body></email><email><emailId>20020313191212</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-03-13 19:12:12-0400</timestampReceived><subject>Re: /ignore with patterns</subject><body>
+
+&gt; 	Just short suggestion - currently it is impossible
+&gt; 	use more than one /ignore for cases like:
+
+yep. it's in todo. the whole ignoring thing should be rewritten really :)
+
+
+</body></email><email><emailId>20020314012509</emailId><senderName>Alexander Demenshin</senderName><senderEmail>aldem-irssi@aldem.net</senderEmail><timestampReceived>2002-03-14 01:25:09-0400</timestampReceived><subject>botti &amp; tabs</subject><body>
+
+Hi there,
+
+	Just noticed that tabs are no more tabs in 0.8.1 (displayed as
+	inversed I), and one long standing bug when trying to use botti
+	(segfault) - here is the fix (against 0.8.4):
+	
+--- modules-load.c.orig	Thu Nov  1 01:10:08 2001
++++ modules-load.c	Thu Mar 14 02:18:16 2002
+@@ -64,13 +64,15 @@
+ 	int len;
+ 
+ 	/* skip any of the prefixes.. */
+-	while (*prefixes != NULL) {
+-                len = strlen(*prefixes);
+-		if (strncmp(name, *prefixes, len) == 0 &amp;&amp; name[len] == '_') {
+-			name += len+1;
+-                        break;
++	if (prefixes) {
++		while (*prefixes != NULL) {
++	                len = strlen(*prefixes);
++			if (strncmp(name, *prefixes, len) == 0 &amp;&amp; name[len] == '_') {
++				name += len+1;
++	                        break;
++			}
++			prefixes++;
+ 		}
+-		prefixes++;
+ 	}
+ 
+ 	/* skip the _core part */
+
+
+Regards,
+/Al
+
+</body></email><email><emailId>20020314015126</emailId><senderName>"Ian Blizzard"</senderName><senderEmail>paragon@martyr.ca</senderEmail><timestampReceived>2002-03-14 01:51:26-0400</timestampReceived><subject>Re: botti &amp;amp; tabs</subject><body>
+
+&gt; Hi there,
+&gt;
+&gt; 	Just noticed that tabs are no more tabs in 0.8.1 (displayed as
+&gt; 	inversed I), and one long standing bug when trying to use botti
+&gt; 	(segfault) - here is the fix (against 0.8.4):
+&gt;
+&gt; --- modules-load.c.orig	Thu Nov  1 01:10:08 2001
+&gt; +++ modules-load.c	Thu Mar 14 02:18:16 2002
+&gt; @@ -64,13 +64,15 @@
+&gt; 	int len;
+&gt;
+&gt; 	/* skip any of the prefixes.. */
+&gt; -	while (*prefixes != NULL) {
+&gt; -                len = strlen(*prefixes);
+&gt; -		if (strncmp(name, *prefixes, len) == 0 &amp;&amp; name[len]
+== '_') {
+&gt; -			name += len+1;
+&gt; -                        break;
+&gt; +	if (prefixes) {
+&gt; +		while (*prefixes != NULL) {
+&gt; +	                len = strlen(*prefixes);
+&gt; +			if (strncmp(name, *prefixes, len) == 0 &amp;&amp;
+name[len] == '_') {
+&gt; +				name += len+1;
+&gt; +	                        break;
+&gt; +			}
+&gt; +			prefixes++;
+&gt; 		}
+&gt; -		prefixes++;
+&gt; 	}
+&gt;
+&gt; 	/* skip the _core part */
+&gt;
+&gt;
+&gt; Regards,
+&gt; /Al
+
+Tabs have always shown up as inverse I's for me, ever since 0.7.98
+And they still do in 0.8.4.
+
++---------------------------+
+|       Ian Blizzard        |
++---------------------------+
+| eml : paragon@martyr.ca   |
+| web : www.parag0n.net     |
++---------------------------+
+
+
+
+
+</body></email><email><emailId>20020318163858</emailId><senderName>Sophie</senderName><senderEmail>sophie@cats.meow.at</senderEmail><timestampReceived>2002-03-18 16:38:58-0400</timestampReceived><subject>vi mode irssi</subject><body>
+
+
+Hi,
+
+cras and I spoke briefley on #irssi, opn, about vi mode for irssi. I thought i'd \
+sketch out some ideas here so they dont get lost.
+
+* command/insert mode. *everything* gets sent to channel/query/whatever when in \
+insert mode, unless you press escape to go back to command mode. This makes /commands \
+the equivalent of :ex commands. i currently have cmdchars set to ":", but i want to \
+be able to toggle between insert and command mode too. pasting /'s, :'s etc will not \
+be a problem with this. (set vimode)
+
+* inline commands, like d$, dw, x, r etc for editing the command line (set viediting)
+
+* cursor movement with h,j,k,l (set vicursors) - just personal choice, really. it'd \
+be nice. would only be applicable when using vimode and having pressed escape for \
+command mode :) ^ for start of line, $ for end... especially useful if you are using \
+some wierd terminal with broken arrow keys (yes, i irc from a serial terminal, hp-ux \
+console and a minix handheld :)
+
+I think that's all for now, just wanted to get those written down somewhere. Comments \
+welcome, although i dont have time to join irssi development as activley as I would \
+like to :/
+
+- Sophie
+
+
+</body></email><email><emailId>20020326164154</emailId><senderName>Bjoern Krombholz</senderName><senderEmail>bjkro@gmx.de</senderEmail><timestampReceived>2002-03-26 16:41:54-0400</timestampReceived><subject>Re: 0.8.4 crashes with my old config file</subject><body>
+
+On Mon, Mar 25, 2002 at 12:52:53PM +0100, ckroom wrote:
+&gt; I downloaded irssi 0.8.4 stable (sources). I compiled and installed it and 
+&gt; all was ok. However, when I try to start irssi, I obtain a segmentation 
+&gt; fault. I think the cause is my config file, because if I delete the 
+&gt; .irssi/config, irssi starts normally, and with other users there are no 
+&gt; problem. With my older client, irssi 0.8.1, I used this .irssi/config without 
+&gt; problems.
+&gt; 
+&gt; settings = {
+[...]
+&gt;   "fe-common/core" = {
+[...]
+&gt;     translation = "spanish";
+[...]
+
+Remove the translation line in your config. I got the same problem but
+forgot to report it as bug.
+
+It seems irssi crashes whenever translation is set independent of it's
+value.
+
+Btw. what is translation for? :)
+
+
+/fuchs
+
+</body></email><email><emailId>20020217173829</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-02-17 17:38:29-0400</timestampReceived><subject>Re: Bug report wrt /statusbar in cvs snapshot and feature stuff</subject><body>
+
+&gt; How about not letting the user do /statusbar prompt disable?
+
+The input line doesn't have to be in statusbar named "prompt", and I'd
+rather not add such kludge anyway. If it checked that the last visible input
+line is going to be destroyed, then it could prevent it..
+
+
+</body></email><email><emailId>20020217215645</emailId><senderName>Per von Zweigbergk</senderName><senderEmail>pvz@linux.se</senderEmail><timestampReceived>2002-02-17 21:56:45-0400</timestampReceived><subject>PATCH: Eliminating blinking mIRC colours</subject><body>
+
+Some background mIRC colours would make irssi blink on certain terminals. 
+With some help I tracked down the source of this to be the 0x08 bit set. 
+
+Apparently, on some terminals, including the Linux text console, and the KDE 
+konsole, this bit means "blink", but on other terminals (including rxvt and 
+the Linux framebuffer console) it provides 8 more shades of the same colours 
+(as with the foreground colours).
+
+This patch will when applied by default do nothing compared to vanilla irssi, 
+but when activated with /set mirc_blink_fix ON, it will strip the 0x08 bit 
+off the background colours. This will stop the blinking on the terminals 
+which blink when the 0x08 bit is set on colours, but also reduce the amount 
+of colours irssi uses on the other kind of terminal.
+
+An easy way to check if irssi needs this patch on your favorite terminal, is 
+to try the colour 4,1 ([Ctrl+C]4,1test). If the word "test" blinks, you need 
+this patch.
+
+If it doesn't blink, your terminal is not of the kind which blinks when the 
+0x08 bit is set, and you shouldn't enable this patch. If you do, it will 
+reduce the accuracy of colour representation even further.
+
+Hope this will eliminate insanity and headaches caused by blinking text for 
+all of you. :)
+
+Please tell me if you have any trouble with this patch, although it's so 
+trivial that technically there's probably nothing that can go wrong with it ;)
+-- 
+Per von Zweigbergk &lt;pvz@linux.se&gt;
+["blink.diff" (text/x-diff)]
+
+diff -r -u irssi-0.8.1.orig/src/fe-text/gui-printtext.c irssi-0.8.1/src/fe-text/gui-printtext.c
+--- irssi-0.8.1.orig/src/fe-text/gui-printtext.c	Sun Feb 17 16:10:09 2002
++++ irssi-0.8.1/src/fe-text/gui-printtext.c	Sun Feb 17 22:34:43 2002
+@@ -145,6 +145,8 @@
+ 		   colors wrap to 0, 1, ... */
+                 if (*bg &gt;= 0) *bg = mirc_colors[*bg % 16];
+ 		if (*fg &gt;= 0) *fg = mirc_colors[*fg % 16];
++		if (settings_get_bool("mirc_blink_fix"))
++			*bg &amp;= ~0x08;
+ 	}
+ 
+ 	if (*fg &lt; 0 || *fg &gt; 15)
+diff -r -u irssi-0.8.1.orig/src/fe-text/term.c irssi-0.8.1/src/fe-text/term.c
+--- irssi-0.8.1.orig/src/fe-text/term.c	Sun Feb 17 16:48:32 2002
++++ irssi-0.8.1/src/fe-text/term.c	Sun Feb 17 22:34:04 2002
+@@ -138,6 +138,7 @@
+ 	settings_add_bool("lookandfeel", "colors", TRUE);
+ 	settings_add_bool("lookandfeel", "term_force_colors", FALSE);
+         settings_add_bool("lookandfeel", "term_auto_detach", FALSE);
++        settings_add_bool("lookandfeel", "mirc_blink_fix", FALSE);
+         settings_add_str("lookandfeel", "term_type", "8bit");
+ 
+ 	force_colors = FALSE;
+
+
+</body></email><email><emailId>20020219214938</emailId><senderName>Inet6</senderName><senderEmail>inet6@mail.be</senderEmail><timestampReceived>2002-02-19 21:49:38-0400</timestampReceived><subject>Crash on startup :(</subject><body>
+
+Hi, I have a problem when starting irssi, it seems to crash on startup 
+(like just typing 'irssi' gives me a segfault already) but 'irssi 
+--help' works... This is very weird, since the compile process and 
+everything works fine, the versions I have tried: 0.8.1 and the CVS 
+version of today (19/02/2002)
+
+With kind regards, Inet6
+
+
+</body></email><email><emailId>20020224030811</emailId><senderName>ckroom</senderName><senderEmail>ckroom@yahoo.com</senderEmail><timestampReceived>2002-02-24 03:08:11-0400</timestampReceived><subject>Re: Segmentation fault</subject><body>
+
+Bug report:
+
+Running a 2.4.17 linux kernel on a Debian unstable version.
+Irssi: Client: irssi 0.8.1 (20020217 1542) stable, compiled from tarball
+sources.
+ircd used for test the bug: 2.8/hybrid-6.2(20010925_1)
+
+To cause the bug:
+I connect to my local ircd, identify myself as ircop and send a very long
+line to a channel, then the client crash with a segmentation fault.
+
+BackTrace:
+(gdb) bt
+#0  0x40211657 in malloc () from /lib/libc.so.6
+#1  0x402111e4 in malloc () from /lib/libc.so.6
+#2  0x4014e699 in g_malloc () from /usr/lib/libglib-1.2.so.0
+#3  0x401569e6 in g_strdup_vprintf () from /usr/lib/libglib-1.2.so.0
+#4  0x40156a26 in g_strdup_printf () from /usr/lib/libglib-1.2.so.0
+#5  0x080b0ad1 in rawlog_output (rawlog=0x8187e60,
+    str=0x8328c40 "PRIVMSG #opers :FUCKWINDO", 'W' &lt;repeats 53 times&gt;, 'S'
+&lt;repeats 122 times&gt;...) at rawlog.c:91
+#6  0x080933c9 in server_cmd_timeout (server=0x82bc530, now=0xbffff844)
+    at irc-servers.c:345
+#7  0x4015667b in g_slist_foreach () from /usr/lib/libglib-1.2.so.0
+#8  0x08093447 in servers_cmd_timeout () at irc-servers.c:363
+#9  0x4014e49a in g_main_set_poll_func () from /usr/lib/libglib-1.2.so.0
+#10 0x4014d578 in g_get_current_time () from /usr/lib/libglib-1.2.so.0
+#11 0x4014db83 in g_get_current_time () from /usr/lib/libglib-1.2.so.0
+#12 0x4014dc35 in g_main_iteration () from /usr/lib/libglib-1.2.so.0
+#13 0x08068540 in main (argc=1, argv=0xbffffa04) at irssi.c:350
+#14 0x401bc6cf in __libc_start_main () from /lib/libc.so.6
+
+I hope it will help.
+
+--
+"La mortalidad es la mejor virtud de un hombre"
+
+ckroom &lt;ckroom@yahoo.com&gt;
+Registered linux user #256682
+http://ckroom.05c.net
+
+</body></email><email><emailId>20020224132149</emailId><senderName>Marcus 'darix' Rueckert</senderName><senderEmail>darix@linux.taugt.net</senderEmail><timestampReceived>2002-02-24 13:21:49-0400</timestampReceived><subject>Re: Fwd: Re: reproduce the bug</subject><body>
+
+hi
+
+&gt; I have noticed that the rawlog file cuts the long lines and only sends a
+&gt; part, but in the channel windows appears the entire line. I have done it
+&gt; wihtout ircop identification and with identifycation, in various channels,
+&gt; with various characters, but always irssi crashes.
+&gt; 
+&gt; Only join a channel and start to send long lines, see you.
+
+
+as i thought. it is the 1024 chars bug. its already fixed in cvs. :)
+i send a 2200 chars line to with my irssi and it works fine.
+
+and of course irssi cuts the msg it sends to the server. only 512 chars
+are allowed. currently irssi didnt split msg by itself. use splitlong.pl
+
+darix
+
+-- 
+"damit wollte ich nur sagen
+ manch einer mag dich anders als du bist
+ aber bleib so weil zweimal gibs dich nicht"
+die oberste direktive (feat. Fanstar) - Mir reicht's nich' (http://direktive.net)
+
+</body></email><email><emailId>20020124013210</emailId><senderName>"kriss rolo"</senderName><senderEmail>krissrolo@aol.com</senderEmail><timestampReceived>2002-01-24 01:32:10-0400</timestampReceived><subject>SOME ITEMS THAT YOU MAY BE INTERESTED IN OR BE ABLE TO ADVISE ME ON</subject><body>
+
+These are the items that iam interested in selling..
+Could you help me with some details on the goods, history, origin etc.
+are these worth anything and if so who would i contact with regards to
+selling them? and the best way to sell them ie auction etc
+
+APOLOGISE IF YOU HAVE ALREADY RECEIVED THIS E-MAIL
+
+JPEGS ARE AVAILABLE AT YOUR REQUEST
+
+MANY THANX
+
+kriss rolo
+tel:   
+0044 182760393 office (uk)
+0044 1216864211 home (uk)
+0044 7814294018 mobile (uk)
+
+return e-mail address krissrolo@aol.com
+
+UK ONLY VEHICLE REGISTRATION NUMBER N64 CON
+NINTENDO 64 CONSOLE
+
+item 1
+
+
+hand carved round table with metal chain link in the middle
+
+ 
+
+
+
+item 2
+
+magnum laurent perrier vintage 1988 champagne
+
+
+ 
+
+
+item 3
+
+miniture football on stand from euro96 signed by pele and bobby charlton
+
+ 
+
+item 4
+is a bit more interesting. its a protana minifon attache, as u will see
+ive enclosed notes from a web site regarding this and you will see back in
+the 50's it cost $340.00 so i could imagine this to be worth a bit. it
+also has an original tape inside i do not know what is on this tape, but
+judging by who made it and the cost of the machine, the tape could have
+some important information on it. heres the note.....
+
+ 
+
+The Minifon, developed in the early 1950s by Monske GMBH of Hanover(or by
+Protona GMBH- I'm not certain), was an ultra-miniaturized, battery
+operated magnetic recording device. It could not (initially at least)
+record the full range of sounds and was thus limited to voice recording,
+but it did offer easy portability in a very small package. The idea of
+offering a pocket dictating machine was novel, since dictation had
+previously been done in the office. However, it was thought that people
+like salesmen could take the machine "on the road" with them. Once on the
+market, the Minifon's promoters discovered that many people took advantage
+of the recorder's small size to make secret recordings to be used as
+evidence, as in court.&lt;BR&gt;
+&lt;BR&gt;
+The "legitimate" use of the Minifon, as a dictating machine, was somewhat
+problematical. Recordings made on regular dictating equipment were usually
+letters, and thus were normally sent almost immediately to a typist. The
+Minifon offered no obvious advantages over standard dictation equipment
+for office use, but its developers hoped to cultivate new uses for
+dictation equipment, such as stock taking in warehouses, or the use of the
+machine as a substitute for note-taking by reporters, insurance adjusters,
+salesmen, and others.
+
+In its original form, the Minifon was a wire recorder, using a type of
+wire medium developed by the Armour Research Foundation of Chicago and
+employed in many similar devices since the late 1940s. The machine at its
+introduction in 1952 had a recording time of one hour, which was
+remarkably long, and weighed only about 3 pounds at a time when a typical
+office dictating machine weighed upwards of 10 pounds. It accomplished
+this small size and light weight in part through the use of miniature
+tubes and clever mechanical design. The basic machine cost $289.50-- a
+price that sounds high today but was very much in line with competing
+office dictating machines.
+
+The parent company attempted to set up distribution, sales and service
+networks in the United States. It established a business office called the
+Minifon Export Corp in New York, and an existing company, Harvey Radio in
+New York City became the main distributor. Although smaller tape recorders
+appeared at about the same time, the main competition in the voice
+recording field was from an American company, Mohawk, which made a small,
+battery-operated cartridge tape recorder called the Migetape. Both
+products sold less than 10,000 units per year in the U.S.&lt;BR&gt;
+
+After a few years, the Minifon was modified to use transistors and
+magnetic tape, further lowering its weight and cost. By 1962 the basic
+machine weighed in at only 1.5 pounds. Competition by this time had helped
+bring the cost down to $249.50.
+
+The Minifon after about 1962 was distributed by the international
+conglomerate ITT through its subsidiary in the U.S., Federal Electric
+Corp. A little later, distribution was taken over by the ITT Distributor
+Products Division in Lodi, New Jersey. (I don't know whether these were
+the same company with different names)
+
+By the time ITT became associated with this product, it had taken on the
+name of Minifon "Attache," and a new line of models and options appeared.
+These included a hi-fi model, the 978H, which sold for $330.50.Usinga
+two-track, 1/4 inch tape cartridge operating at 1 7/8 inches per second,
+the machine claimed a frequency response of up to 12,000 Hz, plus or minus
+3db.
+The coming of magnetic tape did not completely displace wire. The Model
+240 series of recorders introduced in the early 1960s were probably the
+last wire recorders in regular production. The 240L, at a price of $269.50
+used a special long-playing wire cartridge that held 4 hours of wire.
+Otherwise it looked like both the tape model and the 240S, which used a
+2-hour wire cartridge and sold for $249.50.
+
+Another innovation was the introduction of more conventional recorders.
+After years of offering only "half" of a complete dictation system,
+Minifon finally developed a restyled, non-portable "office" machine,
+mainly for use by a transcriber, with pedal controls.
+
+By the mid-1960s, Minifon was trying to market its machines as
+multi-purpose devices suitable for nearly any recording need. In addition
+to the hi-fi and long-playing machines, the company offered an astounding
+variety of optional equipment such as foot controls, microphones, external
+amplifiers and loudspeakers, headsets, external power supplies, telephone
+recording attachments, conference recording adapters. One of the most
+interesting options were the miniature microphones intended to allow users
+to make "spy" recordings. In addition to a small tie-clip microphone, the
+Minifon could be equipped with a microphone disguised as a wrist- watch.
+
+
+</body></email><email><emailId>20020131134220</emailId><senderName>Jakub Jankowski</senderName><senderEmail>shasta@quasimodo.olsztyn.tpsa.pl</senderEmail><timestampReceived>2002-01-31 13:42:20-0400</timestampReceived><subject>Re: DCC Send Limiter Problem</subject><body>
+
+On 2002-01-31, John Bailey wrote:
+
+&gt;That's great - I've givven it a quick go and it seems to be working
+&gt;fine.  While I'm posting, I seem to be having trouble now with the /RUN
+&gt;command.  I'm using 0.7.98.20020131 and I'm getting:
+&gt;
+&gt;Irssi: Unknown command: run
+
+Try /script load scriptname.pl
+
+Or make an alias: /alias run /script load
+
+s.
+
+-- 
+(0&gt;  Jakub Jankowski  [url]: s.atn.pl   "Life is a bitch,
+//\   shasta@IRCnet   [rlu]: 174516      and then you die"
+V_/_  shasta@irc.pl   [ekg]: 921514
+
+
+</body></email><email><emailId>20020426104238</emailId><senderName>Hugo Haas</senderName><senderEmail>hugo@larve.net</senderEmail><timestampReceived>2002-04-26 10:42:38-0400</timestampReceived><subject>window goto nick doesn't work</subject><body>
+
+Hi.
+
+I am using irssi 0.8.4 (20020313 0430).
+
+The documentation says:
+
+  /WINDOW GOTO #NUMBER
+     - Moves into the specified window.
+
+  /WINDOW GOTO #CHANNEL|NICK|=NICK 
+     - moves you to the window with the channel, query or 
+       dcc chat.
+
+In my experience, only numbers are accepted. For example, if I have
+the following window:
+
+  Ref Name                 Active item     Server          Level
+  [..]
+  14                       steve           foo             
+
+"/window goto 14" works, but "/window goto steve" doesn't.
+
+Regards,
+
+Hugo
+
+-- 
+Hugo Haas &lt;hugo@larve.net&gt; - http://larve.net/people/hugo/
+Well, guess we'll have to roshambo for it.
+
+</body></email><email><emailId>20020430092613</emailId><senderName>Einar Karttunen</senderName><senderEmail>ekarttun@cs.helsinki.fi</senderEmail><timestampReceived>2002-04-30 09:26:13-0400</timestampReceived><subject>Adding Ruby as an extension language</subject><body>
+
+Hello
+
+How hard would it be to add Ruby as an extension language
+like perl to irssi? Is there any documentation how to do 
+this except the perl documentation and the source?
+Interfacing Ruby and C is quite easy so the main
+problem is the lack of documentation of irssi.
+
+- Einar Karttunen
+
+</body></email><email><emailId>20020428202031</emailId><senderName>Jussi Ekholm</senderName><senderEmail>ekhowl@goa-head.org</senderEmail><timestampReceived>2002-04-28 20:20:31-0400</timestampReceived><subject>Re: window goto nick doesn't work</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hugo Haas &lt;hugo@larve.net&gt; wrote:
+
+&gt; Hi.
+
+Heya.
+
+&gt; I am using irssi 0.8.4 (20020313 0430).
+
+Mine is 0.8.4.CVS.20020427-(2353).
+
+&gt; The documentation says:
+&gt; 
+&gt;   /WINDOW GOTO #NUMBER
+&gt;      - Moves into the specified window.
+&gt; 
+&gt;   /WINDOW GOTO #CHANNEL|NICK|=NICK 
+&gt;      - moves you to the window with the channel, query or 
+&gt;        dcc chat.
+
+Yup, and that's how it works, too. In my Irssi, at least; just tested
+it. Created a query with a person, switched to some other window and
+typed '/window goto &lt;nick&gt;' and Irssi goes straight to that query
+window. 
+
+&gt; In my experience, only numbers are accepted. For example, if I have
+&gt; the following window:
+&gt; 
+&gt;   Ref Name                 Active item     Server          Level
+&gt;   [..]
+&gt;   14                       steve           foo             
+&gt; 
+&gt; "/window goto 14" works, but "/window goto steve" doesn't.
+
+    Ref Name                 Active item     Server          Level
+    [snip...]
+    18                       ekhie           IRCNet
+
+Works fine. I'd suggest upgrading to the most recent CVS version, and
+try if it works, because I don't have any idea whatsoever why this
+feature doesn't work in your Irssi. I'd remember reading from some
+FAQ, that "Before you complaing about a bug, try upgrading to the
+most recent version", or something to that matter. :-)
+
+So, fetch the the CVS sources and compile yourself a brand new Irssi
+and let us know if it's still not functioning. Weird problem, because
+it works fine here. OTOH, I haven't even used '/window' very much,
+as I've bound all the windows I need to M-&lt;number&gt;. Anyway, try the
+newest sources and see if it starts to work. Otherwise, I have no
+ideas nor any clue why this is so. Good luck!
+
+- -- 
+Jussi Ekholm &lt;ekhowl@goa-head.org&gt; | GNU/Linux user number 269376
+http://erppimaa.cjb.net/~ekhowl/   | ICQ UIN:		   156057281 
+ekh on IRCnet			   | GnuPG Public Key ID:  1410081E
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.6 (GNU/Linux)
+Comment: For info see http://www.gnupg.org
+
+iD8DBQE8zFmOAtEARxQQCB4RAp7xAJ48Iv5n0t9mcWPkCCkHIIkXc51UmQCcCYIE
+PBVJHLrn8qO5MHggTcTj3b4=
+=V6KU
+-----END PGP SIGNATURE-----
+
+</body></email><email><emailId>20020502135701</emailId><senderName>Jussi Ekholm</senderName><senderEmail>ekhowl@goa-head.org</senderEmail><timestampReceived>2002-05-02 13:57:01-0400</timestampReceived><subject>Re: window goto nick doesn't work</subject><body>
+
+
+Bjoern Krombholz &lt;bjkro@gmx.de&gt; wrote:
+
+&gt; On Fri, Apr 26, 2002 at 06:42:38AM -0400, Hugo Haas wrote:
+&gt;&gt;   /WINDOW GOTO #CHANNEL|NICK|=NICK 
+&gt;&gt;      - moves you to the window with the channel, query or 
+&gt;&gt;        dcc chat.
+&gt;&gt; 
+&gt;&gt; In my experience, only numbers are accepted. For example, if I have
+&gt;&gt; the following window:
+&gt; 
+&gt; TAB completion might be broken in some commands, so irssi doesn't like
+&gt; '/window goto nick ' f.e. - remove the space char at the end of the
+&gt; command and everything should work fine.
+
+Oh yeah! I didn't come to think this at all. My apologies for the
+misinformative mail I wrote; about "upgrade your Irssi to the
+latest CVS version" and that kind of shit. It didn't occur to me
+at all, that the space after tab completed nick would screw it up.
+
+I expect, that Timo is going to fix this soon, right? One more to
+the wishlist... :-)
+
+-- 
+Jussi Ekholm &lt;ekhowl@goa-head.org&gt; | GNU/Linux user number 269376
+http://erppimaa.cjb.net/~ekhowl/   | ICQ UIN:		   156057281 
+ekh on IRCnet			   | GnuPG Public Key ID:  1410081E
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20020325115253</emailId><senderName>ckroom</senderName><senderEmail>ckroom@telefonica.net</senderEmail><timestampReceived>2002-03-25 11:52:53-0400</timestampReceived><subject>0.8.4 crashes with my old config file</subject><body>
+
+I downloaded irssi 0.8.4 stable (sources). I compiled and installed it and 
+all was ok. However, when I try to start irssi, I obtain a segmentation 
+fault. I think the cause is my config file, because if I delete the 
+.irssi/config, irssi starts normally, and with other users there are no 
+problem. With my older client, irssi 0.8.1, I used this .irssi/config without 
+problems.
+
+I use GNU/Linux Debian testing, linux kernel 2.4.18.
+
+The bactrace:
+
+#0  0x0808c0d7 in window_find_level (server=0x0, level=1048576) at 
+fe-windows.c:250
+#1  0x0808c171 in window_find_closest (server=0x0, name=0x0, level=1048576)
+    at fe-windows.c:281
+#2  0x08081d27 in format_create_dest_tag (dest=0xbffff3ac, server=0x0, 
+server_tag=0x0, 
+    target=0x0, level=1048576, window=0x0) at formats.c:294
+#3  0x08081cab in format_create_dest (dest=0xbffff3ac, server=0x0, 
+target=0x0, 
+    level=1048576, window=0x0) at formats.c:281
+#4  0x08085eaa in printformat_module_args (module=0x80d3e4e "fe-common/core", 
+server=0x0, 
+    target=0x0, level=1048576, formatnum=200, va=0xbffff418) at printtext.c:93
+#5  0x08085ee5 in printformat_module (module=0x80d3e4e "fe-common/core", 
+server=0x0, 
+    target=0x0, level=1048576, formatnum=200) at printtext.c:103
+#6  0x08088e98 in translation_read (file=0x80f4c88 "spanish") at 
+translation.c:90
+#7  0x08089002 in read_settings () at translation.c:133
+#8  0x08089054 in translation_init () at translation.c:145
+#9  0x08078cd7 in fe_common_core_init () at fe-common-core.c:188
+#10 0x08068399 in textui_init () at irssi.c:151
+#11 0x08068762 in main (argc=1, argv=0xbffff9e4) at irssi.c:334
+#12 0x401bc6cf in __libc_start_main () from /lib/libc.so.6
+
+I send too my config file as atachment.
+
+That's all, thanks.
+
+-- 
+"La mortalidad es la mejor virtud de un hombre"
+
+ckroom &lt;ckroom@telefonica.net&gt; 
+Registered linux user #256682
+http://telefonica.net/web/ckroom
+
+["config" (text/plain)]
+
+servers = (
+  { address = "irc.stealth.net"; chatnet = "IRCNet"; port = "6668"; },
+  { address = "irc.efnet.net"; chatnet = "EFNet"; port = "6667"; },
+  { 
+    address = "irc.undernet.org";
+    chatnet = "Undernet";
+    port = "6667";
+  },
+  { address = "irc.dal.net"; chatnet = "DALnet"; port = "6667"; },
+  { address = "irc.openprojects.net"; chatnet = "OPN"; port = "6667"; },
+  { address = "irc.gnome.org"; chatnet = "GIMPNet"; port = "6667"; },
+  { address = "irc.ptlink.net"; chatnet = "PTlink"; port = "6667"; },
+  { address = "silc.pspt.fi"; chatnet = "SILC"; port = "706"; },
+  {
+    address = "atreides.irc-hispano.org";
+    chatnet = "HISPANO";
+    port = "6667";
+    password = "xxxxxx";
+    autoconnect = "yes";
+  }
+);
+
+chatnets = {
+  IRCNet = {
+    type = "IRC";
+    max_kicks = "4";
+    max_modes = "3";
+    max_msgs = "5";
+    max_whois = "4";
+    max_query_chans = "5";
+  };
+  EFNet = { 
+    type = "IRC";
+    max_kicks = "4";
+    max_modes = "4";
+    max_msgs = "3";
+  };
+  Undernet = {
+    type = "IRC";
+    max_kicks = "4";
+    max_modes = "3";
+    max_msgs = "3";
+  };
+  DALNet = { 
+    type = "IRC";
+    max_kicks = "4";
+    max_modes = "6";
+    max_msgs = "3";
+  };
+  OPN = {
+    type = "IRC";
+    autosendcmd = "/msg NickServ identify xxxxxx";
+    max_kicks = "4";
+    max_msgs = "1";
+    max_modes = "4";
+  };
+  GIMPNet = {
+    type = "IRC";
+    max_kicks = "4";
+    max_modes = "4";
+    max_msgs = "3";
+  };
+  PTLink = {
+    type = "IRC";
+    max_kicks = "1";
+    max_modes = "6";
+    max_msgs = "100";
+  };
+  SILC = { type = "SILC"; };
+  HISPANO = {
+    type = "IRC";
+    nick = "ckroom";
+    username = "ckroom";
+    realname = "fucking wørld";
+  };
+};
+
+channels = (
+  { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
+  { name = "#irssi"; chatnet = "opn"; autojoin = "No"; },
+  { name = "#silc"; chatnet = "silc"; autojoin = "No"; },
+  { name = "#motril"; chatnet = "HISPANO"; autojoin = "yes"; },
+  { name = "#peña-motril"; chatnet = "HISPANO"; autojoin = "yes"; },
+  { name = "#doom"; chatnet = "HISPANO"; autojoin = "yes"; },
+  { name = "#tibia"; chatnet = "HISPANO"; autojoin = "yes"; },
+  { name = "#linux_granada"; chatnet = "HISPANO"; autojoin = "yes"; },
+  { name = "#b-chip"; chatnet = "OPN"; autojoin = "yes"; }
+);
+
+aliases = {
+  J = "join";
+  WJOIN = "join -window";
+  WQUERY = "query -window";
+  LEAVE = "part";
+  BYE = "quit";
+  EXIT = "quit";
+  SIGNOFF = "quit";
+  DESCRIBE = "action";
+  DATE = "time";
+  HOST = "userhost";
+  LAST = "lastlog";
+  SAY = "msg *";
+  WI = "whois";
+  WII = "whois $0 $0";
+  WW = "whowas";
+  W = "who";
+  N = "names";
+  M = "msg";
+  T = "topic";
+  C = "clear";
+  CL = "clear";
+  K = "kick";
+  KB = "kickban";
+  KN = "knockout";
+  BANS = "ban";
+  B = "ban";
+  MUB = "unban *";
+  UB = "unban";
+  IG = "ignore";
+  UNIG = "unignore";
+  SB = "scrollback";
+  UMODE = "mode $N";
+  WC = "window close";
+  WN = "window new hide";
+  SV = "say Irssi $J ($V) - http://irssi.org/";
+  GOTO = "sb goto";
+  CHAT = "dcc chat";
+  RUN = "SCRIPT LOAD";
+  UPTIME = "eval exec - expr `date +%s` - \\$F | awk '{print \"Irssi uptime: \
+\"int(\\\\\\$1/3600/24)\"d \"int(\\\\\\$1/3600%24)\"h \"int(\\\\\\$1/60%60)\"m \
+\"int(\\\\\\$1%60)\"s\" }'";  CALC = "exec - if which bc &amp;&gt;/dev/null\\; then echo \
+'$*' | bc | awk '{print \"$*=\"$$1}'\\; else echo bc was not found\\; fi";  SBAR = \
+"STATUSBAR";  INVITELIST = "mode $C +I";
+};
+
+statusbar = {
+  # formats:
+  # when using {templates}, the template is shown only if it's argument isn't
+  # empty unless no argument is given. for example {sb} is printed always,
+  # but {sb $T} is printed only if $T isn't empty.
+
+  items = {
+    # start/end text in statusbars
+    barstart = "{sbstart}";
+    barend = "{sbend}";
+
+    # treated "normally", you could change the time/user name to whatever
+    time = "{sb $Z}";
+    user = "{sb $cumode$N{sbmode $usermode}{sbaway $A}}";
+    topic = " $topic";
+    info = " Irssi v$J - http://irssi.org/beginner/ - read it to get rid of this";
+
+    # treated specially .. window is printed with non-empty windows,
+    # window_empty is printed with empty windows
+    window = "{sb $winref:$T{sbmode $M}}";
+    window_empty = "{sb $winref{sbservertag $tag}}";
+    prompt = "{prompt $[.15]T}";
+    prompt_empty = "{prompt $winname}";
+
+    # all of these treated specially, they're only displayed when needed
+    lag = "{sb Lag: $0-}";
+    act = "{sb Act: $0-}";
+    more = "-- more --";
+  };
+
+  # there's two type of statusbars. root statusbars are either at the top
+  # of the screen or at the bottom of the screen. window statusbars are at
+  # the top/bottom of each split window in screen.
+  default = {
+    # the "default statusbar" to be displayed at the bottom of the window.
+    # contains all the normal items.
+    window = {
+      disabled = "no";
+
+      # window, root
+      type = "window";
+      # top, bottom
+      placement = "bottom";
+      # number
+      position = "1";
+      # active, inactive, always
+      visible = "active";
+
+      # list of items in statusbar in the display order
+      items = {
+        barstart = { priority = "100"; };
+        time = { };
+        user = { };
+        window = { };
+        window_empty = { };
+        lag = { priority = "-1"; };
+        act = { priority = "10"; };
+        more = { priority = "-1"; alignment = "right"; };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
+
+    # statusbar to use in inactive split windows
+    window_inact = {
+      type = "window";
+      placement = "bottom";
+      position = "1";
+      visible = "inactive";
+      items = {
+        barstart = { priority = "100"; };
+        window = { };
+        window_empty = { };
+        more = { priority = "-1"; alignment = "right"; };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
+
+    # (annoying) infobar requesting new users to visit irssi.org and read
+    # a bit of documentation :)
+    info = {
+      type = "root";
+      placement = "bottom";
+      position = "1";
+      visible = "always";
+      items = { info = { }; };
+      disabled = "yes";
+    };
+
+    # we treat input line as yet another statusbar :) It's possible to
+    # add other items before or after the input line item.
+    prompt = {
+      type = "root";
+      placement = "bottom";
+      # we want to be at the bottom always
+      position = "100";
+      visible = "always";
+      items = {
+        prompt = { priority = "-1"; };
+        prompt_empty = { priority = "-1"; };
+        # treated specially, this is the real input line.
+        input = { priority = "10"; };
+      };
+    };
+
+    # topicbar
+    topic = {
+      type = "root";
+      placement = "top";
+      position = "1";
+      visible = "always";
+      items = {
+        barstart = { priority = "100"; };
+        topic = { };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
+  };
+};
+settings = {
+  core = {
+    real_name = "fucking world";
+    user_name = "ckroom";
+    nick = "ckroom";
+    awaylog_file = "~/Documentos/logs/awaylog";
+    quit_message = "\"Build your own world, the default one sucks\"";
+    hostname = "onix.gtcomm.net";
+  };
+  "fe-common/core" = {
+    autocreate_own_query = "no";
+    autocreate_query_level = "DCCMSGS";
+    use_status_window = "no";
+    use_msgs_window = "yes";
+    autoclose_windows = "no";
+    reuse_unused_windows = "yes";
+    autolog_path = "~/Documentos/logs/$tag/$0.log";
+    autolog = "yes";
+    completion_char = ":";
+    translation = "spanish";
+  };
+  "perl/core/scripts" = {
+    usercount_show_ircops = "yes";
+    usercount_show_zero = "yes";
+  };
+  "irc/core" = {
+    ctcp_userinfo_reply = "I'm mister X, and u? \006hAhAhAhAhAhA";
+    ctcp_version_reply = ".-[ irssi 0.8.1 running on Linux ]-. Use free software :P";
+    alternate_nick = "ckroom_";
+  };
+  "irc/dcc" = { dcc_port = "4500"; dcc_own_ip = "80.24.242.34"; };
+};
+
+hilights = ( { text = "ckroom"; nick = "yes"; word = "yes"; } );
+notifies = { lekumba = { }; begoooo = { }; DFauLT = { }; };
+ignores = (
+  { mask = "agenda"; level = "ALL"; },
+  { mask = "noticias"; level = "ALL"; },
+  { mask = "nick2info"; level = "ALL"; }
+);
+logs = {
+  "~/irc.log.(msgs)" = {
+    level = "ALL";
+    items = ( { type = "window"; name = "1"; } );
+  };
+  "~/irc.log.Window2" = {
+    level = "ALL";
+    items = ( { type = "window"; name = "2"; } );
+  };
+};
+windows = {
+  1 = { immortal = "yes"; name = "msg"; level = "MSGS NOTICES DCCMSGS"; };
+  6 = {
+    name = "linux_granada";
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#linux_granada";
+        tag = "HISPANO";
+      }
+    );
+  };
+  7 = { };
+  4 = {
+    name = "doom";
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#doom";
+        tag = "HISPANO";
+      }
+    );
+  };
+  2 = {
+    name = "motril";
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#Motril";
+        tag = "HISPANO";
+      }
+    );
+  };
+  5 = {
+    name = "tibia";
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#tibia";
+        tag = "HISPANO";
+      }
+    );
+  };
+  3 = {
+    name = "peña-motril";
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#peña-motril";
+        tag = "HISPANO";
+      }
+    );
+  };
+  9 = { };
+  10 = { };
+  8 = { };
+};
+mainwindows = { 1 = { first_line = "1"; lines = "29"; }; };
+keyboard = ( { key = "meta-s"; id = "command"; data = "/names "; } );
+
+
+
+</body></email><email><emailId>20020224125014</emailId><senderName>ckroom</senderName><senderEmail>ckroom@yahoo.com</senderEmail><timestampReceived>2002-02-24 12:50:14-0400</timestampReceived><subject>Fwd: Re: reproduce the bug</subject><body>
+
+On Sunday 24 February 2002 04:13, escribiste:
+
+&gt; hi
+&gt;
+&gt; would you send me the line you send to your ircd ?
+&gt; as attachment :)
+&gt;
+&gt; otherwise the mail client maybe shorten it.
+&gt;
+&gt; thx in advance.
+&gt; i will try to reproduce it then.
+&gt;
+&gt; runnning hybrid ircd 7b10/ircnet ircd 2.10.3/unreal ircd 3.2b6 here :)
+&gt;
+&gt; let me see what irssi makes crashing.
+&gt;
+&gt; btw. if you reproduce it for your self do a "/rawlog open ~/rawlog" before
+&gt;
+&gt;
+&gt; darix
+
+I have noticed that the rawlog file cuts the long lines and only sends a
+part, but in the channel windows appears the entire line. I have done it
+wihtout ircop identification and with identifycation, in various channels,
+with various characters, but always irssi crashes.
+
+Only join a channel and start to send long lines, see you.
+
+--
+"La mortalidad es la mejor virtud de un hombre"
+
+ckroom &lt;ckroom@yahoo.com&gt;
+Registered linux user #256682
+http://ckroom.05c.net
+["irssi.raw" (text/plain)]
+
+&lt;&lt; NICK ckroom
+&lt;&lt; USER ckroom b-chip localhost :La mortalidad es la mejor virtud de un hombre
+&gt; &gt; NOTICE AUTH :*** Looking up your hostname...
+&gt; &gt; NOTICE AUTH :*** Checking Ident
+&gt; &gt; NOTICE AUTH :*** No Ident response
+&gt; &gt; NOTICE AUTH :*** Couldn't look up your hostname
+&gt; &gt; &gt; ckroom.myip.org 001 ckroom :Welcome to the Internet Relay Network ckroom
+&gt; &gt; &gt; ckroom.myip.org 002 ckroom :Your host is ckroom.myip.org[ckroom.myip.org/6667], \
+&gt; &gt; &gt; running version 2.8/hybrid-6.2
+&gt; &gt; NOTICE ckroom :*** Your host is ckroom.myip.org[ckroom.myip.org/6667], running \
+&gt; &gt; version 2.8/hybrid-6.2 :ckroom.myip.org 003 ckroom :This server was created dom \
+&gt; &gt; ene 6 2002 at 13:02:20 CET :ckroom.myip.org 004 ckroom ckroom.myip.org \
+&gt; &gt; 2.8/hybrid-6.2 oOiwszcrkfydnxb biklmnopstve :ckroom.myip.org 251 ckroom :There \
+&gt; &gt; are 1 users and 0 invisible on 1 servers :ckroom.myip.org 255 ckroom :I have 1 \
+&gt; &gt; clients and 0 servers :ckroom.myip.org 265 ckroom :Current local  users: 1  Max: \
+&gt; &gt; 1 :ckroom.myip.org 266 ckroom :Current global users: 1  Max: 1
+&gt; &gt; &gt; ckroom.myip.org 250 ckroom :Highest connection count: 1 (1 clients) (2 since \
+&gt; &gt; &gt; server was (re)started)
+&gt; &gt; &gt; ckroom.myip.org 375 ckroom :- ckroom.myip.org Message of the Day - 
+&gt; &gt; &gt; ckroom.myip.org 372 ckroom :- Bienvenidos a mi servidor de irc de pruebas. Para \
+&gt; &gt; &gt; cualquier cosa entra en el canal #oper
+&gt; &gt; &gt; ckroom.myip.org 372 ckroom :- s 
+&gt; &gt; &gt; ckroom.myip.org 372 ckroom :- o email a ckroom@yahoo.com. Este servidor no \
+&gt; &gt; &gt; tiene bots por lo que no podrás ni registra
+&gt; &gt; &gt; ckroom.myip.org 372 ckroom :- r
+&gt; &gt; &gt; ckroom.myip.org 372 ckroom :- nicks ni canales. Si quieres hacer prácticas de \
+&gt; &gt; &gt; ircop habla con ckroom. 
+&gt; &gt; &gt; ckroom.myip.org 372 ckroom :- 
+&gt; &gt; &gt; ckroom.myip.org 376 ckroom :End of /MOTD command.
+&lt;&lt; PING ckroom.myip.org
+&gt; &gt; &gt; ckroom.myip.org PONG ckroom.myip.org :ckroom
+--&gt; lag pong
+&lt;&lt; MODE ckroom +i
+&gt; &gt; &gt; ckroom MODE ckroom :+i
+--&gt; requested usermode change
+&lt;&lt; NICK ckroom
+&lt;&lt; USER ckroom b-chip localhost :La mortalidad es la mejor virtud de un hombre
+&gt; &gt; NOTICE AUTH :*** Looking up your hostname...
+&gt; &gt; NOTICE AUTH :*** Checking Ident
+&gt; &gt; NOTICE AUTH :*** No Ident response
+&gt; &gt; NOTICE AUTH :*** Couldn't look up your hostname
+&gt; &gt; &gt; ckroom.myip.org 001 ckroom :Welcome to the Internet Relay Network ckroom
+&gt; &gt; &gt; ckroom.myip.org 002 ckroom :Your host is ckroom.myip.org[ckroom.myip.org/6667], \
+&gt; &gt; &gt; running version 2.8/hybrid-6.2
+&gt; &gt; NOTICE ckroom :*** Your host is ckroom.myip.org[ckroom.myip.org/6667], running \
+&gt; &gt; version 2.8/hybrid-6.2 :ckroom.myip.org 003 ckroom :This server was created dom \
+&gt; &gt; ene 6 2002 at 13:02:20 CET :ckroom.myip.org 004 ckroom ckroom.myip.org \
+&gt; &gt; 2.8/hybrid-6.2 oOiwszcrkfydnxb biklmnopstve :ckroom.myip.org 251 ckroom :There \
+&gt; &gt; are 1 users and 0 invisible on 1 servers :ckroom.myip.org 255 ckroom :I have 1 \
+&gt; &gt; clients and 0 servers :ckroom.myip.org 265 ckroom :Current local  users: 1  Max: \
+&gt; &gt; 1 :ckroom.myip.org 266 ckroom :Current global users: 1  Max: 1
+&gt; &gt; &gt; ckroom.myip.org 250 ckroom :Highest connection count: 1 (1 clients) (2 since \
+&gt; &gt; &gt; server was (re)started)
+&gt; &gt; &gt; ckroom.myip.org 375 ckroom :- ckroom.myip.org Message of the Day - 
+&gt; &gt; &gt; ckroom.myip.org 372 ckroom :- Bienvenidos a mi servidor de irc de pruebas. Para \
+&gt; &gt; &gt; cualquier cosa entra en el canal #oper
+&gt; &gt; &gt; ckroom.myip.org 372 ckroom :- s 
+&gt; &gt; &gt; ckroom.myip.org 372 ckroom :- o email a ckroom@yahoo.com. Este servidor no \
+&gt; &gt; &gt; tiene bots por lo que no podrás ni registra
+&gt; &gt; &gt; ckroom.myip.org 372 ckroom :- r
+&gt; &gt; &gt; ckroom.myip.org 372 ckroom :- nicks ni canales. Si quieres hacer prácticas de \
+&gt; &gt; &gt; ircop habla con ckroom. 
+&gt; &gt; &gt; ckroom.myip.org 372 ckroom :- 
+&gt; &gt; &gt; ckroom.myip.org 376 ckroom :End of /MOTD command.
+&lt;&lt; PING ckroom.myip.org
+&gt; &gt; &gt; ckroom.myip.org PONG ckroom.myip.org :ckroom
+--&gt; lag pong
+&lt;&lt; MODE ckroom +i
+&gt; &gt; &gt; ckroom MODE ckroom :+i
+--&gt; requested usermode change
+&lt;&lt; JOIN #anychannel
+&gt; &gt; &gt; ckroom!~ckroom@127.0.0.1 JOIN :#anychannel
+&gt; &gt; &gt; ckroom.myip.org MODE #anychannel +nt
+&gt; &gt; &gt; ckroom.myip.org 353 ckroom = #anychannel :@ckroom 
+&gt; &gt; &gt; ckroom.myip.org 366 ckroom #anychannel :End of /NAMES list.
+&lt;&lt; MODE #anychannel
+&gt; &gt; &gt; ckroom.myip.org 324 ckroom #anychannel +tn 
+--&gt; chanquery mode
+&lt;&lt; WHO #anychannel
+&gt; &gt; &gt; ckroom.myip.org 329 ckroom #anychannel 1014554586
+--&gt; event 329
+&gt; &gt; &gt; ckroom.myip.org 352 ckroom #anychannel ~ckroom 127.0.0.1 ckroom.myip.org ckroom \
+&gt; &gt; &gt; H@ :0 La mortalidad es la mejor virtud de un hombre
+--&gt; silent event who
+&gt; &gt; &gt; ckroom.myip.org 315 ckroom #anychannel :End of /WHO list.
+--&gt; chanquery who end
+&lt;&lt; MODE #anychannel b
+&gt; &gt; &gt; ckroom.myip.org 368 ckroom #anychannel :End of Channel Ban List
+--&gt; chanquery ban end
+&lt;&lt; ISON :b\anca lekumba begoooo DFauLT
+&gt; &gt; &gt; ckroom.myip.org 303 ckroom :
+--&gt; notifylist event
+&lt;&lt; PRIVMSG #anychannel \
+:mensagetoolong00000000000000000000000000000000000000000000000000000000000000000000000 \
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000 \
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ &lt;&lt; PRIVMSG #anychannel \
+:mensagetoolong00000000000000000000000000000000000000000000000000000000000000000000000 \
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000 \
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000 \
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000 \
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ &lt;&lt; PING ckroom.myip.org
+&gt; &gt; &gt; ckroom.myip.org PONG ckroom.myip.org :ckroom
+--&gt; lag pong
+&lt;&lt; PRIVMSG #anychannel \
+:mensagetoolong00000000000000000000000000000000000000000000000000000000000000000000000 \
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000 \
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000 \
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000 \
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+
+
+
+</body></email><email><emailId>20020507191505</emailId><senderName>ckroom</senderName><senderEmail>ckroom@telefonica.net</senderEmail><timestampReceived>2002-05-07 19:15:05-0400</timestampReceived><subject>segmentation fault</subject><body>
+
+I was connect to efnet, and my irssi client crashed when I typed 
+/ctcp * xdcc list ¶
+
+What could be the cause of this?
+
+Here you are more information:
+
+irssi version Irssi 0.8.4 (20020313)
+ircd version 2.8/hybrid-6.2rc1(20010811_2). efnet.demon.co.uk
+
+Backtrace:
+
+#0  0x08068f2a in cmd_ctcp (data=0x8184f3d "* xdcc list", server=0x8176670, 
+item=0x0)
+    at fe-irc-commands.c:134
+#1  0x080b6a04 in signal_emit_real (rec=0x80ee3f0, params=3, va=0xbffff25c) 
+at signals.c:216
+#2  0x080b6ae6 in signal_emit (signal=0x8190748 "command ctcp", params=3) at 
+signals.c:253
+#3  0x080a6ee6 in parse_command (command=0x818d051 "ctcp * xdcc list", 
+expand_aliases=1, 
+    server=0x8176670, item=0x0) at commands.c:880
+#4  0x080a701c in event_command (line=0x818d050 "/ctcp * xdcc list", 
+server=0x8176670, 
+    item=0x0) at commands.c:931
+#5  0x080b6a04 in signal_emit_real (rec=0x80eceb0, params=3, va=0xbffff36c) 
+at signals.c:216
+#6  0x080b6ae6 in signal_emit (signal=0x80c45b3 "send command", params=3) at 
+signals.c:253
+#7  0x08059c76 in key_send_line () at gui-readline.c:191
+#8  0x080b6a04 in signal_emit_real (rec=0x8124690, params=3, va=0xbffff44c) 
+at signals.c:216
+#9  0x080b6ae6 in signal_emit (signal=0x81853f8 "key send_line", params=3) at 
+signals.c:253
+#10 0x080855df in sig_multi (data=0x81301c8 "check_replaces;send_line", 
+gui_data=0x0)
+    at keyboard.c:629
+#11 0x080b6a04 in signal_emit_real (rec=0x8107c20, params=3, va=0xbffff54c) 
+at signals.c:216
+#12 0x080b6ae6 in signal_emit (signal=0x8191e80 "key multi", params=3) at 
+signals.c:253
+#13 0x0808531b in key_emit_signal (keyboard=0x812d950, key=0x8135078) at 
+keyboard.c:526
+#14 0x0808548c in key_pressed (keyboard=0x812d950, key=0xbffff5f8 "^J") at 
+keyboard.c:584
+#15 0x08059bc5 in handle_key (key=10) at gui-readline.c:165
+#16 0x0805a08b in sig_input () at gui-readline.c:369
+#17 0x080ac203 in irssi_io_invoke (source=0x812d878, condition=G_IO_IN, 
+data=0x812d890)
+    at misc.c:56
+#18 0x40149e10 in g_io_add_watch () from /usr/lib/libglib-1.2.so.0
+#19 0x4014b4d8 in g_get_current_time () from /usr/lib/libglib-1.2.so.0
+#20 0x4014bae3 in g_get_current_time () from /usr/lib/libglib-1.2.so.0
+#21 0x4014bb95 in g_main_iteration () from /usr/lib/libglib-1.2.so.0
+#22 0x080687eb in main (argc=2, argv=0xbffffa14) at irssi.c:350
+
+I hope it will be useful :)
+
+PD: This is my third "bug" report, lol
+
+---
+ckroom@telefonica.net
+
+</body></email><email><emailId>20020507191758</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-05-07 19:17:58-0400</timestampReceived><subject>Re: segmentation fault</subject><body>
+
+&gt; I was connect to efnet, and my irssi client crashed when I typed 
+&gt; /ctcp * xdcc list ¶
+&gt; 
+&gt; What could be the cause of this?
+
+/ctcp * goes to active channel/query, and you didn't have either in the
+active window. This bug is fixed in cvs.
+
+
+</body></email><email><emailId>20020224024416</emailId><senderName>ckroom</senderName><senderEmail>ckroom@yahoo.com</senderEmail><timestampReceived>2002-02-24 02:44:16-0400</timestampReceived><subject>Segmentation fault</subject><body>
+
+I was trying my local ircd with irssi and I have discovered that if I 
+identify myself like oper and send a very long line to a channel, the irssi 
+client crashes with a segmentation fault.
+
+irssi version: 0.8.1 (20020217 1542)
+ircd version: 2.8/hybrid-6.2(20010925_1)
+
+I have the core dump if you need too.
+
+That's all :)
+
+-- 
+"La mortalidad es la mejor virtud de un hombre"
+
+ckroom &lt;ckroom@yahoo.com&gt; 
+Registered linux user #256682
+http://ckroom.05c.net
+
+</body></email><email><emailId>20020224030206</emailId><senderName>Marcus 'darix' Rueckert</senderName><senderEmail>darix@linux.taugt.net</senderEmail><timestampReceived>2002-02-24 03:02:06-0400</timestampReceived><subject>Re: Segmentation fault</subject><body>
+
+hi
+
+core is always good. but read
+http://irssi.org/index.php?page=documentation&amp;doc=crash
+
+&gt; I have the core dump if you need too.
+i add to my bug reports the backtrace generated with.
+
+"gdb /path/to/bin/irssi /path/to/core &gt; bt-`date -uIs`"
+
+anyway i think you use 0.8.1 stable?
+there is a bug, already fixed in cvs, for a problem with too long lines
+in irssi. maybe you should try this. but save a copy of your current
+irssi binary for debugging.
+
+hope this helps a bit.
+
+darix
+
+-- 
+"damit wollte ich nur sagen
+ manch einer mag dich anders als du bist
+ aber bleib so weil zweimal gibs dich nicht"
+die oberste direktive (feat. Fanstar) - Mir reicht's nich' (http://direktive.net)
+
+</body></email><email><emailId>20020606221107</emailId><senderName>Bastian Hoyer</senderName><senderEmail>dafire@dafire.de</senderEmail><timestampReceived>2002-06-06 22:11:07-0400</timestampReceived><subject>proxy module</subject><body>
+
+
+Irssi is really great.. but I'm missing scripting features to 
+the proxy module to make cool scripts where irssi interacts 
+with the remote client.
+
+1. command sending raw text to the client
+2. hook to change/stop text regulary sent from irssi to the 
+client
+3. hook to change/stop text sent from the client to irssi on 
+the way to irc
+
+with that you could control many irssi things from the remote 
+client, like ignore, away logs ... 
+
+dafire
+
+-- 
+PGP-KEY: http://www.dafire.de/pgp.html 
+(Fingerprint: E123 1D04 87D5 C8D2  491D E188 58DE DF6B)
+
+
+
+</body></email><email><emailId>20020501183007</emailId><senderName>"ARTER"</senderName><senderEmail>arter@dragoncat.net</senderEmail><timestampReceived>2002-05-01 18:30:07-0400</timestampReceived><subject>Re: VB ile Programlama / % 50 indirim</subject><body>
+
+&lt;META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=iso-8859-9"&gt;
+&lt;html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40"&gt;
+
+&lt;head&gt;
+&lt;meta http-equiv=Content-Type content="text/html; charset=iso-8859-1"&gt;
+&lt;meta name=ProgId content=Word.Document&gt;
+&lt;meta name=Generator content="Microsoft Word 9"&gt;
+&lt;meta name=Originator content="Microsoft Word 9"&gt;
+&lt;link rel=File-List href="http://www.arterweb.com/messon3_files/filelist.xml"&gt;
+&lt;link rel=Edit-Time-Data href="http://www.arterweb.com/messon3_files/editdata.mso"&gt;
+&lt;!--[if !mso]&gt;
+&lt;style&gt;
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+&lt;/style&gt;
+&lt;![endif]--&gt;
+&lt;title&gt;ARTER YAYINCILIK MUHENDISLIK DANISMANLIK&lt;/title&gt;
+&lt;!--[if gte mso 9]&gt;&lt;xml&gt;
+ &lt;o:DocumentProperties&gt;
+  &lt;o:Author&gt;SAKIR UNUTUR&lt;/o:Author&gt;
+  &lt;o:LastAuthor&gt;SAKIR UNUTUR&lt;/o:LastAuthor&gt;
+  &lt;o:Revision&gt;2&lt;/o:Revision&gt;
+  &lt;o:TotalTime&gt;55&lt;/o:TotalTime&gt;
+  &lt;o:Created&gt;2002-04-19T09:14:00Z&lt;/o:Created&gt;
+  &lt;o:LastSaved&gt;2002-04-19T09:14:00Z&lt;/o:LastSaved&gt;
+  &lt;o:Pages&gt;1&lt;/o:Pages&gt;
+  &lt;o:Words&gt;113&lt;/o:Words&gt;
+  &lt;o:Characters&gt;647&lt;/o:Characters&gt;
+  &lt;o:Company&gt;ARTER&lt;/o:Company&gt;
+  &lt;o:Lines&gt;5&lt;/o:Lines&gt;
+  &lt;o:Paragraphs&gt;1&lt;/o:Paragraphs&gt;
+  &lt;o:CharactersWithSpaces&gt;794&lt;/o:CharactersWithSpaces&gt;
+  &lt;o:Version&gt;9.2720&lt;/o:Version&gt;
+ &lt;/o:DocumentProperties&gt;
+ &lt;o:OfficeDocumentSettings&gt;
+  &lt;o:RelyOnVML/&gt;
+  &lt;o:AllowPNG/&gt;
+ &lt;/o:OfficeDocumentSettings&gt;
+&lt;/xml&gt;&lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;xml&gt;
+ &lt;w:WordDocument&gt;
+  &lt;w:HyphenationZone&gt;21&lt;/w:HyphenationZone&gt;
+ &lt;/w:WordDocument&gt;
+&lt;/xml&gt;&lt;![endif]--&gt;
+&lt;style&gt;
+&lt;!--
+ /* Font Definitions */
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:16792199 0 0 0 65791 0;}
+@font-face
+	{font-family:"Times New  Roman";
+	panose-1:0 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:0;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:auto;
+	mso-font-signature:0 0 0 0 0 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-style-next:Normal;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:center;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:12.0pt;
+	font-family:Tahoma;
+	color:#0000F8;
+	mso-font-kerning:0pt;
+	font-weight:bold;
+	text-decoration:underline;
+	text-underline:single;}
+h2
+	{mso-style-next:Normal;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:center;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:12.0pt;
+	font-family:Arial;
+	color:yellow;
+	mso-ansi-language:EN-US;
+	font-weight:bold;
+	text-decoration:underline;
+	text-underline:single;}
+h3
+	{mso-style-next:Normal;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:center;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:9.0pt;
+	mso-bidi-font-size:7.5pt;
+	font-family:Arial;
+	color:black;
+	font-weight:bold;}
+h4
+	{mso-style-next:Normal;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	mso-element:frame;
+	mso-element-wrap:auto;
+	mso-element-anchor-horizontal:column;
+	mso-element-left:53.6pt;
+	mso-height-rule:exactly;
+	font-size:7.5pt;
+	font-family:Tahoma;
+	font-weight:normal;}
+h6
+	{mso-style-next:Normal;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:6;
+	font-size:7.5pt;
+	font-family:Arial;
+	mso-ansi-language:EN-US;
+	font-weight:normal;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:70.85pt 70.85pt 70.85pt 70.85pt;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+--&gt;
+&lt;/style&gt;
+&lt;!--[if gte mso 9]&gt;&lt;xml&gt;
+ &lt;o:shapedefaults v:ext="edit" spidmax="1029"/&gt;
+&lt;/xml&gt;&lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;xml&gt;
+ &lt;o:shapelayout v:ext="edit"&gt;
+  &lt;o:idmap v:ext="edit" data="1"/&gt;
+ &lt;/o:shapelayout&gt;&lt;/xml&gt;&lt;![endif]--&gt;
+&lt;/head&gt;
+
+&lt;body bgcolor="#ccccff" lang=TR link=blue vlink=blue style='tab-interval:35.4pt'
+leftmargin=100&gt;
+
+&lt;div class=Section1&gt;
+
+&lt;p style='margin:0cm;margin-bottom:.0001pt'&gt;&lt;a name="_top"&gt;&lt;/a&gt;&lt;![if \
+!supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/p&gt;
+
+&lt;table border=0 cellspacing=0 cellpadding=0 align=left style='border-collapse:
+ collapse;mso-table-lspace:7.05pt;mso-table-rspace:7.05pt;mso-table-anchor-vertical:
+ paragraph;mso-table-anchor-horizontal:page;mso-table-left:53.55pt;mso-table-top:
+ -2.2pt;mso-padding-alt:0cm 3.5pt 0cm 3.5pt'&gt;
+ &lt;tr style='height:74.4pt'&gt;
+  &lt;td width=191 valign=top style='width:143.6pt;padding:0cm 3.5pt 0cm 3.5pt;
+  height:74.4pt'&gt;
+  &lt;p class=MsoNormal \
+style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:  \
+column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;b&gt;&lt;span  \
+style='font-size:14.0pt;mso-bidi-font-size:12.0pt;font-family:Tahoma;  \
+color:black'&gt;&lt;v:shapetype id="_x0000_t75" coordsize="21600,21600" o:spt="75"  \
+o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f"&gt;  &lt;v:stroke \
+joinstyle="miter"/&gt;  &lt;v:formulas&gt;
+    &lt;v:f eqn="if lineDrawn pixelLineWidth 0"/&gt;
+    &lt;v:f eqn="sum @0 1 0"/&gt;
+    &lt;v:f eqn="sum 0 0 @1"/&gt;
+    &lt;v:f eqn="prod @2 1 2"/&gt;
+    &lt;v:f eqn="prod @3 21600 pixelWidth"/&gt;
+    &lt;v:f eqn="prod @3 21600 pixelHeight"/&gt;
+    &lt;v:f eqn="sum @0 0 1"/&gt;
+    &lt;v:f eqn="prod @6 1 2"/&gt;
+    &lt;v:f eqn="prod @7 21600 pixelWidth"/&gt;
+    &lt;v:f eqn="sum @8 21600 0"/&gt;
+    &lt;v:f eqn="prod @7 21600 pixelHeight"/&gt;
+    &lt;v:f eqn="sum @10 21600 0"/&gt;
+   &lt;/v:formulas&gt;
+   &lt;v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/&gt;
+   &lt;o:lock v:ext="edit" aspectratio="t"/&gt;
+  &lt;/v:shapetype&gt;&lt;v:shape id="_x0000_i1027" type="#_x0000_t75" style='width:125.25pt;
+   height:169.5pt'&gt;
+   &lt;v:imagedata src="http://www.arterweb.com/messon3_files/image001.jpg" \
+o:title="face2"/&gt;  &lt;/v:shape&gt;&lt;/span&gt;&lt;/b&gt;&lt;strong&gt;&lt;span \
+style='font-size:8.0pt;mso-bidi-font-size:  \
+7.5pt;font-family:Tahoma;color:black'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;  &lt;p \
+class=MsoNormal style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:
+  column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;strong&gt;&lt;u&gt;&lt;span
+  style='font-size:7.5pt;font-family:Tahoma;color:black;font-weight:normal'&gt;Referanslarimizdan&lt;span
+  style="mso-spacerun: yes"&gt;  &lt;/span&gt;bazilari: &lt;/span&gt;&lt;/u&gt;&lt;/strong&gt;&lt;b&gt;&lt;u&gt;&lt;span
+  lang=EN-US style='font-size:7.5pt;mso-bidi-font-size:12.0pt;font-family:Tahoma;
+  mso-fareast-font-family:"Times New  Roman";color:black;mso-ansi-language:
+  EN-US'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;
+  &lt;p class=MsoNormal \
+style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:  \
+column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;strong&gt;&lt;span  \
+style='font-size:7.5pt;font-family:Tahoma;font-weight:normal'&gt;Türk Telekom  Genel \
+Müdürlügü&lt;/span&gt;&lt;/strong&gt;&lt;span lang=EN-US style='font-size:7.5pt;  \
+mso-bidi-font-size:12.0pt;font-family:Tahoma;mso-ansi-language:EN-US'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p class=MsoNormal \
+style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:  \
+column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;strong&gt;&lt;span  \
+style='font-size:7.5pt;font-family:Tahoma;font-weight:normal'&gt;Disbank Gn. Md.  \
+&lt;/span&gt;&lt;/strong&gt;&lt;strong&gt;&lt;span lang=EN-US style='font-size:7.5pt;font-family:  \
+Tahoma;mso-ansi-language:EN-US;font-weight:normal'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;  \
+&lt;p class=MsoNormal style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:
+  column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;strong&gt;&lt;span
+  style='font-size:7.5pt;font-family:Tahoma;font-weight:normal'&gt;Alarko \
+Holding&lt;/span&gt;&lt;/strong&gt;&lt;strong&gt;&lt;span  lang=EN-US \
+style='font-size:7.5pt;font-family:Tahoma;mso-ansi-language:EN-US;  \
+font-weight:normal'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;  &lt;p class=MsoNormal \
+style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:  \
+column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;strong&gt;&lt;span  \
+style='font-size:7.5pt;font-family:Tahoma;font-weight:normal'&gt;Anadolu Sigorta  Gn. \
+Md.&lt;span style="mso-spacerun: yes"&gt;     \
+&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;strong&gt;&lt;span  lang=EN-US \
+style='font-size:7.5pt;font-family:Tahoma;mso-ansi-language:EN-US;  \
+font-weight:normal'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;  &lt;h4&gt;&lt;strong&gt;&lt;span \
+style='font-weight:normal'&gt;Telsim&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/h4&gt;  &lt;p class=MsoNormal \
+style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:  \
+column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;strong&gt;&lt;span  \
+style='font-size:7.5pt;font-family:Tahoma;font-weight:normal'&gt;Ege  \
+Üniversitesi   &lt;/span&gt;&lt;/strong&gt;&lt;strong&gt;&lt;span lang=EN-US  \
+style='font-size:7.5pt;font-family:Tahoma;mso-ansi-language:EN-US;font-weight:  \
+normal'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;  &lt;p class=MsoNormal \
+style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:  \
+column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;strong&gt;&lt;span  \
+style='font-size:7.5pt;font-family:Tahoma;font-weight:normal'&gt;Alkim Kimya  \
+Sanayii&lt;/span&gt;&lt;/strong&gt;&lt;span lang=EN-US style='font-size:7.5pt;mso-bidi-font-size:  \
+12.0pt;font-family:Tahoma;mso-ansi-language:EN-US'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;  &lt;p \
+class=MsoNormal style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:
+  column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;span
+  style='font-size:7.5pt;mso-bidi-font-size:12.0pt;font-family:Tahoma'&gt;Hema
+  Disli ve Makina San. Tic. A.S.&lt;/span&gt;&lt;strong&gt;&lt;span lang=EN-US
+  style='font-size:7.5pt;font-family:Tahoma;mso-ansi-language:EN-US;font-weight:
+  normal'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+  &lt;p class=MsoNormal \
+style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:  \
+column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;strong&gt;&lt;span  \
+style='font-size:7.5pt;font-family:Tahoma;font-weight:normal'&gt;DSi Antalya  Böl. Md. \
+&lt;/span&gt;&lt;/strong&gt;&lt;span lang=EN-US style='font-size:7.5pt;mso-bidi-font-size:  \
+12.0pt;font-family:Tahoma;mso-ansi-language:EN-US'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;  &lt;h6 \
+style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:  \
+column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;strong&gt;&lt;span  lang=EN-US \
+style='font-family:Tahoma;font-weight:normal'&gt;DSi Bursa&lt;span  style="mso-spacerun: \
+yes"&gt;   &lt;/span&gt;Böl. Md.&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/h6&gt;  &lt;h6 \
+style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:  \
+column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;strong&gt;&lt;span  lang=EN-US \
+style='font-family:Tahoma;font-weight:normal'&gt;inönü \
+Üniversitesi&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/h6&gt;  &lt;h6 \
+style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:  \
+column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;span lang=EN-US  \
+style='mso-bidi-font-size:10.0pt;font-family:Tahoma'&gt;Kombassan&lt;/span&gt;&lt;span  \
+lang=EN-US style='font-size:8.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/h6&gt;
+  &lt;p class=MsoNormal \
+style='mso-element:frame;mso-element-wrap:auto;mso-element-anchor-horizontal:  \
+column;mso-element-left:53.6pt;mso-height-rule:exactly'&gt;&lt;span lang=EN-US  \
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;mso-ansi-language:EN-US'&gt;……..&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+  &lt;p class=MsoNormal style='mso-element:frame;mso-element-frame-width:135.0pt;
+  mso-element-frame-height:126.0pt;mso-element-frame-hspace:7.05pt;mso-element-wrap:
+  around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
+  page;mso-element-left:53.6pt;mso-element-top:-2.2pt'&gt;&lt;b&gt;&lt;span
+  style='font-family:"Courier New";mso-bidi-font-family:"Times New  Roman";
+  color:#333399'&gt;&lt;![if !supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+  &lt;p class=MsoNormal style='mso-element:frame;mso-element-frame-width:135.0pt;
+  mso-element-frame-height:126.0pt;mso-element-frame-hspace:7.05pt;mso-element-wrap:
+  around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
+  page;mso-element-left:53.6pt;mso-element-top:-2.2pt'&gt;&lt;b&gt;&lt;span
+  style='font-family:"Courier New";mso-bidi-font-family:"Times New  Roman";
+  color:#333399'&gt;&lt;![if !supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+  &lt;p class=MsoNormal style='mso-element:frame;mso-element-frame-width:135.0pt;
+  mso-element-frame-height:126.0pt;mso-element-frame-hspace:7.05pt;mso-element-wrap:
+  around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
+  page;mso-element-left:53.6pt;mso-element-top:-2.2pt'&gt;&lt;b&gt;&lt;span
+  style='font-family:"Courier New";mso-bidi-font-family:"Times New  Roman";
+  color:#333399'&gt;&lt;![if !supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+  &lt;p class=MsoNormal style='mso-element:frame;mso-element-frame-width:135.0pt;
+  mso-element-frame-height:126.0pt;mso-element-frame-hspace:7.05pt;mso-element-wrap:
+  around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
+  page;mso-element-left:53.6pt;mso-element-top:-2.2pt'&gt;&lt;b&gt;&lt;span
+  style='font-family:"Courier New";mso-bidi-font-family:"Times New  Roman";
+  color:#333399'&gt;&lt;![if !supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+  &lt;p class=MsoNormal style='mso-element:frame;mso-element-frame-width:135.0pt;
+  mso-element-frame-height:126.0pt;mso-element-frame-hspace:7.05pt;mso-element-wrap:
+  around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
+  page;mso-element-left:53.6pt;mso-element-top:-2.2pt'&gt;&lt;b&gt;&lt;span
+  style='font-family:"Courier New";mso-bidi-font-family:"Times New  Roman";
+  color:#333399'&gt;&lt;![if !supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+  &lt;p class=MsoNormal style='mso-element:frame;mso-element-frame-width:135.0pt;
+  mso-element-frame-height:126.0pt;mso-element-frame-hspace:7.05pt;mso-element-wrap:
+  around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
+  page;mso-element-left:53.6pt;mso-element-top:-2.2pt'&gt;&lt;![if \
+!supportEmptyParas]&gt; &lt;![endif]&gt;&lt;b&gt;&lt;span  style='font-family:"Courier \
+New";mso-bidi-font-family:"Times New  Roman";  \
+color:#333399'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;  &lt;/td&gt;
+ &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;b&gt;&lt;span
+style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:Tahoma;
+color:#333399'&gt;Amatör veya profesyonel olarak,&lt;/span&gt;&lt;/b&gt;&lt;span
+style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:Tahoma'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;b&gt;&lt;u&gt;&lt;span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;font-family:Tahoma;color:black'&gt;&lt;![if \
+                
+!supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;b&gt;&lt;u&gt;&lt;span
+style='font-size:14.0pt;mso-bidi-font-size:12.0pt;font-family:Tahoma;
+color:black'&gt;Visual Basic ile Programlama&lt;/span&gt;&lt;/u&gt;&lt;/b&gt;&lt;u&gt;&lt;span
+style='font-size:14.0pt;mso-bidi-font-size:10.0pt;font-family:Tahoma;
+color:black'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/u&gt;&lt;/p&gt;
+
+&lt;h2&gt;&lt;span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+font-family:Tahoma;color:black'&gt;Database&lt;/span&gt;&lt;span style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;font-family:Tahoma;color:black;mso-ansi-language:
+TR'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;h1&gt;&lt;span style='font-size:14.0pt;mso-bidi-font-size:12.0pt;color:black'&gt;Visual
+Basic ve Database&lt;/span&gt;&lt;span style='font-size:10.0pt;font-family:Arial;
+color:#FFCC00'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/h1&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;b&gt;&lt;span
+style='font-size:10.0pt;font-family:Arial;color:white'&gt;&lt;![if \
+!supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;b&gt;&lt;span
+style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:Tahoma;
+color:#333399'&gt;konulari ile ilgileniyorsaniz sitemizi ziyaret ediniz.&lt;/span&gt;&lt;/b&gt;&lt;span
+lang=EN-US style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:Tahoma;
+mso-fareast-font-family:"Times New  Roman";color:#333399;mso-ansi-language:
+EN-US'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;span
+style='font-family:Tahoma;color:#0000D2'&gt;-----------------------------------------------------&lt;/span&gt;&lt;span
+ lang=EN-US style='mso-fareast-font-family:"Times New  Roman";mso-ansi-language:
+EN-US'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;strong&gt;&lt;span
+style='font-family:Tahoma;color:#333399'&gt;Sitemizi daha evvel ziyaret
+ettiyseniz,&lt;/span&gt;&lt;/strong&gt;&lt;strong&gt;&lt;span \
+style='font-family:Tahoma;mso-fareast-font-family: "Times New  \
+Roman";color:#333399'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;span
+style='font-family:Tahoma;color:#333399'&gt;&lt;span style="mso-spacerun:
+yes"&gt; &lt;/span&gt;&lt;/span&gt;&lt;strong&gt;&lt;i&gt;&lt;u&gt;&lt;span style='font-size:18.0pt;
+font-family:Arial;color:black'&gt;%50&lt;/span&gt;&lt;/u&gt;&lt;/i&gt;&lt;/strong&gt;&lt;strong&gt;&lt;i&gt;&lt;u&gt;&lt;span
+style='font-family:Tahoma;color:black'&gt;'yi asan \
+indirimlerimizi&lt;/span&gt;&lt;/u&gt;&lt;/i&gt;&lt;/strong&gt;&lt;span lang=EN-US \
+style='font-family:Tahoma;mso-fareast-font-family:"Times New  Roman"; \
+mso-ansi-language:EN-US'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;strong&gt;&lt;span
+style='font-family:Tahoma;color:#333399'&gt;ve&lt;/span&gt;&lt;/strong&gt;&lt;strong&gt;&lt;span
+style='font-family:Tahoma;mso-fareast-font-family:"Times New  Roman";
+color:#333399'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;strong&gt;&lt;i&gt;&lt;u&gt;&lt;span
+style='font-family:Tahoma;color:black'&gt;sitemizi \
+güncelledigimizi&lt;/span&gt;&lt;/u&gt;&lt;/i&gt;&lt;/strong&gt;&lt;strong&gt;&lt;span \
+style='font-family:Tahoma;mso-fareast-font-family:"Times New  Roman"; \
+color:white'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;strong&gt;&lt;span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;font-family:Tahoma;mso-fareast-font-family:
+ "Times New  Roman";color:#333399'&gt;&lt;![if \
+!supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;strong&gt;&lt;span
+style='font-family:Tahoma;color:#333399'&gt;sizlere duyurmaktan \
+mutluyuz.&lt;/span&gt;&lt;/strong&gt;&lt;span lang=EN-US style='mso-fareast-font-family:"Times New  \
+Roman";mso-ansi-language: EN-US'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;b&gt;&lt;u&gt;&lt;span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";
+mso-fareast-font-family:"Times New  Roman";color:black'&gt;&lt;![if \
+!supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;b&gt;&lt;u&gt;&lt;span
+style='font-size:18.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";
+mso-fareast-font-family:"Times New  Roman";color:black'&gt;&lt;a
+href="http://www.arterweb.com/"&gt;&lt;span \
+style='color:black'&gt;www.arterweb.com&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;/u&gt;&lt;/b&gt;&lt;b&gt;&lt;span lang=EN-US \
+style='font-size:18.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New"; \
+mso-fareast-font-family:"Times New  \
+Roman";color:black;mso-ansi-language:EN-US'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;strong&gt;&lt;span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;font-family:Tahoma;mso-fareast-font-family:
+ "Times New  Roman";color:#333399'&gt;&lt;![if \
+!supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;strong&gt;&lt;span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;font-family:Tahoma;color:#333399'&gt;&lt;![if \
+                
+!supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;strong&gt;&lt;span
+style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:Tahoma;
+color:#333399'&gt;Aradiginiz pek çok seyi sitemizde \
+bulabileceksiniz.&lt;/span&gt;&lt;/strong&gt;&lt;span lang=EN-US \
+style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:Tahoma; \
+mso-fareast-font-family:"Times New  Roman";color:#333399;mso-ansi-language: \
+EN-US'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=MsoNormal align=center style='text-align:center'&gt;&lt;span lang=EN-US
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;mso-fareast-font-family:"Times New  \
+Roman"; mso-ansi-language:EN-US'&gt;&lt;![if \
+!supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;h3&gt;ARTER YAYINCILIK MÜHENDiSLiK DANISMANLIK&lt;span lang=EN-US \
+style='mso-fareast-font-family: "Times New  \
+Roman";mso-ansi-language:EN-US'&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p align=center style='margin:0cm;margin-bottom:.0001pt;text-align:center'&gt;&lt;span
+style='font-size:10.0pt;font-family:Tahoma;color:navy'&gt; &lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p align=center style='margin:0cm;margin-bottom:.0001pt;text-align:center'&gt;&lt;span
+style='font-size:10.0pt;font-family:Tahoma;color:navy'&gt;&lt;![if \
+!supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p align=center style='margin:0cm;margin-bottom:.0001pt;text-align:center'&gt;&lt;span
+style='font-size:10.0pt;font-family:Tahoma;color:navy'&gt;&lt;![if \
+!supportEmptyParas]&gt; &lt;![endif]&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+
+</body></email><email><emailId>20020730175411</emailId><senderName>"Nikolai 'pcp' Weibull"</senderName><senderEmail>da.box@home.se</senderEmail><timestampReceived>2002-07-30 17:54:11-0400</timestampReceived><subject>Statusbars</subject><body>
+
+is there any way to get text in the statusbar instead of hidden items?
+say i want a base layout like
+
++----------------------------------------------------------------------+
++----------------------------------------------------------------------+
+
+or something and i want items to simply pop up when available, e.g.:
+
++------[act: 2,3]------------------------------------------[lag: 0.09]-+
++------[mail]----------------------------------------------------------+
+
+is this possible?
+
+--
+/* Name: Nikolai 'pcp' Weibull -- Age: 22 -- Born in: Chicago, IL USA *
+ * Where @: Gothenburg, Sweden -- Homepage: http://www.pcppopper.org/ *
+ * Email: da.box@home.se, pcp@pcppopper.org -- System: GeForce2 MX 32 *
+ * Celeron 667at950, Fujitsu 20.49gb UDMA-66, ASUS CUV4X, 256mb PC133 *
+ * main(){printf(&amp;linux["\021%six\012\0"],(linux)["have"]+"fun"-97);} */
+
+</body></email><email><emailId>20020731073651</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-07-31 07:36:51-0400</timestampReceived><subject>Re: Statusbars</subject><body>
+
+&gt; is there any way to get text in the statusbar instead of hidden items?
+&gt; say i want a base layout like
+
+&gt; +------[act: 2,3]------------------------------------------[lag: 0.09]-+
+&gt; +------[mail]----------------------------------------------------------+
+
+you want it always in those locations? .. a bit difficult, but could be done
+if you used perl scripts to do all those items, so that they always exist
+but just print empty space when they're not used.
+
+
+
+</body></email><email><emailId>20020825233124</emailId><senderName>Manoj Kasichainula</senderName><senderEmail>manojk+irssi.org@io.com</senderEmail><timestampReceived>2002-08-25 23:31:24-0400</timestampReceived><subject>Questions for eventual Python module</subject><body>
+
+I've started work on a Python module for irssi, more for educational
+purposes than anything else. So far, I can load python scripts from
+~/.irssi/python/ which have access to the irssi SERVER_REC. I'm only
+working on it in my spare spare time, so don't expect it for a while. :)
+
+Anyway, I have a few questions about irssi internals, which I'm still
+pretty fuzzy on:
+
+I don't have irssi-signal handling working quite yet. The main thing in
+the way is that I need a good way to recognize the type of each
+structure pointer (server, window, reconnect, etc.) and map it to the
+python wrapper object I've written for it. I haven't quite parsed out
+yet how the Perl module does this yet; what's the easiest way to go
+here?
+
+What kind of relationships (inheritance, delegation, etc.) should I try
+to set up between the various irssi objects? For example, I haven't
+quite figured out whether SERVERs should be considered subclasses of
+SERVER_CONNECTs, vice versa, some form of containment/delegation, or
+none of the above. Any advice here would be appreciated.
+
+Thanks for your help.
+
+</body></email><email><emailId>20020927184939</emailId><senderName>Michaël_Hompus</senderName><senderEmail>michael@hompus.nl</senderEmail><timestampReceived>2002-09-27 18:49:39-0400</timestampReceived><subject>Nickchange does not update nickname</subject><body>
+
+Running:
+
+irssi v0.8.5.CVS (20020922) - running on Linux 2.4.19 (i686)
+
+When changing my nickname, the nickname visible in the statusbar is not
+updated. It will be updated after changing windows
+
+nickchange:
+
+[20:46:10] -!- You're now known as [eNeRGy]-testing
+[[20:46:20]][[eNeRGy](+i)]
+
+changing window:
+
+[[20:46:35]][[eNeRGy]-testing(+i)]
+
+changing nickname again:
+
+[20:46:41] -!- You're now known as [eNeRGy]
+[[20:46:48]][[eNeRGy]-testing(+i)]
+
+Greetinx Michaël Hompus
+
+
+</body></email><email><emailId>20021005124527</emailId><senderName>Thierry Mallard</senderName><senderEmail>thierry.mallard@vawis.net</senderEmail><timestampReceived>2002-10-05 12:45:27-0400</timestampReceived><subject>Irssi 0.8.5 segfault on RedHat 8.0</subject><body>
+
+
+Greetings,
+
+Just installed RedHat 8.0 to give it a look, and as I didn't find irssi with
+its packages, I've download the irssi 0.8.5 tarball.
+
+Configuration was ok, compilation too.
+
+But after installing irssi, and trying to launch it, it segfault just after
+clearing the screen -makes me wonder if the problem wouldn't be in ncurses?-
+
+Is this a known issue ?
+
+Should I try the current CVS code ?
+
+Thanks for any hint.
+
+Some info :
+
+[shaman@m214 irssi-0.8.5]$ gcc --version
+gcc (GCC) 3.2 20020903 (Red Hat Linux 8.0 3.2-7)
+[shaman@m214 irssi-0.8.5]$ rpm -qi ncurses
+Name        : ncurses                      Relocations: (not relocateable)
+Version     : 5.2                               Vendor: Red Hat, Inc.
+[shaman@m214 irssi-0.8.5]$ glib-config --version
+1.2.10
+
+Attached file is a gzipped log obtained with strace :
+[shaman@m214 irssi-0.8.5]$ strace -q -f -o log `which irssi`
+
+
+
+With best regards,
+
+
+-- 
+Thierry Mallard
+http://vawis.net
+
+
+["log.gz" (application/x-gzip)]
+
+</body></email><email><emailId>20021023234240</emailId><senderName>Sascha =?iso-8859-1?q?L=FCdecke?=</senderName><senderEmail>sascha@meta-x.de</senderEmail><timestampReceived>2002-10-23 23:42:40-0400</timestampReceived><subject>perl scripts with dcc stuff crash with 0.8.5</subject><body>
+
+
+Hello!
+
+
+Maybe this comes a bit late for 0.8.5, but with this version some of
+my scripts stopped working.  Anything which binds to dcc events seems
+to cause irssi to crash on incoming dcc connections.
+
+   Irssi::signal_add('dcc created', 'ag_sig_dcc_created');
+
+
+Did I miss some changes?  Did the dcc_rec change?  The docs don't
+mention anything about that.  I'm sure there is a trivial solution I'm
+yet too dumb to find.
+
+Regards,
+Sascha
+
+</body></email><email><emailId>20021202193542</emailId><senderName>Jakub Klausa</senderName><senderEmail>jacke@bofh.pl</senderEmail><timestampReceived>2002-12-02 19:35:42-0400</timestampReceived><subject>vi-like style.</subject><body>
+
+
+'lo
+
+	Is the work on implementing vi-like editing scheme progressing?
+I'd like to see that feature implemented very much. Any estimates on when it
+may happen? :&gt;
+
+--=20
+k.
+
+[Attachment #3 (application/pgp-signature)]
+
+</body></email><email><emailId>20021023235329</emailId><senderName>Sascha =?iso-8859-1?q?L=FCdecke?=</senderName><senderEmail>sascha@meta-x.de</senderEmail><timestampReceived>2002-10-23 23:53:29-0400</timestampReceived><subject>Re: perl scripts with dcc stuff crash with 0.8.5</subject><body>
+
+
+
+Version bump:
+
+$ irssi --version
+irssi 0.8.5 (20020313 0430)
+$ perl --version
+
+This is perl, v5.6.1 built for i686-linux
+
+...
+
+
+Regards, Sascha
+
+-- 
+If you tell the truth you don't have to remember anything.
+-Mark Twain-
+
+</body></email><email><emailId>20020826025216</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-08-26 02:52:16-0400</timestampReceived><subject>Re: Questions for eventual Python module</subject><body>
+
+On Sun, Aug 25, 2002 at 04:31:24PM -0700, Manoj Kasichainula wrote:
+&gt; I've started work on a Python module for irssi, more for educational
+&gt; purposes than anything else. So far, I can load python scripts from
+&gt; ~/.irssi/python/ which have access to the irssi SERVER_REC. I'm only
+&gt; working on it in my spare spare time, so don't expect it for a while. :)
+
+nice :)
+
+&gt; I don't have irssi-signal handling working quite yet. The main thing in
+&gt; the way is that I need a good way to recognize the type of each
+&gt; structure pointer (server, window, reconnect, etc.) and map it to the
+&gt; python wrapper object I've written for it. I haven't quite parsed out
+&gt; yet how the Perl module does this yet; what's the easiest way to go
+&gt; here?
+
+Perl uses docs/signals.txt and generates perl-signals-list.h from it, using
+get-signals.pl. You'd probably do something similiar to that.
+
+&gt; What kind of relationships (inheritance, delegation, etc.) should I try
+&gt; to set up between the various irssi objects? For example, I haven't
+&gt; quite figured out whether SERVERs should be considered subclasses of
+&gt; SERVER_CONNECTs, vice versa, some form of containment/delegation, or
+&gt; none of the above. Any advice here would be appreciated.
+
+They're not inherited too much. Mostly just IRC (and other protocol) objects
+inherit the core objects. Then CHANNEL_REC and QUERY_REC are inherited from
+WI_ITEM_REC. I'm not sure if there was others. You should be able to see
+these by looking if there's #include inside structure definition.
+
+SERVER_REC contains connrec which points to SERVER_CONNECT_REC, but I don't
+think it should be considered inherited or anything.. or .. um.. well.. :)
+Looks like my perl code just merges the server and server_connect into one
+perl object. I probably did it just because it was easier that way to use,
+guess you should too :)
+
+
+</body></email><email><emailId>20021203162732</emailId><senderName>Jussi Ekholm</senderName><senderEmail>ekhowl@goa-head.org</senderEmail><timestampReceived>2002-12-03 16:27:32-0400</timestampReceived><subject>Re: vi-like style.</subject><body>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Jakub Klausa &lt;jacke@bofh.pl&gt; wrote:
+&gt; Is the work on implementing vi-like editing scheme progressing? I'd
+&gt; like to see that feature implemented very much. Any estimates on
+&gt; when it may happen? :&gt;
+
+I'd like to see this implemented very much, too! I think I once asked
+about this in #irssi (@ IRCNet), but I'd remember that in response I
+only got disappointed sighs from Emacs-advocates. ;^)
+
+Hehe, no -- seriously, if someone is working on this one, let us know!
+It's getting harder and harder for me to type stuff in irssi, as I've
+got so used to home row (by Vim itself, and shell, too). :-)
+
+- -- 
+Jussi Ekholm &lt;ekhowl@goa-head.org&gt; | http://erppimaa.no-ip.org:8080/ | 1410081E
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.2.1rc1 (GNU/Linux)
+
+iD8DBQE97Nt0AtEARxQQCB4RApJ5AJ9d/ozduYzVrEtJVlevhPQT5vFlvQCg1R+W
+KzXCBxc3gaeXdI97Onv5vjk=
+=PUfo
+-----END PGP SIGNATURE-----
+
+</body></email><email><emailId>20020827042507</emailId><senderName>Manoj Kasichainula</senderName><senderEmail>manojk+irssi.org@io.com</senderEmail><timestampReceived>2002-08-27 04:25:07-0400</timestampReceived><subject>Re: Questions for eventual Python module</subject><body>
+
+On Mon, Aug 26, 2002 at 05:52:16AM +0300, Timo Sirainen wrote:
+&gt; On Sun, Aug 25, 2002 at 04:31:24PM -0700, Manoj Kasichainula wrote:
+&gt; &gt; I don't have irssi-signal handling working quite yet. The main thing in
+&gt; &gt; the way is that I need a good way to recognize the type of each
+&gt; &gt; structure pointer (server, window, reconnect, etc.) and map it to the
+&gt; &gt; python wrapper object I've written for it. I haven't quite parsed out
+&gt; &gt; yet how the Perl module does this yet; what's the easiest way to go
+&gt; &gt; here?
+&gt; 
+&gt; Perl uses docs/signals.txt and generates perl-signals-list.h from it, using
+&gt; get-signals.pl. You'd probably do something similiar to that.
+
+Hmmm. So modules that add their own signals couldn't have their signals
+processed by scripts?
+
+Maybe in the future, each _REC could include a field with a magic number
+(or a string pointer) indicating the type. Then signal handling code
+could look at the magic numbers and convert them appropriately. I only
+suggest this because I know you're pondering a rewrite :)
+
+&gt; &gt; What kind of relationships (inheritance, delegation, etc.) should I try
+&gt; &gt; to set up between the various irssi objects? For example, I haven't
+&gt; &gt; quite figured out whether SERVERs should be considered subclasses of
+&gt; &gt; SERVER_CONNECTs, vice versa, some form of containment/delegation, or
+&gt; &gt; none of the above. Any advice here would be appreciated.
+&gt; 
+&gt; They're not inherited too much. Mostly just IRC (and other protocol) objects
+&gt; inherit the core objects. Then CHANNEL_REC and QUERY_REC are inherited from
+&gt; WI_ITEM_REC. I'm not sure if there was others. You should be able to see
+&gt; these by looking if there's #include inside structure definition.
+&gt; 
+&gt; SERVER_REC contains connrec which points to SERVER_CONNECT_REC, but I don't
+&gt; think it should be considered inherited or anything.. or .. um.. well.. :)
+
+That was the impression I had :)
+
+&gt; Looks like my perl code just merges the server and server_connect into one
+&gt; perl object. I probably did it just because it was easier that way to use,
+&gt; guess you should too :)
+
+Hmm, ok. This might actually make a lot of sense; I'll think about it.
+Thanks.
+
+</body></email><email><emailId>20020827085636</emailId><senderName>Christian Borup</senderName><senderEmail>borup@borup.com</senderEmail><timestampReceived>2002-08-27 08:56:36-0400</timestampReceived><subject>Re: Questions for eventual Python module</subject><body>
+
+On tir, 2002-08-27 at 06:25, Manoj Kasichainula wrote:
+&gt; On Mon, Aug 26, 2002 at 05:52:16AM +0300, Timo Sirainen wrote:
+&gt; &gt; On Sun, Aug 25, 2002 at 04:31:24PM -0700, Manoj Kasichainula wrote:
+&gt; &gt; &gt; I don't have irssi-signal handling working quite yet. The main thing in
+&gt; &gt; &gt; the way is that I need a good way to recognize the type of each
+&gt; &gt; &gt; structure pointer (server, window, reconnect, etc.) and map it to the
+&gt; &gt; &gt; python wrapper object I've written for it. I haven't quite parsed out
+&gt; &gt; &gt; yet how the Perl module does this yet; what's the easiest way to go
+&gt; &gt; &gt; here?
+&gt; &gt; 
+&gt; &gt; Perl uses docs/signals.txt and generates perl-signals-list.h from it, using
+&gt; &gt; get-signals.pl. You'd probably do something similiar to that.
+&gt; 
+&gt; Hmmm. So modules that add their own signals couldn't have their signals
+&gt; processed by scripts?
+&gt; 
+&gt; Maybe in the future, each _REC could include a field with a magic number
+&gt; (or a string pointer) indicating the type. Then signal handling code
+&gt; could look at the magic numbers and convert them appropriately. I only
+&gt; suggest this because I know you're pondering a rewrite :)
+&gt; 
+
+If a rewrite is consitered, it might make more sense to shift to
+GSignals (as they no longer depends on gtk+ byt only glib). Rather than
+adding introspection to the existing system.
+
+Python allready has exelent support for GSignals.
+
+./borup
+
+
+</body></email><email><emailId>20020827120924</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-08-27 12:09:24-0400</timestampReceived><subject>Re: Questions for eventual Python module</subject><body>
+
+On Mon, Aug 26, 2002 at 09:25:07PM -0700, Manoj Kasichainula wrote:
+&gt; Hmmm. So modules that add their own signals couldn't have their signals
+&gt; processed by scripts?
+
+Right.
+
+&gt; Maybe in the future, each _REC could include a field with a magic number
+&gt; (or a string pointer) indicating the type. Then signal handling code
+&gt; could look at the magic numbers and convert them appropriately. I only
+&gt; suggest this because I know you're pondering a rewrite :)
+
+There's one problem with that - the string type. I'd rather keep all strings
+in regular char*s than put them into some structure which gets passed around
+in signals..
+
+
+</body></email><email><emailId>20020827121409</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-08-27 12:14:09-0400</timestampReceived><subject>Re: Questions for eventual Python module</subject><body>
+
+On Tue, Aug 27, 2002 at 10:56:36AM +0200, Christian Borup wrote:
+&gt; If a rewrite is consitered, it might make more sense to shift to
+&gt; GSignals (as they no longer depends on gtk+ byt only glib). Rather than
+&gt; adding introspection to the existing system.
+
+Actually, the rewrite won't use glib at all :) Also, GSignals is annoying in
+the way that it requires each signal to be registered. But .. hmm. maybe
+that registeration wouldn't be that bad :) "event xxx" are problematic since
+it depends on server what events it sends, but I could just register them
+all at once by saying "all signals beginning with 'event '".
+
+
+</body></email><email><emailId>20020827121535</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-08-27 12:15:35-0400</timestampReceived><subject>Re: Questions for eventual Python module</subject><body>
+
+On Tue, Aug 27, 2002 at 10:56:36AM +0200, Christian Borup wrote:
+&gt; If a rewrite is consitered, it might make more sense to shift to
+&gt; GSignals (as they no longer depends on gtk+ byt only glib). Rather than
+&gt; adding introspection to the existing system.
+
+Oh, and GLIB signals aren't powerful enough for irssi anyway. At least they
+weren't in 1.2.x.
+
+
+</body></email><email><emailId>20020827125127</emailId><senderName>Christian Borup</senderName><senderEmail>borup@borup.com</senderEmail><timestampReceived>2002-08-27 12:51:27-0400</timestampReceived><subject>Re: Questions for eventual Python module</subject><body>
+
+On tir, 2002-08-27 at 14:15, Timo Sirainen wrote:
+&gt; On Tue, Aug 27, 2002 at 10:56:36AM +0200, Christian Borup wrote:
+&gt; &gt; If a rewrite is consitered, it might make more sense to shift to
+&gt; &gt; GSignals (as they no longer depends on gtk+ byt only glib). Rather than
+&gt; &gt; adding introspection to the existing system.
+&gt; 
+&gt; Oh, and GLIB signals aren't powerful enough for irssi anyway. At least they
+&gt; weren't in 1.2.x.
+&gt; 
+
+Not powerfull enough? How so?
+
+I won't be insulted or anything, I just figured GSignals would be nice
+as they are easily marshalled into perl (or python if you're into that
+kinda thing).
+
+./borup
+
+
+</body></email><email><emailId>20021203230111</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-12-03 23:01:11-0400</timestampReceived><subject>Re: vi-like style.</subject><body>
+
+On Mon, 2002-12-02 at 21:35, Jakub Klausa wrote:
+&gt; 'lo
+&gt; 
+&gt; 	Is the work on implementing vi-like editing scheme progressing?
+&gt; I'd like to see that feature implemented very much. Any estimates on when it
+&gt; may happen? :&gt;
+
+I guess it's waiting for someone motivated enough to code it? :) I
+almost started it one day, but then noticed it wasn't as easy as I
+thought..
+
+I think it should be implemented so that there would be possible to have
+multiple keyboard states each having their own bindings, then some
+commands to switch between the states. vi-keys could be implemented with
+configuring two of these states. It's just that the current way it's
+done requires quite a lot of changes to support multiple states..
+
+
+</body></email><email><emailId>20021204150745</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-12-04 15:07:45-0400</timestampReceived><subject>Re: Supporting protocols which aren't TCP based....</subject><body>
+
+On Wed, 2002-12-04 at 16:18, Theodore Ts'o wrote:
+&gt; &gt; Hmm. Well. I think the easiest solution would be to add "don't connect"
+&gt; &gt; flag to server_connect_rec. You'd then just grab the "server connecting"
+&gt; &gt; signal and do your own connecting.
+&gt; 
+&gt; OK, what's the best way for me to get such a change added to the irssi
+&gt; CVS tree?  Should I send a patch to irssi-dev?
+
+It's in CVS now. "no_connect" flag.
+
+
+</body></email><email><emailId>20021204055003</emailId><senderName></senderName><senderEmail>tytso</senderEmail><timestampReceived>2002-12-04 05:50:03-0400</timestampReceived><subject>Supporting protocols which aren't TCP based....</subject><body>
+
+Hi there,
+
+I'm looking into MIT Zephyr support into irssi, by writing a plugin
+module, since my goal is to reduce the number of instant messaging
+clients that I have to run.   
+
+The problem I have is that Zephyr is datagram based, not TCP stream
+based, and near as I can tell, the work of opening up a TCP stream is
+done in the high-level code.   
+
+What would be the easy way to bypass the net_connect code, so that it
+necessary protocol exhcnages could be done in the low-level CHAT
+protocol module.  There is still the concept of "connecting" to the
+zephyr realm, so it makes sense to use /CONNECT to login to a Zephyr
+server.  It just doesn't involve a TCP connection.
+
+Thanks!!
+
+						- Ted
+
+
+</body></email><email><emailId>20021222103147</emailId><senderName>"BoBB"</senderName><senderEmail>snoogans@qwest.net</senderEmail><timestampReceived>2002-12-22 10:31:47-0400</timestampReceived><subject>scripting help</subject><body>
+
+Im looking for a command i can use in my script that will let me specify
+a server and a channel on that server to send a command to. something
+like
+
+Irssi::command(command, server, channel);
+
+-- 
+BoBB
+
+</body></email><email><emailId>20021222104526</emailId><senderName>Jakub Jankowski</senderName><senderEmail>shasta@atn.pl</senderEmail><timestampReceived>2002-12-22 10:45:26-0400</timestampReceived><subject>Re: scripting help</subject><body>
+
+On Sun, 22 Dec 2002, BoBB wrote:
+
+&gt;Im looking for a command i can use in my script that will let me specify
+&gt;a server and a channel on that server to send a command to. something
+&gt;like
+
+a) It's rather irssi-users-related question.
+
+b) my $server = Irssi::server_find_tag("ircnet");
+   return unless $server;
+   my $channel = $server-&gt;channel_find("#TheChannel");
+   return unless $channel;
+   $channel-&gt;command("OP yournick");
+
+Hope it helps.
+
+s.
+
+-- 
+(0&gt;  Jakub Jankowski  [url]: s.atn.pl  "Nawet w Krainie Czarow
+//\   shasta@IRCnet   [rlu]: 174516     latwiej jest spotkac
+V_/_  shasta@atn.pl   [ekg]: 921514     Babe Jage niz Alicje"
+Fingerprint: FCBF F03D 9ADB B768 8B92 BB52 0341 9037 A875 942D
+
+
+</body></email><email><emailId>20021204105334</emailId><senderName>Etan Reisner</senderName><senderEmail>deryni@eden.rutgers.edu</senderEmail><timestampReceived>2002-12-04 10:53:34-0400</timestampReceived><subject>Re: Supporting protocols which aren't TCP based....</subject><body>
+
+&gt; I'm looking into MIT Zephyr support into irssi, by writing a plugin
+&gt; module, since my goal is to reduce the number of instant messaging
+&gt; clients that I have to run.
+
+I'm not sure if you're intentionally looking for a console method but I'd
+suggest looking into gaim (http://gaim.sourceforge.net/) for a
+multi-protocol IM client. You might also want to look into bitlbee
+(http://www.lintux.cx/bitlbee.html), though I don't know anything about
+that as I haven't used it.
+
+	-Etan
+
+
+
+</body></email><email><emailId>20021204112830</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2002-12-04 11:28:30-0400</timestampReceived><subject>Re: Supporting protocols which aren't TCP based....</subject><body>
+
+hi,
+
+On 2002-12-04 05:53:34 +0000, Etan Reisner wrote:
+&gt; &gt; I'm looking into MIT Zephyr support into irssi, by writing a plugin
+&gt; &gt; module, since my goal is to reduce the number of instant messaging
+&gt; &gt; clients that I have to run.
+&gt; 
+&gt; I'm not sure if you're intentionally looking for a console method but I'd
+&gt; suggest looking into gaim (http://gaim.sourceforge.net/) for a
+&gt; multi-protocol IM client. You might also want to look into bitlbee
+&gt; (http://www.lintux.cx/bitlbee.html), though I don't know anything about
+&gt; that as I haven't used it.
+
+hmm if you make advertisments for other programs:
+centericq &lt;http://konst.org.ua/centericq&gt; is quite nice.
+
+but i think it shouldnt be this hard to add udp based protocols to
+irssi. see the icq plugin or irssiq.pl. both implement icq protocol
+which is mainly udp based. maybe the plugin source is a good starting
+point or is there a perl module for MIT Zephyr?
+
+just my pi cents
+
+darix
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20021204113147</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2002-12-04 11:31:47-0400</timestampReceived><subject>Re: Supporting protocols which aren't TCP based....</subject><body>
+
+hi
+
+ooh i forgot a part. another solution could be writing an jabber
+transport. see http://www.jabber.org/developer/ for more.
+
+someone who wants to write a jabber plugin/script?:)
+
+darix
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20021204113423</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-12-04 11:34:23-0400</timestampReceived><subject>Re: Supporting protocols which aren't TCP based....</subject><body>
+
+On Wed, 2002-12-04 at 07:50, tytso@mit.edu wrote:
+&gt; What would be the easy way to bypass the net_connect code, so that it
+&gt; necessary protocol exhcnages could be done in the low-level CHAT
+&gt; protocol module.  There is still the concept of "connecting" to the
+&gt; zephyr realm, so it makes sense to use /CONNECT to login to a Zephyr
+&gt; server.  It just doesn't involve a TCP connection.
+
+Hmm. Well. I think the easiest solution would be to add "don't connect"
+flag to server_connect_rec. You'd then just grab the "server connecting"
+signal and do your own connecting.
+
+
+</body></email><email><emailId>20021204125555</emailId><senderName>Stefan Tomanek</senderName><senderEmail>stefan@pico.ruhr.de</senderEmail><timestampReceived>2002-12-04 12:55:55-0400</timestampReceived><subject>Re: Supporting protocols which aren't TCP based....</subject><body>
+
+Dies schrieb Marcus Rueckert (darix@web.de):
+
+&gt; someone who wants to write a jabber plugin/script?:)
+
+stefan@pico:~$ apt-cache search jabber  | grep perl
+libnet-jabber-perl - Perl modules for accessing the Jabber protocol
+
+Perhaps I'll have a look at this :)
+-- 
+   ___________________________________________________________________________.
+  / stefan@pico.ruhr.de | ICQ: 1177934 | PGP: finger stefan@localhost.ruhr.de/|
+ /Wer Header fälscht oder verfälscht oder gefälschte oder verfälschte Header/ |
+/__in_Umlauf_bringt_wird_mit_Scorefile_nicht_unter_-500_Punkten_bestraft.__/,+'
+
+</body></email><email><emailId>20021204130944</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2002-12-04 13:09:44-0400</timestampReceived><subject>Re: Supporting protocols which aren't TCP based....</subject><body>
+
+On 2002-12-04 13:55:55 +0000, Stefan Tomanek wrote:
+&gt; Perhaps I'll have a look at this :)
+
+i dont want to mention your name, i was sure that you will get this hint
+;]
+
+beside i dont really use jabber at the moment :)
+but it would be nice to have im sure. :)
+
+but i didnt get why jabber has an irc transport. we already have irssi;)
+
+darix
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20021204141642</emailId><senderName>"Theodore Ts'o"</senderName><senderEmail>tytso@mit.edu</senderEmail><timestampReceived>2002-12-04 14:16:42-0400</timestampReceived><subject>Re: Supporting protocols which aren't TCP based....</subject><body>
+
+On Wed, Dec 04, 2002 at 12:28:30PM +0100, Marcus Rueckert wrote:
+&gt; On 2002-12-04 05:53:34 +0000, Etan Reisner wrote:
+&gt; &gt; &gt; I'm looking into MIT Zephyr support into irssi, by writing a plugin
+&gt; &gt; &gt; module, since my goal is to reduce the number of instant messaging
+&gt; &gt; &gt; clients that I have to run.
+&gt; &gt; 
+&gt; &gt; I'm not sure if you're intentionally looking for a console method but I'd
+&gt; &gt; suggest looking into gaim (http://gaim.sourceforge.net/) for a
+&gt; &gt; multi-protocol IM client. You might also want to look into bitlbee
+&gt; &gt; (http://www.lintux.cx/bitlbee.html), though I don't know anything about
+&gt; &gt; that as I haven't used it.
+
+No, I definitely want a console based program.  Part of the problem is
+that I hate the UI of all of the X based clients I've seen to date
+(and this includes gaim).  IRSSI is the first IM-style client I've
+found whose interface hasn't sucked.
+
+Also, I want to be able to run a single instance of a console-based
+messaging client under screen, and then attach to it from multiple
+locations (depending on whether I'm upstairs at my development
+station, or downstairs at my laptop, etc.)
+
+Your mention of Gaim brings up an interesting point, though.  It would
+be really cool we could reuse IM-protocol drivers from other clients;
+I've often wondered why there hasn't been a standard ABI/API defined
+so that multiple clients could dynamically load protocol modules.  
+
+Gaim does support an impressive number of protocols that I'm
+interested in, including jabber. I wonder how hard it will be to write
+a generic irssi plugin which interfaces with an gaim protocol module.
+Hmm....
+
+&gt; but i think it shouldnt be this hard to add udp based protocols to
+&gt; irssi. see the icq plugin or irssiq.pl. both implement icq protocol
+&gt; which is mainly udp based. maybe the plugin source is a good starting
+&gt; point or is there a perl module for MIT Zephyr?
+
+Errr... I started my work by passing it off the icq plugin, in the
+absence of a "how to write your own protocol module" documentation, or
+an example framework module which only had the irssi glue and had a
+"drop in code to connext here".  (Wishlist: having either would make
+it a lot easier for developers to add support for new protocols).
+
+However, having looked at the irssi-icq sources, it appears to have
+implemented a TCP-based protocol, unless I'm completely misreading the
+code.  (There's not a single send/sendto/recv/recvfrom in the entire
+source; it's calling net_connect(), and net_sendbuffer_send().)
+
+					- Ted
+
+</body></email><email><emailId>20021204141806</emailId><senderName>"Theodore Ts'o"</senderName><senderEmail>tytso@mit.edu</senderEmail><timestampReceived>2002-12-04 14:18:06-0400</timestampReceived><subject>Re: Supporting protocols which aren't TCP based....</subject><body>
+
+On Wed, Dec 04, 2002 at 01:34:23PM +0200, Timo Sirainen wrote:
+&gt; On Wed, 2002-12-04 at 07:50, tytso@mit.edu wrote:
+&gt; &gt; What would be the easy way to bypass the net_connect code, so that it
+&gt; &gt; necessary protocol exhcnages could be done in the low-level CHAT
+&gt; &gt; protocol module.  There is still the concept of "connecting" to the
+&gt; &gt; zephyr realm, so it makes sense to use /CONNECT to login to a Zephyr
+&gt; &gt; server.  It just doesn't involve a TCP connection.
+&gt; 
+&gt; Hmm. Well. I think the easiest solution would be to add "don't connect"
+&gt; flag to server_connect_rec. You'd then just grab the "server connecting"
+&gt; signal and do your own connecting.
+
+OK, what's the best way for me to get such a change added to the irssi
+CVS tree?  Should I send a patch to irssi-dev?
+
+Thanks,
+
+						- Ted
+
+
+</body></email><email><emailId>20021222160751</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@irssi.org</senderEmail><timestampReceived>2002-12-22 16:07:51-0400</timestampReceived><subject>Re: scripting help</subject><body>
+
+On 2002-12-22 03:31:47 -0700, BoBB wrote:
+&gt; Im looking for a command i can use in my script that will let me specify
+&gt; a server and a channel on that server to send a command to. something
+&gt; like
+&gt; 
+&gt; Irssi::command(command, server, channel);
+
+an command bind in irssi gets the  following 3 parameters
+Irssi::command_bind 'foo' =&gt; sub { 
+    my ($data, $server, $windowitem) = @_;
+}
+
+if you call /foo in the target window with the channel as aktive item
+you just could do 
+$windowitem -&gt; command ("say $data");
+# $data == parametes to the /foo command
+
+otherwise you could use 
+if ( ref ($windowitem) == 'CHANNEL' ) {
+    $server-&gt;command ("msg $windowítem-&gt;{'name'} $data");
+}
+
+hope this helps a bit.
+for more examples see
+http://scripts.irssi.org./ ( http://irssi.org./scripts/ )
+
+darix
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20021229111730</emailId><senderName>Marcus Geiger</senderName><senderEmail>marcus.geiger@web.de</senderEmail><timestampReceived>2002-12-29 11:17:30-0400</timestampReceived><subject>Perl core dump on /quit</subject><body>
+
+Hi,
+
+I'm developing an irssi script that uses the following modules:
+
+POSIX
+Fcntl
+Digest::MD5
+DBI
+DBD::Pg
+Carp
+
+On /quit (when I used my script once) irssi dumps core by segfault. 
+Here's a backtrace:
+
+(gdb) bt
+#0  0x2846948c in ?? ()
+#1  0x80fdb25 in S_call_body ()
+#2  0x80fd91a in Perl_call_sv ()
+#3  0x81481d9 in Perl_sv_clear ()
+#4  0x814879d in Perl_sv_free ()
+#5  0x8142768 in do_clean_objs ()
+#6  0x81426dd in S_visit ()
+#7  0x81427fe in Perl_sv_clean_objs ()
+#8  0x80fb55b in perl_destruct ()
+#9  0x80f3a92 in perl_scripts_deinit () at perl-core.c:166
+#10 0x80f49ed in perl_core_deinit () at perl-core.c:467
+#11 0x807f3c9 in textui_deinit () at irssi.c:213
+#12 0x807f7a6 in main (argc=1, argv=0xbfbff6b4) at irssi.c:375
+#13 0x8069077 in _start ()
+
+I played a bit with the code and it seems to me that 
+perl_scripts_deinit(void) contains the problem. 
+
+I don't understand what the following code should provide what 
+perl_destruct() not already does for us:
+
+/* Unload all perl libraries loaded with dynaloader */
+perl_eval_pv("foreach my $lib (@DynaLoader::dl_modules) { if ($lib =~ 
+/^Irssi\\b/) { $lib .= '::deinit();'; eval $lib; } }", TRUE);
+
+perl_eval_pv("eval { foreach my $lib (@DynaLoader::dl_librefs) { 
+DynaLoader::dl_unload_file($lib); } }", TRUE);
+
+Clearly I should clean up modules loaded dynamically by DynaLoader 
+(first Irssi, then the rest) but won't perl_destruct() do that
+automatically for us? If I comment out the second perl_eval_pv line,
+irssi stops segfaulting on /quit.
+
+The DynaLoader documentation doesn't mention any special cleanup magic 
+that needs to be done (with a few exceptions).
+
+I tried the above with perl 5.6.1 and "perl, v5.8.0 built for 
+i386-freebsd". Irssi is configured with "CFLAGS=-g ./configure"
+
+Please comment on that.
+
+Marcus
+-- 
+.signature: No such file or directory
+______________________________________________________________________________
+Mit der Auslands-SMS von WEB.DE FreeMail erreichen Sie Ihre Freunde auf
+der ganzen Welt - http://freemail.web.de/features/?mc=021171
+
+
+</body></email><email><emailId>20021005143734</emailId><senderName>David Leadbeater</senderName><senderEmail>dgl@dgl.cx</senderEmail><timestampReceived>2002-10-05 14:37:34-0400</timestampReceived><subject>Re: Irssi 0.8.5 segfault on RedHat 8.0</subject><body>
+
+Thierry Mallard wrote:
+&gt; Greetings,
+&gt; 
+&gt; Just installed RedHat 8.0 to give it a look, and as I didn't find irssi with
+&gt; its packages, I've download the irssi 0.8.5 tarball.
+&gt; 
+&gt; Configuration was ok, compilation too.
+&gt; 
+&gt; But after installing irssi, and trying to launch it, it segfault just after
+&gt; clearing the screen -makes me wonder if the problem wouldn't be in ncurses?-
+&gt; 
+&gt; Is this a known issue ?
+
+almost certainly the problem with multithreaded perl 5.8
+
+&gt; Should I try the current CVS code ?
+yes, it's fixed in cvs.
+
+
+</body></email><email><emailId>20021006100615</emailId><senderName>Thierry Mallard</senderName><senderEmail>thierry.mallard@vawis.net</senderEmail><timestampReceived>2002-10-06 10:06:15-0400</timestampReceived><subject>Re: Irssi 0.8.5 segfault on RedHat 8.0 : CVS code OK ! :-)</subject><body>
+
+On Sat, Oct 05, 2002 at 03:37:34PM +0100, David Leadbeater wrote:
+&gt; Thierry Mallard wrote:
+&gt; [ irssi 0.8.5 on RH8 segfault ]
+&gt; &gt; Should I try the current CVS code ?
+&gt; yes, it's fixed in cvs.
+
+that fixed the problem indeed.
+Thanks everyone ! :-)
+
+-- 
+Thierry Mallard
+http://vawis.net
+
+
+</body></email><email><emailId>20021024004705</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2002-10-24 00:47:05-0400</timestampReceived><subject>Re: perl scripts with dcc stuff crash with 0.8.5</subject><body>
+
+hi, 
+
+On 2002-10-24 01:42:40 +0000, Sascha Lüdecke wrote:
+&gt; Maybe this comes a bit late for 0.8.5, but with this version some of
+&gt; my scripts stopped working.  Anything which binds to dcc events seems
+&gt; to cause irssi to crash on incoming dcc connections.
+&gt;
+&gt;    Irssi::signal_add('dcc created', 'ag_sig_dcc_created');
+
+hmm is http://scripts.irssi.org/scripts/dccstat.pl working for your?
+is your script working with the cvs version?
+ 
+&gt; Did I miss some changes?  Did the dcc_rec change?  The docs don't
+&gt; mention anything about that.  I'm sure there is a trivial solution I'm
+&gt; yet too dumb to find.
+
+see the changelog. its part of the advanced documentation ;)
+at least until cras syncs the docs with the changelog. :)
+
+hope this helps ...
+
+marcus
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20020904060325</emailId><senderName>Manoj Kasichainula</senderName><senderEmail>manojk+irssi.org@io.com</senderEmail><timestampReceived>2002-09-04 06:03:25-0400</timestampReceived><subject>Re: Questions for eventual Python module</subject><body>
+
+On Tue, Aug 27, 2002 at 04:10:52PM +0300, Timo Sirainen wrote:
+&gt; Maybe if all I did was move the signal definitions from signals.txt to
+&gt; sources. Something like
+&gt; 
+&gt; signal_register("event ", "SERVER_REC", "string", "string", "string", NULL);
+&gt; 
+&gt; And maybe to prevent typos breaking things:
+&gt; 
+&gt; signal_arg_register("SERVER_REC");
+&gt; signal_register("event ", "SERVER_REC", ARG_STRING, ARG_STRING, ARG_STRING, NULL);
+&gt; 
+&gt; and signal_register() would fail if it found any unregistered arguments.
+&gt; 
+&gt; Scripts could also then create their own signals using
+&gt; Irssi::signal_register().
+
+This sounds like a good plan to me.
+
+In the mean time, what I'm doing is to work like C does. Signals that
+python code receives pass along up to 6 PyCObjects, which are just
+wrappers around void *'s. Then, the signal functions "casts" them using
+functions from the irssi module to the correct type. I've only tested
+this with the Server type (since that's all I've implemented so far) but
+it seems to be working.
+
+Hmmm, there's no reason that until signal_register is in the core, it
+couldn't be a python function that assists in automatic type selection.
+
+</body></email><email><emailId>20020927203725</emailId><senderName>Marcus Rueckert</senderName><senderEmail>darix@web.de</senderEmail><timestampReceived>2002-09-27 20:37:25-0400</timestampReceived><subject>Re: Nickchange does not update nickname</subject><body>
+
+hi,
+
+know problem. hope cras will fix it in the next time. but i think he use
+more time for dovecot at the moment:)
+
+darix
+
+-- 
+irssi - the client of the smart and beautiful people
+
+              http://www.irssi.de/
+
+
+</body></email><email><emailId>20020927204436</emailId><senderName>Sander Smeenk</senderName><senderEmail>ssmeenk@freshdot.net</senderEmail><timestampReceived>2002-09-27 20:44:36-0400</timestampReceived><subject>Thre things...</subject><body>
+
+Hi,
+
+I have three things i'd like to see fixed in irssi...
+Two of them are theme related, one is scripting related.
+
+1) I'd like to see a special variable that holds the nick of the person
+one has in query, so I can use that in my themes for queries. Example:
+
+Public:
+| &lt;Fluor&gt; my own public message
+| &lt;John&gt; someone elses public message
+
+And private message:
+| (-&gt;John) this is a private message to john
+| (&lt;-John) John replied in private
+
+And queried:
+| (:Q:-&gt;Fluor) This is a private message to john in a query
+| (:Q:&lt;-John) John replied in the query
+
+This query format differs. I can't get it to show 'John' on both lines
+so I can use my &lt;- and -&gt; 'theme' as I use in private messages...
+So i'd like it to show: 
+
+| (:Q:-&gt;John) blabla
+| (:Q:&lt;-John) what blabla?
+
+on the first line just as if I were private-messaging with John and not
+using a query.  At this moment this seems impossible. Correct me if i'm
+wrong.
+
+2) Another theme thing. I'd like to be able to set the way my own
+actions look like, and seperate public actions from private ones.
+Right now I have:
+
+| Own public action
+| * Fluor says hi!
+| Own private action in a query
+| * Fluor says hi!
+| John's public action
+| * John waves
+| John's private action in a query
+| (:Q:) * John waves
+
+I'd like to have:
+
+| Own public action
+| * Fluor says hi!
+| Own private action in a query
+| (:Q:) * Fluor says hi!
+| John's public action
+| * John waves
+| John's private action in a query
+| (:Q:) * John waves
+
+There is a 'pubaction' which formats public actions by others, and
+there's 'ownaction' which formats my own actions. Then you have
+'pvtaction_query', that formats actions sent in private by others.
+But there's seems not to be a 'ownpvtaction_query' setting.
+
+Then the last thing:
+
+3) Scripting. I really would like to have a (list of) channel(s) on
+'message quit' signals. At this moment I can't tell what channel(s) the
+user quitted. It would be great if $channel would contain something like
+a comma seperated list of channels the user quitted from. I need this
+for scripts that need to act on quits but not on all channels. This
+seems impossible, correct me if i'm wrong. $target holds no value.
+
+Kind regards,
+Sander Smeenk
+Happy irssi user
+
+-- 
+| If you can't convince them, confuse them...
+| 1024D/08CEC94D - 34B3 3314 B146 E13C 70C8  9BDB D463 7E41 08CE C94D
+
+
+
+-- 
+| Spend some time trying hard not to think about giraffes
+| 1024D/08CEC94D - 34B3 3314 B146 E13C 70C8  9BDB D463 7E41 08CE C94D
+
+</body></email><email><emailId>20020801122506</emailId><senderName>Tobias Bengtsson</senderName><senderEmail>tobbe@tobbe.nu</senderEmail><timestampReceived>2002-08-01 12:25:06-0400</timestampReceived><subject>Re: Statusbars</subject><body>
+
+On ons, jul 31, 2002 at 01:48:33 +0200, Nikolai 'pcp' Weibull wrote:
+&gt; &gt; &gt; +------[act: 2,3]------------------------------------------[lag: 0.09]-+
+&gt; &gt; &gt; +------[mail]----------------------------------------------------------+
+&gt; &gt;
+&gt; &gt; you want it always in those locations? .. a bit difficult, but could be done
+&gt; &gt; if you used perl scripts to do all those items, so that they always exist
+&gt; &gt; but just print empty space when they're not used.
+&gt; &gt;
+&gt; ok...so one would monitor for statusbar related signals and update
+&gt; accordingly? guess i better read the perl documentation now =)...thanks
+&gt; for the suggestion...
+
+I guess this is the solution for showing topics on 2 rows too?
+
+regards Tobbe 
+
+</body></email><email><emailId>20020827131052</emailId><senderName>Timo Sirainen</senderName><senderEmail>tss@iki.fi</senderEmail><timestampReceived>2002-08-27 13:10:52-0400</timestampReceived><subject>Re: Questions for eventual Python module</subject><body>
+
+On Tue, Aug 27, 2002 at 02:51:27PM +0200, Christian Borup wrote:
+&gt; &gt; Oh, and GLIB signals aren't powerful enough for irssi anyway. At least they
+&gt; &gt; weren't in 1.2.x.
+&gt; 
+&gt; Not powerfull enough? How so?
+
+There's only two "priorities", normal and G_CONNECT_AFTER. Irssi has always
+required at least 3, and nowadays it has infinite amount of them of which 4
+are actually useful :)
+
+Also GLIB's signals don't really fit into how irssi wants to use them.
+They're always bound to some object, while irssi (or scripts) rarely cares
+about which "object" (could be eg. server or channel) actually sends the
+signal. Of course, there could always be a single object which emits all
+signals but that feels somewhat nasty :)
+
+One final thing CVS irssi has is signal_continue() for continuing signal
+emission with different parameters. This is excellent feature :)
+
+Maybe if all I did was move the signal definitions from signals.txt to
+sources. Something like
+
+signal_register("event ", "SERVER_REC", "string", "string", "string", NULL);
+
+And maybe to prevent typos breaking things:
+
+signal_arg_register("SERVER_REC");
+signal_register("event ", "SERVER_REC", ARG_STRING, ARG_STRING, ARG_STRING, NULL);
+
+and signal_register() would fail if it found any unregistered arguments.
+
+Scripts could also then create their own signals using
+Irssi::signal_register().
+
+
+</body></email><email><emailId>20020731114833</emailId><senderName>"Nikolai 'pcp' Weibull"</senderName><senderEmail>da.box@home.se</senderEmail><timestampReceived>2002-07-31 11:48:33-0400</timestampReceived><subject>Re: Statusbars</subject><body>
+
+On Wed, 31 Jul 2002 10:36:51 +0000, Timo Sirainen wrote:
+&gt; &gt; is there any way to get text in the statusbar instead of hidden items?
+&gt; &gt; say i want a base layout like
+&gt;
+&gt; &gt; +------[act: 2,3]------------------------------------------[lag: 0.09]-+
+&gt; &gt; +------[mail]----------------------------------------------------------+
+&gt;
+&gt; you want it always in those locations? .. a bit difficult, but could be done
+&gt; if you used perl scripts to do all those items, so that they always exist
+&gt; but just print empty space when they're not used.
+&gt;
+ok...so one would monitor for statusbar related signals and update
+accordingly? guess i better read the perl documentation now =)...thanks
+for the suggestion...
+
+--
+/* Name: Nikolai 'pcp' Weibull -- Age: 22 -- Born in: Chicago, IL USA *
+ * Where @: Gothenburg, Sweden -- Homepage: http://www.pcppopper.org/ *
+ * Email: da.box@home.se, pcp@pcppopper.org -- System: GeForce2 MX 32 *
+ * Celeron 667at950, Fujitsu 20.49gb UDMA-66, ASUS CUV4X, 256mb PC133 *
+ * main(){printf(&amp;linux["\021%six\012\0"],(linux)["have"]+"fun"-97);} */
+
+</body></email></emails>

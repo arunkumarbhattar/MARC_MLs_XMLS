@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<emails><email><emailId>20140202230550</emailId><senderName>"niels at quotar dot com"</senderName><senderEmail>php-bugs@lists.php.net</senderEmail><timestampReceived>2014-02-02 23:05:50-0400</timestampReceived><subject>[PHP-GTK-DEV] Bug #37607 [Com]: GtkTreeView::get_cursor()</subject><body>
+
+Edit report at https://bugs.php.net/bug.php?id=37607&amp;edit=1
+
+ ID:                 37607
+ Comment by:         niels at quotar dot com
+ Reported by:        niels at quotar dot com
+ Summary:            GtkTreeView::get_cursor()
+ Status:             Closed
+ Type:               Bug
+ Package:            PHP-GTK related
+ Operating System:   win xp
+ PHP Version:        5.1.4
+ Block user comment: N
+ Private report:     N
+
+ New Comment:
+
+please remove my name for privacy reasons
+
+
+Previous Comments:
+------------------------------------------------------------------------
+[2006-05-26 21:23:41] cweiske@php.net
+
+This bug has been fixed in CVS.
+
+Snapshots of the sources are packaged every three hours; this change
+will be in the next snapshot. You can grab the snapshot at
+http://snaps.php.net/.
+ 
+Thank you for the report, and for helping us make PHP better.
+
+This method is already implemented.
+I don't know which php-gtk2.dll version you have, but it is in CVS.
+
+------------------------------------------------------------------------
+[2006-05-26 20:33:05] niels at quotar dot com
+
+Description:
+------------
+Hi, 
+ I've got the following error... 
+Call to undefined method GtkTreeView::get_cursor()
+
+the set_cursor() function works fine...
+
+
+jeez, you must realy hate bugs... 4th time now, truying to submit
+
+br. 
+
+Niels Berkers
+
+Reproduce code:
+---------------
+&lt;?php
+
+class foo{
+function foo(){
+/*
+$this-&gt;element_properties = new GtkTreeView etc.
+*/
+
+$this-&gt;element_properties-&gt;connect("cursor-changed"	,array($this,"moved"),"cursor-changed");
+}
+function moved($sig){
+   $m =$this-&gt;element_properties-&gt;get_cursor();
+}
+}
+?&gt;
+
+Expected result:
+----------------
+a digit 8-)
+
+Actual result:
+--------------
+Call to undefined method GtkTreeView::get_cursor()
+
+
+------------------------------------------------------------------------
+
+
+
+-- 
+Edit this bug report at https://bugs.php.net/bug.php?id=37607&amp;edit=1
+
+-- 
+PHP-GTK Development Mailing List (http://gtk.php.net/)
+To unsubscribe, visit: http://www.php.net/unsub.php
+
+</body></email></emails>
